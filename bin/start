@@ -1,0 +1,3 @@
+#!/usr/local/bin/bash
+
+plackup --enable-ssl --ssl-key-file=/usr/local/etc/apache24/ssl/web01a.key --ssl-cert-file=/usr/local/etc/apache24/ssl/web01a.crt -r -R bin,lib  bin/app.psgi
