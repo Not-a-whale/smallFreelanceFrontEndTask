@@ -1,0 +1,33 @@
+:root {
+    --color-usko-red: #7A1813;      /* Used as primary company color */
+    --color-usko-red-highlight: #8E2924; /* Used as lighter accents for things colored with primary */
+    --color-blue-link: #50A7E9;
+    --color-blue-action: #55A7E5;
+    --color-blue-dropoff: #0E516E;
+    --color-blue-pickup: #24B7D5;
+    --color-gray-heavy: #3A3A3A;
+    --color-gray-active: #716D6D;
+    --color-gray-dormant: #C1C1C1;
+    --color-gray-background: #DCDCDC;
+    --color-white-bubble: #F3F3F3;
+    --color-white-font: white;
+    --color-background: white;
+    --color-usko-brown: #342E28;
+    --color-white-main-nav-active: #F8F8F8;
+    --color-shadow-soft-gray: rgba(0, 0, 0, 0.16);
+
+    --color-gray-dormant-hover: #D1D1D1;
+    --color-gray-background-hover: #E0E0E0;
+
+    --font-small: 9px;
+    --font-less: 12px;
+    --font-norm: 13px;
+    --font-large: 15px;
+    --font-xlarge: 20px;
+    --font-xxlarge: 25px;
+    --font-super: 40px;
+
+    --font-family: Arial, Helvetica, sans-serif;
+
+    --main-navbar-width: 258px;
+}

@@ -1,0 +1,217 @@
+/* ---------------------------------------------------------------------------------------- */
+:root {
+  --usko-signature-red: #7E1110;
+  --window-padding: 5px;
+  --menu-container-size: 256px;
+  --menu-background-color: #342E28;
+
+  --menu-levelone-color: #F8F8F8;
+  --menu-leveltwo-color: threedface;
+    /* #716D6D */
+
+}
+
+/* ---------------------------------------------------------------------------------------- */
+
+.global-container {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+}
+
+/* ---------------------------------------------------------------------------------------- */
+.logo-img {
+  width: 206px;
+  margin-top: 42px;
+  margin-left: 25px;
+}
+
+.logo-fancy {
+  position: absolute;
+  z-index: -1;
+  top: 0px;
+  left: -75px;
+  width: 150%;
+  height: 230px;
+  background: var(--color-background);
+
+  transform-origin: 0 0;
+  transform: rotate(-15deg);
+
+  box-shadow: 0px 7px 0px var(--menu-background-color), 0px 11px 0px var(--color-background);
+}
+
+/* ---------------------------------------------------------------------------------------- */
+.tool-container {
+  padding: 10px;
+  border: 0px #E41E22 solid;
+}
+
+.tool-icons {
+  max-width: 25px;
+  max-height: 25px;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 1px;
+}
+
+.tool-icons-last {
+  float: right;
+}
+
+/* ---------------------------------------------------------------------------------------- */
+div.main-menu-editor-controller {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+.main-menu-editor-view {
+  background-color: var(--menu-background-color);
+  color: var(--menu-leveltwo-color);
+  font-family: var(--menu-levelone-font);
+  font-weight: bold;
+  /* margin: 10px; */
+  width: 450px;
+  height: 100%;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+.main-menu-editor-form {
+  background-color: var(--menu-background-color);
+  color: var(--menu-leveltwo-color);
+  font-family: var(--menu-leveltwo-font);
+  font-weight: bold;
+  /* margin: 10px; */
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  display: inline-block;
+  box-sizing: border-box;
+  /* float: right; */
+}
+
+th.main-menu-editor-form-group {
+  padding-top: 20px;
+  border-bottom: 3px var(--menu-background-color) solid;
+}
+
+td.main-menu-editor-form-group {
+  padding-top: 20px;
+  text-align: center;
+}
+
+button.main-menu-editor-form-group {
+  background-color: var(--menu-background-color);
+  color: var(--menu-levelone-color);
+  font-family: var(--menu-levelone-font);
+  font-weight: bold;
+  font-size: var(--menu-levelone-size);
+  padding: 10px;
+  padding: 10px 40px 10px 40px;
+  border-radius: 10px;
+}
+
+input.menu-editor-input {
+  width: 400px;
+  background-color: var(--menu-levelone-color);
+  border: none;
+}
+
+table.main-menu-editor {
+  background-color: #4c443b;
+  width: none;
+  height: none;
+  display: table;
+  padding: 0px 20px 20px 20px;
+  border-radius: 20px;
+  border-width: 5px;
+}
+
+/* ---------------------------------------------------------------------------------------- */
+.navigation-container {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  box-sizing: border-box;
+  width: var(--menu-container-size);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  background-color: var(--menu-background-color);
+  font-weight: bold;
+  max-height: 100vh;
+}
+
+.main-content-container {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+}
+
+div.menu-container {
+  position: absolute;
+  top: 255px;
+  min-height: 30%;
+}
+
+div.menu-container ul
+{
+  list-style-type: none;
+  position: relative;
+}
+
+div.menu-container li {
+  vertical-align: baseline;
+}
+
+div.menu-container>ul {
+  /* top level menu */
+}
+
+div.menu-container>ul>li>ul {
+  /* sub level menu */
+}
+
+div.menu-container>ul>li {
+  /* top level menu items */
+  white-space: nowrap;
+  margin-bottom: 20px;
+}
+
+div.menu-container>ul>li>ul>li {
+  /* sub level menu items */
+  margin-top: 8px;
+}
+
+div.menu-container li>img {
+
+}
+
+div.menu-container li>span {
+  position: relative;
+  left: 60px;
+}
+
+
+.menu-icon {
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.nav-secondary {
+  list-style: none;
+  font-weight: normal;
+  font-size: 10px;
+}
+
+.menu-item {
+  cursor: pointer;
+}
