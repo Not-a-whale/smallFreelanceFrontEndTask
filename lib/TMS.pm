@@ -21,7 +21,7 @@ set content_type => 'application/json';
 our $VERSION = '3.1';
 
 get '/' => sub {
-    return "hello";
+    send_as 'html' => send_file '/index.html';
 };
 
 true;
