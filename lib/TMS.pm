@@ -6,6 +6,8 @@ use warnings;
 use Data::Dumper;
 use Try::Tiny;
 
+use TMS::API::Feature::Navigation;
+
 set session => 'Simple';
 set engines => {
     serializer => {
