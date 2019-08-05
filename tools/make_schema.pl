@@ -40,6 +40,15 @@ my $CLI = ParseCLI(
     }
 );
 
+# ----------------------------------------------------------------------------------------------------------------------
+my $DESTROOT = "$$CLI{dest}/$$CLI{class}";
+my $BASEAPI  = "$DESTROOT/API";
+my $COREAPI  = "$BASEAPI/Core";
+my $TYPESDIR = "$BASEAPI/Types";
+my $WEBAPI   = "$BASEAPI/Web";
+
+# ----------------------------------------------------------------------------------------------------------------------
+
 $ENV{DBIC_OVERWRITE_HELPER_METHODS_OK} = 1;
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -51,16 +60,20 @@ my $h = ClassDBI->new(user => $$CLI{dbuser}, password => $$CLI{dbpass}, host => 
 #       # ------------------------------
 #       file-delimiter: <tag>
 my $embedded_data = '';
-foreach (<DATA>) { $embedded_data .= $_ }
+foreach (<DATA>) {
+    s/CLASS::/$$CLI{class}\:\:/g;
+    $embedded_data .= $_
+}
 
 # convert bigdata into hash of 'tag' => 'file content'
 %DATA = grep(/\w+/, split(/\s+\#\s\-+\s+file-delimiter:\s+(\S+)\s+/s, $embedded_data));
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Directory for the MOOSE high level API classes
-my $apis = "$$CLI{dest}/$$CLI{class}/API";
-print "... Preparing $apis\n";
-`mkdir -p "$apis"`;    # just use UNIX. :(
+print "... Preparing $COREAPI, $WEBAPI, $TYPESDIR\n";
+`mkdir -p "$COREAPI"`;    # just use UNIX. :(
+`mkdir -p "$WEBAPI"`;    # just use UNIX. :(
+`mkdir -p "$TYPESDIR"`;    # just use UNIX. :(
 
 # ----------------------------------------------------------------------------------------------------------------------
 # build DBIx using dbicdump with MOOSE flags
@@ -140,7 +153,7 @@ if (open(FO, ">$json_map")) {
 # Building MOOSE API high level classes
 foreach my $base (keys %CLASS_TO_TABLE) {
     my $content
-        = -f "$apis/$base.pm" ? `cat $apis/$base.pm` : $DATA{CLASS_HEADER}; # pull CLASS WRAPPER template for the MOOSE API file
+        = -f "$COREAPI/$base.pm" ? `cat $COREAPI/$base.pm` : $DATA{CLASS_HEADER}; # pull CLASS WRAPPER template for the MOOSE API file
     my $table      = $CLASS_TO_TABLE{$base};    # use shorter variable table instead of $DATA{CLASS_HEADER}
     my $table_info = undef;                     # complete table info, columns, comments, types, etc
     my $fks        = undef;                     # foreign keys hash ref extracted from $table_info
@@ -154,18 +167,19 @@ foreach my $base (keys %CLASS_TO_TABLE) {
             print "\n$1\n"
                 . "  git rm $result_dir/$base.pm\n"
                 . "  git commit -m \"removed $result_dir/$base.pm\"\n"
-                . "  git rm $apis/$base.pm\n"
-                . "  git commit -m \"removed $apis/$base.pm\"\n"
-                . "  rm $result_dir/$base.pm $apis/$base.pm\n\n";
+                . "  git rm $COREAPI/$base.pm\n"
+                . "  git commit -m \"removed $COREAPI/$base.pm\"\n"
+                . "  rm $result_dir/$base.pm $COREAPI/$base.pm\n\n";
 
-            # print "$1\n (git rm $result_dir/$base.pm\n git rm $apis/$base.pm )\n";
+            # print "$1\n (git rm $result_dir/$base.pm\n git rm $COREAPI/$base.pm )\n";
             $skip_base++;
         }
     };
     next if $skip_base;    # cannot run 'next' from within 'try/catch' since it's really a fancy declaration of the function
 
-    $content =~ s/package CLASS::API::/package $$CLI{class}::API::$base/s;    # add the proper class name to the package
-    print "... Building $$CLI{class}::API::$base\n";
+#    $content =~ s/package CLASS::API::Core::/package $$CLI{class}::API::Core::$base/s;    # add the proper class name to the package
+    $content =~ s/package $$CLI{class}::API::Core::;/package $$CLI{class}::API::Core::$base;/s; # add the proper class name to the package
+    print "... Building $$CLI{class}::API::Core::$base\n";
 
     %$fks = map { $$_{'COLUMN_NAME'}, $_ }
         grep { defined $$_{'REFERENCED_TABLE_NAME'} && defined $$_{'REFERENCED_COLUMN_NAME'} } @{$$table_info{'constraints'}}
@@ -178,8 +192,8 @@ foreach my $base (keys %CLASS_TO_TABLE) {
         my $dependency = "";
         my %fk_classes = map { $TABLE_TO_CLASS{$$fks{$_}{'REFERENCED_TABLE_NAME'}}, 1 } keys %$fks;
         foreach (keys %fk_classes) {
-            $dependency .= "use $$CLI{class}::API::$_;\n";
-            $$ObjectTypes{$_ . 'Obj'} = "$$CLI{class}::API::$_";
+            $dependency .= "use $$CLI{class}::API::Core::$_;\n";
+            $$ObjectTypes{$_ . 'Obj'} = "$$CLI{class}::API::Core::$_";
         }
         $content =~ s/(# AUTO-GENERATED DEPENDENCIES START).*?(# AUTO-GENERATED DEPENDENCIES END)/$1\n$dependency\n$2\n/s;
     }
@@ -215,11 +229,11 @@ foreach my $base (keys %CLASS_TO_TABLE) {
     $content =~ s/(# AUTO-GENERATED HAS-A START).*?(# AUTO-GENERATED HAS-A END)/$1\n$has_content\n$2\n/s;
     $content =~ s/\s+1;\s+1;\s*$/\n1;/g;
 
-    open(FO, ">", "$apis/$base.pm");
+    open(FO, ">", "$COREAPI/$base.pm");
     print FO "$content\n";
     close(FO);
-    `/usr/local/bin/perltidy $apis/$base.pm`;
-    `mv $apis/$base.pm.tdy $apis/$base.pm`;
+    `/usr/local/bin/perltidy $COREAPI/$base.pm`;
+    `mv $COREAPI/$base.pm.tdy $COREAPI/$base.pm`;
 }
 
 # ............................................................................
@@ -238,9 +252,10 @@ foreach my $type (keys %$ColumnTypes) {
     $column_types .= $text;
 }
 
-my $column_types_filename = "$$CLI{dest}/$$CLI{class}/Types/Columns.pm";
+my $column_types_filename = "$TYPESDIR/Columns.pm";
 
 #Save the column types contents into an already existing file, or use the template
+# $DATA{ColumnTypes} =~ s/package CLASS::/package $$CLI{class}\:\:/s;
 my $column_types_content = -f $column_types_filename ? `cat $column_types_filename` : $DATA{ColumnTypes};
 $column_types_content =~ s/(#AUTO-GENERATED).*(#AUTO-GENERATED)/$1\n$column_types\n$2/s;
 open(FO, ">$column_types_filename");
@@ -363,10 +378,10 @@ coerce '$type',
         via { $class\->new(\%{\$_}) };
 EOTYPE
     $DATA{ObjectTypes} .= $text;
-
 }
 $DATA{ObjectTypes} .= "\n1;\n";
-open(FO, ">$$CLI{dest}/$$CLI{class}/Types/Objects.pm");
+# $DATA{ObjectTypes} =~ s/package CLASS::/package $$CLI{class}\:\:/s;
+open(FO, ">$TYPESDIR/Objects.pm");
 print FO $DATA{ObjectTypes};
 close(FO);
 
@@ -378,7 +393,8 @@ sub build_cli {
     my $rule_required = 'required => 1,';           #used to construct the required portion of the rule
     my $rule_format = 'OPTION => {isa => \'TYPE\', REQUIRED DEFAULT},';
 
-    $content =~ s/package CLASS::API::/package $$CLI{class}::API::$base/s;    # add the proper class name to the package
+#     $content =~ s/package CLASS::API::Core::/package $$CLI{class}::API::Core::$base/s;    # add the proper class name to the package
+    $content =~ s/package $$CLI{class}::API::Core::;/package $$CLI{class}::API::Core::$base;/s; # add the proper class name to the package
 
     foreach my $col (@{$$table_info{columns}}) {
         my $rule     = $rule_format;
@@ -438,7 +454,7 @@ __PACKAGE__->meta->make_immutable(inline_constructor => 1);
 # ----------------------------------------------------------------------------------------------------------------------
 file-delimiter: SchemaWrapper.pm
 
-package TMS::SchemaWrapper;
+package CLASS::SchemaWrapper;
 use strict;
 use warnings FATAL => 'all';
 use Carp qw( confess longmess );
@@ -448,12 +464,12 @@ use Data::Dumper;
 use Try::Tiny;
 
 use Moose;
-use TMS::Schema;
+use CLASS::Schema;
 
 my $SchemaObj = undef;
 
 sub Schema {
-    $SchemaObj = TMS::Schema->new(host => '192.168.11.7')->DBIxHandle if !defined $SchemaObj;
+    $SchemaObj = CLASS::Schema->new(host => '192.168.11.7')->DBIxHandle if !defined $SchemaObj;
     return $SchemaObj;
 }
 
@@ -464,13 +480,14 @@ sub ResultSet {
 }
 
 sub _meta_loop {
+    $DB::single = 2;
     my $self   = shift;
     my $method = (caller(1))[3];
     my $data   = {};
     for my $attr ($self->meta->get_all_attributes) {
         my $name = $attr->name;
         my $type = ref($$self{$name});
-        if ($type =~ /TMS::/) {
+        if ($type =~ /CLASS::/) {
             $$data{$name} = $self->$name->$method;
         } else {
             $$data{$name} = $self->$name if defined $self->$name;
@@ -489,12 +506,41 @@ sub UpdateOrCreate {
 
 sub Create {
     my $self = shift;
-    my $row = $self->ResultSet->create($self->_meta_loop);
+    my $row  = $self->ResultSet->create($self->_meta_loop);
     return $row->id;
 }
 
-1;
+sub Find {
+    my $self = shift;
+    my $row  = $self->ResultSet->find($self->_meta_loop);
+    return $row->id;
+}
 
+sub FindOrCreate {
+    my $self = shift;
+    my $row  = $self->ResultSet->find_or_create($self->_meta_loop);
+    return $row->id;
+}
+
+sub Update {
+    my $self = shift;
+    my $row  = $self->ResultSet->update($self->_meta_loop);
+    return $row->id;
+}
+
+sub Delete {
+    my $self = shift;
+    my $row = $self->ResultSet->find($self ->DataHash);
+    return undef unless $row;
+    $row->delete->in_storage;
+}
+
+sub Search {
+    my $self = shift;
+    return [$self->ResultSet->search(@_)->hashref_array()];
+}
+
+1;
 # ----------------------------------------------------------------------------------------------------------------------
 file-delimiter: result_set_suffix
 
@@ -504,7 +550,7 @@ __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 # ----------------------------------------------------------------------------------------------------------------------
 file-delimiter: CLASS_HEADER
 
-package CLASS::API::;
+package CLASS::API::Core::;
 
 # $Id: $
 use strict;
@@ -519,13 +565,13 @@ use Moose;
 # AUTO-GENERATED DEPENDENCIES START
 # AUTO-GENERATED DEPENDENCIES END
 
-use TMS::SchemaWrapper;
-use TMS::Types::Simple;
-use TMS::Types::Objects;
-use TMS::Types::Columns;
+use CLASS::SchemaWrapper;
+use CLASS::Types::Simple;
+use CLASS::Types::Objects;
+use CLASS::Types::Columns;
 use MooseX::Types::Moose qw(Undef);
 
-extends 'TMS::SchemaWrapper';
+extends 'CLASS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 # AUTO-GENERATED HAS-A END
@@ -534,7 +580,7 @@ extends 'TMS::SchemaWrapper';
 
 # ----------------------------------------------------------------------------------------------------------------------
 file-delimiter: ObjectTypes
-package TMS::Types::Objects;
+package CLASS::API::Types::Objects;
 
 use strict;
 use warnings FATAL => 'all';
@@ -554,7 +600,7 @@ has COLNAME => (is => 'rw', coerce => 1, required => REQUIRED, isa => Undef | 'T
 
 # ----------------------------------------------------------------------------------------------------------------------
 file-delimiter: ColumnTypes
-package TMS::Types::Columns;
+package CLASS::API::Types::Columns;
 
 use strict;
 use warnings FATAL => 'all';
