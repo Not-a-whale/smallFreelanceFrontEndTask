@@ -285,8 +285,8 @@ Composing rels: L</app_role_permissions> -> permission
 __PACKAGE__->many_to_many("permissions", "app_role_permissions", "permission");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 10:27:47
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:rlMFjcLH8h9DR991cyRA4Q
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:52
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:NoGXysr5M6Ny5Ry/aL4t8g
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

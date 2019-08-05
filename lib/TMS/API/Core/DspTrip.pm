@@ -17,9 +17,9 @@ use TMS::API::Core::HrAssociate;
 # AUTO-GENERATED DEPENDENCIES END
 
 use TMS::SchemaWrapper;
-use TMS::Types::Simple;
-use TMS::Types::Objects;
-use TMS::Types::Columns;
+use TMS::API::Types::Simple;
+use TMS::API::Types::Objects;
+use TMS::API::Types::Columns;
 use MooseX::Types::Moose qw(Undef);
 
 extends 'TMS::SchemaWrapper';
@@ -34,7 +34,7 @@ has DateCompleted  => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'D
 has DateBooked     => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 has DateDispatched => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 has IsValid        => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Bool',);
-has TripStatus     => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'EnumPending',);
+has TripStatus     => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'EnumDispatched',);
 has Notes          => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
 
 # AUTO-GENERATED HAS-A END

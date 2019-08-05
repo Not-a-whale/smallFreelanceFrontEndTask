@@ -12,19 +12,19 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::FinAccount;
 use TMS::API::Core::FinTransactionType;
-use TMS::API::Core::FinItemTemplatesType;
-use TMS::API::Core::FinItemTemplate;
-use TMS::API::Core::Entity;
 use TMS::API::Core::EntPerson;
+use TMS::API::Core::FinItemTemplatesType;
+use TMS::API::Core::Entity;
+use TMS::API::Core::FinAccount;
+use TMS::API::Core::FinItemTemplate;
 
 # AUTO-GENERATED DEPENDENCIES END
 
 use TMS::SchemaWrapper;
-use TMS::Types::Simple;
-use TMS::Types::Objects;
-use TMS::Types::Columns;
+use TMS::API::Types::Simple;
+use TMS::API::Types::Objects;
+use TMS::API::Types::Columns;
 use MooseX::Types::Moose qw(Undef);
 
 extends 'TMS::SchemaWrapper';

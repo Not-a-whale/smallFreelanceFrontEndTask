@@ -12,15 +12,15 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::DrvDriver;
 use TMS::API::Core::DspLoadsDestination;
+use TMS::API::Core::DrvDriver;
 
 # AUTO-GENERATED DEPENDENCIES END
 
 use TMS::SchemaWrapper;
-use TMS::Types::Simple;
-use TMS::Types::Objects;
-use TMS::Types::Columns;
+use TMS::API::Types::Simple;
+use TMS::API::Types::Objects;
+use TMS::API::Types::Columns;
 use MooseX::Types::Moose qw(Undef);
 
 extends 'TMS::SchemaWrapper';
@@ -33,7 +33,7 @@ has DateDeparted  => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DA
 has Pallets       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Int',);
 has Weight        => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Float',);
 has Pieces        => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Int',);
-has BolPod        => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'ENUM',);
+has BolPod        => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'EnumNo',);
 has BolPodNumber  => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
 has SealNumber    => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
 has Notes         => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
