@@ -73,9 +73,10 @@ __PACKAGE__->table("app_menu_items");
 =head2 SortIndex
 
   accessor: 'sort_index'
-  data_type: 'float'
-  default_value: 0
+  data_type: 'decimal'
+  default_value: 0.00
   is_nullable: 1
+  size: [10,2]
 
 =cut
 
@@ -111,10 +112,11 @@ __PACKAGE__->add_columns(
   },
   "SortIndex",
   {
-    accessor      => "sort_index",
-    data_type     => "float",
-    default_value => 0,
-    is_nullable   => 1,
+    accessor => "sort_index",
+    data_type => "decimal",
+    default_value => "0.00",
+    is_nullable => 1,
+    size => [10, 2],
   },
 );
 
@@ -242,8 +244,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 10:27:47
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:nCvP7TX6LPuDMW3tw53RbA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 10:45:35
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ke02U1IMN+5S9ev6P5p6HQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
