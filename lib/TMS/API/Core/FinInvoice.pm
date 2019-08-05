@@ -12,9 +12,9 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
+use TMS::API::Core::FinPaymentTerm;
 use TMS::API::Core::FinInvoice;
 use TMS::API::Core::Entity;
-use TMS::API::Core::FinPaymentTerm;
 
 # AUTO-GENERATED DEPENDENCIES END
 

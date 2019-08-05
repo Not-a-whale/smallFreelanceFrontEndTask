@@ -12,11 +12,11 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::Job;
-use TMS::API::Core::FinAccount;
-use TMS::API::Core::Entity;
-use TMS::API::Core::EntPerson;
 use TMS::API::Core::FinTransaction;
+use TMS::API::Core::FinAccount;
+use TMS::API::Core::Job;
+use TMS::API::Core::EntPerson;
+use TMS::API::Core::Entity;
 
 # AUTO-GENERATED DEPENDENCIES END
 

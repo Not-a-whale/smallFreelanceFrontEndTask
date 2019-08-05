@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::Entity;
 use TMS::API::Core::EntPerson;
+use TMS::API::Core::Entity;
 use TMS::API::Core::FinItemTemplate;
 
 # AUTO-GENERATED DEPENDENCIES END

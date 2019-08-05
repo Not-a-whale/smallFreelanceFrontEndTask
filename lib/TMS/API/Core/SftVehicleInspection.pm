@@ -13,10 +13,10 @@ use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
 use TMS::API::Core::CntAddress;
-use TMS::API::Core::EntPerson;
-use TMS::API::Core::InvVehicle;
 use TMS::API::Core::GenFile;
+use TMS::API::Core::InvVehicle;
 use TMS::API::Core::SftInspectionSchedule;
+use TMS::API::Core::EntPerson;
 
 # AUTO-GENERATED DEPENDENCIES END
 
