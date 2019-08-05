@@ -566,9 +566,9 @@ use Moose;
 # AUTO-GENERATED DEPENDENCIES END
 
 use CLASS::SchemaWrapper;
-use CLASS::Types::Simple;
-use CLASS::Types::Objects;
-use CLASS::Types::Columns;
+use CLASS::API::Types::Simple;
+use CLASS::API::Types::Objects;
+use CLASS::API::Types::Columns;
 use MooseX::Types::Moose qw(Undef);
 
 extends 'CLASS::SchemaWrapper';
