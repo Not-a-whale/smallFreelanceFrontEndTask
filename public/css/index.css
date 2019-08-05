@@ -8,7 +8,6 @@
   --menu-levelone-color: #F8F8F8;
   --menu-leveltwo-color: threedface;
     /* #716D6D */
-
 }
 
 /* ---------------------------------------------------------------------------------------- */
@@ -188,10 +187,6 @@ div.menu-container>ul>li {
 div.menu-container>ul>li>ul>li {
   /* sub level menu items */
   margin-top: 8px;
-}
-
-div.menu-container li>img {
-
 }
 
 div.menu-container li>span {

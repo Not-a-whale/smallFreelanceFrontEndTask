@@ -1,7 +1,19 @@
 :root {
+    --usko-signature-red: #7E1110;
+    --window-padding: 5px;
+    --menu-container-size: 256px;
+    --menu-background-color: #342E28;
+
+    --menu-levelone-color: #F8F8F8;
+    --menu-leveltwo-color: threedface;
+      /* #716D6D */
+
+
+
+
     --color-usko-red: #7A1813;      /* Used as primary company color */
     --color-usko-red-highlight: #8E2924; /* Used as lighter accents for things colored with primary */
-    --color-blue-link: #50A7E9;
+    --color-blue-link: #50A7E9; /* used for links and clickable */
     --color-blue-action: #55A7E5;
     --color-blue-dropoff: #0E516E;
     --color-blue-pickup: #24B7D5;
