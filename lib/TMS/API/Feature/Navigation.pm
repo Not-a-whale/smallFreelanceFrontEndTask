@@ -4,14 +4,14 @@ prefix '/api' => sub {
     prefix '/navigation' => sub {
         prefix '/menu_item' => sub {
             post '/add' => \&navigation_menu_item_add;
-            get '' => \&navigation_menu_item;
-            get '/all' => \&navigation_menu_item_all;
+            get ''      => \&navigation_menu_item;
+            get '/all'  => \&navigation_menu_item_all;
         };
     };
 };
 
+# --------------------------------------------------------------------------------------------------------------------
 sub navigation_menu_item_all {
-    print "Content-type: application/json\n\n";
     my $hdl = TMS::API::Core::AppMenuItem->new(Label => undef);
 
     my $report = $hdl->Search(
@@ -27,14 +27,13 @@ sub navigation_menu_item_all {
         DATA        => {"app_menu_items" => $report},
         ENVIRONMENT => undef,
     };
+    return $response;
 
-    print $JsonObj->indent->space_after->space_before->encode($response);
+    #    JSON->new->indent->space_after->space_before->encode($response);
 }
 
-
-
+# --------------------------------------------------------------------------------------------------------------------
 sub navigation_menu_item {
-    print "Content-type: application/json\n\n";
     my $hdl = TMS::API::Core::AppMenuItem->new(Label => undef);
 
     my $report = $hdl->Search(
@@ -62,12 +61,11 @@ sub navigation_menu_item {
     return $response;
 }
 
+# --------------------------------------------------------------------------------------------------------------------
+# this one needs fixes
 sub navigation_menu_item_add {
-
     my $params = body_parameters->as_hashref;
-    my $data = $$params{POST};
-
-    print Dumper($params);
+    my $data   = $$params{POST};
 
     my $hdl = TMS::API::Core::AppMenuItem->new($data);
     my $report;
@@ -92,6 +90,5 @@ sub navigation_menu_item_add {
     );
     return {"app_menu_items" => $report};
 }
-
 
 1;
