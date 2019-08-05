@@ -146,6 +146,7 @@ table.main-menu-editor {
   background-color: var(--menu-background-color);
   font-weight: bold;
   max-height: 100vh;
+  height: 100vh;
 }
 
 .main-content-container {
