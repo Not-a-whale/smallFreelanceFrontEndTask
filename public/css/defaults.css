@@ -1,0 +1,25 @@
+html, body { /* need this one first so the height of everything else will be 100% if needed */
+  height:       100%;
+  width:        100%;
+  margin:       0px;
+  padding:      0px;
+}
+
+div {
+    margin:             2px;
+    padding:            1px;
+    border:             1px solid threedface;
+
+    text-align:         center;
+    vertical-align:     middle;
+
+    width:              calc(100% - 4px);
+    height:             calc(100% - 4px);
+
+    box-sizing:         border-box;
+    display:            inline-block;
+    /*
+    display:            flex;
+    justify-content:    space-between;
+    */
+}
