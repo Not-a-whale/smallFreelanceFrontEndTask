@@ -12,19 +12,19 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
+use TMS::API::Core::InvTrailerType;
+use TMS::API::Core::EntShipper;
+use TMS::API::Core::EntCustomer;
 use TMS::API::Core::EntPerson;
 use TMS::API::Core::HrAssociate;
-use TMS::API::Core::InvTrailerType;
-use TMS::API::Core::EntCustomer;
 use TMS::API::Core::Job;
-use TMS::API::Core::EntShipper;
 
 # AUTO-GENERATED DEPENDENCIES END
 
 use TMS::SchemaWrapper;
-use TMS::Types::Simple;
-use TMS::Types::Objects;
-use TMS::Types::Columns;
+use TMS::API::Types::Simple;
+use TMS::API::Types::Objects;
+use TMS::API::Types::Columns;
 use MooseX::Types::Moose qw(Undef);
 
 extends 'TMS::SchemaWrapper';
@@ -45,7 +45,7 @@ has ReeferTempLow  => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'F
 has ReeferTempHigh => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Float',);
 has Precooling     => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Float',);
 has TempMode       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'EnumContinuous',);
-has TeamRequired   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'EnumNo',);
+has TeamRequired   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'EnumYes',);
 has DispatchNote   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
 has Job            => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'JobObj',);
 
