@@ -12,9 +12,9 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::DspLoad;
 use TMS::API::Core::DspTrip;
 use TMS::API::Core::EntPerson;
+use TMS::API::Core::DspLoad;
 
 # AUTO-GENERATED DEPENDENCIES END
 

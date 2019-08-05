@@ -12,10 +12,10 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::HrAssociate;
 use TMS::API::Core::EntCustomer;
 use TMS::API::Core::CmmPackage;
 use TMS::API::Core::EntPerson;
+use TMS::API::Core::HrAssociate;
 
 # AUTO-GENERATED DEPENDENCIES END
 

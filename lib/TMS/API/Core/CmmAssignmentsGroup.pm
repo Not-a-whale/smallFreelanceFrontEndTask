@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::EntPerson;
 use TMS::API::Core::HrAssociate;
+use TMS::API::Core::EntPerson;
 use TMS::API::Core::CmmPackage;
 
 # AUTO-GENERATED DEPENDENCIES END

@@ -13,9 +13,9 @@ use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
 use TMS::API::Core::CntPhonesfax;
+use TMS::API::Core::CntAddress;
 use TMS::API::Core::Entity;
 use TMS::API::Core::FinBillingTag;
-use TMS::API::Core::CntAddress;
 
 # AUTO-GENERATED DEPENDENCIES END
 
