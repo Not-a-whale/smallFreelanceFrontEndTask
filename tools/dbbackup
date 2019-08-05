@@ -1,0 +1,84 @@
+#!/bin/sh
+database='disptch'
+user='root'
+pass='Nlvae4asd!'
+tree='/usko/web/sites/uskofms/rdbs/backup'
+cset='latin1'
+host='fms'
+skip='no'
+
+if [ $# -lt 1 ]
+then
+    echo "    -d  database name"
+    echo "    -h  database host"
+    echo "    -u  database user"
+    echo "    -p  database password"
+    echo "    -c  database default characher set"
+    echo "    -t  backup folder"
+    exit 1
+fi
+
+while getopts "h:u:p:t:d:c:s" opt
+do
+  case $opt in
+    d ) database=$OPTARG ;; # database name
+    h ) host=$OPTARG ;;     # database host
+    u ) user=$OPTARG ;;     # database user
+    p ) pass=$OPTARG ;;     # database password
+    c ) cset=$OPTARG ;;     # database default characher set
+    t ) tree=$OPTARG ;;     # backup folder
+    s ) skip=$OPTARG ;;     # skip date
+  esac
+done
+
+if [ ! -d "$tree" ]
+then
+    mkdir -p $tree
+fi
+
+if [ "$skip" == "no" ]; then
+    time=`date "+%F_%H.%M.%S"`
+else
+    time='stable' 
+fi
+
+mysqldump='/usr/local/bin/mysqldump'
+mysql='/usr/local/bin/mysql'
+
+mysql_optn="-B -N -A"
+common_optn="--default-character-set=$cset -u $user -p$pass -h$host"
+#dump_optns='--skip-definer --skip-set-charset --set-gtid-purged=OFF --quote-names --set-gtid-purged=OFF --extended-insert --force'
+dump_optns='--skip-set-charset --set-gtid-purged=OFF --quote-names --set-gtid-purged=OFF --extended-insert --force'
+
+datafile="$tree/$database.data.$time"   # data only
+viewfile="$tree/$database.view.$time"   # no tables, views only
+fulldump="$tree/$database.full.$time"   # full backup, may have errors
+masterfl="$tree/$database.mstr.$time"   # master data for replication purposes
+codefile="$tree/$database.code.$time"   # no data full backup
+tblsfile="$tree/$database.tbls.$time"   # no views, tables only
+funcfile="$tree/$database.func.$time"   # functions only
+
+tables=`$mysql $mysql_optn $common_optn -D $database -e 'show full tables where Table_type="BASE TABLE"' 2>/dev/null |awk '{print $1}'|tr '\012' ' '`
+views=`$mysql  $mysql_optn $common_optn -D $database -e 'show full tables where Table_type="VIEW"'       2>/dev/null |awk '{print $1}'|tr '\012' ' '`
+
+
+# dump data only
+$mysqldump $common_optn $dump_optns --result-file=$datafile.sql --no-create-info --no-create-db --databases $database --tables $tables 2>&1 | grep -v 'Using a password on the command line' >$datafile.log
+
+# dump views only
+$mysqldump $common_optn $dump_optns --result-file=$viewfile.sql --no-data --databases $database --tables $views 2>&1 | grep -v 'Using a password on the command line' >$viewfile.log
+
+# dump table creation only
+$mysqldump $common_optn $dump_optns --result-file=$tblsfile.sql --no-data --databases $database --tables $tables 2>&1 | grep -v 'Using a password on the command line' >$tblsfile.log
+
+# create procedures and functions only
+$mysqldump $common_optn $dump_optns --result-file=$funcfile.sql --no-data --no-create-info --routines --databases $database 2>&1 | grep -v 'Using a password on the command line' >$funcfile.log
+
+# complete code, no data
+$mysqldump $common_optn $dump_optns --result-file=$codefile.sql --routines --add-drop-database --no-data --databases $database 2>&1 | grep -v 'Using a password on the command line' >$codefile.log
+
+# full dump
+$mysqldump $common_optn $dump_optns --result-file=$fulldump.sql --routines --add-drop-database --databases $database 2>&1 | grep -v 'Using a password on the command line' >$fulldump.log
+
+# master dump
+$mysqldump $common_optn $dump_optns --result-file=$masterfl.sql --routines --add-drop-database --master-data $database 2>&1 | grep -v 'Using a password on the command line' >$masterfl.log
