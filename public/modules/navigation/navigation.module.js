@@ -1,8 +1,14 @@
 var app = angular.module("tms", ["ui.router"]);
 
-
-app.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider){
+app.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("/");
+
+  var navbar = {
+    templateUrl: "modules/navigation/navmenu.html",
+    controller: ['$scope', '$http', NavbarCtrl]
+  };
+
+
 
   $stateProvider.state("tmsapp", {
     url: "/",
@@ -13,28 +19,37 @@ app.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $ur
       "content@tmsapp": {
         templateUrl: "modules/navigation/content.html"
       },
-      "navbar@tmsapp": {
-        templateUrl: "modules/navigation/navmenu.html"
-      }
+      "navbar@tmsapp": navbar
     }
-  })
+  });
 }]);
 
 
+var NavbarCtrl = function ($scope, $http) {
 
+  $scope.app_menu_items;
 
-
-
-var TMSController = function ($scope, $http) {
-  $http.get("navigation/AppMenuItems.fcgi")
-    .then(function (response) {
-      if ((response.status == 200 || response.status == 304)) {
-        if (response.headers('content-type') == 'application/json') {
-          let data = response.data.DATA;
-          $scope.app_menu_items = data.app_menu_items;
+  $scope.LoadData = function () {
+    $http.get("/api/navigation/menu_item/all")
+      .then(function (response) {
+        console.log(response);
+        console.log(response.status);
+        if ((response.status == 200 || response.status == 304)) {
+          if (response.headers('content-type') == 'application/json') {
+            let data = response.data.DATA;
+            $scope.app_menu_items = data.app_menu_items;
+            console.log(data);
+          }
         }
-      }
-    });
+      });
+  };
+
+  $scope.LoadData();
+
+  $scope.Console = function () {
+    console.log($scope.app_menu_items);
+  }
+
 
   $scope.MenuAction = function (post) {
     if (post.app_menu_actions) {
@@ -48,11 +63,8 @@ var TMSController = function ($scope, $http) {
   };
 }
 
+app.controller('navbarctrl', ['$scope', '$http', NavbarCtrl]);
 
-app.controller(
-  "tms-controller",
-  [ '$scope', '$http', TMSController ]
-);
 /* --------------------------------------------------------------------------------------------- */
 app.controller(
   "EditMainMenuTree",
@@ -202,13 +214,3 @@ app.controller(
 
   }
 );
-
-app.component('navBar', {
-  templateUrl: '/modules/navigation/navmenu.html',
-  controller: [ '$scope', '$http', TMSController ]
-});
-
-
-app.component('companyLogo', {
-  templateUrl: '/modules/navigation/company_logo.html'
-});
