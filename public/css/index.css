@@ -12,6 +12,17 @@
 
 /* ---------------------------------------------------------------------------------------- */
 
+div {
+  margin: 2px;
+  padding: 2px;
+  border-style: solid;
+  color: pink;
+  border-width: 1px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
 .global-container {
   box-sizing: border-box;
   display: flex;

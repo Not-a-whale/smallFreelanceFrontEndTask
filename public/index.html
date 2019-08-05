@@ -6,65 +6,23 @@
   <meta content="width=device-width, initial-scale=1"
         name="viewport">
   <title>&copy; Usko Express Inc</title>
-  <base href="https://tms.uskoinc.com">
-  <link href="data:image/x-icon;," rel="shortcut icon" type="image/x-icon">
-  <link href="/css/vars.css" rel="stylesheet">
-  <link href="/css/usko.css" rel="stylesheet">
-  <link href="/css/index.css" rel="stylesheet">
-  <script src="/js/angular.1.7.8.min.js"></script>
-  <!-- script src="/js/angular_app.js"></script -->
-  <!-- script src="/modules/navigation/menu_actions.js"></script -->
+  <!-- base href="https://tms.uskoinc.com" -->
+  <link href="data:image/x-icon;,"
+        rel="shortcut icon"
+        type="image/x-icon">
+  <link href="/css/vars.css"
+        rel="stylesheet">
+  <link href="/css/usko.css"
+        rel="stylesheet">
+  <link href="/css/index.css"
+        rel="stylesheet">
+  <script src="/js/angular.min.js"></script>
+  <script src="/js/angular.ui_router.min.js"></script>
   <script src="/modules/navigation/navigation.module.js"></script>
 </head>
 
-<body ng-app="tms"
-      ng-controller="tms-controller">
-  <div class="global-container">
-    <div id="navbox"
-         class="navigation-container"><div>
-            <div class="logo-fancy"></div>
-            <a href="/index.html">
-              <img class="logo-img"
-                   id="logo-image"
-                   src="imgs/logo.svg">
-            </a>
-          </div>
-      <div class="menu-container">
-        <ul id="menu-tree">
-          <li ng-repeat="leftmenu in app_menu_items">
-            <img class="menu-icon menu-item"
-                 ng-if="leftmenu.Icon"
-                 onclick="MenuHideShow(this)"
-                 src="{{leftmenu.Icon}}"
-                 title="{{leftmenu.Title}}" />
-            <span class="menu-item"
-                  onclick="MenuHideShow(this)"
-                  title="{{leftmenu.Title}}">{{leftmenu.Label}}</span>
-            <ul ng-if="leftmenu.app_menu_items"
-                style="display: none">
-              <li ng-repeat="leftmenu in leftmenu.app_menu_items">
-                <span class="menu-second-level menu-item"
-                      title="{{leftmenu.Title}}"
-                      ng-click="MenuAction(leftmenu)">{{leftmenu.Label}}</span>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <div class="tool-container">
-        <img class="tool-icons"
-             src="imgs/message.svg">
-        <img class="tool-icons"
-             src="imgs/profile.svg">
-        <img class="tool-icons tool-icons-last"
-             onclick="FlipCollapseMenu(this)"
-             src="imgs/collapse-arrow.svg">
-      </div>
-    </div>
-    <div id="mainspace"
-         class="main-content-container"
-         ng-include="main_page">
-    </div>
+<body ng-app="tms">
+  <div class="global-container" ui-view="main">
   </div>
 </body>
 

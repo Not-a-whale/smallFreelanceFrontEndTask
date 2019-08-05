@@ -1,0 +1,22 @@
+<div class="menu-container">
+  <ul id="menu-tree">
+    <li ng-repeat="leftmenu in app_menu_items">
+      <img class="menu-icon menu-item"
+           ng-if="leftmenu.Icon"
+           onclick="MenuHideShow(this)"
+           src="{{leftmenu.Icon}}"
+           title="{{leftmenu.Title}}" />
+      <span class="menu-item"
+            onclick="MenuHideShow(this)"
+            title="{{leftmenu.Title}}">{{leftmenu.Label}}</span>
+      <ul ng-if="leftmenu.app_menu_items"
+          style="display: none">
+        <li ng-repeat="leftmenu in leftmenu.app_menu_items">
+          <span class="menu-second-level menu-item"
+                title="{{leftmenu.Title}}"
+                ng-click="MenuAction(leftmenu)">{{leftmenu.Label}}</span>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
