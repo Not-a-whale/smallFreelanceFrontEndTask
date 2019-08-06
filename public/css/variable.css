@@ -8,9 +8,6 @@
   --menu-leveltwo-color: threedface;
     /* #716D6D */
 
-
-
-
   --color-usko-red: #7A1813;      /* Used as primary company color */
   --color-usko-red-highlight: #8E2924; /* Used as lighter accents for things colored with primary */
   --color-blue-link: #50A7E9; /* used for links and clickable */
@@ -37,7 +34,7 @@
   --font-large: 15px;
   --font-xlarge: 20px;
   --font-xxlarge: 25px;
-  --font-super: 40px;
+  --font-super: 35px;
 
   --font-family: Arial, Helvetica, sans-serif;
 
