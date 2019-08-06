@@ -1,0 +1,221 @@
+hr {
+  border: none;
+  border-top: 1px dashed #000;
+  background-color: transparent;
+  height: 1px;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.top-info {
+  width: 100%;
+  text-align: justify;
+}
+
+.top-info>* {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.sttl-num {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.stamp {
+  border-style: dashed;
+  border-color: black;
+  border-width: 1px;
+  text-align: justify;
+}
+
+.stamp-top {
+  border-bottom-style: solid;
+  border-bottom-color: black;
+  border-bottom-width: 1px;
+}
+
+.stamp-top>div {
+  width: 60px;
+  text-align: center;
+}
+
+.stamp-btm>div {
+  width: 60px;
+  text-align: center;
+}
+
+/* this is for actual cheque */
+@media screen {
+
+  table.lst {
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    margin-top: 25px;
+  }
+
+  td.lst {
+    vertical-align: top;
+    font-size: small;
+    font-family: serif;
+  }
+
+  .rprt {
+    border: 1px solid #000;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
+  td.headrh {
+    white-space: nowrap;
+    padding-right: 2px;
+    padding-left: 2px;
+    padding-bottom: 2px;
+    text-align: right;
+    font-weight: bold;
+  }
+
+  td.headrd {
+    white-space: nowrap;
+    padding-right: 2px;
+    padding-left: 2px;
+    padding-bottom: 2px;
+    text-align: left;
+  }
+
+  td.chkr {
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  th.lst {
+    background-color: #ddd;
+    white-space: nowrap;
+  }
+
+  tr.chk {
+    padding-top: 50px;
+  }
+
+  .undr {
+    border-bottom: 1px solid black;
+  }
+
+  @font-face {
+    font-family: MICR;
+    src: url('GnuMICR.otf');
+  }
+
+  .chqe {
+    width: 8in;
+    height: 3.5in;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .payme {
+    font-family: serif;
+    text-align: center;
+    border-bottom: 1px black solid;
+    padding-top: 5px;
+    font-weight: bold;
+  }
+
+  .alrt {
+    text-align: right;
+  }
+
+  .micr {
+    font-family: MICR;
+    text-align: center;
+    font-size: 18px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+
+@media print {
+  table.lst {
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    margin-top: 25px;
+  }
+
+  td.lst {
+    vertical-align: top;
+    font-size: small;
+    font-family: serif;
+  }
+
+  .rprt {
+    border: 1px solid #000;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
+  td.headrh {
+    white-space: nowrap;
+    padding-right: 2px;
+    padding-left: 2px;
+    padding-bottom: 2px;
+    text-align: right;
+    font-weight: bold;
+  }
+
+  td.headrd {
+    white-space: nowrap;
+    padding-right: 2px;
+    padding-left: 2px;
+    padding-bottom: 2px;
+    text-align: left;
+  }
+
+  td.chkr {
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  th.lst {
+    background-color: #ddd;
+    white-space: nowrap;
+  }
+
+  tr.chk {
+    padding-top: 50px;
+  }
+
+  .undr {
+    border-bottom: 1px solid black;
+  }
+
+  @font-face {
+    font-family: MICR;
+    src: url('GnuMICR.otf');
+  }
+
+  .chqe {
+    width: 8in;
+    height: 3.5in;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .payme {
+    font-family: serif;
+    text-align: center;
+    border-bottom: 1px black solid;
+    padding-top: 5px;
+    font-weight: bold;
+  }
+
+  .alrt {
+    text-align: right;
+  }
+
+  .micr {
+    font-family: MICR;
+    text-align: center;
+    font-size: 18px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+}

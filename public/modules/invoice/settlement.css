@@ -1,0 +1,313 @@
+.top-header {
+  align-content: stretch;
+  width: 100%;
+  text-align: justify;
+}
+
+.logo {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.company-info {
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.company-title {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.settlement {
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+}
+
+.sttl-title {
+  font-size: 20px !important;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.sttl-number{
+  color: navy;
+  font-size: 20px !important;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.sttl-date {
+  border-top-style: solid;
+  border-top-color: black;
+  border-top-width: 1px;
+  border-spacing: 0px;
+  width: content;
+  font-size: 12px;
+}
+
+.sttl-stamp {
+  margin-top:10px;
+  width: content;
+  border: dashed 1px grey;
+}
+.sttl-top {
+  width: 100%;
+  text-align: center;
+  border-width: 0px 0px 1px 0px;
+  border-style: solid;
+  border-color: black;
+}
+
+.sttl-top>div{
+  width: 60px;
+}
+
+.horizontal>* {
+  display: inline-block;
+}
+
+.stretch {
+  width: 100%;
+  display: inline-block;
+  line-height: 0;
+  font-size: 0;
+}
+
+.sec-header {
+  width: 100%;
+  text-align: justify;
+}
+
+.sec-header>* {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.bill {
+  text-align: center;
+  min-width: 430px !important;
+  min-height: 65px;
+  border-style: solid;
+  border-color: black;
+  border-width: 0px 1px 1px 1px;
+}
+
+.bill>.body {
+  text-align: left;
+  margin-left: 20px;
+}
+
+.bill>.body>p {
+  font-weight: bold;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.terms {
+  text-align: center;
+  min-height: 65px;
+  border-style: solid;
+  border-color: black;
+  border-width: 0px 1px 1px 1px;
+  width: 200px !important;
+}
+
+.table-items {
+  width: 100%;
+  border-collapse: collapse;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  margin-bottom: 15px;
+}
+
+.header {
+  background: #EAEAEA;
+  border-style: solid;
+  border-width: 1px 0px 1px 0px;
+  border-color: black;
+  padding: 2px 3px 1px 3px;
+  text-align: center;
+}
+
+.split {
+  border-style: solid;
+  border-left-width: 1px;
+  border-right-width: 1px;
+  border-color: black;
+}
+
+.table-items td {
+  border-left-width: 1px;
+  border-right-width: 1px;
+  border-style: solid;
+  border-color: black;
+  vertical-align: top;
+  text-align: center;
+  padding: 3px 2px 1px 2px;
+}
+
+.amount {
+  text-align: right !important;
+}
+
+.total {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.trip-company {
+  font-size: 9px;
+}
+
+.wide {
+  text-align: justify;
+  width: 100%;
+}
+
+.w-left {
+  margin-left: 0px;
+  margin-right: auto;
+  display: inline-block;
+}
+
+.w-right {
+  margin-right: 0px;
+  margin-left: auto !important;
+  display: inline-block;
+}
+
+.px-50 {
+  width: 50px;
+}
+
+.px-60 {
+  width: 60px;
+}
+
+.px-80 {
+  width: 80px !important;
+}
+
+.px-120 {
+  width: 120px !important;
+}
+
+.t-left {
+  text-align: left !important;
+}
+
+.t-right {
+  text-align: right !important;
+}
+
+.footer {
+  width: 100%;
+  text-align: center;
+  align-content: center;
+  margin-top: 10px;
+}
+
+.factor-box {
+  margin: auto;
+  font-size: 13px;
+  border-spacing: 0px;
+  width: min-content;
+  width: -moz-min-content;
+  width: -webkit-min-content;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  padding: 5px;
+}
+
+.factor-box>* {
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.red-font {
+  color: red;
+}
+
+.barcode {
+  padding-top: 10px;
+  text-align: center;
+}
+
+.floating {
+  margin-bottom: 10px;
+}
+
+.w-65 {
+  width: 65% !important;
+}
+
+.w-25 {
+  width: 25% !important;
+}
+
+.footer {
+  text-align: justify;
+}
+
+.footer>*{
+  display: inline-block;
+  vertical-align: top;
+}
+
+.comments {
+  border-style: dashed;
+  border-color: gray;
+  border-width: 1px;
+  width: 320px;
+  min-height: 128px;
+
+}
+.comments>div {
+  text-align: left;
+  margin: 1px 2px 3px 2px;
+}
+
+.comm-title {
+  vertical-align: top !important;
+  text-align: left;
+}
+
+.summary {
+  min-width: 320px;
+  min-height: 128px;
+}
+
+.summary>table{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.summary td {
+  height: 17px;
+}
+
+.line {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: black;
+}
+
+.massive {
+  font-size: 20px;
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+.sum-total {
+  border-collapse: separate;
+  border-top-width: 5px !important;
+  border-top-style: solid;
+  border-top-color: black;
+}

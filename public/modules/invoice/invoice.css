@@ -1,0 +1,218 @@
+.top-header {
+  align-content: stretch;
+  width: 100%;
+  text-align: justify;
+}
+
+.logo {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.company-info {
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.company-title {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.invoice {
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+}
+
+.inv-number {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.inv-sub {
+  border-top-style: solid;
+  border-top-color: black;
+  border-top-width: 1px;
+  width: 160px !important;
+  margin-left: auto;
+  margin-right: 0px;
+}
+
+.inv-date {
+  font-size: 12px;
+}
+
+.inv-truck {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 8px;
+  color: black;
+
+}
+
+.horizontal>* {
+  display: inline-block;
+}
+
+.stretch {
+  width: 100%;
+  display: inline-block;
+  line-height: 0;
+  font-size: 0;
+}
+
+.sec-header {
+  width: 100%;
+  text-align: justify;
+}
+
+.sec-header>* {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.bill {
+  text-align: center;
+  min-width: 430px !important;
+  min-height: 65px;
+  border-style: solid;
+  border-color: black;
+  border-width: 0px 1px 1px 1px;
+}
+
+.bill>.body {
+  text-align: left;
+  margin-left: 20px;
+}
+
+.bill>.body>p {
+  font-weight: bold;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.terms {
+  text-align: center;
+  min-height: 65px;
+  border-style: solid;
+  border-color: black;
+  border-width: 0px 1px 1px 1px;
+  width: 200px !important;
+}
+
+.table-items {
+  width: 100%;
+  border-collapse: collapse;
+  border-style: solid;
+  border-width: 1px;
+  border-color: 1px;
+}
+
+.header {
+  background: #EAEAEA;
+  border-style: solid;
+  border-width: 1px 0px 1px 0px;
+  border-color: black;
+  padding: 2px 3px 1px 3px;
+  text-align: center;
+}
+
+.split {
+  border-style: solid;
+  border-left-width: 1px;
+  border-right-width: 1px;
+  border-color: black;
+}
+
+.cell {
+  border-left-width: 1px;
+  border-right-width: 1px;
+  border-style: solid;
+  border-color: black;
+  vertical-align: top;
+  text-align: center;
+}
+
+.amount {
+  text-align: right;
+}
+
+.total {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.trip-company {
+  font-size: 9px;
+}
+
+.wide {
+  text-align: justify;
+  width: 100%;
+}
+
+.w-left {
+  margin-left: 0px;
+  margin-right: auto;
+  display: inline-block;
+}
+
+.w-right {
+  margin-right: 0px;
+  margin-left: auto !important;
+  display: inline-block;
+}
+
+.px-60 {
+  width: 60px;
+}
+
+.px-80 {
+  width: 80px !important;
+}
+
+.px-120 {
+  width: 120px !important;
+}
+
+.t-left {
+  text-align: left;
+}
+
+.footer {
+  width: 100%;
+  text-align: center;
+  align-content: center;
+  margin-top: 10px;
+}
+
+.factor-box {
+  margin: auto;
+  font-size: 13px;
+  border-spacing: 0px;
+  width: min-content;
+  min-width: 260px;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  padding: 5px;
+}
+
+.factor-box>* {
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.red-font {
+  color: red;
+}
+
+.barcode {
+  padding-top: 10px;
+  text-align: center;
+}
