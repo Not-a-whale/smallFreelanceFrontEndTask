@@ -3,11 +3,11 @@
 
 <head>
   <meta charset="UTF-8">
-  <link href="cheque.css"
+  <link href="/modules/invoice/cheque.css"
         rel="stylesheet"
         type="text/css">
 
-  <link href="page.css"
+  <link href="/modules/invoice/page.css"
         rel="stylesheet"
         type="text/css">
 </head>
@@ -44,21 +44,21 @@
           </colgroup>
           <tr>
             <td colspan="6"
-                valign="top">{{ payer name}}<br />
-              {{ payer street address }}<br />
-              {{ payer city address }}<br />
-              {{ payer phone number }}
+                valign="top">[[ payer name]]<br />
+              [[ payer street address ]]<br />
+              [[ payer city address ]]<br />
+              [[ payer phone number ]]
             </td>
             <td style="text-align:center"
                 colspan="8"
-                valign="top">{{ bank name }}<br />
-              {{ bank street address }}<br />
-              {{ bank city address }}<br />
-              {{ bank phone number }}
+                valign="top">[[ bank name ]]<br />
+              [[ bank street address ]]<br />
+              [[ bank city address ]]<br />
+              [[ bank phone number ]]
             </td>
             <td class="alrt"
                 colspan="6"
-                valign="top"><strong>{{cheque number}}</strong></td>
+                valign="top"><strong>[[cheque number]]</strong></td>
           </tr>
           <tr>
             <td style="width: 5%">&nbsp;</td>
@@ -78,7 +78,7 @@
             <td class="alrt"
                 colspan="3">DATE&nbsp;</td>
             <td class="payme"
-                colspan="3">{{ date }}</td>
+                colspan="3">[[ date ]]</td>
           </tr>
           <tr>
             <td class="alrt"
@@ -110,23 +110,23 @@
           <tr>
             <td class="payme"
                 colspan="13"
-                style="border-right: 1px black solid">{{ payee name }}</td>
+                style="border-right: 1px black solid">[[ payee name ]]</td>
 
             <td class="payme"
-                colspan="5">$ **{{ amount }}**</td>
+                colspan="5">$ **[[ amount ]]**</td>
           </tr>
           <tr>
             <td colspan="20"
                 class="payme">
               <!--% Lingua::EN::Numbers::num2en( int( $dbrow{Amount} ) ) %>
                             and <% sprintf("%02d", (int(($dbrow{Amount} * 100) - (int( $dbrow{Amount}) * 100)))) %-->
-              **{{ english amount }}** Dollars
+              **[[ english amount ]]** Dollars
             </td>
           </tr>
           <tr>
             <td style="width: 5%"></td>
             <td colspan="9"
-                style="padding-top: 10px">{{ pay to the order of }}</td>
+                style="padding-top: 10px">[[ pay to the order of ]]</td>
             <td style="width: 5%;"></td>
             <td style="width: 5%;"></td>
             <td style="width: 5%;"></td>
@@ -140,7 +140,7 @@
           </tr>
           <tr>
             <td style="width: 5%;">&nbsp;</td>
-            <td colspan="9">{{ street }}</td>
+            <td colspan="9">[[ street ]]</td>
             <td style="width: 5%;">&nbsp;</td>
             <td style="width: 5%;">&nbsp;</td>
             <td style="width: 5%;">&nbsp;</td>
@@ -154,7 +154,7 @@
           </tr>
           <tr>
             <td style="width: 5%;">&nbsp;</td>
-            <td colspan="9">{{ city state zip }}</td>
+            <td colspan="9">[[ city state zip ]]</td>
             <td style="width: 5%;">&nbsp;</td>
             <td style="width: 5%;">&nbsp;</td>
             <td style="width: 5%;">&nbsp;</td>
@@ -192,7 +192,7 @@
             <td colspan="2"
                 class="alrt">Memo:</td>
             <td colspan="13"
-                style="border-bottom: 1px black solid">{{ memo }}</td>
+                style="border-bottom: 1px black solid">[[ memo ]]</td>
             <td style="width: 5%">&nbsp;</td>
             <td colspan="4"
                 style="border-bottom: 1px black solid">&nbsp;</td>
