@@ -1,11 +1,14 @@
-html, body { /* need this one first so the height of everything else will be 100% if needed */
-  height:       100%;
-  width:        100%;
-  margin:       0px;
-  padding:      0px;
+/* ------------------------------ GENERAL ---------------------------------- */
+html,
+body {
+  /* need this one first so the height of everything else will be 100% if needed */
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
 }
 
-div {
+/* div {
     margin:             2px;
     padding:            1px;
     border:             1px solid threedface;
@@ -18,12 +21,24 @@ div {
 
     box-sizing:         border-box;
     display:            inline-block;
-    /*
+
     display:            flex;
     justify-content:    space-between;
-    */
+
+}*/
+
+
+* {
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+
+  font-family: var(--font-family-primary);
+  font-size: var(--font-norm);
+  font-weight: normal;
+  color: var(--color-tone-heavy);
 }
-/* ------------------------------ GENERAL ---------------------------------- */
+
 
 .as-col {
   /* force container to display content in columns */
@@ -37,7 +52,77 @@ div {
   flex-direction: row !important;
 }
 
+
+.global-container {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  background: var(--color-background);
+  flex: 1;
+}
+
+
+/* --------------------------- COMPANY LOGO AND DESIGN --------------------- */
+.logo-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+
+}
+
+.logo-img {
+  width: 183px;
+  margin-top: 46px;
+}
+
+.logo-fancy {
+  position: absolute;
+  z-index: -1;
+  top: 0px;
+  left: -75px;
+  width: 150%;
+  height: 208px;
+  background: var(--color-highlight-bright);
+
+  transform-origin: 0 0;
+  transform: rotate(-15deg);
+
+  box-shadow: 0px 5px 0px var(--menu-background-color), 0px 7px 0px var(--color-highlight-bright);
+}
+
 /* ------------------------------- FONTS ----------------------------------- */
+
+h1 {
+  font-size: var(--font-super);
+  color: var(--color-tone-dark);
+  font-weight: bold;
+}
+
+h2 {
+  font-size: var(--font-giant);
+  color: var(--color-tone-dark);
+  font-weight: bold;
+}
+
+h3 {
+  font-size: var(--font-large);
+  color: var(--color-tone-dark);
+  font-weight: bold;
+}
+
+h4 {
+  font-size: var(--font-norm);
+  color: var(--color-tone-dark);
+  font-weight: bold;
+}
+
+h5 {
+  font-size: var(--font-small);
+  color: var(--color-tone-dark);
+  font-weight: bold;
+}
 
 .bold {
   font-weight: bold !important;
@@ -83,11 +168,6 @@ div {
   font-size: var(--font-small);
 }
 
-.font-ls {
-  /* use to explicity specify font smaller than normal */
-  font-size: var(--font-less);
-}
-
 .font-nm {
   /* use to explicity specify font that is normal */
   font-size: var(--font-norm);
@@ -98,113 +178,242 @@ div {
   font-size: var(--font-large);
 }
 
-.font-xlg {
+.font-gt {
   /* use to explicitly specify font that is more larger than normal */
-  font-size: var(--font-xlarge);
+  font-size: var(--font-giant);
 }
 
-.font-spr {
+.font-sp {
   /* use to explicitly specify the largest font */
   font-size: var(--font-super);
 }
 
+/* used inside of the secondary navbar for title */
 .font-page-title {
   font-size: var(--font-super);
-  color: var(--color-gray-heavy);
+  color: var(--color-tone-heavy);
   font-weight: bold;
   text-transform: uppercase;
 }
 
-.font-menu-title {
-  font-size: var(--font-xxlarge);
-  color: var(--color-white-main-nav-active);
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.font-menu-title:hover {
-  color: var(--color-white-font);
-}
-
-.font-menu-body {
-  font-size: var(--font-xlarge);
-  color: var(--color-gray-active);
-  text-transform: uppercase;
-  font-weight: bold;
-}
-
-.font-menu-body:hover {
-  color: var(--color-gray-dormant)
-}
-
-.font-menu-body-active {
-  font-size: var(--font-xlarge);
-  color: var(--color-white-font);
-  text-transform: uppercase;
-  font-weight: bold;
-}
-
-.font-section-dormant {
-  font-size: var(--font-xlarge);
-  font-weight: bold;
-  text-transform: uppercase;
-  color: var(--color-gray-dormant);
-}
-
-.font-section-active {
-  font-size: var(--font-xlarge);
-  font-weight: bold;
-  text-transform: uppercase;
-  color: var(--color-usko-red);
-}
-
-.font-section-active-ul {
-  font-size: var(--font-xlarge);
-  font-weight: bold;
-  text-transform: uppercase;
-  color: var(--color-usko-red);
-  box-shadow: 0px 3px var(--color-usko-red);
-}
-
-.font-section-heading {
-  font-size: var(--font-xlarge);
-  font-weight: bold;
-  text-transform: uppercase;
-  color: var(--color-white-font);
-}
-
-.font-body-heading {
+/* primary tab font */
+.font-tab {
   font-size: var(--font-large);
+  color: var(--color-tone-middle);
   font-weight: bold;
-  text-transform: uppercase;
-  color: var(--color-gray-heavy);
 }
 
-.font-body-heading-red {
+.font-tab:hover {
+  color: var(--color-tone-middle);
+  box-shadow: 0px 3px var(--color-tone-middle);
+}
+
+.font-tab[active] {
+  color: var(--color-accent-default);
+  box-shadow: 0px 3px var(--color-accent-default);
+}
+
+/* used in primary side navbar */
+.font-nav {
+  font-size: var(--font-giant);
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--color-tone-light);
+}
+
+.font-nav2 {
   font-size: var(--font-large);
-  font-weight: bold;
-  text-transform: uppercase;
-  color: var(--color-usko-red);
-}
-
-.font-table-heading {
-  font-size: var(--font-large);
-  font-weight: bold;
-  text-transform: uppercase;
-  color: var(--color-white-font);
-}
-
-.font-body-bold {
-  font-size: var(--font-norm);
-  font-weight: bold;
-  color: var(--color-gray-heavy);
-}
-
-.font-body {
-  font-size: var(--font-norm);
   font-weight: normal;
-  color: var(--color-gray-heavy);
+  text-transform: capitalize;
+  color: var(--color-tone-light);
 }
+
+.font-nav[active],
+.font-nav2[active] {
+  color: var(--color-highlight-bright) !important;
+}
+
+.font-nav:hover,
+.font-nav2:hover {
+  color: var(--color-tone-bright);
+}
+
+
+/* used for links */
+
+.font-link {
+  font-size: var(--font-small);
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-decoration-color: var(--color-primary);
+}
+
+.font-link:hover {
+
+  color: var(--color-primary-hover);
+  text-decoration-color: var(--color-primary-hover);
+}
+
+.font-sect-head {
+  font-size: var(--font-large);
+  font-weight: bold;
+  color: var(--color-accent-hover);
+  line-height: var(--font-line-large);
+  text-transform: uppercase;
+}
+
+.font-sub-head-imp,
+.font-sub-head {
+  font-size: var(--font-norm);
+  font-weight: bold;
+  line-height: var(--font-line-large);
+  text-transform: uppercase;
+}
+
+.font-sub-head {
+  color: var(--color-tone-dark);
+}
+
+.font-sub-head-imp {
+  color: var(--color-accent-default);
+}
+
+/* -------------------------------- TABS ----------------------------------- */
+.tab2 {
+  background-color: transparent;
+  min-height: 30px;
+  min-width: 116px;
+  height: 30px;
+  line-height: 30px;
+  font-size: var(--font-large);
+  font-weight: bold;
+  color: var(--color-tone-middle);
+  border-radius: 4px;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  padding: auto;
+}
+
+.tab2:hover {
+  background-color: var(--color-tone-bright);
+}
+
+.tab2[active] {
+  background-color: var(--color-accent-default);
+  color: var(--color-highlight-bright) !important;
+}
+
+/* -------------------------------- BUTTONS -------------------------------- */
+/* These buttons are for <a></a> tags for now */
+/* will need to add support for actual <input> and <button> */
+.btn-primary,
+.btn-info,
+.btn-warn,
+.btn-danger,
+.btn-second,
+.btn-success {
+  font-size: var(--font-small);
+  font-weight: bold;
+  border-radius: 4px;
+  min-height: 36px;
+  height: 36px;
+  width: 154px;
+  line-height: 36px;
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+  box-shadow: 0px 2px 3px var(--color-shadow-soft);
+  text-decoration: none;
+}
+
+.btn-primary[disabled],
+.btn-info[disabled],
+.btn-warn[disabled],
+.btn-danger[disabled],
+.btn-second[disabled],
+.btn-success[disabled],
+.btn-primary:hover[disabled],
+.btn-info:hover[disabled],
+.btn-warn:hover[disabled],
+.btn-danger:hover[disabled],
+.btn-second:hover[disabled],
+.btn-success:hover[disabled] {
+  background: var(--color-highlight-bubble);
+  color: var(--color-disabled);
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-button-text);
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+  color: var(--color-button-text);
+}
+
+.btn-success {
+  background: var(--color-success);
+  color: var(--color-button-text);
+}
+
+.btn-success:hover {
+  background: var(--color-success-hover);
+  color: var(--color-button-text-hover);
+}
+
+.btn-second {
+  background: var(--color-second);
+  color: var(--color-button-text);
+}
+
+.btn-second:hover {
+  background: var(--color-second-hover);
+  color: var(--color-tone-middle);
+}
+
+.btn-info {
+  background: var(--color-info);
+  color: var(--color-button-text);
+}
+
+.btn-info:hover {
+  background: var(--color-info-hover);
+  color: var(--color-button-text-hover);
+}
+
+.btn-warn {
+  background: var(--color-warning);
+  color: var(--color-button-text);
+}
+
+.btn-warn:hover {
+  background: var(--color-warning-hover);
+  color: var(--color-button-text-hover);
+}
+
+.btn-danger {
+  background: var(--color-danger);
+  color: var(--color-button-text);
+}
+
+.btn-danger:hover {
+  background: var(--color-danger-hover);
+  color: var(--color-button-text-hover);
+}
+
+.btn-sm {
+  height: 32px;
+  min-width: 64px;
+}
+
+.btn-lg {
+  height: 64px;
+  min-width: 240px;
+}
+
+
 
 /* ------------------------------- TABLE ----------------------------------- */
 
@@ -230,9 +439,10 @@ div.table>.header {
   flex-direction: column;
   justify-content: space-between;
   height: fit-content;
-  box-shadow: inset 0px  -47px 0px var(--color-usko-red-highlight);
+  box-shadow: inset 0px -47px 0px var(--color-usko-red-highlight);
   padding: 9px 7px 12px 7px;
 }
+
 div.table>.header>div {
   /* make row flex to full size */
   flex: 1;
@@ -242,7 +452,7 @@ div.table>.header>div>div {
   margin: 0px 7px 0px 7px;
 }
 
-div.table>.header>div input{
+div.table>.header>div input {
   background: var(--color-white-font);
   flex-direction: row;
   margin-top: 14px;
@@ -260,7 +470,7 @@ div.table .row {
 
 }
 
-div.table>.body .row{
+div.table>.body .row {
   margin-bottom: 20px;
   height: 86px;
   background: var(--color-white-bubble);
@@ -272,7 +482,8 @@ div.table>.body .row{
 
 div.table>.body .row:hover {
   width: 104%;
-  background: pink; /* TODO: Remove var(--color-white-font); */
+  background: pink;
+  /* TODO: Remove var(--color-white-font); */
   margin-left: -2%;
 }
 
@@ -288,73 +499,169 @@ div.table>.body .row>div {
 
 /* ------------------------------ INPUTS ----------------------------------- */
 
+/*  this is to order the label and input
+    because CSS cant let you grab elements to the left of other elements
+    =( */
+div.select,
+div.input {
+  display: flex;
+  flex-direction: column;
+}
 
+/* sortification */
+div.select>label,
+div.input>label {
+  order: 1;
+}
+div.select>select,
+div.input>input {
+  order: 2;
+}
+div.select>div.error-ms,
+div.input>div.error-ms {
+  order: 3;
+}
+
+/* for required asterisk */
+div.select>select:required+label:after,
+div.input>input:required+label:after {
+  content: ' *';
+}
+
+/* default input behavior */
+select,
 input {
   min-width: 10px;
   flex-basis: auto;
-  height: 28px;
+  min-height: 36px;
+  height: 36px;
   width: 100%;
   padding-left: 5px;
   border-radius: 2px;
-  padding-left: 5px;
+  border: 1px solid var(--color-tone-bright);
+  box-sizing: border-box;
 }
 
-/* ----------------------------- BUTTONS ----------------------------------- */
 
-.btn {
-  margin-bottom: 22px;
+select {
+  background: url(/imgs/select_arrow/default.svg);
+  -webkit-appearance: none;
+  background-color: var(--color-highlight-bright);
+  background-position: right 8px top 5px;
+  background-repeat: no-repeat;
 }
 
-.btn-sm {
-  height: 32px;
-  min-width: 64px;
+select:disabled,
+select:disabled:hover {
+  background: url(/imgs/select_arrow/disabled.svg);
+  -webkit-appearance: none;
+  background-position: right 8px top 5px;
+  background-repeat: no-repeat;
+  border: 1px solid var(--color-disabled);
+  background-color: var(--color-input-background);
+  outline-color: var(--color-disabled);
+  outline-width: 1px;
+  color: var(--color-tone-light);
 }
 
-.btn-lg {
-  height: 64px;
-  min-width: 240px;
+select:focus,
+select:focus:hover {
+  background: url(/imgs/select_arrow/focus.svg);
+  -webkit-appearance: none;
+  background-color: var(--color-highlight-bright);
+  background-position: right 8px top 5px;
+  background-repeat: no-repeat;
 }
 
-.btn-passive {
-  background: var(--color-gray-dormant);
-  border-radius: 9px 9px 9px 9px;
-  font-size: var(--font-norm);
+select:invalid,
+select:invalid:hover {
+  background: url(/imgs/select_arrow/invalid.svg);
+  -webkit-appearance: none;
+  background-color: var(--color-highlight-bright);
+  background-position: right 8px top 5px;
+  background-repeat: no-repeat;
+}
+
+select:hover {
+  background: url(/imgs/select_arrow/hover.svg);
+  -webkit-appearance: none;
+  background-color: var(--color-highlight-bright);
+  background-position: right 8px top 5px;
+  background-repeat: no-repeat;
+}
+
+
+select:hover,
+input:hover {
+  border: 1px solid var(--color-highlight-hover);
+}
+
+select:focus,
+input:focus {
+  outline-color: var(--color-primary);
+}
+
+input:disabled {
+  border: 1px solid var(--color-disabled);
+  background-color: var(--color-input-background);
+  outline-color: var(--color-disabled);
+  outline-width: 1px;
+  color: var(--color-tone-light);
+}
+
+select:invalid,
+input:invalid {
+  outline-color: var(--color-danger);
+  outline-width: 1px;
+  border: 1px solid var(--color-danger);
+  color: var(--color-danger);
+}
+
+label {
+  font-size: var(--font-small);
   font-weight: bold;
-  color: var(--color-white-font);
-  min-height: 32px;
-
+  text-transform: capitalize;
+  line-height: var(--font-line-large);
 }
 
-.btn-passive:hover {
-  background: var(--color-gray-dormant-hover);
+select:disabled+label,
+input:disabled+label {
+  color: var(--color-disabled);
 }
 
-
-
-
-.btn-cta {
-  background: var(--color-blue-action);
-  border-radius: 9px 9px 9px 9px;
-  font-size: var(--font-norm);
-  font-weight: bold;
-  color: var(--color-white-font);
-  min-height: 32px;
+select:invalid+label,
+input:invalid+label {
+  color: var(--color-danger);
 }
 
-.btn-expand {
-  flex: 1
+select:invalid+label+div.error-ms,
+input:invalid+label+div.error-ms {
+  color: var(--color-danger);
+  font-size: var(--font-small);
+}
+
+select:valid+label+div.error-ms,
+input:valid+label+div.error-ms {
+  display: none;
+}
+
+/* Can have input without label, still need to hide error message */
+div.select>select:valid+div.error-ms,
+div.input>input:valid+div.error-ms {
+  display: none;
 }
 
 
 /* ------------------------------ TOP NAVBAR ------------------------------- */
 .top-nav {
-  position: sticky;
+  position: fixed;
   top: 0px;
+  width: 100%;
   display: flex;
   flex-direction: row;
-  height: 108px;
+  height: 76px;
   align-items: flex-end;
-  background: var(--color-background);
+  background: var(--color-highlight-bright);
   box-shadow: 0px 6px 3px -3px rgba(0, 0, 0, 0.08);
   z-index: 1;
 }
