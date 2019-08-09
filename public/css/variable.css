@@ -1,4 +1,69 @@
 :root {
+
+  --color-shadow-soft: rgba(0,0,0,0.16);
+
+  --color-accent-default: #7F0000; /* default accent color, "usko red" */
+  --color-accent-hover: #A5403B; /* hover over buttons with accent color */
+  --color-accent-light: #CF6F6A; /* hover over tab text */
+
+  --color-tone-dark: #000000; /* default text */
+  --color-tone-heavy: #312B24; /* navbar, and some text*/
+  --color-tone-middle: #848484; /* some text, buttons */
+  --color-tone-light: #9E9E9E; /* some text, hover buttons, usually disabled text */
+  --color-tone-bright:  #CFCFCF; /* some text, disabled text or hover, background */
+
+  --color-background: #DCDCDC; /* background color of the whole app */
+
+  --color-highlight-bright: #FFFFFF; /* text on dark background */
+  --color-highlight-bubble: #F3F3F3; /* disabled button background */
+  --color-highlight-hover: #A2CCEC; /* focus input fields */
+  /* following colors used for buttons and tags */
+  /* indicating success or valid */
+  --color-button-text: white;
+  --color-button-text-hover: white;
+
+  --color-success: #00C9A0;
+  --color-success-hover: #56E5BE;
+  --color-success-soft: #CAF6EA;
+
+  --color-info: #7F0000;
+  --color-info-hover: #A5403B;
+
+  /* indicating call to action buttons, i.e. submit */
+  --color-primary: #4599D9;
+  --color-primary-hover: #61B7F8;
+
+  --color-second: #9E9E9E;
+  --color-second-hover: #C6C6C6;
+
+  /* indicating warnings */
+  --color-warning: #EB8117;
+  --color-warning-hover: #FF9C39;
+  --color-warning-soft: #FFF3DC;
+  /* indicating failure or fatal operations */
+  --color-danger: #EE4437;
+  --color-danger-hover: #FF6E63;
+  --color-danger-soft: #FFC0BB;
+
+  --color-disabled: #C6C6C6;
+  --color-input-background: white;
+
+  --font-small: 14px;
+  --font-norm: 16px;
+  --font-large: 20px;
+  --font-giant: 25px;
+  --font-super: 35px;
+
+  --font-line-large: 20px;
+
+  --font-family-primary: Arimo, Arial, Helvetica, sans-serif;
+  --font-family-second: 'Open Sans', Arial, Helvetica, sans-serif;
+
+  --main-navbar-width: 258px;
+
+
+  /* ------ deprecated ----- */
+
   --usko-signature-red: #7E1110;
   --window-padding: 5px;
   --menu-container-size: 256px;
@@ -20,7 +85,6 @@
   --color-gray-background: #DCDCDC;
   --color-white-bubble: #F3F3F3;
   --color-white-font: white;
-  --color-background: white;
   --color-usko-brown: #342E28;
   --color-white-main-nav-active: #F8F8F8;
   --color-shadow-soft-gray: rgba(0, 0, 0, 0.16);
@@ -28,15 +92,5 @@
   --color-gray-dormant-hover: #D1D1D1;
   --color-gray-background-hover: #E0E0E0;
 
-  --font-small: 9px;
-  --font-less: 12px;
-  --font-norm: 13px;
-  --font-large: 15px;
-  --font-xlarge: 20px;
-  --font-xxlarge: 25px;
-  --font-super: 35px;
 
-  --font-family: Arial, Helvetica, sans-serif;
-
-  --main-navbar-width: 258px;
 }
