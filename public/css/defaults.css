@@ -641,12 +641,14 @@ input:invalid+label+div.error-ms {
 }
 
 select:valid+label+div.error-ms,
+select:disabled+label+div.error-ms,
 input:valid+label+div.error-ms {
   display: none;
 }
 
 /* Can have input without label, still need to hide error message */
 div.select>select:valid+div.error-ms,
+div.select>select:disabled+div.error-ms,
 div.input>input:valid+div.error-ms {
   display: none;
 }
