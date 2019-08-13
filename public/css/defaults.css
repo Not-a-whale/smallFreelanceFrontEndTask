@@ -62,6 +62,13 @@ body {
   flex: 1;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
+.collapsed {
+  display: none;
+}
 
 /* --------------------------- COMPANY LOGO AND DESIGN --------------------- */
 .logo-container {
