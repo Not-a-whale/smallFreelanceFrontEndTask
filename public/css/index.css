@@ -97,7 +97,8 @@ table.main-menu-editor {
 
 /* ---------------------------------------------------------------------------------------- */
 .navigation-container {
-  position: -webkit-sticky; /* Safari */
+  position: -webkit-sticky;
+  /* Safari */
   position: sticky;
   top: 0;
   box-sizing: border-box;
@@ -112,6 +113,28 @@ table.main-menu-editor {
   align-self: flex-start;
   text-align: center;
 }
+
+ul.nav-menu {
+  text-align: left;
+}
+
+ul.nav-menu .nav-menu-item {
+  margin-bottom: 6px;
+  margin-top: 12px;
+}
+
+ul.nav-menu .nav-menu-item>img {
+  position: relative;
+  margin-left: 25px;
+}
+
+ul.nav-menu ul,
+ul.nav-menu .nav-menu-item>div {
+  position: absolute;
+  left: 60px;
+}
+
+
 
 .main-content-container {
   position: relative;
@@ -128,22 +151,13 @@ div.menu-container {
   min-height: 30%;
 }
 
-div.menu-container ul
-{
+div.menu-container ul {
   list-style-type: none;
   position: relative;
 }
 
 div.menu-container li {
   vertical-align: baseline;
-}
-
-div.menu-container>ul {
-  /* top level menu */
-}
-
-div.menu-container>ul>li>ul {
-  /* sub level menu */
 }
 
 div.menu-container>ul>li {
