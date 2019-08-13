@@ -1,6 +1,8 @@
-<div ui-view="navbar"
-     id="navbox"
-     class="navigation-container"></div>
-<div ui-view="content"
-     id="mainspace"
-     class="main-content-container"></div>
+<div ui-view="navbar"></div>
+<div class="main-display-container">
+  <div ui-view="topnav"
+       id="topnav"></div>
+  <div ui-view="content"
+       id="mainspace"
+       class="main-content-container"></div>
+</div>
