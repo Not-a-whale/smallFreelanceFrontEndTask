@@ -2,7 +2,7 @@
 --
 -- Host: balancer    Database: tms
 -- ------------------------------------------------------
--- Server version	5.7.26-log
+-- Server version	5.7.24-log
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -47,31 +47,12 @@ LOCK TABLES `app_features` WRITE;
 UNLOCK TABLES;
 
 --
--- Dumping data for table `app_menu_action_trees`
---
-
-LOCK TABLES `app_menu_action_trees` WRITE;
-/*!40000 ALTER TABLE `app_menu_action_trees` DISABLE KEYS */;
-/*!40000 ALTER TABLE `app_menu_action_trees` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `app_menu_actions`
---
-
-LOCK TABLES `app_menu_actions` WRITE;
-/*!40000 ALTER TABLE `app_menu_actions` DISABLE KEYS */;
-INSERT INTO `app_menu_actions` VALUES (1,NULL,91,'main_page','node','/navigation/tree.html','Testing'),(5,NULL,119,'main_page','node','/test.cgi',NULL),(7,NULL,137,'main_page','node','/dancer/loadboard','for development'),(8,NULL,202,'main_page','node','/dancer/phone/list','for development'),(10,NULL,204,'main_page','node','/dancer/phone/form','for development');
-/*!40000 ALTER TABLE `app_menu_actions` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping data for table `app_menu_items`
 --
 
 LOCK TABLES `app_menu_items` WRITE;
 /*!40000 ALTER TABLE `app_menu_items` DISABLE KEYS */;
-INSERT INTO `app_menu_items` VALUES (78,139,'INVOICES','List of all invoices',NULL,1,0.00),(89,NULL,'ADMIN','Administrative Tasks','imgs/adim-icon.svg',1,99.00),(91,89,'APP ADMIN','Application Settings - webmaster only',NULL,1,0.00),(119,89,'GROUPS',NULL,NULL,1,0.00),(121,NULL,'INVENTORY',NULL,'imgs/inventory.svg',1,0.00),(123,121,'EQUIPMENT',NULL,NULL,1,0.00),(125,121,'UNITS',NULL,NULL,1,0.00),(127,121,'RESERVATIONS',NULL,NULL,1,0.00),(129,NULL,'DISPATCH','Dispatching','imgs/disptacher.svg',1,0.00),(131,129,'TRUCKS',NULL,NULL,1,0.00),(133,129,'PLANNER',NULL,NULL,1,0.00),(135,129,'TRIPS',NULL,NULL,1,0.00),(137,129,'LOADS',NULL,NULL,1,0.00),(139,NULL,'FINANCE',NULL,'imgs/finances.svg',1,0.00),(141,139,'CHECKS',NULL,NULL,1,0.00),(143,139,'SETTLEMENTS',NULL,NULL,1,0.00),(145,139,'RATE CONFIRMATION',NULL,NULL,1,0.00),(147,139,'BILLS',NULL,NULL,0,0.00),(149,NULL,'FOOOOD',NULL,NULL,0,0.00),(151,149,'BURGER',NULL,NULL,0,0.00),(196,NULL,'Phones','Phone stuff',NULL,1,999.00),(202,196,'List','List of the phones',NULL,1,100.00),(204,196,'Form',NULL,NULL,1,0.00);
+INSERT INTO `app_menu_items` VALUES (78,139,'INVOICES','List of all invoices',NULL,NULL,NULL,0.000,1),(89,NULL,'ADMIN','Administrative Tasks','imgs/adim-icon.svg',NULL,NULL,99.000,1),(91,89,'APP ADMIN','Application Settings - webmaster only',NULL,NULL,NULL,0.000,1),(119,89,'GROUPS','tmsapp.main.test',NULL,NULL,NULL,0.000,1),(121,NULL,'INVENTORY',NULL,'imgs/inventory.svg',NULL,NULL,0.000,1),(123,121,'EQUIPMENT',NULL,NULL,NULL,NULL,0.000,1),(125,121,'UNITS',NULL,NULL,NULL,NULL,0.000,1),(127,121,'RESERVATIONS',NULL,NULL,NULL,NULL,0.000,1),(129,NULL,'DISPATCH','Dispatching','imgs/disptacher.svg',NULL,NULL,0.000,1),(131,129,'TRUCKS',NULL,NULL,NULL,NULL,0.000,1),(133,129,'PLANNER',NULL,NULL,NULL,NULL,0.000,1),(135,129,'TRIPS',NULL,NULL,NULL,NULL,0.000,1),(137,129,'LOADS','tmsapp.main.loads',NULL,NULL,NULL,0.000,1),(139,NULL,'FINANCE',NULL,'imgs/finances.svg',NULL,NULL,0.000,1),(141,139,'CHECKS',NULL,NULL,NULL,NULL,0.000,1),(143,139,'SETTLEMENTS',NULL,NULL,NULL,NULL,0.000,1),(145,139,'RATE CONFIRMATION',NULL,NULL,NULL,NULL,0.000,1),(147,139,'BILLS',NULL,NULL,NULL,NULL,0.000,0),(149,NULL,'FOOOOD',NULL,NULL,NULL,NULL,0.000,0),(151,149,'BURGER',NULL,NULL,NULL,NULL,0.000,0),(196,NULL,'Phones','Phone stuff',NULL,NULL,NULL,999.000,1),(202,196,'List','List of the phones',NULL,NULL,NULL,100.000,1),(204,196,'Form',NULL,NULL,NULL,NULL,0.000,1),(207,89,'Test','tmsapp.main',NULL,NULL,NULL,0.000,1);
 /*!40000 ALTER TABLE `app_menu_items` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -149,7 +130,7 @@ DELIMITER ;
 
 LOCK TABLES `app_menu_items_trees` WRITE;
 /*!40000 ALTER TABLE `app_menu_items_trees` DISABLE KEYS */;
-INSERT INTO `app_menu_items_trees` VALUES (78,78,0),(119,119,0),(121,121,0),(123,123,0),(125,125,0),(127,127,0),(129,129,0),(131,131,0),(133,133,0),(135,135,0),(137,137,0),(139,139,0),(141,141,0),(143,143,0),(145,145,0),(147,147,0),(149,149,0),(151,151,0),(196,196,0),(202,202,0),(204,204,0),(121,123,1),(121,125,1),(121,127,1),(129,131,1),(129,133,1),(129,135,1),(129,137,1),(139,141,1),(139,143,1),(139,145,1),(139,147,1),(149,151,1),(196,202,1),(196,204,1);
+INSERT INTO `app_menu_items_trees` VALUES (78,78,0),(119,119,0),(121,121,0),(123,123,0),(125,125,0),(127,127,0),(129,129,0),(131,131,0),(133,133,0),(135,135,0),(137,137,0),(139,139,0),(141,141,0),(143,143,0),(145,145,0),(147,147,0),(149,149,0),(151,151,0),(196,196,0),(202,202,0),(204,204,0),(207,207,0),(121,123,1),(121,125,1),(121,127,1),(129,131,1),(129,133,1),(129,135,1),(129,137,1),(139,141,1),(139,143,1),(139,145,1),(139,147,1),(149,151,1),(196,202,1),(196,204,1);
 /*!40000 ALTER TABLE `app_menu_items_trees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -424,7 +405,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `cnt_addresses` WRITE;
 /*!40000 ALTER TABLE `cnt_addresses` DISABLE KEYS */;
-INSERT INTO `cnt_addresses` VALUES (1,'12344 Fake Street','','','Antelope',2,'55555',NULL,NULL,NULL),(3,'464 sdfsadhf st','','','antelope',2,'654654',NULL,NULL,NULL),(5,'11920 Point East','','','Rancho Cordova',2,'95625',NULL,NULL,NULL),(7,'12345 Fake st','Building B12','Suite 5','Nowhere land',2,'87987',NULL,NULL,'some notes'),(9,'NO','NO','STOP ASKING NO','NO',2,'NEVER',NULL,NULL,'IM NOT TELLING YOU');
+INSERT INTO `cnt_addresses` VALUES (1,'12344 Fake Street','','','Antelope','55555','','USA',NULL,NULL,NULL),(3,'464 sdfsadhf st','','','antelope','654654','','USA',NULL,NULL,NULL),(5,'11920 Point East','','','Rancho Cordova','95625','','USA',NULL,NULL,NULL),(7,'12345 Fake st','Building B12','Suite 5','Nowhere land','87987','','USA',NULL,NULL,'some notes'),(9,'NO','NO','STOP ASKING NO','NO','NEVER','','USA',NULL,NULL,'IM NOT TELLING YOU');
 /*!40000 ALTER TABLE `cnt_addresses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -436,16 +417,6 @@ LOCK TABLES `cnt_phonesfaxes` WRITE;
 /*!40000 ALTER TABLE `cnt_phonesfaxes` DISABLE KEYS */;
 INSERT INTO `cnt_phonesfaxes` VALUES (1,'555-123-4567','6546','VOICE','LAND LINE','sdfsdfsdf'),(3,'555-123-4567','123','VOICE','LAND LINE','adfasdfsadfa'),(7,'545-546-5464','6546','VOICE','LAND LINE','sdfsdfsdf'),(9,'123-123-5555','12','VOICE','LAND LINE','some nnotes'),(11,'555-456-4564','444','VOICE','LAND LINE','dfasdfj'),(15,'987-987-9879','546','VOICE','LAND LINE','notes notes aj2o3423ndak dfa'),(17,'654-987-9874','123','VOICE','LAND LINE','1231 fbsdbf 34 e3v'),(19,'123-123-4567','0','VOICE','LAND LINE','askdfhsakd'),(21,'566-458-4854','545','VOICE','LAND LINE','asdfsdjfhkjh'),(23,'654-7894-545','636','VOICE','LAND LINE','even more notes'),(25,'444-478-9878','5','VOICE','LAND LINE','some more notes'),(27,'0000000000','000000','VOICE','LAND LINE','hackhackhackhack'),(29,'NO','NO','VOICE','LAND LINE','STOP');
 /*!40000 ALTER TABLE `cnt_phonesfaxes` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `cnt_states`
---
-
-LOCK TABLES `cnt_states` WRITE;
-/*!40000 ALTER TABLE `cnt_states` DISABLE KEYS */;
-INSERT INTO `cnt_states` VALUES (2,'CA','California','USA');
-/*!40000 ALTER TABLE `cnt_states` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -539,21 +510,21 @@ LOCK TABLES `dsp_loads_destinations_docs` WRITE;
 UNLOCK TABLES;
 
 --
+-- Dumping data for table `dsp_loads_dispatched`
+--
+
+LOCK TABLES `dsp_loads_dispatched` WRITE;
+/*!40000 ALTER TABLE `dsp_loads_dispatched` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dsp_loads_dispatched` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `dsp_loads_docs`
 --
 
 LOCK TABLES `dsp_loads_docs` WRITE;
 /*!40000 ALTER TABLE `dsp_loads_docs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `dsp_loads_docs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `dsp_loads_to_units`
---
-
-LOCK TABLES `dsp_loads_to_units` WRITE;
-/*!40000 ALTER TABLE `dsp_loads_to_units` DISABLE KEYS */;
-/*!40000 ALTER TABLE `dsp_loads_to_units` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -735,7 +706,7 @@ DELIMITER ;
 
 LOCK TABLES `fin_account_types` WRITE;
 /*!40000 ALTER TABLE `fin_account_types` DISABLE KEYS */;
-INSERT INTO `fin_account_types` VALUES (1,'Asset',NULL,0,1,0,1,-1,0,100,1,0),(3,'Liability',NULL,0,1,0,-1,1,0,300,1,0),(5,'Equity',NULL,0,1,0,-1,1,0,500,1,0),(7,'Gain',NULL,0,1,0,-1,1,1,600,0,1),(9,'Loss',NULL,0,1,0,1,-1,1,610,0,1),(11,'Bank',NULL,0,1,0,1,-1,0,105,0,0),(13,'Non-Posting Asset',1,1,1,1,1,-1,0,900,1,0),(15,'Contra Asset',1,0,1,0,-1,1,0,130,1,0),(17,'Contra Liability',3,0,1,0,1,-1,0,330,1,0),(19,'Contra Equity',5,0,1,0,1,-1,0,530,1,0),(21,'Net Income',5,0,1,0,-1,1,1,505,1,1),(23,'Revenue',21,1,1,1,-1,1,0,510,1,0),(25,'Expense',21,1,1,1,1,-1,0,520,1,0),(27,'Fixed Asset',1,1,1,1,1,-1,0,120,1,0),(29,'Current Asset',1,1,1,1,1,-1,0,110,1,0),(31,'Current Liability',3,1,1,1,-1,1,0,310,1,0),(33,'Long Term Liability',3,1,1,1,-1,1,0,320,1,0),(35,'Loan',3,1,1,1,-1,1,0,360,1,0),(37,'Credit Card',3,1,1,1,-1,1,0,340,1,0),(39,'Non-Posting Liability',3,1,1,1,-1,1,0,901,0,0),(41,'Non-Posting Equity',5,1,1,1,-1,1,0,902,0,0),(43,'Cost of Goods Sold',25,1,1,1,1,-1,0,540,1,0),(45,'Other Expense',25,1,1,1,1,-1,0,525,1,0),(47,'Other Revenue',23,1,1,1,-1,1,0,515,1,0),(49,'Other Current Asset',1,1,1,1,1,-1,0,115,1,0);
+INSERT INTO `fin_account_types` VALUES (1,'Asset',NULL,0,1,0,1.00,-1.00,0,100,1,0),(3,'Liability',NULL,0,1,0,-1.00,1.00,0,300,1,0),(5,'Equity',NULL,0,1,0,-1.00,1.00,0,500,1,0),(7,'Gain',NULL,0,1,0,-1.00,1.00,1,600,0,1),(9,'Loss',NULL,0,1,0,1.00,-1.00,1,610,0,1),(11,'Bank',NULL,0,1,0,1.00,-1.00,0,105,0,0),(13,'Non-Posting Asset',1,1,1,1,1.00,-1.00,0,900,1,0),(15,'Contra Asset',1,0,1,0,-1.00,1.00,0,130,1,0),(17,'Contra Liability',3,0,1,0,1.00,-1.00,0,330,1,0),(19,'Contra Equity',5,0,1,0,1.00,-1.00,0,530,1,0),(21,'Net Income',5,0,1,0,-1.00,1.00,1,505,1,1),(23,'Revenue',21,1,1,1,-1.00,1.00,0,510,1,0),(25,'Expense',21,1,1,1,1.00,-1.00,0,520,1,0),(27,'Fixed Asset',1,1,1,1,1.00,-1.00,0,120,1,0),(29,'Current Asset',1,1,1,1,1.00,-1.00,0,110,1,0),(31,'Current Liability',3,1,1,1,-1.00,1.00,0,310,1,0),(33,'Long Term Liability',3,1,1,1,-1.00,1.00,0,320,1,0),(35,'Loan',3,1,1,1,-1.00,1.00,0,360,1,0),(37,'Credit Card',3,1,1,1,-1.00,1.00,0,340,1,0),(39,'Non-Posting Liability',3,1,1,1,-1.00,1.00,0,901,0,0),(41,'Non-Posting Equity',5,1,1,1,-1.00,1.00,0,902,0,0),(43,'Cost of Goods Sold',25,1,1,1,1.00,-1.00,0,540,1,0),(45,'Other Expense',25,1,1,1,1.00,-1.00,0,525,1,0),(47,'Other Revenue',23,1,1,1,-1.00,1.00,0,515,1,0),(49,'Other Current Asset',1,1,1,1,1.00,-1.00,0,115,1,0);
 /*!40000 ALTER TABLE `fin_account_types` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -1035,24 +1006,6 @@ LOCK TABLES `fin_classes` WRITE;
 UNLOCK TABLES;
 
 --
--- Dumping data for table `fin_customers`
---
-
-LOCK TABLES `fin_customers` WRITE;
-/*!40000 ALTER TABLE `fin_customers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `fin_customers` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `fin_invoice_factor_trees`
---
-
-LOCK TABLES `fin_invoice_factor_trees` WRITE;
-/*!40000 ALTER TABLE `fin_invoice_factor_trees` DISABLE KEYS */;
-/*!40000 ALTER TABLE `fin_invoice_factor_trees` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping data for table `fin_invoice_payment_items`
 --
 
@@ -1184,6 +1137,16 @@ LOCK TABLES `fin_item_templates_types` WRITE;
 /*!40000 ALTER TABLE `fin_item_templates_types` DISABLE KEYS */;
 INSERT INTO `fin_item_templates_types` VALUES (1,'Service',0,1,'A service provided by your company.'),(3,'Fee',0,1,'A fee which usually is attached to a service'),(5,'Vendor Service',0,1,'A service provided from another company for your customers.'),(7,'Payment',0,1,'A payment that your company is making to another company.'),(11,'Loan',0,1,'A loan provided by your company to a customer.'),(13,'Reimbursement',0,1,'An amount which is owed back to a cutomer or vendor.'),(15,'Scheduled Deduction',0,0,'A deduction that is automatically supposed to be charged to a customer or vendor.');
 /*!40000 ALTER TABLE `fin_item_templates_types` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `fin_jobs`
+--
+
+LOCK TABLES `fin_jobs` WRITE;
+/*!40000 ALTER TABLE `fin_jobs` DISABLE KEYS */;
+INSERT INTO `fin_jobs` VALUES (1,'Trip 1',0,'2019-07-03 17:42:32');
+/*!40000 ALTER TABLE `fin_jobs` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1359,17 +1322,8 @@ UNLOCK TABLES;
 
 LOCK TABLES `fin_transactions` WRITE;
 /*!40000 ALTER TABLE `fin_transactions` DISABLE KEYS */;
-INSERT INTO `fin_transactions` VALUES (1,1,'1-0001',NULL,NULL,'2019-07-03 12:43:10','2019-07-03 12:43:10',NULL,'Broker Rate for trip',NULL),(3,1,'1-0002',NULL,NULL,'2019-07-18 16:24:17','2019-07-18 16:24:17',NULL,'Driver payment',NULL),(5,1,'1-0003',NULL,NULL,'2019-07-18 16:24:17','2019-07-18 16:24:17',NULL,'Driver advance via ComData',NULL),(7,3,'34453',NULL,NULL,'2019-07-18 16:24:17','2019-07-18 16:24:17',NULL,'Check to driver',NULL),(9,11,'72399',NULL,NULL,'2019-07-18 16:24:17','2019-07-18 16:24:17',NULL,'Broker payment for trip',NULL);
+INSERT INTO `fin_transactions` VALUES (1,1,'1-0001',NULL,NULL,'2019-07-03 12:43:10','2019-07-03 12:43:10',NULL,NULL,'Broker Rate for trip'),(3,1,'1-0002',NULL,NULL,'2019-07-18 16:24:17','2019-07-18 16:24:17',NULL,NULL,'Driver payment'),(5,1,'1-0003',NULL,NULL,'2019-07-18 16:24:17','2019-07-18 16:24:17',NULL,NULL,'Driver advance via ComData'),(7,3,'34453',NULL,NULL,'2019-07-18 16:24:17','2019-07-18 16:24:17',NULL,NULL,'Check to driver'),(9,11,'72399',NULL,NULL,'2019-07-18 16:24:17','2019-07-18 16:24:17',NULL,NULL,'Broker payment for trip');
 /*!40000 ALTER TABLE `fin_transactions` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `fin_vendors`
---
-
-LOCK TABLES `fin_vendors` WRITE;
-/*!40000 ALTER TABLE `fin_vendors` DISABLE KEYS */;
-/*!40000 ALTER TABLE `fin_vendors` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1379,24 +1333,6 @@ UNLOCK TABLES;
 LOCK TABLES `gen_files` WRITE;
 /*!40000 ALTER TABLE `gen_files` DISABLE KEYS */;
 /*!40000 ALTER TABLE `gen_files` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `gen_gps_coords`
---
-
-LOCK TABLES `gen_gps_coords` WRITE;
-/*!40000 ALTER TABLE `gen_gps_coords` DISABLE KEYS */;
-/*!40000 ALTER TABLE `gen_gps_coords` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `gen_vehicle_registration`
---
-
-LOCK TABLES `gen_vehicle_registration` WRITE;
-/*!40000 ALTER TABLE `gen_vehicle_registration` DISABLE KEYS */;
-/*!40000 ALTER TABLE `gen_vehicle_registration` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1460,15 +1396,6 @@ UNLOCK TABLES;
 LOCK TABLES `hr_residences` WRITE;
 /*!40000 ALTER TABLE `hr_residences` DISABLE KEYS */;
 /*!40000 ALTER TABLE `hr_residences` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `hr_workauthorizations`
---
-
-LOCK TABLES `hr_workauthorizations` WRITE;
-/*!40000 ALTER TABLE `hr_workauthorizations` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hr_workauthorizations` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1689,25 +1616,6 @@ LOCK TABLES `inv_vehicles` WRITE;
 UNLOCK TABLES;
 
 --
--- Dumping data for table `jobs`
---
-
-LOCK TABLES `jobs` WRITE;
-/*!40000 ALTER TABLE `jobs` DISABLE KEYS */;
-INSERT INTO `jobs` VALUES (1,'Trip 1',0,'2019-07-03 17:42:32');
-/*!40000 ALTER TABLE `jobs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `jobs_charges`
---
-
-LOCK TABLES `jobs_charges` WRITE;
-/*!40000 ALTER TABLE `jobs_charges` DISABLE KEYS */;
-/*!40000 ALTER TABLE `jobs_charges` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping data for table `sft_elog_stats`
 --
 
@@ -1753,12 +1661,49 @@ LOCK TABLES `sft_logbooks` WRITE;
 UNLOCK TABLES;
 
 --
+-- Dumping data for table `sft_vehicle_inspect_items`
+--
+
+LOCK TABLES `sft_vehicle_inspect_items` WRITE;
+/*!40000 ALTER TABLE `sft_vehicle_inspect_items` DISABLE KEYS */;
+INSERT INTO `sft_vehicle_inspect_items` VALUES (1,'Brakes',NULL),(3,'BrakesAdjustment',NULL),(5,'BrakesMechanicalComponent',NULL),(7,'BrakesDrumRotor',NULL),(9,'BrakesHoseTubing',NULL),(11,'BrakesLining',NULL),(13,'BrakesAntilockSystem',NULL),(15,'BrakesAutomaticAdjusters',NULL),(17,'BrakesLowAirWarning',NULL),(19,'BrakesTrailerAirSupply',NULL),(21,'BrakesCompressor',NULL),(23,'BrakesParkingBrakes',NULL),(25,'BrakesOther',NULL),(27,'Couplers',NULL),(29,'CouplersFifthWheelMount',NULL),(31,'CouplersPinUpperPlate',NULL),(33,'CouplersPintleHookEye',NULL),(35,'CouplersSafetyChains',NULL),(37,'Exhaust',NULL),(39,'ExhaustLeaks',NULL),(41,'ExhaustPlacement',NULL),(43,'Lighting',NULL),(45,'LightingHeadlights',NULL),(47,'LightingTailStop',NULL),(49,'LightingClearanceMarker',NULL),(51,'LightingIdentification',NULL),(53,'LightingReflectors',NULL),(55,'LightingOther',NULL),(57,'CabBody',NULL),(59,'CabBodyAccess',NULL),(61,'CabBodyEqptLoadSecure',NULL),(63,'CabBodyTieDowns',NULL),(65,'CabBodyHeaderboard',NULL),(67,'CabBodyMotorcoachSeats',NULL),(69,'CabBodyOther',NULL),(71,'Steering',NULL),(73,'SteeringAdjustment',NULL),(75,'SteeringColumnGear',NULL),(77,'SteeringAxle',NULL),(79,'SteeringLinkage',NULL),(81,'SteeringPowerSteering',NULL),(83,'SteeringOther',NULL),(85,'FuelSystem',NULL),(87,'FuelSystemTanks',NULL),(89,'FuelSystemLines',NULL),(91,'Suspension',NULL),(93,'SuspensionSprings',NULL),(95,'SuspensionAttachments',NULL),(97,'SuspensionSliders',NULL),(99,'Mirrors',NULL),(101,'Frame',NULL),(103,'FrameMembers',NULL),(105,'FrameClearance',NULL),(107,'Tires',NULL),(109,'TiresTread',NULL),(111,'TiresInflation',NULL),(113,'TiresDamage',NULL),(115,'TiresSpeedRestrictions',NULL),(117,'TiresOther',NULL),(119,'WheelsRim',NULL),(121,'WheelsRimFasteners',NULL),(123,'WheelsRimDiskSpoke',NULL),(125,'Windshield',NULL),(127,'WindshieldWipers',NULL);
+/*!40000 ALTER TABLE `sft_vehicle_inspect_items` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sft_vehicle_inspect_proofs`
+--
+
+LOCK TABLES `sft_vehicle_inspect_proofs` WRITE;
+/*!40000 ALTER TABLE `sft_vehicle_inspect_proofs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sft_vehicle_inspect_proofs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sft_vehicle_inspected_items`
+--
+
+LOCK TABLES `sft_vehicle_inspected_items` WRITE;
+/*!40000 ALTER TABLE `sft_vehicle_inspected_items` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sft_vehicle_inspected_items` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `sft_vehicle_inspections`
 --
 
 LOCK TABLES `sft_vehicle_inspections` WRITE;
 /*!40000 ALTER TABLE `sft_vehicle_inspections` DISABLE KEYS */;
 /*!40000 ALTER TABLE `sft_vehicle_inspections` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sft_vehicle_registration`
+--
+
+LOCK TABLES `sft_vehicle_registration` WRITE;
+/*!40000 ALTER TABLE `sft_vehicle_registration` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sft_vehicle_registration` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -2037,4 +1982,4 @@ UNLOCK TABLES;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-05 10:51:37
+-- Dump completed on 2019-08-13 11:42:11

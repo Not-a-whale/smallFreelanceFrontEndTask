@@ -2,7 +2,7 @@
 --
 -- Host: balancer    Database: tms
 -- ------------------------------------------------------
--- Server version	5.7.26-log
+-- Server version	5.7.24-log
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -1074,7 +1074,7 @@ WHERE
     tr_lds.TripId = trip_id) UNION (SELECT 
     lds_u.AddedBy AS id
 FROM
-    dsp_loads_to_units lds_u
+    dsp_loads_dispatched lds_u
         LEFT JOIN
     dsp_trips_loads tr_lds ON lds_u.LoadId = tr_lds.LoadId
 WHERE
@@ -1083,7 +1083,7 @@ WHERE
 FROM
     inv_unit_reservations u_r
         LEFT JOIN
-    dsp_loads_to_units lds_u ON lds_u.UnitId = u_r.UnitId
+    dsp_loads_dispatched lds_u ON lds_u.UnitId = u_r.UnitId
         LEFT JOIN
     dsp_trips_loads tr_lds ON tr_lds.LoadId = lds_u.LoadId
 WHERE
@@ -1094,7 +1094,7 @@ FROM
         LEFT JOIN
     inv_unit_reservations u_r ON u_r.UnitId = e.EquipmentId
         LEFT JOIN
-    dsp_loads_to_units lds_u ON lds_u.UnitId = u_r.UnitId
+    dsp_loads_dispatched lds_u ON lds_u.UnitId = u_r.UnitId
         LEFT JOIN
     dsp_trips_loads tr_lds ON tr_lds.LoadId = lds_u.LoadId
 WHERE
@@ -1109,7 +1109,7 @@ FROM
         LEFT JOIN
     inv_unit_reservations u_r ON u_r.UnitId = e.EquipmentId
         LEFT JOIN
-    dsp_loads_to_units lds_u ON lds_u.UnitId = u_r.UnitId
+    dsp_loads_dispatched lds_u ON lds_u.UnitId = u_r.UnitId
         LEFT JOIN
     dsp_trips_loads tr_lds ON tr_lds.LoadId = lds_u.LoadId
 WHERE
@@ -1122,7 +1122,7 @@ FROM
         LEFT JOIN
     inv_unit_reservations u_r ON u_r.UnitId = e.EquipmentId
         LEFT JOIN
-    dsp_loads_to_units lds_u ON lds_u.UnitId = u_r.UnitId
+    dsp_loads_dispatched lds_u ON lds_u.UnitId = u_r.UnitId
         LEFT JOIN
     dsp_trips_loads tr_lds ON tr_lds.LoadId = lds_u.LoadId
 WHERE
@@ -1269,4 +1269,4 @@ DELIMITER ;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-05 10:51:39
+-- Dump completed on 2019-08-13 11:42:13

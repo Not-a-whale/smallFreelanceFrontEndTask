@@ -1,12 +1,12 @@
 use utf8;
-package TMS::Schema::Result::Job;
+package TMS::Schema::Result::FinJob;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-TMS::Schema::Result::Job
+TMS::Schema::Result::FinJob
 
 =cut
 
@@ -18,11 +18,11 @@ use MooseX::NonMoose;
 use MooseX::MarkAsMethods autoclean => 1;
 extends 'DBIx::Class::Core';
 
-=head1 TABLE: C<jobs>
+=head1 TABLE: C<fin_jobs>
 
 =cut
 
-__PACKAGE__->table("jobs");
+__PACKAGE__->table("fin_jobs");
 
 =head1 ACCESSORS
 
@@ -100,21 +100,6 @@ __PACKAGE__->set_primary_key("JobId");
 
 =head1 RELATIONS
 
-=head2 dsp_blacklists
-
-Type: has_many
-
-Related object: L<TMS::Schema::Result::DspBlacklist>
-
-=cut
-
-__PACKAGE__->has_many(
-  "dsp_blacklists",
-  "TMS::Schema::Result::DspBlacklist",
-  { "foreign.JobId" => "self.JobId" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 dsp_loads
 
 Type: has_many
@@ -176,8 +161,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:qAVkBLHNLzRgQojjstusfA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:34:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:QjCMxqmiklO23EugeJYwVw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

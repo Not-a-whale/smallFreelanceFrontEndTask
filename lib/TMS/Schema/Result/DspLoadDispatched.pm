@@ -1,12 +1,12 @@
 use utf8;
-package TMS::Schema::Result::DspLoadsToUnit;
+package TMS::Schema::Result::DspLoadDispatched;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-TMS::Schema::Result::DspLoadsToUnit
+TMS::Schema::Result::DspLoadDispatched
 
 =cut
 
@@ -18,11 +18,11 @@ use MooseX::NonMoose;
 use MooseX::MarkAsMethods autoclean => 1;
 extends 'DBIx::Class::Core';
 
-=head1 TABLE: C<dsp_loads_to_units>
+=head1 TABLE: C<dsp_loads_dispatched>
 
 =cut
 
-__PACKAGE__->table("dsp_loads_to_units");
+__PACKAGE__->table("dsp_loads_dispatched");
 
 =head1 ACCESSORS
 
@@ -42,17 +42,17 @@ __PACKAGE__->table("dsp_loads_to_units");
   is_foreign_key: 1
   is_nullable: 0
 
-=head2 DateAdded
+=head2 DateDispatched
 
-  accessor: 'date_added'
+  accessor: 'date_dispatched'
   data_type: 'datetime'
   datetime_undef_if_invalid: 1
   default_value: 'CURRENT_TIMESTAMP'
   is_nullable: 0
 
-=head2 AddedBy
+=head2 DispatchedBy
 
-  accessor: 'added_by'
+  accessor: 'dispatched_by'
   data_type: 'bigint'
   extra: {unsigned => 1}
   is_foreign_key: 1
@@ -77,17 +77,17 @@ __PACKAGE__->add_columns(
     is_foreign_key => 1,
     is_nullable    => 0,
   },
-  "DateAdded",
+  "DateDispatched",
   {
-    accessor => "date_added",
+    accessor => "date_dispatched",
     data_type => "datetime",
     datetime_undef_if_invalid => 1,
     default_value => "CURRENT_TIMESTAMP",
     is_nullable => 0,
   },
-  "AddedBy",
+  "DispatchedBy",
   {
-    accessor       => "added_by",
+    accessor       => "dispatched_by",
     data_type      => "bigint",
     extra          => { unsigned => 1 },
     is_foreign_key => 1,
@@ -111,18 +111,18 @@ __PACKAGE__->set_primary_key("LoadId", "UnitId");
 
 =head1 RELATIONS
 
-=head2 added_by
+=head2 dispatched_by
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::EntPerson>
+Related object: L<TMS::Schema::Result::HrAssociate>
 
 =cut
 
 __PACKAGE__->belongs_to(
-  "added_by",
-  "TMS::Schema::Result::EntPerson",
-  { PrsnId => "AddedBy" },
+  "dispatched_by",
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "DispatchedBy" },
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
@@ -157,8 +157,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Djch2kRd99WlvzQtMYX/oQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:34:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:697Bt391IOgYvlljm73LkQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

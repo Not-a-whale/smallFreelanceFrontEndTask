@@ -1,4 +1,4 @@
-package TMS::API::Core::AppMenuActionTree;
+package TMS::API::Core::SftVehicleInspectItem;
 
 # $Id: $
 use strict;
@@ -12,7 +12,6 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::AppMenuAction;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -25,9 +24,9 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has AncestorId   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'AppMenuActionObj',);
-has DescendantId => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'AppMenuActionObj',);
-has Depth        => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Int',);
+has InspItmId    => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has ItemAreaName => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
+has Notes        => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
 
 # AUTO-GENERATED HAS-A END
 
