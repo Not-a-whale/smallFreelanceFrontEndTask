@@ -4,8 +4,8 @@ app.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $u
   $urlRouterProvider.otherwise("/");
 
   var navbar = {
-    templateUrl: "modules/navigation/navmenu.html",
-    controller: ['$scope', '$http', NavbarCtrl]
+    templateUrl: "/modules/navigation/main/main_nav.html"//,
+    //controller: ['$scope', '$http', NavbarCtrl]
   };
 
   $stateProvider.state('tmsapp', {
@@ -23,7 +23,7 @@ app.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $u
       },
       "navbar@tmsapp.main": navbar,
       "topnav@tmsapp.main": {
-        templateUrl: "modules/navigation/topnav.html"
+        templateUrl: "modules/navigation/top/top_nav.html"
       }
 
     }
@@ -34,8 +34,14 @@ app.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $u
       },
       "content@tmsapp.main": {
         templateUrl: "modules/invoice/cheque.html"
+      }
+    }
+  }).state('tmsapp.main.test', {
+    views: {
+      main: {
+        templateUrl: 'modules/navigation/main.html'
       },
-      "navbar@tmsapp.main": navbar
+      "content@tmsapp.main": navbar
     }
   }).state('invoice', {
     templateUrl: 'modules/invoice/cheque.html'
@@ -72,7 +78,6 @@ app.factory('getid', function () {
 
   return function () {
     let newid = ++id;
-    console.log("new id: " + newid);
     return 'I' + newid;
   };
 });
