@@ -1,0 +1,13 @@
+<div ng-attr-id="$ctrl.id"
+     class="input">
+  <input class="$ctrl.input_class"
+         ng-model="$ctrl.value"
+         ng-attr-name="{{$ctrl.name}}"
+         ng-attr-required="{{$ctrl.required}}"
+         ng-attr-pattern="{{$ctrl.pattern}}"
+         ng-attr-type="{{$ctrl.type}}"
+         ng-disabled="{{$ctrl.disabled}}"
+         ng-attr-placeholder="{{$ctrl.placeholder}}" />
+  <label ng-if="$ctrl.label != undefined">{{ $ctrl.label }}</label>
+  <div class="error-ms">{{ $ctrl.errmsg || 'This field is required' }}</div>
+</div>

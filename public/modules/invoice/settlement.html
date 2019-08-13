@@ -1,0 +1,254 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link href="/modules/invoice/settlement.css"
+        rel="stylesheet"
+        type="text/css">
+  <link href="/modules/invoice/page.css"
+        rel="stylesheet"
+        type="text/css">
+</head>
+
+<body>
+  <div class="page">
+    <div class="page-content">
+      <div class="top-header">
+        <!-- Logo -->
+        <div class="logo"><img src="H:\tms3.0\bin\scripts\logo.png"
+               alt=""
+               width="200"
+               height="76"></div>
+        <!-- Company Info -->
+        <div class="company-info">
+          <span class="company-title">{{ company.title }}</span>
+          <br> {{ company.street }}
+          <br> {{ company.city }}
+          <br> Phone: {{ company.phone }}
+          <br> Fax: {{company.fax }}
+        </div>
+        <!-- Settlement -->
+        <div class="settlement">
+          <div class="sttl-title">Settlement</div>
+          <div class="sttl-number">#{{ settlement.number }}</div>
+          <span class="sttl-date"> {{ settlement.date }} </span>
+          <div class="sttl-stamp">
+            <div class="sttl-top horizontal">
+              <div></div>
+              <div>Paid By</div>
+              <div>Check</div>
+              <div></div>
+            </div>
+            <div class="sttl-btm horizontal">
+              <div></div>
+              <div>{{ paid.date }}</div>
+              <div>{{ check.number }}</div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+        <span class="stretch"></span>
+      </div>
+      <!-- Owner Details -->
+      <table class="floating wide">
+        <tr>
+          <td>Owner Name: <b>{{firstname}}{{lastname}}</b></td>
+          <td>Truck: <b>{{company}} #{{tag}}</b></td>
+          <td class="t-right">{{type}}: <b>{{rate}}</b></td>
+        </tr>
+      </table>
+      <!-- Trips -->
+      <table class="table-items">
+        <thead>
+          <tr>
+            <th class="header split px-50">Truck#</th>
+            <th class="header split px-50">Trip#</th>
+            <th class="header split">Pickup</th>
+            <th class="header split">Drop-off</th>
+            <th class="header split px-80">Rate</th>
+            <th class="header split px-80">Net</th>
+          </tr>
+        </thead>
+        <!-- Trip list -->
+        <tbody>
+          <tr class="row"
+              ng-repeat="trip in trips">
+            <td>{{tag}}</td>
+            <td>{{trip}}</td>
+            <td>
+              <div class="horizontal wide">
+                <div class="t-left w-65">{{ city }}</div>
+                <div class="t-right">{{ date }}</div>
+            </td>
+            <td>
+              <div class="horizontal wide">
+                <div class="t-left w-65">{{ city }}</div>
+                <div class="t-right">{{ date }}</div>
+            </td>
+            <td class="t-right">{{ rate }}</td>
+            <td class="t-right">{{ net }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td class="header split t-right"
+                colspan=5><b>Total Payment:</b></td>
+            <td class="header split amount"><b>{{amount.total}}</b></td>
+          </tr>
+        </tfoot>
+      </table>
+      <!-- Deductions -->
+      <table class="table-items">
+        <col class="px-50" />
+        <col class="px-50" />
+        <col class="w-25" />
+        <col />
+        <col class="px-80" />
+        <thead>
+          <tr>
+            <th class="header"
+                colspan=5><b>Deductions</b></th>
+          </tr>
+          <tr>
+            <th class="header split">Date</th>
+            <th class="header split">Trip</th>
+            <th class="header split">Item</th>
+            <th class="header split">Info</th>
+            <th class="header split">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="w-50">{{date}}</td>
+            <td>{{trip}}</td>
+            <td class="t-left">{{item}}</td>
+            <td class="t-left">{{info}}</td>
+            <td class="amount">{{amount}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td class="header split t-right"
+                colspan=4><b>Total Deductions:</b></td>
+            <td class="header split amount"><b>{{amount.total}}</b></td>
+          </tr>
+        </tfoot>
+      </table>
+      <!-- Reimbursements-->
+      <table class="table-items">
+        <col class="px-50" />
+        <col class="px-50" />
+        <col class="w-25" />
+        <col />
+        <col class="px-80" />
+        <thead>
+          <tr>
+            <th class="header"
+                colspan=5><b>Reimbursements</b></th>
+          </tr>
+          <tr>
+            <th class="header split">Date</th>
+            <th class="header split">Trip</th>
+            <th class="header split">Item</th>
+            <th class="header split">Info</th>
+            <th class="header split">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="w-50">{{date}}</td>
+            <td>{{trip}}</td>
+            <td class="t-left">{{item}}</td>
+            <td class="t-left">{{info}}</td>
+            <td class="amount">{{amount}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td class="header split t-right"
+                colspan=4><b>Total Reimbursements:</b></td>
+            <td class="header split amount"><b>{{amount.total}}</b></td>
+          </tr>
+        </tfoot>
+      </table>
+      <!-- Scheduled Deductions -->
+      <table class="table-items">
+        <col class="px-50" />
+        <col class="w-25" />
+        <col />
+        <col class="px-80" />
+        <thead>
+          <tr>
+            <th class="header"
+                colspan=4><b>Scheduled Deductions</b></th>
+          </tr>
+          <tr>
+            <th class="header split">Date</th>
+            <th class="header split">Item</th>
+            <th class="header split">Info</th>
+            <th class="header split">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="w-50">{{date}}</td>
+            <td class="t-left">{{item}}</td>
+            <td class="t-left">{{info}}</td>
+            <td class="amount">{{amount}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td class="header split t-right"
+                colspan=3><b>Total Scheduled Deductions:</b></td>
+            <td class="header split amount"><b>{{amount.total}}</b></td>
+          </tr>
+        </tfoot>
+      </table>
+      <div class="footer wide">
+        <div class="comments">
+          <div class="comm-title"><b>Comments:</b></div>
+          <div>
+            {{ comments sdfhk shdkf jashdkf jha s kdf jhaskjd fhlk ash dfkljsa dfkjhask fj hskldjfh kjsadhf kashfkh askdfh askjdhfklashd fksahd kfh sakdfhkl asdjhfkasjdhflkasjdhflkahklejbfakljsbicj aljelkjcbalkejblaksbdfkbal  ajs klf asklf lkas eklf lksebflaslkefuhlk jb fkdjb }}
+          </div>
+        </div>
+        <div class="summary">
+          <table>
+            <tr class="line">
+              <td>Total Carrier Pay:</td>
+              <td class="amount">{{total pay}}</td>
+            </tr>
+            <tr class="line">
+              <td>Total Net:</td>
+              <td class="amount">{{total net}}</td>
+            </tr>
+            <tr class="line">
+              <td>Total All Deductions:</td>
+              <td class="amount">{{total deductions}}</td>
+            </tr>
+            <tr class="line">
+              <td>Total Reimbursements:</td>
+              <td class="amount">{{ total reimbursements}}</td>
+            </tr>
+            <tr class="line">
+              <td>YTD:</td>
+              <td class="amount">{{ ytd amount}}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr class="sum-total">
+              <td class="massive">Pay Balance:</td>
+              <td class="massive amount">{{ pay amount }}</td>
+            </tr>
+          </table>
+        </div>
+        <span class="stretch"></span>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

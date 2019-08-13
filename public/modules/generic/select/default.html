@@ -1,0 +1,11 @@
+<div ng-attr-id="$ctrl.id"
+     class="select">
+  <select class="{{$ctrl.input_class}}"
+          ng-model="$ctrl.value"
+          ng-required="{{$ctrl.required}}"
+          ng-disabled="{{$ctrl.disabled}}"
+          ng-options="item as item.key group by item.group disable when item.disabled for item in $ctrl.options track by item.val">
+  </select>
+  <label ng-if="$ctrl.label != undefined">{{ $ctrl.label }}</label>
+  <div class="error-ms">{{ $ctrl.errmsg || 'This field is required' }}</div>
+</div>

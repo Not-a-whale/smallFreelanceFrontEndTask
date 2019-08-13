@@ -1,55 +1,8 @@
-/* ---------------------------------------------------------------------------------------- */
-:root {
-  --usko-signature-red: #7E1110;
-  --window-padding: 5px;
-  --menu-container-size: 256px;
-  --menu-background-color: #342E28;
-
-  --menu-levelone-color: #F8F8F8;
-  --menu-leveltwo-color: threedface;
-    /* #716D6D */
-}
-
-/* ---------------------------------------------------------------------------------------- */
-
-div {
-  margin: 2px;
-  padding: 2px;
-  border-style: solid;
-  color: pink;
-  border-width: 1px;
-  width: 100%;
-  height: 100%;
+.main-display-container {
   display: flex;
-}
-
-.global-container {
-  box-sizing: border-box;
-  display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   flex: 1;
-}
-
-/* ---------------------------------------------------------------------------------------- */
-.logo-img {
-  width: 206px;
-  margin-top: 42px;
-  margin-left: 25px;
-}
-
-.logo-fancy {
-  position: absolute;
-  z-index: -1;
-  top: 0px;
-  left: -75px;
-  width: 150%;
-  height: 230px;
-  background: var(--color-background);
-
-  transform-origin: 0 0;
-  transform: rotate(-15deg);
-
-  box-shadow: 0px 7px 0px var(--menu-background-color), 0px 11px 0px var(--color-background);
+  align-self: flex-start;
 }
 
 /* ---------------------------------------------------------------------------------------- */
@@ -152,15 +105,19 @@ table.main-menu-editor {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow: hidden;
-  background-color: var(--menu-background-color);
+  background-color: var(--color-tone-heavy);
   font-weight: bold;
   max-height: 100vh;
   height: 100vh;
+  align-self: flex-start;
+  text-align: center;
 }
 
 .main-content-container {
+  position: relative;
+  top: 75px;
   display: flex;
+  flex-direction: column;
   flex: 1;
   justify-content: space-between;
 }

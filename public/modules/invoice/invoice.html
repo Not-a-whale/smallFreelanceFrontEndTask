@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link href="/modules/invoice/invoice.css"
+        rel="stylesheet"
+        type="text/css">
+  <link href="/modules/invoice/page.css"
+        rel="stylesheet"
+        type="text/css">
+</head>
+
+<body>
+  <div class="page">
+    <div class="page-content">
+      <div class="top-header">
+        <!-- Logo -->
+        <div class="logo"><img src="H:\tms3.0\bin\scripts\logo.png"
+               alt=""
+               width="200"
+               height="76"></div>
+        <!-- Company Info -->
+        <div class="company-info">
+          <span class="company-title">{{ company.title }}</span>
+          <br> {{ company.street }}
+          <br> {{ company.city }}
+          <br> Phone: {{ company.phone }}
+          <br> Fax: {{company.fax }}
+        </div>
+        <!-- Invoice -->
+        <div class="invoice">
+          <div class="inv-number">Invoice # {{invoice}}</div>
+          <div class="inv-sub">
+            <div class="inv-date"> {{date}} </div>
+            <div class="inv-truck"> Truck# {{truck}}</div>
+          </div>
+        </div>
+        <span class="stretch"></span>
+      </div>
+      <!-- Bill To -->
+      <div class="sec-header">
+        <div class="bill">
+          <div class="header ">Bill To:</div>
+          <div class="body">
+            <p> {{ billto.title  }} </p>
+            <p> {{ billto.street }} </p>
+            <p> {{ bitllto.city  }} </p>
+            <p> {{ Maybe Phone?  }} </p>
+            <p> {{ Maybe MC?     }} </p>
+          </div>
+        </div>
+        <!-- TERMS  -->
+        <div class="terms">
+          <div class="header ">Terms</div>
+          <div class="body"> {{ payment.terms }}</div>
+        </div>
+        <span class="stretch"></span>
+      </div>
+      <!-- Trips -->
+      <table class="table-items">
+        <!-- Trip Header -->
+        <thead>
+          <tr>
+            <td class="header split">Trip#</td>
+            <td class="header split">Origin</td>
+            <td class="header split">Destination</td>
+            <td class="header split">Ref#</td>
+            <td class="header split">Amount</td>
+          </tr>
+        </thead>
+        <!-- Trip list -->
+        <tr class="row"
+            ng-repeat="trip in trips">
+          <td class="cell px-60">{{ trip }}</td>
+          <td class="cell">
+            <div ng-repeat="origin in trip.origins">
+              <div class="trip-company">{{ origin.company }}</div>
+              <div class="horizontal wide">
+                <div>{{ origin.city}}</div>
+                <div>{{ origin.date }}</div>
+                <span class="stretch"></span>
+              </div>
+            </div>
+
+          </td>
+          <td class="cell">
+            <div ng-repeat="dest in trip.destinations">
+              <div class="trip-company">{{ dest.company }}</div>
+              <div class="horizontal wide">
+                <div>{{ dest.city }}</div>
+                <div>{{ dest.date }}</div>
+                <span class="stretch"></span>
+              </div>
+              <div class="trip-company">{{ dest.company }}</div>
+              <div class="horizontal wide">
+                <div>{{ dest.city }}</div>
+                <div>{{ dest.date }}</div>
+                <span class="stretch"></span>
+              </div>
+              <div class="trip-company">{{ dest.company }}</div>
+              <div class="horizontal wide">
+                <div>{{ dest.city }}</div>
+                <div>{{ dest.date }}</div>
+                <span class="stretch"></span>
+              </div>
+              <div class="trip-company">{{ dest.company }}</div>
+              <div class="horizontal wide">
+                <div>{{ dest.city }}</div>
+                <div>{{ dest.date }}</div>
+                <span class="stretch"></span>
+              </div>
+            </div>
+          </td>
+          <td class="cell px-120">
+            {{refnumber}}
+          </td>
+          <td class="cell amount px-80">
+            {{amount}}
+          </td>
+        </tr>
+        <!-- Items List -->
+        <!-- Items Header -->
+        <tr>
+          <td class="header split">Date</td>
+          <td class="header split"
+              colspan=3>Item</td>
+          <td class="header split">Amount</td>
+        </tr>
+        <tr ng-repeat="item in items">
+          <td class="cell">{{date}}</td>
+          <td class="cell t-left"
+              colspan=3>{{ item info }}</td>
+          <td class="cell amount">{{amount }}</td>
+        </tr>
+        <tr class="table-void border">
+          <td colspan="5"></td>
+        </tr>
+        <tfoot>
+          <tr>
+            <td class="header split">Total:</td>
+            <td class="header total amount"
+                colspan="4">{{ total.usd }}</td>
+          </tr>
+        </tfoot>
+      </table>
+      <div class="footer">
+        <div class="factor-box">
+          <div class="red-font">This Invoice Has Been Sold, Assigned<br> And Is Payable Only To:</div>
+          <div>{{company.name}} <br> {{company.street}} <br> {{company.city}}
+            <br>
+            {{agent.phone}} {{agent.name}}</div>
+        </div>
+      </div>
+      <div class="barcode">{{ barcode.image }}</div>
+    </div>
+    <!-- This div represents a white box which will be printed on top of all artwork to hold address and barcode information. Any content provided underneath this area will be covered. -->
+  </div>
+</body>
+
+</html>
