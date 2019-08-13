@@ -2,7 +2,7 @@
 --
 -- Host: balancer    Database: tms
 -- ------------------------------------------------------
--- Server version	5.7.26-log
+-- Server version	5.7.24-log
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -111,64 +111,6 @@ SET character_set_client = utf8;
  1 AS `DateInvoiced`,
  1 AS `FactoredParent`,
  1 AS `Amount`*/;
-SET character_set_client = @saved_cs_client;
-
---
--- Temporary table structure for view `fin_invoice_factored_items`
---
-
-DROP TABLE IF EXISTS `fin_invoice_factored_items`;
-/*!50001 DROP VIEW IF EXISTS `fin_invoice_factored_items`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE VIEW `fin_invoice_factored_items` AS SELECT 
- 1 AS `InvoiceId`,
- 1 AS `InvoiceItemId`,
- 1 AS `BaseInvoiceId`,
- 1 AS `ItemTemplateId`,
- 1 AS `Amount`,
- 1 AS `Quantity`,
- 1 AS `CreatedBy`,
- 1 AS `DateCreated`,
- 1 AS `Notes`,
- 1 AS `Comments`,
- 1 AS `CreditJournalEntryId`,
- 1 AS `DebitJournalEntryId`,
- 1 AS `JobId`*/;
-SET character_set_client = @saved_cs_client;
-
---
--- Temporary table structure for view `fin_invoie_factor_item_by_entities`
---
-
-DROP TABLE IF EXISTS `fin_invoie_factor_item_by_entities`;
-/*!50001 DROP VIEW IF EXISTS `fin_invoie_factor_item_by_entities`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE VIEW `fin_invoie_factor_item_by_entities` AS SELECT 
- 1 AS `InvoiceId`,
- 1 AS `InvoiceItemId`,
- 1 AS `BaseInvoiceId`,
- 1 AS `InvoiceItemTemplateId`,
- 1 AS `InvoiceAmount`,
- 1 AS `InvoiceQuantity`,
- 1 AS `InvoiceCreatedBy`,
- 1 AS `InvoiceDateCreated`,
- 1 AS `InvoiceNotes`,
- 1 AS `InvoiceComments`,
- 1 AS `CreditJournalEntryId`,
- 1 AS `DebitJournalEntryId`,
- 1 AS `InvoiceJobId`,
- 1 AS `JrlEntryId`,
- 1 AS `JrlTransactionId`,
- 1 AS `JrlAccountId`,
- 1 AS `JrlEntityId`,
- 1 AS `JrlCreatedBy`,
- 1 AS `JrlDateCreated`,
- 1 AS `JrlDebitCredit`,
- 1 AS `JrlAmount`,
- 1 AS `JrlClassification`,
- 1 AS `JrlJobId`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -327,42 +269,6 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
--- Final view structure for view `fin_invoice_factored_items`
---
-
-/*!50001 DROP VIEW IF EXISTS `fin_invoice_factored_items`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`192.168.1%.%` SQL SECURITY DEFINER */
-/*!50001 VIEW `fin_invoice_factored_items` AS select `inv_r`.`RootInvoiceId` AS `InvoiceId`,`inv_i`.`InvoiceItemId` AS `InvoiceItemId`,`inv_i`.`InvoiceId` AS `BaseInvoiceId`,`inv_i`.`ItemTemplateId` AS `ItemTemplateId`,`inv_i`.`Amount` AS `Amount`,`inv_i`.`Quantity` AS `Quantity`,`inv_i`.`CreatedBy` AS `CreatedBy`,`inv_i`.`DateCreated` AS `DateCreated`,`inv_i`.`Notes` AS `Notes`,`inv_i`.`Comments` AS `Comments`,`inv_i`.`CreditJournalEntryId` AS `CreditJournalEntryId`,`inv_i`.`DebitJournalEntryId` AS `DebitJournalEntryId`,`inv_i`.`JobId` AS `JobId` from (((select `root`.`AncestorId` AS `RootInvoiceId`,`root`.`DescendantId` AS `BaseInvoiceId` from (`tms`.`fin_invoice_factor_trees` `root` join `tms`.`fin_invoice_factor_trees` `base`) where ((`root`.`DescendantId` = `base`.`AncestorId`) and (`base`.`AncestorId` = `base`.`DescendantId`) and (not(exists(select 1 from `tms`.`fin_invoice_factor_trees` `d` where (`d`.`DescendantId` = `root`.`AncestorId`))))))) `inv_r` left join `tms`.`fin_invoices_items` `inv_i` on((`inv_i`.`InvoiceId` = `inv_r`.`BaseInvoiceId`))) where (not(exists(select 1 from `tms`.`fin_invoice_factor_trees` `b` where ((`b`.`AncestorId` = `inv_r`.`BaseInvoiceId`) and (`b`.`Depth` > 1))))) order by `inv_r`.`RootInvoiceId` */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
--- Final view structure for view `fin_invoie_factor_item_by_entities`
---
-
-/*!50001 DROP VIEW IF EXISTS `fin_invoie_factor_item_by_entities`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`192.168.1%.%` SQL SECURITY DEFINER */
-/*!50001 VIEW `fin_invoie_factor_item_by_entities` AS select `inv_fi`.`InvoiceId` AS `InvoiceId`,`inv_fi`.`InvoiceItemId` AS `InvoiceItemId`,`inv_fi`.`BaseInvoiceId` AS `BaseInvoiceId`,`inv_fi`.`ItemTemplateId` AS `InvoiceItemTemplateId`,`inv_fi`.`Amount` AS `InvoiceAmount`,`inv_fi`.`Quantity` AS `InvoiceQuantity`,`inv_fi`.`CreatedBy` AS `InvoiceCreatedBy`,`inv_fi`.`DateCreated` AS `InvoiceDateCreated`,`inv_fi`.`Notes` AS `InvoiceNotes`,`inv_fi`.`Comments` AS `InvoiceComments`,`inv_fi`.`CreditJournalEntryId` AS `CreditJournalEntryId`,`inv_fi`.`DebitJournalEntryId` AS `DebitJournalEntryId`,`inv_fi`.`JobId` AS `InvoiceJobId`,`jrl`.`JrlEntryId` AS `JrlEntryId`,`jrl`.`TransactionId` AS `JrlTransactionId`,`jrl`.`AccountId` AS `JrlAccountId`,`jrl`.`EntityId` AS `JrlEntityId`,`jrl`.`CreatedBy` AS `JrlCreatedBy`,`jrl`.`DateCreated` AS `JrlDateCreated`,`jrl`.`DebitCredit` AS `JrlDebitCredit`,`jrl`.`Amount` AS `JrlAmount`,`jrl`.`Classification` AS `JrlClassification`,`jrl`.`JobId` AS `JrlJobId` from (`tms`.`fin_invoice_factored_items` `inv_fi` left join `tms`.`fin_journal_entries` `jrl` on(((`inv_fi`.`CreditJournalEntryId` = `jrl`.`JrlEntryId`) or (`inv_fi`.`DebitJournalEntryId` = `jrl`.`JrlEntryId`)))) */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
 -- Final view structure for view `tsk_pedigree`
 --
 
@@ -404,4 +310,4 @@ SET character_set_client = @saved_cs_client;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-05 10:51:37
+-- Dump completed on 2019-08-13 11:42:12
