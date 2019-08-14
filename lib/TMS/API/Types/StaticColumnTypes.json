@@ -1,0 +1,7 @@
+{
+  "cnt_phonesfaxes" : {
+    "Number" :  "PhoneNumber",
+    "Notes" : "TidySpacesString",
+    "Extension" : "PhoneExt"
+  }
+}
