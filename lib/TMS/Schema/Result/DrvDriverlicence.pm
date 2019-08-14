@@ -66,10 +66,9 @@ __PACKAGE__->table("drv_driverlicences");
 =head2 DrLcSate
 
   accessor: 'dr_lc_sate'
-  data_type: 'bigint'
-  extra: {unsigned => 1}
-  is_foreign_key: 1
+  data_type: 'char'
   is_nullable: 0
+  size: 2
 
 =head2 DrLcEndorsement
 
@@ -128,13 +127,7 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
   },
   "DrLcSate",
-  {
-    accessor       => "dr_lc_sate",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
+  { accessor => "dr_lc_sate", data_type => "char", is_nullable => 0, size => 2 },
   "DrLcEndorsement",
   {
     accessor       => "dr_lc_endorsement",
@@ -187,21 +180,6 @@ __PACKAGE__->belongs_to(
   },
 );
 
-=head2 dr_lc_sate
-
-Type: belongs_to
-
-Related object: L<TMS::Schema::Result::CntState>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "dr_lc_sate",
-  "TMS::Schema::Result::CntState",
-  { StateId => "DrLcSate" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
-);
-
 =head2 driver
 
 Type: belongs_to
@@ -233,8 +211,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:piocjXh4px0nAbwXxDWR+A
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ajj4/iEnsw9iQilYK/hxmQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

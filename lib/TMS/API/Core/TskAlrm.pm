@@ -25,7 +25,7 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has alrmid    => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has alrmid    => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has tskid     => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TskTaskObj',);
 has message   => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
 has atcrontab => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);

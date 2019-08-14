@@ -12,9 +12,9 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::Entity;
-use TMS::API::Core::EntPerson;
 use TMS::API::Core::FinItemTemplate;
+use TMS::API::Core::Entity;
+use TMS::API::Core::HrAssociate;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -27,7 +27,7 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has SchedDeductionId => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has SchedDeductionId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has ItemTemplateId   => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'FinItemTemplateObj',);
 has EntityId         => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'EntityObj',);
 has DateStart        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'DATE',);
@@ -40,7 +40,7 @@ has ScheduleType     => (is => 'rw', coerce => 0, required => 0, isa => Undef | 
 has Period           => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'EnumNull',);
 has PeriodDay        => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Int',);
 has Valid            => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Bool',);
-has CreatedBy        => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EntPersonObj',);
+has CreatedBy        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj',);
 has DateCreated      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 
 # AUTO-GENERATED HAS-A END

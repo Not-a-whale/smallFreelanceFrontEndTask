@@ -247,26 +247,26 @@ __PACKAGE__->belongs_to(
   "account",
   "TMS::Schema::Result::FinAccount",
   { AccountId => "AccountId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 created_by
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::EntPerson>
+Related object: L<TMS::Schema::Result::HrAssociate>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "created_by",
-  "TMS::Schema::Result::EntPerson",
-  { PrsnId => "CreatedBy" },
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "CreatedBy" },
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
   },
 );
 
@@ -282,7 +282,7 @@ __PACKAGE__->belongs_to(
   "entity",
   "TMS::Schema::Result::Entity",
   { EntityId => "EntityId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 fin_invoices_items_credit_journal_entries
@@ -319,19 +319,19 @@ __PACKAGE__->has_many(
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::Job>
+Related object: L<TMS::Schema::Result::FinJob>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "job",
-  "TMS::Schema::Result::Job",
+  "TMS::Schema::Result::FinJob",
   { JobId => "JobId" },
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
   },
 );
 
@@ -347,12 +347,12 @@ __PACKAGE__->belongs_to(
   "transaction",
   "TMS::Schema::Result::FinTransaction",
   { TransactionId => "TransactionId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SjnFudrwtjF+iK0x+PBMDg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zDehb4VAjyLqXqm97bNbVQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

@@ -25,7 +25,7 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has PrsnId     => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has PrsnId     => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has NickName   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
 has Prefix     => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Enum',);
 has FirstName  => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);

@@ -25,7 +25,7 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has AppAccountId => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has AppAccountId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has UserId       => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj',);
 has PasswordHash => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
 has Salt         => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);

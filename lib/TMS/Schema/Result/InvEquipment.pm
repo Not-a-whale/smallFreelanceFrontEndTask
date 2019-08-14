@@ -38,8 +38,8 @@ __PACKAGE__->table("inv_equipment");
 
   accessor: 'general_name'
   data_type: 'varchar'
-  is_nullable: 1
-  size: 255
+  is_nullable: 0
+  size: 1024
 
 =head2 OwnerId
 
@@ -48,14 +48,6 @@ __PACKAGE__->table("inv_equipment");
   extra: {unsigned => 1}
   is_foreign_key: 1
   is_nullable: 0
-
-=head2 UnitId
-
-  accessor: 'unit_id'
-  data_type: 'bigint'
-  extra: {unsigned => 1}
-  is_foreign_key: 1
-  is_nullable: 1
 
 =head2 VendorId
 
@@ -115,8 +107,8 @@ __PACKAGE__->add_columns(
   {
     accessor => "general_name",
     data_type => "varchar",
-    is_nullable => 1,
-    size => 255,
+    is_nullable => 0,
+    size => 1024,
   },
   "OwnerId",
   {
@@ -125,14 +117,6 @@ __PACKAGE__->add_columns(
     extra          => { unsigned => 1 },
     is_foreign_key => 1,
     is_nullable    => 0,
-  },
-  "UnitId",
-  {
-    accessor       => "unit_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
   },
   "VendorId",
   {
@@ -287,14 +271,14 @@ __PACKAGE__->might_have(
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::Entity>
+Related object: L<TMS::Schema::Result::HrAssociate>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "owner",
-  "TMS::Schema::Result::Entity",
-  { EntityId => "OwnerId" },
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "OwnerId" },
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
@@ -311,26 +295,6 @@ __PACKAGE__->has_many(
   "TMS::Schema::Result::SftElogStat",
   { "foreign.EquipmentId" => "self.EquipmentId" },
   { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 unit
-
-Type: belongs_to
-
-Related object: L<TMS::Schema::Result::InvUnit>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "unit",
-  "TMS::Schema::Result::InvUnit",
-  { UnitId => "UnitId" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
 );
 
 =head2 vendor
@@ -374,8 +338,8 @@ Composing rels: L</inv_equipments_to_support> -> support
 __PACKAGE__->many_to_many("supports", "inv_equipments_to_support", "support");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:l9sEjgiSDrDC8s8Z2d4JzA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:JLb8u8UqcomusMLqFz5lwA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

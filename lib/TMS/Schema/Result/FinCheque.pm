@@ -102,7 +102,7 @@ __PACKAGE__->table("fin_cheques");
   data_type: 'decimal'
   extra: {unsigned => 1}
   is_nullable: 0
-  size: [24,2]
+  size: [12,2]
 
 =head2 Memo
 
@@ -310,7 +310,7 @@ __PACKAGE__->add_columns(
     data_type => "decimal",
     extra => { unsigned => 1 },
     is_nullable => 0,
-    size => [24, 2],
+    size => [12, 2],
   },
   "Memo",
   { accessor => "memo", data_type => "varchar", is_nullable => 1, size => 255 },
@@ -468,18 +468,18 @@ __PACKAGE__->add_unique_constraint("ChequeNumber_UNIQUE", ["ChequeNumber"]);
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::EntPerson>
+Related object: L<TMS::Schema::Result::HrAssociate>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "authorized_by",
-  "TMS::Schema::Result::EntPerson",
-  { PrsnId => "AuthorizedBy" },
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "AuthorizedBy" },
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
+    on_delete     => "RESTRICT",
     on_update     => "CASCADE",
   },
 );
@@ -488,30 +488,30 @@ __PACKAGE__->belongs_to(
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::EntBusiness>
+Related object: L<TMS::Schema::Result::BizBranch>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "bank",
-  "TMS::Schema::Result::EntBusiness",
-  { BizId => "Bank" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  "TMS::Schema::Result::BizBranch",
+  { BrnchId => "Bank" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 created_by
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::EntPerson>
+Related object: L<TMS::Schema::Result::HrAssociate>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "created_by",
-  "TMS::Schema::Result::EntPerson",
-  { PrsnId => "CreatedBy" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "CASCADE" },
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "CreatedBy" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 fin_cheques_prints
@@ -571,32 +571,32 @@ __PACKAGE__->belongs_to(
   "transaction",
   "TMS::Schema::Result::FinTransaction",
   { TransactionId => "TransactionId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 voided_by
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::EntPerson>
+Related object: L<TMS::Schema::Result::HrAssociate>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "voided_by",
-  "TMS::Schema::Result::EntPerson",
-  { PrsnId => "VoidedBy" },
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "VoidedBy" },
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
+    on_delete     => "RESTRICT",
     on_update     => "CASCADE",
   },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:qS78hn1qds7v3IvdnkUkwg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Zs4hyv6eVNiP2cr2v22Dfw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

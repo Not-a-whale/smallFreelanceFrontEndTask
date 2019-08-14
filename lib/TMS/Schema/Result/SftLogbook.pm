@@ -34,17 +34,9 @@ __PACKAGE__->table("sft_logbooks");
   is_auto_increment: 1
   is_nullable: 0
 
-=head2 Driver
+=head2 DateStarted
 
-  accessor: 'driver'
-  data_type: 'bigint'
-  extra: {unsigned => 1}
-  is_foreign_key: 1
-  is_nullable: 0
-
-=head2 Date
-
-  accessor: 'date'
+  accessor: 'date_started'
   data_type: 'date'
   datetime_undef_if_invalid: 1
   is_nullable: 0
@@ -74,17 +66,9 @@ __PACKAGE__->add_columns(
     is_auto_increment => 1,
     is_nullable => 0,
   },
-  "Driver",
+  "DateStarted",
   {
-    accessor       => "driver",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "Date",
-  {
-    accessor => "date",
+    accessor => "date_started",
     data_type => "date",
     datetime_undef_if_invalid => 1,
     is_nullable => 0,
@@ -115,21 +99,6 @@ __PACKAGE__->set_primary_key("LogbookId");
 
 =head1 RELATIONS
 
-=head2 driver
-
-Type: belongs_to
-
-Related object: L<TMS::Schema::Result::DrvDriver>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "driver",
-  "TMS::Schema::Result::DrvDriver",
-  { DriverId => "Driver" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
-);
-
 =head2 sft_log_entries
 
 Type: has_many
@@ -157,12 +126,12 @@ __PACKAGE__->belongs_to(
   "trip",
   "TMS::Schema::Result::DspTrip",
   { TripId => "Trip" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:jdfCydRDK/rtmWaRQGWJvg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:N/7/1rukpW8FahlwF/FYjQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

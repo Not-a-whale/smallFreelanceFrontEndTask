@@ -94,6 +94,7 @@ For financial purposes TripNumber === JobNumber, TripId === JobId
   accessor: 'is_valid'
   data_type: 'tinyint'
   default_value: 1
+  extra: {unsigned => 1}
   is_nullable: 0
 
 =head2 TripStatus
@@ -176,6 +177,7 @@ __PACKAGE__->add_columns(
     accessor      => "is_valid",
     data_type     => "tinyint",
     default_value => 1,
+    extra         => { unsigned => 1 },
     is_nullable   => 0,
   },
   "TripStatus",
@@ -265,8 +267,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:vi/w65WH4GP2Q14ZlSBpzA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ucX1IQs78dzE1nzFpug2wg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

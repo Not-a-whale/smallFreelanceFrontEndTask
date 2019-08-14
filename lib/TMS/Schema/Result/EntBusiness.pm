@@ -180,21 +180,6 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 fin_cheques
-
-Type: has_many
-
-Related object: L<TMS::Schema::Result::FinCheque>
-
-=cut
-
-__PACKAGE__->has_many(
-  "fin_cheques",
-  "TMS::Schema::Result::FinCheque",
-  { "foreign.Bank" => "self.BizId" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 root_node
 
 Type: belongs_to
@@ -216,8 +201,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:m9ANoqhIMO5zIkusuNhflQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:jQx5g2MFIJqauqDMllclrA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

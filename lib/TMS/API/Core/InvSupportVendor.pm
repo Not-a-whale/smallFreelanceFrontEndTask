@@ -12,6 +12,7 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
+use TMS::API::Core::HrAssociate;
 use TMS::API::Core::BizBranch;
 
 # AUTO-GENERATED DEPENDENCIES END
@@ -25,10 +26,11 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has SupportId   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has VendorId    => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'BizBranchObj',);
-has Name        => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
-has Description => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
+has SupportId      => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has VendorId       => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'BizBranchObj',);
+has PrimaryContact => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'HrAssociateObj',);
+has Name           => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
+has Description    => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
 
 # AUTO-GENERATED HAS-A END
 

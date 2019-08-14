@@ -46,6 +46,7 @@ __PACKAGE__->table("app_menu_items_trees");
 
   accessor: 'depth'
   data_type: 'integer'
+  extra: {unsigned => 1}
   is_nullable: 0
 
 =cut
@@ -68,7 +69,12 @@ __PACKAGE__->add_columns(
     is_nullable    => 0,
   },
   "Depth",
-  { accessor => "depth", data_type => "integer", is_nullable => 0 },
+  {
+    accessor    => "depth",
+    data_type   => "integer",
+    extra       => { unsigned => 1 },
+    is_nullable => 0,
+  },
 );
 
 =head1 PRIMARY KEY
@@ -118,8 +124,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:52
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:K+0RIUVIJaZkV8VcB99/3g
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:PHxpZRB06PXFAsx93Sd7ig
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

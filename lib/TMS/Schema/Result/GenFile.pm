@@ -276,6 +276,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 hr_govidcards
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::HrGovidcard>
+
+=cut
+
+__PACKAGE__->has_many(
+  "hr_govidcards",
+  "TMS::Schema::Result::HrGovidcard",
+  { "foreign.Photo" => "self.FileId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 hr_hire_records
 
 Type: has_many
@@ -303,21 +318,6 @@ __PACKAGE__->has_many(
   "hr_payrates",
   "TMS::Schema::Result::HrPayrate",
   { "foreign.Agreement" => "self.FileId" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 hr_workauthorizations
-
-Type: has_many
-
-Related object: L<TMS::Schema::Result::HrWorkauthorization>
-
-=cut
-
-__PACKAGE__->has_many(
-  "hr_workauthorizations",
-  "TMS::Schema::Result::HrWorkauthorization",
-  { "foreign.Photo" => "self.FileId" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
@@ -351,6 +351,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 sft_vehicle_inspect_proofs
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::SftVehicleInspectProof>
+
+=cut
+
+__PACKAGE__->has_many(
+  "sft_vehicle_inspect_proofs",
+  "TMS::Schema::Result::SftVehicleInspectProof",
+  { "foreign.FileRef" => "self.FileId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 sft_vehicle_inspections
 
 Type: has_many
@@ -377,8 +392,8 @@ Composing rels: L</inv_equipment_docs> -> equipment
 __PACKAGE__->many_to_many("equipments", "inv_equipment_docs", "equipment");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:G94JHJuau4EadkgtwhSK0A
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6aTnr82Yq15N4Ko7iCCmKg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

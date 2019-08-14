@@ -25,13 +25,15 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has MenuItemId => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has MenuItemId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has ParentId   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'AppMenuItemObj',);
 has Label      => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
 has Title      => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
 has Icon       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has Enabled    => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Bool',);
+has Route      => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
+has Help       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
 has SortIndex  => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Float',);
+has Enabled    => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Bool',);
 
 # AUTO-GENERATED HAS-A END
 

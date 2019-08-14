@@ -91,7 +91,7 @@ __PACKAGE__->belongs_to(
   "permission",
   "TMS::Schema::Result::AppPermission",
   { PermissionId => "Permission" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 role
@@ -110,8 +110,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:52
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:iI2MEMGcUrwf/Q4D1xyHaQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:uxLGM3WDhL5jC++d0QIGZQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

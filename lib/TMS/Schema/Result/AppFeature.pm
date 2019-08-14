@@ -43,7 +43,15 @@ __PACKAGE__->table("app_features");
   accessor: 'name'
   data_type: 'varchar'
   is_nullable: 0
-  size: 45
+  size: 64
+
+=head2 Notes
+
+  accessor: 'notes'
+  data_type: 'text'
+  is_nullable: 1
+
+Dev Notes
 
 =cut
 
@@ -57,7 +65,9 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
   },
   "Name",
-  { accessor => "name", data_type => "varchar", is_nullable => 0, size => 45 },
+  { accessor => "name", data_type => "varchar", is_nullable => 0, size => 64 },
+  "Notes",
+  { accessor => "notes", data_type => "text", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -104,8 +114,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:52
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:8jSmry5M7oj1fl/b0Y1xhA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:uyygtvvxewUNNn+sJr5G6A
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

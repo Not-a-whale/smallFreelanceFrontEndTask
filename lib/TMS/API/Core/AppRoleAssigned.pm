@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::AppAccount;
 use TMS::API::Core::AppRole;
+use TMS::API::Core::AppAccount;
 use TMS::API::Core::HrAssociate;
 
 # AUTO-GENERATED DEPENDENCIES END
@@ -27,7 +27,7 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has RolePermitId     => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has RolePermitId     => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has AppAccountId     => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'AppAccountObj',);
 has RoleId           => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'AppRoleObj',);
 has ValidFrom        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'DATETIME',);

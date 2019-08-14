@@ -209,19 +209,19 @@ __PACKAGE__->set_primary_key("InvoicePaymentId");
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::EntPerson>
+Related object: L<TMS::Schema::Result::HrAssociate>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "created_by",
-  "TMS::Schema::Result::EntPerson",
-  { PrsnId => "CreatedBy" },
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "CreatedBy" },
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
   },
 );
 
@@ -252,7 +252,7 @@ __PACKAGE__->belongs_to(
   "invoice",
   "TMS::Schema::Result::FinInvoice",
   { InvoiceId => "InvoiceId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 payer
@@ -267,7 +267,7 @@ __PACKAGE__->belongs_to(
   "payer",
   "TMS::Schema::Result::Entity",
   { EntityId => "PayerId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 payment_method
@@ -282,7 +282,7 @@ __PACKAGE__->belongs_to(
   "payment_method",
   "TMS::Schema::Result::FinPaymentMethod",
   { PaymentMethodId => "PaymentMethodId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 transaction
@@ -297,7 +297,7 @@ __PACKAGE__->belongs_to(
   "transaction",
   "TMS::Schema::Result::FinTransaction",
   { TransactionId => "TransactionId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 invoice_items
@@ -311,8 +311,8 @@ Composing rels: L</fin_invoice_payment_items> -> invoice_item
 __PACKAGE__->many_to_many("invoice_items", "fin_invoice_payment_items", "invoice_item");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:uXl7EfkfwWtfMZ0MsEa06A
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:HzU0x+t1eBwxGYGzevDTVw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

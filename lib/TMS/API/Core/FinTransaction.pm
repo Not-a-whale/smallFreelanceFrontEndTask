@@ -12,10 +12,10 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::Job;
-use TMS::API::Core::EntPerson;
+use TMS::API::Core::HrAssociate;
 use TMS::API::Core::FinClass;
 use TMS::API::Core::FinTransactionType;
+use TMS::API::Core::FinJob;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -28,16 +28,16 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has TransactionId   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has TransactionId   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has TransactionType => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'FinTransactionTypeObj',);
 has RefNumber       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has JobId           => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'JobObj',);
-has CreatedBy       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EntPersonObj',);
+has JobId           => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'FinJobObj',);
+has CreatedBy       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'HrAssociateObj',);
 has DateCreated     => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 has DateTransaction => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 has Status          => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'EnumPending',);
-has Memo            => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
 has Class           => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'FinClassObj',);
+has Memo            => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
 
 # AUTO-GENERATED HAS-A END
 

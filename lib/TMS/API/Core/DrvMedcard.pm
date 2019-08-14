@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::DrvDriver;
 use TMS::API::Core::GenFile;
+use TMS::API::Core::DrvDriver;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -26,7 +26,7 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has MedCardId      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has MedCardId      => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has DriverId       => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'DrvDriverObj',);
 has Photo          => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'GenFileObj',);
 has ExpirationDate => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATE',);

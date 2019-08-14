@@ -95,9 +95,8 @@ Total amount to charge can be null if there is no limit to reach
 =head2 Comments
 
   accessor: 'comments'
-  data_type: 'varchar'
+  data_type: 'text'
   is_nullable: 1
-  size: 255
 
 =head2 ScheduleType
 
@@ -119,6 +118,7 @@ Total amount to charge can be null if there is no limit to reach
 
   accessor: 'period_day'
   data_type: 'integer'
+  extra: {unsigned => 1}
   is_nullable: 1
 
 =head2 Valid
@@ -126,7 +126,8 @@ Total amount to charge can be null if there is no limit to reach
   accessor: 'valid'
   data_type: 'tinyint'
   default_value: 1
-  is_nullable: 1
+  extra: {unsigned => 1}
+  is_nullable: 0
 
 =head2 CreatedBy
 
@@ -134,7 +135,7 @@ Total amount to charge can be null if there is no limit to reach
   data_type: 'bigint'
   extra: {unsigned => 1}
   is_foreign_key: 1
-  is_nullable: 1
+  is_nullable: 0
 
 =head2 DateCreated
 
@@ -208,12 +209,7 @@ __PACKAGE__->add_columns(
     size => [12, 2],
   },
   "Comments",
-  {
-    accessor => "comments",
-    data_type => "varchar",
-    is_nullable => 1,
-    size => 255,
-  },
+  { accessor => "comments", data_type => "text", is_nullable => 1 },
   "ScheduleType",
   {
     accessor      => "schedule_type",
@@ -243,13 +239,19 @@ __PACKAGE__->add_columns(
     is_nullable   => 1,
   },
   "PeriodDay",
-  { accessor => "period_day", data_type => "integer", is_nullable => 1 },
+  {
+    accessor    => "period_day",
+    data_type   => "integer",
+    extra       => { unsigned => 1 },
+    is_nullable => 1,
+  },
   "Valid",
   {
     accessor      => "valid",
     data_type     => "tinyint",
     default_value => 1,
-    is_nullable   => 1,
+    extra         => { unsigned => 1 },
+    is_nullable   => 0,
   },
   "CreatedBy",
   {
@@ -257,7 +259,7 @@ __PACKAGE__->add_columns(
     data_type      => "bigint",
     extra          => { unsigned => 1 },
     is_foreign_key => 1,
-    is_nullable    => 1,
+    is_nullable    => 0,
   },
   "DateCreated",
   {
@@ -287,20 +289,15 @@ __PACKAGE__->set_primary_key("SchedDeductionId");
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::EntPerson>
+Related object: L<TMS::Schema::Result::HrAssociate>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "created_by",
-  "TMS::Schema::Result::EntPerson",
-  { PrsnId => "CreatedBy" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
-  },
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "CreatedBy" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 entity
@@ -315,7 +312,7 @@ __PACKAGE__->belongs_to(
   "entity",
   "TMS::Schema::Result::Entity",
   { EntityId => "EntityId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 item_template
@@ -330,12 +327,12 @@ __PACKAGE__->belongs_to(
   "item_template",
   "TMS::Schema::Result::FinItemTemplate",
   { ItemTemplateId => "ItemTemplateId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:NqIY6qIzuPsVTDRwf0dbJw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cIy0JXgyoRwICLyBX4jWyg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

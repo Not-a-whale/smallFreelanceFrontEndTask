@@ -14,7 +14,6 @@ use Moose;
 # AUTO-GENERATED DEPENDENCIES START
 use TMS::API::Core::CmmPackage;
 use TMS::API::Core::HrAssociate;
-use TMS::API::Core::EntPerson;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -30,7 +29,7 @@ extends 'TMS::SchemaWrapper';
 has AssociateId       => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj',);
 has CommissionPackage => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'CmmPackageObj',);
 has DateAdded         => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TIMESTAMP',);
-has AddedBy           => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'EntPersonObj',);
+has AddedBy           => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj',);
 
 # AUTO-GENERATED HAS-A END
 

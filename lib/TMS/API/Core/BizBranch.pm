@@ -13,8 +13,8 @@ use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
 use TMS::API::Core::CntPhonesfax;
-use TMS::API::Core::CntAddress;
 use TMS::API::Core::EntBusiness;
+use TMS::API::Core::CntAddress;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -27,7 +27,7 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has BrnchId      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has BrnchId      => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has OfficeName   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
 has BizId        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'EntBusinessObj',);
 has BrnchAddress => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'CntAddressObj',);

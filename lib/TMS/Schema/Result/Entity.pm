@@ -39,6 +39,7 @@ __PACKAGE__->table("entities");
   accessor: 'is_active'
   data_type: 'tinyint'
   default_value: 1
+  extra: {unsigned => 1}
   is_nullable: 0
 
 Boolean
@@ -89,6 +90,7 @@ __PACKAGE__->add_columns(
     accessor      => "is_active",
     data_type     => "tinyint",
     default_value => 1,
+    extra         => { unsigned => 1 },
     is_nullable   => 0,
   },
   "DateCreated",
@@ -148,24 +150,9 @@ __PACKAGE__->belongs_to(
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "CASCADE",
+    on_delete     => "RESTRICT",
     on_update     => "CASCADE",
   },
-);
-
-=head2 dsp_blacklists
-
-Type: has_many
-
-Related object: L<TMS::Schema::Result::DspBlacklist>
-
-=cut
-
-__PACKAGE__->has_many(
-  "dsp_blacklists",
-  "TMS::Schema::Result::DspBlacklist",
-  { "foreign.EntityId" => "self.EntityId" },
-  { cascade_copy => 0, cascade_delete => 0 },
 );
 
 =head2 fin_billing_infos
@@ -210,21 +197,6 @@ __PACKAGE__->has_many(
   "fin_cheques_payers",
   "TMS::Schema::Result::FinCheque",
   { "foreign.Payer" => "self.EntityId" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 fin_customer
-
-Type: might_have
-
-Related object: L<TMS::Schema::Result::FinCustomer>
-
-=cut
-
-__PACKAGE__->might_have(
-  "fin_customer",
-  "TMS::Schema::Result::FinCustomer",
-  { "foreign.EntityId" => "self.EntityId" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
@@ -318,21 +290,6 @@ __PACKAGE__->might_have(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 fin_vendor
-
-Type: might_have
-
-Related object: L<TMS::Schema::Result::FinVendor>
-
-=cut
-
-__PACKAGE__->might_have(
-  "fin_vendor",
-  "TMS::Schema::Result::FinVendor",
-  { "foreign.EntityId" => "self.EntityId" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 ins_to_entities
 
 Type: has_many
@@ -345,21 +302,6 @@ __PACKAGE__->has_many(
   "ins_to_entities",
   "TMS::Schema::Result::InsToEntity",
   { "foreign.EntityId" => "self.EntityId" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 inv_equipments
-
-Type: has_many
-
-Related object: L<TMS::Schema::Result::InvEquipment>
-
-=cut
-
-__PACKAGE__->has_many(
-  "inv_equipments",
-  "TMS::Schema::Result::InvEquipment",
-  { "foreign.OwnerId" => "self.EntityId" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
@@ -378,14 +320,14 @@ __PACKAGE__->belongs_to(
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "CASCADE",
+    on_delete     => "RESTRICT",
     on_update     => "CASCADE",
   },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:xKGZ8XH4KVHteoTAmIQfVA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1+i5tyUcPGKa8QsJbKhBPQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

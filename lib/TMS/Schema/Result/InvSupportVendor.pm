@@ -41,6 +41,14 @@ __PACKAGE__->table("inv_support_vendors");
   is_foreign_key: 1
   is_nullable: 0
 
+=head2 PrimaryContact
+
+  accessor: 'primary_contact'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_foreign_key: 1
+  is_nullable: 1
+
 =head2 Name
 
   accessor: 'name'
@@ -71,6 +79,14 @@ __PACKAGE__->add_columns(
     extra          => { unsigned => 1 },
     is_foreign_key => 1,
     is_nullable    => 0,
+  },
+  "PrimaryContact",
+  {
+    accessor       => "primary_contact",
+    data_type      => "bigint",
+    extra          => { unsigned => 1 },
+    is_foreign_key => 1,
+    is_nullable    => 1,
   },
   "Name",
   { accessor => "name", data_type => "varchar", is_nullable => 0, size => 255 },
@@ -107,6 +123,26 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 primary_contact
+
+Type: belongs_to
+
+Related object: L<TMS::Schema::Result::HrAssociate>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "primary_contact",
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "PrimaryContact" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
+  },
+);
+
 =head2 vendor
 
 Type: belongs_to
@@ -133,8 +169,8 @@ Composing rels: L</inv_equipments_to_support> -> equipment
 __PACKAGE__->many_to_many("equipments", "inv_equipments_to_support", "equipment");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ZtndD+ZnSwZMhM+G8aaf1g
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:e3A3IsnwnzyOnW499HXb2Q
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

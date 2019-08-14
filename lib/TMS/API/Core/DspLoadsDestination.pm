@@ -14,7 +14,6 @@ use Moose;
 # AUTO-GENERATED DEPENDENCIES START
 use TMS::API::Core::DspLoad;
 use TMS::API::Core::BizBranch;
-use TMS::API::Core::CntAddress;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -27,8 +26,7 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has DestinationId    => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has AddressId        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'CntAddressObj',);
+has DestinationId    => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has LoadId           => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'DspLoadObj',);
 has PU_PO            => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
 has Commodity        => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);

@@ -38,9 +38,9 @@ __PACKAGE__->table("dsp_blacklist");
   is_auto_increment: 1
   is_nullable: 0
 
-=head2 EntityId
+=head2 CstmrId
 
-  accessor: 'entity_id'
+  accessor: 'cstmr_id'
   data_type: 'bigint'
   extra: {unsigned => 1}
   is_foreign_key: 1
@@ -73,14 +73,6 @@ __PACKAGE__->table("dsp_blacklist");
   data_type: 'text'
   is_nullable: 1
 
-=head2 JobId
-
-  accessor: 'job_id'
-  data_type: 'bigint'
-  extra: {unsigned => 1}
-  is_foreign_key: 1
-  is_nullable: 1
-
 =cut
 
 __PACKAGE__->add_columns(
@@ -92,9 +84,9 @@ __PACKAGE__->add_columns(
     is_auto_increment => 1,
     is_nullable => 0,
   },
-  "EntityId",
+  "CstmrId",
   {
-    accessor       => "entity_id",
+    accessor       => "cstmr_id",
     data_type      => "bigint",
     extra          => { unsigned => 1 },
     is_foreign_key => 1,
@@ -119,14 +111,6 @@ __PACKAGE__->add_columns(
   { accessor => "reason_public", data_type => "text", is_nullable => 0 },
   "ReasonPrivate",
   { accessor => "reason_private", data_type => "text", is_nullable => 1 },
-  "JobId",
-  {
-    accessor       => "job_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
 );
 
 =head1 PRIMARY KEY
@@ -147,55 +131,35 @@ __PACKAGE__->set_primary_key("BlackListId");
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::EntPerson>
+Related object: L<TMS::Schema::Result::HrAssociate>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "creator",
-  "TMS::Schema::Result::EntPerson",
-  { PrsnId => "Creator" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "Creator" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
-=head2 entity
+=head2 cstmr
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::Entity>
+Related object: L<TMS::Schema::Result::EntCustomer>
 
 =cut
 
 __PACKAGE__->belongs_to(
-  "entity",
-  "TMS::Schema::Result::Entity",
-  { EntityId => "EntityId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
-);
-
-=head2 job
-
-Type: belongs_to
-
-Related object: L<TMS::Schema::Result::Job>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "job",
-  "TMS::Schema::Result::Job",
-  { JobId => "JobId" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
-  },
+  "cstmr",
+  "TMS::Schema::Result::EntCustomer",
+  { CstmrId => "CstmrId" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:mdl+lv+CpuPJj7tIB9GLOA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:TEQ6VkXwa9JGCjTq2Y83/w
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

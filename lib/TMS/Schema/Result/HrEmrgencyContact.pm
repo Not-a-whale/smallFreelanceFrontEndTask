@@ -42,9 +42,16 @@ __PACKAGE__->table("hr_emrgency_contacts");
   is_foreign_key: 1
   is_nullable: 0
 
-=head2 EmrPhone
+=head2 ContactName
 
-  accessor: 'emr_phone'
+  accessor: 'contact_name'
+  data_type: 'varchar'
+  is_nullable: 0
+  size: 255
+
+=head2 ContactPhone
+
+  accessor: 'contact_phone'
   data_type: 'bigint'
   extra: {unsigned => 1}
   is_foreign_key: 1
@@ -54,7 +61,7 @@ __PACKAGE__->table("hr_emrgency_contacts");
 
   accessor: 'relationship'
   data_type: 'varchar'
-  is_nullable: 1
+  is_nullable: 0
   size: 255
 
 =head2 Effective
@@ -62,14 +69,14 @@ __PACKAGE__->table("hr_emrgency_contacts");
   accessor: 'effective'
   data_type: 'datetime'
   datetime_undef_if_invalid: 1
-  is_nullable: 1
+  is_nullable: 0
 
 =head2 Expired
 
   accessor: 'expired'
   data_type: 'datetime'
   datetime_undef_if_invalid: 1
-  is_nullable: 1
+  is_nullable: 0
 
 =head2 Notes
 
@@ -96,9 +103,16 @@ __PACKAGE__->add_columns(
     is_foreign_key => 1,
     is_nullable    => 0,
   },
-  "EmrPhone",
+  "ContactName",
   {
-    accessor       => "emr_phone",
+    accessor => "contact_name",
+    data_type => "varchar",
+    is_nullable => 0,
+    size => 255,
+  },
+  "ContactPhone",
+  {
+    accessor       => "contact_phone",
     data_type      => "bigint",
     extra          => { unsigned => 1 },
     is_foreign_key => 1,
@@ -108,7 +122,7 @@ __PACKAGE__->add_columns(
   {
     accessor => "relationship",
     data_type => "varchar",
-    is_nullable => 1,
+    is_nullable => 0,
     size => 255,
   },
   "Effective",
@@ -116,14 +130,14 @@ __PACKAGE__->add_columns(
     accessor => "effective",
     data_type => "datetime",
     datetime_undef_if_invalid => 1,
-    is_nullable => 1,
+    is_nullable => 0,
   },
   "Expired",
   {
     accessor => "expired",
     data_type => "datetime",
     datetime_undef_if_invalid => 1,
-    is_nullable => 1,
+    is_nullable => 0,
   },
   "Notes",
   { accessor => "notes", data_type => "text", is_nullable => 1 },
@@ -158,7 +172,7 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
-=head2 emr_phone
+=head2 contact_phone
 
 Type: belongs_to
 
@@ -167,15 +181,15 @@ Related object: L<TMS::Schema::Result::CntPhonesfax>
 =cut
 
 __PACKAGE__->belongs_to(
-  "emr_phone",
+  "contact_phone",
   "TMS::Schema::Result::CntPhonesfax",
-  { PhnFaxId => "EmrPhone" },
+  { PhnFaxId => "ContactPhone" },
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ld8aQRiJxUrBZd85nvaEOQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:UntDvUm6MRjIWDmeqP9svQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

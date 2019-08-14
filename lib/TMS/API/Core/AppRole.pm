@@ -12,7 +12,7 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::EntPerson;
+use TMS::API::Core::HrAssociate;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -25,13 +25,13 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has RoleId      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has RoleId      => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has RoleName    => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
 has Description => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
 has UserDefined => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Bool',);
 has Editable    => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Bool',);
-has CreatedBy   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EntPersonObj',);
-has UpdatedBy   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EntPersonObj',);
+has CreatedBy   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'HrAssociateObj',);
+has UpdatedBy   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'HrAssociateObj',);
 has DateCreated => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 has DateUpdated => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 

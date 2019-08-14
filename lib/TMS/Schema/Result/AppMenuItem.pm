@@ -47,36 +47,50 @@ __PACKAGE__->table("app_menu_items");
   accessor: 'label'
   data_type: 'varchar'
   is_nullable: 0
-  size: 255
+  size: 32
 
 =head2 Title
 
   accessor: 'title'
   data_type: 'varchar'
   is_nullable: 1
-  size: 255
+  size: 1024
 
 =head2 Icon
 
   accessor: 'icon'
   data_type: 'varchar'
   is_nullable: 1
-  size: 255
+  size: 1024
 
-=head2 Enabled
+=head2 Route
 
-  accessor: 'enabled'
-  data_type: 'tinyint'
-  default_value: 1
+  accessor: 'route'
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 1024
+
+=head2 Help
+
+  accessor: 'help'
+  data_type: 'text'
   is_nullable: 1
 
 =head2 SortIndex
 
   accessor: 'sort_index'
   data_type: 'decimal'
-  default_value: 0.00
+  default_value: 0.000
   is_nullable: 1
-  size: [10,2]
+  size: [6,3]
+
+=head2 Enabled
+
+  accessor: 'enabled'
+  data_type: 'tinyint'
+  default_value: 1
+  extra: {unsigned => 1}
+  is_nullable: 1
 
 =cut
 
@@ -98,25 +112,30 @@ __PACKAGE__->add_columns(
     is_nullable    => 1,
   },
   "Label",
-  { accessor => "label", data_type => "varchar", is_nullable => 0, size => 255 },
+  { accessor => "label", data_type => "varchar", is_nullable => 0, size => 32 },
   "Title",
-  { accessor => "title", data_type => "varchar", is_nullable => 1, size => 255 },
+  { accessor => "title", data_type => "varchar", is_nullable => 1, size => 1024 },
   "Icon",
-  { accessor => "icon", data_type => "varchar", is_nullable => 1, size => 255 },
+  { accessor => "icon", data_type => "varchar", is_nullable => 1, size => 1024 },
+  "Route",
+  { accessor => "route", data_type => "varchar", is_nullable => 1, size => 1024 },
+  "Help",
+  { accessor => "help", data_type => "text", is_nullable => 1 },
+  "SortIndex",
+  {
+    accessor => "sort_index",
+    data_type => "decimal",
+    default_value => "0.000",
+    is_nullable => 1,
+    size => [6, 3],
+  },
   "Enabled",
   {
     accessor      => "enabled",
     data_type     => "tinyint",
     default_value => 1,
+    extra         => { unsigned => 1 },
     is_nullable   => 1,
-  },
-  "SortIndex",
-  {
-    accessor => "sort_index",
-    data_type => "decimal",
-    default_value => "0.00",
-    is_nullable => 1,
-    size => [10, 2],
   },
 );
 
@@ -147,21 +166,6 @@ __PACKAGE__->set_primary_key("MenuItemId");
 __PACKAGE__->add_unique_constraint("Label_UNIQUE", ["Label"]);
 
 =head1 RELATIONS
-
-=head2 app_menu_actions
-
-Type: has_many
-
-Related object: L<TMS::Schema::Result::AppMenuAction>
-
-=cut
-
-__PACKAGE__->has_many(
-  "app_menu_actions",
-  "TMS::Schema::Result::AppMenuAction",
-  { "foreign.MenuItemId" => "self.MenuItemId" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 app_menu_items
 
@@ -238,14 +242,14 @@ __PACKAGE__->belongs_to(
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
+    on_delete     => "RESTRICT",
     on_update     => "CASCADE",
   },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:52
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:JR7hsx4jH74PZaVIRCoM9w
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1zwQXhy7blZQctFXDD23EA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

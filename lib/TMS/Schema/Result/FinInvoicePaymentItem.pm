@@ -91,7 +91,7 @@ __PACKAGE__->belongs_to(
   "invoice_item",
   "TMS::Schema::Result::FinInvoicesItem",
   { InvoiceItemId => "InvoiceItemId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 invoice_payment
@@ -106,12 +106,12 @@ __PACKAGE__->belongs_to(
   "invoice_payment",
   "TMS::Schema::Result::FinInvoicePayment",
   { InvoicePaymentId => "InvoicePaymentId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:fVp07jml2h/qzcmsQ36qwQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5p119DpGZhMtX7MhDMd/YQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

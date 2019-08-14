@@ -39,7 +39,7 @@ __PACKAGE__->table("fin_item_templates_types");
   accessor: 'name'
   data_type: 'varchar'
   is_nullable: 0
-  size: 45
+  size: 1024
 
 =head2 UserDefined
 
@@ -60,9 +60,8 @@ __PACKAGE__->table("fin_item_templates_types");
 =head2 Description
 
   accessor: 'description'
-  data_type: 'varchar'
+  data_type: 'text'
   is_nullable: 0
-  size: 128
 
 =cut
 
@@ -76,7 +75,7 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
   },
   "Name",
-  { accessor => "name", data_type => "varchar", is_nullable => 0, size => 45 },
+  { accessor => "name", data_type => "varchar", is_nullable => 0, size => 1024 },
   "UserDefined",
   {
     accessor      => "user_defined",
@@ -94,12 +93,7 @@ __PACKAGE__->add_columns(
     is_nullable   => 0,
   },
   "Description",
-  {
-    accessor => "description",
-    data_type => "varchar",
-    is_nullable => 0,
-    size => 128,
-  },
+  { accessor => "description", data_type => "text", is_nullable => 0 },
 );
 
 =head1 PRIMARY KEY
@@ -132,8 +126,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:wiT/UzrFeVfxKNAu1dRUUA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9lUjkYTL0KBkcqsW1USWEQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

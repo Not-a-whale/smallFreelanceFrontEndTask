@@ -270,34 +270,41 @@ subtype 'CurrencyValue',
 
 coerce 'CurrencyValue',
     from 'Str',
-    via {
-        $_ =~ s/[^\d\.\-\(\)]//g;
+        via {
+            $_ =~ s/[^\d\.\-\(\)]//g;
 
-        my $isnegative = ( $_ =~ m/-(.*)/ ) ? 1 : 0;
-        my $value = ( $isnegative ? $1 : undef )
-        || $_;    #because perl reuses $1 for regex and subroutine names
+            my $isnegative = ( $_ =~ m/-(.*)/ ) ? 1 : 0;
+            my $value = ( $isnegative ? $1 : undef )
+            || $_;    #because perl reuses $1 for regex and subroutine names
 
-        $isnegative = ( $_ =~ m/\((.*)\)/ ) ? 1 : 0 || $isnegative;
-        $value = ( $isnegative ? $1 : undef )
-        || $value;    #because perl reuses $1 for regex and subroutine names
+            $isnegative = ( $_ =~ m/\((.*)\)/ ) ? 1 : 0 || $isnegative;
+            $value = ( $isnegative ? $1 : undef )
+            || $value;    #because perl reuses $1 for regex and subroutine names
 
-        my $sign = $isnegative ? '-' : '';
-        $value =~ m/(\d*(?:\.\d*)?)/;
-        my $number = $1 || 0;
+            my $sign = $isnegative ? '-' : '';
+            $value =~ m/(\d*(?:\.\d*)?)/;
+            my $number = $1 || 0;
 
-        return sprintf( '%s%0.2f', ( $sign, $number ) );
-    };
+            return sprintf( '%s%0.2f', ( $sign, $number ) );
+        };
 
 # ............................................................................
 subtype 'PhoneNumber',
-    as 'PositiveInt',
+    as 'Str',
     where {
-        $_ =~ /\d{7}|\d{10,11}/;
+        $_ =~ /^\d{3}\-\d{3}\-\d{4}$/;
     },
     message {
-        "Phone Number must be 7, 10, or 11 digits long and contain only"
-        . " 0-9 characters. You have '$_'"
+        "Phone Number must be in format 000-000-0000. You have '$_'"
     };
+
+coerce 'PhoneNumber',
+    from 'Str',
+        via {
+            $_ =~ s/\D+//g;
+            $_ =~ s/.*?(\d{3})(\d{3})(\d{4})$/$1\-$2\-$3/;
+            return $_;
+        };
 
 # ............................................................................
 subtype 'VIN',

@@ -12,9 +12,9 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::Entity;
-use TMS::API::Core::FinBillingTag;
 use TMS::API::Core::CntPhonesfax;
+use TMS::API::Core::FinBillingTag;
+use TMS::API::Core::Entity;
 use TMS::API::Core::CntAddress;
 
 # AUTO-GENERATED DEPENDENCIES END
@@ -28,7 +28,7 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has BillingId       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has BillingId       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has EntityId        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'EntityObj',);
 has PayToTheOrderOf => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
 has ContactName     => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);

@@ -66,10 +66,9 @@ __PACKAGE__->table("hr_govidcards");
 =head2 CardSate
 
   accessor: 'card_sate'
-  data_type: 'bigint'
-  extra: {unsigned => 1}
-  is_foreign_key: 1
+  data_type: 'char'
   is_nullable: 0
+  size: 2
 
 =head2 CardType
 
@@ -77,6 +76,22 @@ __PACKAGE__->table("hr_govidcards");
   data_type: 'varchar'
   is_nullable: 0
   size: 255
+
+=head2 Photo
+
+  accessor: 'photo'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_foreign_key: 1
+  is_nullable: 1
+
+=head2 AddedBy
+
+  accessor: 'added_by'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_foreign_key: 1
+  is_nullable: 0
 
 =cut
 
@@ -119,19 +134,29 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
   },
   "CardSate",
-  {
-    accessor       => "card_sate",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
+  { accessor => "card_sate", data_type => "char", is_nullable => 0, size => 2 },
   "CardType",
   {
     accessor => "card_type",
     data_type => "varchar",
     is_nullable => 0,
     size => 255,
+  },
+  "Photo",
+  {
+    accessor       => "photo",
+    data_type      => "bigint",
+    extra          => { unsigned => 1 },
+    is_foreign_key => 1,
+    is_nullable    => 1,
+  },
+  "AddedBy",
+  {
+    accessor       => "added_by",
+    data_type      => "bigint",
+    extra          => { unsigned => 1 },
+    is_foreign_key => 1,
+    is_nullable    => 0,
   },
 );
 
@@ -149,6 +174,21 @@ __PACKAGE__->set_primary_key("CardId");
 
 =head1 RELATIONS
 
+=head2 added_by
+
+Type: belongs_to
+
+Related object: L<TMS::Schema::Result::HrAssociate>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "added_by",
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "AddedBy" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+);
+
 =head2 ast
 
 Type: belongs_to
@@ -164,24 +204,44 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
-=head2 card_sate
+=head2 hr_hire_records
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::HrHireRecord>
+
+=cut
+
+__PACKAGE__->has_many(
+  "hr_hire_records",
+  "TMS::Schema::Result::HrHireRecord",
+  { "foreign.EmploymentAuthorization" => "self.CardId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 photo
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::CntState>
+Related object: L<TMS::Schema::Result::GenFile>
 
 =cut
 
 __PACKAGE__->belongs_to(
-  "card_sate",
-  "TMS::Schema::Result::CntState",
-  { StateId => "CardSate" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+  "photo",
+  "TMS::Schema::Result::GenFile",
+  { FileId => "Photo" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
+  },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:oXx4bTYTvOsNDCb3pr3mfg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:EDnAKyhzKwMzDb52nDU+dg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

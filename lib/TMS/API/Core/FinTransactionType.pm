@@ -24,7 +24,7 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has TransTypeId   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has TransTypeId   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has TransTypeName => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
 
 # AUTO-GENERATED HAS-A END

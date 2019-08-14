@@ -47,6 +47,7 @@ __PACKAGE__->table("sft_log_entries");
   accessor: 'location'
   data_type: 'bigint'
   extra: {unsigned => 1}
+  is_foreign_key: 1
   is_nullable: 1
 
 =head2 StartTime
@@ -62,6 +63,14 @@ __PACKAGE__->table("sft_log_entries");
   accessor: 'activity'
   data_type: 'enum'
   extra: {list => ["ON DUTY","OFF DUTY","DRIVING","SLEEPING"]}
+  is_nullable: 0
+
+=head2 DriverId
+
+  accessor: 'driver_id'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_foreign_key: 1
   is_nullable: 0
 
 =cut
@@ -85,10 +94,11 @@ __PACKAGE__->add_columns(
   },
   "Location",
   {
-    accessor    => "location",
-    data_type   => "bigint",
-    extra       => { unsigned => 1 },
-    is_nullable => 1,
+    accessor       => "location",
+    data_type      => "bigint",
+    extra          => { unsigned => 1 },
+    is_foreign_key => 1,
+    is_nullable    => 1,
   },
   "StartTime",
   {
@@ -104,6 +114,14 @@ __PACKAGE__->add_columns(
     data_type   => "enum",
     extra       => { list => ["ON DUTY", "OFF DUTY", "DRIVING", "SLEEPING"] },
     is_nullable => 0,
+  },
+  "DriverId",
+  {
+    accessor       => "driver_id",
+    data_type      => "bigint",
+    extra          => { unsigned => 1 },
+    is_foreign_key => 1,
+    is_nullable    => 0,
   },
 );
 
@@ -121,6 +139,41 @@ __PACKAGE__->set_primary_key("LogbookEntryId");
 
 =head1 RELATIONS
 
+=head2 driver
+
+Type: belongs_to
+
+Related object: L<TMS::Schema::Result::DrvDriver>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "driver",
+  "TMS::Schema::Result::DrvDriver",
+  { DriverId => "DriverId" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+);
+
+=head2 location
+
+Type: belongs_to
+
+Related object: L<TMS::Schema::Result::SftElogStat>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "location",
+  "TMS::Schema::Result::SftElogStat",
+  { GpsReqId => "Location" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
+  },
+);
+
 =head2 logbook
 
 Type: belongs_to
@@ -137,8 +190,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:LPGyho6qYaOEnh02VmUw5A
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:wu3ZXrqB2Cv2vt7WHGf4pg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

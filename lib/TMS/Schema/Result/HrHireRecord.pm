@@ -78,6 +78,14 @@ __PACKAGE__->table("hr_hire_records");
   is_foreign_key: 1
   is_nullable: 1
 
+=head2 EmploymentAuthorization
+
+  accessor: 'employment_authorization'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_foreign_key: 1
+  is_nullable: 0
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -128,6 +136,14 @@ __PACKAGE__->add_columns(
     is_foreign_key => 1,
     is_nullable    => 1,
   },
+  "EmploymentAuthorization",
+  {
+    accessor       => "employment_authorization",
+    data_type      => "bigint",
+    extra          => { unsigned => 1 },
+    is_foreign_key => 1,
+    is_nullable    => 0,
+  },
 );
 
 =head1 PRIMARY KEY
@@ -159,6 +175,21 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
+=head2 employment_authorization
+
+Type: belongs_to
+
+Related object: L<TMS::Schema::Result::HrGovidcard>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "employment_authorization",
+  "TMS::Schema::Result::HrGovidcard",
+  { CardId => "EmploymentAuthorization" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+);
+
 =head2 photo
 
 Type: belongs_to
@@ -180,8 +211,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:DqYKrFea/KAZ1WAnxuo5yA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:w2js5PgC1DbIX+glG8sKdQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

@@ -12,9 +12,9 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::InvEquipment;
-use TMS::API::Core::EntCarrier;
 use TMS::API::Core::InvTiresize;
+use TMS::API::Core::EntCarrier;
+use TMS::API::Core::InvEquipment;
 
 # AUTO-GENERATED DEPENDENCIES END
 

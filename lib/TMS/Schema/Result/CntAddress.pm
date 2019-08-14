@@ -68,20 +68,27 @@ Street
   is_nullable: 0
   size: 64
 
-=head2 State
-
-  accessor: 'state'
-  data_type: 'bigint'
-  extra: {unsigned => 1}
-  is_foreign_key: 1
-  is_nullable: 0
-
 =head2 Zip
 
   accessor: 'zip'
   data_type: 'char'
   is_nullable: 0
   size: 11
+
+=head2 State
+
+  accessor: 'state'
+  data_type: 'char'
+  is_nullable: 0
+  size: 2
+
+=head2 Country
+
+  accessor: 'country'
+  data_type: 'varchar'
+  default_value: 'USA'
+  is_nullable: 0
+  size: 255
 
 =head2 GpsLng
 
@@ -132,16 +139,18 @@ __PACKAGE__->add_columns(
   },
   "City",
   { accessor => "city", data_type => "varchar", is_nullable => 0, size => 64 },
-  "State",
-  {
-    accessor       => "state",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
   "Zip",
   { accessor => "zip", data_type => "char", is_nullable => 0, size => 11 },
+  "State",
+  { accessor => "state", data_type => "char", is_nullable => 0, size => 2 },
+  "Country",
+  {
+    accessor => "country",
+    data_type => "varchar",
+    default_value => "USA",
+    is_nullable => 0,
+    size => 255,
+  },
   "GpsLng",
   {
     accessor    => "gps_lng",
@@ -176,15 +185,17 @@ __PACKAGE__->set_primary_key("AddrId");
 
 =over 4
 
-=item * L</Street1>
-
-=item * L</Street2>
-
-=item * L</City>
+=item * L</Country>
 
 =item * L</State>
 
 =item * L</Zip>
+
+=item * L</City>
+
+=item * L</Street1>
+
+=item * L</Street2>
 
 =item * L</Street3>
 
@@ -194,7 +205,7 @@ __PACKAGE__->set_primary_key("AddrId");
 
 __PACKAGE__->add_unique_constraint(
   "UnqAddr",
-  ["Street1", "Street2", "City", "State", "Zip", "Street3"],
+  ["Country", "State", "Zip", "City", "Street1", "Street2", "Street3"],
 );
 
 =head1 RELATIONS
@@ -211,21 +222,6 @@ __PACKAGE__->has_many(
   "biz_branches",
   "TMS::Schema::Result::BizBranch",
   { "foreign.BrnchAddress" => "self.AddrId" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 dsp_loads_destinations
-
-Type: has_many
-
-Related object: L<TMS::Schema::Result::DspLoadsDestination>
-
-=cut
-
-__PACKAGE__->has_many(
-  "dsp_loads_destinations",
-  "TMS::Schema::Result::DspLoadsDestination",
-  { "foreign.AddressId" => "self.AddrId" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
@@ -274,24 +270,9 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 state
 
-Type: belongs_to
-
-Related object: L<TMS::Schema::Result::CntState>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "state",
-  "TMS::Schema::Result::CntState",
-  { StateId => "State" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:nYU/myDzO0Osxf1c/eXGkw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:W17MFqV5B2BaFHnBVlg0cA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

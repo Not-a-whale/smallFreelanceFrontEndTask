@@ -243,7 +243,7 @@ Related object: L<TMS::Schema::Result::HrEmrgencyContact>
 __PACKAGE__->has_many(
   "hr_emrgency_contacts",
   "TMS::Schema::Result::HrEmrgencyContact",
-  { "foreign.EmrPhone" => "self.PhnFaxId" },
+  { "foreign.ContactPhone" => "self.PhnFaxId" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
@@ -278,8 +278,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:X1148C1oBlqt8UQKRHdzyw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:JQ9QkapufTyuQA65HhIKag
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

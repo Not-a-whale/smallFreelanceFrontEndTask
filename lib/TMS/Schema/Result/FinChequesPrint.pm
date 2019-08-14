@@ -93,27 +93,27 @@ __PACKAGE__->belongs_to(
   "cheque",
   "TMS::Schema::Result::FinCheque",
   { ChequeId => "ChequeId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 printed_by
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::EntPerson>
+Related object: L<TMS::Schema::Result::HrAssociate>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "printed_by",
-  "TMS::Schema::Result::EntPerson",
-  { PrsnId => "PrintedBy" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "PrintedBy" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:c3f7Y+5AJTCrQFM3a4f9WA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:iPPAXNocMSjbURQuKs6Xvw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

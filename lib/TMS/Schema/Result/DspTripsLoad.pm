@@ -42,17 +42,17 @@ __PACKAGE__->table("dsp_trips_loads");
   is_foreign_key: 1
   is_nullable: 0
 
-=head2 DateAdded
+=head2 DateDispatched
 
-  accessor: 'date_added'
+  accessor: 'date_dispatched'
   data_type: 'datetime'
   datetime_undef_if_invalid: 1
   default_value: 'CURRENT_TIMESTAMP'
   is_nullable: 0
 
-=head2 AddedBy
+=head2 LoadDispatcher
 
-  accessor: 'added_by'
+  accessor: 'load_dispatcher'
   data_type: 'bigint'
   extra: {unsigned => 1}
   is_foreign_key: 1
@@ -77,17 +77,17 @@ __PACKAGE__->add_columns(
     is_foreign_key => 1,
     is_nullable    => 0,
   },
-  "DateAdded",
+  "DateDispatched",
   {
-    accessor => "date_added",
+    accessor => "date_dispatched",
     data_type => "datetime",
     datetime_undef_if_invalid => 1,
     default_value => "CURRENT_TIMESTAMP",
     is_nullable => 0,
   },
-  "AddedBy",
+  "LoadDispatcher",
   {
-    accessor       => "added_by",
+    accessor       => "load_dispatcher",
     data_type      => "bigint",
     extra          => { unsigned => 1 },
     is_foreign_key => 1,
@@ -111,21 +111,6 @@ __PACKAGE__->set_primary_key("TripId", "LoadId");
 
 =head1 RELATIONS
 
-=head2 added_by
-
-Type: belongs_to
-
-Related object: L<TMS::Schema::Result::EntPerson>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "added_by",
-  "TMS::Schema::Result::EntPerson",
-  { PrsnId => "AddedBy" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
-);
-
 =head2 load
 
 Type: belongs_to
@@ -138,6 +123,21 @@ __PACKAGE__->belongs_to(
   "load",
   "TMS::Schema::Result::DspLoad",
   { LoadId => "LoadId" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+);
+
+=head2 load_dispatcher
+
+Type: belongs_to
+
+Related object: L<TMS::Schema::Result::HrAssociate>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "load_dispatcher",
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "LoadDispatcher" },
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
@@ -157,8 +157,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:VOikY8EZTEvar9CdOokyxA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:262yUa5OWshucR2PMEm26w
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

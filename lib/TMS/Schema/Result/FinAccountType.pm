@@ -39,7 +39,7 @@ __PACKAGE__->table("fin_account_types");
   accessor: 'name'
   data_type: 'varchar'
   is_nullable: 0
-  size: 45
+  size: 255
 
 =head2 ParentId
 
@@ -54,40 +54,47 @@ __PACKAGE__->table("fin_account_types");
   accessor: 'editable'
   data_type: 'tinyint'
   default_value: 1
+  extra: {unsigned => 1}
   is_nullable: 1
 
 =head2 Valid
 
   accessor: 'valid'
   data_type: 'tinyint'
-  is_nullable: 1
+  default_value: 0
+  extra: {unsigned => 1}
+  is_nullable: 0
 
 =head2 UserDefined
 
   accessor: 'user_defined'
   data_type: 'tinyint'
   default_value: 1
+  extra: {unsigned => 1}
   is_nullable: 1
 
 =head2 Debit
 
   accessor: 'debit'
-  data_type: 'integer'
-  default_value: 1
+  data_type: 'decimal'
+  default_value: 1.00
   is_nullable: 0
+  size: [12,2]
 
 =head2 Credit
 
   accessor: 'credit'
-  data_type: 'integer'
-  default_value: -1
+  data_type: 'decimal'
+  default_value: -1.00
   is_nullable: 0
+  size: [12,2]
 
 =head2 Temp
 
   accessor: 'temp'
   data_type: 'tinyint'
   default_value: 0
+  extra: {unsigned => 1}
   is_nullable: 1
 
 =head2 DisplayOrder
@@ -124,7 +131,7 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
   },
   "Name",
-  { accessor => "name", data_type => "varchar", is_nullable => 0, size => 45 },
+  { accessor => "name", data_type => "varchar", is_nullable => 0, size => 255 },
   "ParentId",
   {
     accessor       => "parent_id",
@@ -138,36 +145,47 @@ __PACKAGE__->add_columns(
     accessor      => "editable",
     data_type     => "tinyint",
     default_value => 1,
+    extra         => { unsigned => 1 },
     is_nullable   => 1,
   },
   "Valid",
-  { accessor => "valid", data_type => "tinyint", is_nullable => 1 },
+  {
+    accessor      => "valid",
+    data_type     => "tinyint",
+    default_value => 0,
+    extra         => { unsigned => 1 },
+    is_nullable   => 0,
+  },
   "UserDefined",
   {
     accessor      => "user_defined",
     data_type     => "tinyint",
     default_value => 1,
+    extra         => { unsigned => 1 },
     is_nullable   => 1,
   },
   "Debit",
   {
-    accessor      => "debit",
-    data_type     => "integer",
-    default_value => 1,
-    is_nullable   => 0,
+    accessor => "debit",
+    data_type => "decimal",
+    default_value => "1.00",
+    is_nullable => 0,
+    size => [12, 2],
   },
   "Credit",
   {
-    accessor      => "credit",
-    data_type     => "integer",
-    default_value => -1,
-    is_nullable   => 0,
+    accessor => "credit",
+    data_type => "decimal",
+    default_value => "-1.00",
+    is_nullable => 0,
+    size => [12, 2],
   },
   "Temp",
   {
     accessor      => "temp",
     data_type     => "tinyint",
     default_value => 0,
+    extra         => { unsigned => 1 },
     is_nullable   => 1,
   },
   "DisplayOrder",
@@ -201,6 +219,20 @@ __PACKAGE__->add_columns(
 =cut
 
 __PACKAGE__->set_primary_key("AccountTypeId");
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<Name_UNIQUE>
+
+=over 4
+
+=item * L</Name>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("Name_UNIQUE", ["Name"]);
 
 =head1 RELATIONS
 
@@ -285,8 +317,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GDN88IcMD5T0fY4z6zmnBg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ZIHRQPMIr2b8EMhvb/eJHQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

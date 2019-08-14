@@ -26,6 +26,14 @@ __PACKAGE__->table("ins_to_vehicles");
 
 =head1 ACCESSORS
 
+=head2 VhlInsId
+
+  accessor: 'vhl_ins_id'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_auto_increment: 1
+  is_nullable: 0
+
 =head2 InsId
 
   accessor: 'ins_id'
@@ -42,20 +50,6 @@ __PACKAGE__->table("ins_to_vehicles");
   is_foreign_key: 1
   is_nullable: 0
 
-=head2 DateAdded
-
-  accessor: 'date_added'
-  data_type: 'datetime'
-  datetime_undef_if_invalid: 1
-  is_nullable: 0
-
-=head2 DateRemoved
-
-  accessor: 'date_removed'
-  data_type: 'datetime'
-  datetime_undef_if_invalid: 1
-  is_nullable: 1
-
 =head2 AddedBy
 
   accessor: 'added_by'
@@ -64,9 +58,59 @@ __PACKAGE__->table("ins_to_vehicles");
   is_foreign_key: 1
   is_nullable: 0
 
+=head2 DateAdded
+
+  accessor: 'date_added'
+  data_type: 'date'
+  datetime_undef_if_invalid: 1
+  is_nullable: 0
+
+=head2 RemovedBy
+
+  accessor: 'removed_by'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_foreign_key: 1
+  is_nullable: 1
+
+=head2 DateRemoved
+
+  accessor: 'date_removed'
+  data_type: 'date'
+  datetime_undef_if_invalid: 1
+  is_nullable: 1
+
+=head2 ActionReminder
+
+  accessor: 'action_reminder'
+  data_type: 'datetime'
+  datetime_undef_if_invalid: 1
+  is_nullable: 1
+
+=head2 ActionNote
+
+  accessor: 'action_note'
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 ActionEmail
+
+  accessor: 'action_email'
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 255
+
 =cut
 
 __PACKAGE__->add_columns(
+  "VhlInsId",
+  {
+    accessor => "vhl_ins_id",
+    data_type => "bigint",
+    extra => { unsigned => 1 },
+    is_auto_increment => 1,
+    is_nullable => 0,
+  },
   "InsId",
   {
     accessor       => "ins_id",
@@ -83,20 +127,6 @@ __PACKAGE__->add_columns(
     is_foreign_key => 1,
     is_nullable    => 0,
   },
-  "DateAdded",
-  {
-    accessor => "date_added",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 0,
-  },
-  "DateRemoved",
-  {
-    accessor => "date_removed",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
-  },
   "AddedBy",
   {
     accessor       => "added_by",
@@ -105,15 +135,51 @@ __PACKAGE__->add_columns(
     is_foreign_key => 1,
     is_nullable    => 0,
   },
+  "DateAdded",
+  {
+    accessor => "date_added",
+    data_type => "date",
+    datetime_undef_if_invalid => 1,
+    is_nullable => 0,
+  },
+  "RemovedBy",
+  {
+    accessor       => "removed_by",
+    data_type      => "bigint",
+    extra          => { unsigned => 1 },
+    is_foreign_key => 1,
+    is_nullable    => 1,
+  },
+  "DateRemoved",
+  {
+    accessor => "date_removed",
+    data_type => "date",
+    datetime_undef_if_invalid => 1,
+    is_nullable => 1,
+  },
+  "ActionReminder",
+  {
+    accessor => "action_reminder",
+    data_type => "datetime",
+    datetime_undef_if_invalid => 1,
+    is_nullable => 1,
+  },
+  "ActionNote",
+  { accessor => "action_note", data_type => "text", is_nullable => 1 },
+  "ActionEmail",
+  {
+    accessor => "action_email",
+    data_type => "varchar",
+    is_nullable => 1,
+    size => 255,
+  },
 );
 
 =head1 PRIMARY KEY
 
 =over 4
 
-=item * L</InsId>
-
-=item * L</VehicleId>
+=item * L</VhlInsId>
 
 =item * L</DateAdded>
 
@@ -121,7 +187,7 @@ __PACKAGE__->add_columns(
 
 =cut
 
-__PACKAGE__->set_primary_key("InsId", "VehicleId", "DateAdded");
+__PACKAGE__->set_primary_key("VhlInsId", "DateAdded");
 
 =head1 RELATIONS
 
@@ -152,7 +218,27 @@ __PACKAGE__->belongs_to(
   "in",
   "TMS::Schema::Result::InsPolicy",
   { InsId => "InsId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+);
+
+=head2 removed_by
+
+Type: belongs_to
+
+Related object: L<TMS::Schema::Result::HrAssociate>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "removed_by",
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "RemovedBy" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
+  },
 );
 
 =head2 vehicle
@@ -167,12 +253,12 @@ __PACKAGE__->belongs_to(
   "vehicle",
   "TMS::Schema::Result::InvVehicle",
   { VehicleId => "VehicleId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "RESTRICT" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:R/t4A4p7MjldildkxXNf+w
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Q94HeqqwJTTVfkTN8zg6gw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

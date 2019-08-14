@@ -256,21 +256,6 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
-=head2 gen_vehicle_registrations
-
-Type: has_many
-
-Related object: L<TMS::Schema::Result::GenVehicleRegistration>
-
-=cut
-
-__PACKAGE__->has_many(
-  "gen_vehicle_registrations",
-  "TMS::Schema::Result::GenVehicleRegistration",
-  { "foreign.VehicleId" => "self.VehicleId" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 ins_to_vehicles
 
 Type: has_many
@@ -346,17 +331,17 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 sft_vehicle_inspections
+=head2 sft_vehicle_registrations
 
 Type: has_many
 
-Related object: L<TMS::Schema::Result::SftVehicleInspection>
+Related object: L<TMS::Schema::Result::SftVehicleRegistration>
 
 =cut
 
 __PACKAGE__->has_many(
-  "sft_vehicle_inspections",
-  "TMS::Schema::Result::SftVehicleInspection",
+  "sft_vehicle_registrations",
+  "TMS::Schema::Result::SftVehicleRegistration",
   { "foreign.VehicleId" => "self.VehicleId" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
@@ -376,8 +361,8 @@ __PACKAGE__->belongs_to(
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
   },
 );
 
@@ -397,8 +382,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:jgTUXQNL2t9N/+068mVoEQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4GKkHIzEm6KMCgDvGobgOw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

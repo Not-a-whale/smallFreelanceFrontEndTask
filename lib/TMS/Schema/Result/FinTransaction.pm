@@ -88,19 +88,18 @@ __PACKAGE__->table("fin_transactions");
   extra: {list => ["pending","valid","invalid"]}
   is_nullable: 1
 
-=head2 Memo
-
-  accessor: 'memo'
-  data_type: 'varchar'
-  is_nullable: 1
-  size: 255
-
 =head2 Class
 
   accessor: 'class'
   data_type: 'bigint'
   extra: {unsigned => 1}
   is_foreign_key: 1
+  is_nullable: 1
+
+=head2 Memo
+
+  accessor: 'memo'
+  data_type: 'text'
   is_nullable: 1
 
 =cut
@@ -168,8 +167,6 @@ __PACKAGE__->add_columns(
     extra       => { list => ["pending", "valid", "invalid"] },
     is_nullable => 1,
   },
-  "Memo",
-  { accessor => "memo", data_type => "varchar", is_nullable => 1, size => 255 },
   "Class",
   {
     accessor       => "class",
@@ -178,6 +175,8 @@ __PACKAGE__->add_columns(
     is_foreign_key => 1,
     is_nullable    => 1,
   },
+  "Memo",
+  { accessor => "memo", data_type => "text", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -209,8 +208,8 @@ __PACKAGE__->belongs_to(
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
   },
 );
 
@@ -218,19 +217,19 @@ __PACKAGE__->belongs_to(
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::EntPerson>
+Related object: L<TMS::Schema::Result::HrAssociate>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "created_by",
-  "TMS::Schema::Result::EntPerson",
-  { PrsnId => "CreatedBy" },
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "CreatedBy" },
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
   },
 );
 
@@ -283,18 +282,18 @@ __PACKAGE__->has_many(
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::Job>
+Related object: L<TMS::Schema::Result::FinJob>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "job",
-  "TMS::Schema::Result::Job",
+  "TMS::Schema::Result::FinJob",
   { JobId => "JobId" },
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
+    on_delete     => "RESTRICT",
     on_update     => "CASCADE",
   },
 );
@@ -311,12 +310,12 @@ __PACKAGE__->belongs_to(
   "transaction_type",
   "TMS::Schema::Result::FinTransactionType",
   { TransTypeId => "TransactionType" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:dXphWGoFctGYo0Wbc0uT6w
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:UqrgNJVT/o2TOrSCuYd5fQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

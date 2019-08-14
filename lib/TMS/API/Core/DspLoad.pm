@@ -12,12 +12,11 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::InvTrailerType;
-use TMS::API::Core::EntShipper;
 use TMS::API::Core::EntCustomer;
-use TMS::API::Core::EntPerson;
+use TMS::API::Core::FinJob;
+use TMS::API::Core::InvTrailerType;
 use TMS::API::Core::HrAssociate;
-use TMS::API::Core::Job;
+use TMS::API::Core::EntShipper;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -30,8 +29,8 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has LoadId         => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has CreatedBy      => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'EntPersonObj',);
+has LoadId         => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has CreatedBy      => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj',);
 has BrokerId       => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'EntCustomerObj',);
 has ShipperId      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EntShipperObj',);
 has BookedBy       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'HrAssociateObj',);
@@ -47,7 +46,7 @@ has Precooling     => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'F
 has TempMode       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'EnumContinuous',);
 has TeamRequired   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'EnumYes',);
 has DispatchNote   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has Job            => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'JobObj',);
+has Job            => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'FinJobObj',);
 
 # AUTO-GENERATED HAS-A END
 

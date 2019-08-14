@@ -73,34 +73,33 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("UnitId");
 
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<UnitTag_UNIQUE>
+
+=over 4
+
+=item * L</UnitTag>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("UnitTag_UNIQUE", ["UnitTag"]);
+
 =head1 RELATIONS
 
-=head2 dsp_loads_to_units
+=head2 dsp_loads_dispatched
 
 Type: has_many
 
-Related object: L<TMS::Schema::Result::DspLoadsToUnit>
+Related object: L<TMS::Schema::Result::DspLoadDispatched>
 
 =cut
 
 __PACKAGE__->has_many(
-  "dsp_loads_to_units",
-  "TMS::Schema::Result::DspLoadsToUnit",
-  { "foreign.UnitId" => "self.UnitId" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 inv_equipments
-
-Type: has_many
-
-Related object: L<TMS::Schema::Result::InvEquipment>
-
-=cut
-
-__PACKAGE__->has_many(
-  "inv_equipments",
-  "TMS::Schema::Result::InvEquipment",
+  "dsp_loads_dispatched",
+  "TMS::Schema::Result::DspLoadDispatched",
   { "foreign.UnitId" => "self.UnitId" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
@@ -136,8 +135,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:CN4iQ8k8QILd/m1QhSTcQQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:T1VpaVjyuUmnaQZwBDN7MQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

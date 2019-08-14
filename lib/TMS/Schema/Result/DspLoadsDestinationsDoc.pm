@@ -113,15 +113,15 @@ __PACKAGE__->set_primary_key("LoadDestinationId", "FileId");
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::EntPerson>
+Related object: L<TMS::Schema::Result::HrAssociate>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "approved_by",
-  "TMS::Schema::Result::EntPerson",
-  { PrsnId => "ApprovedBy" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "ApprovedBy" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 file
@@ -136,7 +136,7 @@ __PACKAGE__->belongs_to(
   "file",
   "TMS::Schema::Result::GenFile",
   { FileId => "FileId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 load_destination
@@ -151,12 +151,12 @@ __PACKAGE__->belongs_to(
   "load_destination",
   "TMS::Schema::Result::DspLoadsDestination",
   { DestinationId => "LoadDestinationId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:LoSEACHGFsE1zB1fG+GXxA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:uN6BFh2QlmebiLZ4e21eOw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

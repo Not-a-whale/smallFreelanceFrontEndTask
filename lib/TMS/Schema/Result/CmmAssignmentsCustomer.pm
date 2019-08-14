@@ -40,7 +40,7 @@ __PACKAGE__->table("cmm_assignments_customers");
   data_type: 'varchar'
   is_foreign_key: 1
   is_nullable: 0
-  size: 45
+  size: 255
 
 =head2 DateAdded
 
@@ -83,7 +83,7 @@ __PACKAGE__->add_columns(
     data_type => "varchar",
     is_foreign_key => 1,
     is_nullable => 0,
-    size => 45,
+    size => 255,
   },
   "DateAdded",
   {
@@ -117,15 +117,15 @@ __PACKAGE__->add_columns(
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::EntPerson>
+Related object: L<TMS::Schema::Result::HrAssociate>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "added_by",
-  "TMS::Schema::Result::EntPerson",
-  { PrsnId => "AddedBy" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "AddedBy" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 associate
@@ -140,7 +140,7 @@ __PACKAGE__->belongs_to(
   "associate",
   "TMS::Schema::Result::HrAssociate",
   { AstId => "AssociateId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 commission_package
@@ -155,7 +155,7 @@ __PACKAGE__->belongs_to(
   "commission_package",
   "TMS::Schema::Result::CmmPackage",
   { Name => "CommissionPackage" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 customer
@@ -170,12 +170,12 @@ __PACKAGE__->belongs_to(
   "customer",
   "TMS::Schema::Result::EntCustomer",
   { CstmrId => "CustomerId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:P1YsS9a6/HdCnoBNoeFU1g
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:sVsC559umO3USW9+kbQ4WA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

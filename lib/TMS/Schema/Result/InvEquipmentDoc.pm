@@ -91,7 +91,7 @@ __PACKAGE__->belongs_to(
   "equipment",
   "TMS::Schema::Result::InvEquipment",
   { EquipmentId => "EquipmentId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 file
@@ -106,12 +106,12 @@ __PACKAGE__->belongs_to(
   "file",
   "TMS::Schema::Result::GenFile",
   { FileId => "FileId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1qZrXGD2Tb3AyOW+GhjThw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:RFGPrk9YxeJmv3XgHxNDIA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

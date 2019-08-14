@@ -54,11 +54,27 @@ __PACKAGE__->table("inv_units_to_equipment");
   default_value: 'CURRENT_TIMESTAMP'
   is_nullable: 0
 
+=head2 AddedBy
+
+  accessor: 'added_by'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_foreign_key: 1
+  is_nullable: 0
+
 =head2 DateRemoved
 
   accessor: 'date_removed'
   data_type: 'datetime'
   datetime_undef_if_invalid: 1
+  is_nullable: 1
+
+=head2 RemovedBy
+
+  accessor: 'removed_by'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_foreign_key: 1
   is_nullable: 1
 
 =head2 Notes
@@ -94,12 +110,28 @@ __PACKAGE__->add_columns(
     default_value => "CURRENT_TIMESTAMP",
     is_nullable => 0,
   },
+  "AddedBy",
+  {
+    accessor       => "added_by",
+    data_type      => "bigint",
+    extra          => { unsigned => 1 },
+    is_foreign_key => 1,
+    is_nullable    => 0,
+  },
   "DateRemoved",
   {
     accessor => "date_removed",
     data_type => "datetime",
     datetime_undef_if_invalid => 1,
     is_nullable => 1,
+  },
+  "RemovedBy",
+  {
+    accessor       => "removed_by",
+    data_type      => "bigint",
+    extra          => { unsigned => 1 },
+    is_foreign_key => 1,
+    is_nullable    => 1,
   },
   "Notes",
   { accessor => "notes", data_type => "text", is_nullable => 1 },
@@ -123,6 +155,21 @@ __PACKAGE__->set_primary_key("UnitId", "EquipmentId", "DateAdded");
 
 =head1 RELATIONS
 
+=head2 added_by
+
+Type: belongs_to
+
+Related object: L<TMS::Schema::Result::HrAssociate>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "added_by",
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "AddedBy" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+);
+
 =head2 equipment
 
 Type: belongs_to
@@ -136,6 +183,26 @@ __PACKAGE__->belongs_to(
   "TMS::Schema::Result::InvEquipment",
   { EquipmentId => "EquipmentId" },
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+);
+
+=head2 removed_by
+
+Type: belongs_to
+
+Related object: L<TMS::Schema::Result::HrAssociate>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "removed_by",
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "RemovedBy" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
+  },
 );
 
 =head2 unit
@@ -154,8 +221,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:++ciwR6MhhXQQ54KjOXyJw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:/dGPwYIeben/KtA2vN3j8g
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

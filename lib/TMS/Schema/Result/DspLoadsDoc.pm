@@ -115,14 +115,14 @@ __PACKAGE__->set_primary_key("FileId", "LoadId");
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::EntPerson>
+Related object: L<TMS::Schema::Result::HrAssociate>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "added_by",
-  "TMS::Schema::Result::EntPerson",
-  { PrsnId => "AddedBy" },
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "AddedBy" },
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
@@ -157,8 +157,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:a+XNmiI3GBPHY+0//pUjJA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:3017DmvvuDNAvYpM4lc4EA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

@@ -12,9 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::GenFile;
-use TMS::API::Core::CntState;
 use TMS::API::Core::EntBusiness;
+use TMS::API::Core::GenFile;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -33,7 +32,7 @@ has McCertificatePhoto => (is => 'rw', coerce => 1, required => 0, isa => Undef 
 has DOT                => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
 has CrType             => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'EnumCompanyCarrier',);
 has IFTA_Acc           => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has IFTA_State         => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'CntStateObj',);
+has IFTA_State         => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
 has SCAC               => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
 has state_OR           => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
 has state_NY           => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);

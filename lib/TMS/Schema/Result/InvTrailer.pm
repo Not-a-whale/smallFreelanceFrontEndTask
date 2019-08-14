@@ -104,22 +104,25 @@ In inches
 
   accessor: 'has_lift_gate'
   data_type: 'tinyint'
+  default_value: 0
   extra: {unsigned => 1}
-  is_nullable: 1
+  is_nullable: 0
 
 =head2 HasPalletJack
 
   accessor: 'has_pallet_jack'
   data_type: 'tinyint'
+  default_value: 0
   extra: {unsigned => 1}
-  is_nullable: 1
+  is_nullable: 0
 
 =head2 HasRamps
 
   accessor: 'has_ramps'
   data_type: 'tinyint'
+  default_value: 0
   extra: {unsigned => 1}
-  is_nullable: 1
+  is_nullable: 0
 
 =head2 LoadVolume
 
@@ -199,24 +202,27 @@ __PACKAGE__->add_columns(
   },
   "HasLiftGate",
   {
-    accessor    => "has_lift_gate",
-    data_type   => "tinyint",
-    extra       => { unsigned => 1 },
-    is_nullable => 1,
+    accessor      => "has_lift_gate",
+    data_type     => "tinyint",
+    default_value => 0,
+    extra         => { unsigned => 1 },
+    is_nullable   => 0,
   },
   "HasPalletJack",
   {
-    accessor    => "has_pallet_jack",
-    data_type   => "tinyint",
-    extra       => { unsigned => 1 },
-    is_nullable => 1,
+    accessor      => "has_pallet_jack",
+    data_type     => "tinyint",
+    default_value => 0,
+    extra         => { unsigned => 1 },
+    is_nullable   => 0,
   },
   "HasRamps",
   {
-    accessor    => "has_ramps",
-    data_type   => "tinyint",
-    extra       => { unsigned => 1 },
-    is_nullable => 1,
+    accessor      => "has_ramps",
+    data_type     => "tinyint",
+    default_value => 0,
+    extra         => { unsigned => 1 },
+    is_nullable   => 0,
   },
   "LoadVolume",
   { accessor => "load_volume", data_type => "integer", is_nullable => 1 },
@@ -255,8 +261,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ZdUIgP7sr4ekcLCaHKwmhw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:OzMRGJpDFH+yu1dUtHj8Pg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

@@ -55,14 +55,6 @@ __PACKAGE__->table("app_account_locks");
   extra: {unsigned => 1}
   is_nullable: 0
 
-=head2 Logins
-
-  accessor: 'logins'
-  data_type: 'integer'
-  default_value: 0
-  extra: {unsigned => 1}
-  is_nullable: 0
-
 =head2 Locked
 
   accessor: 'locked'
@@ -70,13 +62,6 @@ __PACKAGE__->table("app_account_locks");
   default_value: 0
   extra: {unsigned => 1}
   is_nullable: 0
-
-=head2 DateLastLogin
-
-  accessor: 'date_last_login'
-  data_type: 'datetime'
-  datetime_undef_if_invalid: 1
-  is_nullable: 1
 
 =head2 DateLastAttempt
 
@@ -113,14 +98,6 @@ __PACKAGE__->add_columns(
     extra         => { unsigned => 1 },
     is_nullable   => 0,
   },
-  "Logins",
-  {
-    accessor      => "logins",
-    data_type     => "integer",
-    default_value => 0,
-    extra         => { unsigned => 1 },
-    is_nullable   => 0,
-  },
   "Locked",
   {
     accessor      => "locked",
@@ -128,13 +105,6 @@ __PACKAGE__->add_columns(
     default_value => 0,
     extra         => { unsigned => 1 },
     is_nullable   => 0,
-  },
-  "DateLastLogin",
-  {
-    accessor => "date_last_login",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
   },
   "DateLastAttempt",
   {
@@ -171,12 +141,12 @@ __PACKAGE__->belongs_to(
   "app_account",
   "TMS::Schema::Result::AppAccount",
   { AppAccountId => "AppAccountId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:52
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GUvC9BltkLohfN0QrUS4QQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:MiVtt2KO4gziMJD2015G7A
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

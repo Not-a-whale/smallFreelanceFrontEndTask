@@ -67,23 +67,21 @@ __PACKAGE__->result_source_instance->view_definition("select `inv`.`InvoiceId` A
 =head2 Notes
 
   accessor: 'notes'
-  data_type: 'varchar'
+  data_type: 'text'
   is_nullable: 1
-  size: 255
 
 =head2 Comments
 
   accessor: 'comments'
-  data_type: 'varchar'
+  data_type: 'text'
   is_nullable: 1
-  size: 255
 
 =head2 PONumber
 
   accessor: 'ponumber'
   data_type: 'varchar'
   is_nullable: 1
-  size: 16
+  size: 32
 
 =head2 Status
 
@@ -154,20 +152,15 @@ __PACKAGE__->add_columns(
     size => 20,
   },
   "Notes",
-  { accessor => "notes", data_type => "varchar", is_nullable => 1, size => 255 },
+  { accessor => "notes", data_type => "text", is_nullable => 1 },
   "Comments",
-  {
-    accessor => "comments",
-    data_type => "varchar",
-    is_nullable => 1,
-    size => 255,
-  },
+  { accessor => "comments", data_type => "text", is_nullable => 1 },
   "PONumber",
   {
     accessor => "ponumber",
     data_type => "varchar",
     is_nullable => 1,
-    size => 16,
+    size => 32,
   },
   "Status",
   {
@@ -201,8 +194,8 @@ __PACKAGE__->add_columns(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:oMdGEgqPlvIOIX00foObkg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9aX6q8T7Zoddf24y1llSAA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

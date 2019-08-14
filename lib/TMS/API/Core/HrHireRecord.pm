@@ -14,6 +14,7 @@ use Moose;
 # AUTO-GENERATED DEPENDENCIES START
 use TMS::API::Core::GenFile;
 use TMS::API::Core::HrAssociate;
+use TMS::API::Core::HrGovidcard;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -26,13 +27,14 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has HireId               => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has AstId                => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj',);
-has Title                => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has DateHired            => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATE',);
-has DateTerminated       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATE',);
-has ReasonForTermination => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has Photo                => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'GenFileObj',);
+has HireId                  => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has AstId                   => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj',);
+has Title                   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
+has DateHired               => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATE',);
+has DateTerminated          => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATE',);
+has ReasonForTermination    => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
+has Photo                   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'GenFileObj',);
+has EmploymentAuthorization => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrGovidcardObj',);
 
 # AUTO-GENERATED HAS-A END
 

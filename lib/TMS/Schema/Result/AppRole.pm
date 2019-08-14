@@ -54,6 +54,7 @@ Brief description of the purpose of the role
   accessor: 'user_defined'
   data_type: 'tinyint'
   default_value: 1
+  extra: {unsigned => 1}
   is_nullable: 1
 
 =head2 Editable
@@ -61,6 +62,7 @@ Brief description of the purpose of the role
   accessor: 'editable'
   data_type: 'tinyint'
   default_value: 1
+  extra: {unsigned => 1}
   is_nullable: 1
 
 =head2 CreatedBy
@@ -119,6 +121,7 @@ __PACKAGE__->add_columns(
     accessor      => "user_defined",
     data_type     => "tinyint",
     default_value => 1,
+    extra         => { unsigned => 1 },
     is_nullable   => 1,
   },
   "Editable",
@@ -126,6 +129,7 @@ __PACKAGE__->add_columns(
     accessor      => "editable",
     data_type     => "tinyint",
     default_value => 1,
+    extra         => { unsigned => 1 },
     is_nullable   => 1,
   },
   "CreatedBy",
@@ -238,19 +242,19 @@ __PACKAGE__->has_many(
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::EntPerson>
+Related object: L<TMS::Schema::Result::HrAssociate>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "created_by",
-  "TMS::Schema::Result::EntPerson",
-  { PrsnId => "CreatedBy" },
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "CreatedBy" },
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
   },
 );
 
@@ -258,19 +262,19 @@ __PACKAGE__->belongs_to(
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::EntPerson>
+Related object: L<TMS::Schema::Result::HrAssociate>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "updated_by",
-  "TMS::Schema::Result::EntPerson",
-  { PrsnId => "UpdatedBy" },
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "UpdatedBy" },
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
   },
 );
 
@@ -285,8 +289,8 @@ Composing rels: L</app_role_permissions> -> permission
 __PACKAGE__->many_to_many("permissions", "app_role_permissions", "permission");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:52
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:NoGXysr5M6Ny5Ry/aL4t8g
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:YPbWoss6n2iiB9mRlP58nQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

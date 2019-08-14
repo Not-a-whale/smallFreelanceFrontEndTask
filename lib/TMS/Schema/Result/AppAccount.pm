@@ -76,6 +76,7 @@ __PACKAGE__->table("app_accounts");
   accessor: 'locked'
   data_type: 'tinyint'
   default_value: 0
+  extra: {unsigned => 1}
   is_nullable: 0
 
 =cut
@@ -126,6 +127,7 @@ __PACKAGE__->add_columns(
     accessor      => "locked",
     data_type     => "tinyint",
     default_value => 0,
+    extra         => { unsigned => 1 },
     is_nullable   => 0,
   },
 );
@@ -215,12 +217,12 @@ __PACKAGE__->belongs_to(
   "user",
   "TMS::Schema::Result::HrAssociate",
   { AstId => "UserId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:52
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:8wM+E0/tG7DRMcD2OqBoxg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:n5gjhTtLP2InGFwSXxtVdw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

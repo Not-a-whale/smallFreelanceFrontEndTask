@@ -105,6 +105,7 @@ For AFTER INSERT trigger functionality
   accessor: 'user_defined'
   data_type: 'tinyint'
   default_value: 1
+  extra: {unsigned => 1}
   is_nullable: 0
 
 =head2 PriceType
@@ -119,14 +120,13 @@ For AFTER INSERT trigger functionality
   accessor: 'name'
   data_type: 'varchar'
   is_nullable: 0
-  size: 45
+  size: 1024
 
 =head2 Description
 
   accessor: 'description'
-  data_type: 'varchar'
+  data_type: 'text'
   is_nullable: 1
-  size: 128
 
 =head2 Deleted
 
@@ -156,6 +156,7 @@ For AFTER INSERT trigger functionality
   accessor: 'updated_by'
   data_type: 'bigint'
   extra: {unsigned => 1}
+  is_foreign_key: 1
   is_nullable: 1
 
 =head2 DateUpdated
@@ -253,6 +254,7 @@ __PACKAGE__->add_columns(
     accessor      => "user_defined",
     data_type     => "tinyint",
     default_value => 1,
+    extra         => { unsigned => 1 },
     is_nullable   => 0,
   },
   "PriceType",
@@ -263,14 +265,9 @@ __PACKAGE__->add_columns(
     is_nullable => 1,
   },
   "Name",
-  { accessor => "name", data_type => "varchar", is_nullable => 0, size => 45 },
+  { accessor => "name", data_type => "varchar", is_nullable => 0, size => 1024 },
   "Description",
-  {
-    accessor => "description",
-    data_type => "varchar",
-    is_nullable => 1,
-    size => 128,
-  },
+  { accessor => "description", data_type => "text", is_nullable => 1 },
   "Deleted",
   {
     accessor      => "deleted",
@@ -296,10 +293,11 @@ __PACKAGE__->add_columns(
   },
   "UpdatedBy",
   {
-    accessor    => "updated_by",
-    data_type   => "bigint",
-    extra       => { unsigned => 1 },
-    is_nullable => 1,
+    accessor       => "updated_by",
+    data_type      => "bigint",
+    extra          => { unsigned => 1 },
+    is_foreign_key => 1,
+    is_nullable    => 1,
   },
   "DateUpdated",
   {
@@ -330,25 +328,39 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("ItemTemplateId");
 
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<Name_UNIQUE>
+
+=over 4
+
+=item * L</Name>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("Name_UNIQUE", ["Name"]);
+
 =head1 RELATIONS
 
 =head2 created_by
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::EntPerson>
+Related object: L<TMS::Schema::Result::HrAssociate>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "created_by",
-  "TMS::Schema::Result::EntPerson",
-  { PrsnId => "CreatedBy" },
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "CreatedBy" },
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
   },
 );
 
@@ -367,8 +379,8 @@ __PACKAGE__->belongs_to(
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
   },
 );
 
@@ -387,8 +399,8 @@ __PACKAGE__->belongs_to(
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
   },
 );
 
@@ -396,19 +408,19 @@ __PACKAGE__->belongs_to(
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::EntPerson>
+Related object: L<TMS::Schema::Result::HrAssociate>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "deleted_by",
-  "TMS::Schema::Result::EntPerson",
-  { PrsnId => "DeletedBy" },
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "DeletedBy" },
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
   },
 );
 
@@ -427,8 +439,8 @@ __PACKAGE__->belongs_to(
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
   },
 );
 
@@ -522,7 +534,7 @@ __PACKAGE__->belongs_to(
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
+    on_delete     => "RESTRICT",
     on_update     => "CASCADE",
   },
 );
@@ -539,7 +551,7 @@ __PACKAGE__->belongs_to(
   "template_type",
   "TMS::Schema::Result::FinItemTemplatesType",
   { TemplateTypeId => "TemplateTypeId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 transaction_type
@@ -557,14 +569,34 @@ __PACKAGE__->belongs_to(
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
+  },
+);
+
+=head2 updated_by
+
+Type: belongs_to
+
+Related object: L<TMS::Schema::Result::HrAssociate>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "updated_by",
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "UpdatedBy" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
   },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:qQZUYbLtlu6tJggSlsyRHg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:XOB/5twMUhq5CELrjP2aAw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

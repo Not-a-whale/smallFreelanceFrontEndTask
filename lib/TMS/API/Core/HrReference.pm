@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::HrAssociate;
 use TMS::API::Core::CntPhonesfax;
+use TMS::API::Core::HrAssociate;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -26,7 +26,7 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has ReferenceId     => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has ReferenceId     => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has ReferenceFor    => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj',);
 has ReferensorName  => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
 has ReferensorPhone => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'CntPhonesfaxObj',);

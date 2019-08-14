@@ -25,7 +25,7 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has GpsReqId           => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has GpsReqId           => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has EquipmentId        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'InvEquipmentObj',);
 has Longitude          => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'Float',);
 has Latitude           => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'Float',);

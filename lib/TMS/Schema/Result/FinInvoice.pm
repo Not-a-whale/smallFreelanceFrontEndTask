@@ -67,23 +67,21 @@ __PACKAGE__->table("fin_invoices");
 =head2 Notes
 
   accessor: 'notes'
-  data_type: 'varchar'
+  data_type: 'text'
   is_nullable: 1
-  size: 255
 
 =head2 Comments
 
   accessor: 'comments'
-  data_type: 'varchar'
+  data_type: 'text'
   is_nullable: 1
-  size: 255
 
 =head2 PONumber
 
   accessor: 'ponumber'
   data_type: 'varchar'
   is_nullable: 1
-  size: 16
+  size: 32
 
 =head2 Status
 
@@ -150,20 +148,15 @@ __PACKAGE__->add_columns(
     size => 20,
   },
   "Notes",
-  { accessor => "notes", data_type => "varchar", is_nullable => 1, size => 255 },
+  { accessor => "notes", data_type => "text", is_nullable => 1 },
   "Comments",
-  {
-    accessor => "comments",
-    data_type => "varchar",
-    is_nullable => 1,
-    size => 255,
-  },
+  { accessor => "comments", data_type => "text", is_nullable => 1 },
   "PONumber",
   {
     accessor => "ponumber",
     data_type => "varchar",
     is_nullable => 1,
-    size => 16,
+    size => 32,
   },
   "Status",
   {
@@ -216,7 +209,7 @@ __PACKAGE__->belongs_to(
   "entity",
   "TMS::Schema::Result::Entity",
   { EntityId => "EntityId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 factored_parent
@@ -234,39 +227,9 @@ __PACKAGE__->belongs_to(
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
   },
-);
-
-=head2 fin_invoice_factor_trees_ancestors
-
-Type: has_many
-
-Related object: L<TMS::Schema::Result::FinInvoiceFactorTree>
-
-=cut
-
-__PACKAGE__->has_many(
-  "fin_invoice_factor_trees_ancestors",
-  "TMS::Schema::Result::FinInvoiceFactorTree",
-  { "foreign.AncestorId" => "self.InvoiceId" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 fin_invoice_factor_trees_descendants
-
-Type: has_many
-
-Related object: L<TMS::Schema::Result::FinInvoiceFactorTree>
-
-=cut
-
-__PACKAGE__->has_many(
-  "fin_invoice_factor_trees_descendants",
-  "TMS::Schema::Result::FinInvoiceFactorTree",
-  { "foreign.DescendantId" => "self.InvoiceId" },
-  { cascade_copy => 0, cascade_delete => 0 },
 );
 
 =head2 fin_invoice_payments
@@ -326,12 +289,12 @@ __PACKAGE__->belongs_to(
   "payment_term",
   "TMS::Schema::Result::FinPaymentTerm",
   { PaymentTermId => "PaymentTermsId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Be4OuvfAhGgqiDvqxZzZJw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7gBX0zfxw/lszlJjdEetxw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

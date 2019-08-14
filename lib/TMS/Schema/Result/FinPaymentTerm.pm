@@ -39,13 +39,15 @@ __PACKAGE__->table("fin_payment_terms");
   accessor: 'name'
   data_type: 'varchar'
   is_nullable: 0
-  size: 45
+  size: 1024
 
 =head2 DueNext
 
   accessor: 'due_next'
   data_type: 'integer'
   is_nullable: 1
+
+Net 7, 10, 30, 60, 90
 
 =head2 DueInDays
 
@@ -56,8 +58,9 @@ __PACKAGE__->table("fin_payment_terms");
 =head2 DiscountAmount
 
   accessor: 'discount_amount'
-  data_type: 'integer'
+  data_type: 'decimal'
   is_nullable: 1
+  size: [12,2]
 
 =head2 DiscountPercent
 
@@ -69,9 +72,9 @@ __PACKAGE__->table("fin_payment_terms");
 =head2 DiscountInDays
 
   accessor: 'discount_in_days'
-  data_type: 'decimal'
+  data_type: 'integer'
+  extra: {unsigned => 1}
   is_nullable: 1
-  size: [4,2]
 
 =head2 Type
 
@@ -92,13 +95,18 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
   },
   "Name",
-  { accessor => "name", data_type => "varchar", is_nullable => 0, size => 45 },
+  { accessor => "name", data_type => "varchar", is_nullable => 0, size => 1024 },
   "DueNext",
   { accessor => "due_next", data_type => "integer", is_nullable => 1 },
   "DueInDays",
   { accessor => "due_in_days", data_type => "integer", is_nullable => 1 },
   "DiscountAmount",
-  { accessor => "discount_amount", data_type => "integer", is_nullable => 1 },
+  {
+    accessor => "discount_amount",
+    data_type => "decimal",
+    is_nullable => 1,
+    size => [12, 2],
+  },
   "DiscountPercent",
   {
     accessor => "discount_percent",
@@ -108,10 +116,10 @@ __PACKAGE__->add_columns(
   },
   "DiscountInDays",
   {
-    accessor => "discount_in_days",
-    data_type => "decimal",
+    accessor    => "discount_in_days",
+    data_type   => "integer",
+    extra       => { unsigned => 1 },
     is_nullable => 1,
-    size => [4, 2],
   },
   "Type",
   {
@@ -134,6 +142,20 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("PaymentTermId");
 
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<Name_UNIQUE>
+
+=over 4
+
+=item * L</Name>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("Name_UNIQUE", ["Name"]);
+
 =head1 RELATIONS
 
 =head2 fin_invoices
@@ -152,8 +174,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:C4Eu9BEHfXxDGTs6SpOuCg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yg48ZlYsvQmscHq4GRfREQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

@@ -233,11 +233,26 @@ __PACKAGE__->set_primary_key("InsId");
 
 =item * L</PolicyNumber>
 
+=item * L</EffectiveDate>
+
+=item * L</ExpirationDate>
+
+=item * L</InsuredAmount>
+
 =back
 
 =cut
 
-__PACKAGE__->add_unique_constraint("TagPolicyIndx", ["TagName", "PolicyNumber"]);
+__PACKAGE__->add_unique_constraint(
+  "TagPolicyIndx",
+  [
+    "TagName",
+    "PolicyNumber",
+    "EffectiveDate",
+    "ExpirationDate",
+    "InsuredAmount",
+  ],
+);
 
 =head1 RELATIONS
 
@@ -295,20 +310,20 @@ __PACKAGE__->belongs_to(
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::EntPerson>
+Related object: L<TMS::Schema::Result::HrAssociate>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "provider_agent",
-  "TMS::Schema::Result::EntPerson",
-  { PrsnId => "ProviderAgent" },
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "ProviderAgent" },
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:AD0hNB52xDtnb6jqD5zNJw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ULhzb4UaU8Dk+PgGHmbTFQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

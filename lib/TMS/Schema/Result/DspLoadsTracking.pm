@@ -193,7 +193,7 @@ __PACKAGE__->belongs_to(
   "destination",
   "TMS::Schema::Result::DspLoadsDestination",
   { DestinationId => "DestinationId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 driver
@@ -208,12 +208,12 @@ __PACKAGE__->belongs_to(
   "driver",
   "TMS::Schema::Result::DrvDriver",
   { DriverId => "DriverId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:vZ33ys6lPox2xBFD+X59yQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Xz3mtIz8eeE3c7d7r3E3RQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

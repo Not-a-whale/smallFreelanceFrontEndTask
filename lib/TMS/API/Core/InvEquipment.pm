@@ -12,9 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::InvUnit;
 use TMS::API::Core::BizBranch;
-use TMS::API::Core::Entity;
+use TMS::API::Core::HrAssociate;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -27,10 +26,9 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has EquipmentId    => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has GeneralName    => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has OwnerId        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'EntityObj',);
-has UnitId         => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'InvUnitObj',);
+has EquipmentId    => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has GeneralName    => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
+has OwnerId        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj',);
 has VendorId       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'BizBranchObj',);
 has DatePurchased  => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATE',);
 has DateSold       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATE',);

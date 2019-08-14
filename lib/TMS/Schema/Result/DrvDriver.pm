@@ -38,13 +38,17 @@ __PACKAGE__->table("drv_drivers");
 
   accessor: 'local_routes'
   data_type: 'tinyint'
-  is_nullable: 1
+  default_value: 0
+  extra: {unsigned => 1}
+  is_nullable: 0
 
 =head2 InternationalRoutes
 
   accessor: 'international_routes'
   data_type: 'tinyint'
-  is_nullable: 1
+  default_value: 0
+  extra: {unsigned => 1}
+  is_nullable: 0
 
 =head2 LastAnnualReview
 
@@ -72,12 +76,20 @@ __PACKAGE__->add_columns(
     is_nullable    => 0,
   },
   "LocalRoutes",
-  { accessor => "local_routes", data_type => "tinyint", is_nullable => 1 },
+  {
+    accessor      => "local_routes",
+    data_type     => "tinyint",
+    default_value => 0,
+    extra         => { unsigned => 1 },
+    is_nullable   => 0,
+  },
   "InternationalRoutes",
   {
-    accessor    => "international_routes",
-    data_type   => "tinyint",
-    is_nullable => 1,
+    accessor      => "international_routes",
+    data_type     => "tinyint",
+    default_value => 0,
+    extra         => { unsigned => 1 },
+    is_nullable   => 0,
   },
   "LastAnnualReview",
   {
@@ -172,24 +184,24 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 sft_logbooks
+=head2 sft_log_entries
 
 Type: has_many
 
-Related object: L<TMS::Schema::Result::SftLogbook>
+Related object: L<TMS::Schema::Result::SftLogEntry>
 
 =cut
 
 __PACKAGE__->has_many(
-  "sft_logbooks",
-  "TMS::Schema::Result::SftLogbook",
-  { "foreign.Driver" => "self.DriverId" },
+  "sft_log_entries",
+  "TMS::Schema::Result::SftLogEntry",
+  { "foreign.DriverId" => "self.DriverId" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:A6GwCeOEmI67zdxp4AES2w
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:DeGmJdadrYmc9ri43J9m8w
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

@@ -121,6 +121,7 @@ Why do not use
   accessor: 'require_originals'
   data_type: 'tinyint'
   default_value: 0
+  extra: {unsigned => 1}
   is_nullable: 0
 
 =cut
@@ -175,6 +176,7 @@ __PACKAGE__->add_columns(
     accessor      => "require_originals",
     data_type     => "tinyint",
     default_value => 0,
+    extra         => { unsigned => 1 },
     is_nullable   => 0,
   },
 );
@@ -258,7 +260,22 @@ __PACKAGE__->belongs_to(
   "cstmr",
   "TMS::Schema::Result::EntBusiness",
   { BizId => "CstmrId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+);
+
+=head2 dsp_blacklists
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::DspBlacklist>
+
+=cut
+
+__PACKAGE__->has_many(
+  "dsp_blacklists",
+  "TMS::Schema::Result::DspBlacklist",
+  { "foreign.CstmrId" => "self.CstmrId" },
+  { cascade_copy => 0, cascade_delete => 0 },
 );
 
 =head2 dsp_loads
@@ -277,8 +294,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:KG7/bqZktPoifqDDHV1fgQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zuppvuwviCJCtGxHw6nyaw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

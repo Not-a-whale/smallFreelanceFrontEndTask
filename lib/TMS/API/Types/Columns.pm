@@ -11,34 +11,6 @@ use Moose::Util::TypeConstraints;
 
 #AUTO-GENERATED
 # ............................................................................
-subtype 'EnumCustomer',
-    as 'Str',
-        where { m{(?^:^customer$|^vendor$)}; };
-# ............................................................................
-subtype 'EnumPassed',
-    as 'Str',
-        where { m{(?^:^Passed$|^Failed$|^Postponed$|^Other$)}; };
-# ............................................................................
-subtype 'EnumStandard',
-    as 'Str',
-        where { m{(?^:^STANDARD$|^BY DATE$|^CASH$)}; };
-# ............................................................................
-subtype 'EnumOnDuty',
-    as 'Str',
-        where { m{(?^:^ON DUTY$|^OFF DUTY$|^DRIVING$|^SLEEPING$)}; };
-# ............................................................................
-subtype 'EnumHourly',
-    as 'Str',
-        where { m{(?^:^hourly$|^salary$|^weekly$|^biweekly$|^monthly$|^mileage$|^load percentage$|^flat rate$)}; };
-# ............................................................................
-subtype 'EnumDoNotUse',
-    as 'Str',
-        where { m{(?^:^do not use$|^can use$|^$)}; };
-# ............................................................................
-subtype 'EnumOwner',
-    as 'Str',
-        where { m{(?^:^Owner$|^Company$|^$)}; };
-# ............................................................................
 subtype 'SetVoice',
     as 'Str',
         where {
@@ -53,9 +25,113 @@ coerce 'SetVoice',
                 return join(',', do{ my %u; grep { exists $vals{$_} } grep { !$u{$_}++ } split(',', $_)});
             };
 # ............................................................................
+subtype 'EnumInvalid',
+    as 'Str',
+        where { m{(?^:(?i)^invalid$|^pending$|^invoiced$|^paid$)}; };
+# ............................................................................
+subtype 'EnumNone',
+    as 'Str',
+        where { m{(?^:(?i)^none$|^deisel$|^unleaded$)}; };
+# ............................................................................
+subtype 'EnumDepartment',
+    as 'Str',
+        where { m{(?^:(?i)^Department$|^Office$|^Team$|^Group$|^Other$)}; };
+# ............................................................................
+subtype 'EnumNo',
+    as 'Str',
+        where { m{(?^:(?i)^yes$|^no$|^na$)}; };
+# ............................................................................
+subtype 'EnumSr',
+    as 'Str',
+        where { m{(?^:(?i)^$|^Sr$|^Jr$|^I$|^II$|^III$|^IV$)}; };
+# ............................................................................
+subtype 'EnumNull',
+    as 'Str',
+        where { m{(?^:(?i)^null$|^annually$|^bi-annually$|^quarterly$|^monthly$|^bi-monthly$|^weekly$|^bi-weekly$|^daily$|^$)}; };
+# ............................................................................
+subtype 'EnumPassed',
+    as 'Str',
+        where { m{(?^:(?i)^Passed$|^Failed$|^Postponed$|^Other$)}; };
+# ............................................................................
+subtype 'EnumCompanyCarrier',
+    as 'Str',
+        where { m{(?^:(?i)^Company Carrier$|^Brokerage Only$|^$)}; };
+# ............................................................................
+subtype 'EnumFlatRate',
+    as 'Str',
+        where { m{(?^:(?i)^flat rate$|^percentage$|^$)}; };
+# ............................................................................
 subtype 'EnumNa',
     as 'Str',
-        where { m{(?^:^NA$|^OK$|^REPAIR$)}; };
+        where { m{(?^:(?i)^NA$|^OK$|^REPAIR$)}; };
+# ............................................................................
+subtype 'EnumCustomer',
+    as 'Str',
+        where { m{(?^:(?i)^customer$|^vendor$)}; };
+# ............................................................................
+subtype 'EnumQuarterly',
+    as 'Str',
+        where { m{(?^:(?i)^Quarterly$|^Annually$|^90 Days$|^$)}; };
+# ............................................................................
+subtype 'EnumLandLine',
+    as 'Str',
+        where { m{(?^:(?i)^LAND LINE$|^MOBILE$|^SOFT PHONE$)}; };
+# ............................................................................
+subtype 'EnumPickup',
+    as 'Str',
+        where { m{(?^:(?i)^PickUp$|^DropOff$)}; };
+# ............................................................................
+subtype 'Enum',
+    as 'Str',
+        where { m{(?^:(?i)^$|^Mr.$|^Mrs.$|^Ms.$|^Dr.$|^Sir$|^Madam$)}; };
+# ............................................................................
+subtype 'EnumFtl',
+    as 'Str',
+        where { m{(?^:(?i)^FTL$|^LTL$|^Partial$|^$)}; };
+# ............................................................................
+subtype 'EnumContinuous',
+    as 'Str',
+        where { m{(?^:(?i)^continuous$|^start/stop$|^$)}; };
+# ............................................................................
+subtype 'EnumSsn',
+    as 'Str',
+        where { m{(?^:(?i)^SSN$|^EIN$|^ITIN$)}; };
+# ............................................................................
+subtype 'EnumLogin',
+    as 'Str',
+        where { m{(?^:(?i)^Login$|^Logout$)}; };
+# ............................................................................
+subtype 'EnumDoNotUse',
+    as 'Str',
+        where { m{(?^:(?i)^do not use$|^can use$|^$)}; };
+# ............................................................................
+subtype 'EnumDebit',
+    as 'Str',
+        where { m{(?^:(?i)^debit$|^credit$)}; };
+# ............................................................................
+subtype 'EnumOwner',
+    as 'Str',
+        where { m{(?^:(?i)^Owner$|^Company$|^$)}; };
+# ............................................................................
+subtype 'EnumAppointment',
+    as 'Str',
+        where { m{(?^:(?i)^Appointment$|^Time Open$)}; };
+# ............................................................................
+subtype 'EnumPending',
+    as 'Str',
+        where { m{(?^:(?i)^pending$|^valid$|^invalid$|^$)}; };
+# ............................................................................
+subtype 'EnumYes',
+    as 'Str',
+        where { m{(?^:(?i)^yes$|^no$|^$)}; };
+# ............................................................................
+subtype 'EnumUnknown',
+    as 'Str',
+        where { m{(?^:(?i)^unknown$|^yes$|^no$)}; };
+# ............................................................................
+subtype 'EnumLoan',
+    as 'Str',
+        where { m{(?^:(?i)^loan$|^one-time charge$|^recurring charge$)}; };
 # ............................................................................
 subtype 'SetTruck',
     as 'Str',
@@ -71,115 +147,21 @@ coerce 'SetTruck',
                 return join(',', do{ my %u; grep { exists $vals{$_} } grep { !$u{$_}++ } split(',', $_)});
             };
 # ............................................................................
-subtype 'EnumInvalid',
+subtype 'EnumHourly',
     as 'Str',
-        where { m{(?^:^invalid$|^pending$|^invoiced$|^paid$)}; };
+        where { m{(?^:(?i)^hourly$|^salary$|^weekly$|^biweekly$|^monthly$|^mileage$|^load percentage$|^flat rate$)}; };
 # ............................................................................
-subtype 'EnumDebit',
+subtype 'EnumOnDuty',
     as 'Str',
-        where { m{(?^:^debit$|^credit$)}; };
-# ............................................................................
-subtype 'EnumYes',
-    as 'Str',
-        where { m{(?^:^yes$|^no$|^$)}; };
-# ............................................................................
-subtype 'EnumLandLine',
-    as 'Str',
-        where { m{(?^:^LAND LINE$|^MOBILE$|^SOFT PHONE$)}; };
-# ............................................................................
-subtype 'EnumLoan',
-    as 'Str',
-        where { m{(?^:^loan$|^one-time charge$|^recurring charge$)}; };
-# ............................................................................
-subtype 'Enum',
-    as 'Str',
-        where { m{(?^:^$|^Mr.$|^Mrs.$|^Ms.$|^Dr.$|^Sir$|^Madam$)}; };
-# ............................................................................
-subtype 'EnumPickup',
-    as 'Str',
-        where { m{(?^:^PickUp$|^DropOff$)}; };
-# ............................................................................
-subtype 'EnumSsn',
-    as 'Str',
-        where { m{(?^:^SSN$|^EIN$|^ITIN$)}; };
-# ............................................................................
-subtype 'EnumNo',
-    as 'Str',
-        where { m{(?^:^yes$|^no$|^na$)}; };
-# ............................................................................
-subtype 'EnumNode',
-    as 'Str',
-        where { m{(?^:^node$|^popup$|^window$)}; };
-# ............................................................................
-subtype 'EnumCompanyCarrier',
-    as 'Str',
-        where { m{(?^:^Company Carrier$|^Brokerage Only$|^$)}; };
-# ............................................................................
-subtype 'EnumFlatRate',
-    as 'Str',
-        where { m{(?^:^flat rate$|^percentage$|^$)}; };
-# ............................................................................
-subtype 'EnumPending',
-    as 'Str',
-        where { m{(?^:^pending$|^valid$|^invalid$|^$)}; };
-# ............................................................................
-subtype 'EnumNull',
-    as 'Str',
-        where { m{(?^:^null$|^annually$|^bi-annually$|^quarterly$|^monthly$|^bi-monthly$|^weekly$|^bi-weekly$|^daily$|^$)}; };
-# ............................................................................
-subtype 'SetOne',
-    as 'Str',
-        where {
-                
-                my %vals = map {$_ => 1} split( /,/, 'one,two,three' );
-                return scalar ( grep { not exists $vals{$_} } split(/,/, $_)) == 0;
-            };
-coerce 'SetOne',
-    from 'Str',
-        via {
-                my %vals = map {$_ => 1} split( ',', 'one,two,three' );
-                return join(',', do{ my %u; grep { exists $vals{$_} } grep { !$u{$_}++ } split(',', $_)});
-            };
-# ............................................................................
-subtype 'EnumSr',
-    as 'Str',
-        where { m{(?^:^$|^Sr$|^Jr$|^I$|^II$|^III$|^IV$)}; };
-# ............................................................................
-subtype 'EnumAppointment',
-    as 'Str',
-        where { m{(?^:^Appointment$|^Time Open$)}; };
-# ............................................................................
-subtype 'EnumNone',
-    as 'Str',
-        where { m{(?^:^none$|^deisel$|^unleaded$)}; };
-# ............................................................................
-subtype 'EnumLogin',
-    as 'Str',
-        where { m{(?^:^Login$|^Logout$)}; };
-# ............................................................................
-subtype 'EnumDepartment',
-    as 'Str',
-        where { m{(?^:^Department$|^Office$|^Team$|^Group$|^Other$)}; };
-# ............................................................................
-subtype 'EnumUnknown',
-    as 'Str',
-        where { m{(?^:^unknown$|^yes$|^no$)}; };
-# ............................................................................
-subtype 'EnumQuarterly',
-    as 'Str',
-        where { m{(?^:^Quarterly$|^Annually$|^90 Days$|^$)}; };
-# ............................................................................
-subtype 'EnumFtl',
-    as 'Str',
-        where { m{(?^:^FTL$|^LTL$|^Partial$|^$)}; };
+        where { m{(?^:(?i)^ON DUTY$|^OFF DUTY$|^DRIVING$|^SLEEPING$)}; };
 # ............................................................................
 subtype 'EnumDispatched',
     as 'Str',
-        where { m{(?^:^Pending$|^Dispatched$|^Complete$|^Other$|^TONU$|^Cancelled$)}; };
+        where { m{(?^:(?i)^Pending$|^Dispatched$|^Complete$|^Other$|^TONU$|^Cancelled$)}; };
 # ............................................................................
-subtype 'EnumContinuous',
+subtype 'EnumStandard',
     as 'Str',
-        where { m{(?^:^continuous$|^start/stop$|^$)}; };
+        where { m{(?^:(?i)^STANDARD$|^BY DATE$|^CASH$)}; };
 
 #AUTO-GENERATED
 

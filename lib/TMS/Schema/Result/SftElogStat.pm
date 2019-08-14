@@ -30,6 +30,8 @@ __PACKAGE__->table("sft_elog_stats");
 
   accessor: 'gps_req_id'
   data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_auto_increment: 1
   is_nullable: 0
 
 =head2 EquipmentId
@@ -119,7 +121,13 @@ __PACKAGE__->table("sft_elog_stats");
 
 __PACKAGE__->add_columns(
   "GpsReqId",
-  { accessor => "gps_req_id", data_type => "bigint", is_nullable => 0 },
+  {
+    accessor => "gps_req_id",
+    data_type => "bigint",
+    extra => { unsigned => 1 },
+    is_auto_increment => 1,
+    is_nullable => 0,
+  },
   "EquipmentId",
   {
     accessor       => "equipment_id",
@@ -245,12 +253,27 @@ __PACKAGE__->belongs_to(
   "equipment",
   "TMS::Schema::Result::InvEquipment",
   { EquipmentId => "EquipmentId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+);
+
+=head2 sft_log_entries
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::SftLogEntry>
+
+=cut
+
+__PACKAGE__->has_many(
+  "sft_log_entries",
+  "TMS::Schema::Result::SftLogEntry",
+  { "foreign.Location" => "self.GpsReqId" },
+  { cascade_copy => 0, cascade_delete => 0 },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ZqYyWeC4o7u5itHqyIrLaQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:r+SvL1STPPMtgNsw/SzVtA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

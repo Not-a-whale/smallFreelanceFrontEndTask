@@ -84,16 +84,14 @@ __PACKAGE__->table("fin_invoices_items");
 =head2 Notes
 
   accessor: 'notes'
-  data_type: 'varchar'
+  data_type: 'text'
   is_nullable: 1
-  size: 255
 
 =head2 Comments
 
   accessor: 'comments'
-  data_type: 'varchar'
+  data_type: 'text'
   is_nullable: 1
-  size: 255
 
 =head2 CreditJournalEntryId
 
@@ -178,14 +176,9 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
   },
   "Notes",
-  { accessor => "notes", data_type => "varchar", is_nullable => 1, size => 255 },
+  { accessor => "notes", data_type => "text", is_nullable => 1 },
   "Comments",
-  {
-    accessor => "comments",
-    data_type => "varchar",
-    is_nullable => 1,
-    size => 255,
-  },
+  { accessor => "comments", data_type => "text", is_nullable => 1 },
   "CreditJournalEntryId",
   {
     accessor       => "credit_journal_entry_id",
@@ -241,8 +234,8 @@ __PACKAGE__->belongs_to(
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
   },
 );
 
@@ -261,8 +254,8 @@ __PACKAGE__->belongs_to(
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
   },
 );
 
@@ -281,8 +274,8 @@ __PACKAGE__->belongs_to(
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
   },
 );
 
@@ -316,8 +309,8 @@ __PACKAGE__->belongs_to(
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
   },
 );
 
@@ -336,8 +329,8 @@ __PACKAGE__->belongs_to(
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
   },
 );
 
@@ -345,15 +338,15 @@ __PACKAGE__->belongs_to(
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::Job>
+Related object: L<TMS::Schema::Result::FinJob>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "job",
-  "TMS::Schema::Result::Job",
+  "TMS::Schema::Result::FinJob",
   { JobId => "JobId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 invoice_payments
@@ -371,8 +364,8 @@ __PACKAGE__->many_to_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:TeW/fkONLueBoPi11sKzZQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:V4boWGp1s+0JK9QGTzc1CA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

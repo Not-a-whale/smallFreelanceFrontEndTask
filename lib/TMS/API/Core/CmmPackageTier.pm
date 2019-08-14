@@ -25,7 +25,7 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has TierId     => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has TierId     => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has Package    => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'CmmPackageObj',);
 has Name       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
 has Percentage => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'Float',);

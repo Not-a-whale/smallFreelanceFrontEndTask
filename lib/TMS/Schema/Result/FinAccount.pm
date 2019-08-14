@@ -94,21 +94,21 @@ __PACKAGE__->table("fin_accounts");
   accessor: 'name'
   data_type: 'varchar'
   is_nullable: 0
-  size: 45
+  size: 255
 
 =head2 Description
 
   accessor: 'description'
   data_type: 'varchar'
   is_nullable: 1
-  size: 255
+  size: 1024
 
 =head2 ExternalName
 
   accessor: 'external_name'
   data_type: 'varchar'
   is_nullable: 1
-  size: 45
+  size: 255
 
 =head2 Balance
 
@@ -180,20 +180,20 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
   },
   "Name",
-  { accessor => "name", data_type => "varchar", is_nullable => 0, size => 45 },
+  { accessor => "name", data_type => "varchar", is_nullable => 0, size => 255 },
   "Description",
   {
     accessor => "description",
     data_type => "varchar",
     is_nullable => 1,
-    size => 255,
+    size => 1024,
   },
   "ExternalName",
   {
     accessor => "external_name",
     data_type => "varchar",
     is_nullable => 1,
-    size => 45,
+    size => 255,
   },
   "Balance",
   {
@@ -216,6 +216,20 @@ __PACKAGE__->add_columns(
 =cut
 
 __PACKAGE__->set_primary_key("AccountId");
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<Name_UNIQUE>
+
+=over 4
+
+=item * L</Name>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("Name_UNIQUE", ["Name"]);
 
 =head1 RELATIONS
 
@@ -339,14 +353,14 @@ __PACKAGE__->belongs_to(
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
   },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:FHfkpuXd4DL7cE9ZtV8HQA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0WumvVd/93bxBGBaK+MmnA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

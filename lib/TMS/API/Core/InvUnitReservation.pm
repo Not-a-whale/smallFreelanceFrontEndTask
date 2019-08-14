@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::InvRole;
 use TMS::API::Core::HrAssociate;
+use TMS::API::Core::InvRole;
 use TMS::API::Core::InvUnit;
 
 # AUTO-GENERATED DEPENDENCIES END
@@ -27,7 +27,7 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has ReservationId => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has ReservationId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has PrsnId        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj',);
 has UnitId        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'InvUnitObj',);
 has InvRoleId     => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'InvRoleObj',);

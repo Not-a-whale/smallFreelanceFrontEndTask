@@ -26,7 +26,7 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has AccountId     => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has AccountId     => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has AccountTypeId => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'FinAccountTypeObj',);
 has ParentId      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'FinAccountObj',);
 has UserDefined   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Bool',);

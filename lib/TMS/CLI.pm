@@ -113,13 +113,13 @@ sub ParseCLI {
             if (exists $$cli{$opt}{default}) {
                 $$out{$opt} = $$cli{$opt}{default};
             } else {
-                if (exists $$cli{$opt}{required} && defined $$cli{$opt}{required}) {
+                if (exists $$cli{$opt}{required} && defined $$cli{$opt}{required} && $$cli{$opt}{required} > 0 ) {
                     push @errors, "missing option \"-$opt\". $$cli{$opt}{comment}" if !defined $out->{$opt};
                 }
             }
         }
 
-        if (exists $$cli{$opt}{required} && defined $$cli{$opt}{required}) {
+        if (exists $$cli{$opt}{required} && defined $$cli{$opt}{required} && $$cli{$opt}{required} > 0 ) {
             $$cli{$opt}{required} = 'required';
             push @required, $opt;
         } else {

@@ -348,14 +348,14 @@ __PACKAGE__->belongs_to(
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::EntPerson>
+Related object: L<TMS::Schema::Result::HrAssociate>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "created_by",
-  "TMS::Schema::Result::EntPerson",
-  { PrsnId => "CreatedBy" },
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "CreatedBy" },
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
@@ -374,6 +374,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 dsp_loads_dispatched
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::DspLoadDispatched>
+
+=cut
+
+__PACKAGE__->has_many(
+  "dsp_loads_dispatched",
+  "TMS::Schema::Result::DspLoadDispatched",
+  { "foreign.LoadId" => "self.LoadId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 dsp_loads_docs
 
 Type: has_many
@@ -385,21 +400,6 @@ Related object: L<TMS::Schema::Result::DspLoadsDoc>
 __PACKAGE__->has_many(
   "dsp_loads_docs",
   "TMS::Schema::Result::DspLoadsDoc",
-  { "foreign.LoadId" => "self.LoadId" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 dsp_loads_to_units
-
-Type: has_many
-
-Related object: L<TMS::Schema::Result::DspLoadsToUnit>
-
-=cut
-
-__PACKAGE__->has_many(
-  "dsp_loads_to_units",
-  "TMS::Schema::Result::DspLoadsToUnit",
   { "foreign.LoadId" => "self.LoadId" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
@@ -423,19 +423,19 @@ __PACKAGE__->has_many(
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::Job>
+Related object: L<TMS::Schema::Result::FinJob>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "job",
-  "TMS::Schema::Result::Job",
+  "TMS::Schema::Result::FinJob",
   { JobId => "Job" },
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
   },
 );
 
@@ -480,8 +480,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7LBXoshYj9vYsAEGN21fmw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:LdA9biuc55fZWmYq+lk1PA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

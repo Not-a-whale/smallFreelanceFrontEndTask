@@ -203,6 +203,36 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 app_roles_created_by
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::AppRole>
+
+=cut
+
+__PACKAGE__->has_many(
+  "app_roles_created_by",
+  "TMS::Schema::Result::AppRole",
+  { "foreign.CreatedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 app_roles_updated_by
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::AppRole>
+
+=cut
+
+__PACKAGE__->has_many(
+  "app_roles_updated_by",
+  "TMS::Schema::Result::AppRole",
+  { "foreign.UpdatedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 ast
 
 Type: belongs_to
@@ -273,6 +303,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 cmm_assignments_addeds_by
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::CmmAssignment>
+
+=cut
+
+__PACKAGE__->has_many(
+  "cmm_assignments_addeds_by",
+  "TMS::Schema::Result::CmmAssignment",
+  { "foreign.AddedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 cmm_assignments_customers
 
 Type: has_many
@@ -288,6 +333,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 cmm_assignments_customers_addeds_by
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::CmmAssignmentsCustomer>
+
+=cut
+
+__PACKAGE__->has_many(
+  "cmm_assignments_customers_addeds_by",
+  "TMS::Schema::Result::CmmAssignmentsCustomer",
+  { "foreign.AddedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 cmm_assignments_groups
 
 Type: has_many
@@ -300,6 +360,21 @@ __PACKAGE__->has_many(
   "cmm_assignments_groups",
   "TMS::Schema::Result::CmmAssignmentsGroup",
   { "foreign.AssociateId" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 cmm_assignments_groups_addeds_by
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::CmmAssignmentsGroup>
+
+=cut
+
+__PACKAGE__->has_many(
+  "cmm_assignments_groups_addeds_by",
+  "TMS::Schema::Result::CmmAssignmentsGroup",
+  { "foreign.AddedBy" => "self.AstId" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
@@ -333,6 +408,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 dsp_blacklists
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::DspBlacklist>
+
+=cut
+
+__PACKAGE__->has_many(
+  "dsp_blacklists",
+  "TMS::Schema::Result::DspBlacklist",
+  { "foreign.Creator" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 dsp_loads
 
 Type: has_many
@@ -345,6 +435,66 @@ __PACKAGE__->has_many(
   "dsp_loads",
   "TMS::Schema::Result::DspLoad",
   { "foreign.BookedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 dsp_loads_created_by
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::DspLoad>
+
+=cut
+
+__PACKAGE__->has_many(
+  "dsp_loads_created_by",
+  "TMS::Schema::Result::DspLoad",
+  { "foreign.CreatedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 dsp_loads_destinations_docs
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::DspLoadsDestinationsDoc>
+
+=cut
+
+__PACKAGE__->has_many(
+  "dsp_loads_destinations_docs",
+  "TMS::Schema::Result::DspLoadsDestinationsDoc",
+  { "foreign.ApprovedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 dsp_loads_dispatched
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::DspLoadDispatched>
+
+=cut
+
+__PACKAGE__->has_many(
+  "dsp_loads_dispatched",
+  "TMS::Schema::Result::DspLoadDispatched",
+  { "foreign.DispatchedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 dsp_loads_docs
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::DspLoadsDoc>
+
+=cut
+
+__PACKAGE__->has_many(
+  "dsp_loads_docs",
+  "TMS::Schema::Result::DspLoadsDoc",
+  { "foreign.AddedBy" => "self.AstId" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
@@ -363,6 +513,111 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 dsp_trips_loads
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::DspTripsLoad>
+
+=cut
+
+__PACKAGE__->has_many(
+  "dsp_trips_loads",
+  "TMS::Schema::Result::DspTripsLoad",
+  { "foreign.LoadDispatcher" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 fin_billing_tags
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::FinBillingTag>
+
+=cut
+
+__PACKAGE__->has_many(
+  "fin_billing_tags",
+  "TMS::Schema::Result::FinBillingTag",
+  { "foreign.CreatedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 fin_cheques_authorizeds_by
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::FinCheque>
+
+=cut
+
+__PACKAGE__->has_many(
+  "fin_cheques_authorizeds_by",
+  "TMS::Schema::Result::FinCheque",
+  { "foreign.AuthorizedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 fin_cheques_created_by
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::FinCheque>
+
+=cut
+
+__PACKAGE__->has_many(
+  "fin_cheques_created_by",
+  "TMS::Schema::Result::FinCheque",
+  { "foreign.CreatedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 fin_cheques_prints
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::FinChequesPrint>
+
+=cut
+
+__PACKAGE__->has_many(
+  "fin_cheques_prints",
+  "TMS::Schema::Result::FinChequesPrint",
+  { "foreign.PrintedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 fin_cheques_voided_by
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::FinCheque>
+
+=cut
+
+__PACKAGE__->has_many(
+  "fin_cheques_voided_by",
+  "TMS::Schema::Result::FinCheque",
+  { "foreign.VoidedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 fin_invoice_payments
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::FinInvoicePayment>
+
+=cut
+
+__PACKAGE__->has_many(
+  "fin_invoice_payments",
+  "TMS::Schema::Result::FinInvoicePayment",
+  { "foreign.CreatedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 fin_invoices_items
 
 Type: has_many
@@ -374,6 +629,96 @@ Related object: L<TMS::Schema::Result::FinInvoicesItem>
 __PACKAGE__->has_many(
   "fin_invoices_items",
   "TMS::Schema::Result::FinInvoicesItem",
+  { "foreign.CreatedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 fin_item_templates_created_by
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::FinItemTemplate>
+
+=cut
+
+__PACKAGE__->has_many(
+  "fin_item_templates_created_by",
+  "TMS::Schema::Result::FinItemTemplate",
+  { "foreign.CreatedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 fin_item_templates_deleted_by
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::FinItemTemplate>
+
+=cut
+
+__PACKAGE__->has_many(
+  "fin_item_templates_deleted_by",
+  "TMS::Schema::Result::FinItemTemplate",
+  { "foreign.DeletedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 fin_item_templates_updated_by
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::FinItemTemplate>
+
+=cut
+
+__PACKAGE__->has_many(
+  "fin_item_templates_updated_by",
+  "TMS::Schema::Result::FinItemTemplate",
+  { "foreign.UpdatedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 fin_journal_entries
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::FinJournalEntry>
+
+=cut
+
+__PACKAGE__->has_many(
+  "fin_journal_entries",
+  "TMS::Schema::Result::FinJournalEntry",
+  { "foreign.CreatedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 fin_scheduled_deductions
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::FinScheduledDeduction>
+
+=cut
+
+__PACKAGE__->has_many(
+  "fin_scheduled_deductions",
+  "TMS::Schema::Result::FinScheduledDeduction",
+  { "foreign.CreatedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 fin_transactions
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::FinTransaction>
+
+=cut
+
+__PACKAGE__->has_many(
+  "fin_transactions",
+  "TMS::Schema::Result::FinTransaction",
   { "foreign.CreatedBy" => "self.AstId" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
@@ -405,6 +750,21 @@ __PACKAGE__->has_many(
   "hr_govidcards",
   "TMS::Schema::Result::HrGovidcard",
   { "foreign.AstId" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 hr_govidcards_addeds_by
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::HrGovidcard>
+
+=cut
+
+__PACKAGE__->has_many(
+  "hr_govidcards_addeds_by",
+  "TMS::Schema::Result::HrGovidcard",
+  { "foreign.AddedBy" => "self.AstId" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
@@ -483,18 +843,48 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 hr_workauthorizations
+=head2 ins_policies
 
 Type: has_many
 
-Related object: L<TMS::Schema::Result::HrWorkauthorization>
+Related object: L<TMS::Schema::Result::InsPolicy>
 
 =cut
 
 __PACKAGE__->has_many(
-  "hr_workauthorizations",
-  "TMS::Schema::Result::HrWorkauthorization",
-  { "foreign.AstId" => "self.AstId" },
+  "ins_policies",
+  "TMS::Schema::Result::InsPolicy",
+  { "foreign.ProviderAgent" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 ins_to_entities_addeds_by
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::InsToEntity>
+
+=cut
+
+__PACKAGE__->has_many(
+  "ins_to_entities_addeds_by",
+  "TMS::Schema::Result::InsToEntity",
+  { "foreign.AddedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 ins_to_entities_removed_by
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::InsToEntity>
+
+=cut
+
+__PACKAGE__->has_many(
+  "ins_to_entities_removed_by",
+  "TMS::Schema::Result::InsToEntity",
+  { "foreign.RemovedBy" => "self.AstId" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
@@ -513,6 +903,36 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 ins_to_vehicles_removed_by
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::InsToVehicle>
+
+=cut
+
+__PACKAGE__->has_many(
+  "ins_to_vehicles_removed_by",
+  "TMS::Schema::Result::InsToVehicle",
+  { "foreign.RemovedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 inv_equipments
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::InvEquipment>
+
+=cut
+
+__PACKAGE__->has_many(
+  "inv_equipments",
+  "TMS::Schema::Result::InvEquipment",
+  { "foreign.OwnerId" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 inv_notes
 
 Type: has_many
@@ -525,6 +945,21 @@ __PACKAGE__->has_many(
   "inv_notes",
   "TMS::Schema::Result::InvNote",
   { "foreign.PostedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 inv_support_vendors
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::InvSupportVendor>
+
+=cut
+
+__PACKAGE__->has_many(
+  "inv_support_vendors",
+  "TMS::Schema::Result::InvSupportVendor",
+  { "foreign.PrimaryContact" => "self.AstId" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
@@ -558,18 +993,33 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 jobs_charges
+=head2 inv_units_to_equipment_addeds_by
 
 Type: has_many
 
-Related object: L<TMS::Schema::Result::JobsCharge>
+Related object: L<TMS::Schema::Result::InvUnitsToEquipment>
 
 =cut
 
 __PACKAGE__->has_many(
-  "jobs_charges",
-  "TMS::Schema::Result::JobsCharge",
+  "inv_units_to_equipment_addeds_by",
+  "TMS::Schema::Result::InvUnitsToEquipment",
   { "foreign.AddedBy" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 inv_units_to_equipments_removed_by
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::InvUnitsToEquipment>
+
+=cut
+
+__PACKAGE__->has_many(
+  "inv_units_to_equipments_removed_by",
+  "TMS::Schema::Result::InvUnitsToEquipment",
+  { "foreign.RemovedBy" => "self.AstId" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
@@ -593,9 +1043,24 @@ __PACKAGE__->belongs_to(
   },
 );
 
+=head2 sft_vehicle_inspections
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:XpUvh00scLG4AWdUrpxwNA
+Type: has_many
+
+Related object: L<TMS::Schema::Result::SftVehicleInspection>
+
+=cut
+
+__PACKAGE__->has_many(
+  "sft_vehicle_inspections",
+  "TMS::Schema::Result::SftVehicleInspection",
+  { "foreign.InspectorId" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4bOITwrA5YnCV+6pJloISA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

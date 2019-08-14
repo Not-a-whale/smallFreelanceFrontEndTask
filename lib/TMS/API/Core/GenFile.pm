@@ -24,7 +24,7 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has FileId        => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has FileId        => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has DocumentTitle => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
 has Keywords      => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
 has FileName      => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);

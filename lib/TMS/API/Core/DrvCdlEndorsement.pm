@@ -24,7 +24,7 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has EndrsId       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has EndrsId       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has Endorsement   => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
 has ValidFromDate => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'DATE',);
 has ExpiredDate   => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'DATE',);

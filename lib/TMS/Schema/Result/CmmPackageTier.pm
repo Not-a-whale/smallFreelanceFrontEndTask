@@ -40,14 +40,14 @@ __PACKAGE__->table("cmm_package_tiers");
   data_type: 'varchar'
   is_foreign_key: 1
   is_nullable: 0
-  size: 45
+  size: 255
 
 =head2 Name
 
   accessor: 'name'
   data_type: 'varchar'
   is_nullable: 1
-  size: 45
+  size: 255
 
 =head2 Percentage
 
@@ -83,10 +83,10 @@ __PACKAGE__->add_columns(
     data_type => "varchar",
     is_foreign_key => 1,
     is_nullable => 0,
-    size => 45,
+    size => 255,
   },
   "Name",
-  { accessor => "name", data_type => "varchar", is_nullable => 1, size => 45 },
+  { accessor => "name", data_type => "varchar", is_nullable => 1, size => 255 },
   "Percentage",
   {
     accessor => "percentage",
@@ -132,12 +132,12 @@ __PACKAGE__->belongs_to(
   "package",
   "TMS::Schema::Result::CmmPackage",
   { Name => "Package" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:A6Z0XCVgZpCcV/cvUhH9iw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4H6L2PaqLMu0BGCRuW33mg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

@@ -73,10 +73,9 @@ __PACKAGE__->table("ent_carriers");
 =head2 IFTA_State
 
   accessor: 'ifta_state'
-  data_type: 'bigint'
-  extra: {unsigned => 1}
-  is_foreign_key: 1
+  data_type: 'char'
   is_nullable: 1
+  size: 2
 
 =head2 SCAC
 
@@ -172,13 +171,7 @@ __PACKAGE__->add_columns(
     size => 255,
   },
   "IFTA_State",
-  {
-    accessor       => "ifta_state",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
+  { accessor => "ifta_state", data_type => "char", is_nullable => 1, size => 2 },
   "SCAC",
   { accessor => "scac", data_type => "varchar", is_nullable => 1, size => 255 },
   "state_OR",
@@ -299,26 +292,6 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
-=head2 ifta_state
-
-Type: belongs_to
-
-Related object: L<TMS::Schema::Result::CntState>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "ifta_state",
-  "TMS::Schema::Result::CntState",
-  { StateId => "IFTA_State" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
-);
-
 =head2 inv_vehicles
 
 Type: has_many
@@ -355,8 +328,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:HRarPJkmhhD+5HFvAiBhLw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:VYTP3rr+IsYqMV4CGZmWvg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

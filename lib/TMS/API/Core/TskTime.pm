@@ -26,7 +26,7 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has tmeid      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has tmeid      => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has actid      => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TskActnObj',);
 has PrsnId     => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'EntPersonObj',);
 has started    => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);

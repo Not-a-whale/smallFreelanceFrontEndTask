@@ -26,6 +26,13 @@ __PACKAGE__->table("ins_to_entities");
 
 =head1 ACCESSORS
 
+=head2 InsEntId
+
+  accessor: 'ins_ent_id'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_nullable: 0
+
 =head2 InsId
 
   accessor: 'ins_id'
@@ -42,17 +49,72 @@ __PACKAGE__->table("ins_to_entities");
   is_foreign_key: 1
   is_nullable: 0
 
+=head2 AddedBy
+
+  accessor: 'added_by'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_foreign_key: 1
+  is_nullable: 0
+
 =head2 DateAdded
 
   accessor: 'date_added'
+  data_type: 'date'
+  datetime_undef_if_invalid: 1
+  is_nullable: 0
+
+=head2 RemovedBy
+
+  accessor: 'removed_by'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_foreign_key: 1
+  is_nullable: 1
+
+=head2 DateRemoved
+
+  accessor: 'date_removed'
+  data_type: 'date'
+  datetime_undef_if_invalid: 1
+  is_nullable: 1
+
+=head2 Notes
+
+  accessor: 'notes'
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 ActionReminder
+
+  accessor: 'action_reminder'
   data_type: 'datetime'
   datetime_undef_if_invalid: 1
-  default_value: 'CURRENT_TIMESTAMP'
-  is_nullable: 0
+  is_nullable: 1
+
+=head2 ActionNote
+
+  accessor: 'action_note'
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 ActionEmail
+
+  accessor: 'action_email'
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 255
 
 =cut
 
 __PACKAGE__->add_columns(
+  "InsEntId",
+  {
+    accessor    => "ins_ent_id",
+    data_type   => "bigint",
+    extra       => { unsigned => 1 },
+    is_nullable => 0,
+  },
   "InsId",
   {
     accessor       => "ins_id",
@@ -69,13 +131,53 @@ __PACKAGE__->add_columns(
     is_foreign_key => 1,
     is_nullable    => 0,
   },
+  "AddedBy",
+  {
+    accessor       => "added_by",
+    data_type      => "bigint",
+    extra          => { unsigned => 1 },
+    is_foreign_key => 1,
+    is_nullable    => 0,
+  },
   "DateAdded",
   {
     accessor => "date_added",
+    data_type => "date",
+    datetime_undef_if_invalid => 1,
+    is_nullable => 0,
+  },
+  "RemovedBy",
+  {
+    accessor       => "removed_by",
+    data_type      => "bigint",
+    extra          => { unsigned => 1 },
+    is_foreign_key => 1,
+    is_nullable    => 1,
+  },
+  "DateRemoved",
+  {
+    accessor => "date_removed",
+    data_type => "date",
+    datetime_undef_if_invalid => 1,
+    is_nullable => 1,
+  },
+  "Notes",
+  { accessor => "notes", data_type => "text", is_nullable => 1 },
+  "ActionReminder",
+  {
+    accessor => "action_reminder",
     data_type => "datetime",
     datetime_undef_if_invalid => 1,
-    default_value => "CURRENT_TIMESTAMP",
-    is_nullable => 0,
+    is_nullable => 1,
+  },
+  "ActionNote",
+  { accessor => "action_note", data_type => "text", is_nullable => 1 },
+  "ActionEmail",
+  {
+    accessor => "action_email",
+    data_type => "varchar",
+    is_nullable => 1,
+    size => 255,
   },
 );
 
@@ -83,17 +185,30 @@ __PACKAGE__->add_columns(
 
 =over 4
 
-=item * L</InsId>
-
-=item * L</EntityId>
+=item * L</InsEntId>
 
 =back
 
 =cut
 
-__PACKAGE__->set_primary_key("InsId", "EntityId");
+__PACKAGE__->set_primary_key("InsEntId");
 
 =head1 RELATIONS
+
+=head2 added_by
+
+Type: belongs_to
+
+Related object: L<TMS::Schema::Result::HrAssociate>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "added_by",
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "AddedBy" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+);
 
 =head2 entity
 
@@ -107,7 +222,7 @@ __PACKAGE__->belongs_to(
   "entity",
   "TMS::Schema::Result::Entity",
   { EntityId => "EntityId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 =head2 in
@@ -122,12 +237,32 @@ __PACKAGE__->belongs_to(
   "in",
   "TMS::Schema::Result::InsPolicy",
   { InsId => "InsId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+);
+
+=head2 removed_by
+
+Type: belongs_to
+
+Related object: L<TMS::Schema::Result::HrAssociate>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "removed_by",
+  "TMS::Schema::Result::HrAssociate",
+  { AstId => "RemovedBy" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "RESTRICT",
+    on_update     => "CASCADE",
+  },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:N707+rdqMfXnxG3zEbhYBw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1PJA522kLnksNJBnENnXwA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
