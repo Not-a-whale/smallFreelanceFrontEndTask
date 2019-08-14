@@ -16,7 +16,7 @@ sub navigation_menu_item_all {
 
     my $report = $hdl->Search(
         {"me.ParentId" => undef},
-        {   prefetch => {"app_menu_items" => "app_menu_actions"},
+        {   prefetch => "app_menu_items",
             order_by => {'-asc'           => ['me.SortIndex', 'me.Label', 'app_menu_items.SortIndex', 'app_menu_items.Label']}
         }
     );
@@ -46,7 +46,7 @@ sub navigation_menu_item {
                 ]
             ]
         },
-        {   prefetch => {"app_menu_items" => "app_menu_actions"},
+        {   prefetch => "app_menu_items",
             order_by => {'-asc'           => ['me.SortIndex', 'me.Label', 'app_menu_items.SortIndex', 'app_menu_items.Label']}
         }
     );
