@@ -70,6 +70,8 @@ body {
   display: none;
 }
 
+
+
 /* --------------------------- COMPANY LOGO AND DESIGN --------------------- */
 .logo-container {
   position: relative;
@@ -99,202 +101,19 @@ body {
   box-shadow: 0px 5px 0px var(--menu-background-color), 0px 7px 0px var(--color-highlight-bright);
 }
 
-/* ------------------------------- FONTS ----------------------------------- */
 
-h1 {
-  font-size: var(--font-super);
-  color: var(--color-tone-dark);
-  font-weight: bold;
-}
-
-h2 {
-  font-size: var(--font-giant);
-  color: var(--color-tone-dark);
-  font-weight: bold;
-}
-
-h3 {
-  font-size: var(--font-large);
-  color: var(--color-tone-dark);
-  font-weight: bold;
-}
-
-h4 {
-  font-size: var(--font-norm);
-  color: var(--color-tone-dark);
-  font-weight: bold;
-}
-
-h5 {
-  font-size: var(--font-small);
-  color: var(--color-tone-dark);
-  font-weight: bold;
-}
-
-.bold {
-  font-weight: bold !important;
-}
-
-.normal {
-  font-weight: normal !important;
-}
-
-.upper {
-  text-transform: uppercase;
-}
-
-.caps {
-  text-transform: capitalize;
-}
-
-.font-link {
-  /* used for text that needs to appear as a link */
-  color: var(--color-blue-link);
-  text-decoration: underline;
-  text-decoration-color: var(--color-blue-link);
-}
-
-
-.font-link-ls {
-  /* used for text that needs to appear as a link but smaller font */
-  color: var(--color-blue-link);
-  text-decoration: underline;
-  text-decoration-color: var(--color-blue-link);
-  font-size: var(--font-less);
-}
-
-.font-see-more {
-  /* used for the small "see more" text inside of cards that expand */
-  color: var(--color-gray-active);
-  font-size: var(--font-less);
-  font-weight: bold;
-}
-
-.font-sm {
-  /* use to explicity specify small font */
-  font-size: var(--font-small);
-}
-
-.font-nm {
-  /* use to explicity specify font that is normal */
-  font-size: var(--font-norm);
-}
-
-.font-lg {
-  /* use to explicity specify font that is larger than normal */
-  font-size: var(--font-large);
-}
-
-.font-gt {
-  /* use to explicitly specify font that is more larger than normal */
-  font-size: var(--font-giant);
-}
-
-.font-sp {
-  /* use to explicitly specify the largest font */
-  font-size: var(--font-super);
-}
-
-/* used inside of the secondary navbar for title */
-.font-page-title {
-  font-size: var(--font-super);
-  color: var(--color-tone-heavy);
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-/* primary tab font */
-.font-tab {
-  font-size: var(--font-large);
-  color: var(--color-tone-middle);
-  font-weight: bold;
-}
-
-.font-tab:hover {
-  color: var(--color-tone-middle);
-  box-shadow: 0px 3px var(--color-tone-middle);
-}
-
-.font-tab[active] {
-  color: var(--color-accent-default);
-  box-shadow: 0px 3px var(--color-accent-default);
-}
-
-/* used in primary side navbar */
-.font-nav {
-  font-size: var(--font-giant);
-  font-weight: bold;
-  text-transform: uppercase;
-  color: var(--color-tone-light);
-}
-
-.font-nav2 {
-  font-size: var(--font-large);
-  font-weight: normal;
-  text-transform: capitalize;
-  color: var(--color-tone-light);
-}
-
-.font-nav[active],
-.font-nav2[active] {
-  color: var(--color-highlight-bright) !important;
-}
-
-.font-nav:hover,
-.font-nav2:hover {
-  color: var(--color-tone-bright);
-}
-
-
-/* used for links */
-
-.font-link {
-  font-size: var(--font-small);
-  color: var(--color-primary);
-  text-decoration: underline;
-  text-decoration-color: var(--color-primary);
-}
-
-.font-link:hover {
-
-  color: var(--color-primary-hover);
-  text-decoration-color: var(--color-primary-hover);
-}
-
-.font-sect-head {
-  font-size: var(--font-large);
-  font-weight: bold;
-  color: var(--color-accent-hover);
-  line-height: var(--font-line-large);
-  text-transform: uppercase;
-}
-
-.font-sub-head-imp,
-.font-sub-head {
-  font-size: var(--font-norm);
-  font-weight: bold;
-  line-height: var(--font-line-large);
-  text-transform: uppercase;
-}
-
-.font-sub-head {
-  color: var(--color-tone-dark);
-}
-
-.font-sub-head-imp {
-  color: var(--color-accent-default);
-}
 
 /* -------------------------------- TABS ----------------------------------- */
+
+.tab {
+
+}
+
 .tab2 {
   background-color: transparent;
   min-height: 30px;
   min-width: 116px;
   height: 30px;
-  line-height: 30px;
-  font-size: var(--font-large);
-  font-weight: bold;
-  color: var(--color-tone-middle);
   border-radius: 4px;
   text-align: center;
   display: inline-block;
@@ -308,30 +127,59 @@ h5 {
 
 .tab2[active] {
   background-color: var(--color-accent-default);
-  color: var(--color-highlight-bright) !important;
 }
 
 /* -------------------------------- BUTTONS -------------------------------- */
 /* These buttons are for <a></a> tags for now */
 /* will need to add support for actual <input> and <button> */
-.btn-primary,
-.btn-info,
-.btn-warn,
-.btn-danger,
-.btn-second,
-.btn-success {
-  font-size: var(--font-small);
-  font-weight: bold;
-  border-radius: 4px;
-  min-height: 36px;
-  height: 36px;
-  width: 154px;
-  line-height: 36px;
-  text-align: center;
-  vertical-align: middle;
-  display: inline-block;
-  box-shadow: 0px 2px 3px var(--color-shadow-soft);
+
+.btn {
+  font-size: var(--font-norm);
   text-decoration: none;
+  font-weight: bold;
+
+  border-radius: 4px;
+
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+
+  min-height: var(--btn-height-min);
+  min-width: var(--btn-width-min);
+  line-height: var(--btn-line-height);
+  padding-left: var(--btn-padding);
+  padding-right: var(--btn-padding);
+
+  box-shadow: 0px 2px 3px var(--color-shadow-soft);
+  box-sizing: border-box;
+}
+
+button.btn:hover,
+input.btn:hover {
+  cursor: pointer
+}
+
+input.btn:focus,
+button.btn:focus {
+  outline: none;
+}
+
+.btn-sm {
+  font-size: var(--font-small);
+  min-width: var(--btn-sm-width-min);
+  min-height: var(--btn-sm-height-min);
+  line-height: var(--btn-sm-line-height);
+}
+
+.btn-lg {
+  font-size: var(--font-norm);
+  min-width: var(--btn-lg-width-min);
+  min-height: var(--btn-lg-height-min);
+  line-height: var(--btn-lg-line-height);
+}
+
+.btn-flex {
+  width: 100%;
 }
 
 .btn-primary[disabled],
@@ -410,15 +258,6 @@ h5 {
   color: var(--color-button-text-hover);
 }
 
-.btn-sm {
-  height: 32px;
-  min-width: 64px;
-}
-
-.btn-lg {
-  height: 64px;
-  min-width: 240px;
-}
 
 
 
@@ -536,8 +375,8 @@ div.input>input:required+label:after {
 }
 
 /* default input behavior */
-select,
-input {
+div.select select,
+div.input input {
   min-width: 10px;
   flex-basis: auto;
   min-height: 36px;
@@ -549,8 +388,7 @@ input {
   box-sizing: border-box;
 }
 
-
-select {
+div.select select {
   background: url(/imgs/select_arrow/default.svg);
   -webkit-appearance: none;
   background-color: var(--color-highlight-bright);
@@ -558,8 +396,8 @@ select {
   background-repeat: no-repeat;
 }
 
-select:disabled,
-select:disabled:hover {
+div.select select:disabled,
+div.select select:disabled:hover {
   background: url(/imgs/select_arrow/disabled.svg);
   -webkit-appearance: none;
   background-position: right 8px top 5px;
@@ -571,8 +409,8 @@ select:disabled:hover {
   color: var(--color-tone-light);
 }
 
-select:focus,
-select:focus:hover {
+div.select select:focus,
+div.select select:focus:hover {
   background: url(/imgs/select_arrow/focus.svg);
   -webkit-appearance: none;
   background-color: var(--color-highlight-bright);
@@ -580,8 +418,8 @@ select:focus:hover {
   background-repeat: no-repeat;
 }
 
-select:invalid,
-select:invalid:hover {
+div.select select:invalid,
+div.select select:invalid:hover {
   background: url(/imgs/select_arrow/invalid.svg);
   -webkit-appearance: none;
   background-color: var(--color-highlight-bright);
@@ -589,7 +427,7 @@ select:invalid:hover {
   background-repeat: no-repeat;
 }
 
-select:hover {
+div.select select:hover {
   background: url(/imgs/select_arrow/hover.svg);
   -webkit-appearance: none;
   background-color: var(--color-highlight-bright);
@@ -598,17 +436,17 @@ select:hover {
 }
 
 
-select:hover,
-input:hover {
+div.select select:hover,
+div.input input:hover {
   border: 1px solid var(--color-highlight-hover);
 }
 
-select:focus,
-input:focus {
+div.select select:focus,
+div.input input:focus {
   outline-color: var(--color-primary);
 }
 
-input:disabled {
+div.input input:disabled {
   border: 1px solid var(--color-disabled);
   background-color: var(--color-input-background);
   outline-color: var(--color-disabled);
@@ -616,8 +454,8 @@ input:disabled {
   color: var(--color-tone-light);
 }
 
-select:invalid,
-input:invalid {
+div.select select:invalid,
+div.input input:invalid {
   outline-color: var(--color-danger);
   outline-width: 1px;
   border: 1px solid var(--color-danger);
@@ -631,25 +469,25 @@ label {
   line-height: var(--font-line-large);
 }
 
-select:disabled+label,
-input:disabled+label {
+div.select select:disabled+label,
+div.input input:disabled+label {
   color: var(--color-disabled);
 }
 
-select:invalid+label,
-input:invalid+label {
+div.select select:invalid+label,
+div.input input:invalid+label {
   color: var(--color-danger);
 }
 
-select:invalid+label+div.error-ms,
-input:invalid+label+div.error-ms {
+div.select select:invalid+label+div.error-ms,
+div.input input:invalid+label+div.error-ms {
   color: var(--color-danger);
   font-size: var(--font-small);
 }
 
-select:valid+label+div.error-ms,
-select:disabled+label+div.error-ms,
-input:valid+label+div.error-ms {
+div.select select:valid+label+div.error-ms,
+div.select select:disabled+label+div.error-ms,
+div.input input:valid+label+div.error-ms {
   display: none;
 }
 
@@ -670,14 +508,14 @@ div.input>input:valid+div.error-ms {
   flex-direction: row;
   height: 76px;
   align-items: flex-end;
-  background: var(--color-highlight-bright);
+  background: var(--color-highlight-bubble);
   box-shadow: 0px 6px 3px -3px rgba(0, 0, 0, 0.08);
   z-index: 1;
 }
 
 .top-nav>* {
-  margin-left: 64px;
-  margin-bottom: 3px;
+  padding-left: 64px;
+  padding-bottom: 3px;
 }
 
 .top-nav>ul {
@@ -688,18 +526,4 @@ div.input>input:valid+div.error-ms {
 
 .top-nav>ul>li {
   margin-right: 50px;
-}
-
-.top-nav>ul li a {
-  text-decoration: none;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: var(--color-gray-dormant);
-}
-
-.top-nav>ul li a[active] {
-  color: var(--color-usko-red);
-  box-shadow: 0px 4px var(--color-usko-red);
 }
