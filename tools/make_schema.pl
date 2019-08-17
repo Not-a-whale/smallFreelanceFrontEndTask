@@ -25,20 +25,36 @@ my $ObjectTypes       = undef;    # Each wrapper class of DBIx will become a MOO
 my $ColumnTypes       = {};       # Each Enum/Set column data type will become a MOOSE type as well
 my %REGEX_TO_TYPENAME = ();       # Maps similar Enum and Set regex to single type instead of 1 per col per table
 my %UNIQUE_TYPENAME   = ();       # Makes sure that the type name used for Enum and Set are unique
+my $SMPLTYPE          = undef;    # hash TYPENAME=>COERCE found in CLASS/API/Types/Simple.pl, COERCE is boolean
+my $TYPEDATA          = undef;    #
 
 # ----------------------------------------------------------------------------------------------------------------------
 my $CLI = ParseCLI(
     isfatal => 1,
     rules   => {
-        dbuser    => {isa => 'Str', required => 1, default => 'root'},
-        dbpass    => {isa => 'Str', required => 1, default => 'Nlvae4asd!'},
-        dbhost    => {isa => 'Str', required => 1, default => '192.168.11.7'},
-        dbname    => {isa => 'Str', required => 1, default => 'tms'},
-        class     => {isa => 'Str', required => 1, default => 'TMS'},
-        dest      => {isa => 'Str', required => 1, default => 'lib'},
-        skip_dump => {isa => 'Bool',},
+        dbuser => {isa => 'Str', required => 1, default => 'root',         comment => 'Database User'},
+        dbpass => {isa => 'Str', required => 1, default => 'Nlvae4asd!',   comment => 'Database Password'},
+        dbhost => {isa => 'Str', required => 1, default => '192.168.11.7', comment => 'Database Host or IP'},
+        dbname => {isa => 'Str', required => 1, default => 'tms',          comment => 'Database Name'},
+        class  => {isa => 'Str', required => 1, default => 'TMS',          comment => 'Name of the perl class'},
+        dest   => {isa => 'Str', required => 1, default => 'lib',          comment => 'Destination folder'},
+        skip_dump => {isa => 'Bool', comment => 'Skip execution of the DBICDUMP'},
+        types     => {isa => 'Str',  comment => 'Use predefined types for "HAS" from the JSON file. Run -help for info'},
     }
 );
+
+if (defined $$CLI{help}) {
+    print <<EOH;
+                                   JSON format for types:
+                                   {
+                                       "people" : {
+                                           "FirstName" : "NameCapitalized",
+                                           "LastName"  : "NameCapitalized"
+                                       }
+                                   }
+EOH
+    exit 0;
+}
 
 # ----------------------------------------------------------------------------------------------------------------------
 my $DESTROOT = "$$CLI{dest}/$$CLI{class}";
@@ -48,7 +64,34 @@ my $TYPESDIR = "$BASEAPI/Types";
 my $WEBAPI   = "$BASEAPI/Web";
 
 # ----------------------------------------------------------------------------------------------------------------------
+if (defined $$CLI{types}) {
+    confess "Types file error: $!" unless -f "$$CLI{types}";
+    if (open(FT, "<$$CLI{types}")) {
+        local $/ = undef;
+        my $jsontext = <FT>;
+        close(FT);
+        $TYPEDATA = JSON->new->decode($jsontext);
+    } else {
+        confess "Unable to read \"$$CLI{types}\", $!";
+    }
 
+    my $types_file = "$TYPESDIR/Simple.pm";
+    if (open(FI, "<$types_file")) {
+        local $/ = undef;
+        my $types_text = <FI>;
+        close(FI);
+
+        my @subtypes = ($types_text =~ /^subtype\s+['"]([^'"]+)['"]/gm);
+        my %coerce   = map { $_, 1 } ($types_text =~ /^coerce\s+['"]([^'"]+)['"]/gm);
+        foreach (@subtypes) {
+            $$SMPLTYPE{$_} = exists $coerce{$_} ? 1 : 0;
+        }
+    } else {
+        confess "Unable to read \"$types_file\", $!";
+    }
+}
+
+# ----------------------------------------------------------------------------------------------------------------------
 $ENV{DBIC_OVERWRITE_HELPER_METHODS_OK} = 1;
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -62,7 +105,7 @@ my $h = ClassDBI->new(user => $$CLI{dbuser}, password => $$CLI{dbpass}, host => 
 my $embedded_data = '';
 foreach (<DATA>) {
     s/CLASS::/$$CLI{class}\:\:/g;
-    $embedded_data .= $_
+    $embedded_data .= $_;
 }
 
 # convert bigdata into hash of 'tag' => 'file content'
@@ -71,8 +114,8 @@ foreach (<DATA>) {
 # ----------------------------------------------------------------------------------------------------------------------
 # Directory for the MOOSE high level API classes
 print "... Preparing $COREAPI, $WEBAPI, $TYPESDIR\n";
-`mkdir -p "$COREAPI"`;    # just use UNIX. :(
-`mkdir -p "$WEBAPI"`;    # just use UNIX. :(
+`mkdir -p "$COREAPI"`;     # just use UNIX. :(
+`mkdir -p "$WEBAPI"`;      # just use UNIX. :(
 `mkdir -p "$TYPESDIR"`;    # just use UNIX. :(
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -151,9 +194,11 @@ if (open(FO, ">$json_map")) {
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Building MOOSE API high level classes
-foreach my $base (keys %CLASS_TO_TABLE) {
+foreach my $base (sort keys %CLASS_TO_TABLE) {
     my $content
-        = -f "$COREAPI/$base.pm" ? `cat $COREAPI/$base.pm` : $DATA{CLASS_HEADER}; # pull CLASS WRAPPER template for the MOOSE API file
+        = -f "$COREAPI/$base.pm"
+        ? `cat $COREAPI/$base.pm`
+        : $DATA{CLASS_HEADER};    # pull CLASS WRAPPER template for the MOOSE API file
     my $table      = $CLASS_TO_TABLE{$base};    # use shorter variable table instead of $DATA{CLASS_HEADER}
     my $table_info = undef;                     # complete table info, columns, comments, types, etc
     my $fks        = undef;                     # foreign keys hash ref extracted from $table_info
@@ -178,7 +223,8 @@ foreach my $base (keys %CLASS_TO_TABLE) {
     next if $skip_base;    # cannot run 'next' from within 'try/catch' since it's really a fancy declaration of the function
 
 #    $content =~ s/package CLASS::API::Core::/package $$CLI{class}::API::Core::$base/s;    # add the proper class name to the package
-    $content =~ s/package $$CLI{class}::API::Core::;/package $$CLI{class}::API::Core::$base;/s; # add the proper class name to the package
+    $content =~ s/package $$CLI{class}::API::Core::;/package $$CLI{class}::API::Core::$base;/s
+        ;                  # add the proper class name to the package
     print "... Building $$CLI{class}::API::Core::$base\n";
 
     %$fks = map { $$_{'COLUMN_NAME'}, $_ }
@@ -201,16 +247,26 @@ foreach my $base (keys %CLASS_TO_TABLE) {
 
     my $has_content = "";
     foreach my $cl (@{$$table_info{'columns'}}) {
-        my $isa = uc($$cl{'COLUMN_TYPE'});
+        my $coerce = 1;
+        my $isa    = uc($$cl{'COLUMN_TYPE'});
         $isa =~ s/\(.*//;
 
-        $isa = 'Str'   if $isa =~ /(CHAR|TEXT)/;
-        $isa = 'Bool'  if $isa =~ /TINYINT/;
-        $isa = 'Int'   if $isa =~ /INT/;
-        $isa = 'Float' if $isa =~ /DOUBLE|FLOAT|DECIMAL/;
+        if ($$CLI{types} && exists $$TYPEDATA{$table}{$$cl{'COLUMN_NAME'}}) {
+            confess "Requested type \"$$TYPEDATA{$table}{$$cl{'COLUMN_NAME'}}\" does not exist"
+                if !exists $$SMPLTYPE{$$TYPEDATA{$table}{$$cl{'COLUMN_NAME'}}};
+            $isa    = $$TYPEDATA{$table}{$$cl{'COLUMN_NAME'}};
+            $coerce = $$SMPLTYPE{$$TYPEDATA{$table}{$$cl{'COLUMN_NAME'}}};
+        } else {
+            $isa = 'Str'   if $isa =~ /(CHAR|TEXT)/;
+            $isa = 'Bool'  if $isa =~ /TINYINT/;
+            $isa = 'Int'   if $isa =~ /INT/;
+            $isa = 'Float' if $isa =~ /DOUBLE|FLOAT|DECIMAL/;
 
-        $isa = check_enum_type($isa, $cl, $ColumnTypes) || $isa;
-        $isa = check_set_type($isa, $cl, $ColumnTypes) || $isa;
+            $isa = check_enum_type($isa, $cl, $ColumnTypes) || $isa;
+            $isa = check_set_type($isa, $cl, $ColumnTypes) || $isa;
+
+            $coerce = 0 if $isa =~ /^(Str|Bool|Int)$/;
+        }
 
         $isa = 'PrimaryKeyInt' if $$cl{'COLUMN_KEY'} eq 'PRI';
         $isa = $TABLE_TO_CLASS{$$fks{$$cl{'COLUMN_NAME'}}{'REFERENCED_TABLE_NAME'}} . 'Obj'
@@ -221,7 +277,7 @@ foreach my $base (keys %CLASS_TO_TABLE) {
         $has =~ s/COLNAME/$$cl{'COLUMN_NAME'}/s;
         $has =~ s/TYPE/$isa/s;
         $has =~ s/REQUIRED/$required/s;
-        $has =~ s/coerce => 1/coerce => 0/ if $isa =~ /^(Str|Bool|Int)$|^(Enum|Set)/;
+        $has =~ s/coerce => \d+/coerce => $coerce/s;
 
         $has_content .= $has;
     }
@@ -236,7 +292,7 @@ foreach my $base (keys %CLASS_TO_TABLE) {
     `mv $COREAPI/$base.pm.tdy $COREAPI/$base.pm`;
 }
 
-# ............................................................................
+# ----------------------------------------------------------------------------------------------------------------------
 print "... Saving Column Types\n";
 my $column_types = "";
 foreach my $type (keys %$ColumnTypes) {
@@ -262,52 +318,41 @@ open(FO, ">$column_types_filename");
 print FO $column_types_content;
 close(FO);
 
+# ----------------------------------------------------------------------------------------------------------------------
+print "... Saving Object Types\n";
+foreach my $type (keys %$ObjectTypes) {
+    my $class = $$ObjectTypes{$type};
+    my $otype = $DATA{ObjectType};
+    print "     $class\n";
+    $otype =~ s/TYPENAME/$type/gs;
+    $otype =~ s/CLASSNAME/$class/gs;
+    $DATA{ObjectTypes} .= $otype;
+}
+$DATA{ObjectTypes} .= "\n1;\n";
+
+# $DATA{ObjectTypes} =~ s/package CLASS::/package $$CLI{class}\:\:/s;
+open(FO, ">$TYPESDIR/Objects.pm");
+print FO $DATA{ObjectTypes};
+close(FO);
+
+# ----------------------------------------------------------------------------------------------------------------------
 sub enum_type {
     my ($type, $col) = @_;
-
-    # Generate the regex from the values,
-    my $regex   = $$col{REGEX};
-    my $default = $$col{'COLUMN_DEFAULT'};
-    my $text    = <<EOENUM;
-# ............................................................................
-subtype '$type',
-    as 'Str',
-        where { m{$regex}; };
-EOENUM
-    return $text;
-} ## end sub enum_type
+    my $text = $DATA{ENUM};
+    my $opts = join(',', map { "'" . lc($_) . "' => 1" } @{$$col{'ENUM_VALUES'}});
+    $text =~ s/EnumTYPENAME/$type/gs;
+    $text =~ s/OPTIONS/$opts/gs;
+    return "$text\n";
+}
 
 sub set_type {
     my ($type, $col) = @_;
-
-    # Generate the regex from the values,
-
-    my $setvals  = $$col{REGEX};
-    my $default  = $$col{'COLUMN_DEFAULT'};
-    my $nullable = $$col{'IS_NULLABLE'} eq 'YES' ? 'return 1 if not defined $_ || $_ eq \'\';' : '';
-    my $text     = <<EOSET;
-# ............................................................................
-subtype '$type',
-    as 'Str',
-        where {
-                $nullable
-                my \%vals = map {\$_ => 1} split( /,/, $setvals );
-                return scalar ( grep { not exists \$vals{\$_} } split(/,/, \$_)) == 0;
-            };
-EOSET
-    if ($default) {
-        $text .= <<EOSET_DEF;
-coerce '$type',
-    from 'Str',
-        via {
-                my \%vals = map {\$_ => 1} split( ',', $setvals );
-                return join(',', do{ my \%u; grep { exists \$vals{\$_} } grep { !\$u{\$_}++ } split(',', \$_)});
-            };
-EOSET_DEF
-    }
-
-    return $text;
-} ## end sub set_type
+    my $text = $DATA{SET};
+    my $opts = join(',', map { "'" . lc($_) . "' => 1" } @{$$col{'ENUM_VALUES'}});
+    $text =~ s/EnumTYPENAME/$type/gs;
+    $text =~ s/OPTIONS/$opts/gs;
+    return "$text\n";
+}
 
 sub check_col_type {
     my ($isa, $col, $typeshash, $regex) = @_;
@@ -339,11 +384,11 @@ sub check_col_type {
         }
     }
     return $typename;
-} ## end sub check_col_type
+}
 
 sub check_enum_type {
     my ($isa, $col, $typeshash) = @_;
-    if ($isa =~ /^ENUM$/) {
+    if ($isa eq 'ENUM') {
         my $regex = join('|', map {"^$_\$"} @{$$col{'ENUM_VALUES'}});
         $regex .= '|^$' if $$col{IS_NULLABLE} eq 'YES';
         $regex = qr/$regex/;
@@ -351,73 +396,17 @@ sub check_enum_type {
         return check_col_type($isa, $col, $typeshash, $regex);
     }
     return undef;
-} ## end sub check_enum_type
+}
 
 sub check_set_type {
     my ($isa, $col, $ColumnTypes) = @_;
-    if ($isa =~ /^SET$/) {
+    if ($isa eq 'SET') {
         my $regex = '\'' . join(',', @{$$col{'ENUM_VALUES'}}) . '\'';
         $$col{REGEX} = $regex;
         return check_col_type($isa, $col, $ColumnTypes, $regex);
     }
     return undef;
-} ## end sub check_set_type
-
-# ............................................................................
-print "... Saving Object Types\n";
-foreach my $type (keys %$ObjectTypes) {
-    my $class = $$ObjectTypes{$type};
-    print "     $class\n";
-    my $text = <<EOTYPE;
-
-# ............................................................................
-subtype '$type',
-    as class_type('$class');
-coerce '$type',
-    from 'HashRef',
-        via { $class\->new(\%{\$_}) };
-EOTYPE
-    $DATA{ObjectTypes} .= $text;
 }
-$DATA{ObjectTypes} .= "\n1;\n";
-# $DATA{ObjectTypes} =~ s/package CLASS::/package $$CLI{class}\:\:/s;
-open(FO, ">$TYPESDIR/Objects.pm");
-print FO $DATA{ObjectTypes};
-close(FO);
-
-# ----------------------------------------------------------------------------------------------------------------------
-sub build_cli {
-    my ($table, $table_info, $foreign_keys, $base) = @_;
-    my $content       = $DATA{CLASS_HEADER_CLI};
-    my $rule_default  = 'default => \'VALUE\',';    #used to construct the default value of the column for the rule if exists
-    my $rule_required = 'required => 1,';           #used to construct the required portion of the rule
-    my $rule_format = 'OPTION => {isa => \'TYPE\', REQUIRED DEFAULT},';
-
-#     $content =~ s/package CLASS::API::Core::/package $$CLI{class}::API::Core::$base/s;    # add the proper class name to the package
-    $content =~ s/package $$CLI{class}::API::Core::;/package $$CLI{class}::API::Core::$base;/s; # add the proper class name to the package
-
-    foreach my $col (@{$$table_info{columns}}) {
-        my $rule     = $rule_format;
-        my $default  = $$col{COLUMN_DEFAULT} ? 'default => \'' . $$col{COLUMN_DEFAULT} . '\'' : '';
-        my $required = $$col{IS_NULLABLE} eq 'YES' ? $rule_required : '';
-        my $type     = 'Int' if $$col{DATA_TYPE} =~ /int/;
-        $rule =~ s/DEFAULT/$default/s;
-        $rule =~ s/REQUIRED/$required/s;
-        $rule =~ s/TYPE/$type/s;
-    }
-
-    my $cli_rules  = "";
-    my $cli_header = <<EO_CLI_HEADER;
-my \$CLI = ParseCLI (
-isfatal => 1,
-rules => {
-    $cli_rules
-}
-
-);
-EO_CLI_HEADER
-
-} ## end sub build_cli
 
 __DATA__
 
@@ -548,6 +537,41 @@ __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 1;
 
 # ----------------------------------------------------------------------------------------------------------------------
+file-delimiter: ENUM
+# ............................................................................
+subtype 'EnumTYPENAME',
+    as 'Str',
+        where {
+            my %options = ( OPTIONS );
+            return exists $options{$_};
+        };
+
+coerce 'EnumTYPENAME',
+    from 'Str',
+        via {
+            s/(^\s+|\s+$)//g;
+            s/\s+/ /g;
+            return( lc($_) );
+        };
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+file-delimiter: SET
+# ............................................................................
+subtype 'EnumTYPENAME',
+    as 'Str',
+        where {
+            my %options = ( OPTIONS );
+            return scalar ( grep { not exists $options{$_} } split(/,/, $_)) == 0;
+        };
+
+coerce 'EnumTYPENAME',
+    from 'Str',
+        via {
+            join(',', map{ s/(^\s+|\s+$)//g; s/\s+/ /g; lc($_) } split(',',$_));
+        };
+
+# ----------------------------------------------------------------------------------------------------------------------
 file-delimiter: CLASS_HEADER
 
 package CLASS::API::Core::;
@@ -591,6 +615,15 @@ use Date::Manip;
 
 use Moose::Util::TypeConstraints;
 
+
+# ----------------------------------------------------------------------------------------------------------------------
+file-delimiter: ObjectType
+# ............................................................................
+subtype 'TYPENAME',
+    as class_type('CLASSNAME');
+coerce 'TYPENAME',
+    from 'HashRef',
+        via { CLASSNAME->new(%{$_}) };
 
 # ----------------------------------------------------------------------------------------------------------------------
 file-delimiter: has_a_statement

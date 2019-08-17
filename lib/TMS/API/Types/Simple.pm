@@ -113,7 +113,7 @@ coerce 'UpperCaseStr',
         via {
             s/^\s+|\s+$//g;
             s/\s+/ /g;
-            $_ =~ s/(\w+)/uc($1)/ge;
+            s/(\w+)/uc($1)/ge;
             return $_;
         };
 # ............................................................................
@@ -126,7 +126,7 @@ coerce 'NameCapitalized',
         via {
             s/^\s+|\s+$//g;
             s/\s+/ /g;
-            $_ =~ s/(\w+)/ucfirst(lc($1))/ge;
+            s/(\w+)/ucfirst(lc($1))/ge;
             return $_;
         };
 
@@ -224,20 +224,20 @@ coerce 'Sha256Password',
 # ............................................................................
 subtype 'DATETIME',
     as 'Str',
-    where {
-        if( /^(\d{4})-(\d\d)-(\d\d) (\d\d):(\d\d):(\d\d)$/ ) {
-            my @max = (undef,31,29,31,30,31,30,31,31,30,31,30,31);
-            return undef if $1 < 1900 && $1 > 2100;
-            return undef if $2 < 1 && $2 > 12;
-            return undef if $3 < 1 && $3 > $max[$2];
-            return undef if $4 < 0 && $4 > 23;
-            return undef if $5 < 0 && $5 > 59;
-            return undef if $6 < 0 && $6 > 59;
-            return 1;
-        }
-        return undef;
-    },
-    message { "Unable to parse \"$_\" into '%Y-%m-%d %H:%M:%S'" };
+        where {
+            if( /^(\d{4})-(\d\d)-(\d\d) (\d\d):(\d\d):(\d\d)$/ ) {
+                my @max = (undef,31,29,31,30,31,30,31,31,30,31,30,31);
+                return undef if $1 < 1900 && $1 > 2100;
+                return undef if $2 < 1 && $2 > 12;
+                return undef if $3 < 1 && $3 > $max[$2];
+                return undef if $4 < 0 && $4 > 23;
+                return undef if $5 < 0 && $5 > 59;
+                return undef if $6 < 0 && $6 > 59;
+                return 1;
+            }
+            return undef;
+        },
+        message { "Unable to parse \"$_\" into '%Y-%m-%d %H:%M:%S'" };
 
 coerce 'DATETIME',
     from 'Str',
@@ -266,7 +266,7 @@ coerce 'DbDuration',
 # ............................................................................
 subtype 'CurrencyValue',
     as 'Str',
-    where {/^(?:\-)?\d+(?:\.\d+)$/};
+        where {/^(?:\-)?\d+(?:\.\d+)$/};
 
 coerce 'CurrencyValue',
     from 'Str',
@@ -289,43 +289,57 @@ coerce 'CurrencyValue',
         };
 
 # ............................................................................
+subtype 'PhoneExt',
+    as 'Str',
+        where {
+            /^[0-9\#\*,]{1,}$/;
+        };
+
+coerce 'PhoneExt',
+    from 'Str',
+        via {
+            s/[^0-9\#\*,]//gs;
+            return $_;
+        };
+
+# ............................................................................
 subtype 'PhoneNumber',
     as 'Str',
-    where {
-        $_ =~ /^\d{3}\-\d{3}\-\d{4}$/;
-    },
-    message {
-        "Phone Number must be in format 000-000-0000. You have '$_'"
-    };
+        where {
+            /^\d{3}\-\d{3}\-\d{4}$/;
+        },
+        message {
+            "Phone Number must be in format 000-000-0000. You have '$_'"
+        };
 
 coerce 'PhoneNumber',
     from 'Str',
         via {
-            $_ =~ s/\D+//g;
-            $_ =~ s/.*?(\d{3})(\d{3})(\d{4})$/$1\-$2\-$3/;
+            s/\D+//g;
+            s/.*?(\d{3})(\d{3})(\d{4})$/$1\-$2\-$3/;
             return $_;
         };
 
 # ............................................................................
 subtype 'VIN',
     as 'Str',
-    where {
-        return undef if (length $_ != 17);
-        return undef if (substr($_, 8 , 1) !~ /\d/);
-        my $map = '0123456789X';
-        my $weights = '8765432X098765432';
-        my $translit = '0123456789.ABCDEFGH..JKLMN.P.R..STUVWXYZ';
-        my $sum = 0;
-        foreach my $i (0 .. length $_){
+        where {
+            return undef if (length $_ != 17);
+            return undef if (substr($_, 8 , 1) !~ /\d/);
+            my $map = '0123456789X';
+            my $weights = '8765432X098765432';
+            my $translit = '0123456789.ABCDEFGH..JKLMN.P.R..STUVWXYZ';
+            my $sum = 0;
+            foreach my $i (0 .. length $_){
 
-            $sum += index ( $translit, substr( $_, $i, 1) ) % 10 * index ( $map , substr( $weights, $i, 1));
-        }
-        return substr($map, $sum % 11, 1) == substr($_, 8, 1);
+                $sum += index ( $translit, substr( $_, $i, 1) ) % 10 * index ( $map , substr( $weights, $i, 1));
+            }
+            return substr($map, $sum % 11, 1) == substr($_, 8, 1);
 
-    },
-    message {
-        "The VIN you provided is invalid format. Please check and try again."
-    };
+        },
+        message {
+            "The VIN you provided is invalid format. Please check and try again."
+        };
 
 # ............................................................................
 subtype 'Float',
@@ -336,9 +350,10 @@ subtype 'Float',
 
 coerce 'Float',
     from 'Str',
-    via {
-        s/[^\d\.]//g;
-    };
+        via {
+            s/[^\d\.]//g;
+            return $_;
+        };
 # ............................................................................
 subtype 'SupportedStateName',
     as 'Str',
