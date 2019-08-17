@@ -1,0 +1,13 @@
+<div>
+  FORM GOES HERE
+  <generic-input value="$ctrl.label" label="label" required="1"></generic-input>
+  <generic-input value="$ctrl.title" label="title" ></generic-input>
+  <generic-input value="$ctrl.route" label="Route / State / URL"></generic-input>
+  <generic-input value="$ctrl.parent" label="Parent"></generic-input>
+  <generic-input value="$ctrl.sortindex" label="Sort Index"></generic-input>
+  <generic-input value="$ctrl.enabled" label="Enabled"></generic-input>
+  <button ng-click="$ctrl.Reset()" class="btn btn-second">Reset</button>
+  <button ng-click="$ctrl.Delete()" class="btn btn-warn">Delete</button>
+  <button ng-if="$ctrl.editing != undefined" ng-click="$ctrl.Update()" class="btn btn-primary">Update</button>
+  <button ng-if="$ctrl.editing == undefined" ng-click="$ctrl.New()" class="btn btn-primary">New</button>
+</div>
