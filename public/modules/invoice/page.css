@@ -22,7 +22,7 @@ body {
   top: 0.25in;
 }
 
-* {
+.page * {
   margin: 0px;
   padding: 0px;
   border: 0px;
