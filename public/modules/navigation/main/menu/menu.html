@@ -11,7 +11,6 @@
            ng-click="acc.Toggle()"
            ng-attr-active="{{ acc.active }}">{{ item.Label }}</div>
     </div>
-
     <ul usk-hideable="">
       <li ng-attr-id="{{ acci.id }}"
           ng-repeat="subitem in item.app_menu_items"
@@ -19,7 +18,7 @@
         <div ng-attr-active="{{ subitem.active }}"
              ng-click="$ctrl.SetActive(subitem)"
              class="font-nav2 clickable"
-             ui-sref="{{subitem.Title}}">{{ subitem.Label.toLowerCase() }}</div>
+             ui-sref="{{subitem.Route}}" ng-attr-title="{{subitem.Title}}">{{ subitem.Label.toLowerCase() }}</div>
       </li>
     </ul>
   </li>
