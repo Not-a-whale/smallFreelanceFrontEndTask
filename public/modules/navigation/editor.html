@@ -1,0 +1,18 @@
+<div class="nav-editor as-row"
+     ng-controller="navigationEditor as ctrl">
+  <navigation-hierarchy data-tree="ctrl.tree"
+                        select-item="ctrl.ItemToEdit(item)">
+  </navigation-hierarchy>
+  <navigation-form data-id="ctrl.edit.MenuItemId"
+                   data-label="ctrl.edit.Label"
+                   data-title="ctrl.edit.Title"
+                   data-route="ctrl.edit.Route"
+                   data-parent="ctrl.edit.ParentId"
+                   data-sortindex="ctrl.edit.SortIndex"
+                   data-enabled="ctrl.edit.Enabled"
+                   on-update="ctrl.Update(object)"
+                   on-reset="ctrl.Reset()"
+                   on-new="ctrl.FetchData()"
+                   editing="ctrl.edit">
+  </navigation-form>
+</div>
