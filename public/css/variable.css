@@ -56,11 +56,31 @@
 
   --font-line-large: 20px;
 
-  --font-family-primary: Arimo, Arial, Helvetica, sans-serif;
-  --font-family-second: 'Open Sans', Arial, Helvetica, sans-serif;
+  --font-family-primary: 'Arimo', Arial, Helvetica, sans-serif;
+  --font-family-second: 'Poppins', Arial, Helvetica, sans-serif;
 
   --main-navbar-width: 258px;
 
+  --btn-padding: 24px;
+  --btn-height-min: 36px;
+  --btn-height-max: 46px;
+  --btn-height: 46px;
+
+  --btn-sm-height: 24px;
+  --btn-lg-height: 64px;
+
+  --btn-line-height: 46px;
+  --btn-sm-line-height: 36px;
+  --btn-lg-line-height: 64px;
+
+  --btn-width-min: 194px;
+  --btn-width: 194px;
+
+  --btn-sm-width-min: 154px;
+  --btn-sm-width: 154px;
+
+  --btn-lg-width-min: 304px;
+  --btn-lg-width: 304px;
 
   /* ------ deprecated ----- */
 
