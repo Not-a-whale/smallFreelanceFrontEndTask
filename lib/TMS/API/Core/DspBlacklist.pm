@@ -27,11 +27,11 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has BlackListId   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has CstmrId       => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'EntCustomerObj',);
+has CstmrId       => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'EntCustomerObj',);
 has DateCreated   => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'DATETIME',);
-has Creator       => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj',);
-has ReasonPublic  => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
-has ReasonPrivate => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
+has Creator       => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
+has ReasonPublic  => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
+has ReasonPrivate => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 
 # AUTO-GENERATED HAS-A END
 

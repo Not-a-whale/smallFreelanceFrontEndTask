@@ -25,8 +25,8 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has ancestor   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TskTaskObj',);
-has descendant => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TskTaskObj',);
+has ancestor   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'TskTaskObj',);
+has descendant => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'TskTaskObj',);
 has length     => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Int',);
 
 # AUTO-GENERATED HAS-A END

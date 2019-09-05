@@ -26,9 +26,9 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has alrmid    => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has tskid     => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TskTaskObj',);
-has message   => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
-has atcrontab => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
+has tskid     => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'TskTaskObj',);
+has message   => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
+has atcrontab => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
 has periodic  => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'ENUM',);
 has repeat    => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Int',);
 has turnoff   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);

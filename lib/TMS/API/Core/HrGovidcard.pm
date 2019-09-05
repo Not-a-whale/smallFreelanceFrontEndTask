@@ -27,14 +27,14 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has CardId          => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has AstId           => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj',);
-has CardNumber      => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
+has AstId           => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
+has CardNumber      => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
 has CardDateExpired => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'DATE',);
 has CardDateValid   => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'DATE',);
-has CardSate        => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
-has CardType        => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
-has Photo           => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'GenFileObj',);
-has AddedBy         => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj',);
+has CardSate        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
+has CardType        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
+has Photo           => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'GenFileObj',);
+has AddedBy         => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
 
 # AUTO-GENERATED HAS-A END
 

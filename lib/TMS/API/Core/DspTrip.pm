@@ -26,16 +26,16 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has TripId         => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has CreatedBy      => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj',);
-has TripNumber     => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
+has CreatedBy      => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
+has TripNumber     => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
 has DateCreated    => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 has DateStarted    => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 has DateCompleted  => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 has DateBooked     => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 has DateDispatched => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
-has IsValid        => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Bool',);
-has TripStatus     => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'EnumDispatched',);
-has Notes          => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
+has IsValid        => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'BoolInt',);
+has TripStatus     => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'EnumPending',);
+has Notes          => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 
 # AUTO-GENERATED HAS-A END
 

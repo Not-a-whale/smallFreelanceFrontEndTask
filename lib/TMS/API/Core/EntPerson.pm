@@ -26,13 +26,13 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has PrsnId     => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has NickName   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has Prefix     => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Enum',);
-has FirstName  => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
-has MiddleName => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has LastName   => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
-has Suffix     => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'EnumSr',);
-has BrnchId    => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'BizBranchObj',);
+has NickName   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has Prefix     => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Enum',);
+has FirstName  => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
+has MiddleName => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has LastName   => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
+has Suffix     => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EnumSr',);
+has BrnchId    => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'BizBranchObj',);
 
 # AUTO-GENERATED HAS-A END
 

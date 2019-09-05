@@ -26,12 +26,12 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has AppAccountId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has UserId       => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj',);
-has PasswordHash => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
-has Salt         => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
-has Username     => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
+has UserId       => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
+has PasswordHash => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
+has Salt         => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
+has Username     => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
 has DateCreated  => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
-has Locked       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Bool',);
+has Locked       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'BoolInt',);
 
 # AUTO-GENERATED HAS-A END
 

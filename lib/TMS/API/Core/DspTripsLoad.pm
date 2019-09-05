@@ -27,10 +27,10 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has TripId         => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DspTripObj',);
-has LoadId         => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DspLoadObj',);
+has TripId         => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'DspTripObj',);
+has LoadId         => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'DspLoadObj',);
 has DateDispatched => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
-has LoadDispatcher => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj',);
+has LoadDispatcher => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
 
 # AUTO-GENERATED HAS-A END
 

@@ -25,15 +25,15 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has FileId        => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has DocumentTitle => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has Keywords      => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has FileName      => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
+has DocumentTitle => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has Keywords      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has FileName      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 has FileData      => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'LONGBLOB',);
-has SHASIG        => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
-has MIMEType      => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
+has SHASIG        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
+has MIMEType      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 has UploadDate    => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 has ExpiredDate   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
-has Notes         => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
+has Notes         => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 
 # AUTO-GENERATED HAS-A END
 

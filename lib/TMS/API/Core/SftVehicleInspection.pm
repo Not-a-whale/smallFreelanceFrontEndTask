@@ -13,8 +13,8 @@ use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
 use TMS::API::Core::CntAddress;
-use TMS::API::Core::SftInspectionSchedule;
 use TMS::API::Core::GenFile;
+use TMS::API::Core::SftInspectionSchedule;
 use TMS::API::Core::HrAssociate;
 
 # AUTO-GENERATED DEPENDENCIES END
@@ -29,15 +29,15 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has InspectionId         => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has InspectionScheduleId => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'SftInspectionScheduleObj',);
-has InspectorId          => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj',);
-has InspectorSignatureId => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'GenFileObj',);
-has LocationOfRecords    => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'CntAddressObj',);
-has InspectionNumber     => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
+has InspectionScheduleId => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'SftInspectionScheduleObj',);
+has InspectorId          => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
+has InspectorSignatureId => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'GenFileObj',);
+has LocationOfRecords    => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'CntAddressObj',);
+has InspectionNumber     => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
 has DateInspection       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
-has Status               => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'EnumPassed',);
-has Remarks              => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has Mileage              => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
+has Status               => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EnumPassed',);
+has Remarks              => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has Mileage              => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 
 # AUTO-GENERATED HAS-A END
 

@@ -25,7 +25,7 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has ElogDeviceId => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'InvEquipmentObj',);
+has ElogDeviceId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'InvEquipmentObj',);
 
 # AUTO-GENERATED HAS-A END
 

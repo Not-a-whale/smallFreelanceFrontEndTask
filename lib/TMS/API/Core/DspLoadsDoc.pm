@@ -12,9 +12,9 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::DspLoad;
 use TMS::API::Core::HrAssociate;
 use TMS::API::Core::GenFile;
+use TMS::API::Core::DspLoad;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -27,10 +27,10 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has FileId    => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'GenFileObj',);
-has LoadId    => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DspLoadObj',);
+has FileId    => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'GenFileObj',);
+has LoadId    => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'DspLoadObj',);
 has DateAdded => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
-has AddedBy   => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj',);
+has AddedBy   => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
 
 # AUTO-GENERATED HAS-A END
 

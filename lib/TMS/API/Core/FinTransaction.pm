@@ -12,10 +12,10 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::HrAssociate;
-use TMS::API::Core::FinClass;
 use TMS::API::Core::FinTransactionType;
 use TMS::API::Core::FinJob;
+use TMS::API::Core::HrAssociate;
+use TMS::API::Core::FinClass;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -29,15 +29,15 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has TransactionId   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has TransactionType => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'FinTransactionTypeObj',);
-has RefNumber       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has JobId           => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'FinJobObj',);
-has CreatedBy       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'HrAssociateObj',);
+has TransactionType => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'FinTransactionTypeObj',);
+has RefNumber       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has JobId           => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'FinJobObj',);
+has CreatedBy       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'HrAssociateObj',);
 has DateCreated     => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 has DateTransaction => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
-has Status          => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'EnumPending',);
-has Class           => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'FinClassObj',);
-has Memo            => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
+has Status          => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EnumValid',);
+has Class           => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'FinClassObj',);
+has Memo            => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 
 # AUTO-GENERATED HAS-A END
 

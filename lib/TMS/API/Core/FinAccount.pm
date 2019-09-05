@@ -27,16 +27,16 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has AccountId     => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has AccountTypeId => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'FinAccountTypeObj',);
-has ParentId      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'FinAccountObj',);
-has UserDefined   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Bool',);
-has Code          => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has Active        => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Bool',);
-has Valid         => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Bool',);
+has AccountTypeId => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'FinAccountTypeObj',);
+has ParentId      => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'FinAccountObj',);
+has UserDefined   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'BoolInt',);
+has Code          => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has Active        => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'BoolInt',);
+has Valid         => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'BoolInt',);
 has DateCreated   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
-has Name          => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
-has Description   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has ExternalName  => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
+has Name          => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
+has Description   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has ExternalName  => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 has Balance       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Float',);
 
 # AUTO-GENERATED HAS-A END

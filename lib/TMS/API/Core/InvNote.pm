@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::HrAssociate;
 use TMS::API::Core::InvEquipment;
+use TMS::API::Core::HrAssociate;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -27,10 +27,10 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has EqNoteId    => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has EquipmentId => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'InvEquipmentObj',);
+has EquipmentId => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'InvEquipmentObj',);
 has DateCreated => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
-has PostedBy    => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj',);
-has Notes       => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
+has PostedBy    => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
+has Notes       => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
 
 # AUTO-GENERATED HAS-A END
 

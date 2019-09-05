@@ -27,14 +27,14 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has EquipmentId    => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has GeneralName    => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
-has OwnerId        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj',);
-has VendorId       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'BizBranchObj',);
+has GeneralName    => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
+has OwnerId        => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
+has VendorId       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'BizBranchObj',);
 has DatePurchased  => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATE',);
 has DateSold       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATE',);
 has PricePurchased => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Float',);
 has PriceSold      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Float',);
-has SerialNo       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
+has SerialNo       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 
 # AUTO-GENERATED HAS-A END
 

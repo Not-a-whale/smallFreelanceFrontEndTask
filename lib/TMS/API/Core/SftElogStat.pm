@@ -26,16 +26,16 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has GpsReqId           => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has EquipmentId        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'InvEquipmentObj',);
+has EquipmentId        => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'InvEquipmentObj',);
 has Longitude          => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'Float',);
 has Latitude           => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'Float',);
 has Bearings           => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Float',);
 has Speed              => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Float',);
 has Fuel               => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Float',);
 has Odometer           => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Float',);
-has LocationProviderId => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
+has LocationProviderId => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
 has EngineHours        => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Float',);
-has VehicleState       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
+has VehicleState       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 has Acquired           => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 has Posted             => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 

@@ -26,14 +26,14 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has MenuItemId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has ParentId   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'AppMenuItemObj',);
-has Label      => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Str',);
-has Title      => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has Icon       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has Route      => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has Help       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
+has ParentId   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'AppMenuItemObj',);
+has Label      => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
+has Title      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has Icon       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has Route      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has Help       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 has SortIndex  => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Float',);
-has Enabled    => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Bool',);
+has Enabled    => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'BoolInt',);
 
 # AUTO-GENERATED HAS-A END
 

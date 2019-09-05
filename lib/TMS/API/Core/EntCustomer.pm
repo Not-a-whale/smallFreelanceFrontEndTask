@@ -25,18 +25,18 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has CstmrId          => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EntBusinessObj',);
-has MC               => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has DOT              => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has SCAC             => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has Terms            => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has Factoring        => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'EnumYes',);
+has CstmrId          => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'EntBusinessObj',);
+has MC               => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has DOT              => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has SCAC             => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has Terms            => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has Factoring        => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EnumYes',);
 has CreditLimit      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Float',);
-has Bond             => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has DUNS             => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has DontUse          => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'EnumDoNotUse',);
-has WhyDontUse       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Str',);
-has RequireOriginals => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Bool',);
+has Bond             => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has DUNS             => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has DontUse          => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EnumDoNotUse',);
+has WhyDontUse       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has RequireOriginals => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'BoolInt',);
 
 # AUTO-GENERATED HAS-A END
 
