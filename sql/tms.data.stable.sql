@@ -2,7 +2,7 @@
 --
 -- Host: balancer    Database: tms
 -- ------------------------------------------------------
--- Server version	5.7.24-log
+-- Server version	5.7.26-log
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -52,7 +52,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `app_menu_items` WRITE;
 /*!40000 ALTER TABLE `app_menu_items` DISABLE KEYS */;
-INSERT INTO `app_menu_items` VALUES (78,139,'INVOICES','List of all invoices',NULL,NULL,NULL,0.000,1),(89,NULL,'ADMIN','Administrative Tasks','imgs/adim-icon.svg',NULL,NULL,99.000,1),(91,89,'APP ADMIN','Application Settings - webmaster only',NULL,NULL,NULL,0.000,1),(119,89,'GROUPS','tmsapp.main.test',NULL,NULL,NULL,0.000,1),(121,NULL,'INVENTORY',NULL,'imgs/inventory.svg',NULL,NULL,0.000,1),(123,121,'EQUIPMENT',NULL,NULL,NULL,NULL,0.000,1),(125,121,'UNITS',NULL,NULL,NULL,NULL,0.000,1),(127,121,'RESERVATIONS',NULL,NULL,NULL,NULL,0.000,1),(129,NULL,'DISPATCH','Dispatching','imgs/disptacher.svg',NULL,NULL,0.000,1),(131,129,'TRUCKS',NULL,NULL,NULL,NULL,0.000,1),(133,129,'PLANNER',NULL,NULL,NULL,NULL,0.000,1),(135,129,'TRIPS',NULL,NULL,NULL,NULL,0.000,1),(137,129,'LOADS','tmsapp.main.loads',NULL,NULL,NULL,0.000,1),(139,NULL,'FINANCE',NULL,'imgs/finances.svg',NULL,NULL,0.000,1),(141,139,'CHECKS',NULL,NULL,NULL,NULL,0.000,1),(143,139,'SETTLEMENTS',NULL,NULL,NULL,NULL,0.000,1),(145,139,'RATE CONFIRMATION',NULL,NULL,NULL,NULL,0.000,1),(147,139,'BILLS',NULL,NULL,NULL,NULL,0.000,0),(149,NULL,'FOOOOD',NULL,NULL,NULL,NULL,0.000,0),(151,149,'BURGER',NULL,NULL,NULL,NULL,0.000,0),(196,NULL,'Phones','Phone stuff',NULL,NULL,NULL,999.000,1),(202,196,'List','List of the phones',NULL,NULL,NULL,100.000,1),(204,196,'Form',NULL,NULL,NULL,NULL,0.000,1),(207,89,'Test','tmsapp.main',NULL,NULL,NULL,0.000,1);
+INSERT INTO `app_menu_items` VALUES (78,139,'INVOICES','List of all invoices',NULL,NULL,NULL,0.000,1),(89,NULL,'ADMIN','Administrative Tasks','imgs/adim-icon.svg',NULL,NULL,99.000,1),(91,89,'APP ADMIN','Application Settings - webmaster only',NULL,NULL,NULL,0.000,1),(119,89,'GROUPS','tmsapp.main.test',NULL,NULL,NULL,0.000,1),(121,NULL,'INVENTORY',NULL,'imgs/inventory.svg',NULL,NULL,0.000,1),(123,121,'EQUIPMENT',NULL,NULL,NULL,NULL,0.000,1),(125,121,'UNITS',NULL,NULL,NULL,NULL,0.000,1),(127,121,'RESERVATIONS',NULL,NULL,NULL,NULL,0.000,1),(129,NULL,'DISPATCH','Dispatching','imgs/disptacher.svg',NULL,NULL,0.000,1),(131,129,'TRUCKS',NULL,NULL,NULL,NULL,0.000,1),(133,129,'PLANNER',NULL,NULL,NULL,NULL,0.000,1),(135,129,'TRIPS',NULL,NULL,NULL,NULL,0.000,1),(137,129,'LOADS','tmsapp.main.loads',NULL,'tmsapp.main.loads',NULL,0.000,1),(139,NULL,'FINANCE',NULL,'imgs/finances.svg',NULL,NULL,0.000,1),(141,139,'CHECKS',NULL,NULL,NULL,NULL,0.000,1),(143,139,'SETTLEMENTS',NULL,NULL,NULL,NULL,0.000,1),(145,139,'RATE CONFIRMATION',NULL,NULL,NULL,NULL,0.000,1),(147,139,'BILLS',NULL,NULL,NULL,NULL,0.000,0),(149,NULL,'Food','This is the menu for the food',NULL,NULL,NULL,0.000,0),(151,149,'BURGER',NULL,NULL,NULL,NULL,0.000,0),(196,NULL,'Phones','Phone stuff',NULL,NULL,NULL,999.000,1),(202,196,'List','List of the phones',NULL,NULL,NULL,100.000,1),(204,196,'Form',NULL,NULL,'tmsapp.main.form',NULL,0.000,1),(207,89,'demo','tmsapp.main',NULL,'tmsapp.main',NULL,0.000,1),(211,89,'bizlist','tmsapp.main.list',NULL,'tmsapp.main.list',NULL,0.000,1),(213,89,'navigation editor','create new items for navigation',NULL,'tmsapp.main.navigationEditor',NULL,0.000,1),(217,NULL,'Testing','Testing the submit',NULL,NULL,NULL,1.000,1),(219,NULL,'Test33','Testing the submit',NULL,NULL,NULL,1.000,1),(221,NULL,'Potato123','123123123',NULL,NULL,NULL,1.000,1),(223,217,'Test3','Testing the submit',NULL,NULL,NULL,1.000,1),(225,217,'Test2','123123123',NULL,NULL,NULL,1.000,1),(227,NULL,'New Stuffs','eerwerwe',NULL,NULL,NULL,1.000,1),(228,219,'ThisisaTest','testtesttest',NULL,NULL,NULL,0.500,1);
 /*!40000 ALTER TABLE `app_menu_items` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -130,7 +130,7 @@ DELIMITER ;
 
 LOCK TABLES `app_menu_items_trees` WRITE;
 /*!40000 ALTER TABLE `app_menu_items_trees` DISABLE KEYS */;
-INSERT INTO `app_menu_items_trees` VALUES (78,78,0),(119,119,0),(121,121,0),(123,123,0),(125,125,0),(127,127,0),(129,129,0),(131,131,0),(133,133,0),(135,135,0),(137,137,0),(139,139,0),(141,141,0),(143,143,0),(145,145,0),(147,147,0),(149,149,0),(151,151,0),(196,196,0),(202,202,0),(204,204,0),(207,207,0),(121,123,1),(121,125,1),(121,127,1),(129,131,1),(129,133,1),(129,135,1),(129,137,1),(139,141,1),(139,143,1),(139,145,1),(139,147,1),(149,151,1),(196,202,1),(196,204,1);
+INSERT INTO `app_menu_items_trees` VALUES (78,78,0),(119,119,0),(121,121,0),(123,123,0),(125,125,0),(127,127,0),(129,129,0),(131,131,0),(133,133,0),(135,135,0),(137,137,0),(139,139,0),(141,141,0),(143,143,0),(145,145,0),(147,147,0),(149,149,0),(151,151,0),(196,196,0),(202,202,0),(204,204,0),(207,207,0),(211,211,0),(213,213,0),(217,217,0),(219,219,0),(221,221,0),(223,223,0),(225,225,0),(227,227,0),(228,228,0),(121,123,1),(121,125,1),(121,127,1),(129,131,1),(129,133,1),(129,135,1),(129,137,1),(139,141,1),(139,143,1),(139,145,1),(139,147,1),(149,151,1),(196,202,1),(196,204,1),(217,228,1);
 /*!40000 ALTER TABLE `app_menu_items_trees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -405,7 +405,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `cnt_addresses` WRITE;
 /*!40000 ALTER TABLE `cnt_addresses` DISABLE KEYS */;
-INSERT INTO `cnt_addresses` VALUES (1,'12344 Fake Street','','','Antelope','55555','','USA',NULL,NULL,NULL),(3,'464 sdfsadhf st','','','antelope','654654','','USA',NULL,NULL,NULL),(5,'11920 Point East','','','Rancho Cordova','95625','','USA',NULL,NULL,NULL),(7,'12345 Fake st','Building B12','Suite 5','Nowhere land','87987','','USA',NULL,NULL,'some notes'),(9,'NO','NO','STOP ASKING NO','NO','NEVER','','USA',NULL,NULL,'IM NOT TELLING YOU');
+INSERT INTO `cnt_addresses` VALUES (1,'12344 Fake Street','','','Antelope','55555','','USA',NULL,NULL,NULL),(3,'464 sdfsadhf st','','','antelope','654654','','USA',NULL,NULL,NULL),(5,'11920 Point East','','','Rancho Cordova','95625','','USA',NULL,NULL,NULL),(7,'12345 Fake st','Building B12','Suite 5','Nowhere land','87987','','USA',NULL,NULL,'some notes'),(9,'NO','NO','STOP ASKING NO','NO','NEVER','','USA',NULL,NULL,'IM NOT TELLING YOU'),(3700,'Vel Eligendi Et Tenetur Ratione Suscipit. Illo Vitae Voluptas Id','Enim Expedita Voluptas Veritatis Ut Nam Consequatur Pariatur. Ne','Fugit Ipsam Beatae Facilis Rerum Ab Vero Ab Reprehenderit. Asper','Vel Asperiores Nesciunt Iusto Sed. Fugiat Vitae Dolore Dolore Ut','38918-9677','TX','Canada',5668.79,297.94,'Vel cumque eaque error eos.');
 /*!40000 ALTER TABLE `cnt_addresses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -415,7 +415,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `cnt_phonesfaxes` WRITE;
 /*!40000 ALTER TABLE `cnt_phonesfaxes` DISABLE KEYS */;
-INSERT INTO `cnt_phonesfaxes` VALUES (1,'555-123-4567','6546','VOICE','LAND LINE','sdfsdfsdf'),(3,'555-123-4567','123','VOICE','LAND LINE','adfasdfsadfa'),(7,'545-546-5464','6546','VOICE','LAND LINE','sdfsdfsdf'),(9,'123-123-5555','12','VOICE','LAND LINE','some nnotes'),(11,'555-456-4564','444','VOICE','LAND LINE','dfasdfj'),(15,'987-987-9879','546','VOICE','LAND LINE','notes notes aj2o3423ndak dfa'),(17,'654-987-9874','123','VOICE','LAND LINE','1231 fbsdbf 34 e3v'),(19,'123-123-4567','0','VOICE','LAND LINE','askdfhsakd'),(21,'566-458-4854','545','VOICE','LAND LINE','asdfsdjfhkjh'),(23,'654-7894-545','636','VOICE','LAND LINE','even more notes'),(25,'444-478-9878','5','VOICE','LAND LINE','some more notes'),(27,'0000000000','000000','VOICE','LAND LINE','hackhackhackhack'),(29,'NO','NO','VOICE','LAND LINE','STOP');
+INSERT INTO `cnt_phonesfaxes` VALUES (15,'987-987-9879','546','VOICE','LAND LINE','notes notes aj2o3423ndak dfa'),(17,'654-987-9874','123','VOICE','LAND LINE','1231 fbsdbf 34 e3v'),(19,'123-123-4567','0','VOICE','LAND LINE','askdfhsakd'),(21,'566-458-4854','545','VOICE','LAND LINE','asdfsdjfhkjh'),(23,'654-789-4545','0','VOICE,SMS,MMS','LAND LINE','even more notes'),(25,'444-478-9878','5','VOICE','LAND LINE','some more notes'),(27,'000-000-0000','12','VOICE','MOBILE','hackhackhackhack'),(29,'619-123-4567','0','VOICE','LAND LINE','STOP');
 /*!40000 ALTER TABLE `cnt_phonesfaxes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -560,7 +560,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `ent_businesses` WRITE;
 /*!40000 ALTER TABLE `ent_businesses` DISABLE KEYS */;
-INSERT INTO `ent_businesses` VALUES (1,'Walmart','walmart.com',NULL),(9,'Walmart','walmart.com',NULL),(11,'Target','target.com',NULL),(13,'Usko Express','uskoinc.com',NULL),(15,'Turing Logistics','turinglogistics.com',NULL),(17,'Vika INC','Vikainc.fakefakefake',NULL);
+INSERT INTO `ent_businesses` VALUES (11,'Target','target.com',NULL),(13,'Usko Express','uskoinc.com',NULL),(15,'Turing Logistics','turinglogistics.com',NULL),(17,'Vika INC','Vikainc.fakefakefake',NULL);
 /*!40000 ALTER TABLE `ent_businesses` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -642,7 +642,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `entities` WRITE;
 /*!40000 ALTER TABLE `entities` DISABLE KEYS */;
-INSERT INTO `entities` VALUES (1,1,'2019-07-03 12:46:57','This should be the company that is using the software, also for testing purposes',NULL,NULL),(3,1,'2019-07-18 16:08:43','Driver, for testing purposes',NULL,NULL),(5,1,'2019-07-18 16:08:43','Broker, for testing purposes',NULL,NULL),(7,1,'2019-07-18 16:16:46','Comdata, for testing purposes',NULL,NULL),(9,1,'2019-07-24 08:59:24',NULL,NULL,NULL),(21,1,'2019-07-24 11:43:54',NULL,NULL,11),(23,1,'2019-07-25 11:05:54',NULL,NULL,13),(25,1,'2019-07-25 15:37:06',NULL,NULL,15),(27,1,'2019-07-25 15:42:05',NULL,NULL,17);
+INSERT INTO `entities` VALUES (1,1,'2019-07-03 12:46:57','This should be the company that is using the software, also for testing purposes',NULL,NULL),(3,1,'2019-07-18 16:08:43','Driver, for testing purposes',NULL,NULL),(5,1,'2019-07-18 16:08:43','Broker, for testing purposes',NULL,NULL),(7,1,'2019-07-18 16:16:46','Comdata, for testing purposes',NULL,NULL);
 /*!40000 ALTER TABLE `entities` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -1982,4 +1982,4 @@ UNLOCK TABLES;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-13 11:42:11
+-- Dump completed on 2019-09-05  7:16:26

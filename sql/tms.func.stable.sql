@@ -2,7 +2,7 @@
 --
 -- Host: balancer    Database: tms
 -- ------------------------------------------------------
--- Server version	5.7.24-log
+-- Server version	5.7.26-log
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -1269,4 +1269,4 @@ DELIMITER ;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-13 11:42:13
+-- Dump completed on 2019-09-05  7:16:28

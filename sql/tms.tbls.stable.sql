@@ -2,7 +2,7 @@
 --
 -- Host: balancer    Database: tms
 -- ------------------------------------------------------
--- Server version	5.7.24-log
+-- Server version	5.7.26-log
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,7 +21,7 @@ CREATE TABLE `app_account_locks` (
   `AccLockId` bigint(20) unsigned NOT NULL,
   `AppAccountId` bigint(20) unsigned NOT NULL,
   `IPAddress` int(11) NOT NULL,
-  `LoginAttempts` int(10) unsigned NOT NULL DEFAULT '0',
+  `LoginAttempts` int(11) unsigned NOT NULL DEFAULT '0',
   `Locked` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `DateLastAttempt` datetime DEFAULT NULL,
   PRIMARY KEY (`AccLockId`),
@@ -44,7 +44,7 @@ DROP TABLE IF EXISTS `app_account_logins`;
 CREATE TABLE `app_account_logins` (
   `AccLoginId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `AppAccountId` bigint(20) unsigned NOT NULL,
-  `IPAddress` int(10) unsigned NOT NULL,
+  `IPAddress` int(11) unsigned NOT NULL,
   `DateLogin` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Type` enum('Login','Logout') NOT NULL DEFAULT 'Login',
   PRIMARY KEY (`AccLoginId`),
@@ -127,7 +127,7 @@ CREATE TABLE `app_menu_items` (
   KEY `idx_app_menu_items_SortIndex` (`SortIndex`),
   KEY `idx_app_menu_items_Route` (`Route`),
   CONSTRAINT `MenuItemParentRef` FOREIGN KEY (`ParentId`) REFERENCES `app_menu_items` (`MenuItemId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=209 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=230 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -428,14 +428,14 @@ DROP TABLE IF EXISTS `biz_company_nodes`;
 CREATE TABLE `biz_company_nodes` (
   `NodeId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `ParentId` bigint(20) unsigned DEFAULT NULL,
-  `UnitName` varchar(255) COLLATE utf8_bin NOT NULL,
-  `Type` enum('Department','Office','Team','Group','Other') COLLATE utf8_bin NOT NULL DEFAULT 'Other',
+  `UnitName` varchar(255) NOT NULL,
+  `Type` enum('Department','Office','Team','Group','Other') NOT NULL DEFAULT 'Other',
   PRIMARY KEY (`NodeId`),
   KEY `BizParentRef_idx` (`ParentId`),
   KEY `BizName_inx` (`UnitName`),
   KEY `idx_biz_company_nodes_Type` (`Type`),
   CONSTRAINT `BizCompanyParentNodeRef` FOREIGN KEY (`ParentId`) REFERENCES `biz_company_nodes` (`NodeId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Holds the nodes for the structure of the client/user company hierarchy ';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Holds the nodes for the structure of the client/user company hierarchy ';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -535,14 +535,14 @@ DROP TABLE IF EXISTS `biz_company_trees`;
 CREATE TABLE `biz_company_trees` (
   `AncestorId` bigint(20) unsigned NOT NULL,
   `DescendantId` bigint(20) unsigned NOT NULL,
-  `Depth` int(10) unsigned NOT NULL,
+  `Depth` int(11) unsigned NOT NULL,
   PRIMARY KEY (`AncestorId`,`DescendantId`),
   KEY `ClsrBizAncRef_idx` (`AncestorId`),
   KEY `ClsrBizDesRef_idx` (`DescendantId`),
   KEY `idx_biz_company_trees_Depth` (`Depth`),
   CONSTRAINT `CompanyTreeAncestorNodeRef` FOREIGN KEY (`AncestorId`) REFERENCES `biz_company_nodes` (`NodeId`) ON UPDATE CASCADE,
   CONSTRAINT `CompanyTreeDescendantNodeRef` FOREIGN KEY (`DescendantId`) REFERENCES `biz_company_nodes` (`NodeId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Holds the tree for the structure of the heirarchy of the client/user company';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Holds the tree for the structure of the heirarchy of the client/user company';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -658,16 +658,16 @@ DROP TABLE IF EXISTS `cnt_addresses`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cnt_addresses` (
   `AddrId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `Street1` varchar(64) COLLATE utf8_bin NOT NULL COMMENT 'Street or P.O. Box',
-  `Street2` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'Street',
-  `Street3` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `City` varchar(64) COLLATE utf8_bin NOT NULL,
-  `Zip` char(11) COLLATE utf8_bin NOT NULL,
-  `State` char(2) COLLATE utf8_bin NOT NULL,
-  `Country` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT 'USA',
+  `Street1` varchar(64) NOT NULL COMMENT 'Street or P.O. Box',
+  `Street2` varchar(64) NOT NULL DEFAULT '' COMMENT 'Street',
+  `Street3` varchar(64) NOT NULL DEFAULT '',
+  `City` varchar(64) NOT NULL,
+  `Zip` char(11) NOT NULL,
+  `State` char(2) NOT NULL,
+  `Country` varchar(255) NOT NULL DEFAULT 'USA',
   `GpsLng` double DEFAULT NULL,
   `GpsLat` double DEFAULT NULL,
-  `Notes` text COLLATE utf8_bin,
+  `Notes` text,
   PRIMARY KEY (`AddrId`),
   UNIQUE KEY `UnqAddr` (`Country`,`State`,`Zip`,`City`,`Street1`,`Street2`,`Street3`),
   KEY `idx_cnt_addresses_Street2` (`Street2`),
@@ -679,7 +679,7 @@ CREATE TABLE `cnt_addresses` (
   KEY `idx_cnt_addresses_State` (`State`),
   KEY `idx_cnt_addresses_Country` (`Country`),
   KEY `idx_cnt_addresses_Street1` (`Street1`)
-) ENGINE=InnoDB AUTO_INCREMENT=3678 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=3726 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -691,18 +691,18 @@ DROP TABLE IF EXISTS `cnt_phonesfaxes`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cnt_phonesfaxes` (
   `PhnFaxId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `Number` varchar(12) COLLATE utf8_bin NOT NULL,
-  `Extension` varchar(10) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `Features` set('VOICE','SMS','MMS','FAX') COLLATE utf8_bin NOT NULL DEFAULT 'VOICE',
-  `Mobility` enum('LAND LINE','MOBILE','SOFT PHONE') COLLATE utf8_bin NOT NULL DEFAULT 'LAND LINE',
-  `Notes` text COLLATE utf8_bin,
+  `Number` varchar(12) NOT NULL,
+  `Extension` varchar(10) NOT NULL DEFAULT '0',
+  `Features` set('VOICE','SMS','MMS','FAX') NOT NULL DEFAULT 'VOICE',
+  `Mobility` enum('LAND LINE','MOBILE','SOFT PHONE') NOT NULL DEFAULT 'LAND LINE',
+  `Notes` text,
   PRIMARY KEY (`PhnFaxId`),
   UNIQUE KEY `UnqNum` (`Number`,`Extension`),
   KEY `idx_cnt_phonesfaxes_Number` (`Number`) USING BTREE,
   KEY `idx_cnt_phonesfaxes_Extension` (`Extension`) USING BTREE,
   KEY `idx_cnt_phonesfaxes_Features` (`Features`) USING BTREE,
   KEY `idx_cnt_phonesfaxes_Mobility` (`Mobility`)
-) ENGINE=InnoDB AUTO_INCREMENT=280 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=3914 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1131,7 +1131,7 @@ CREATE TABLE `ent_businesses` (
   KEY `RootNodeRef_idx` (`RootNode`),
   KEY `idx_ent_businesses_BizURL` (`BizURL`),
   CONSTRAINT `RootNodeRef` FOREIGN KEY (`RootNode`) REFERENCES `biz_company_nodes` (`NodeId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1243,12 +1243,12 @@ DROP TABLE IF EXISTS `ent_people`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ent_people` (
   `PrsnId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `NickName` varchar(512) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `Prefix` enum('','Mr.','Mrs.','Ms.','Dr.','Sir','Madam') COLLATE utf8_bin NOT NULL DEFAULT '',
-  `FirstName` varchar(64) COLLATE utf8_bin NOT NULL,
-  `MiddleName` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `LastName` varchar(64) COLLATE utf8_bin NOT NULL,
-  `Suffix` enum('','Sr','Jr','I','II','III','IV') COLLATE utf8_bin NOT NULL DEFAULT '',
+  `NickName` varchar(512) NOT NULL DEFAULT '',
+  `Prefix` enum('','Mr.','Mrs.','Ms.','Dr.','Sir','Madam') NOT NULL DEFAULT '',
+  `FirstName` varchar(64) NOT NULL,
+  `MiddleName` varchar(64) NOT NULL DEFAULT '',
+  `LastName` varchar(64) NOT NULL,
+  `Suffix` enum('','Sr','Jr','I','II','III','IV') NOT NULL DEFAULT '',
   `BrnchId` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`PrsnId`),
   UNIQUE KEY `UniqFullName` (`Prefix`,`FirstName`,`MiddleName`,`LastName`,`Suffix`,`BrnchId`,`NickName`),
@@ -1261,7 +1261,7 @@ CREATE TABLE `ent_people` (
   KEY `idx_ent_people_Suffix` (`Suffix`) USING BTREE,
   KEY `idx_ent_people_BrnchId` (`BrnchId`) USING BTREE,
   CONSTRAINT `PeopleBranchRef` FOREIGN KEY (`BrnchId`) REFERENCES `biz_branches` (`BrnchId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1316,9 +1316,9 @@ CREATE TABLE `entities` (
   KEY `idx_entities_IsActive` (`IsActive`),
   KEY `EntityPersonRef_idx` (`PersonId`),
   KEY `EntityBusinessRef_idx` (`BusinessId`),
-  CONSTRAINT `EntityBusinessRef` FOREIGN KEY (`BusinessId`) REFERENCES `ent_businesses` (`BizId`) ON UPDATE CASCADE,
-  CONSTRAINT `EntityPersonRef` FOREIGN KEY (`PersonId`) REFERENCES `ent_people` (`PrsnId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4996 DEFAULT CHARSET=utf8;
+  CONSTRAINT `EntityBusinessRef` FOREIGN KEY (`BusinessId`) REFERENCES `ent_businesses` (`BizId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `EntityPersonRef` FOREIGN KEY (`PersonId`) REFERENCES `ent_people` (`PrsnId`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5080 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1490,7 +1490,7 @@ DROP TABLE IF EXISTS `fin_account_types_trees`;
 CREATE TABLE `fin_account_types_trees` (
   `AncestorId` bigint(20) unsigned NOT NULL,
   `DescendantId` bigint(20) unsigned NOT NULL,
-  `Depth` int(10) unsigned DEFAULT NULL,
+  `Depth` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`AncestorId`,`DescendantId`),
   KEY `AccountTypeTreeDescendantRef_idx` (`DescendantId`),
   KEY `idx_fin_account_types_trees_Depth` (`Depth`),
@@ -1656,7 +1656,7 @@ DROP TABLE IF EXISTS `fin_accounts_trees`;
 CREATE TABLE `fin_accounts_trees` (
   `AncestorId` bigint(20) unsigned NOT NULL,
   `DescendantId` bigint(20) unsigned NOT NULL,
-  `Depth` int(10) unsigned DEFAULT NULL,
+  `Depth` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`AncestorId`,`DescendantId`),
   KEY `AccountTreeDescendantRef_idx` (`DescendantId`),
   KEY `idx_fin_accounts_trees_Depth` (`Depth`),
@@ -1777,7 +1777,7 @@ DROP TABLE IF EXISTS `fin_cheques`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `fin_cheques` (
   `ChequeId` bigint(20) unsigned NOT NULL,
-  `ChequeNumber` int(10) unsigned NOT NULL,
+  `ChequeNumber` int(11) unsigned NOT NULL,
   `TransactionId` bigint(20) unsigned NOT NULL,
   `CreatedBy` bigint(20) unsigned NOT NULL,
   `AuthorizedBy` bigint(20) unsigned DEFAULT NULL,
@@ -2974,14 +2974,14 @@ CREATE TABLE `inv_sprinters` (
   `SprinterId` bigint(20) unsigned NOT NULL,
   `FuelTankCapacity` decimal(12,2) unsigned DEFAULT NULL COMMENT 'gallons',
   `MilesPerGallonEstimated` decimal(12,2) unsigned DEFAULT NULL COMMENT 'estimate from trip distances and fuel usage or reported from driver',
-  `MilesPerGallonRated` int(10) unsigned DEFAULT NULL COMMENT 'manufacturer''s claimed mpg',
-  `LoadLength` int(10) unsigned DEFAULT NULL COMMENT 'inches',
-  `LoadWidth` int(10) unsigned DEFAULT NULL COMMENT 'inches',
-  `RoofHeight` int(10) unsigned DEFAULT NULL COMMENT 'inches, top of bed floor to bottom of ceiling',
-  `DoorHeight` int(10) unsigned DEFAULT NULL COMMENT 'inches',
-  `DoorWidth` int(10) unsigned DEFAULT NULL COMMENT 'inches',
-  `TowCapacity` int(10) unsigned DEFAULT NULL COMMENT 'pounds',
-  `LoadCapacity` int(10) unsigned DEFAULT NULL COMMENT 'pounds',
+  `MilesPerGallonRated` int(11) unsigned DEFAULT NULL COMMENT 'manufacturer''s claimed mpg',
+  `LoadLength` int(11) unsigned DEFAULT NULL COMMENT 'inches',
+  `LoadWidth` int(11) unsigned DEFAULT NULL COMMENT 'inches',
+  `RoofHeight` int(11) unsigned DEFAULT NULL COMMENT 'inches, top of bed floor to bottom of ceiling',
+  `DoorHeight` int(11) unsigned DEFAULT NULL COMMENT 'inches',
+  `DoorWidth` int(11) unsigned DEFAULT NULL COMMENT 'inches',
+  `TowCapacity` int(11) unsigned DEFAULT NULL COMMENT 'pounds',
+  `LoadCapacity` int(11) unsigned DEFAULT NULL COMMENT 'pounds',
   `LoadVolume` int(11) GENERATED ALWAYS AS (if(((`LoadLength` is not null) and (`LoadWidth` is not null) and (`RoofHeight` is not null)),((`LoadLength` * `LoadWidth`) * `RoofHeight`),NULL)) VIRTUAL COMMENT 'cubic inches',
   PRIMARY KEY (`SprinterId`),
   KEY `idx_inv_sprinters_FuelTankCapacity` (`FuelTankCapacity`),
@@ -3063,12 +3063,12 @@ CREATE TABLE `inv_trailers` (
   `TrailerId` bigint(20) unsigned NOT NULL,
   `Type` varchar(24) NOT NULL DEFAULT 'Van',
   `HazMat` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `LoadLength` int(10) unsigned DEFAULT NULL COMMENT 'In inches',
-  `LoadWidth` int(10) unsigned DEFAULT NULL COMMENT 'In inches',
-  `LoadHeight` int(10) unsigned DEFAULT NULL COMMENT 'In inches\n',
-  `DoorWidth` int(10) unsigned DEFAULT NULL,
-  `DoorHeight` int(10) unsigned DEFAULT NULL,
-  `LoadCapactiy` int(10) unsigned DEFAULT NULL,
+  `LoadLength` int(11) unsigned DEFAULT NULL COMMENT 'In inches',
+  `LoadWidth` int(11) unsigned DEFAULT NULL COMMENT 'In inches',
+  `LoadHeight` int(11) unsigned DEFAULT NULL COMMENT 'In inches\n',
+  `DoorWidth` int(11) unsigned DEFAULT NULL,
+  `DoorHeight` int(11) unsigned DEFAULT NULL,
+  `LoadCapactiy` int(11) unsigned DEFAULT NULL,
   `HasLiftGate` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `HasPalletJack` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `HasRamps` tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -3228,9 +3228,9 @@ CREATE TABLE `inv_vehicles` (
   `TireSize` bigint(20) unsigned DEFAULT NULL,
   `Year` year(4) DEFAULT NULL,
   `Axels` int(11) DEFAULT NULL,
-  `Length` int(10) unsigned DEFAULT NULL,
-  `Height` int(10) unsigned DEFAULT NULL,
-  `Width` int(10) unsigned DEFAULT NULL,
+  `Length` int(11) unsigned DEFAULT NULL,
+  `Height` int(11) unsigned DEFAULT NULL,
+  `Width` int(11) unsigned DEFAULT NULL,
   `UnladenWeight` int(11) DEFAULT NULL,
   `Fuel` enum('none','deisel','unleaded') NOT NULL DEFAULT 'none',
   PRIMARY KEY (`VehicleId`),
@@ -3627,7 +3627,7 @@ CREATE TABLE `tsk_actns` (
   KEY `ActnToUid_idx` (`PrsnId`),
   CONSTRAINT `ActnToTask` FOREIGN KEY (`tskid`) REFERENCES `tsk_tasks` (`tskid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `ActnToUid` FOREIGN KEY (`PrsnId`) REFERENCES `ent_people` (`PrsnId`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Actions - actual execution of the task';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Actions - actual execution of the task';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -3677,9 +3677,9 @@ DROP TABLE IF EXISTS `tsk_alrms`;
 CREATE TABLE `tsk_alrms` (
   `alrmid` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `tskid` bigint(20) unsigned NOT NULL,
-  `message` varchar(1024) COLLATE latin1_bin NOT NULL COMMENT 'message to display',
-  `atcrontab` varchar(255) COLLATE latin1_bin NOT NULL COMMENT 'the AT or CRONTAB time',
-  `periodic` enum('yes','no') COLLATE latin1_bin NOT NULL DEFAULT 'no',
+  `message` varchar(512) NOT NULL COMMENT 'message to display',
+  `atcrontab` varchar(255) NOT NULL COMMENT 'the AT or CRONTAB time',
+  `periodic` enum('yes','no') NOT NULL DEFAULT 'no',
   `repeat` int(11) NOT NULL DEFAULT '0' COMMENT 'Limit itirations to given number. Zero means no limit.',
   `turnoff` datetime DEFAULT NULL COMMENT 'Turn off alarm at specific time and date',
   PRIMARY KEY (`alrmid`),
@@ -3690,7 +3690,7 @@ CREATE TABLE `tsk_alrms` (
   KEY `idx_tsk_alrms_periodic` (`periodic`) USING BTREE,
   KEY `idx_tsk_alrms_turnoff` (`turnoff`) USING BTREE,
   CONSTRAINT `AlertToTask` FOREIGN KEY (`tskid`) REFERENCES `tsk_tasks` (`tskid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_bin COMMENT='Reminders';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Reminders';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3709,7 +3709,7 @@ CREATE TABLE `tsk_ntfis` (
   KEY `alrt_to_PrsnId_idx` (`PrsnId`),
   CONSTRAINT `alrt_to_PrsnId` FOREIGN KEY (`PrsnId`) REFERENCES `ent_people` (`PrsnId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `alrt_to_alrm` FOREIGN KEY (`alrmid`) REFERENCES `tsk_alrms` (`alrmid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_bin COMMENT='Who to notify when alarm triggers';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Who to notify when alarm triggers';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3723,7 +3723,7 @@ CREATE TABLE `tsk_resps` (
   `respid` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `tskid` bigint(20) unsigned NOT NULL,
   `PrsnId` bigint(20) unsigned NOT NULL,
-  `role` varchar(255) COLLATE latin1_bin DEFAULT NULL,
+  `role` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`respid`),
   UNIQUE KEY `WhoDoesUnq` (`tskid`,`PrsnId`),
   KEY `WhoDoTaskRef_idx` (`tskid`),
@@ -3731,7 +3731,7 @@ CREATE TABLE `tsk_resps` (
   KEY `idx_whods_role` (`role`),
   CONSTRAINT `WhoDoTaskRef` FOREIGN KEY (`tskid`) REFERENCES `tsk_tasks` (`tskid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `WhoDoUidRef` FOREIGN KEY (`PrsnId`) REFERENCES `ent_people` (`PrsnId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1 COLLATE=latin1_bin COMMENT='Task, User, Action - connections';
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='Task, User, Action - connections';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3750,9 +3750,9 @@ CREATE TABLE `tsk_tasks` (
   `startdate` datetime DEFAULT NULL,
   `duedate` datetime DEFAULT NULL,
   `completed` datetime DEFAULT NULL COMMENT 'When completed',
-  `estimated` int(10) unsigned DEFAULT NULL COMMENT 'Estimated time to complete hrs:min',
-  `priority` int(10) unsigned DEFAULT '0' COMMENT 'Task priority: higher then number more urgent it is',
-  `severity` int(10) unsigned DEFAULT '0' COMMENT 'Severity: higher the number more important it is',
+  `estimated` int(11) unsigned DEFAULT NULL COMMENT 'Estimated time to complete hrs:min',
+  `priority` int(11) unsigned DEFAULT '0' COMMENT 'Task priority: higher then number more urgent it is',
+  `severity` int(11) unsigned DEFAULT '0' COMMENT 'Severity: higher the number more important it is',
   PRIMARY KEY (`tskid`),
   UNIQUE KEY `name_UNIQUE` (`name`),
   KEY `prjtskfk` (`prjid`),
@@ -3767,7 +3767,7 @@ CREATE TABLE `tsk_tasks` (
   KEY `idx_tsk_tasks_duedate` (`duedate`),
   CONSTRAINT `prjtskfk` FOREIGN KEY (`prjid`) REFERENCES `tsk_tasks` (`tskid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tskPrsnIdfk` FOREIGN KEY (`PrsnId`) REFERENCES `ent_people` (`PrsnId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 COMMENT='Task/Project Tree';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='Task/Project Tree';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -3856,7 +3856,7 @@ CREATE TABLE `tsk_times` (
   KEY `idx_tsk_times_fulllength` (`fulllength`) USING BTREE,
   CONSTRAINT `TimesOfActns` FOREIGN KEY (`actid`) REFERENCES `tsk_actns` (`actid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `TimesOfUser` FOREIGN KEY (`PrsnId`) REFERENCES `ent_people` (`PrsnId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3875,7 +3875,7 @@ CREATE TABLE `tsk_trees` (
   KEY `DesTaskRef_idx` (`descendant`),
   CONSTRAINT `AncTaskRef` FOREIGN KEY (`ancestor`) REFERENCES `tsk_tasks` (`tskid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `DesTaskRef` FOREIGN KEY (`descendant`) REFERENCES `tsk_tasks` (`tskid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_bin COMMENT='Project Tree Closures';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Project Tree Closures';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -3884,4 +3884,4 @@ CREATE TABLE `tsk_trees` (
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-13 11:42:12
+-- Dump completed on 2019-09-05  7:16:27
