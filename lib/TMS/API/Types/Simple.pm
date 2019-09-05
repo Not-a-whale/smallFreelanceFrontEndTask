@@ -8,11 +8,19 @@ use Data::Dumper;
 use Date::Manip;
 use Digest::SHA qw(sha256_hex);
 
+use Text::Lorem::More;
+use Data::Random qw(:all);
+
 use Moose::Util::TypeConstraints;
 use MooseX::Types::Moose qw(Int Str);
 
-my $DateObj = new Date::Manip::Date;
+# ............................................................................
+our $AUTO_GENERATE = 0;    # this is required for testing, generate fake data during coerce
 
+# ............................................................................
+my $DateObj = new Date::Manip::Date;    # Date::Manip::Date constructor is expencive, so make a singleton
+
+# ............................................................................
 my $UsState_Abbr2Name = {
     "AL" => "Alabama",
     "AK" => "Alaska",
@@ -66,10 +74,11 @@ my $UsState_Abbr2Name = {
     "WY" => "Wyoming",
 };
 
-my $UsState_Abbr2NameUC = { map { $_ , uc($$UsState_Abbr2Name{$_})} keys %$UsState_Abbr2Name};
-my $UsState_Name2Abbr = {map { $$UsState_Abbr2Name{$_}, $_ } keys %$UsState_Abbr2Name};
+my $UsState_Abbr2NameUC = {map { $_, uc($$UsState_Abbr2Name{$_}) } keys %$UsState_Abbr2Name};
+my $UsState_Name2Abbr   = {map { $$UsState_Abbr2Name{$_}, $_ } keys %$UsState_Abbr2Name};
 my $UsState_Name2AbbrUC = {map { uc($$UsState_Abbr2Name{$_}), $_ } keys %$UsState_Abbr2Name};
 
+# ............................................................................
 my $CanadaState_Abbr2Name = {
     "AB" => "Alberta",
     "BC" => "British Columbia",
@@ -86,335 +95,367 @@ my $CanadaState_Abbr2Name = {
     "YT" => "Yukon",
 };
 
-my $CanadaState_Abbr2NameUC = {map { $_ , uc($$CanadaState_Abbr2Name{$_}) } keys %$CanadaState_Abbr2Name};
-my $CanadaState_Name2Abbr = {map { $$CanadaState_Abbr2Name{$_}, $_ } keys %$CanadaState_Abbr2Name};
+my $CanadaState_Abbr2NameUC = {map { $_, uc($$CanadaState_Abbr2Name{$_}) } keys %$CanadaState_Abbr2Name};
+my $CanadaState_Name2Abbr   = {map { $$CanadaState_Abbr2Name{$_}, $_ } keys %$CanadaState_Abbr2Name};
 my $CanadaState_Name2AbbrUC = {map { uc($$CanadaState_Abbr2Name{$_}), $_ } keys %$CanadaState_Abbr2Name};
 
 # ............................................................................
-subtype 'TidySpacesString',
-    as 'Str',
-        where { /^\S+$|^(\S+\s)+\S+$/ };
-
-coerce 'TidySpacesString',
-    from 'Str',
-        via {
-            s/^\s+|\s+$//g;
-            s/\s+/ /g;
-            return $_;
-        };
-
-# ............................................................................
-subtype 'UpperCaseStr',
-    as 'Str',
-        where { /^(?:([A-Z]*)\s*)+$/ };
-
-coerce 'UpperCaseStr',
-    from 'Str',
-        via {
-            s/^\s+|\s+$//g;
-            s/\s+/ /g;
-            s/(\w+)/uc($1)/ge;
-            return $_;
-        };
-# ............................................................................
-subtype 'NameCapitalized',
-    as 'Str',
-        where { /^(?:([A-Z][a-z\.]*)\s*)+$/ };
-
-coerce 'NameCapitalized',
-    from 'Str',
-        via {
-            s/^\s+|\s+$//g;
-            s/\s+/ /g;
-            s/(\w+)/ucfirst(lc($1))/ge;
-            return $_;
-        };
+my %rgx = (
+    isTidy     => qr/^\S+$|^(\S+\s)+\S+$/,
+    isUpper    => qr/[^a-z]/,
+    isUCfirst  => qr/^(?:([A-Z][a-z\.]*)\s*)+$/,
+    isLogin    => qr/^[a-z][a-z0-9_]{2,15}$/,
+    isCronTab  => qr/^([0-9,\-\/\*]+\s){4}[0-7,\-\/\*]+$/,
+    isDateTime => qr/^(\d{4})-(\d\d)-(\d\d) (\d\d):(\d\d):(\d\d)$/,
+    isCurrency => qr/^(?:\-)?\d+(?:\.\d+)$/,
+    isPhoneExt => qr/^[0-9\#\*,]{1,}$/,
+    isPhoneNum => qr/^\d{3}\-\d{3}\-\d{4}$/,
+    isFloat    => qr/^\-?(\d+|\.\d+|\d+(?:\.\d+)?)$/,
+    isPriKey   => qr/^[1-9]\d*$/,
+    isPosInt   => qr/^\d+$/,
+    isBoolInt  => qr/^[01]$/,
+    canBoolInt => qr/^\s*(yes|no|true|false|1|0)\s*$/,
+    yesBoolInt => qr/^\s*(yes|true|1)\s*$/,
+    isYesNo    => qr/^(yes|no)$/,
+    isSha256   => qr/^[0-9a-f]{64}$/,
+    isCountry  => qr/^(United States|Canada)$/,
+    isZipCode  => qr/^\d{5}(?:\-\d{4})?$/,
+);
 
 # ............................................................................
-subtype 'PrimaryKeyInt',
-    as 'Int',
-        where {
-            return 1 if !defined $_;
-            return $_ >= 0;
-        },
-        message { "Int is not larger than 0" };
+subtype 'TidySpacesString', as 'Str',   where {/$rgx{isTidy}/};
+coerce 'TidySpacesString',  from 'Str', via { tryTidySpacesString($_) };
 
-coerce 'PrimaryKeyInt',
-    from 'Int',
-        via { abs($_) },
-    from 'Str',
-        via {
-            s/\D+//;
-            return undef if !/\d+/;
-            return $_;
-        };
+subtype 'UpperCaseStr', as 'Str',   where {/$rgx{isUpper}/};
+coerce 'UpperCaseStr',  from 'Str', via { tryUpperCaseStr($_) };
 
-# ............................................................................
-subtype 'PositiveInt',
-    as 'Int',
-        where { $_ >= 0 },
-        message { "Int is not larger than 0" };
+subtype 'NameCapitalized', as 'Str',   where {/$rgx{isUCfirst}/};
+coerce 'NameCapitalized',  from 'Str', via { tryNameCapitalized($_) };
 
-coerce 'PositiveInt',
-    from 'Int',
-        via { abs($_) },
-    from 'Str',
-        via { $_ =~ s/\D+// };
+subtype 'PrimaryKeyInt', as 'Int',   where {/$rgx{isPriKey}/};
+coerce 'PrimaryKeyInt',  from 'Str', via { tryPrimaryKeyInt($_) };
 
-# ............................................................................
-subtype 'UserNameLowerCase',
-    as 'Str',
-        where {/^[a-z][a-z0-9_]{2,15}$/},
-        message {
-            "User Name must be from 2 to 15 characters long and contain"
-            . " only 'a-z0-9_' characters. You have '$_'"
-        };
+subtype 'PositiveInt', as 'Int',   where {/$rgx{isPosInt}/};
+coerce 'PositiveInt',  from 'Str', via { tryPositiveInt($_) };
 
-coerce 'UserNameLowerCase',
-    from 'Str',
-        via {
-            s/[^a-z0-9_].*//gi;
-            lc($_);
-        };
+subtype 'BoolInt', as 'Int',   where {/$rgx{isBoolInt}/};
+coerce 'BoolInt',  from 'Str', via { tryBoolInt($_) };
 
-# ............................................................................
-subtype 'EnumYesNo',
-    as 'Str',
-        where {/^(yes|no)$/};
+subtype 'UserNameLowerCase', as 'Str',   where {/$rgx{isLogin}/};
+coerce 'UserNameLowerCase',  from 'Str', via { tryUserNameLowerCase($_) };
 
-coerce 'EnumYesNo',
-    from 'Str',
-        via {
-            s/\s//g;
-            s/.*(yes|no).*/$1/i;
-            lc($_);
-        };
+subtype 'EnumYesNo', as 'Str',   where {/$rgx{isYesNo}/};
+coerce 'EnumYesNo',  from 'Str', via { tryEnumYesNo($_) };
 
-# ............................................................................
-subtype 'CronTabTime',
-    as 'Str',
-        where {/^([0-9,\-\/\*]+\s){4}[0-7,\-\/\*]+$/};
+subtype 'CronTabTime', as 'Str',   where {/$rgx{isCronTab}/};
+coerce 'CronTabTime',  from 'Str', via { tryTidySpacesString($_) };
 
-coerce 'CronTabTime',
-    from 'Str',
-        via {
-            s/^\s+//;
-            s/\s+$//;
-        };
-# ............................................................................
-subtype 'Sha256Password',
-    as 'Str',
-        where { /[0-9a-f]{64}/i },
-        message {
-            "$_! A password mas be at least 6 characters long and contain at"
-                . " least one UPERCASE letter, at least one lower case"
-                . " letter and at least one number"
-        };
+subtype 'Sha256Password', as 'Str',   where {/$rgx{isSha256}/i};
+coerce 'Sha256Password',  from 'Str', via { trySha256Password($_) };
 
-coerce 'Sha256Password',
-    from 'Str',
-        via {
-            return 'Short Password' if !/.{6,}/;
-            return 'Missing digits' if !/[0-9]/;
-            return 'No upper case'  if !/[A-Z]/;
-            return 'No lower case'  if !/[a-z]/;
-            sha256_hex($_);
-        };
+subtype 'DATETIME', as 'Str',   where { isDateTime($_) };
+coerce 'DATETIME',  from 'Str', via { tryDateTime($_) };
 
-# ............................................................................
-subtype 'DATETIME',
-    as 'Str',
-        where {
-            if( /^(\d{4})-(\d\d)-(\d\d) (\d\d):(\d\d):(\d\d)$/ ) {
-                my @max = (undef,31,29,31,30,31,30,31,31,30,31,30,31);
-                return undef if $1 < 1900 && $1 > 2100;
-                return undef if $2 < 1 && $2 > 12;
-                return undef if $3 < 1 && $3 > $max[$2];
-                return undef if $4 < 0 && $4 > 23;
-                return undef if $5 < 0 && $5 > 59;
-                return undef if $6 < 0 && $6 > 59;
-                return 1;
-            }
-            return undef;
-        },
-        message { "Unable to parse \"$_\" into '%Y-%m-%d %H:%M:%S'" };
+subtype 'DbDuration', as 'Int',   where {/$rgx{isPosInt}/};
+coerce 'DbDuration',  from 'Str', via { tryDbDuration($_) };
 
-coerce 'DATETIME',
-    from 'Str',
-        via {
-            return undef if $DateObj->parse($_);
-            return $DateObj->printf('%Y-%m-%d %H:%M:%S');
-        };
+subtype 'CurrencyValue', as 'Str',   where {/$rgx{isCurrency}/};
+coerce 'CurrencyValue',  from 'Str', via { tryCurrencyValue($_) };
 
-# ............................................................................
-subtype 'DbDuration', as 'PositiveInt';
+subtype 'PhoneExt', as 'Str',   where {/$rgx{isPhoneExt}/};
+coerce 'PhoneExt',  from 'Str', via { tryPhoneExt($_) };
 
-coerce 'DbDuration',
-    from 'Str',
-        via {
-            my $delta    = 1;
-            my $duration = 0;
-            $duration += (/(\d+)\s*m/i ? $1 : 0) * ($delta *= 60); # (1M) minutes
-            $duration += (/(\d+)\s*h/i ? $1 : 0) * ($delta *= 60); # (1H) hours
-            $duration += (/(\d+)\s*d/i ? $1 : 0) * ($delta *= 24); # (1D) days
-            $duration += (/(\d+)\s*b/i ? $1 : 0) * ($delta *= 8);  # (1B) 8 hrs business day
-            $duration += (/(\d+)\s*l/i ? $1 : 0) * ($delta *= 8);  # (1L) 12 hrs long business day
-            $duration += (/(\d+)\s*w/i ? $1 : 0) * ($delta *= 7);  # (1W) weeks
-            $duration += (/(\d+)\s*r/i ? $1 : 0) * ($delta *= 5);  # (1R) 5 days woRk weeks
-            return $duration;
-        };
-# ............................................................................
-subtype 'CurrencyValue',
-    as 'Str',
-        where {/^(?:\-)?\d+(?:\.\d+)$/};
+subtype 'PhoneNumber', as 'Str',   where {/$rgx{isPhoneNum}/};
+coerce 'PhoneNumber',  from 'Str', via { tryPhoneNumber($_) };
 
-coerce 'CurrencyValue',
-    from 'Str',
-        via {
-            $_ =~ s/[^\d\.\-\(\)]//g;
+subtype 'Float', as 'Str',   where {/$rgx{isFloat}/};
+coerce 'Float',  from 'Str', via { tryFloat($_) };
 
-            my $isnegative = ( $_ =~ m/-(.*)/ ) ? 1 : 0;
-            my $value = ( $isnegative ? $1 : undef )
-            || $_;    #because perl reuses $1 for regex and subroutine names
+subtype 'SupportedStateName', as 'Str',   where { isSupportedStateName($_) };
+coerce 'SupportedStateName',  from 'Str', via { trySupportedStateName($_) };
 
-            $isnegative = ( $_ =~ m/\((.*)\)/ ) ? 1 : 0 || $isnegative;
-            $value = ( $isnegative ? $1 : undef )
-            || $value;    #because perl reuses $1 for regex and subroutine names
+subtype 'SupportedStateAbbr', as 'Str',   where { isSupportedStateAbbr($_) };
+coerce 'SupportedStateAbbr',  from 'Str', via { trySupportedStateAbbr($_) };
 
-            my $sign = $isnegative ? '-' : '';
-            $value =~ m/(\d*(?:\.\d*)?)/;
-            my $number = $1 || 0;
+subtype 'SupportedCountryName', as 'Str',   where {/$rgx{isCountry}/};
+coerce 'SupportedCountryName',  from 'Str', via { trySupportedCountryName($_) };
 
-            return sprintf( '%s%0.2f', ( $sign, $number ) );
-        };
+subtype 'Street', as 'Str', where { isMinMax($_, 2, 64) };
+coerce 'Street', from 'Str', via { tryNameCapitalized(tryMinMax($_, 2, 64)) };
 
-# ............................................................................
-subtype 'PhoneExt',
-    as 'Str',
-        where {
-            /^[0-9\#\*,]{1,}$/;
-        };
+subtype 'City', as 'Str', where { isMinMax($_, 2, 64) };
+coerce 'City', from 'Str', via { tryNameCapitalized(tryMinMax($_, 2, 64)) };
 
-coerce 'PhoneExt',
-    from 'Str',
-        via {
-            s/[^0-9\#\*,]//gs;
-            return $_;
-        };
+subtype 'ZipCanadaUSA', as 'Str',   where {/$rgx{isZipCode}/};
+coerce 'ZipCanadaUSA',  from 'Str', via { tryZipCanadaUSA($_) };
 
-# ............................................................................
-subtype 'PhoneNumber',
-    as 'Str',
-        where {
-            /^\d{3}\-\d{3}\-\d{4}$/;
-        },
-        message {
-            "Phone Number must be in format 000-000-0000. You have '$_'"
-        };
+subtype 'BizName', as 'Str',   where {/$rgx{isTidy}/ && /$rgx{isUpper}/};
+coerce 'BizName',  from 'Str', via { tryUpperCaseStr($_) };
 
-coerce 'PhoneNumber',
-    from 'Str',
-        via {
-            s/\D+//g;
-            s/.*?(\d{3})(\d{3})(\d{4})$/$1\-$2\-$3/;
-            return $_;
-        };
+subtype 'VIN', as 'Str', where { isVIN($_) }, message {
+    "The VIN you provided is invalid format. Please check and try again."
+};
 
-# ............................................................................
-subtype 'VIN',
-    as 'Str',
-        where {
-            return undef if (length $_ != 17);
-            return undef if (substr($_, 8 , 1) !~ /\d/);
-            my $map = '0123456789X';
-            my $weights = '8765432X098765432';
-            my $translit = '0123456789.ABCDEFGH..JKLMN.P.R..STUVWXYZ';
-            my $sum = 0;
-            foreach my $i (0 .. length $_){
+sub tryTidySpacesString {
+    my $text = shift;
+    return Text::Lorem::More->new->description() if $AUTO_GENERATE && $text !~ /\S+/s;
 
-                $sum += index ( $translit, substr( $_, $i, 1) ) % 10 * index ( $map , substr( $weights, $i, 1));
-            }
-            return substr($map, $sum % 11, 1) == substr($_, 8, 1);
+    $text =~ s/^\s+|\s+$//g;
+    $text =~ s/\s+/ /g;
+    return $text;
+} ## end sub tryTidySpacesString
 
-        },
-        message {
-            "The VIN you provided is invalid format. Please check and try again."
-        };
+sub tryUpperCaseStr {
+    my $text = tryTidySpacesString(shift);
+    $text = Text::Lorem::More->new->description() if $AUTO_GENERATE && $text !~ /\S+/s;
+    return uc($text);
+}
 
-# ............................................................................
-subtype 'Float',
-    as 'Str',
-    where {
-        /\d+|\.\d+|\d+(?:\.\d+)?/;
-    };
+sub tryNameCapitalized {
+    my $text = tryTidySpacesString(shift);
+    return Text::Lorem::More->new->name() if $AUTO_GENERATE && $text !~ /\S+/s;
+    $text =~ s/(\w+)/ucfirst(lc($1))/ge;
+    return $text;
+} ## end sub tryNameCapitalized
 
-coerce 'Float',
-    from 'Str',
-        via {
-            s/[^\d\.]//g;
-            return $_;
-        };
-# ............................................................................
-subtype 'SupportedStateName',
-    as 'Str',
-        where {
-            exists $$UsState_Name2Abbr{$_} || exists $$CanadaState_Name2Abbr{$_};
-        };
+sub tryPrimaryKeyInt {
+    return int(rand(999999999)) if $AUTO_GENERATE;
+    my $text = shift;
+    $text =~ s/\D+//g;
+    return undef if !/\d+/;
+    return $text;
+} ## end sub tryPrimaryKeyInt
 
-coerce 'SupportedStateName',
-    from 'Str',
-        via {
-            my $state = uc($_);
-            $state =~ s/^\s+//;
-            $state =~ s/\s+$//;
-            $state =~ s/\s+/ /g;
+sub tryPositiveInt {
+    return int(rand(999999999)) if $AUTO_GENERATE;
+    my $text = shift;
+    $text =~ s/\D+//g;
+    return $text;
+} ## end sub tryPositiveInt
 
-            if (exists $$UsState_Name2AbbrUC{$state}) {
-                return $$UsState_Abbr2Name{$$UsState_Name2AbbrUC{$state}};
-            }
-            if (exists $$CanadaState_Name2AbbrUC{$state}) {
-                return $$CanadaState_Abbr2Name{$$CanadaState_Name2AbbrUC{$state}};
-            }
+sub tryBoolInt {
+    return rand_enum(set => [0, 1]) if $AUTO_GENERATE;
+    my $text = shift;
+    return 0 if !defined $text;
+    return ($text =~ /$rgx{yesBoolInt}/i ? 1 : 0) if $text =~ /$rgx{canBoolInt}/i;
+    return $text;
+} ## end sub tryBoolInt
 
-            return $$CanadaState_Abbr2Name{$state} if exists $$CanadaState_Abbr2Name{$state};
-            return $$UsState_Abbr2Name{$state}     if exists $$UsState_Abbr2Name{$state};
-        };
+sub tryUserNameLowerCase {
+    my $text = shift;
+    if ($AUTO_GENERATE) {
+        return join("",
+            rand_chars(set => "loweralpha", min => 3, max => 5),
+            map {lc} rand_chars(set => "alphanumeric", min => 1, max => 7));
+    } else {
+        $text =~ s/[^a-z0-9_].*//gi;
+        return lc($text);
+    }
+} ## end sub tryUserNameLowerCase
 
-# ............................................................................
-subtype 'SupportedStateAbbr',
-    as 'Str',
-        where {
-            exists $$UsState_Abbr2Name{$_} || exists $$CanadaState_Abbr2Name{$_};
-        };
+sub tryEnumYesNo {
+    return rand_enum(set => ['yes', 'no']) if $AUTO_GENERATE;
+    my $text = shift;
+    $text =~ s/\s//g;
+    $text =~ s/.*(yes|no).*/$1/i;
+    return lc($text);
+} ## end sub tryEnumYesNo
 
-coerce 'SupportedStateAbbr',
-    from 'Str',
-        via {
-            my $state = uc($_);
-            $state =~ s/^\s+//;
-            $state =~ s/\s+$//;
-            $state =~ s/\s+/ /g;
+sub trySha256Password {
+    my $text = shift;
+    if ($AUTO_GENERATE) {
+        $text = rand_chars(set => "all", min => 6, max => 15);
+    } else {
+        return 'Short Password' if $text !~ /.{6,}/;
+        return 'Missing digits' if $text !~ /[0-9]/;
+        return 'No upper case'  if $text !~ /[A-Z]/;
+        return 'No lower case'  if $text !~ /[a-z]/;
+    }
+    return sha256_hex($text);
+} ## end sub trySha256Password
 
-            return $state if exists $$UsState_Abbr2NameUC{$state} || exists $$CanadaState_Abbr2NameUC{$_};
-            return $$CanadaState_Name2AbbrUC{$state} if exists $$CanadaState_Name2AbbrUC{$state};
-            return $$UsState_Name2AbbrUC{$state}     if exists $$UsState_Name2AbbrUC{$state};
-        };
+sub isDateTime {
+    my $date = shift;
+    if ($date =~ /$rgx{isDateTime}/) {
+        my @max = (undef, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+        return undef if $1 < 1900 && $1 > 2100;
+        return undef if $2 < 1    && $2 > 12;
+        return undef if $3 < 1    && $3 > $max[$2];
+        return undef if $4 < 0    && $4 > 23;
+        return undef if $5 < 0    && $5 > 59;
+        return undef if $6 < 0    && $6 > 59;
+        return 1;
+    }
+    return undef;
+} ## end sub isDateTime
 
-# ............................................................................
-subtype 'SupportedCountryName',
-    as 'Str',
-        where {
-            /^(United States|Canada)$/;
-        },
-        message { "Supported countries are: 'United States' or 'Canada'" };
+sub tryDateTime {
+    return rand_datetime() if $AUTO_GENERATE;
+    return undef if $DateObj->parse(shift);
+    return $DateObj->printf('%Y-%m-%d %H:%M:%S');
+}
 
-coerce 'SupportedCountryName',
-    from 'Str',
-        via {
-            return "United States" if /US|USA|UNITED\s+STATES/i;
-            return "Canada" if /CANADA/i;
-            return $_;
-        };
+sub tryDbDuration {
+    my $time     = shift;
+    my $delta    = 1;
+    my $duration = 0;
+    $duration += ($time =~ /(\d+)\s*m/i ? $1 : 0) * ($delta *= 60);    # (1M) minutes
+    $duration += ($time =~ /(\d+)\s*h/i ? $1 : 0) * ($delta *= 60);    # (1H) hours
+    $duration += ($time =~ /(\d+)\s*d/i ? $1 : 0) * ($delta *= 24);    # (1D) days
+    $duration += ($time =~ /(\d+)\s*b/i ? $1 : 0) * ($delta *= 8);     # (1B) 8 hrs business day
+    $duration += ($time =~ /(\d+)\s*l/i ? $1 : 0) * ($delta *= 8);     # (1L) 12 hrs long business day
+    $duration += ($time =~ /(\d+)\s*w/i ? $1 : 0) * ($delta *= 7);     # (1W) weeks
+    $duration += ($time =~ /(\d+)\s*r/i ? $1 : 0) * ($delta *= 5);     # (1R) 5 days woRk weeks
+    return $duration;
+} ## end sub tryDbDuration
 
-# ............................................................................
+sub CurrencyValue {
+    return sprintf "%6.2f", rand(10000) if $AUTO_GENERATE;
+
+    my $money = shift;
+    $money =~ s/[^\d\.\-\(\)]//g;                                      # remove all if not of "0-9.-()"
+
+    my $isnegative = ($money =~ m/-(.*)/) ? 1 : 0;
+    my $value      = ($isnegative ? $1 : undef) || $money;
+
+    $isnegative = ($money =~ m/\((.*)\)/) ? 1 : 0 || $isnegative;
+    $value      = ($isnegative ? $1 : undef)      || $value;
+
+    my $sign = $isnegative ? '-' : '';
+    $value =~ m/(\d*(?:\.\d*)?)/;
+    my $number = $1 || 0;
+
+    return sprintf('%s%0.2f', ($sign, $number));
+} ## end sub CurrencyValue
+
+sub tryPhoneExt {
+    if ($AUTO_GENERATE) {
+        my $ext  = undef;
+        my @nums = ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '#', ',', '*');
+        $ext .= $nums[int(rand(13))] for 1 .. 9;
+        $ext .= $nums[int(rand(10))];
+        return $ext;
+    }
+    my $ext = shift;
+    $ext =~ s/[^0-9\#\*,]//gs;
+    return $ext;
+} ## end sub tryPhoneExt
+
+sub tryPhoneNumber {
+    if ($AUTO_GENERATE) {
+        my $phone = 0;
+        $phone = int(rand(9999999999)) while $phone < 1000000000;
+        $phone =~ s/(\d{3})(\d{3})(\d{4})$/$1\-$2\-$3/;
+        return $phone;
+    } else {
+        my $phn = shift;
+        $phn =~ s/\D+//g;
+        $phn =~ s/.*?(\d{3})(\d{3})(\d{4})$/$1\-$2\-$3/;
+        return $phn;
+    }
+} ## end sub tryPhoneNumber
+
+sub isVIN {
+    my $vin = shift;
+    return undef if (length $vin != 17);
+    return undef if (substr($vin, 8, 1) !~ /\d/);
+    my $map      = '0123456789X';
+    my $weights  = '8765432X098765432';
+    my $translit = '0123456789.ABCDEFGH..JKLMN.P.R..STUVWXYZ';
+    my $sum      = 0;
+    foreach my $i (0 .. length $vin) {
+        $sum += index($translit, substr($vin, $i, 1)) % 10 * index($map, substr($weights, $i, 1));
+    }
+    return substr($map, $sum % 11, 1) == substr($vin, 8, 1);
+} ## end sub isVIN
+
+sub tryFloat {
+    return sprintf "%6.2f", rand(10000) if $AUTO_GENERATE;
+    my $num = shift;
+    $num =~ s/[^\d\.\-]//g;
+    return $num;
+} ## end sub tryFloat
+
+sub isSupportedStateName {
+    my $state = shift;
+    return exists $$UsState_Name2Abbr{$state} || exists $$CanadaState_Name2Abbr{$state};
+}
+
+sub trySupportedStateName {
+    return rand_enum(set => [values %$UsState_Abbr2Name]) if $AUTO_GENERATE;
+
+    my $state = uc(shift);
+    $state =~ s/^\s+//;
+    $state =~ s/\s+$//;
+    $state =~ s/\s+/ /g;
+
+    if (exists $$UsState_Name2AbbrUC{$state}) {
+        return $$UsState_Abbr2Name{$$UsState_Name2AbbrUC{$state}};
+    }
+    if (exists $$CanadaState_Name2AbbrUC{$state}) {
+        return $$CanadaState_Abbr2Name{$$CanadaState_Name2AbbrUC{$state}};
+    }
+
+    return $$CanadaState_Abbr2Name{$state} if exists $$CanadaState_Abbr2Name{$state};
+    return $$UsState_Abbr2Name{$state}     if exists $$UsState_Abbr2Name{$state};
+} ## end sub trySupportedStateName
+
+sub isSupportedStateAbbr {
+    my $state = shift;
+    return exists $$UsState_Abbr2Name{$state} || exists $$CanadaState_Abbr2Name{$state};
+}
+
+sub trySupportedStateAbbr {
+    return rand_enum(set => [keys %$UsState_Abbr2Name]) if $AUTO_GENERATE;
+    my $state = uc(shift);
+    $state =~ s/^\s+//;
+    $state =~ s/\s+$//;
+    $state =~ s/\s+/ /g;
+
+    return $state                            if exists $$UsState_Abbr2NameUC{$state} || exists $$CanadaState_Abbr2NameUC{$_};
+    return $$CanadaState_Name2AbbrUC{$state} if exists $$CanadaState_Name2AbbrUC{$state};
+    return $$UsState_Name2AbbrUC{$state}     if exists $$UsState_Name2AbbrUC{$state};
+} ## end sub trySupportedStateAbbr
+
+sub trySupportedCountryName {
+    return rand_enum(set => ['United States', 'Canada']) if $AUTO_GENERATE;
+    my $country = shift;
+    return "United States" if $country =~ /US|USA|UNITED\s+STATES/i;
+    return "Canada"        if $country =~ /CANADA/i;
+    return $country;
+} ## end sub trySupportedCountryName
+
+sub isMinMax {
+    my ($text, $min, $max) = @_;
+    my $len = length($text);
+    return ($len >= $min && $len <= $max);
+}
+
+sub tryMinMax {
+    my ($text, $min, $max) = @_;
+    my $valid = substr(tryTidySpacesString($text), 0, $max);
+    my $len   = length($valid);
+    return $valid if $len >= $min && $len <= $max;
+    return $text;
+} ## end sub tryMinMax
+
+sub tryZipCanadaUSA {
+    my $zip = $_[0];
+    if ($AUTO_GENERATE) {
+        my $first_part  = 0;
+        my $second_part = 0;
+        $first_part  = int(rand(99999)) while $first_part < 10000;
+        $second_part = int(rand(9999))  while $second_part < 1000;
+        return "$first_part\-$second_part";
+    }
+    $zip =~ s/\D+//;
+    if ($zip =~ /(\d{5})(\d{4})/) {
+        return "$1-$2";
+    } elsif ($zip =~ /(\d{5})/) {
+        return "$1";
+    } else {
+        return $_[0];    # return original as is
+    }
+} ## end sub tryZipCanadaUSA
+
 1;
