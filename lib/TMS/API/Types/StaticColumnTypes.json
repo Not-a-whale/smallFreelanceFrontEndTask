@@ -1,7 +1,17 @@
 {
   "cnt_phonesfaxes" : {
-    "Number" :  "PhoneNumber",
-    "Notes" : "TidySpacesString",
+    "Number" :    "PhoneNumber",
+    "Notes" :     "TidySpacesString",
     "Extension" : "PhoneExt"
+  },
+
+  "cnt_addresses" : {
+    "Street1" : "Street",
+    "Street2" : "Street",
+    "Street3" : "Street",
+    "Zip" :     "ZipCanadaUSA",
+    "Country" : "SupportedCountryName",
+    "City" :    "City",
+    "State" :   "SupportedStateAbbr"
   }
 }
