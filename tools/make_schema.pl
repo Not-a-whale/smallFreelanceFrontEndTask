@@ -287,8 +287,10 @@ foreach my $base (sort keys %CLASS_TO_TABLE) {
             $$testdefaults{$$cl{'COLUMN_NAME'}} = undef;
         }
 
-        $isa = $TABLE_TO_CLASS{$$fks{$$cl{'COLUMN_NAME'}}{'REFERENCED_TABLE_NAME'}} . 'Obj'
-            if defined $fks && exists $$fks{$$cl{'COLUMN_NAME'}};
+        if (defined $fks && exists $$fks{$$cl{'COLUMN_NAME'}}) {
+            $isa    = $TABLE_TO_CLASS{$$fks{$$cl{'COLUMN_NAME'}}{'REFERENCED_TABLE_NAME'}} . 'Obj';
+            $coerce = 1;
+        }
 
         my $required = $$cl{'REQUIRED'} ? 1 : 0;
         my $has      = $DATA{has_a_statement};
