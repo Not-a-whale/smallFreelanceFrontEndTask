@@ -24,9 +24,35 @@ my $FillUpInst = undef;
 my $FillUpData = undef;
 my $Tester     = undef;
 
+my @cases = qw(
+    Test_Create
+    Test_New_Dont_Coerce
+    Test_New_Coerce
+    Test_DataCompare
+    Test_Create_Duplicate
+    Test_Update
+    Test_Update_Unique
+    Test_Find
+    Test_FindOrCreate_Existing
+    Test_FindOrCreate_New
+    Test_Delete_Uniq
+    Test_Delete
+    Test_UpdateDeleted
+    Test_UpdateOrCreate_New
+    Test_UpdateOrCreate_ExistingPK
+    Test_UpdateOrCreate_ExistingUK
+);
+
+foreach my $CaseName (@cases) {    # print nice line before each test
+    before $CaseName => sub {
+        my ($line, $pads) = ('=' x 120, ' ' x 40);
+        printf "\n\n%s\n%s%s\n%s\n", $line, $pads, $CaseName, $line;
+    };
+}
+
 sub Test_Create {
-#    my $this = shift;
-#    my $self = $this->new(%{$this->DataRebuild});
+    #    my $this = shift;
+    #    my $self = $this->new(%{$this->DataRebuild});
 
     my $self = shift;
 
@@ -283,12 +309,12 @@ sub Test_UpdateOrCreate_ExistingUK {
     };
 }
 
-sub DEMOLISH {
-    my $self = shift;
-    print "Destroying: ";
-    $self->DataHashTell;
-    $self->Delete;
-    return $self;
-}
+#sub DEMOLISH {
+#    my $self = shift;
+#    print "Destroying: ";
+#    $self->DataHashTell;
+#    $self->Delete;
+#    return $self;
+#}
 
 1;

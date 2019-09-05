@@ -21,6 +21,25 @@ use Moose::Role;
 
 $Data::Dumper::Terse = 1;
 
+my @cases = qw(
+    Test_DataHash
+    Test_Schema
+    Test_Storage
+    Test_ResultSet
+    Test_ResultSource
+    Test_PrimaryColumns
+    Test_UniqueConstraints
+    Test_ColumnsList
+    Test_ColumnsInfo
+);
+
+foreach my $CaseName (@cases) {    # print nice line before each test
+    before $CaseName => sub {
+        my ($line, $pads) = ('=' x 120, ' ' x 40);
+        printf "\n\n%s\n%s%s\n%s\n", $line, $pads, $CaseName, $line;
+    };
+}
+
 sub Test_DataHash {
     my $self = shift;
     try {
