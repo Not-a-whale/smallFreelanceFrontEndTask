@@ -29,6 +29,7 @@ my %REGEX_TO_TYPENAME = ();       # Maps similar Enum and Set regex to single ty
 my %UNIQUE_TYPENAME   = ();       # Makes sure that the type name used for Enum and Set are unique
 my $SMPLTYPE          = undef;    # hash TYPENAME=>COERCE found in CLASS/API/Types/Simple.pl, COERCE is boolean
 my $TYPEDATA          = undef;    #
+my %FILTERED_ONLY     = ();       # process only specific tables and their dependency
 
 # ----------------------------------------------------------------------------------------------------------------------
 my $CLI = ParseCLI(
@@ -43,6 +44,7 @@ my $CLI = ParseCLI(
         prove  => {isa => 'Str', required => 1, default => 't',            comment => 'Test scripts destination'},
         skip_dump => {isa => 'Bool', comment => 'Skip execution of the DBICDUMP'},
         types     => {isa => 'Str',  comment => 'Use predefined types for "HAS" from the JSON file. Run -help for info'},
+        tables    => {isa => 'Str',  comment => 'Just process specific tables or classes, comma delimited, use with caution*'},
     }
 );
 
@@ -55,6 +57,11 @@ if (defined $$CLI{help}) {
                                            "LastName"  : "NameCapitalized"
                                        }
                                    }
+
+CAUTION:
+    Be aware when using '--tables' switch, that object types and column "enum"
+    and "set" types are created only for the processed tables.
+
 EOH
     exit 0;
 }
@@ -97,6 +104,9 @@ if (defined $$CLI{types}) {
         confess "Unable to read \"$types_file\", $!";
     }
 }
+
+# ----------------------------------------------------------------------------------------------------------------------
+%FILTERED_ONLY = map { $_, 1 } grep {/\w+/} split(/[\s,]/, $$CLI{tables}) if defined $$CLI{tables};
 
 # ----------------------------------------------------------------------------------------------------------------------
 $ENV{DBIC_OVERWRITE_HELPER_METHODS_OK} = 1;
@@ -213,6 +223,8 @@ foreach my $base (sort keys %CLASS_TO_TABLE) {
     my $table_info = undef;                     # complete table info, columns, comments, types, etc
     my $fks        = undef;                     # foreign keys hash ref extracted from $table_info
 
+    next if scalar(%FILTERED_ONLY) && !(exists $FILTERED_ONLY{$base} || exists $FILTERED_ONLY{$table});
+
     # get full table info - see ClassDBI.pm. Be aware of old DBIx classes and missing tables, hence the try/catch
     my $skip_base = undef;                      # flag if we have missing table, has to be defined outside the 'try/catch'
     try {
@@ -226,7 +238,6 @@ foreach my $base (sort keys %CLASS_TO_TABLE) {
                 . "  git commit -m \"removed $COREAPI/$base.pm\"\n"
                 . "  rm $result_dir/$base.pm $COREAPI/$base.pm\n\n";
 
-            # print "$1\n (git rm $result_dir/$base.pm\n git rm $COREAPI/$base.pm )\n";
             $skip_base++;
         }
     };
@@ -235,7 +246,8 @@ foreach my $base (sort keys %CLASS_TO_TABLE) {
     print "$base - $table\n";
 
     #-------------------------------------------------------------------------------------------------------------------
-    print "... Building $$CLI{class}::API::Core::$base\n";
+    my $TheCoreClass = "$$CLI{class}::API::Core::$base";
+    print "... Building $TheCoreClass\n";
     my $testdefaults = undef;
     $coreapi =~ s/package $$CLI{class}::API::Core::;/package $$CLI{class}::API::Core::$base;/s
         ;                  # add the proper class name to the package
@@ -248,10 +260,11 @@ foreach my $base (sort keys %CLASS_TO_TABLE) {
         my $dependency = "";
         my %fk_classes = map { $TABLE_TO_CLASS{$$fks{$_}{'REFERENCED_TABLE_NAME'}}, 1 } keys %$fks;
         foreach (keys %fk_classes) {
+            my $TheDepClass = "$$CLI{class}::API::Core::$_";
+            next if $TheCoreClass eq $TheDepClass;                  # required for trees;
             $dependency .= "use $$CLI{class}::API::Core::$_;\n";
             $$ObjectTypes{$_ . 'Obj'}{name}  = "$$CLI{class}::API::Core::$_";
             $$ObjectTypes{$_ . 'Obj'}{table} = $h->full_table_info(table => $CLASS_TO_TABLE{$_});
-
         }
         $coreapi =~ s/(# AUTO-GENERATED DEPENDENCIES START).*?(# AUTO-GENERATED DEPENDENCIES END)/$1\n$dependency\n$2\n/s;
     }
@@ -283,13 +296,18 @@ foreach my $base (sort keys %CLASS_TO_TABLE) {
 
         $$testdefaults{$$cl{'COLUMN_NAME'}} = ' ';
         if ($$cl{'COLUMN_KEY'} eq 'PRI') {
-            $isa = 'PrimaryKeyInt';
+            $isa                                = 'PrimaryKeyInt';
             $$testdefaults{$$cl{'COLUMN_NAME'}} = undef;
+            $coerce                             = 0;
         }
 
         if (defined $fks && exists $$fks{$$cl{'COLUMN_NAME'}}) {
-            $isa    = $TABLE_TO_CLASS{$$fks{$$cl{'COLUMN_NAME'}}{'REFERENCED_TABLE_NAME'}} . 'Obj';
-            $coerce = 1;
+            $isa = $TABLE_TO_CLASS{$$fks{$$cl{'COLUMN_NAME'}}{'REFERENCED_TABLE_NAME'}} . 'Obj';
+            if ($$fks{$$cl{'COLUMN_NAME'}}{'REFERENCED_TABLE_NAME'} eq $table) {
+                $$testdefaults{$$cl{'COLUMN_NAME'}} = undef;
+            } else {
+                $coerce = 1;
+            }
         }
 
         my $required = $$cl{'REQUIRED'} ? 1 : 0;
@@ -381,6 +399,7 @@ foreach my $base (sort keys %CLASS_TO_TABLE) {
     print "... Saving Object Types\n";
     foreach my $type (keys %$ObjectTypes) {
         my $class   = $$ObjectTypes{$type}{name};
+        my $ctest   = $class;
         my $otype   = $DATA{ObjectType};
         my $attrs   = undef;
         my $aschr   = undef;
@@ -392,10 +411,12 @@ foreach my $base (sort keys %CLASS_TO_TABLE) {
         }
         $aschr = Dumper($attrs);
 
+        $ctest =~ s/API::Core/Test::Core/;
+
         print "     $class\n";
         $otype =~ s/TYPENAME/$type/gs;
         $otype =~ s/CLASSNAME/$class/gs;
-        $DB::single = 2;
+        $otype =~ s/TESTCLASS/$ctest/gs;
         $otype =~ s/TESTDEFAULTS/$aschr/gs;
 
         $DATA{ObjectTypes} .= "\n$otype\n";
@@ -637,6 +658,9 @@ with 'TMS::Test::Suites::BasicDataManip';
 
 # override types here
 # has '+COLNAME' => (is => 'rw', coerce => 1, required => REQUIRED, isa => Undef | 'TYPE',);
+# has '+COLNAME' => (init_arg => undef, builder => '_build_undef' );
+# sub _build_undef { shift->COLNAME(undef) };
+
 
 1;
 
@@ -729,7 +753,7 @@ coerce 'TYPENAME',
         via {
             if ($AUTO_GENERATE) {
                 my $TheDefault = TESTDEFAULTS;
-                return CLASSNAME->new(%$TheDefault);
+                return TESTCLASS->new(%$TheDefault);
             }
             return CLASSNAME->new(%{$_});
         },
@@ -737,7 +761,7 @@ coerce 'TYPENAME',
         via {
             if ($AUTO_GENERATE) {
                 my $TheDefault = TESTDEFAULTS;
-                return CLASSNAME->new(%$TheDefault);
+                return TESTCLASS->new(%$TheDefault);
             }
             return $_;
         };
