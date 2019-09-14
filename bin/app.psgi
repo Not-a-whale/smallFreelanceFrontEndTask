@@ -2,14 +2,15 @@
 
 use strict;
 use warnings;
+
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
 
 # use this block if you don't need middleware, and only have a single target Dancer app to run here
-use TMS;
+use TMS::Transport::Dancer::TMS;
 
-TMS->to_app;
+TMS::Transport::Dancer::TMS->to_app;
 
 =begin comment
 # use this block if you want to include middleware such as Plack::Middleware::Deflater
