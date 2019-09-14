@@ -263,13 +263,15 @@ DROP TABLE IF EXISTS `app_role_permissions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `app_role_permissions` (
+  `RoleVsPermId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `Role` bigint(20) unsigned NOT NULL,
   `Permission` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`Role`,`Permission`),
+  PRIMARY KEY (`RoleVsPermId`),
+  UNIQUE KEY `RoleVsPermUnq` (`Role`,`Permission`),
   KEY `RolePermissionPermissionRef_idx` (`Permission`),
   CONSTRAINT `RolePermissionPermissionRef` FOREIGN KEY (`Permission`) REFERENCES `app_permissions` (`PermissionId`) ON UPDATE CASCADE,
   CONSTRAINT `RolePermissionRoleRef` FOREIGN KEY (`Role`) REFERENCES `app_roles` (`RoleId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -415,7 +417,7 @@ CREATE TABLE `biz_branches` (
   CONSTRAINT `BrnchBizNameRef` FOREIGN KEY (`BizId`) REFERENCES `ent_businesses` (`BizId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchFaxRef` FOREIGN KEY (`BrnchFax`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchPhoneRef` FOREIGN KEY (`BrnchPhone`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3758 DEFAULT CHARSET=utf8 COMMENT='Office Branch Details';
+) ENGINE=InnoDB AUTO_INCREMENT=3788 DEFAULT CHARSET=utf8 COMMENT='Office Branch Details';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -435,7 +437,7 @@ CREATE TABLE `biz_company_nodes` (
   KEY `BizName_inx` (`UnitName`),
   KEY `idx_biz_company_nodes_Type` (`Type`),
   CONSTRAINT `BizCompanyParentNodeRef` FOREIGN KEY (`ParentId`) REFERENCES `biz_company_nodes` (`NodeId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Holds the nodes for the structure of the client/user company hierarchy ';
+) ENGINE=InnoDB AUTO_INCREMENT=398 DEFAULT CHARSET=utf8 COMMENT='Holds the nodes for the structure of the client/user company hierarchy ';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -468,11 +470,11 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`192.168.1%.%`*/ /*!50003 TRIGGER `tms`.`biz_company_node_BEFORE_UPDATE` BEFORE UPDATE ON `biz_company_nodes` FOR EACH ROW
 BEGIN
@@ -487,9 +489,9 @@ BEGIN
                
 	INSERT INTO biz_company_trees (AncestorId, DescendantId, Depth)
     SELECT 
-		sup.AncestorId, sub.DescendantId, sup.Depth + sub.Depth+1
+		sup.AncestorId, sub.DescendantId, sup.Depth + sub.Depth + 1
 	FROM 
-		biz_company_trees AS sup JOIN biz_company_tree AS sub 
+		biz_company_trees sup JOIN biz_company_trees sub 
                
 	WHERE 
 		sub.AncestorId = OLD.NodeId
@@ -533,16 +535,17 @@ DROP TABLE IF EXISTS `biz_company_trees`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `biz_company_trees` (
+  `Ans_Des_Id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `AncestorId` bigint(20) unsigned NOT NULL,
   `DescendantId` bigint(20) unsigned NOT NULL,
   `Depth` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`AncestorId`,`DescendantId`),
-  KEY `ClsrBizAncRef_idx` (`AncestorId`),
-  KEY `ClsrBizDesRef_idx` (`DescendantId`),
+  PRIMARY KEY (`Ans_Des_Id`),
+  UNIQUE KEY `idx_biz_company_trees_unq` (`AncestorId`,`DescendantId`),
   KEY `idx_biz_company_trees_Depth` (`Depth`),
-  CONSTRAINT `CompanyTreeAncestorNodeRef` FOREIGN KEY (`AncestorId`) REFERENCES `biz_company_nodes` (`NodeId`) ON UPDATE CASCADE,
-  CONSTRAINT `CompanyTreeDescendantNodeRef` FOREIGN KEY (`DescendantId`) REFERENCES `biz_company_nodes` (`NodeId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Holds the tree for the structure of the heirarchy of the client/user company';
+  KEY `CompanyTreeDescendantNodeRef_idx` (`DescendantId`),
+  CONSTRAINT `CompanyTreeAncestorNodeRef` FOREIGN KEY (`AncestorId`) REFERENCES `biz_company_nodes` (`NodeId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `CompanyTreeDescendantNodeRef` FOREIGN KEY (`DescendantId`) REFERENCES `biz_company_nodes` (`NodeId`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8 COMMENT='Holds the tree for the structure of the heirarchy of the client/user company';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -624,10 +627,11 @@ DROP TABLE IF EXISTS `cmm_package_tiers`;
 CREATE TABLE `cmm_package_tiers` (
   `TierId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `Package` varchar(255) NOT NULL,
-  `Name` varchar(255) DEFAULT NULL,
+  `Name` varchar(255) NOT NULL,
   `Percentage` decimal(5,2) unsigned NOT NULL,
   `Threshold` decimal(12,2) DEFAULT NULL COMMENT 'The minimum amount required for the tier to be in effect',
-  PRIMARY KEY (`TierId`,`Package`),
+  PRIMARY KEY (`TierId`),
+  UNIQUE KEY `PkgVsTierUnq` (`Package`,`Name`),
   KEY `CommissionPackagePackageRef_idx` (`Package`),
   KEY `idx_cmm_package_tiers_Percentage` (`Percentage`),
   KEY `idx_cmm_package_tiers_Name` (`Name`),
@@ -679,7 +683,7 @@ CREATE TABLE `cnt_addresses` (
   KEY `idx_cnt_addresses_State` (`State`),
   KEY `idx_cnt_addresses_Country` (`Country`),
   KEY `idx_cnt_addresses_Street1` (`Street1`)
-) ENGINE=InnoDB AUTO_INCREMENT=3726 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3908 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -702,7 +706,7 @@ CREATE TABLE `cnt_phonesfaxes` (
   KEY `idx_cnt_phonesfaxes_Extension` (`Extension`) USING BTREE,
   KEY `idx_cnt_phonesfaxes_Features` (`Features`) USING BTREE,
   KEY `idx_cnt_phonesfaxes_Mobility` (`Mobility`)
-) ENGINE=InnoDB AUTO_INCREMENT=3914 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4224 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -964,19 +968,21 @@ DROP TABLE IF EXISTS `dsp_loads_destinations_docs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `dsp_loads_destinations_docs` (
+  `DestFileId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `LoadDestinationId` bigint(20) unsigned NOT NULL,
   `FileId` bigint(20) unsigned NOT NULL,
   `Verified` enum('unknown','yes','no') NOT NULL,
   `ApprovedBy` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`LoadDestinationId`,`FileId`),
-  KEY `LoadsTrackingDocsFileRef_idx` (`FileId`),
+  PRIMARY KEY (`DestFileId`),
+  UNIQUE KEY `LoadDestUnqDoc` (`LoadDestinationId`,`FileId`),
   KEY `LoadsTrackingDocsTrackingRef_idx` (`LoadDestinationId`),
   KEY `LoadsDestinationDocsApproverRef_idx` (`ApprovedBy`),
   KEY `idx_dsp_loads_destinations_docs_Verified` (`Verified`),
+  KEY `LoadsDestinationDocsFileRef_idx` (`FileId`),
   CONSTRAINT `LoadsDestinationDocsApproverRef` FOREIGN KEY (`ApprovedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
   CONSTRAINT `LoadsDestinationDocsFileRef` FOREIGN KEY (`FileId`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE,
   CONSTRAINT `LoadsDestinationDocsTrackingRef` FOREIGN KEY (`LoadDestinationId`) REFERENCES `dsp_loads_destinations` (`DestinationId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -987,18 +993,20 @@ DROP TABLE IF EXISTS `dsp_loads_dispatched`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `dsp_loads_dispatched` (
+  `LoadVsUnitId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `LoadId` bigint(20) unsigned NOT NULL,
   `UnitId` bigint(20) unsigned NOT NULL,
   `DateDispatched` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `DispatchedBy` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`LoadId`,`UnitId`),
-  KEY `LoadsToUnitsUnitRef_idx` (`UnitId`),
+  PRIMARY KEY (`LoadVsUnitId`),
+  UNIQUE KEY `DspLoadUnitUNQ` (`LoadId`,`UnitId`),
   KEY `idx_dsp_loads_dispatched_DateAdded` (`DateDispatched`),
   KEY `DispacherRef_idx` (`DispatchedBy`),
+  KEY `LoadsToUnitsUnitRef_idx` (`UnitId`),
   CONSTRAINT `DispacherRef` FOREIGN KEY (`DispatchedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
   CONSTRAINT `LoadsToUnitsLoadRef` FOREIGN KEY (`LoadId`) REFERENCES `dsp_loads` (`LoadId`) ON UPDATE CASCADE,
   CONSTRAINT `LoadsToUnitsUnitRef` FOREIGN KEY (`UnitId`) REFERENCES `inv_units` (`UnitId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1009,18 +1017,20 @@ DROP TABLE IF EXISTS `dsp_loads_docs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `dsp_loads_docs` (
+  `DocsLoadId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `FileId` bigint(20) unsigned NOT NULL,
   `LoadId` bigint(20) unsigned NOT NULL,
   `DateAdded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `AddedBy` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`FileId`,`LoadId`),
-  KEY `LoadsDocsLoadRef_idx` (`LoadId`),
+  PRIMARY KEY (`DocsLoadId`),
   KEY `LoadsDocsPersonRef_idx` (`AddedBy`),
   KEY `idx_dsp_loads_docs_DateAdded` (`DateAdded`),
+  KEY `LoadsDocsFileRef_idx` (`FileId`),
+  KEY `LoadsDocsLoadRef_idx` (`LoadId`),
   CONSTRAINT `LoadsDocsFileRef` FOREIGN KEY (`FileId`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE,
   CONSTRAINT `LoadsDocsLoadRef` FOREIGN KEY (`LoadId`) REFERENCES `dsp_loads` (`LoadId`) ON UPDATE CASCADE,
   CONSTRAINT `LoadsDocsPersonRef` FOREIGN KEY (`AddedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1099,19 +1109,20 @@ DROP TABLE IF EXISTS `dsp_trips_loads`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `dsp_trips_loads` (
+  `TripLoadId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `TripId` bigint(20) unsigned NOT NULL,
   `LoadId` bigint(20) unsigned NOT NULL,
   `DateDispatched` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `LoadDispatcher` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`TripId`,`LoadId`),
-  KEY `TripsLoadsLoadRef_idx` (`LoadId`),
-  KEY `TripsLoadsJobRef_idx` (`TripId`),
+  PRIMARY KEY (`TripLoadId`),
+  UNIQUE KEY `TripLoadUnq` (`TripId`,`LoadId`),
   KEY `idx_dsp_trips_loads_DateAdded` (`DateDispatched`),
   KEY `TripLoadsDispatcherRef_idx` (`LoadDispatcher`),
+  KEY `TripsLoadsLoadRef_idx` (`LoadId`),
   CONSTRAINT `TripLoadsDispatcherRef` FOREIGN KEY (`LoadDispatcher`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
   CONSTRAINT `TripsLoadsJobRef` FOREIGN KEY (`TripId`) REFERENCES `dsp_trips` (`TripId`) ON UPDATE CASCADE,
   CONSTRAINT `TripsLoadsLoadRef` FOREIGN KEY (`LoadId`) REFERENCES `dsp_loads` (`LoadId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1131,7 +1142,7 @@ CREATE TABLE `ent_businesses` (
   KEY `RootNodeRef_idx` (`RootNode`),
   KEY `idx_ent_businesses_BizURL` (`BizURL`),
   CONSTRAINT `RootNodeRef` FOREIGN KEY (`RootNode`) REFERENCES `biz_company_nodes` (`NodeId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=234 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1161,13 +1172,13 @@ DROP TABLE IF EXISTS `ent_carriers`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ent_carriers` (
   `CarrierId` bigint(20) unsigned NOT NULL,
-  `MC` varchar(255) DEFAULT NULL,
+  `MC` varchar(10) DEFAULT NULL,
   `McCertificatePhoto` bigint(20) unsigned DEFAULT NULL,
-  `DOT` varchar(255) DEFAULT NULL,
+  `DOT` varchar(15) DEFAULT NULL,
   `CrType` enum('Company Carrier','Brokerage Only') DEFAULT NULL,
   `IFTA_Acc` varchar(255) DEFAULT NULL,
   `IFTA_State` char(2) DEFAULT NULL,
-  `SCAC` varchar(255) DEFAULT NULL,
+  `SCAC` varchar(4) DEFAULT NULL,
   `state_OR` varchar(255) DEFAULT NULL,
   `state_NY` varchar(255) DEFAULT NULL,
   `state_NC` varchar(255) DEFAULT NULL,
@@ -1206,14 +1217,14 @@ DROP TABLE IF EXISTS `ent_customers`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ent_customers` (
   `CstmrId` bigint(20) unsigned NOT NULL,
-  `MC` varchar(255) DEFAULT NULL COMMENT 'MC number',
-  `DOT` varchar(64) DEFAULT NULL,
+  `MC` varchar(10) DEFAULT NULL COMMENT 'MC number',
+  `DOT` varchar(15) DEFAULT NULL,
   `SCAC` varchar(255) DEFAULT NULL COMMENT 'SCACC',
   `Terms` varchar(255) DEFAULT NULL COMMENT 'Payment terms',
   `Factoring` enum('yes','no') DEFAULT NULL,
   `CreditLimit` decimal(10,2) unsigned DEFAULT NULL COMMENT 'Credit Limit',
   `Bond` varchar(64) DEFAULT NULL,
-  `DUNS` varchar(64) DEFAULT NULL,
+  `DUNS` char(9) DEFAULT NULL,
   `DontUse` enum('do not use','can use') DEFAULT NULL COMMENT 'Do not use',
   `WhyDontUse` text COMMENT 'Why do not use',
   `RequireOriginals` tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -1318,7 +1329,7 @@ CREATE TABLE `entities` (
   KEY `EntityBusinessRef_idx` (`BusinessId`),
   CONSTRAINT `EntityBusinessRef` FOREIGN KEY (`BusinessId`) REFERENCES `ent_businesses` (`BizId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `EntityPersonRef` FOREIGN KEY (`PersonId`) REFERENCES `ent_people` (`PrsnId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5080 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5248 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1872,13 +1883,15 @@ DROP TABLE IF EXISTS `fin_invoice_payment_items`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `fin_invoice_payment_items` (
+  `InvoicePaymentItemId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `InvoicePaymentId` bigint(20) unsigned NOT NULL,
   `InvoiceItemId` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`InvoicePaymentId`,`InvoiceItemId`),
+  PRIMARY KEY (`InvoicePaymentItemId`),
+  KEY `InvoicePaymentItemsInvoicePaymentRef_idx` (`InvoicePaymentId`),
   KEY `InvoicePaymentItemsItemRef_idx` (`InvoiceItemId`),
   CONSTRAINT `InvoicePaymentItemsInvoicePaymentRef` FOREIGN KEY (`InvoicePaymentId`) REFERENCES `fin_invoice_payments` (`InvoicePaymentId`) ON UPDATE CASCADE,
   CONSTRAINT `InvoicePaymentItemsItemRef` FOREIGN KEY (`InvoiceItemId`) REFERENCES `fin_invoices_items` (`InvoiceItemId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Which items have been paid for';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='Which items have been paid for';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2514,7 +2527,7 @@ CREATE TABLE `gen_files` (
   KEY `idx_gen_files_UploadDate` (`UploadDate`),
   KEY `idx_gen_files_Keywords` (`Keywords`),
   KEY `idx_gen_files_ExpiredDate` (`ExpiredDate`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2808,7 +2821,8 @@ CREATE TABLE `ins_to_vehicles` (
   `ActionReminder` datetime DEFAULT NULL,
   `ActionNote` text,
   `ActionEmail` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`VhlInsId`,`DateAdded`),
+  PRIMARY KEY (`VhlInsId`),
+  UNIQUE KEY `InsVsDateUnq` (`VhlInsId`,`DateAdded`),
   KEY `InsuranceVehicleVehicleRef_idx` (`VehicleId`),
   KEY `idx_ins_to_vehicles_DateAdded` (`DateAdded`),
   KEY `InsAddedByEmployeeRef_idx` (`AddedBy`),
@@ -2877,13 +2891,15 @@ DROP TABLE IF EXISTS `inv_equipment_docs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `inv_equipment_docs` (
+  `FileVsEquipId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `FileId` bigint(20) unsigned NOT NULL,
   `EquipmentId` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`FileId`,`EquipmentId`),
+  PRIMARY KEY (`FileVsEquipId`),
+  UNIQUE KEY `inv_equ_fls_uniq` (`FileId`,`EquipmentId`),
   KEY `EquipmentDocsEquipmentRef_idx` (`EquipmentId`),
   CONSTRAINT `EquipmentDocsEquipmentRef` FOREIGN KEY (`EquipmentId`) REFERENCES `inv_equipment` (`EquipmentId`) ON UPDATE CASCADE,
   CONSTRAINT `EquipmentDocsFileRef` FOREIGN KEY (`FileId`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2894,13 +2910,15 @@ DROP TABLE IF EXISTS `inv_equipment_to_support`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `inv_equipment_to_support` (
+  `EquipSuppId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `EquipmentId` bigint(20) unsigned NOT NULL,
   `SupportId` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`EquipmentId`,`SupportId`),
+  PRIMARY KEY (`EquipSuppId`),
   KEY `EquipSupportSupportRef_idx` (`SupportId`),
+  KEY `EquipSupportEquipRef` (`EquipmentId`),
   CONSTRAINT `EquipSupportEquipRef` FOREIGN KEY (`EquipmentId`) REFERENCES `inv_equipment` (`EquipmentId`) ON UPDATE CASCADE,
   CONSTRAINT `EquipSupportSupportRef` FOREIGN KEY (`SupportId`) REFERENCES `inv_support_vendors` (`SupportId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3146,6 +3164,7 @@ DROP TABLE IF EXISTS `inv_units_to_equipment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `inv_units_to_equipment` (
+  `EquipUnitResId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `UnitId` bigint(20) unsigned NOT NULL,
   `EquipmentId` bigint(20) unsigned NOT NULL,
   `DateAdded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -3153,12 +3172,13 @@ CREATE TABLE `inv_units_to_equipment` (
   `DateRemoved` datetime DEFAULT NULL,
   `RemovedBy` bigint(20) unsigned DEFAULT NULL,
   `Notes` text,
-  PRIMARY KEY (`UnitId`,`EquipmentId`,`DateAdded`),
-  KEY `UnitsToEquipEquipRef_idx` (`EquipmentId`),
+  PRIMARY KEY (`EquipUnitResId`),
+  UNIQUE KEY `ReserveUnique` (`EquipmentId`,`UnitId`,`DateAdded`),
   KEY `idx_inv_units_to_equipment_DateAdded` (`DateAdded`),
   KEY `idx_inv_units_to_equipment_DateRemoved` (`DateRemoved`),
   KEY `UnitsToEquipAddedBy_idx` (`AddedBy`),
   KEY `UnitsToEquipRemovedBy_idx` (`RemovedBy`),
+  KEY `UnitsToEquipUnitRef_idx` (`UnitId`),
   CONSTRAINT `UnitsToEquipAddedBy` FOREIGN KEY (`AddedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
   CONSTRAINT `UnitsToEquipEquipRef` FOREIGN KEY (`EquipmentId`) REFERENCES `inv_equipment` (`EquipmentId`) ON UPDATE CASCADE,
   CONSTRAINT `UnitsToEquipRemovedBy` FOREIGN KEY (`RemovedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
@@ -3304,7 +3324,7 @@ DROP TABLE IF EXISTS `sft_ifta`;
 CREATE TABLE `sft_ifta` (
   `IFTAId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`IFTAId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3867,15 +3887,17 @@ DROP TABLE IF EXISTS `tsk_trees`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tsk_trees` (
+  `ans_des_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `ancestor` bigint(20) unsigned NOT NULL,
   `descendant` bigint(20) unsigned NOT NULL,
   `length` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`ancestor`,`descendant`),
+  PRIMARY KEY (`ans_des_id`),
+  UNIQUE KEY `TskAnsDesUnq` (`ancestor`,`descendant`),
   KEY `idx_tsk_trees_length` (`length`),
   KEY `DesTaskRef_idx` (`descendant`),
   CONSTRAINT `AncTaskRef` FOREIGN KEY (`ancestor`) REFERENCES `tsk_tasks` (`tskid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `DesTaskRef` FOREIGN KEY (`descendant`) REFERENCES `tsk_tasks` (`tskid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Project Tree Closures';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='Project Tree Closures';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -3884,4 +3906,4 @@ CREATE TABLE `tsk_trees` (
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-05  7:16:27
+-- Dump completed on 2019-09-13 17:56:59
