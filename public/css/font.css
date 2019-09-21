@@ -115,7 +115,7 @@
   box-shadow: 0px 3px var(--color-tone-middle);
 }
 
-.font-tab[active] {
+.font-tab.active {
   color: var(--color-accent-default);
   box-shadow: 0px 3px var(--color-accent-default);
 }
@@ -127,33 +127,45 @@
   font-weight: bold;
 }
 
-.font-tab2[active]{
+.font-tab2.active{
   color: var(--color-highlight-bright) !important;
 }
 
 /* used in primary side navbar */
-.font-nav {
-  font-size: var(--font-giant);
-  font-weight: bold;
+.font-nav-cat {
+  font-size: var(--font-small);
+  color: var(--color-tone-firm);
   text-transform: uppercase;
-  color: var(--color-tone-light);
+  font-family: var(--font-family-second);
+}
+
+.font-nav {
+  font-size: var(--font-large);
+  font-weight: normal;
+  text-transform: uppercase;
+  color: var(--color-tone-firm);
+  font-family: var(--font-family-primary);
+
 }
 
 .font-nav2 {
-  font-size: var(--font-large);
+  font-size: var(--font-norm);
   font-weight: normal;
   text-transform: capitalize;
-  color: var(--color-tone-light);
+  color: var(--color-tone-firm);
+  font-family: var(--font-family-primary);
 }
 
-.font-nav[active],
-.font-nav2[active] {
+.font-nav.active,
+.font-nav2.active {
+  /* important used to override :hover*/
   color: var(--color-highlight-bright) !important;
 }
 
 .font-nav:hover,
 .font-nav2:hover {
-  color: var(--color-tone-bright);
+  color: var(--color-tone-middle);
+  cursor: pointer;
 }
 
 
