@@ -52,16 +52,6 @@ body {
   flex-direction: row !important;
 }
 
-
-.global-container {
-  align-self: flex-start;
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  background: var(--color-background);
-  flex: 1;
-}
-
 .clickable {
   cursor: pointer;
 }
@@ -72,42 +62,11 @@ body {
 
 
 
-/* --------------------------- COMPANY LOGO AND DESIGN --------------------- */
-.logo-container {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-
-}
-
-.logo-img {
-  width: 183px;
-  margin-top: 46px;
-}
-
-.logo-fancy {
-  position: absolute;
-  z-index: -1;
-  top: 0px;
-  left: -75px;
-  width: 150%;
-  height: 208px;
-  background: var(--color-highlight-bright);
-
-  transform-origin: 0 0;
-  transform: rotate(-15deg);
-
-  box-shadow: 0px 5px 0px var(--menu-background-color), 0px 7px 0px var(--color-highlight-bright);
-}
-
 
 
 /* -------------------------------- TABS ----------------------------------- */
 
-.tab {
-
-}
+.tab {}
 
 .tab2 {
   background-color: transparent;
@@ -152,6 +111,16 @@ body {
 
   box-shadow: 0px 2px 3px var(--color-shadow-soft);
   box-sizing: border-box;
+
+  margin-bottom: 5px;
+}
+
+a.btn {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-drag: none;
 }
 
 button.btn:hover,
@@ -162,6 +131,13 @@ input.btn:hover {
 input.btn:focus,
 button.btn:focus {
   outline: none;
+}
+
+.btn-mn {
+  font-size: var(--font-small);
+  line-height: var(--btn-sm-line-height);
+  min-width: 98px;
+  min-height: var(--btn-sm-height-min);
 }
 
 .btn-sm {
@@ -261,93 +237,14 @@ button.btn:focus {
 
 
 
-/* ------------------------------- TABLE ----------------------------------- */
 
-.table-container {
-  display: flex;
-  justify-content: center;
-  flex: 1;
-}
-
-div.table {
-  display: flex;
-  flex-direction: column;
-  width: 1504px;
-
-  margin-left: auto;
-  margin-right: auto;
-  align-content: center;
-}
-
-div.table>.header {
-  background: var(--color-usko-red);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: fit-content;
-  box-shadow: inset 0px -47px 0px var(--color-usko-red-highlight);
-  padding: 9px 7px 12px 7px;
-}
-
-div.table>.header>div {
-  /* make row flex to full size */
-  flex: 1;
-}
-
-div.table>.header>div>div {
-  margin: 0px 7px 0px 7px;
-}
-
-div.table>.header>div input {
-  background: var(--color-white-font);
-  flex-direction: row;
-  margin-top: 14px;
-}
-
-div.table>.body {
-  display: flex;
-  flex-direction: column;
-}
-
-div.table .row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
-}
-
-div.table>.body .row {
-  margin-bottom: 20px;
-  height: 86px;
-  background: var(--color-white-bubble);
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  justify-content: space-between;
-}
-
-div.table>.body .row:hover {
-  width: 104%;
-  background: pink;
-  /* TODO: Remove var(--color-white-font); */
-  margin-left: -2%;
-}
-
-div.table>.body .row>div {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  text-align: center;
-  vertical-align: center;
-}
 
 /* ------------------------------ INPUTS ----------------------------------- */
 
 /*  this is to order the label and input
     because CSS cant let you grab elements to the left of other elements
     =( */
+div.datalist,
 div.select,
 div.input {
   display: flex;
@@ -355,26 +252,33 @@ div.input {
 }
 
 /* sortification */
+div.datalist>label,
 div.select>label,
 div.input>label {
   order: 1;
 }
+
+div.datalist>input,
 div.select>select,
 div.input>input {
   order: 2;
 }
+
+div.datalist>div.error-ms,
 div.select>div.error-ms,
 div.input>div.error-ms {
   order: 3;
 }
 
 /* for required asterisk */
+div.datalist>input:required+label:after,
 div.select>select:required+label:after,
 div.input>input:required+label:after {
   content: ' *';
 }
 
 /* default input behavior */
+div.datalist input,
 div.select select,
 div.input input {
   min-width: 10px;
@@ -418,6 +322,7 @@ div.select select:focus:hover {
   background-repeat: no-repeat;
 }
 
+
 div.select select:invalid,
 div.select select:invalid:hover {
   background: url(/imgs/select_arrow/invalid.svg);
@@ -427,6 +332,7 @@ div.select select:invalid:hover {
   background-repeat: no-repeat;
 }
 
+
 div.select select:hover {
   background: url(/imgs/select_arrow/hover.svg);
   -webkit-appearance: none;
@@ -435,17 +341,19 @@ div.select select:hover {
   background-repeat: no-repeat;
 }
 
-
+div.datalist input:hover,
 div.select select:hover,
 div.input input:hover {
   border: 1px solid var(--color-highlight-hover);
 }
 
+div.datalist input:focus,
 div.select select:focus,
 div.input input:focus {
   outline-color: var(--color-primary);
 }
 
+div.datalist input:disabled,
 div.input input:disabled {
   border: 1px solid var(--color-disabled);
   background-color: var(--color-input-background);
@@ -454,6 +362,7 @@ div.input input:disabled {
   color: var(--color-tone-light);
 }
 
+div.datalist input.ng-invalid:not(:disabled),
 div.select select:invalid,
 div.input input:invalid {
   outline-color: var(--color-danger);
@@ -469,61 +378,110 @@ label {
   line-height: var(--font-line-large);
 }
 
+div.datalist input:disabled+label,
 div.select select:disabled+label,
 div.input input:disabled+label {
   color: var(--color-disabled);
 }
 
+div.datalist input.ng-invalid:not(:disabled)+label,
 div.select select:invalid+label,
 div.input input:invalid+label {
   color: var(--color-danger);
 }
 
+div.datalist input.ng-invalid:not(:disabled)+label+div.error-ms,
 div.select select:invalid+label+div.error-ms,
 div.input input:invalid+label+div.error-ms {
   color: var(--color-danger);
   font-size: var(--font-small);
 }
 
+div.checkbox input:disabled+label+div.error-ms,
+div.checkbox input:valid+label+div.error-ms,
+div.datalist input:disabled+label+div.error-ms,
+div.datalist input.ng-valid+label+div.error-ms,
 div.select select:valid+label+div.error-ms,
 div.select select:disabled+label+div.error-ms,
-div.input input:valid+label+div.error-ms {
-  display: none;
-}
-
+div.input input:valid+label+div.error-ms,
 /* Can have input without label, still need to hide error message */
+div.checkbox input:disabled+div.error-ms,
+div.checkbox input:valid+div.error-ms,
+div.datalist>input:disabled+div.error-ms,
+div.datalist>input.ng-valid+div.error-ms,
 div.select>select:valid+div.error-ms,
 div.select>select:disabled+div.error-ms,
 div.input>input:valid+div.error-ms {
   display: none;
 }
 
-
-/* ------------------------------ TOP NAVBAR ------------------------------- */
-.top-nav {
-  position: fixed;
-  top: 0px;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  height: 76px;
-  align-items: flex-end;
-  background: var(--color-highlight-bubble);
-  box-shadow: 0px 6px 3px -3px rgba(0, 0, 0, 0.08);
-  z-index: 1;
+div.checkbox {
+  position: relative;
 }
 
-.top-nav>* {
-  padding-left: 64px;
-  padding-bottom: 3px;
+div.checkbox input {
+  position: absolute;
+  opacity: 0;
 }
 
-.top-nav>ul {
-  display: flex;
-  flex-direction: row;
-  list-style: none;
+div.checkbox input+label {
+  position: relative;
+  cursor: pointer;
 }
 
-.top-nav>ul>li {
-  margin-right: 50px;
+/* draw the box */
+div.checkbox input+label:before {
+
+  content: '';
+
+  width: 22px;
+  height: 22px;
+
+  margin-right: 7px;
+  display: inline-block;
+  vertical-align: middle;
+
+  background-color: var(--color-highlight-bright);
+  box-sizing: border-box;
+
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--color-tone-middle);
+  border-radius: 2px;
+}
+
+div.checkbox:hover input+label:before {
+  border-width: 2px;
+  border-color: var(--color-tone-light);
+}
+
+div.checkbox input:checked+label:before {
+  background-color: var(--color-accent-default);
+  border-color: var(--color-accent-default);
+}
+
+/* draw the checkmark */
+div.checkbox input+label:after{
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 1px;
+  width: 5px;
+  height: 9px;
+  border-width: 0px 3px 3px 0px;
+  border-style: solid;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  display: none;
+}
+
+div.checkbox input:checked+label:after {
+  border-color: var(--color-highlight-bright);
+  display: block;
+}
+
+div.checkbox:hover input:not(:checked)+label:after {
+  border-color: var(--color-tone-light);
+  display: block;
 }
