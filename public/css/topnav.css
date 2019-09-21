@@ -1,0 +1,46 @@
+/* ------------------------------ TOP NAVBAR ------------------------------- */
+
+.main-topnav {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  background: var(--color-highlight-bubble);
+  box-shadow: var(--shadow-drop);
+}
+
+.main-topnav top-nav-menu {
+  display: flex;
+  /* do not put flex=1 in here ! */
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+.main-topnav .tools {
+  display: flex;
+  flex: 1;
+  align-self: flex-start;
+  justify-self: flex-end;
+  justify-content: flex-end;
+  flex-direction: row;
+  padding-right: var(--icon-size-norm);
+}
+
+.main-topnav .tool-icons {
+  max-width: var(--icon-size-norm);
+  max-height: var(--icon-size-norm);
+  display: flex;
+  margin-left: 22px;
+  margin-top: 12px;
+}
+
+top-nav-menu .title,
+top-nav-menu .tab {
+  padding-left: 50px;
+  padding-bottom: 11px;
+}
+
+top-nav-menu > ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+}
