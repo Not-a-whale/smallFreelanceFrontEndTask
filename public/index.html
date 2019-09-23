@@ -7,21 +7,39 @@
             name="viewport">
       <title>&copy; Usko Express Inc</title>
       <!-- base href="https://tms.uskoinc.com" -->
+      <link href="https://fonts.googleapis.com/css?family=Arimo&display=swap"
+            rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap"
+            rel="stylesheet">
+
       <link href="data:image/x-icon;,"
             rel="shortcut icon"
             type="image/x-icon">
       <link href="/css/variable.css"
             rel="stylesheet">
+      <link href="/css/font.css"
+            rel="stylesheet">
       <link href="/css/defaults.css"
             rel="stylesheet">
-      <link href="/css/usko.css"
+      <link href="/css/scaffolding.css"
             rel="stylesheet">
-      <link href="/css/index.css"
+      <link href="/css/navbar.css"
             rel="stylesheet">
+      <link href="/css/topnav.css"
+            rel="stylesheet">
+      <link href="/css/table.css"
+            rel="stylesheet">
+      <link href="/css/animation.css"
+            rel="stylesheet">
+
+
+
 
       <!--script src="/js/require.min.js"
               data-main="js/config"></script-->
+      <script src="/js/configstates.js"></script>
       <script src="/js/angular.min.js"></script>
+      <script src="/js/angular.animate.min.js"></script>
       <script src="/js/angular.ui_router.min.js"></script>
       <script src="/js/statehelper.min.js"></script>
       <script src="/jq/jquery.min.js"></script>
@@ -33,18 +51,23 @@
       <script src="/js/main.js"></script>
       <script src="/modules/generic/menu/controller.js"></script>
       <script src="/modules/generic/input/module.js"></script>
+      <script src="/modules/generic/checkbox/module.js"></script>
       <script src="/modules/generic/phone/module.js"></script>
       <script src="/modules/generic/select/module.js"></script>
       <script src="/modules/generic/datalist/module.js"></script>
       <script src="/modules/generic/accordion/module.js"></script>
       <script src="/modules/navigation/main/menu/module.js"></script>
-
+      <script src="/modules/navigation/module.js"></script>
+      <script src="/modules/ent_business/business.module.js"></script>
+      <script src="/modules/navigation/editor/module.js"></script>
+      <script src="/modules/generic/table/module.js"></script>
+      <script src="/modules/navigation/editor/generic_form_ctrl.js"></script>
       <script src="/modules/vin/module.js"></script>
 </head>
 
 <body ng-app="tms">
-      <div class="the-app"
-           ui-view>
+      <div id="global-container"
+           ui-view="main">
       </div>
 </body>
 
