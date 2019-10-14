@@ -1,16 +1,26 @@
 :root {
 
+  --shadow-drop-sm: 0px 3px 3px -3px rgba(0,0,0,0.16);
+  --shadow-drop: 0px 6px 3px -3px rgba(0, 0, 0, 0.08);
+
   --color-shadow-soft: rgba(0,0,0,0.16);
 
   --color-accent-default: #7F0000; /* default accent color, "usko red" */
-  --color-accent-hover: #A5403B; /* hover over buttons with accent color */
-  --color-accent-light: #CF6F6A; /* hover over tab text */
+  --color-accent-hover: #B9544F; /* hover over buttons with accent color */
+  --color-accent-light: #FFB7B4; /* hover over tab text */
 
-  --color-tone-dark: #000000; /* default text */
-  --color-tone-heavy: #312B24; /* navbar, and some text*/
-  --color-tone-middle: #848484; /* some text, buttons */
-  --color-tone-light: #9E9E9E; /* some text, hover buttons, usually disabled text */
-  --color-tone-bright:  #CFCFCF; /* some text, disabled text or hover, background */
+  --color-tone-dark: #000000; /*  */
+
+  --color-font-1: #463C31; /* a font color other than black*/
+  --color-font-2: #342E28; /* another font color */
+
+  --color-tone-heavy: #463C31; /* navbar, and some text*/
+  --color-tone-soft: #ABA7A1; /* some text, background */
+
+  --color-tone-firm: #848484; /* some text, buttons */
+  --color-tone-middle: #9E9E9E; /* some text, hover buttons, usually disabled text */
+  --color-tone-light: #BFBFBF; /* some text, backgrounds */
+  --color-tone-bright:  #DCDCDC; /* some text, disabled text or hover, background */
 
   --color-background: #DCDCDC; /* background color of the whole app */
 
@@ -22,31 +32,34 @@
   --color-button-text: white;
   --color-button-text-hover: white;
 
-  --color-success: #00C9A0;
-  --color-success-hover: #56E5BE;
-  --color-success-soft: #CAF6EA;
+  --color-success: #03B994;
+  --color-success-hover: #AFF8E4;
+  --color-success-soft: #E5FFF8;
 
-  --color-info: #7F0000;
-  --color-info-hover: #A5403B;
+  --color-info: #463C31;
+  --color-info-hover: #ABA7A1;
 
   /* indicating call to action buttons, i.e. submit */
   --color-primary: #4599D9;
-  --color-primary-hover: #61B7F8;
+  --color-primary-hover: #94D1FF;
+  --color-primary-fade: #BCE2FF;
 
-  --color-second: #9E9E9E;
-  --color-second-hover: #C6C6C6;
+  --color-second: #ECF7FF;
+  --color-second-hover: #ECF7FF;
 
   /* indicating warnings */
   --color-warning: #EB8117;
-  --color-warning-hover: #FF9C39;
-  --color-warning-soft: #FFF3DC;
+  --color-warning-hover: #FFB871;
+  --color-warning-soft: #FFF9EC;
   /* indicating failure or fatal operations */
   --color-danger: #EE4437;
-  --color-danger-hover: #FF6E63;
+  --color-danger-hover: #FF8A81;
   --color-danger-soft: #FFC0BB;
 
   --color-disabled: #C6C6C6;
   --color-input-background: white;
+
+  --color-card: #F3F3F3;
 
   --font-small: 14px;
   --font-norm: 16px;
@@ -82,35 +95,22 @@
   --btn-lg-width-min: 304px;
   --btn-lg-width: 304px;
 
-  /* ------ deprecated ----- */
 
-  --usko-signature-red: #7E1110;
-  --window-padding: 5px;
-  --menu-container-size: 256px;
-  --menu-background-color: #342E28;
+  --main-navbar-width: 240px;
+  --main-navbar-width-min: 64px;
 
-  --menu-levelone-color: #F8F8F8;
-  --menu-leveltwo-color: threedface;
-    /* #716D6D */
-
-  --color-usko-red: #7A1813;      /* Used as primary company color */
-  --color-usko-red-highlight: #8E2924; /* Used as lighter accents for things colored with primary */
-  --color-blue-link: #50A7E9; /* used for links and clickable */
-  --color-blue-action: #55A7E5;
-  --color-blue-dropoff: #0E516E;
-  --color-blue-pickup: #24B7D5;
-  --color-gray-heavy: #3A3A3A;
-  --color-gray-active: #716D6D;
-  --color-gray-dormant: #C1C1C1;
-  --color-gray-background: #DCDCDC;
-  --color-white-bubble: #F3F3F3;
-  --color-white-font: white;
-  --color-usko-brown: #342E28;
-  --color-white-main-nav-active: #F8F8F8;
-  --color-shadow-soft-gray: rgba(0, 0, 0, 0.16);
-
-  --color-gray-dormant-hover: #D1D1D1;
-  --color-gray-background-hover: #E0E0E0;
+  --main-topnav-height: 96px;
 
 
+  --main-navbar-menu-top: 168px;
+
+  --main-navbar-collapse-top: 134px;
+  --main-navbar-collapse-left: 200px;
+  --main-navbar-collapse-left-min: 16px;
+
+  --logo-width: 163px;
+  --logo-width-min: 43px;
+
+  --icon-size-norm: 32px;
+  --icon-size-sm: 22px;
 }

@@ -1,0 +1,66 @@
+<div class="table"
+     ng-attr-id="{{$ctrl.id}}">
+  <div class="header">
+    <div class="select-all"
+         ng-click="$ctrl.SelectToggle()">
+      <generic-checkbox label=""
+                        checked="$ctrl.SelectCount() > 0"></generic-checkbox>
+    </div>
+    <div class="banner">
+
+      <div class="field"
+           ng-repeat="h in $ctrl.headers">
+        <div>{{ h }}</div>
+        <div class="sort-arrow">
+          <img class="arrow top"
+               src="imgs/table_search_sort.svg">
+          <img class="arrow bottom"
+               src="imgs/table_search_sort.svg">
+        </div>
+      </div>
+      <div class="collapse-arrow"
+           ng-click="$ctrl.SearchToggle()"><img ng-class="{expanded: $ctrl.expanded}"
+             src="imgs/table_search_collapse.svg" /></div>
+    </div>
+    <div class="search"
+         ng-show="$ctrl.expanded">
+
+      <div class="content">
+        <generic-input ng-repeat="h in $ctrl.headers"></generic-input>
+      </div>
+      <div class="options"></div>
+    </div>
+    <div class="select"
+         ng-show="$ctrl.SelectCount() > 0">
+      <div class="counter as-row">
+        <div class="display">{{ $ctrl.SelectCount() }}</div>
+        <div ng-if="$ctrl.SelectCount() > 1">ITEMS SELECTED</div>
+        <div ng-if="$ctrl.SelectCount() < 2">ITEM SELECTED</div>
+      </div>
+      <div class="options">
+      </div>
+    </div>
+    <div class="message"
+         ng-if="$ctrl.message">
+      <div>{{$ctrl.message.text }}</div>
+      <div ng-repeat="item in $ctrl.message.options">{{ item }}</div>
+      <div class="close">X</div>
+    </div>
+  </div>
+  <div class="options"></div>
+  <div class="body">
+    <div class="row"
+         ng-repeat="item in $ctrl.list"
+         ng-class="{selected: item.selected}">
+      <div class="select">
+        <generic-checkbox label=""
+                          checked="item.selected"
+                          ng-click="$ctrl.Select(item)"></generic-checkbox>
+      </div>
+      <div class="content">
+      </div>
+      <div class="options">
+        </div>
+    </div>
+  </div>
+</div>
