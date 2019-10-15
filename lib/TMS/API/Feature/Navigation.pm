@@ -1,48 +1,45 @@
+package TMS::API::Feature::Navigation;
+
 use TMS::API::Core::AppMenuItem;
 use Data::Dumper;
+use File::Basename qw(dirname);
+use Cwd qw(realpath getcwd);
+use Carp qw(confess longmess);
+use TMS::StateBuilder;
+use Try::Tiny;
 
-prefix '/api' => sub {
-    prefix '/navigation' => sub {
-        prefix '/menu_item' => sub {
-            post '/add'    => \&navigation_menu_item_add;
-            get ''         => \&navigation_menu_item;
-            get '/all'     => \&navigation_menu_item_all;
-            get '/search'  => \&navigation_search;
-            del ''         => \&navigation_delete_menu_item;
-            get '/parents' => \&navigation_parents_options_all;
-            get '/table'   => \&navigation_table;
+sub regenerate_states {
+
+    # uses StateBuilder to regenerate the state config file for ui-router
+    try {
+        my $config = {
+            rootdir  => getcwd() . '/public/views',
+            webdir   => '/views',
+            statefn  => 'configstates_compiled.js',
+            statedir => getcwd() . '/public/js',
         };
+        TMS::StateBuilder::BuildStatesFile($config);
+    }
+    catch {
+        return 500;
     };
-};
 
-sub navigation_parents_options_all {
-    my $hdl = TMS::API::Core::AppMenuItem->new( Label => undef );
-    my $report = $hdl->Search(
-        {},
-        {
-            order_by => {
-                '-asc' => [ 'me.SortIndex', 'me.Label' ]
-            }
-        }
-    );
-
-    my @data = $report->hashref_array();
-
-    my @options = map { { key => $$_{Label}, val => $_ } } @data;
-    my $response = {
-        POST        => undef,
-        ERROR       => undef,
-        DATA        => { "options" => \@options },
-        ENVIRONMENT => undef,
-    };
-    return $response;
-
+    return 200;
 }
 
-sub navigation_delete_menu_item {
+sub delete_menu_item {
+    my $data = shift;
 
     # TODO: Get this to delete things properly.
+    print Dumper($data);
     my $hdl = TMS::API::Core::AppMenuItem->new( Label => undef );
+
+    try {
+        $hdl->Search( { MenuItemId => $$data{MenuItemId} } )->delete();
+    }
+    catch {
+        print "$_";
+    };
 
     print "\n\nHooray! Deleted!\n\n";
 
@@ -56,14 +53,17 @@ sub navigation_delete_menu_item {
     return $repsonse;
 }
 
-sub navigation_table {
-    my $hdl = TMS::API::Core::AppMenuItem->new( Label => undef );
-    my $query = query_parameters->get('q');
-    my $page = query_parameters->get('pg') || 1;
-    my $rows = query_parameters->get('rc') || 3;
+sub query_table {
+
+    # Accounts for pagination
+    # used for displaying data in a table
+    my $args  = shift;
+    my $hdl   = TMS::API::Core::AppMenuItem->new( Label => undef );
+    my $query = $$args{query};
+    my $page  = $$args{page} || 1;
+    my $rows  = $$args{rows} || 10;
 
     $query = '%' . $query . '%';
-    print "\n\n\n $query \n\n\n";
     my $report = $hdl->Search(
         {
             '-or' => [
@@ -81,24 +81,25 @@ sub navigation_table {
     );
 
     my @headers = $hdl->ResultSet->result_source->columns;
-    print Dumper(\@headers);
-
-    my @data = $report->hashref_array();
+    my @data    = $report->hashref_array();
 
     my $response = {
         POST        => undef,
         ERROR       => undef,
-        DATA        => { "list" => \@data , "headers" => \@headers},
+        DATA        => { "list" => \@data, "headers" => \@headers },
         ENVIRONMENT => undef,
     };
     return $response;
 }
 
-sub navigation_search {
-    my $hdl = TMS::API::Core::AppMenuItem->new( Label => undef );
-    my $query = query_parameters->get('q');
-    my $page = query_parameters->get('pg') || 1;
-    my $rows = query_parameters->get('rc') || 3;
+sub query_options {
+
+    # This doesnt take pagination into account
+    # used for returning options for datalist
+    my $args  = shift;
+    my $hdl   = TMS::API::Core::AppMenuItem->new( Label => undef );
+    my $query = $$args{query};
+    my $rows  = $$args{rows} || 10;
 
     $query = '%' . $query . '%';
     my $report = $hdl->Search(
@@ -112,33 +113,39 @@ sub navigation_search {
             order_by => {
                 '-asc' => [ 'me.Label', 'me.Title' ]
             },
-            page => $page,
             rows => $rows
         }
     );
 
-
-    my @data = $report->hashref_array();
-
-    my @options = map { { key => $$_{Label}, val => $_ } } @data;
-
+    my @data     = $report->hashref_array();
     my $response = {
         POST        => undef,
         ERROR       => undef,
-        DATA        => { "options" => \@options },
+        DATA        => { "options" => \@data },
         ENVIRONMENT => undef,
     };
     return $response;
 }
 
 # --------------------------------------------------------------------------------------------------------------------
-sub navigation_menu_item_all {
+sub menu_item_all {
     my $hdl = TMS::API::Core::AppMenuItem->new( Label => undef );
 
     my $report = $hdl->Search(
         { "me.ParentId" => undef },
         {
-            prefetch => [ "app_menu_items", { "app_menu_items" => "parent" } ],
+            prefetch => [
+                "app_menu_items",
+                {
+                    "app_menu_items" => [
+                        "parent",
+                        {
+                            "app_menu_items" =>
+                              [ "parent", { "app_menu_items" => "parent" } ]
+                        }
+                    ]
+                }
+            ],
             order_by => {
                 '-asc' => [
                     'me.SortIndex',             'me.Label',
@@ -153,7 +160,7 @@ sub navigation_menu_item_all {
     my $response = {
         POST        => undef,
         ERROR       => undef,
-        DATA        => { "app_menu_items" => \@data },
+        DATA        => { "list" => \@data },
         ENVIRONMENT => undef,
     };
     return $response;
@@ -162,7 +169,7 @@ sub navigation_menu_item_all {
 }
 
 # --------------------------------------------------------------------------------------------------------------------
-sub navigation_menu_item {
+sub menu_item {
     my $hdl = TMS::API::Core::AppMenuItem->new( Label => undef );
 
     my $report = $hdl->Search(
@@ -187,7 +194,7 @@ sub navigation_menu_item {
         }
     );
 
-    my @data = $report->hashref_array();
+    my @data     = $report->hashref_array();
     my $response = {
         POST        => undef,
         ERROR       => undef,
@@ -200,40 +207,69 @@ sub navigation_menu_item {
 
 # --------------------------------------------------------------------------------------------------------------------
 # this one needs fixes
-sub navigation_menu_item_add {
-    my $params = body_parameters->as_hashref;
-    my $data   = $$params{POST};
+
+sub menu_item_manipulate {
+    my $args    = shift;
+    my $method  = $$args{method};
+    my $data    = $$args{data};
     print Dumper($data);
+    print "\n\n" . ref $data .  "\n\n";
+    my $reponse = {
+        POST        => undef,
+        ERROR       => undef,
+        DATA        => undef,
+        ENVIRONMENT => undef,
+    };
     my $hdl = TMS::API::Core::AppMenuItem->new($data);
     my $report;
 
     try {
-        $hdl->UpdateOrCreate if defined $hdl->Label;
+        $hdl->$method if defined $hdl->Label;
+
+        $report = $hdl->Search(
+            {
+                Label => $$data{Label},
+            }
+        );
+
+        my $config = {
+            rootdir  => getcwd() . '/public/views',
+            webdir   => '/views',
+            statefn  => 'configstates.js',
+            statedir => getcwd() . '/public/js',
+            state    => $$data{Route}
+        };
+
+        TMS::StateBuilder::CreateStateDirFiles($config);
+        TMS::StateBuilder::BuildStatesFile($config);
     }
     catch {
-        print $_;
+        $$response{ERROR} = $_;
     };
 
-    $report = $hdl->Search(
-        {
-            '-and' => [
-                "me.Enabled"  => "1",
-                "me.ParentId" => \"IS NULL",
-                '-or'         => [
-                    "app_menu_items.Enabled" => "1",
-                    "app_menu_items.Enabled" => \"IS NULL"
-                ]
-            ]
-        },
-        {
-            prefetch => {"app_menu_items"},
-            order_by => { '-asc' => [ 'me.Label', 'app_menu_items.Label' ] }
-        }
-    );
+    my @data = defined $report ? $report->hashref_array() : undef;
+    $$response{DATA} = { "app_menu_items" => \@data };
 
-    my @data = $report->hashref_array();
+    return $response;
 
-    return { "app_menu_items" => \@data };
+}
+
+sub menu_item_update_or_create {
+    my $args = shift;
+    $$args{method} = 'UpdateOrCreate';
+    return menu_item_manipulate($args);
+}
+
+sub menu_item_update {
+    my $args = shift;
+    $$args{method} = 'Update';
+    return menu_item_manipulate($args);
+}
+
+sub menu_item_create {
+    my $args = shift;
+    $$args{method} = 'Create';
+    return menu_item_manipulate($args);
 }
 
 1;
