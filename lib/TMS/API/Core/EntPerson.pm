@@ -32,7 +32,7 @@ has FirstName  => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidyS
 has MiddleName => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 has LastName   => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
 has Suffix     => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EnumSr',);
-has BrnchId    => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'BizBranchObj',);
+has BrnchId    => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'BizBranchObj | Int ',);
 
 # AUTO-GENERATED HAS-A END
 

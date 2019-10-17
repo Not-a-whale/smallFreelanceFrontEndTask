@@ -27,8 +27,8 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has respid => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has tskid  => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'TskTaskObj',);
-has PrsnId => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'EntPersonObj',);
+has tskid  => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TskTaskObj | Int ',);
+has PrsnId => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'EntPersonObj | Int ',);
 has role   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 
 # AUTO-GENERATED HAS-A END

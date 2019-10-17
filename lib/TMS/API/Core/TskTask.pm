@@ -12,7 +12,6 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::TskTask;
 use TMS::API::Core::EntPerson;
 
 # AUTO-GENERATED DEPENDENCIES END
@@ -27,8 +26,8 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has tskid     => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has prjid     => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'TskTaskObj',);
-has PrsnId    => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'EntPersonObj',);
+has prjid     => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'TskTaskObj | Int ',);
+has PrsnId    => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'EntPersonObj | Int ',);
 has name      => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
 has created   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 has startdate => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);

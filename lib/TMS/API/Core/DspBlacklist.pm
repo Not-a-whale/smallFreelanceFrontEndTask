@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::EntCustomer;
 use TMS::API::Core::HrAssociate;
+use TMS::API::Core::EntCustomer;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -27,9 +27,9 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has BlackListId   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has CstmrId       => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'EntCustomerObj',);
+has CstmrId       => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'EntCustomerObj | Int ',);
 has DateCreated   => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'DATETIME',);
-has Creator       => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
+has Creator       => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj | Int ',);
 has ReasonPublic  => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
 has ReasonPrivate => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 

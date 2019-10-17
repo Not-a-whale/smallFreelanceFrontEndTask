@@ -12,9 +12,9 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::InvVehicle;
-use TMS::API::Core::HrAssociate;
 use TMS::API::Core::InsPolicy;
+use TMS::API::Core::HrAssociate;
+use TMS::API::Core::InvVehicle;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -28,11 +28,11 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has VhlInsId       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has InsId          => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'InsPolicyObj',);
-has VehicleId      => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'InvVehicleObj',);
-has AddedBy        => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
-has DateAdded      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has RemovedBy      => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'HrAssociateObj',);
+has InsId          => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'InsPolicyObj | Int ',);
+has VehicleId      => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'InvVehicleObj | Int ',);
+has AddedBy        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj | Int ',);
+has DateAdded      => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'DATE',);
+has RemovedBy      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'HrAssociateObj | Int ',);
 has DateRemoved    => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATE',);
 has ActionReminder => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 has ActionNote     => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);

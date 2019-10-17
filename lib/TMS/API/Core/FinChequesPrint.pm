@@ -26,8 +26,8 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has PrintedBy   => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
-has ChequeId    => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'FinChequeObj',);
+has PrintedBy   => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj | Int ',);
+has ChequeId    => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'FinChequeObj | Int ',);
 has DatePrinted => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 
 # AUTO-GENERATED HAS-A END

@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::HrAssociate;
 use TMS::API::Core::CntPhonesfax;
+use TMS::API::Core::HrAssociate;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -27,10 +27,10 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has ReferenceId     => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has ReferenceFor    => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
+has ReferenceFor    => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj | Int ',);
 has ReferensorName  => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
-has ReferensorPhone => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'CntPhonesfaxObj',);
-has ReceivedBy      => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
+has ReferensorPhone => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'CntPhonesfaxObj | Int ',);
+has ReceivedBy      => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj | Int ',);
 has ReceivedDate    => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'DATE',);
 has ReferenceNotes  => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
 

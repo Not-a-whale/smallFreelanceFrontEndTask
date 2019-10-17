@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::BizBranch;
 use TMS::API::Core::DspLoad;
+use TMS::API::Core::BizBranch;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -27,7 +27,7 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has DestinationId    => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has LoadId           => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'DspLoadObj',);
+has LoadId           => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'DspLoadObj | Int ',);
 has PU_PO            => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
 has Commodity        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
 has Pallets          => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Int',);
@@ -38,7 +38,7 @@ has AppointmentEnd   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 
 has AppointmentType  => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'EnumAppointment',);
 has StopOrder        => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Int',);
 has StopType         => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'EnumPickup',);
-has Branch           => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'BizBranchObj',);
+has Branch           => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'BizBranchObj | Int ',);
 has AppointmentNotes => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 
 # AUTO-GENERATED HAS-A END

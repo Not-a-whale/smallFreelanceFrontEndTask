@@ -25,7 +25,7 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has DriverId            => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
+has DriverId            => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj | Int ',);
 has LocalRoutes         => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'BoolInt',);
 has InternationalRoutes => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'BoolInt',);
 has LastAnnualReview    => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATE',);

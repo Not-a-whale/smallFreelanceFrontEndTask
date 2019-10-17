@@ -27,8 +27,8 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has InsId             => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has ProviderAgent     => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
-has ProofOfInsurance  => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'GenFileObj',);
+has ProviderAgent     => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj | Int ',);
+has ProofOfInsurance  => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'GenFileObj | Int ',);
 has TagName           => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
 has WhatIsInsured     => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 has PolicyNumber      => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);

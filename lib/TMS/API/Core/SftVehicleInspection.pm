@@ -12,10 +12,10 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::CntAddress;
-use TMS::API::Core::GenFile;
 use TMS::API::Core::SftInspectionSchedule;
 use TMS::API::Core::HrAssociate;
+use TMS::API::Core::GenFile;
+use TMS::API::Core::CntAddress;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -29,10 +29,10 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has InspectionId         => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has InspectionScheduleId => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'SftInspectionScheduleObj',);
-has InspectorId          => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
-has InspectorSignatureId => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'GenFileObj',);
-has LocationOfRecords    => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'CntAddressObj',);
+has InspectionScheduleId => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'SftInspectionScheduleObj | Int ',);
+has InspectorId          => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj | Int ',);
+has InspectorSignatureId => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'GenFileObj | Int ',);
+has LocationOfRecords    => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'CntAddressObj | Int ',);
 has InspectionNumber     => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
 has DateInspection       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 has Status               => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EnumPassed',);

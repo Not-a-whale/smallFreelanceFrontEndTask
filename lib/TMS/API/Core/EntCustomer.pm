@@ -25,7 +25,7 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has CstmrId          => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'EntBusinessObj',);
+has CstmrId          => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EntBusinessObj | Int ',);
 has MC               => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 has DOT              => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 has SCAC             => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);

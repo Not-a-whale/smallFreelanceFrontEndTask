@@ -27,8 +27,8 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has SupportId      => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has VendorId       => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'BizBranchObj',);
-has PrimaryContact => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'HrAssociateObj',);
+has VendorId       => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'BizBranchObj | Int ',);
+has PrimaryContact => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'HrAssociateObj | Int ',);
 has Name           => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
 has Description    => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 

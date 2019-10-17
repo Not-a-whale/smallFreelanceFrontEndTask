@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::FinTransaction;
 use TMS::API::Core::BizBranch;
+use TMS::API::Core::FinTransaction;
 use TMS::API::Core::HrAssociate;
 use TMS::API::Core::Entity;
 
@@ -30,13 +30,13 @@ extends 'TMS::SchemaWrapper';
 # AUTO-GENERATED HAS-A START
 has ChequeId           => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has ChequeNumber       => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Int',);
-has TransactionId      => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'FinTransactionObj',);
-has CreatedBy          => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
-has AuthorizedBy       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'HrAssociateObj',);
-has VoidedBy           => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'HrAssociateObj',);
-has Payer              => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'EntityObj',);
-has Payee              => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'EntityObj',);
-has Bank               => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'BizBranchObj',);
+has TransactionId      => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'FinTransactionObj | Int ',);
+has CreatedBy          => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj | Int ',);
+has AuthorizedBy       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'HrAssociateObj | Int ',);
+has VoidedBy           => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'HrAssociateObj | Int ',);
+has Payer              => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'EntityObj | Int ',);
+has Payee              => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'EntityObj | Int ',);
+has Bank               => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'BizBranchObj | Int ',);
 has Amount             => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'Float',);
 has Memo               => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 has PayerName          => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);

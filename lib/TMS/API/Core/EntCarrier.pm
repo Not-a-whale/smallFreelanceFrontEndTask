@@ -26,9 +26,9 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has CarrierId          => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'EntBusinessObj',);
+has CarrierId          => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EntBusinessObj | Int ',);
 has MC                 => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
-has McCertificatePhoto => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'GenFileObj',);
+has McCertificatePhoto => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'GenFileObj | Int ',);
 has DOT                => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 has CrType             => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EnumCompanyCarrier',);
 has IFTA_Acc           => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);

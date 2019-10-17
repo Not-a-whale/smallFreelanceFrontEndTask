@@ -12,9 +12,9 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::HrAssociate;
 use TMS::API::Core::HrGovidcard;
 use TMS::API::Core::GenFile;
+use TMS::API::Core::HrAssociate;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -28,13 +28,13 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has HireId                  => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has AstId                   => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
+has AstId                   => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj | Int ',);
 has Title                   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 has DateHired               => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATE',);
 has DateTerminated          => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATE',);
 has ReasonForTermination    => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
-has Photo                   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'GenFileObj',);
-has EmploymentAuthorization => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrGovidcardObj',);
+has Photo                   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'GenFileObj | Int ',);
+has EmploymentAuthorization => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrGovidcardObj | Int ',);
 
 # AUTO-GENERATED HAS-A END
 
