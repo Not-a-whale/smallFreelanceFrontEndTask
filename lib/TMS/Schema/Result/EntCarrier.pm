@@ -39,7 +39,7 @@ __PACKAGE__->table("ent_carriers");
   accessor: 'mc'
   data_type: 'varchar'
   is_nullable: 1
-  size: 255
+  size: 10
 
 =head2 McCertificatePhoto
 
@@ -54,7 +54,7 @@ __PACKAGE__->table("ent_carriers");
   accessor: 'dot'
   data_type: 'varchar'
   is_nullable: 1
-  size: 255
+  size: 15
 
 =head2 CrType
 
@@ -82,7 +82,7 @@ __PACKAGE__->table("ent_carriers");
   accessor: 'scac'
   data_type: 'varchar'
   is_nullable: 1
-  size: 255
+  size: 4
 
 =head2 state_OR
 
@@ -145,7 +145,7 @@ __PACKAGE__->add_columns(
     is_nullable    => 0,
   },
   "MC",
-  { accessor => "mc", data_type => "varchar", is_nullable => 1, size => 255 },
+  { accessor => "mc", data_type => "varchar", is_nullable => 1, size => 10 },
   "McCertificatePhoto",
   {
     accessor       => "mc_certificate_photo",
@@ -155,7 +155,7 @@ __PACKAGE__->add_columns(
     is_nullable    => 1,
   },
   "DOT",
-  { accessor => "dot", data_type => "varchar", is_nullable => 1, size => 255 },
+  { accessor => "dot", data_type => "varchar", is_nullable => 1, size => 15 },
   "CrType",
   {
     accessor    => "cr_type",
@@ -173,7 +173,7 @@ __PACKAGE__->add_columns(
   "IFTA_State",
   { accessor => "ifta_state", data_type => "char", is_nullable => 1, size => 2 },
   "SCAC",
-  { accessor => "scac", data_type => "varchar", is_nullable => 1, size => 255 },
+  { accessor => "scac", data_type => "varchar", is_nullable => 1, size => 4 },
   "state_OR",
   {
     accessor => "state_or",
@@ -328,8 +328,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:VYTP3rr+IsYqMV4CGZmWvg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7d9mlTiPM9SStSvTF9Rm/Q
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

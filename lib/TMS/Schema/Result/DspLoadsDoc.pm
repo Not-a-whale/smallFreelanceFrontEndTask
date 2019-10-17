@@ -26,6 +26,14 @@ __PACKAGE__->table("dsp_loads_docs");
 
 =head1 ACCESSORS
 
+=head2 DocsLoadId
+
+  accessor: 'docs_load_id'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_auto_increment: 1
+  is_nullable: 0
+
 =head2 FileId
 
   accessor: 'file_id'
@@ -61,6 +69,14 @@ __PACKAGE__->table("dsp_loads_docs");
 =cut
 
 __PACKAGE__->add_columns(
+  "DocsLoadId",
+  {
+    accessor => "docs_load_id",
+    data_type => "bigint",
+    extra => { unsigned => 1 },
+    is_auto_increment => 1,
+    is_nullable => 0,
+  },
   "FileId",
   {
     accessor       => "file_id",
@@ -99,15 +115,13 @@ __PACKAGE__->add_columns(
 
 =over 4
 
-=item * L</FileId>
-
-=item * L</LoadId>
+=item * L</DocsLoadId>
 
 =back
 
 =cut
 
-__PACKAGE__->set_primary_key("FileId", "LoadId");
+__PACKAGE__->set_primary_key("DocsLoadId");
 
 =head1 RELATIONS
 
@@ -157,8 +171,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:3017DmvvuDNAvYpM4lc4EA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1T3hwcuxI8JI5pTtUIev7w
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

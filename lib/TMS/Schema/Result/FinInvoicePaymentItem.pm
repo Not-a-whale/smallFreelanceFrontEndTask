@@ -26,6 +26,14 @@ __PACKAGE__->table("fin_invoice_payment_items");
 
 =head1 ACCESSORS
 
+=head2 InvoicePaymentItemId
+
+  accessor: 'invoice_payment_item_id'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_auto_increment: 1
+  is_nullable: 0
+
 =head2 InvoicePaymentId
 
   accessor: 'invoice_payment_id'
@@ -45,6 +53,14 @@ __PACKAGE__->table("fin_invoice_payment_items");
 =cut
 
 __PACKAGE__->add_columns(
+  "InvoicePaymentItemId",
+  {
+    accessor => "invoice_payment_item_id",
+    data_type => "bigint",
+    extra => { unsigned => 1 },
+    is_auto_increment => 1,
+    is_nullable => 0,
+  },
   "InvoicePaymentId",
   {
     accessor       => "invoice_payment_id",
@@ -67,15 +83,13 @@ __PACKAGE__->add_columns(
 
 =over 4
 
-=item * L</InvoicePaymentId>
-
-=item * L</InvoiceItemId>
+=item * L</InvoicePaymentItemId>
 
 =back
 
 =cut
 
-__PACKAGE__->set_primary_key("InvoicePaymentId", "InvoiceItemId");
+__PACKAGE__->set_primary_key("InvoicePaymentItemId");
 
 =head1 RELATIONS
 
@@ -110,8 +124,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5p119DpGZhMtX7MhDMd/YQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:l76u2ezkdptn6LTEXWA+bg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

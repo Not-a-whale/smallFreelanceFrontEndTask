@@ -349,23 +349,9 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
-=head2 invoice_payments
 
-Type: many_to_many
-
-Composing rels: L</fin_invoice_payment_items> -> invoice_payment
-
-=cut
-
-__PACKAGE__->many_to_many(
-  "invoice_payments",
-  "fin_invoice_payment_items",
-  "invoice_payment",
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:V4boWGp1s+0JK9QGTzc1CA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:wNHziHdpjTmaRRjcbKu6CQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

@@ -39,7 +39,7 @@ __PACKAGE__->table("ent_customers");
   accessor: 'mc'
   data_type: 'varchar'
   is_nullable: 1
-  size: 255
+  size: 10
 
 MC number
 
@@ -48,7 +48,7 @@ MC number
   accessor: 'dot'
   data_type: 'varchar'
   is_nullable: 1
-  size: 64
+  size: 15
 
 =head2 SCAC
 
@@ -95,9 +95,9 @@ Credit Limit
 =head2 DUNS
 
   accessor: 'duns'
-  data_type: 'varchar'
+  data_type: 'char'
   is_nullable: 1
-  size: 64
+  size: 9
 
 =head2 DontUse
 
@@ -136,9 +136,9 @@ __PACKAGE__->add_columns(
     is_nullable    => 0,
   },
   "MC",
-  { accessor => "mc", data_type => "varchar", is_nullable => 1, size => 255 },
+  { accessor => "mc", data_type => "varchar", is_nullable => 1, size => 10 },
   "DOT",
-  { accessor => "dot", data_type => "varchar", is_nullable => 1, size => 64 },
+  { accessor => "dot", data_type => "varchar", is_nullable => 1, size => 15 },
   "SCAC",
   { accessor => "scac", data_type => "varchar", is_nullable => 1, size => 255 },
   "Terms",
@@ -161,7 +161,7 @@ __PACKAGE__->add_columns(
   "Bond",
   { accessor => "bond", data_type => "varchar", is_nullable => 1, size => 64 },
   "DUNS",
-  { accessor => "duns", data_type => "varchar", is_nullable => 1, size => 64 },
+  { accessor => "duns", data_type => "char", is_nullable => 1, size => 9 },
   "DontUse",
   {
     accessor    => "dont_use",
@@ -294,8 +294,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zuppvuwviCJCtGxHw6nyaw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:tfmGDijSsbLILnR81HEjsA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

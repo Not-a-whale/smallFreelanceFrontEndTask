@@ -26,6 +26,14 @@ __PACKAGE__->table("dsp_trips_loads");
 
 =head1 ACCESSORS
 
+=head2 TripLoadId
+
+  accessor: 'trip_load_id'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_auto_increment: 1
+  is_nullable: 0
+
 =head2 TripId
 
   accessor: 'trip_id'
@@ -61,6 +69,14 @@ __PACKAGE__->table("dsp_trips_loads");
 =cut
 
 __PACKAGE__->add_columns(
+  "TripLoadId",
+  {
+    accessor => "trip_load_id",
+    data_type => "bigint",
+    extra => { unsigned => 1 },
+    is_auto_increment => 1,
+    is_nullable => 0,
+  },
   "TripId",
   {
     accessor       => "trip_id",
@@ -99,6 +115,20 @@ __PACKAGE__->add_columns(
 
 =over 4
 
+=item * L</TripLoadId>
+
+=back
+
+=cut
+
+__PACKAGE__->set_primary_key("TripLoadId");
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<TripLoadUnq>
+
+=over 4
+
 =item * L</TripId>
 
 =item * L</LoadId>
@@ -107,7 +137,7 @@ __PACKAGE__->add_columns(
 
 =cut
 
-__PACKAGE__->set_primary_key("TripId", "LoadId");
+__PACKAGE__->add_unique_constraint("TripLoadUnq", ["TripId", "LoadId"]);
 
 =head1 RELATIONS
 
@@ -157,8 +187,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:262yUa5OWshucR2PMEm26w
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ldcklYqerVSisvx/CmNNjQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

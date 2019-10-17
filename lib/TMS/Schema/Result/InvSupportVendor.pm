@@ -158,19 +158,9 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
-=head2 equipments
 
-Type: many_to_many
-
-Composing rels: L</inv_equipments_to_support> -> equipment
-
-=cut
-
-__PACKAGE__->many_to_many("equipments", "inv_equipments_to_support", "equipment");
-
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:e3A3IsnwnzyOnW499HXb2Q
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ZmQoYO64W5C3ePpTI7bB0w
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
