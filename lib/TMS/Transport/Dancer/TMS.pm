@@ -6,7 +6,8 @@ use warnings;
 use Data::Dumper;
 use Try::Tiny;
 
-use TMS::API::Feature::Navigation;
+use TMS::Transport::Dancer::Navigation;
+use TMS::Transport::Dancer::TransactionTemplate;
 
 set session => 'Simple';
 set engines => {

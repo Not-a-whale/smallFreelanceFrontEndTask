@@ -12,6 +12,7 @@ sub regenerate_states {
 
     # uses StateBuilder to regenerate the state config file for ui-router
     try {
+        confess "This has been disabled";
         my $config = {
             rootdir  => getcwd() . '/public/views',
             webdir   => '/views',
@@ -26,6 +27,33 @@ sub regenerate_states {
 
     return 200;
 }
+
+sub single {
+    my $args = shift;
+    my $id = $$args{id};
+    my $hdl = TMS::API::Core::AppMenuItem->new( Label => undef);
+
+    my $item = undef;
+    my $error = undef;
+    try {
+        print "Requesting AppMenuItem with ID $id \n\n" ;
+        $item = $hdl->ResultSet->search({'me.MenuItemId' => $id}, { prefetch => 'parent'})->hashref_first;
+        print Dumper($item);
+
+    } catch {
+        $error = $_;
+    };
+
+    my $reponse = {
+        POST        => undef,
+        ERROR       => $error,
+        DATA        => { item => $item },
+        ENVIRONMENT => undef
+    };
+
+    return $reponse;
+}
+
 
 sub delete_menu_item {
     my $data = shift;
@@ -140,8 +168,12 @@ sub menu_item_all {
                     "app_menu_items" => [
                         "parent",
                         {
-                            "app_menu_items" =>
-                              [ "parent", { "app_menu_items" => "parent" } ]
+                            "app_menu_items" => [
+                                "parent",
+                                {
+                                    "app_menu_items" => "parent"
+                                }
+                            ]
                         }
                     ]
                 }
@@ -209,11 +241,11 @@ sub menu_item {
 # this one needs fixes
 
 sub menu_item_manipulate {
-    my $args    = shift;
-    my $method  = $$args{method};
-    my $data    = $$args{data};
+    my $args   = shift;
+    my $method = $$args{method};
+    my $data   = $$args{data};
     print Dumper($data);
-    print "\n\n" . ref $data .  "\n\n";
+    print "\n\n" . ref $data . "\n\n";
     my $reponse = {
         POST        => undef,
         ERROR       => undef,
@@ -232,16 +264,17 @@ sub menu_item_manipulate {
             }
         );
 
-        my $config = {
-            rootdir  => getcwd() . '/public/views',
-            webdir   => '/views',
-            statefn  => 'configstates.js',
-            statedir => getcwd() . '/public/js',
-            state    => $$data{Route}
-        };
+        # This is currently disabled because not using UI-Router as component based system instead of purely views.
+        # my $config = {
+        #     rootdir  => getcwd() . '/public/views',
+        #     webdir   => '/views',
+        #     statefn  => 'configstates.js',
+        #     statedir => getcwd() . '/public/js',
+        #     state    => $$data{Route}
+        # };
 
-        TMS::StateBuilder::CreateStateDirFiles($config);
-        TMS::StateBuilder::BuildStatesFile($config);
+        #TMS::StateBuilder::CreateStateDirFiles($config);
+        #TMS::StateBuilder::BuildStatesFile($config);
     }
     catch {
         $$response{ERROR} = $_;
