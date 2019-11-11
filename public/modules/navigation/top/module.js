@@ -1,7 +1,6 @@
-app.component("topNavMenu", {
-  controller: ['$scope', '$http', 'getid', 'MenuOneTierCtrl'],
-  templateUrl: '/',
+app.component("topLayout", {
   bindings: {
-    url: '@?'
-  }
+    activeitem: '<'
+  },
+  templateUrl: "modules/navigation/top/template.html"
 });

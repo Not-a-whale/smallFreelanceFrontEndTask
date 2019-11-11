@@ -1,0 +1,229 @@
+/* ------------------------------ TOP NAVBAR ------------------------------- */
+
+top-layout {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background: var(--topnav-bg-color);
+  box-shadow: var(--shadow-drop);
+}
+
+top-layout>.top {
+  display: flex;
+  flex-direction: row;
+  justify-items: flex-start;
+  border-bottom: 1px;
+  border-style: solid;
+  border-color: var(--topnav-top-border-color);
+  padding-left: var(--layout-page-content-margin);
+  padding-right: var(--layout-page-content-margin);
+}
+
+top-nav-menu {
+  display: flex;
+  /* do not put flex=1 in here ! */
+  flex-direction: row;
+  align-items: flex-end;
+  height: 100px;
+}
+
+top-layout .tools {
+  display: flex;
+  margin-right: 0px;
+  margin-left: auto;
+  justify-content: flex-end;
+  flex-direction: row;
+  height: 100%;
+  padding-top: var(--layout-topnav-tools-margin-top);
+}
+
+top-layout .tools> *:not(:last-child) {
+  margin-right: 36px;
+}
+
+top-layout .icon {
+  max-width: var(--icon-size-norm);
+  max-height: var(--icon-size-norm);
+}
+
+top-layout #breadbar {
+  height: var(--topnav-breadbar-height);
+  min-height: var(--topnav-breadbar-height);
+  max-height: var(--topnav-breadbar-height);
+  padding-left: var(--layout-page-content-margin);
+  padding-right: var(--layout-page-content-margin);
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+}
+
+top-layout #breadbar #breadcrumbs {
+  margin-left: 0px;
+  margin-right: auto;
+}
+
+top-layout #breadbar #breadbuttons {
+  margin-left: auto;
+  margin-right: 0px;
+  display: flex;
+}
+
+top-layout #breadbar #breadbuttons > * {
+  margin-left: 5px;
+}
+
+top-nav-menu .title {
+  min-width: var(--topnav-menu-title-width);
+}
+
+top-nav-menu .tab {
+  margin-right: 68px;
+}
+
+top-nav-menu>ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+}
+
+new-form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+new-form button {
+  min-width: 100px !important;
+  height: var(--btn-height-min);
+  max-height: var(--btn-height-min) !important;
+  line-height: var(--btn-height-min) !important;
+  font-family: var(--font-family-primary) !important;
+  font-size: var(--font-norm);
+}
+
+new-form ul {
+  position: absolute;
+  background-color: var(--topnav-new-btn-bg-color);
+  box-shadow: var(--shadow);
+  z-index: 99;
+  width: 166px;
+  flex-direction: column;
+  align-items: flex-start;
+  top: 42px;
+}
+
+new-form li {
+  cursor: pointer;
+  padding: 0px 12px 0px 12px;
+  height: 32px;
+  vertical-align: center;
+  line-height: 32px;
+  font-size: var(--font-norm);
+  font-family: var(--font-family-primary);
+}
+
+new-form li:hover {
+  background-color: var( --topnav-new-btn-bg-color-hover);
+}
+/*
+new-form li:not(:last-child) {
+  margin-bottom:  15px;
+} */
+
+new-form ul,
+new-form li {
+  list-style: none;
+}
+
+top-layout #profile_settings {
+  display: flex;
+  flex-direction: row;
+}
+
+
+profile-settings {
+  width: 250px;
+  height: 52px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-left: 1px !important;
+  border-left-style: solid !important;
+  border-left-color: var(--topnav-profile-color) !important;
+}
+
+profile-settings #profile_avatar {
+  margin-left: auto;
+  margin-right: 0px;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+}
+
+profile-settings #profile_info {
+  padding-left: 12px;
+  margin-right: 12px;
+  width: 196px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  cursor: pointer;
+}
+
+profile-settings #profile_info:hover {
+  background-color: var(--topnav-profile-color-hover);
+}
+
+profile-settings #dropdown {
+  margin-right: 10px;
+  margin-left: auto;
+  width: 13px;
+  height: 8px;
+  fill: var(--topnav-profile-color);
+}
+
+chat-notifications,
+notifications {
+  position: relative;
+  height: 100%;
+
+}
+
+chat-notifications svg,
+notifications svg {
+  cursor: pointer;
+}
+
+chat-notifications svg,
+notifications svg {
+  fill: var(--topnav-icons-color);
+}
+
+chat-notifications svg:hover,
+notifications svg:hover {
+  fill: var(--topnav-icons-color-hover);
+}
+
+chat-notifications svg:hover + #notice,
+notifications svg:hover + #notice {
+  background-color: var(--topnav-icons-notice-color-hover);
+  color: var(--topnav-icons-notice-color-hover);
+}
+
+
+chat-notifications #notice,
+notifications #notice {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background-color: var(--topnav-icons-notice-color);
+  color: var(--topnav-icons-notice-color);
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 1000;
+}
