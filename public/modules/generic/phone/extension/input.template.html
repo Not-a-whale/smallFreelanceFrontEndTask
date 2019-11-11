@@ -1,0 +1,12 @@
+<bound-input class="c9"
+             label="{{$ctrl.label || 'phone' }}"
+             value="$ctrl.value.number"
+             pattern="{{$ctrl.pattern}}"
+             errmsg="{{$ctrl.errmsg}}"
+             required="{{$ctrl.required}}"></bound-input>
+<div class="dash">-</div>
+<bound-input class="c3"
+             label="ext."
+             pattern="^\d*$"
+             errmsg="Must be a number"
+             value="$ctrl.value.extension"></bound-input>
