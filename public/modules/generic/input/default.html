@@ -1,12 +1,13 @@
-<div ng-attr-id="{{$ctrl.id}}"
-     class="input">
-  <input ng-model="$ctrl.showValue"
+<typeinput>
+  <input ng-attr-id="{{$ctrl.id}}"
+         ng-model="$ctrl.showValue"
          ng-required="{{$ctrl.required}}"
          ng-attr-pattern="{{$ctrl.pattern}}"
          ng-attr-type="{{$ctrl.type}}"
          ng-disabled="{{$ctrl.disabled}}"
          ng-attr-placeholder="{{$ctrl.placeholder}}"
-         ng-attr-title="{{$ctrl.title}}" />
+         ng-attr-title="{{$ctrl.title}}"
+         ng-change="$ctrl.AutoUpdate()" />
   <label ng-if="$ctrl.label != undefined">{{ $ctrl.label }}</label>
-  <div class="error-ms">{{ $ctrl.errmsg || 'This field is required' }}</div>
-</div>
+  <div class="error-msg font-error-msg">{{ $ctrl.errmsg || 'This field is required' }}</div>
+</typeinput>
