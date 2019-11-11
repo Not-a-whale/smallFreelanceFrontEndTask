@@ -1,0 +1,25 @@
+<div class="header">
+  <div class="font-lg upper"
+       ng-class="{active: $ctrl.activetab == 1}"
+       ng-click="$ctrl.ActivateTab(1)">messages ({{$ctrl.messages.length}})</div>
+  <div class="font-lg upper"
+       ng-class="{active: $ctrl.activetab == 2}"
+       ng-click="$ctrl.ActivateTab(2)">contacts</div>
+</div>
+<div id="messages"
+     class="body"
+     ng-show="$ctrl.activetab == 1">
+  <message-box ng-repeat="msg in $ctrl.messages"
+               message="msg"
+               on-remove="$ctrl.Remove($index)"></message-box>
+</div>
+<div id="contacts"
+     ng-show="$ctrl.activetab == 2">
+  <div id="search">
+    <generic-table-search-input on-update="$ctrl.SearchContacts(value)"></generic-table-search-input>
+  </div>
+  <div class="body">
+    <contact-box ng-repeat="c in $ctrl.displaycontacts" contact="c"></contact-box>
+  </div>
+
+</div>
