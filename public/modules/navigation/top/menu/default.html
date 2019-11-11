@@ -1,0 +1,8 @@
+<div class="title font-page-title">{{ $ctrl.activeitem.Label }}</div>
+<ul class="tab-container">
+  <li class="tab" ng-repeat="item in $ctrl.activeitem.app_menu_items | menuitems:'topnav'">
+    <a ui-sref="{{ item.Route }}"
+       ui-sref-active="active"
+       class="font-tab">{{ item.Label }}</a>
+  </li>
+</ul>
