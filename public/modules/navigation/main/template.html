@@ -1,0 +1,22 @@
+<div id="main-navbar"
+     ng-class="{collapsed: ctrl.collapsed, expanded: !ctrl.collapsed}"
+     ng-controller="collapsable as ctrl">
+  <div id="logo-container">
+
+    <a href="/">
+      <img class="logo-img"
+           id="logo-image"
+           src="imgs/logo.svg">
+    </a>
+    <div class="logo-fancy"></div>
+  </div>
+  <div id="tool-container">
+    <img id="collapse-handle"
+         ng-click="ctrl.collapsed = !ctrl.collapsed"
+         src="imgs/navbar-collapse.svg">
+  </div>
+  <div id="main-menu-container">
+    <main-menu menulist="$ctrl.menulist"
+               on-activate-item="$ctrl.ActivateItem(item)"></main-menu>
+  </div>
+</div>
