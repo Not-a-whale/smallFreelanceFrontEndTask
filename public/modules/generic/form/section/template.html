@@ -1,0 +1,9 @@
+<div class="heading">
+  <div class="font-form-head">{{ f.title }}</div>
+  <div class="font-form-head-removable removable"
+       ng-if="f.optional"
+       ng-click="$ctrl.DisableForm(f)">[remove section]</div>
+</div>
+<div class="content"
+     ui-view="{{ f.viewname }}">
+</div>

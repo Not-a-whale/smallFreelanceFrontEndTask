@@ -1,0 +1,70 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
+  width: 100%;
+}
+
+.form .heading {
+
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid var(--form-heading-divider-color);
+}
+
+.form .heading .removable {
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: 12px;
+}
+
+.form .content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding-top: 12px;
+}
+
+.form .frow {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+}
+
+.form .fcol {
+  display: flex;
+  flex-direction: column;
+}
+
+.form .frow > *:not(:first-child) {
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+
+.form .fsubhead {
+  margin-bottom: 10px;
+}
+
+.form .section-row {
+  display: flex;
+  flex-direction: row;
+  padding-top: var(--form-section-padding-top);
+  padding-bottom: var(--form-section-padding-top);
+}
+
+.form .section-row:not(:last-child) {
+  border-bottom: 1px;
+  border-style: solid;
+  border-color: var(--cp-grey-light);
+}
+
+.form .section-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.form .section-col:not(:last-child) {
+  margin-right: var(--form-row-gutter);
+}
