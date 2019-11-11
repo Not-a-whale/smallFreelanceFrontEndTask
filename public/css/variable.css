@@ -1,116 +1,180 @@
 :root {
+    --shadow-drop-sm: 0px 3px 3px -3px rgba(0, 0, 0, 0.16);
+    --shadow-drop: 0px 6px 3px -3px rgba(0, 0, 0, 0.08);
+    --shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.08);
+    --shadow-bucket: 0px 2px 4px 2px rgba(0, 0, 0, 0.08);
+    --color-shadow-soft: rgba(0, 0, 0, 0.16);
 
-  --shadow-drop-sm: 0px 3px 3px -3px rgba(0,0,0,0.16);
-  --shadow-drop: 0px 6px 3px -3px rgba(0, 0, 0, 0.08);
+    --layer-max: 9999;
+    --layer-min: -9999;
 
-  --color-shadow-soft: rgba(0,0,0,0.16);
+    --layer-table-header: 20;
+    --layer-table-search: 19;
+    --layer-table-select: 18;
+    --layer-table-hover: 17;
+    --layer-table-row: 10;
 
-  --color-accent-default: #7F0000; /* default accent color, "usko red" */
-  --color-accent-hover: #B9544F; /* hover over buttons with accent color */
-  --color-accent-light: #FFB7B4; /* hover over tab text */
+    --cp-usko-red: #851618;
+    --cp-usko-red-mid: #B9544F;
+    --cp-usko-red-light: #FFB7B4;
+    --cp-primary: #709EE3;
+    --cp-primary-mid: #8BC1E9;
+    --cp-primary-light: #B1DEFF;
+    --cp-primary-pale: #EFF8FF;
+    --cp-success: #00C9A0;
+    --cp-success-mid: #AFF8E4;
+    --cp-success-light: #E5FFF8;
+    --cp-warn: #EFA30B;
+    --cp-warn-mid: #FCC65A;
+    --cp-warn-light: #FFF5E2;
+    --cp-danger: #EE4437;
+    --cp-danger-mid: #FF8A81;
+    --cp-danger-light: #FFC0BB;
+    --cp-default: #4B4B4B;
+    --cp-grey-heavy: #5E5E5E;
+    --cp-grey-mid: #848484;
+    --cp-grey-light: #B0B0B4;
+    --cp-highlight: #FFFFFF;
+    --cp-background: #E6E6E6;
+    --cp-card: #F3F3F3;
+    --cp-paper: #FFFFFF;
+    --cp-shadow: #00000029;
+    --cp-grey-bright: #F2F2F2;
 
-  --color-tone-dark: #000000; /*  */
+    --font-family-primary: 'Poppins', Arial, Helvetica, sans-serif;
+    --font-family-second: 'Arimo', Arial, Helvetica, sans-serif;
 
-  --color-font-1: #463C31; /* a font color other than black*/
-  --color-font-2: #342E28; /* another font color */
+    --font-tiny: 12px;
+    --font-small: 14px;
+    --font-norm: 16px;
+    --font-large: 18px;
+    --font-giant: 20px;
+    --font-super: 30px;
 
-  --color-tone-heavy: #463C31; /* navbar, and some text*/
-  --color-tone-soft: #ABA7A1; /* some text, background */
+    --font-weight-norm: normal;
+    --font-weight-medium: 500;
+    --font-weight-bold: bold;
 
-  --color-tone-firm: #848484; /* some text, buttons */
-  --color-tone-middle: #9E9E9E; /* some text, hover buttons, usually disabled text */
-  --color-tone-light: #BFBFBF; /* some text, backgrounds */
-  --color-tone-bright:  #DCDCDC; /* some text, disabled text or hover, background */
+    --font-line-large: 20px;
 
-  --color-background: #DCDCDC; /* background color of the whole app */
+    --font-color-primary: var(--cp-default);
+    --font-color-hover-primary: var(--cp-grey-heavy);
 
-  --color-highlight-bright: #FFFFFF; /* text on dark background */
-  --color-highlight-bubble: #F3F3F3; /* disabled button background */
-  --color-highlight-hover: #A2CCEC; /* focus input fields */
-  /* following colors used for buttons and tags */
-  /* indicating success or valid */
-  --color-button-text: white;
-  --color-button-text-hover: white;
+    --avatar-bg-color: var(--cp-grey-mid);
+    --avatar-text-color: var(--cp-highlight);
 
-  --color-success: #03B994;
-  --color-success-hover: #AFF8E4;
-  --color-success-soft: #E5FFF8;
+    --form-font-color-active: var(--cp-usko-red);
+    --form-font-color-optional: var(--cp-grey-light);
+    --form-font-color-list: var(--cp-grey-mid);
+    --form-font-color-hover: var(--cp-grey-heavy);
 
-  --color-info: #463C31;
-  --color-info-hover: #ABA7A1;
+    --form-font-head-color: var(--cp-usko-red);
 
-  /* indicating call to action buttons, i.e. submit */
-  --color-primary: #4599D9;
-  --color-primary-hover: #94D1FF;
-  --color-primary-fade: #BCE2FF;
+    --byline-font-color: var(--cp-grey-light);
 
-  --color-second: #ECF7FF;
-  --color-second-hover: #ECF7FF;
+    --form-nav-width: 263px;
+    --form-nav-padding: 12px;
+    --form-nav-item-margin: 26px;
+    --form-holder-padding: 60px;
+    --form-section-padding-top: 32px;
+    --form-row-gutter: 46px;
 
-  /* indicating warnings */
-  --color-warning: #EB8117;
-  --color-warning-hover: #FFB871;
-  --color-warning-soft: #FFF9EC;
-  /* indicating failure or fatal operations */
-  --color-danger: #EE4437;
-  --color-danger-hover: #FF8A81;
-  --color-danger-soft: #FFC0BB;
+    --form-nav-banner-color: var(--cp-usko-red);
+    --form-nav-banner-font-color: var(--cp-highlight);
 
-  --color-disabled: #C6C6C6;
-  --color-input-background: white;
+    --form-nav-body-color: var(--cp-card);
+    --form-divider-color: var(--cp-background);
+    --form-heading-divider-color: var(--cp-grey-light);
 
-  --color-card: #F3F3F3;
+    --form-page-bg-color: var(--cp-highlight);
+    --form-nav-buttons-line-color: var(--cp-grey-light);
 
-  --font-small: 14px;
-  --font-norm: 16px;
-  --font-large: 20px;
-  --font-giant: 25px;
-  --font-super: 35px;
+    --ins-display-border: 1px solid var(--cp-grey-light);
+    --ins-display-bg-color: var(--cp-card);
 
-  --font-line-large: 20px;
+    --btn-font-color: var(--cp-highlight);
+    --btn-font-color2: var(--cp-primary);
 
-  --font-family-primary: 'Arimo', Arial, Helvetica, sans-serif;
-  --font-family-second: 'Poppins', Arial, Helvetica, sans-serif;
+    --btn-shadow: 0px 1px 3px var(--cp-shadow);
+    --btn-border-radius: 2px 2px 2px 2px;
 
-  --main-navbar-width: 258px;
+    --btn-padding: 24px;
+    --btn-height-min: 36px;
+    --btn-height-max: 46px;
+    --btn-height: 46px;
+    --btn-line-height: 21px;
 
-  --btn-padding: 24px;
-  --btn-height-min: 36px;
-  --btn-height-max: 46px;
-  --btn-height: 46px;
+    --btn-mini-height-max: 25px;
+    --btn-mini-width-min: 50px;
+    --btn-mini-padding: 8px;
 
-  --btn-sm-height: 24px;
-  --btn-lg-height: 64px;
+    --btn-small-width-min: 100px;
+    --btn-small-height-max: 35px;
+    --btn-small-padding: 12px;
 
-  --btn-line-height: 46px;
-  --btn-sm-line-height: 36px;
-  --btn-lg-line-height: 64px;
+    --btn-large-width-min: 120px;
+    --btn-large-height-max: 45px;
+    --btn-large-padding: 16px;
 
-  --btn-width-min: 194px;
-  --btn-width: 194px;
+    --btn-huge-width-min: 160px;
+    --btn-huge-height-max: 60px;
+    --btn-huge-padding: 24px;
 
-  --btn-sm-width-min: 154px;
-  --btn-sm-width: 154px;
+    --btn-def-color: var(--cp-default);
+    --btn-def-color-hover: var(--cp-grey-heavy);
 
-  --btn-lg-width-min: 304px;
-  --btn-lg-width: 304px;
+    --btn-primary-color: var(--cp-primary);
+    --btn-primary-color-hover: var(--cp-primary-mid);
 
+    --btn-second-color: transparent;
+    --btn-second-color-hover: var(--cp-primary-pale);
 
-  --main-navbar-width: 240px;
-  --main-navbar-width-min: 64px;
+    --btn-success-color: var(--cp-success);
+    --btn-success-color-hover: var(--cp-success-mid);
 
-  --main-topnav-height: 96px;
+    --btn-info-color: var(--cp-usko-red);
+    --btn-info-color-hover: var(--cp-usko-red-mid);
 
+    --btn-warn-color: var(--cp-warn);
+    --btn-warn-color-hover: var(--cp-warn-mid);
 
-  --main-navbar-menu-top: 168px;
+    --btn-danger-color: var(--cp-danger);
+    --btn-danger-color-hover: var(--cp-danger-mid);
 
-  --main-navbar-collapse-top: 134px;
-  --main-navbar-collapse-left: 200px;
-  --main-navbar-collapse-left-min: 16px;
+    --btn-disabled-color: var(--cp-grey-light);
 
-  --logo-width: 163px;
-  --logo-width-min: 43px;
+    --btn-def-bsc-color: var(--cp-default);
+    --btn-def-bsc-color-hover: var(--cp-grey-bright);
 
-  --icon-size-norm: 32px;
-  --icon-size-sm: 22px;
+    --btn-primary-bsc-color: var(--cp-primary);
+    --btn-primary-bsc-color-hover: var(--cp-primary-pale);
+
+    --input-height-min: 36px;
+    --input-height: 36px;
+
+    --input-color-default: var(--cp-grey-light);
+    --input-color-active: var(--cp-primary);
+    --input-color-hover: var(--cp-primary-mid);
+    --input-color-error: var(--cp-danger);
+    --input-color-disabled: var(--cp-background);
+    --input-color-background: var(--cp-highlight);
+
+    --fileupload-display-line-color: var(--cp-background);
+    --fileupload-display-no-file-color: var(--cp-grey-mid);
+    --fileupload-display-file-color: var(--cp-primary);
+    --fileupload-display-close-color: var(--cp-grey-mid);
+    --fileupload-display-close-color-hover: var(--cp-grey-light);
+
+    --imgupload-line-color: var(--cp-grey-light);
+    --imgupload-bg-color: var(--cp-card);
+    --imgupload-line-color-hover: var(--cp-grey-mid);
+
+    --layout-page-content-margin: 26px;
+    --layout-page-content-padding-top: 16px;
+    --layout-topnav-tools-margin-top: 15px;
+
+    --logo-width: 163px;
+    --logo-width-min: 43px;
+    --icon-size-norm: 32px;
+    --icon-size-sm: 22px;
 }
