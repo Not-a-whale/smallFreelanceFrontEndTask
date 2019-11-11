@@ -1,0 +1,88 @@
+generic-file-upload {
+  display: flex;
+  flex: 1;
+  position: relative;
+  background-color: white;
+}
+
+.filelist {
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.filelist .btn-file {
+  margin-top: 10px;
+}
+
+
+.file-disp {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  border-bottom: 1px solid var(--fileupload-display-line-color);
+  color: var(--fileupload-display-no-file-color);
+  align-items: center;
+  height: 32px;
+}
+
+.file-disp .status {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: flex-start;
+
+}
+
+.file-disp .fileicon {
+  max-height: 16px;
+  max-width: 16px;
+  fill: var(--fileupload-display-file-color);
+  margin-left: auto;
+  margin-right: 12px;
+}
+
+
+.filelist .file-disp .close:hover {
+  fill: var(--fileupload-display-close-color-hover);
+}
+
+.filelist .file-disp .close {
+  cursor: pointer;
+  max-height: 12px;
+  max-width: 12px;
+  fill: var(--fileupload-display-close-color);
+  margin-right: 12px;
+  margin-left: auto;
+}
+
+.filelist .status .progressbar {
+  position: absolute;
+  height: 10px;
+  background-color: var(--cp-grey-light);
+  bottom: 10px;
+}
+
+.filelist .status .totalbar {
+  position: absolute;
+  height: 10px;
+  width: 100%;
+  background-color: var(--cp-grey-bright);
+  bottom: 10px;
+}
+
+.file-content {
+  max-width: 800px;
+  word-wrap: break-word;
+}
+
+.hide-me {
+  height: 0.01px;
+  width: 0.01px;
+  visibility: none;
+  position: absolute;
+}

@@ -1,0 +1,34 @@
+<div class="filelist">
+  <div class="file-disp font-no-file"
+       ng-if="$ctrl.files.length == 0">no file</div>
+  <div class="file-disp"
+       ng-repeat="f in $ctrl.files">
+    <div ng-show="f.ready"
+         class="status">
+      <div class="font-file-list filename">{{f.name}} ( {{ f.displaysize }} {{$ctrl.units[f.unit]}} )</div>
+      <!-- <svg class="fileicon">
+        <use xlink:href="imgs/icons.svg#document"></use>
+      </svg> -->
+      <svg class="close"
+           ng-click="$ctrl.RemoveFile(f)">
+        <use xlink:href="imgs/icons.svg#x"></use>
+      </svg>
+    </div>
+    <div ng-hide="f.ready"
+         class="status">
+      <div class="progressbar"
+           ng-class="{complete: f.complete }"
+           ng-style="{width: f.status}"></div>
+      <div class="totalbar"></div>
+    </div>
+
+  </div><label ng-hide="$ctrl.Full()"
+         for="{{ $ctrl.id }}"
+         class="btn-file btn btn-small btn-def-bsc">choose file</label>
+</div>
+<input id="{{ $ctrl.id }}"
+       class="hide-me"
+       type="file"
+       file-reader
+       multiple
+       ng-model="$ctrl.filelist">
