@@ -562,7 +562,7 @@ var configstates = {
     }
   },
   "tmsapp.main.testpg.forms.section": {
-    url: "/single",
+    url: "/section",
     views: {
       "content@tmsapp.main": {
         component: "insuranceForm"
