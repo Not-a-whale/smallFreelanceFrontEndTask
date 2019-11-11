@@ -8,6 +8,7 @@ use Try::Tiny;
 
 use TMS::Transport::Dancer::Navigation;
 use TMS::Transport::Dancer::TransactionTemplate;
+use TMS::Transport::Dancer::FileUpload;
 
 set session => 'Simple';
 set engines => {
