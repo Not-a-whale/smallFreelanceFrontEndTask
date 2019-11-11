@@ -1,0 +1,23 @@
+<div ng-show="$ctrl.files.length == 0"
+     class="drag-context">
+  <svg class="camera">
+    <use xlink:href="imgs/icons.svg#camera"></use>
+  </svg>
+  <div class="font-image-upload-text">click or drag to upload image</div>
+</div>
+<div ng-hide="$ctrl.files.length == 0"
+     class="drag-context">
+  <img ng-src="{{ $ctrl.files[0].content}}">
+  <svg ng-click="$ctrl.ClearFiles()"
+       class="close">
+    <use xlink:href="imgs/icons.svg#x"></use>
+  </svg>
+</div>
+<label for="{{ $ctrl.id }}"
+       title="{{ $ctrl.files[0].name }}">
+  <input id="{{ $ctrl.id }}"
+         class="file-drop"
+         type="file"
+         file-reader
+         ng-model="$ctrl.filelist">
+</label>
