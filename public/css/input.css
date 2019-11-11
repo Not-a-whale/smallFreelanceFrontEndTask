@@ -1,0 +1,189 @@
+select,
+input {
+  width: 100%;
+}
+
+/* ----------- LABEL FOR ALL INPUT TYPES -------------- */
+label {
+  font-size: var(--font-small) !important;
+  font-weight: bold !important;
+  text-transform: capitalize !important;
+  line-height: var(--font-line-large) !important;
+}
+
+input:not(:valid):not(:disabled)+label {
+  color: var(--input-color-error);
+}
+
+input:disabled+label {
+  color: var(--cp-background);
+}
+
+generic-input,
+bound-input {
+  width: 100%;
+}
+
+/* ------------------------------ INPUTS ----------------------------------- */
+/*  this is to order the label and input
+    because CSS cant let you grab elements to the left of other elements
+    =( */
+
+typeinput,
+typeinputlist,
+typeselect {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 22px !important;
+}
+
+/* sortification */
+typeinput label,
+typeinputlist label,
+typeselect label {
+  order: 1;
+}
+
+typeinput input,
+typeinputlist input,
+typeselect select {
+  order: 2;
+}
+
+typeinput .error-msg,
+typeselect .error-msg,
+typeinputlist .error-msg {
+  order: 3;
+  position: absolute;
+  top: 59px;
+}
+
+/* for required asterisk */
+typeinput input:required+label:after,
+typeselect select:required+label:after,
+typeinputlist input:required+label:after {
+  content: ' *';
+}
+
+/* default input behavior */
+typeinputlist input,
+typeselect select,
+typeinput input {
+  min-width: 10px;
+  flex-basis: auto;
+  min-height: var(--input-height-min);
+  height: var(--input-height);
+  width: 100%;
+  padding-left: 5px;
+  border-radius: 2px;
+  border: 1px solid var(--input-color-default);
+  box-sizing: border-box;
+}
+
+typeselect select {
+  background: url(/imgs/select_arrow/default.svg);
+  -webkit-appearance: none;
+  background-color: var(--input-color-background);
+  background-position: right 8px top 5px;
+  background-repeat: no-repeat;
+}
+
+typeselect select:disabled,
+typeselect select:disabled:hover {
+  background: url(/imgs/select_arrow/disabled.svg);
+  -webkit-appearance: none;
+  background-position: right 8px top 5px;
+  background-repeat: no-repeat;
+  border: 1px solid var(--input-color-disabled);
+  background-color: var(--input-color-background);
+  outline-color: var(--input-color-disabled);
+  outline-width: 1px;
+  color: var(--input-color-disabled);
+}
+
+typeselect select:focus,
+typeselect select:focus:hover {
+  background: url(/imgs/select_arrow/focus.svg);
+  -webkit-appearance: none;
+  background-color: var(--input-color-background);
+  background-position: right 8px top 5px;
+  background-repeat: no-repeat;
+}
+
+
+typeselect select:invalid,
+typeselect select:invalid:hover {
+  background: url(/imgs/select_arrow/invalid.svg);
+  -webkit-appearance: none;
+  background-color: var(--input-color-background);
+  background-position: right 8px top 5px;
+  background-repeat: no-repeat;
+}
+
+
+typeselect select:hover {
+  background: url(/imgs/select_arrow/hover.svg);
+  -webkit-appearance: none;
+  background-color: var(--input-color-background);
+  background-position: right 8px top 5px;
+  background-repeat: no-repeat;
+}
+
+typeinputlist input:hover,
+typeselect select:hover,
+typeinput input:hover {
+  border: 1px solid var(--input-color-hover);
+}
+
+typeinputlist input:focus,
+typeselect select:focus,
+typeinput input:focus {
+  outline-color: var(--input-color-active);
+}
+
+typeinputlist input:disabled,
+typeinput input:disabled {
+  border: 1px solid var(--input-color-disabled);
+  background-color: var(--input-color-background);
+  outline-color: var(--input-color-disabled);
+  outline-width: 1px;
+  color: var(--input-color-disabled);
+}
+
+typeinputlist input.invalid:not(:disabled),
+typeselect select:invalid,
+typeinput input:invalid {
+  outline-color: var(--input-color-error);
+  outline-width: 1px;
+  border: 1px solid var(--input-color-error);
+  color: var(--input-color-error);
+}
+
+typeinputlist input:disabled+label,
+typeselect select:disabled+label,
+typeinput input:disabled+label {
+  color: var(--input-color-disabled);
+}
+
+typeinputlist input.invalid:not(:disabled)+label,
+typeselect select:invalid+label,
+typeinput input:invalid+label {
+  color: var(--input-color-error);
+}
+
+typeinputlist input.ng-valid~.error-msg,
+typeinputlist input:disabled~.error-msg,
+typeselect select:valid~.error-msg,
+typeselect select:disabled~.error-msg,
+typeinput input:valid~.error-msg,
+typeinput input:disabled~.error-msg {
+  display: none;
+}
+
+/* ------ CUSTOM INPUT TYPES --------- */
+
+.head>.search>* input {
+  min-height: var(--table-search-input-height-min);
+  height: var(--table-search-input-height);
+}
