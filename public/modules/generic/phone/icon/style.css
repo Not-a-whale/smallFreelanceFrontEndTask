@@ -1,0 +1,25 @@
+:root {
+  --phone-icon-size: 20px;
+
+  --phone-icon-color: var(--cp-primary);
+  --phone-icon-color-hover: var(--cp-primary-mid);
+  --phone-bg-color: var(--cp-highlight);
+}
+
+
+phone-icon {
+  position: relative;
+  cursor: pointer;
+}
+
+phone-icon svg {
+  fill: var(--phone-icon-color);
+  max-width: var(--phone-icon-size);
+  max-height: var(--phone-icon-size);
+  position: absolute;
+  background-color: var(--phone-bg-color);
+}
+
+phone-icon:hover svg {
+  fill: var(--phone-icon-color-hover);
+}
