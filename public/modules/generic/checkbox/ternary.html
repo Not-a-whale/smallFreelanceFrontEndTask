@@ -1,4 +1,5 @@
 <checkbox ng-attr-id="{{$ctrl.id}}"
+          ng-class="{some: $ctrl.value != $ctrl.onValue && $ctrl.value != $ctrl.offValue}"
           ng-click="$ctrl.Toggle()">
        <input type="checkbox"
               ng-model="$ctrl.showValue"
