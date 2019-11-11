@@ -1,0 +1,22 @@
+<div class="banner">
+  <div class="colhead {{ tctrl.colsize[$index] }}"
+       ng-repeat="h in tctrl.headers">
+    <div class="colname font-tbl-head"
+         ng-click="tctrl.SearchFocus($index);tctrl.SearchExpand();">{{ h }}</div>
+    <svg class="sort-arrow top"
+         ng-click="tctrl.SearchExpand()">
+      <use xlink:href="imgs/icons.svg#triangle"></use>
+    </svg>
+    <svg class="sort-arrow bottom"
+         ng-click="tctrl.SearchExpand()">
+      <use xlink:href="imgs/icons.svg#triangle"></use>
+    </svg>
+  </div>
+</div>
+<div class="dropdown"
+     ng-class="{expanded: tctrl.expanded}"
+     ng-click="tctrl.SearchToggle()">
+  <svg class="dropdown-arrow">
+    <use xlink:href="imgs/icons.svg#arrow-incomplete"></use>
+  </svg>
+</div>

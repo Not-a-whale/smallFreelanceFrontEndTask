@@ -1,53 +1,131 @@
 class GenericTableCtrl {
-  constructor(getid, $scope, $http) {
+  constructor(getid, scope, element, timeout) {
     this.id = getid();
-    this.$scope = $scope;
-    this.$http = $http;
+    this.scope = scope;
+    this.element = element;
+    this.timeout = timeout;
+    this.timeoutCall = {};
     this.list = []; // the contents to display
     this.headers = []; // display the headers
     this.search = []; // the search fields
-    this.url = undefined; // required to fetch data
+    this.searchVal = {};
     this.expanded = false;
     this.selectCount = 0;
     this.rows = 10;
     this.page = 1;
+    this.rowHeight = '50px';
+    // tables will have a maximum of 12 columns
+    // the numbers must add up to at most 12.
+    // the headers object attribute will be the determining factor
+    // for how many columns there are.
+    this.colsize = [
+      'c1', 'c1', 'c1',
+      'c1', 'c1', 'c1',
+      'c1', 'c1', 'c1',
+      'c1', 'c1', 'c1'
+    ];
+
+    this.searchView = "table_search";
+    this.selectView = "table_select";
+    this.contentView = "table_content";
+    this.editView = "table_edit";
+    this.bannerView = "table_banner";
+
+  }
+
+  _SelectMulti(item) {
+    item.selected = !item.selected;
+  }
+
+  _SelectSingle(item) {
+    if (item.selected) {
+      item.selected = false;
+    } else {
+      for (let l of this.list) {
+        l.selected = false;
+      }
+
+      item.selected = true;
+    }
+  }
+
+  Select(item) {
+    this._SelectMulti(item);
   }
 
   SelectCount() {
-    return this.selectCount;
+    let totalselected = 0;
+    for (let el of this.list) {
+      if (el.selected) {
+        totalselected++;
+      }
+    }
+    this.selectCount = totalselected;
+    return totalselected;
+  }
+
+  SelectAll() {
+    for (let el of this.list) {
+      el.selected = true;
+    }
+    this.SelectCount();
+  }
+
+  SelectClear() {
+    for (let el of this.list) {
+      el.selected = false;
+    }
+    this.selectCount = 0;
   }
 
   SelectToggle() {
-    if (this.selectCount != this.list.length) {
-      this.list.forEach((x) => {
-        x.selected = true;
-      });
-      this.selectCount = this.list.length;
+    let selected = this.SelectCount();
+    if (selected < this.list.length) {
+      this.SelectAll();
     } else {
       this.SelectClear();
     }
+  }
+
+  SearchExpand() {
+    this.expanded = true;
   }
 
   SearchToggle() {
     this.expanded = !this.expanded;
   }
 
-  Select(element) {
-    element.selected = !element.selected;
+  SearchField(field, value) {
+    this.searchVal[field] = value;
+    this.Search();
+  }
 
-    if (element.selected) {
-      this.selectCount++;
-    } else {
-      this.selectCount--;
+  Search() {
+    if (this.onSearch instanceof Function) {
+      this.timeout.cancel(this.timeoutCall['search']);
+      var self = this;
+      this.timeoutCall['search'] = this.timeout(
+        function () {
+          self.onSearch({
+            data: self.searchVal
+          });
+        }, 500);
     }
   }
 
-  SelectClear() {
-    this.list.forEach((x) => {
-      x.selected = false;
-    });
+  SearchFocus(index) {
+    var self = this;
+    var focusfun = function () {
+      self.scope.$broadcast('SearchFocus', {
+        'index': index
+      });
+    };
+    if (this.expanded) {
+      focusfun();
+    } else {
+      this.timeout(focusfun, 150);
+    }
 
-    this.selectCount = 0;
   }
 
   BuildSearchQuery() {
@@ -62,87 +140,76 @@ class GenericTableCtrl {
   }
 
   $onInit() {
-    var self = this;
-    if (self.url) {
-      this.$http.get(this.BuildQuery()).then(function (res) {
-        self.list = res.data.DATA.list;
-        self.headers = res.data.DATA.headers;
-      }, function (res) {
-        console.error(res.statusText);
-      })
-    } else {
-      console.error("No url provided for table " + this.id);
+    this.SelectCount();
+  }
+}
+
+
+class GenericTableSearchCtrl {
+  constructor(getid) {
+    this.id = getid();
+    this.search = [];
+    this.colsize = [];
+  }
+
+  $onInit() {
+    if (this.search == undefined) {
+      let id = this.id;
+      console.error("No search list provided for table search " + id);
     }
   }
 }
 
-app.directive("genericTable", function () {
-  return {
-    scope: {
-      url: '@?'
-    },
-    restrict: 'E',
-    bindToController: true,
-    controllerAs: '$ctrl',
-    transclude: true,
-    templateUrl: "/modules/generic/table/default.html",
-    controller: ["getid", "$scope", "$http", GenericTableCtrl],
-    compile: function compile(tElement, tAttrs) {
-      var table = tElement.children();
-      var select = table[0].querySelector('.header .select .options');
-      var search = table[0].querySelector('.header .search .options');
-      var rows = table[0].querySelector('.body .row .content');
-      var options = table[0].querySelector('.body .row .options');
-      tElement.html('');
-      tElement.append(table);
-      return {
-        pre: function preLink(scope, iElement, iAttrs, ctrl, transclude) {
-          transclude(function (transEl) {
-            Object.values(transEl).forEach(el => {
-              console.log(el.tagName);
-              let element = undefined;
-              switch (el.tagName) {
-                case "TABLE-ROW":
-                  element = rows;
-                  break;
-                case "TABLE-ROW-OPTIONS":
-                  element = options;
-                  break;
-                case "TABLE-SELECT-OPTIONS":
-                  element = select;
-                  break;
-                case "TABLE-SEARCH-OPTIONS":
-                  element = search;
-                  break;
-              }
-              if (element != undefined) {
-                element.append(el);
+app.controller("GenericTableSearchCtrl", ['getid', GenericTableSearchCtrl]);
 
-                // Object.values(el.children).forEach(x => {
-                //   if (x != undefined) {
-                //     if (typeof (x) != 'number' && x.nodeName != "#text") {
-                //       console.log(x);
-                //       element.append(x);
-                //     }
-                //   }
-                // });
+app.controller("GenericTableCtrl", ['getid', '$scope', '$element', '$timeout', GenericTableCtrl]);
 
-              }
+var table_bindings = {
+  list: '<?', // items to display inside of the row
+  headers: '<?', // the header names in list order
+  search: '<?', // the search names for the headers, this dictates no. of cols
+  colsize: '<?', // the sizes of the columns
+  rowHeight: '@?', // the min-height of the rows
+  searchView: '@?', // name of the view that the search bar goes into
+  selectView: '@?', // name of the view that the extra options for selected
+  contentView: '@?', // name of view that the row template goes into, this can include options
+  onSearch: '&' // when the user searches, this function is called table just passes it the search data object
+};
 
-            });
-
-            // Object.values(transEl).forEach(x => {
-            //   console.log(x.tagName);
-
-
-            //   // group options
-
-            //   // row options
-            // });
-          });
-        },
-        post: function postLink(scope, iElement, iAttrs, ctrl) {}
-      }
-    }
-  }
+app.component("genericTable", {
+  controller: "GenericTableCtrl",
+  controllerAs: "tctrl",
+  templateUrl: "modules/generic/table/selector/default.html",
+  bindings: table_bindings
 });
+
+app.component("genericTableSearch", {
+  controller: "GenericTableSearchCtrl",
+  bindings: {
+    search: '<?', // the search fields
+    colsize: '<?', // used to align the content
+    onSearch: '&' // what to do when user clicks search / types data
+  },
+  templateUrl: "modules/generic/table/search.template.html"
+});
+
+var table_row_bindings = {
+  item: '<',
+  colsize: '<',
+  edit: '<?',
+  onUpdate: '&'
+};
+
+app.component("transactionTableRow", {
+  bindings: table_row_bindings,
+  templateUrl: "modules/generic/table/row_template.html"
+});
+
+app.component("transactionTableRow2", {
+  bindings: table_row_bindings,
+  templateUrl: "modules/generic/table/row_template2.html"
+});
+
+// app.component("tableBanner", {
+//   templateUrl: "modules/generic/table/banner_template.html"
+// });

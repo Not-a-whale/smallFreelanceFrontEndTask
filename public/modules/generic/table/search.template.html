@@ -1,0 +1,4 @@
+<generic-table-search-input ng-repeat="s in $ctrl.search"
+                            index="$index"
+                            on-update="$ctrl.onSearch({field: $ctrl.search[$index], value: value});"
+                            class="{{ $ctrl.colsize[$index] }}"></generic-table-search-input>

@@ -1,0 +1,394 @@
+:root {
+  --table-huge-width: 1672px;
+  --table-large-width: 1390px;
+  --table-medium-width: 1108px;
+  --table-half-width: 826px;
+  --table-small-width: 545px;
+
+  --table-row-height: 90px;
+  --table-row-height-min: 50px;
+  --table-row-margin-bottom: 2px;
+
+  --table-row-select-padding-left: 8px;
+  --table-row-select-padding-right: 8px;
+
+  --table-row-select-width: 32px;
+
+  --table-header-height-max: 34px;
+  --table-header-height: 34px;
+
+  --table-search-height-max: 45px;
+  --table-search-height: 45px;
+
+  --table-search-input-height: 32px;
+  --table-search-input-height-min: 32px;
+
+  --table-select-height-max: 60px;
+  --table-select-height: 60px;
+
+  --table-counter-padding-left: 8px;
+  --table-counter-width-min: 175px;
+  --table-counter-width-max: 230px;
+
+  --table-counter-display-width-min: 22px;
+  --table-counter-display-height: 22px;
+  --table-side-padding: 40px;
+
+  --table-font-hint-color: var(--cp-grey-light);
+  --table-font-heading-color: var(--cp-highlight);
+
+  --table-banner-bg-color: var(--cp-usko-red);
+
+  --table-head-icon-color: var(--cp-usko-red-mid);
+  --table-head-icon-color-hover: var(--cp-usko-red-light);
+  --table-head-search-bg-color: var(--cp-usko-red-mid);
+  --table-head-font-color: var(--cp-highlight);
+
+  --table-head-select-bg-color: var(--cp-highlight);
+  --table-head-counter-bg-color: var(--cp-usko-red-mid);
+  --table-head-counter-font-color: var(--cp-highlight);
+
+  --table-body-row-bg-color: var(--cp-highlight);
+  --table-body-row-bg-color-selected: var(--cp-card);
+
+  --table-body-more-color: var(--cp-primary);
+  --table-body-more-color-hover: var(--cp-primary-mid);
+  --table-body-more-color-shy: var(--cp-grey-mid);
+}
+
+
+/* ------ this is for indicating the width of the columns ------------*/
+.c1 {
+  width: 8.33%;
+  flex-basis: 8.33%;
+}
+
+.c2 {
+  width: 16.67%;
+  flex-basis: 16.67%;
+}
+
+.c3 {
+  width: 25%;
+  flex-basis: 25%;
+}
+
+.c4 {
+  width: 33.33%;
+  flex-basis: 33.33%;
+}
+
+.c6 {
+  width: 50%;
+  flex-basis: 50%;
+}
+
+.c8 {
+  width: 66.67%;
+  flex-basis: 66.67%;
+}
+
+.c9 {
+  width: 75%;
+  flex-basis: 75%;
+}
+
+.c10 {
+  width: 83.33%;
+  flex-basis: 83.33%;
+}
+
+.c11 {
+  width: 91.66%;
+  flex-basis: 91.66%
+}
+
+.c12 {
+  width: 100%;
+  /* causing a weird problem where form input fields are too far apart in chrome */
+  /* flex-basis: 100%; */
+}
+
+
+/* ---------------- TABLE SIZES -------------*/
+.table-huge {
+  display: flex;
+  min-width: var(--table-huge-width);
+  max-width: 100%;
+  width: var(--table-huge-width);
+}
+
+.table-large {
+  display: flex;
+  width: var(--table-large-width);
+}
+
+.table-medium {
+  display: flex;
+  width: var(--table-medium-width);
+}
+
+.table-half {
+  display: flex;
+  width: var(--table-half-width);
+}
+
+.table-small {
+  display: flex;
+  width: var(--table-small-width);
+}
+
+/* ------------ COMMON TABLE CSS ----------------*/
+.table {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  max-height: calc(100vh - var(--main-topnav-height));
+}
+
+.table>.head {
+  display: flex;
+  flex-direction: column;
+  min-height: var(--table-header-height-max);
+}
+
+.table>.head>.header {
+  position: relative;
+}
+
+/* padding for extra options and aesthetic reasons */
+.table>.head>.header,
+.table>.head>.search,
+.table>.body>.row .content,
+.table>.body>.row .expansion {
+  padding-left: var(--table-side-padding);
+  padding-right: var(--table-side-padding);
+}
+
+.table>.head>.header,
+.table>.head>.header>.banner {
+  display: flex;
+  flex-direction: row;
+
+  flex: 1;
+
+  z-index: var(--layer-table-header);
+
+  height: var(--table-header-height);
+  max-height: var(--table-header-height-max);
+
+  background-color: var(--table-banner-bg-color);
+  align-items: center;
+  width: 100%;
+}
+
+.table .head .sort-arrow {
+  cursor: pointer;
+  min-width: 16px;
+  max-height: 16px;
+  max-width: 16px;
+  fill: var(--table-head-icon-color);
+}
+
+.table .head .sort-arrow:last-child {
+  margin-left: 4px;
+}
+
+.table .head .sort-arrow.active,
+.table .head .sort-arrow:hover {
+  fill: var(--table-head-icon-color-hover);
+}
+
+.table .head .sort-arrow.top {
+  transform: scaleY(-1);
+}
+
+.table .head .header .banner .colhead {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-right: 6px;
+}
+
+.table .head .header .banner .colname {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+/* This is for the dropdown search functionality */
+.table>.head>.header>.dropdown {
+  position: absolute;
+  right: 0px;
+  min-width: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.table .head .header .dropdown-arrow {
+  max-height: 22px;
+  max-width: 22px;
+  fill: var(--table-head-icon-color);
+  cursor: pointer;
+}
+
+.table .head .header .dropdown-arrow:hover {
+  fill: var(--table-head-icon-color-hover);
+}
+
+
+.table .head .dropdown .dropdown-arrow {
+  transform-origin: 50% 50%;
+  transition: transform 0.125s ease-out;
+}
+
+.table .head .dropdown.expanded .dropdown-arrow {
+  transform: rotate(180deg);
+  transform-origin: 50% 50%;
+  transition: transform 0.125s ease-in;
+}
+
+.table>.head>.search {
+  z-index: var(--layer-table-search);
+  height: 0px;
+  background-color: var(--table-head-search-bg-color);
+
+  transition: height 0.125s ease-in;
+}
+
+.table>.head>.search,
+.table>.head>.search>* {
+  align-items: center;
+  flex-direction: row;
+}
+
+.table>.head>.search>* {
+  display: none;
+}
+
+.table>.head>.search.expanded {
+  max-height: var(--table-search-height-max);
+  height: var(--table-search-height);
+  display: flex;
+}
+
+.table>.head>.search.expanded>* {
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+
+.table>.head>.search>*>* {
+  padding-right: 15px;
+  box-sizing: border-box;
+}
+
+/* --------- COMMON BODY -------------- */
+.table>.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.table .body>.row {
+  position: relative;
+  display: flex;
+  flex-grow: 1;
+  margin-bottom: var(--table-row-margin-bottom);
+  background-color: var(--table-body-row-bg-color);
+  z-index: var(--layer-table-row);
+}
+
+.table>.body .row:hover,
+/* easier to remove than to know to add :not(.selected) */
+.table>.body>.row:not(.selected):hover {
+  box-shadow: var(--shadow-bucket);
+  z-index: var(--layer-table-hover);
+}
+
+
+.table>.body>.row>.content {
+  position: relative;
+  padding-top: 12px;
+  min-height: var(--table-row-height);
+  max-height: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  align-content: flex-start;
+  width: 100%;
+}
+
+/* the component container */
+.table>.body>.row>.content>* {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  width: 100%;
+}
+
+/* the column container */
+.table>.body>.row>.content>*>* {
+
+  flex-direction: column;
+  padding-right: 5px;
+}
+
+.table>.body>.row .options {
+  display: flex;
+  flex: 1;
+  align-items: flex-end;
+  position: absolute;
+  right: 12px;
+  bottom: 7px;
+}
+
+.table>.body>.row .options {
+  visibility: hidden;
+}
+
+
+.table>.body>.row.selected .options,
+.table>.body>.row:hover .options {
+  visibility: visible;
+}
+
+.table>.body>.row .options .more,
+.table>.body>.row>.content .more {
+  color: var(--table-body-more-color-shy);
+  font-style: italic;
+  font-size: var(--font-small);
+  text-decoration: none;
+  text-transform: lowercase;
+  line-height: var(--font-norm);
+  cursor: pointer;
+}
+
+.table>.body>.row.selected .options .more,
+.table>.body>.row.selected>.content .more,
+.table>.body>.row:hover .options .more,
+.table>.body>.row:hover>.content .more {
+
+  margin-top: auto;
+  font-style: normal;
+  font-size: var(--font-norm);
+  text-transform: uppercase;
+  color: var(--table-body-more-color);
+
+}
+
+.table>.body>.row.selected>.content>*>*:not(.options) .more,
+.table>.body>.row:hover>.content>*>*:not(.options) .more {
+  position: relative;
+}
+
+.table>.body>.row:hover .options .more:hover,
+.table>.body>.row:hover>.content .more:hover {
+  color: var(--table-body-more-color-hover);
+}
