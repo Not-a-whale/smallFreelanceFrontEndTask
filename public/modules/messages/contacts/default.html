@@ -1,0 +1,16 @@
+<div ng-hide="$ctrl.HasAvatar()" id="cntcircle">{{ $ctrl.initials }}</div>
+<img ng-show="$ctrl.HasAvatar()" id="cntavatar"
+     class="tool-icons"
+     ng-src="{{$ctrl.contact.avatar}}">
+<div id="info">
+  <div id="cntname">{{ $ctrl.contact.name }}</div>
+  <div id="cntinfo">{{ $ctrl.contact.description }}</div>
+  <div id="cntoptions">
+    <svg id="call" ng-click="$ctrl.Call()">
+      <use xlink:href="imgs/icons.svg#calculator"></use>
+    </svg>
+    <svg id="msg" ng-click="$ctrl.Message()">
+      <use xlink:href="imgs/icons.svg#chat"></use>
+    </svg>
+  </div>
+</div>
