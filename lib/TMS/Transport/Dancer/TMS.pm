@@ -9,12 +9,16 @@ use Try::Tiny;
 use TMS::Transport::Dancer::Navigation;
 use TMS::Transport::Dancer::TransactionTemplate;
 use TMS::Transport::Dancer::FileUpload;
+use TMS::Transport::Dancer::Echo;
 
 set session => 'Simple';
 set engines => {
     serializer => {
         JSON => {
-            allow_nonref => 1
+            allow_nonref => 1,
+            indent => 1,
+            space_after => 1,
+            space_before => 1
         }
     }
 };
