@@ -1,0 +1,11 @@
+<typeinput>
+  <input ng-attr-id="{{$ctrl.id}}"
+         ng-model="$ctrl.gate"
+         ng-required="{{$ctrl.meta.attr.required}}"
+         ng-attr-pattern="{{$ctrl.meta.attr.pattern}}"
+         ng-attr-type="{{$ctrl.type}}"
+         ng-disabled="{{$ctrl.meta.attr.disabled}}"
+         ng-attr-title="{{$ctrl.meta.attr.title}}"/>
+  <label ng-if="$ctrl.meta.attr.label != undefined">{{ $ctrl.meta.attr.label }}</label>
+  <div class="error-msg font-error-msg">{{ $ctrl.meta.attr.errmsg || 'This field is required' }}</div>
+</typeinput>
