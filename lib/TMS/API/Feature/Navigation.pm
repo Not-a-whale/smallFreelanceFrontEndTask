@@ -5,7 +5,7 @@ use Data::Dumper;
 use File::Basename qw(dirname);
 use Cwd qw(realpath getcwd);
 use Carp qw(confess longmess);
-use TMS::StateBuilder;
+
 use Try::Tiny;
 
 sub regenerate_states {
@@ -19,7 +19,7 @@ sub regenerate_states {
             statefn  => 'configstates_compiled.js',
             statedir => getcwd() . '/public/js',
         };
-        TMS::StateBuilder::BuildStatesFile($config);
+
     }
     catch {
         return 500;
