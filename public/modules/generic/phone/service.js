@@ -6,13 +6,17 @@ class PhoneService {
     this.dialurl = 'api/phone/dial';
   }
 
-
   BuildQuery(queryObj) {
     let queryStr = '';
     if (typeof  queryObj  === 'object' && queryObj !== null) {
+      let queryList = [];
       Object.keys(queryObj).forEach((x) => {
-        queryStr += encodeURI(x) + '=' + encodeURI(queryObj[x]);
+        if (queryObj[x] !== undefined){
+          queryList.push(encodeURI(x) + '=' + encodeURI(queryObj[x]));
+        }
       });
+
+      queryStr = queryList.join("&");
     }
     return queryStr;
   }
