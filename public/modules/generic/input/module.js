@@ -99,21 +99,6 @@ search_input_bindings.index = '<?';
 
 app.controller('GenericInputCtrl', ['getid', '$scope', GenericInputCtrl]);
 
-app.component('boundInput', {
-  templateUrl: 'modules/generic/input/default.html',
-  bindings: {
-    value: '=', // this is the input but showValue is the one being changed
-    label: '@?', // indicates to user what the field is for
-    title: '@?', // mouseover hover, displays extra information
-    type: '@?', // externally control the html type attr
-    errmsg: '@?', // error message to display
-    required: '@?', // if the this input field is required
-    pattern: '@?', // externally control the html pattern validation
-    disabled: '@?', // if this input is disabled
-    placeholder: '@?', // what do you want to display
-  }
-});
-
 app.component('genericInput', {
   templateUrl: 'modules/generic/input/default.html',
   controller: 'GenericInputCtrl',
