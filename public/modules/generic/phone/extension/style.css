@@ -1,0 +1,13 @@
+input-phone-ext {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  position: relative;
+}
+
+input-phone-ext .dash {
+  position: relative;
+  margin-left: 4px;
+  margin-right: 4px;
+}

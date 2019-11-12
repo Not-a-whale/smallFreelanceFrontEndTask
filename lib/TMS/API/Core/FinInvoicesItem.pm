@@ -12,7 +12,14 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
+<<<<<<< HEAD
 use TMS::API::Core::FinJob;
+=======
+use TMS::API::Core::FinItemTemplate;
+use TMS::API::Core::HrAssociate;
+use TMS::API::Core::FinJob;
+use TMS::API::Core::FinInvoice;
+>>>>>>> d8b237c0a271ea8cabf70fd6a1180c53f82a77e0
 use TMS::API::Core::FinJournalEntry;
 use TMS::API::Core::HrAssociate;
 use TMS::API::Core::FinItemTemplate;

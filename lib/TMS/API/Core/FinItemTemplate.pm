@@ -12,11 +12,19 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
+<<<<<<< HEAD
 use TMS::API::Core::Entity;
 use TMS::API::Core::HrAssociate;
 use TMS::API::Core::FinAccount;
 use TMS::API::Core::FinItemTemplatesType;
 use TMS::API::Core::FinTransactionType;
+=======
+use TMS::API::Core::FinAccount;
+use TMS::API::Core::Entity;
+use TMS::API::Core::FinItemTemplatesType;
+use TMS::API::Core::FinTransactionType;
+use TMS::API::Core::HrAssociate;
+>>>>>>> d8b237c0a271ea8cabf70fd6a1180c53f82a77e0
 
 # AUTO-GENERATED DEPENDENCIES END
 

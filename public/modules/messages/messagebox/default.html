@@ -1,0 +1,13 @@
+<div id="msginfo">
+  <div id="name">{{$ctrl.message.name}}</div>
+  <div id="timestamp">{{$ctrl.message.time}}, {{ $ctrl.message.date}}</div>
+  <svg id="X" ng-click="$ctrl.Remove()"><use xlink:href="imgs/icons.svg#x"></use></svg>
+</div>
+<div id="msgbody">
+    {{ $ctrl.display }}
+</div>
+<div id="msgoptions">
+  <svg id="call"><use xlink:href="imgs/icons.svg#addressbook"></use></svg>
+  <svg id="chat"><use xlink:href="imgs/icons.svg#chat"></use></svg>
+  <div id="qresp">quick response</div>
+</div>

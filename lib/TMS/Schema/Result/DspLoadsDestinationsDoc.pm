@@ -26,6 +26,14 @@ __PACKAGE__->table("dsp_loads_destinations_docs");
 
 =head1 ACCESSORS
 
+=head2 DestFileId
+
+  accessor: 'dest_file_id'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_auto_increment: 1
+  is_nullable: 0
+
 =head2 LoadDestinationId
 
   accessor: 'load_destination_id'
@@ -60,6 +68,14 @@ __PACKAGE__->table("dsp_loads_destinations_docs");
 =cut
 
 __PACKAGE__->add_columns(
+  "DestFileId",
+  {
+    accessor => "dest_file_id",
+    data_type => "bigint",
+    extra => { unsigned => 1 },
+    is_auto_increment => 1,
+    is_nullable => 0,
+  },
   "LoadDestinationId",
   {
     accessor       => "load_destination_id",
@@ -97,6 +113,20 @@ __PACKAGE__->add_columns(
 
 =over 4
 
+=item * L</DestFileId>
+
+=back
+
+=cut
+
+__PACKAGE__->set_primary_key("DestFileId");
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<LoadDestUnqDoc>
+
+=over 4
+
 =item * L</LoadDestinationId>
 
 =item * L</FileId>
@@ -105,7 +135,7 @@ __PACKAGE__->add_columns(
 
 =cut
 
-__PACKAGE__->set_primary_key("LoadDestinationId", "FileId");
+__PACKAGE__->add_unique_constraint("LoadDestUnqDoc", ["LoadDestinationId", "FileId"]);
 
 =head1 RELATIONS
 
@@ -155,8 +185,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:uN6BFh2QlmebiLZ4e21eOw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5v/nW/kZ8M+XCy5rwPWyCQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

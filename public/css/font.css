@@ -1,34 +1,3 @@
-/* ------------------------------- FONTS ----------------------------------- */
-.font-h1 {
-  font-size: var(--font-super);
-  color: var(--color-tone-dark);
-  font-weight: bold;
-}
-
-.font-h2 {
-  font-size: var(--font-giant);
-  color: var(--color-tone-dark);
-  font-weight: bold;
-}
-
-.font-h3 {
-  font-size: var(--font-large);
-  color: var(--color-tone-dark);
-  font-weight: bold;
-}
-
-.font-h4 {
-  font-size: var(--font-norm);
-  color: var(--color-tone-dark);
-  font-weight: bold;
-}
-
-.font-h5 {
-  font-size: var(--font-small);
-  color: var(--color-tone-dark);
-  font-weight: bold;
-}
-
 .bold {
   font-weight: bold !important;
 }
@@ -38,12 +7,271 @@
 }
 
 .upper {
-  text-transform: uppercase;
+  text-transform: uppercase !important;
 }
 
 .caps {
+  text-transform: capitalize !important;
+}
+
+/* ------------- UPDATED FONTS -----------------*/
+.font-body {
+  font-weight: var(--font-weight-norm);
+  font-size: var(--font-norm);
+}
+
+.font-form-list-title {
+  text-transform: uppercase;
+  font-size: var(--font-norm);
+  font-weight: var(--font-weight-norm);
+  color: var(--form-nav-banner-font-color);
+}
+
+.font-form-list {
+  color: var(--form-font-color-list);
+  text-transform: uppercase;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-norm);
+}
+
+.font-form-list.optional {
+  color: var(--form-font-color-optional);
+  text-transform: uppercase;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-norm);
+}
+
+.active .font-form-list {
+  color: var(--form-font-color-active);
+  font-weight: var(--font-weight-medium);
+}
+
+.font-form-list:hover {
+  color: var(--form-font-color-hover);
+}
+
+.font-form-list-removable {
+  font-style: italic;
+  font-size: var(--font-tiny);
+  color: var(--form-font-color-list);
+
   text-transform: capitalize;
 }
+
+.font-form-head-removable {
+  font-size: var(--font-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--cp-primary);
+  text-transform: uppercase;
+}
+
+.font-form-head {
+  font-family: var(--font-family-second);
+  color: var(--form-font-head-color);
+  text-transform: uppercase;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-giant);
+}
+
+.font-subhead {
+  font-family: var(--font-family-second);
+  text-transform: uppercase;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-norm);
+}
+
+.font-subtitle {
+  text-transform: uppercase;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-norm);
+}
+
+.font-byline {
+  color: var(--byline-font-color);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-norm);
+}
+
+.font-table-primary {
+  font-family: var(--font-family-second);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-norm);
+}
+
+.font-table-bold {
+  font-family: var(--font-family-second);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-small);
+}
+
+.font-table-norm {
+  font-family: var(--font-family-second);
+  font-weight: var(--font-weight-norm);
+  font-size: var(--font-small);
+}
+
+.font-table-hint {
+  font-family: var(--font-family-second);
+  color: var(--table-font-hint-color);
+  font-weight: var(--font-weight-norm);
+  font-size: var(--font-small);
+  font-style: italic;
+}
+
+.font-table-heading {
+  color: var(--table-font-heading-color);
+  text-transform: uppercase;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-small);
+}
+
+
+/*used for checkbox and pill labels, table footer text*/
+
+.font-label {
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-norm),
+}
+
+
+/*used for the digits in the table footer text*/
+
+.font-label-bold {
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-norm),
+}
+
+.font-label-card {
+  color: var(--color-tone-firm);
+  text-transform: uppercase;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-small);
+}
+
+
+/*used for input labels and prev pg crumbs*/
+
+.font-label-input {
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-small),
+}
+
+/* btn font is explicitly only for buttons therefore you shall look inside of the buttons.css for the font
+
+/*used for the labels of buttons with no borders*/
+
+.btn- {
+  color: var(--color-primary-new);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-small),
+}
+
+.font-crumbs-current {
+  color: var(--color-tone-firm);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-small),
+}
+
+.font-charcnt {
+  color: var(--color-tone-firm);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-tiny);
+}
+
+
+.font-no-file {
+  color: var(--fileupload-display-no-file-color);
+  font-style: italic;
+  font-size: var(--font-small);
+  font-weight: var(--font-norm);
+  text-transform: capitalize;
+}
+
+.font-file-list {
+  color: var(--fileupload-display-file-color);
+  font-size: var(--font-small);
+  font-weight: var(--font-norm);
+  font-family: var(--font-family-second);
+}
+
+.font-image-upload-text {
+  font-size: var(--font-small);
+  text-transform: uppercase;
+  color: var(--imgupload-line-color);
+}
+
+/* used in primary side navbar */
+.font-nav-cat {
+  font-size: var(--font-small);
+  color: var(--navbar-font-nav-color);
+  text-transform: uppercase;
+  font-family: var(--font-family-primary);
+}
+
+.font-nav {
+  font-size: var(--font-large);
+  font-weight: normal;
+  text-transform: uppercase;
+  color: var(--navbar-font-nav-color);
+  font-family: var(--font-family-second);
+
+}
+
+.font-nav2 {
+  font-size: var(--font-norm);
+  font-weight: normal;
+  text-transform: capitalize;
+  color: var(--navbar-font-nav-color);
+  font-family: var(--font-family-second);
+}
+
+.font-nav.active,
+.font-nav2.active {
+  /* important used to override :hover*/
+  color: var(--navbar-font-nav-color-active) !important;
+}
+
+.font-nav:hover,
+.font-nav2:hover {
+  color: var(--navbar-font-nav-color-hover);
+  cursor: pointer;
+}
+
+.font-prfl-set {
+  color: var(--topnav-profile-font-color);
+  font-size: var(--font-small);
+  text-transform: capitalize;
+  line-height: 20px;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-medium)
+}
+
+.font-tbl-head{
+  color: var(--table-head-font-color);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-norm);
+  font-weight: medium;
+  text-transform: uppercase;
+}
+
+.font-tbl-cnt-head {
+  font-family: var(--font-family-second);
+  font-weight: bold;
+  font-size: var(--font-small);
+  line-height: var(--font-small);
+}
+
+.font-tbl-cnt {
+  font-family: var(--font-family-second);
+  font-weight: normal;
+  font-size: var(--font-small);
+  line-height: var(--font-small);
+}
+
+
+
+/* ------------------------------- DEPRECATED FONTS ----------------------------------- */
+
 
 .font-link {
   /* used for text that needs to appear as a link */
@@ -68,37 +296,13 @@
   font-weight: bold;
 }
 
-.font-sm {
-  /* use to explicity specify small font */
-  font-size: var(--font-small);
-}
-
-.font-nm {
-  /* use to explicity specify font that is normal */
-  font-size: var(--font-norm);
-}
-
-.font-lg {
-  /* use to explicity specify font that is larger than normal */
-  font-size: var(--font-large);
-}
-
-.font-gt {
-  /* use to explicitly specify font that is more larger than normal */
-  font-size: var(--font-giant);
-}
-
-.font-sp {
-  /* use to explicitly specify the largest font */
-  font-size: var(--font-super);
-}
-
 /* used inside of the secondary navbar for title */
 .font-page-title {
   font-size: var(--font-super);
-  color: var(--color-tone-heavy);
   font-weight: bold;
   text-transform: uppercase;
+  line-height: var(--font-super);
+  font-family: var(--font-family-second);
 }
 
 /* primary tab font */
@@ -131,42 +335,7 @@
   color: var(--color-highlight-bright) !important;
 }
 
-/* used in primary side navbar */
-.font-nav-cat {
-  font-size: var(--font-small);
-  color: var(--color-tone-firm);
-  text-transform: uppercase;
-  font-family: var(--font-family-second);
-}
 
-.font-nav {
-  font-size: var(--font-large);
-  font-weight: normal;
-  text-transform: uppercase;
-  color: var(--color-tone-firm);
-  font-family: var(--font-family-primary);
-
-}
-
-.font-nav2 {
-  font-size: var(--font-norm);
-  font-weight: normal;
-  text-transform: capitalize;
-  color: var(--color-tone-firm);
-  font-family: var(--font-family-primary);
-}
-
-.font-nav.active,
-.font-nav2.active {
-  /* important used to override :hover*/
-  color: var(--color-highlight-bright) !important;
-}
-
-.font-nav:hover,
-.font-nav2:hover {
-  color: var(--color-tone-middle);
-  cursor: pointer;
-}
 
 
 /* used for links */
@@ -206,4 +375,14 @@
 
 .font-sub-head-imp {
   color: var(--color-accent-default);
+}
+
+
+
+
+
+.font-error-msg {
+  color: var(--input-color-error);
+  font-size: var(--font-small);
+  font-family: var(--font-family-second);
 }

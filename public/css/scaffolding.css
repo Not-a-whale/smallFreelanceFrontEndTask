@@ -4,13 +4,47 @@
   display: flex;
   flex-direction: row;
   justify-content: left;
-  background: var(--color-background);
+  background: var(--cp-background);
   flex: 1;
   height: 100%;
 }
 
 /* -------------------------------- Main Layout ---------------------------- */
-#main-layout-container {
+main-layout {
+  --navbar-width: 196px;
+  --navbar-width-min: 64px;
+
+
+  --topnav-menu-height: 95px;
+  --topnav-breadbar-height: 32px;
+  --topnav-height: calc(var(--topnav-menu-height) + var(--topnav-breadbar-height));
+  --topnav-menu-title-width: 225px;
+
+  --topnav-bg-color: var(--cp-card);
+  --topnav-top-border-color: var(--cp-background);
+  --topnav-new-btn-bg-color: var(--cp-highlight);
+  --topnav-new-btn-bg-color-hover: var(--cp-card);
+
+  --topnav-profile-color: var(--cp-grey-light);
+  --topnav-profile-color-hover: var(--cp-background);
+  --topnav-profile-font-color: var(--cp-grey-mid);
+
+  --topnav-icons-color: var(--cp-grey-light);
+  --topnav-icons-color-hover: var(--cp-grey-mid);
+  --topnav-icons-notice-color: var(--cp-usko-red-mid);
+  --topnav-icons-notice-color-hover: var(--cp-usko-red);
+
+  --navbar-menu-top: 168px;
+  --navbar-collapse-top: 134px;
+  --navbar-collapse-left: 200px;
+  --navbar-collapse-left-min: 16px;
+
+  --navbar-bg-color: var(--cp-grey-heavy);
+  --navbar-fancy-bg-color: var(--cp-highlight);
+  --navbar-font-nav-color: var(--cp-grey-light);
+  --navbar-font-nav-color-active: var(--cp-highlight);
+  --navbar-font-nav-color-hover: var(--cp-grey-mid);
+
   display: flex;
   flex-direction: row;
   justify-content: left;
@@ -28,7 +62,7 @@
 }
 
 #main-navbar-container.collapsed {
-  width: var(--main-navbar-width-min);
+  width: var(--navbar-width-min);
 }
 
 
@@ -36,12 +70,13 @@
   display: flex;
   flex-direction: column;
   flex: 1;
+  max-width: calc(100vw - var(--navbar-width-min));
 }
 
 #main-topnav-container {
   display: flex;
   flex-direction: row;
-  height: var(--main-topnav-height);
+  height: var(--topnav-height);
 }
 
 #main-content-container {
@@ -49,12 +84,15 @@
   flex-direction: column;
   flex: 1;
 
+  overflow-x: hidden;
   overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
 
   /*height: calc(100% - var(--main-topnav-height));*/
   width: 100%;
+  padding-left: var(--layout-page-content-margin);
+  padding-right: var(--layout-page-content-margin);
 }
 
 #main-content-container::-webkit-scrollbar {

@@ -125,19 +125,9 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
-=head2 roles
 
-Type: many_to_many
-
-Composing rels: L</app_role_permissions> -> role
-
-=cut
-
-__PACKAGE__->many_to_many("roles", "app_role_permissions", "role");
-
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:+Lp8PLvaFNMNhmzITP8gpw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1wVsKkwYEfxbSCJOh7FUYA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

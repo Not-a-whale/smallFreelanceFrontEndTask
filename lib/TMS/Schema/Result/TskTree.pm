@@ -26,6 +26,13 @@ __PACKAGE__->table("tsk_trees");
 
 =head1 ACCESSORS
 
+=head2 ans_des_id
+
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_auto_increment: 1
+  is_nullable: 0
+
 =head2 ancestor
 
   data_type: 'bigint'
@@ -49,6 +56,13 @@ __PACKAGE__->table("tsk_trees");
 =cut
 
 __PACKAGE__->add_columns(
+  "ans_des_id",
+  {
+    data_type => "bigint",
+    extra => { unsigned => 1 },
+    is_auto_increment => 1,
+    is_nullable => 0,
+  },
   "ancestor",
   {
     data_type => "bigint",
@@ -71,6 +85,20 @@ __PACKAGE__->add_columns(
 
 =over 4
 
+=item * L</ans_des_id>
+
+=back
+
+=cut
+
+__PACKAGE__->set_primary_key("ans_des_id");
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<TskAnsDesUnq>
+
+=over 4
+
 =item * L</ancestor>
 
 =item * L</descendant>
@@ -79,7 +107,7 @@ __PACKAGE__->add_columns(
 
 =cut
 
-__PACKAGE__->set_primary_key("ancestor", "descendant");
+__PACKAGE__->add_unique_constraint("TskAnsDesUnq", ["ancestor", "descendant"]);
 
 =head1 RELATIONS
 
@@ -114,8 +142,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:QI8mFHt+0uK/eX0TGGxoDQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:sGkkAJ8ERsCBKFtR34uvWQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

@@ -27,9 +27,15 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has CarrierId          => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EntBusinessObj | Int ',);
+<<<<<<< HEAD
 has MC                 => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'MCnum',);
 has McCertificatePhoto => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'GenFileObj | Int ',);
 has DOT                => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DOTnum',);
+=======
+has MC                 => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has McCertificatePhoto => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'GenFileObj | Int ',);
+has DOT                => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+>>>>>>> d8b237c0a271ea8cabf70fd6a1180c53f82a77e0
 has CrType             => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EnumCompanyCarrier',);
 has IFTA_Acc           => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 has IFTA_State         => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'SupportedStateAbbr',);

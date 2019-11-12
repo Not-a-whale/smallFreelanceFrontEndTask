@@ -15,6 +15,7 @@ use Moose;
 use TMS::API::Core::InvUnit;
 use TMS::API::Core::HrAssociate;
 use TMS::API::Core::InvRole;
+use TMS::API::Core::HrAssociate;
 
 # AUTO-GENERATED DEPENDENCIES END
 

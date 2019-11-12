@@ -26,6 +26,14 @@ __PACKAGE__->table("inv_equipment_to_support");
 
 =head1 ACCESSORS
 
+=head2 EquipSuppId
+
+  accessor: 'equip_supp_id'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_auto_increment: 1
+  is_nullable: 0
+
 =head2 EquipmentId
 
   accessor: 'equipment_id'
@@ -45,6 +53,14 @@ __PACKAGE__->table("inv_equipment_to_support");
 =cut
 
 __PACKAGE__->add_columns(
+  "EquipSuppId",
+  {
+    accessor => "equip_supp_id",
+    data_type => "bigint",
+    extra => { unsigned => 1 },
+    is_auto_increment => 1,
+    is_nullable => 0,
+  },
   "EquipmentId",
   {
     accessor       => "equipment_id",
@@ -67,15 +83,13 @@ __PACKAGE__->add_columns(
 
 =over 4
 
-=item * L</EquipmentId>
-
-=item * L</SupportId>
+=item * L</EquipSuppId>
 
 =back
 
 =cut
 
-__PACKAGE__->set_primary_key("EquipmentId", "SupportId");
+__PACKAGE__->set_primary_key("EquipSuppId");
 
 =head1 RELATIONS
 
@@ -110,8 +124,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:+rOKg1BiX+ADnBUX2rdFBQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:YBt/MxmBh+UK1BfHmdQ5Ww
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

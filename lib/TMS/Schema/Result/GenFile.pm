@@ -381,19 +381,9 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 equipments
 
-Type: many_to_many
-
-Composing rels: L</inv_equipment_docs> -> equipment
-
-=cut
-
-__PACKAGE__->many_to_many("equipments", "inv_equipment_docs", "equipment");
-
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6aTnr82Yq15N4Ko7iCCmKg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:lE16IhnNpioEDXcnFF60cA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

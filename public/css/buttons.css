@@ -1,0 +1,284 @@
+/* -------------------------------- BUTTONS -------------------------------- */
+/* These buttons are for <a></a> tags for now */
+/* will need to add support for actual <input> and <button> */
+
+.btn {
+
+  text-decoration: none;
+  color: var(--btn-font-color);
+  text-transform: uppercase;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-norm);
+  line-height: var(--btn-line-height);
+
+  border-radius: 2px;
+
+
+  display: flex;
+  width: fit-content;
+  justify-content: center;
+  align-items: center;
+
+  flex-basis: auto;
+
+  vertical-align: middle;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.btn * {
+  color: var(--btn-font-color);
+  text-decoration: none;
+  color: var(--btn-font-color);
+  text-transform: uppercase;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-norm);
+  line-height: var(--btn-line-height);
+}
+
+
+*+.btn-icon,
+*+.btn-icon-sm,
+.btn-icon+*,
+.btn-icon-sm+* {
+  margin-left: 12px;
+}
+
+.btn-icon {
+  max-height: 22px;
+  max-width: 22px;
+  fill: var(--btn-font-color);
+}
+
+.btn-icon-sm {
+  max-height: 14px;
+  max-width: 14px;
+  fill: var(--btn-font-color);
+}
+
+a.btn {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-drag: none;
+}
+
+button-icon-only:hover:not([disabled]),
+.btn:hover:not([disabled]) {
+  cursor: pointer;
+  box-shadow: var(--btn-shadow);
+}
+
+.btn-mn {
+  min-width: var(--btn-mini-width-min);
+
+  max-height: var(--btn-mini-height-max);
+  height: var(--btn-mini-height-max);
+
+  padding-left: var(--btn-mini-padding);
+  padding-right: var(--btn-mini-padding);
+}
+
+.btn-sm {
+  min-width: var(--btn-small-width-min);
+
+  max-height: var(--btn-small-height-max);
+  height: var(--btn-small-height-max);
+
+  padding-left: var(--btn-small-padding);
+  padding-right: var(--btn-small-padding);
+}
+
+.btn-lg {
+
+  min-width: var(--btn-large-width-min);
+
+  max-height: var(--btn-large-height-max);
+  height: var(--btn-large-height-max);
+
+  padding-left: var(--btn-large-padding);
+  padding-right: var(--btn-large-padding);
+
+}
+
+.btn-hg {
+  min-width: var(--btn-huge-width-min);
+
+  max-height: var(--btn-huge-height-max);
+  height: var(--btn-huge-height-max);
+
+  padding-left: var(--btn-huge-padding);
+  padding-right: var(--btn-huge-padding);
+
+}
+
+.btn-flex {
+  display: flex;
+  width: 100%;
+}
+
+.btn[disabled],
+.btn:hover[disabled] {
+  background: var(--btn-disabled-color);
+  color: var(--btn-font-color);
+}
+
+
+.btn-def {
+  background: var(--btn-def-color);
+}
+
+.btn-def:hover {
+  background: var(--btn-def-color-hover);
+}
+
+.btn-primary {
+  background: var(--btn-primary-color);
+}
+
+.btn-primary:hover {
+  background: var(--btn-primary-color-hover);
+}
+
+.btn-success {
+  background: var(--btn-success-color);
+}
+
+.btn-success:hover {
+  background: var(--btn-success-color-hover);
+}
+
+.btn-second,
+.btn-second * {
+  background-color: transparent;
+  color: var(--btn-font-color2);
+
+  fill: var(--btn-font-color2);
+}
+
+.btn-second:hover {
+  background: var(--btn-second-color-hover);
+  color: var(--btn-font-color2);
+
+  fill: var(--btn-font-color2);
+}
+
+.btn-info {
+  background: var(--btn-info-color);
+}
+
+.btn-info:hover {
+  background: var(--btn-info-color-hover);
+}
+
+.btn-warn {
+  background: var(--btn-warn-color);
+}
+
+.btn-warn:hover {
+  background: var(--btn-warn-color-hover);
+}
+
+.btn-danger {
+  background: var(--btn-danger-color);
+}
+
+.btn-danger:hover {
+  background: var(--btn-danger-color-hover);
+}
+
+.btn-def-bsc {
+  border: 1px solid var(--btn-def-bsc-color);
+  color: var(--btn-def-color);
+  fill: var(--btn-def-color);
+}
+
+.btn-def-bsc:hover {
+  background: var(--btn-def-bsc-color-hover);
+}
+
+.btn-primary-bsc {
+  border: 1px solid var(--btn-primary-bsc-color);
+  color: var(--btn-primary-bsc-color);
+  fill: var(--btn-primary-bsc-color);
+}
+
+.btn-primary-bsc:hover {
+  background: var(--btn-primary-bsc-color-hover);
+}
+
+.btn-emph {
+  border-radius: 20px;
+}
+
+.btn-primary-icon,
+.btn-primary-icon svg {
+  fill: var(--btn-primary-bsc-color);
+}
+.btn-primary-icon:hover {
+  background-color: var(--btn-primary-bsc-color-hover);
+}
+
+.btn-def-icon,
+.btn-def-icon svg {
+  fill: var(--btn-def-bsc-color);
+}
+
+.btn-def-icon:hover {
+  background-color: var(--btn-def-bsc-color-hover);
+}
+
+scroll-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 40px;
+  border-color: var(--cp-default);
+  border-style: solid !important;
+  border-width: 1px !important;
+  border-radius: 50%;
+  background-color: var(--cp-paper);
+  cursor: pointer;
+}
+
+scroll-btn:hover {
+  box-shadow: 0px 2px 6px var(--color-shadow-soft);
+  background-color: var(--cp-card);
+}
+
+scroll-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+scroll-btn svg.up {
+  transform: rotate(-90deg);
+}
+
+scroll-btn svg.down {
+  transform: rotate(90deg);
+}
+
+scroll-btn svg.left {
+  transform: rotate(180deg);
+}
+
+button-icon-only {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: var(--btn-border-radius);
+  width: var(--btn-height-min);
+  height: var(--btn-height-min);
+  max-height: var(--btn-height-min);
+  min-height: var(--btn-height-min);
+  max-width: var(--btn-height-min);
+  min-width: var(--btn-height-min);
+}
+
+.btn-file {
+  min-width: 25%;
+}

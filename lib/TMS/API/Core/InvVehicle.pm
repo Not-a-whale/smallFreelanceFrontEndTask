@@ -13,8 +13,8 @@ use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
 use TMS::API::Core::InvEquipment;
-use TMS::API::Core::EntCarrier;
 use TMS::API::Core::InvTiresize;
+use TMS::API::Core::EntCarrier;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -33,6 +33,10 @@ has Make          => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Ti
 has Model         => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 has Color         => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 has VIN           => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
+<<<<<<< HEAD
+=======
+has StateTag      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+>>>>>>> d8b237c0a271ea8cabf70fd6a1180c53f82a77e0
 has TireSize      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'InvTiresizeObj | Int ',);
 has Year          => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'YEAR',);
 has Axels         => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Int',);

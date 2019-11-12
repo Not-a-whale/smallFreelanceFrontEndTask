@@ -26,6 +26,14 @@ __PACKAGE__->table("dsp_loads_dispatched");
 
 =head1 ACCESSORS
 
+=head2 LoadVsUnitId
+
+  accessor: 'load_vs_unit_id'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_auto_increment: 1
+  is_nullable: 0
+
 =head2 LoadId
 
   accessor: 'load_id'
@@ -61,6 +69,14 @@ __PACKAGE__->table("dsp_loads_dispatched");
 =cut
 
 __PACKAGE__->add_columns(
+  "LoadVsUnitId",
+  {
+    accessor => "load_vs_unit_id",
+    data_type => "bigint",
+    extra => { unsigned => 1 },
+    is_auto_increment => 1,
+    is_nullable => 0,
+  },
   "LoadId",
   {
     accessor       => "load_id",
@@ -99,6 +115,20 @@ __PACKAGE__->add_columns(
 
 =over 4
 
+=item * L</LoadVsUnitId>
+
+=back
+
+=cut
+
+__PACKAGE__->set_primary_key("LoadVsUnitId");
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<DspLoadUnitUNQ>
+
+=over 4
+
 =item * L</LoadId>
 
 =item * L</UnitId>
@@ -107,7 +137,7 @@ __PACKAGE__->add_columns(
 
 =cut
 
-__PACKAGE__->set_primary_key("LoadId", "UnitId");
+__PACKAGE__->add_unique_constraint("DspLoadUnitUNQ", ["LoadId", "UnitId"]);
 
 =head1 RELATIONS
 
@@ -157,8 +187,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:34:11
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:697Bt391IOgYvlljm73LkQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:08mrw8pGtwmgNTiFFbdmow
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

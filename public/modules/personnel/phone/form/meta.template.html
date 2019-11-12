@@ -1,0 +1,8 @@
+<div class="frow c12">
+  <meta-input class="c9" gate="$ctrl.gate.Number" meta="$ctrl.meta.Number"></meta-input>
+  <meta-input class="c3" gate="$ctrl.gate.Extension" meta="$ctrl.meta.Extension"></meta-input>
+</div>
+
+<meta-phone-features-form ng-if="$ctrl.meta.Features != undefined" gate="$ctrl.gate.Features" meta="$ctrl.meta.Features.tree"></meta-phone-features-form>
+<meta-input ng-if="$ctrl.meta.Mobility != undefined" gate="$ctrl.gate.Mobility" meta="$ctrl.meta.Mobility"></meta-input>
+<meta-input ng-if="$ctrl.meta.Notes != undefined" gate="$ctrl.gate.Notes" meta="$ctrl.meta.Notes"></meta-input>

@@ -1,0 +1,181 @@
+/* -------- CHECKBOX --------------*/
+checkbox {
+  --checkbox-bg-color: var(--cp-highlight);
+  --checkbox-bg-color-checked: var(--cp-usko-red);
+
+  --checkbox-line-color: var(--cp-grey-light);
+  --checkbox-line-color-checked: var(--cp-highlight);
+  --checkbox-line-color-required: var(--cp-danger);
+
+  --checkbox-border-width: 1px;
+
+  --checkbox-box-shadow: 0px 1px 3px #00000029;
+
+  --checkbox-line-color-disabled: var(--cp-background);
+}
+
+checkbox.secondary {
+  --checkbox-bg-color: transparent;
+  --checkbox-bg-color-checked: var(--cp-usko-red-mid);
+
+  --checkbox-line-color: var(--cp-usko-red-mid);
+  --checkbox-line-color-checked: var(--cp-highlight);
+  --checkbox-line-color-required: var(--cp-usko-red-mid);
+
+  --checkbox-border-width: 2px;
+
+  --checkbox-box-shadow: 0px 1px 3px #00000080;
+}
+
+
+checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+}
+
+checkbox input {
+  position: relative;
+  height: 0px;
+  min-width: 22px;
+  width: 22px;
+  box-sizing: content-box;
+  margin-top: 11px;
+  margin-bottom: 11px;
+
+
+}
+
+checkbox label {
+  padding-left: 7px;
+
+  cursor: pointer;
+}
+
+/* draw the box */
+checkbox input::before {
+  content: '';
+
+  position: absolute;
+  display: flex;
+
+  top: -11px;
+
+  width: 22px;
+  height: 22px;
+
+  background-color: var(--checkbox-bg-color);
+  box-sizing: border-box;
+
+  border-style: solid;
+  border-width: var(--checkbox-border-width);
+  border-color: var(--checkbox-line-color);
+  border-radius: 2px;
+
+}
+
+/* draw the checkmark */
+checkbox input::after {
+  content: '';
+
+  position: absolute;
+  display: flex;
+
+  top: -8px;
+  left: 7px;
+
+  width: 5px;
+  height: 9px;
+  border-width: 0px 3px 3px 0px;
+  border-style: solid;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  transform-origin: 50% 50%;
+
+  border-color: transparent;
+}
+
+/* selected */
+checkbox input:checked::before {
+  background-color: var(--checkbox-bg-color-checked);
+  border-color: var(--checkbox-bg-color-checked);
+  border-radius: 4px;
+}
+
+checkbox input:checked::after {
+  border-color: var(--checkbox-line-color-checked);
+}
+
+/* hover */
+checkbox:hover input:not(:checked):not(:disabled)::before {
+  border-width: 2px;
+  border-color: var(--checkbox-line-color);
+}
+
+checkbox:hover input:not(:checked):not(:disabled)::after {
+  border-color: var(--checkbox-line-color);
+}
+
+/* selected hover */
+checkbox:hover input:not(:disabled)::before {
+  box-shadow: var(--checkbox-box-shadow);
+  cursor: pointer;
+}
+
+/* invalid not selected */
+checkbox input:not(:valid)::before {
+  background-color: var(--checkbox-bg-color);
+  border-color: var(--checkbox-line-color-required);
+}
+
+/* disabled */
+checkbox input:disabled::before {
+  background-color: var(--checkbox-bg-color);
+  border-color: var(--checkbox-line-color-disabled);
+}
+
+checkbox input:disabled::after {
+  content: 'X';
+  transform: rotate(0deg);
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  border: none;
+  color: var(--checkbox-line-color-disabled);
+
+  top: -12px;
+  left: 6px;
+}
+
+/* ------ ERROR MESSAGE ------ */
+
+checkbox .error-msg {
+  position: absolute;
+  top: 22px;
+  white-space: nowrap;
+}
+
+checkbox input:disabled~.error-msg,
+checkbox input:valid~.error-msg {
+  display: none;
+}
+
+/* ------ TERNARY CHECKBOX ------ */
+checkbox.some:not(:hover) input:not(:checked)::before {
+  background-color: var(--checkbox-bg-color-checked);
+  border: none;
+}
+
+checkbox.some:not(:hover) input:not(:checked)::after {
+  top: -10px;
+
+  width: 12px;
+  left: 5px;
+
+  border-color: var(--checkbox-line-color-checked);
+  border-width: 0px 0px 3px 0px;
+  -webkit-transform: rotate(0);
+  -ms-transform: rotate(0);
+  transform: rotate(0);
+}

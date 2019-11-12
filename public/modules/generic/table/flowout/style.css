@@ -1,0 +1,3 @@
+table-flowout .body .row.selected {
+  background-color: var(--table-body-row-bg-color-selected);
+}

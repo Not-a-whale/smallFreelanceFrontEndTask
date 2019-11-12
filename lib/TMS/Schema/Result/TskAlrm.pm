@@ -44,7 +44,7 @@ __PACKAGE__->table("tsk_alrms");
 
   data_type: 'varchar'
   is_nullable: 0
-  size: 1024
+  size: 512
 
 message to display
 
@@ -97,7 +97,7 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
   },
   "message",
-  { data_type => "varchar", is_nullable => 0, size => 1024 },
+  { data_type => "varchar", is_nullable => 0, size => 512 },
   "atcrontab",
   { data_type => "varchar", is_nullable => 0, size => 255 },
   "periodic",
@@ -178,8 +178,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:jq10+JaFJTRADZSIymOpnQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:UKBOQbk3ud+0a9wF6rgCzQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

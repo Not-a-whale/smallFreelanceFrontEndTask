@@ -45,7 +45,7 @@ __PACKAGE__->table("cnt_phonesfaxes");
 
   accessor: 'extension'
   data_type: 'varchar'
-  default_value: (empty string)
+  default_value: 0
   is_nullable: 0
   size: 10
 
@@ -88,7 +88,7 @@ __PACKAGE__->add_columns(
   {
     accessor => "extension",
     data_type => "varchar",
-    default_value => "",
+    default_value => 0,
     is_nullable => 0,
     size => 10,
   },
@@ -278,8 +278,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:JQ9QkapufTyuQA65HhIKag
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:CVvrqiUffEfgs4pyZi8pjg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

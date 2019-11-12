@@ -13,6 +13,7 @@ use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
 use TMS::API::Core::BizBranch;
+use TMS::API::Core::FinTransaction;
 use TMS::API::Core::HrAssociate;
 use TMS::API::Core::Entity;
 use TMS::API::Core::FinTransaction;

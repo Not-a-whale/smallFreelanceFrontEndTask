@@ -1,68 +1,147 @@
 <!doctype html>
 <html>
-
 <head>
       <meta charset="utf-8">
       <meta content="width=device-width, initial-scale=1"
             name="viewport">
       <title>&copy; Usko Express Inc</title>
       <!-- base href="https://tms.uskoinc.com" -->
-      <link href="https://fonts.googleapis.com/css?family=Arimo&display=swap"
+      <link href="https://fonts.googleapis.com/css?family=Arimo:400,400i,700|Poppins:400i,500,700&display=swap"
             rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap"
+      <link href="css/variable.css"
+            rel="stylesheet">
+      <link href="css/font.css"
+            rel="stylesheet">
+      <link href="css/defaults.css"
+            rel="stylesheet">
+      <link href="css/input.css"
+            rel="stylesheet">
+      <link href="modules/generic/checkbox/style.css"
+            rel="stylesheet">
+      <link href="css/buttons.css"
+            rel="stylesheet">
+      <link href="css/scaffolding.css"
+            rel="stylesheet">
+      <link href="css/navbar.css"
+            rel="stylesheet">
+      <link href="modules/navigation/top/style.css"
+            rel="stylesheet">
+      <link href="modules/generic/table/style.css"
+            rel="stylesheet">
+      <link href="modules/messages/drawer/style.css"
+            rel="stylesheet">
+      <link href="modules/generic/form/template/style.css"
+            rel="stylesheet">
+      <link href="modules/generic/form/section/style.css"
+            rel="stylesheet">
+      <link href="modules/generic/table/accordion/style.css"
+            rel="stylesheet">
+      <link href="modules/generic/table/selector/style.css"
+            rel="stylesheet">
+      <link href="modules/generic/table/flowout/style.css"
+            rel="stylesheet">
+      <link href="modules/generic/table/focused/style.css"
+            rel="stylesheet">
+      <link href="modules/generic/phone/extension/style.css"
+            rel="stylesheet">
+      <link href="modules/insurance/form/style.css"
+            rel="stylesheet">
+      <link href="modules/generic/phone/icon/style.css"
             rel="stylesheet">
 
-      <link href="data:image/x-icon;,"
-            rel="shortcut icon"
-            type="image/x-icon">
-      <link href="/css/variable.css"
+      <link href="modules/generic/fileupload/style.css"
             rel="stylesheet">
-      <link href="/css/font.css"
+      <link href="modules/generic/fileupload/billboard/style.css"
             rel="stylesheet">
-      <link href="/css/defaults.css"
-            rel="stylesheet">
-      <link href="/css/scaffolding.css"
-            rel="stylesheet">
-      <link href="/css/navbar.css"
-            rel="stylesheet">
-      <link href="/css/topnav.css"
-            rel="stylesheet">
-      <link href="/css/table.css"
-            rel="stylesheet">
-      <link href="/css/animation.css"
+      <link href="modules/personnel/driver/form/style.css"
             rel="stylesheet">
 
 
-
-
-      <!--script src="/js/require.min.js"
+      <!--script src="js/require.min.js"
               data-main="js/config"></script-->
-      <script src="/js/configstates.js"></script>
-      <script src="/js/angular.min.js"></script>
-      <script src="/js/angular.animate.min.js"></script>
-      <script src="/js/angular.ui_router.min.js"></script>
-      <script src="/js/statehelper.min.js"></script>
-      <script src="/jq/jquery.min.js"></script>
-      <link href="/jq/ui/jquery-ui.min.css"
-            rel="stylesheet" />
-      <script src="jq/ui/jquery-ui.min.js"
-              async></script>
+      <script src="js/configstates.js"></script>
+      <script src="js/angular.min.js"></script>
+      <!--script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script-->
+      <script src="js/angular.animate.min.js"></script>
+      <script src="js/angular.ui_router.min.js"></script>
+      <script src="js/statehelper.min.js"></script>
 
-      <script src="/js/main.js"></script>
-      <script src="/modules/generic/menu/controller.js"></script>
-      <script src="/modules/generic/input/module.js"></script>
-      <script src="/modules/generic/checkbox/module.js"></script>
-      <script src="/modules/generic/phone/module.js"></script>
-      <script src="/modules/generic/select/module.js"></script>
-      <script src="/modules/generic/datalist/module.js"></script>
-      <script src="/modules/generic/accordion/module.js"></script>
-      <script src="/modules/navigation/main/menu/module.js"></script>
-      <script src="/modules/navigation/module.js"></script>
-      <script src="/modules/ent_business/business.module.js"></script>
-      <script src="/modules/navigation/editor/module.js"></script>
-      <script src="/modules/generic/table/module.js"></script>
-      <script src="/modules/navigation/editor/generic_form_ctrl.js"></script>
-      <script src="/modules/vin/module.js"></script>
+      <script src="js/angular.scroll.js"></script>
+      <script src="js/angular.fileupload.js"></script>
+      <script src="js/main.js"></script>
+
+      <script src="modules/generic/service/fetch.service.js"></script>
+      <script src="modules/generic/phone/service.js"></script>
+
+      <script src="modules/generic/input/meta.module.js"></script>
+      <script src="modules/generic/checkbox/meta.module.js"></script>
+      <script src="modules/address/form/meta.module.js"></script>
+      <script src="modules/personnel/name/form/meta.module.js"></script>
+      <script src="modules/personnel/phone/form/meta.module.js"></script>
+      <script src="modules/personnel/phone/features/meta.module.js"></script>
+      <script src="modules/personnel/contact/form/meta.module.js"></script>
+      <script src="modules/business/simple/form/meta.modules.js"></script>
+      <script src="modules/business/customer/form/meta.module.js"></script>
+      <script src="modules/business/simple/mc/form/meta.module.js"></script>
+
+      <script src="modules/transaction/service.js"></script>
+      <script src="modules/navigation/service.js"></script>
+      <script src="modules/symbols/service.js"></script>
+      <script src="modules/loads/available/service.js"></script>
+
+
+      <script src="modules/generic/button/module.js"></script>
+      <script src="modules/generic/input/module.js"></script>
+      <script src="modules/generic/checkbox/module.js"></script>
+      <script src="modules/generic/phone/module.js"></script>
+      <script src="modules/generic/select/module.js"></script>
+      <script src="modules/generic/datalist/module.js"></script>
+      <script src="modules/generic/form/module.js"></script>
+      <script src="modules/generic/editor/module.js"></script>
+      <script src="modules/generic/table/module.js"></script>
+      <script src="modules/generic/form/template/module.js"></script>
+      <script src="modules/generic/table/accordion/module.js"></script>
+      <script src="modules/generic/table/selector/module.js"></script>
+      <script src="modules/generic/table/flowout/module.js"></script>
+      <script src="modules/generic/table/focused/module.js"></script>
+
+      <script src="modules/navigation/module.js"></script>
+      <script src="modules/navigation/main/module.js"></script>
+      <script src="modules/navigation/main/menu/module.js"></script>
+      <script src="modules/navigation/top/module.js"></script>
+      <script src="modules/navigation/top/menu/module.js"></script>
+      <script src="modules/navigation/top/newform/module.js"></script>
+      <script src="modules/navigation/top/chat/module.js"></script>
+      <script src="modules/navigation/top/notifications/module.js"></script>
+      <script src="modules/navigation/top/profile/module.js"></script>
+
+      <script src="modules/loads/available/module.js"></script>
+
+      <script src="modules/navigation/editor/module.js"></script>
+      <script src="modules/transaction/template/editor/module.js"></script>
+      <script src="modules/trucks/module.js"></script>
+
+      <script src="modules/messages/contacts/module.js"></script>
+      <script src="modules/messages/messagebox/module.js"></script>
+      <script src="modules/messages/drawer/module.js"></script>
+
+      <script src="modules/temp/test_module.js"></script>
+      <script src="modules/temp/abc.module.js"></script>
+
+      <script src="modules/generic/phone/extension/input.module.js"></script>
+      <script src="modules/generic/phone/icon/module.js"></script>
+
+      <script src="modules/insurance/form/module.js"></script>
+      <script src="modules/personnel/personal/form/module.js"></script>
+      <script src="modules/personnel/agent/form/module.js"></script>
+      <script src="modules/personnel/driver/form/module.js"></script>
+
+      <script src="modules/generic/fileupload/filereaderext.module.js"></script>
+      <script src="modules/generic/fileupload/module.js"></script>
+      <script src="modules/generic/fileupload/billboard/module.js"></script>
+
+
+
 </head>
 
 <body ng-app="tms">

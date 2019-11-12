@@ -1,0 +1,29 @@
+<div class="table">
+  <div class="head">
+    <div class="header"
+         ui-view="{{ tctrl.bannerView }}">
+    </div>
+    <div>{{ ctrl }}</div>
+    <div class="search"
+         ng-class="{expanded: tctrl.expanded}"
+         ui-view="{{ tctrl.searchView }}"
+         search="tctrl.search"
+         colsize="tctrl.colsize"
+         on-search="tctrl.SearchField(field, value)">
+    </div>
+  </div>
+  <div class="body scrollable">
+    <div class="row"
+         ng-mouseenter="listitem.hover = 1"
+         ng-mouseleave="listitem.hover = 0"
+         ng-init="listitem.hover = 0"
+         ng-class="{selected: listitem.selected }"
+         ng-repeat="listitem in tctrl.list"
+         ng-click="tctrl.Select(listitem)">
+      <div class="content"
+           ui-view="{{ tctrl.contentView }}"
+           item="listitem"
+           colsize="tctrl.colsize"></div>
+    </div>
+  </div>
+</div>

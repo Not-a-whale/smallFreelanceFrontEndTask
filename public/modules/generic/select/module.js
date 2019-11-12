@@ -5,8 +5,8 @@ class GenericSelectCtrl extends GenericInputCtrl {
     this.http = http;
     this.options = [];
     this.optionsname = 'list';
-    this.valname = 'id';
-    this.keyname = 'name';
+    this.valname = 'val';
+    this.keyname = 'key';
     this.groupname = 'group';
     this.disablename = 'disabled';
   }
@@ -24,59 +24,66 @@ class GenericSelectCtrl extends GenericInputCtrl {
     }
   }
 
+  Validate(value){
+    return true;
+  }
+
   FindSelected(val) {
     if (val == undefined) {
       this.showValue = undefined;
       return;
     }
     var self = this;
-    this.options.forEach((x) => {
-      if (val == x[self.valname]) {
-        self.showValue = x;
+    for (let option of this.options){
+      if (val == option[self.valname]) {
+        self.showValue = option;
         return;
       }
-    });
+    }
   }
 
-  FetchOptions() {
+  SetDefault(){
+    if (this.default != undefined) {
+      this.FindSelected(this.default);
+    }
+  }
+
+  FetchOptions(config) {
     var self = this;
     if (this.url) {
-      this.http.get(this.url).then(
+      return this.http.get(this.url, config).then(
         function (res) {
           if (!('DATA' in res.data)) {
-            console.error("Malformed response for select " + self.id);
+            console.error("Malformed response for element " + self.id);
             return;
           }
           if (!(self.optionsname in res.data.DATA)) {
-            console.error("Malformed response for select " + self.id +
+            console.error("Malformed response for element " + self.id +
               "\nNo " + self.optionsname + " in response");
             return;
           }
           // checks if data has supplied valname inside
           if (res.data.DATA[self.optionsname].length > 0) {
             if (!(self.valname in res.data.DATA[self.optionsname][0])) {
-              console.error("Malformed response data for select " + self.id +
+              console.error("Malformed response data for element " + self.id +
                 "\nNo " + self.valname + " in repsonse data");
               return;
             }
             if (!(self.keyname in res.data.DATA[self.optionsname][0])) {
-              console.error("Malformed response data for select " + self.id +
+              console.error("Malformed response data for element " + self.id +
                 "\nNo " + self.keyname + " in repsonse data");
               return;
             }
           }
           self.options = res.data.DATA[self.optionsname];
-          if (self.default != undefined) {
-            self.FindSelected(self.default);
-          }
-
+          self.Validate();
         },
         function (res) {
-          console.error("Failed to fetch data for select " + self.id);
+          console.error("Failed to fetch data for element " + self.id);
         });
     } else {
       if (this.options == undefined) {
-        console.error("No url provided for select " + self.id);
+        console.error("No url provided for element " + self.id);
       }
     }
   }
@@ -84,6 +91,7 @@ class GenericSelectCtrl extends GenericInputCtrl {
   $onInit() {
     super.$onInit();
     this.FetchOptions();
+    this.SetDefault();
   }
 }
 
@@ -103,10 +111,8 @@ var select_bindings = {
   onUpdate: '&?'
 };
 
-
-
 app.component('genericSelect', {
-  templateUrl: '/modules/generic/select/default.html',
+  templateUrl: 'modules/generic/select/default.html',
   controller: ['getid', '$scope', '$http', GenericSelectCtrl],
   bindings: select_bindings
 });

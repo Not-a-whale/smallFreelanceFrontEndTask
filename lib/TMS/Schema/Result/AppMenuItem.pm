@@ -67,7 +67,8 @@ __PACKAGE__->table("app_menu_items");
 
   accessor: 'route'
   data_type: 'varchar'
-  is_nullable: 1
+  default_value: 'tms.app.error'
+  is_nullable: 0
   size: 1024
 
 =head2 Help
@@ -91,6 +92,13 @@ __PACKAGE__->table("app_menu_items");
   default_value: 1
   extra: {unsigned => 1}
   is_nullable: 1
+
+=head2 Target
+
+  accessor: 'target'
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 64
 
 =cut
 
@@ -118,7 +126,13 @@ __PACKAGE__->add_columns(
   "Icon",
   { accessor => "icon", data_type => "varchar", is_nullable => 1, size => 1024 },
   "Route",
-  { accessor => "route", data_type => "varchar", is_nullable => 1, size => 1024 },
+  {
+    accessor => "route",
+    data_type => "varchar",
+    default_value => "tms.app.error",
+    is_nullable => 0,
+    size => 1024,
+  },
   "Help",
   { accessor => "help", data_type => "text", is_nullable => 1 },
   "SortIndex",
@@ -137,6 +151,8 @@ __PACKAGE__->add_columns(
     extra         => { unsigned => 1 },
     is_nullable   => 1,
   },
+  "Target",
+  { accessor => "target", data_type => "varchar", is_nullable => 1, size => 64 },
 );
 
 =head1 PRIMARY KEY
@@ -248,8 +264,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1zwQXhy7blZQctFXDD23EA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-18 15:12:06
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:r7iJfH81xpzPJXRzC+jh0g
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

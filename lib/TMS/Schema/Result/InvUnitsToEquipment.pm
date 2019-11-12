@@ -30,6 +30,14 @@ __PACKAGE__->table("inv_units_to_equipment");
 
 =head1 ACCESSORS
 
+=head2 EquipUnitResId
+
+  accessor: 'equip_unit_res_id'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_auto_increment: 1
+  is_nullable: 0
+
 =head2 UnitId
 
   accessor: 'unit_id'
@@ -86,6 +94,14 @@ __PACKAGE__->table("inv_units_to_equipment");
 =cut
 
 __PACKAGE__->add_columns(
+  "EquipUnitResId",
+  {
+    accessor => "equip_unit_res_id",
+    data_type => "bigint",
+    extra => { unsigned => 1 },
+    is_auto_increment => 1,
+    is_nullable => 0,
+  },
   "UnitId",
   {
     accessor       => "unit_id",
@@ -141,9 +157,23 @@ __PACKAGE__->add_columns(
 
 =over 4
 
-=item * L</UnitId>
+=item * L</EquipUnitResId>
+
+=back
+
+=cut
+
+__PACKAGE__->set_primary_key("EquipUnitResId");
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<ReserveUnique>
+
+=over 4
 
 =item * L</EquipmentId>
+
+=item * L</UnitId>
 
 =item * L</DateAdded>
 
@@ -151,7 +181,7 @@ __PACKAGE__->add_columns(
 
 =cut
 
-__PACKAGE__->set_primary_key("UnitId", "EquipmentId", "DateAdded");
+__PACKAGE__->add_unique_constraint("ReserveUnique", ["EquipmentId", "UnitId", "DateAdded"]);
 
 =head1 RELATIONS
 
@@ -221,8 +251,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:/dGPwYIeben/KtA2vN3j8g
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yQKpAxp8IaphHY3/VTjViQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

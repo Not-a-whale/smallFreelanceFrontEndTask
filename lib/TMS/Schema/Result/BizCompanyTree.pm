@@ -30,6 +30,14 @@ __PACKAGE__->table("biz_company_trees");
 
 =head1 ACCESSORS
 
+=head2 Ans_Des_Id
+
+  accessor: 'ans_des_id'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_auto_increment: 1
+  is_nullable: 0
+
 =head2 AncestorId
 
   accessor: 'ancestor_id'
@@ -56,6 +64,14 @@ __PACKAGE__->table("biz_company_trees");
 =cut
 
 __PACKAGE__->add_columns(
+  "Ans_Des_Id",
+  {
+    accessor => "ans_des_id",
+    data_type => "bigint",
+    extra => { unsigned => 1 },
+    is_auto_increment => 1,
+    is_nullable => 0,
+  },
   "AncestorId",
   {
     accessor       => "ancestor_id",
@@ -85,6 +101,20 @@ __PACKAGE__->add_columns(
 
 =over 4
 
+=item * L</Ans_Des_Id>
+
+=back
+
+=cut
+
+__PACKAGE__->set_primary_key("Ans_Des_Id");
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<idx_biz_company_trees_unq>
+
+=over 4
+
 =item * L</AncestorId>
 
 =item * L</DescendantId>
@@ -93,7 +123,7 @@ __PACKAGE__->add_columns(
 
 =cut
 
-__PACKAGE__->set_primary_key("AncestorId", "DescendantId");
+__PACKAGE__->add_unique_constraint("idx_biz_company_trees_unq", ["AncestorId", "DescendantId"]);
 
 =head1 RELATIONS
 
@@ -109,7 +139,7 @@ __PACKAGE__->belongs_to(
   "ancestor",
   "TMS::Schema::Result::BizCompanyNode",
   { NodeId => "AncestorId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
 =head2 descendant
@@ -124,12 +154,12 @@ __PACKAGE__->belongs_to(
   "descendant",
   "TMS::Schema::Result::BizCompanyNode",
   { NodeId => "DescendantId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:/WZ1zodaMNvRo1KuaoJk3A
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9r0SdnwYdQohVM9k8PpsNA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

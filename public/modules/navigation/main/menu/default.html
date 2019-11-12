@@ -1,0 +1,29 @@
+<div ng-repeat="category in mainMenuCtrl.menulist | menuitems:'mainnav'">
+  <div class="font-nav-cat">{{ category.Label }}</div>
+  <div>
+    <div class="top-item" ng-repeat="topitem in category.app_menu_items | menuitems:'mainnav'">
+      <div class="main-menu-item"
+           ui-sref="{{topitem.Route}}"
+           ng-click="mainMenuCtrl.SetActive(topitem)"
+           ui-sref-active="active">
+        <svg class="nav-icon box"
+             height="20"
+             width="32"
+             ui-sref-active="active">
+          <use xlink:href="{{ topitem.Icon }}"></use>
+        </svg>
+        <a class="font-nav"
+           ui-sref="{{topitem.Route}}"
+           ui-sref-active="active">{{ topitem.Label }}</a>
+      </div>
+      <div ng-show="'{{ topitem.Route}}' | includedByState">
+        <div ng-repeat="subitem in topitem.app_menu_items | menuitems:'mainnav'">
+          <a class="font-nav2"
+             ui-sref="{{ subitem.Route }}"
+             ui-sref-active="active"
+             ng-click="mainMenuCtrl.SetActive(subitem)">{{ subitem.Label }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
