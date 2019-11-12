@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::SftVehicleInspection;
 use TMS::API::Core::SftVehicleInspectItem;
+use TMS::API::Core::SftVehicleInspection;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -27,8 +27,8 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has InspectedId   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has InspectionId  => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'SftVehicleInspectionObj',);
-has InspectedItem => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'SftVehicleInspectItemObj',);
+has InspectionId  => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'SftVehicleInspectionObj | Int ',);
+has InspectedItem => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'SftVehicleInspectItemObj | Int ',);
 has Status        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'EnumNa',);
 has InspectedDate => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 

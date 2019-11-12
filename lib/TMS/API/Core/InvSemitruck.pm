@@ -25,7 +25,7 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has SemitruckId             => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'InvVehicleObj',);
+has SemitruckId             => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'InvVehicleObj | Int ',);
 has FuelTankSize            => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Float',);
 has MilesPerGallonEstimated => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Float',);
 has MilesPerGallonRated     => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Int',);

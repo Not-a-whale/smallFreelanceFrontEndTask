@@ -25,15 +25,15 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has CstmrId          => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'EntBusinessObj',);
-has MC               => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
-has DOT              => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
-has SCAC             => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has CstmrId          => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EntBusinessObj | Int ',);
+has MC               => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'MCnum',);
+has DOT              => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DOTnum',);
+has SCAC             => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'SCAC',);
 has Terms            => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 has Factoring        => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EnumYes',);
 has CreditLimit      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Float',);
-has Bond             => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
-has DUNS             => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has Bond             => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Bonds',);
+has DUNS             => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DUNS',);
 has DontUse          => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EnumDoNotUse',);
 has WhyDontUse       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 has RequireOriginals => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'BoolInt',);

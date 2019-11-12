@@ -26,8 +26,9 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has InvoicePaymentId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'FinInvoicePaymentObj',);
-has InvoiceItemId    => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'FinInvoicesItemObj',);
+has InvoicePaymentItemId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has InvoicePaymentId     => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'FinInvoicePaymentObj | Int ',);
+has InvoiceItemId        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'FinInvoicesItemObj | Int ',);
 
 # AUTO-GENERATED HAS-A END
 

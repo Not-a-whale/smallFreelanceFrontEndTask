@@ -12,9 +12,9 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::FinItemTemplate;
-use TMS::API::Core::Entity;
 use TMS::API::Core::HrAssociate;
+use TMS::API::Core::Entity;
+use TMS::API::Core::FinItemTemplate;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -28,8 +28,8 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has SchedDeductionId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has ItemTemplateId   => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'FinItemTemplateObj',);
-has EntityId         => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'EntityObj',);
+has ItemTemplateId   => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'FinItemTemplateObj | Int ',);
+has EntityId         => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'EntityObj | Int ',);
 has DateStart        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'DATE',);
 has DateStop         => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATE',);
 has PaymentAmount    => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'Float',);
@@ -40,7 +40,7 @@ has ScheduleType     => (is => 'rw', coerce => 1, required => 0, isa => Undef | 
 has Period           => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EnumNull',);
 has PeriodDay        => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Int',);
 has Valid            => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'BoolInt',);
-has CreatedBy        => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
+has CreatedBy        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj | Int ',);
 has DateCreated      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 
 # AUTO-GENERATED HAS-A END

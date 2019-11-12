@@ -29,14 +29,14 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has TransactionId   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has TransactionType => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'FinTransactionTypeObj',);
+has TransactionType => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'FinTransactionTypeObj | Int ',);
 has RefNumber       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
-has JobId           => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'FinJobObj',);
-has CreatedBy       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'HrAssociateObj',);
+has JobId           => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'FinJobObj | Int ',);
+has CreatedBy       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'HrAssociateObj | Int ',);
 has DateCreated     => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 has DateTransaction => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 has Status          => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EnumValid',);
-has Class           => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'FinClassObj',);
+has Class           => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'FinClassObj | Int ',);
 has Memo            => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 
 # AUTO-GENERATED HAS-A END

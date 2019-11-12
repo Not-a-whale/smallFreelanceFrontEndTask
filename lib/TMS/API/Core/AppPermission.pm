@@ -26,7 +26,7 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has PermissionId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has Feature      => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'AppFeatureObj',);
+has Feature      => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'AppFeatureObj | Int ',);
 has AccessName   => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
 
 # AUTO-GENERATED HAS-A END

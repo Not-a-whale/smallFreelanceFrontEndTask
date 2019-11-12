@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::SftVehicleInspectedItem;
 use TMS::API::Core::GenFile;
+use TMS::API::Core::SftVehicleInspectedItem;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -27,8 +27,8 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has InspectImageId  => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has FileRef         => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'GenFileObj',);
-has InspectedItemId => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'SftVehicleInspectedItemObj',);
+has FileRef         => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'GenFileObj | Int ',);
+has InspectedItemId => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'SftVehicleInspectedItemObj | Int ',);
 has Notes           => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 
 # AUTO-GENERATED HAS-A END

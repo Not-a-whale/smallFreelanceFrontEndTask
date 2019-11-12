@@ -12,7 +12,6 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::BizCompanyNode;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -26,7 +25,7 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has NodeId   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has ParentId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'BizCompanyNodeObj',);
+has ParentId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'BizCompanyNodeObj | Int ',);
 has UnitName => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
 has Type     => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EnumDepartment',);
 

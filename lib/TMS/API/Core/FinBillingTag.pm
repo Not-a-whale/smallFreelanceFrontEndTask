@@ -28,7 +28,7 @@ extends 'TMS::SchemaWrapper';
 has BillingTagId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has BillingTag   => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
 has UserDefined  => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'BoolInt',);
-has CreatedBy    => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'HrAssociateObj',);
+has CreatedBy    => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'HrAssociateObj | Int ',);
 has DateCreated  => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 
 # AUTO-GENERATED HAS-A END

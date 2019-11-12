@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::BizBranch;
 use TMS::API::Core::HrAssociate;
+use TMS::API::Core::BizBranch;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -28,8 +28,8 @@ extends 'TMS::SchemaWrapper';
 # AUTO-GENERATED HAS-A START
 has EquipmentId    => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has GeneralName    => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
-has OwnerId        => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
-has VendorId       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'BizBranchObj',);
+has OwnerId        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj | Int ',);
+has VendorId       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'BizBranchObj | Int ',);
 has DatePurchased  => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATE',);
 has DateSold       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATE',);
 has PricePurchased => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Float',);

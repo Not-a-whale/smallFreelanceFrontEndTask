@@ -25,8 +25,8 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has AncestorId   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'AppMenuItemObj',);
-has DescendantId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'AppMenuItemObj',);
+has AncestorId   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'AppMenuItemObj | Int ',);
+has DescendantId => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'AppMenuItemObj | Int ',);
 has Depth        => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Int',);
 
 # AUTO-GENERATED HAS-A END

@@ -26,8 +26,9 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has Role       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'AppRoleObj',);
-has Permission => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'AppPermissionObj',);
+has RoleVsPermId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has Role         => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'AppRoleObj | Int ',);
+has Permission   => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'AppPermissionObj | Int ',);
 
 # AUTO-GENERATED HAS-A END
 

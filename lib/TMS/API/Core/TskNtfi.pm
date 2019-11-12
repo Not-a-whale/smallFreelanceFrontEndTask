@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::EntPerson;
 use TMS::API::Core::TskAlrm;
+use TMS::API::Core::EntPerson;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -27,8 +27,8 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has alrtid => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has PrsnId => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'EntPersonObj',);
-has alrmid => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'TskAlrmObj',);
+has PrsnId => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'EntPersonObj | Int ',);
+has alrmid => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TskAlrmObj | Int ',);
 
 # AUTO-GENERATED HAS-A END
 

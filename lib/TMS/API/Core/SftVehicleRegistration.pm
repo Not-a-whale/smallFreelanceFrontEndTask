@@ -13,6 +13,7 @@ use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
 use TMS::API::Core::InvVehicle;
+use TMS::API::Core::GenFile;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -26,10 +27,11 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has RegistrationId   => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has VehicleId        => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'InvVehicleObj',);
+has VehicleId        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'InvVehicleObj | Int ',);
 has PlateNumber      => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
 has State            => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
-has DateRegistration => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'DATETIME',);
+has RegistrationCard => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'GenFileObj | Int ',);
+has RegistrationDate => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'DATETIME',);
 has DateExpiration   => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'DATETIME',);
 has ProRate          => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'BoolInt',);
 

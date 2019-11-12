@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::DrvDriver;
 use TMS::API::Core::DspLoadsDestination;
+use TMS::API::Core::DrvDriver;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -26,8 +26,8 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has DestinationId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'DspLoadsDestinationObj',);
-has DriverId      => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'DrvDriverObj',);
+has DestinationId => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DspLoadsDestinationObj | Int ',);
+has DriverId      => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'DrvDriverObj | Int ',);
 has DateArrived   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 has DateDeparted  => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 has Pallets       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Int',);

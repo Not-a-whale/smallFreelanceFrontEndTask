@@ -12,9 +12,9 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
+use TMS::API::Core::SftLogbook;
 use TMS::API::Core::DrvDriver;
 use TMS::API::Core::SftElogStat;
-use TMS::API::Core::SftLogbook;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -28,11 +28,11 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has LogbookEntryId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has LogbookId      => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'SftLogbookObj',);
-has Location       => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'SftElogStatObj',);
+has LogbookId      => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'SftLogbookObj | Int ',);
+has Location       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'SftElogStatObj | Int ',);
 has StartTime      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 has Activity       => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'EnumOnDuty',);
-has DriverId       => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'DrvDriverObj',);
+has DriverId       => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'DrvDriverObj | Int ',);
 
 # AUTO-GENERATED HAS-A END
 

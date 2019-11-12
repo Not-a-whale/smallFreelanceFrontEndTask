@@ -25,8 +25,8 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has AncestorId   => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'TmpRelationsNodeObj',);
-has DescendantId => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'TmpRelationsNodeObj',);
+has AncestorId   => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TmpRelationsNodeObj | Int ',);
+has DescendantId => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TmpRelationsNodeObj | Int ',);
 has Depth        => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Int',);
 
 # AUTO-GENERATED HAS-A END

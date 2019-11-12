@@ -26,10 +26,10 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has AssociateId       => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
-has CommissionPackage => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'CmmPackageObj',);
+has AssociateId       => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj | Int ',);
+has CommissionPackage => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'CmmPackageObj | Int ',);
 has DateAdded         => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TIMESTAMP',);
-has AddedBy           => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'HrAssociateObj',);
+has AddedBy           => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj | Int ',);
 
 # AUTO-GENERATED HAS-A END
 

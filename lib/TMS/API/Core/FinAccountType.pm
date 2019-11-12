@@ -12,7 +12,6 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::FinAccountType;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -27,7 +26,7 @@ extends 'TMS::SchemaWrapper';
 # AUTO-GENERATED HAS-A START
 has AccountTypeId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has Name          => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
-has ParentId      => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'FinAccountTypeObj',);
+has ParentId      => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'FinAccountTypeObj | Int ',);
 has Editable      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'BoolInt',);
 has Valid         => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'BoolInt',);
 has UserDefined   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'BoolInt',);

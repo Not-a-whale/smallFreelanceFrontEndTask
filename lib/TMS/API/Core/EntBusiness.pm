@@ -28,7 +28,7 @@ extends 'TMS::SchemaWrapper';
 has BizId    => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has BizName  => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
 has BizURL   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
-has RootNode => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'BizCompanyNodeObj',);
+has RootNode => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'BizCompanyNodeObj | Int ',);
 
 # AUTO-GENERATED HAS-A END
 

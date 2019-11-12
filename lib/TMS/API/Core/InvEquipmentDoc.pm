@@ -26,8 +26,9 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has FileId      => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'GenFileObj',);
-has EquipmentId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'InvEquipmentObj',);
+has FileVsEquipId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
+has FileId        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'GenFileObj | Int ',);
+has EquipmentId   => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'InvEquipmentObj | Int ',);
 
 # AUTO-GENERATED HAS-A END
 

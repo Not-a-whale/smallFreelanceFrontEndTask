@@ -12,7 +12,6 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::TmpRelationsNode;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -27,7 +26,7 @@ extends 'TMS::SchemaWrapper';
 # AUTO-GENERATED HAS-A START
 has RelNodeId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
 has Name      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
-has ParentId  => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'TmpRelationsNodeObj',);
+has ParentId  => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'TmpRelationsNodeObj | Int ',);
 
 # AUTO-GENERATED HAS-A END
 
