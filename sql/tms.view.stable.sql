@@ -1,14 +1,36 @@
--- MySQL dump 10.13  Distrib 5.7.20, for FreeBSD11.0 (amd64)
+-- MySQL dump 10.13  Distrib 5.7.27, for FreeBSD11.2 (amd64)
 --
 -- Host: balancer    Database: tms
 -- ------------------------------------------------------
--- Server version	5.7.26-log
+-- Server version	5.7.24-log
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Temporary table structure for view `app_menu_items_with_depth`
+--
+
+DROP TABLE IF EXISTS `app_menu_items_with_depth`;
+/*!50001 DROP VIEW IF EXISTS `app_menu_items_with_depth`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `app_menu_items_with_depth` AS SELECT 
+ 1 AS `MenuItemId`,
+ 1 AS `ParentId`,
+ 1 AS `Label`,
+ 1 AS `Title`,
+ 1 AS `Icon`,
+ 1 AS `Route`,
+ 1 AS `Help`,
+ 1 AS `SortIndex`,
+ 1 AS `Enabled`,
+ 1 AS `Path`,
+ 1 AS `Depth`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Temporary table structure for view `ent_dropdown_names`
@@ -141,6 +163,24 @@ SET character_set_client = utf8;
  1 AS `Parent`,
  1 AS `Child`*/;
 SET character_set_client = @saved_cs_client;
+
+--
+-- Final view structure for view `app_menu_items_with_depth`
+--
+
+/*!50001 DROP VIEW IF EXISTS `app_menu_items_with_depth`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`192.168.1%.%` SQL SECURITY DEFINER */
+/*!50001 VIEW `app_menu_items_with_depth` AS select `items`.`MenuItemId` AS `MenuItemId`,`items`.`ParentId` AS `ParentId`,`items`.`Label` AS `Label`,`items`.`Title` AS `Title`,`items`.`Icon` AS `Icon`,`items`.`Route` AS `Route`,`items`.`Help` AS `Help`,`items`.`SortIndex` AS `SortIndex`,`items`.`Enabled` AS `Enabled`,group_concat(`cl2`.`AncestorId` order by `cl2`.`Depth` DESC separator '.') AS `Path`,max(`cl2`.`Depth`) AS `Depth` from ((`app_menu_items` `items` left join `app_menu_items_trees` `cl1` on((`items`.`MenuItemId` = `cl1`.`DescendantId`))) left join `app_menu_items_trees` `cl2` on((`cl1`.`DescendantId` = `cl2`.`DescendantId`))) where `cl1`.`AncestorId` in (select `app_menu_items`.`MenuItemId` from `app_menu_items` where isnull(`app_menu_items`.`ParentId`)) group by `items`.`MenuItemId` order by `Path` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
 -- Final view structure for view `ent_dropdown_names`
@@ -310,4 +350,4 @@ SET character_set_client = @saved_cs_client;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-13 17:56:58
+-- Dump completed on 2019-11-12 15:00:16

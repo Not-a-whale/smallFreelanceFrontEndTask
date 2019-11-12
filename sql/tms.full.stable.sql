@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.20, for FreeBSD11.0 (amd64)
+-- MySQL dump 10.13  Distrib 5.7.27, for FreeBSD11.2 (amd64)
 --
 -- Host: balancer    Database: tms
 -- ------------------------------------------------------
--- Server version	5.7.26-log
+-- Server version	5.7.24-log
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -108,7 +108,7 @@ CREATE TABLE `app_accounts` (
   KEY `idx_app_accounts_DateCreated` (`DateCreated`),
   KEY `idx_app_accounts_Locked` (`Locked`),
   CONSTRAINT `AppAccountUserRef` FOREIGN KEY (`UserId`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -159,10 +159,11 @@ CREATE TABLE `app_menu_items` (
   `Label` varchar(32) NOT NULL,
   `Title` varchar(1024) DEFAULT NULL,
   `Icon` varchar(1024) DEFAULT NULL,
-  `Route` varchar(1024) DEFAULT NULL,
+  `Route` varchar(1024) NOT NULL DEFAULT 'tms.app.error',
   `Help` text,
   `SortIndex` decimal(6,3) DEFAULT '0.000',
   `Enabled` tinyint(1) unsigned DEFAULT '1',
+  `Target` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`MenuItemId`),
   UNIQUE KEY `Label_UNIQUE` (`Label`),
   KEY `MenuItemParentRef_idx` (`ParentId`),
@@ -172,8 +173,9 @@ CREATE TABLE `app_menu_items` (
   KEY `idx_app_menu_items_Icon` (`Icon`),
   KEY `idx_app_menu_items_SortIndex` (`SortIndex`),
   KEY `idx_app_menu_items_Route` (`Route`),
+  KEY `idx_app_menu_items_Target` (`Target`),
   CONSTRAINT `MenuItemParentRef` FOREIGN KEY (`ParentId`) REFERENCES `app_menu_items` (`MenuItemId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=230 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=212 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -182,7 +184,7 @@ CREATE TABLE `app_menu_items` (
 
 LOCK TABLES `app_menu_items` WRITE;
 /*!40000 ALTER TABLE `app_menu_items` DISABLE KEYS */;
-INSERT INTO `app_menu_items` VALUES (78,139,'INVOICES','List of all invoices',NULL,NULL,NULL,0.000,1),(89,NULL,'ADMIN','Administrative Tasks','imgs/adim-icon.svg',NULL,NULL,99.000,1),(91,89,'APP ADMIN','Application Settings - webmaster only',NULL,NULL,NULL,0.000,1),(119,89,'GROUPS','tmsapp.main.test',NULL,NULL,NULL,0.000,1),(121,NULL,'INVENTORY',NULL,'imgs/inventory.svg',NULL,NULL,0.000,1),(123,121,'EQUIPMENT',NULL,NULL,NULL,NULL,0.000,1),(125,121,'UNITS',NULL,NULL,NULL,NULL,0.000,1),(127,121,'RESERVATIONS',NULL,NULL,NULL,NULL,0.000,1),(129,NULL,'DISPATCH','Dispatching','imgs/disptacher.svg',NULL,NULL,0.000,1),(131,129,'TRUCKS',NULL,NULL,NULL,NULL,0.000,1),(133,129,'PLANNER',NULL,NULL,NULL,NULL,0.000,1),(135,129,'TRIPS',NULL,NULL,NULL,NULL,0.000,1),(137,129,'LOADS','tmsapp.main.loads',NULL,'tmsapp.main.loads',NULL,0.000,1),(139,NULL,'FINANCE',NULL,'imgs/finances.svg',NULL,NULL,0.000,1),(141,139,'CHECKS',NULL,NULL,NULL,NULL,0.000,1),(143,139,'SETTLEMENTS',NULL,NULL,NULL,NULL,0.000,1),(145,139,'RATE CONFIRMATION',NULL,NULL,NULL,NULL,0.000,1),(147,139,'BILLS',NULL,NULL,NULL,NULL,0.000,0),(149,NULL,'Food','This is the menu for the food',NULL,NULL,NULL,0.000,0),(151,149,'BURGER',NULL,NULL,NULL,NULL,0.000,0),(196,NULL,'Phones','Phone stuff',NULL,NULL,NULL,999.000,1),(202,196,'List','List of the phones',NULL,NULL,NULL,100.000,1),(204,196,'Form',NULL,NULL,'tmsapp.main.form',NULL,0.000,1),(207,89,'demo','tmsapp.main',NULL,'tmsapp.main',NULL,0.000,1),(211,89,'bizlist','tmsapp.main.list',NULL,'tmsapp.main.list',NULL,0.000,1),(213,89,'navigation editor','create new items for navigation',NULL,'tmsapp.main.navigationEditor',NULL,0.000,1),(217,NULL,'Testing','Testing the submit',NULL,NULL,NULL,1.000,1),(219,NULL,'Test33','Testing the submit',NULL,NULL,NULL,1.000,1),(221,NULL,'Potato123','123123123',NULL,NULL,NULL,1.000,1),(223,217,'Test3','Testing the submit',NULL,NULL,NULL,1.000,1),(225,217,'Test2','123123123',NULL,NULL,NULL,1.000,1),(227,NULL,'New Stuffs','eerwerwe',NULL,NULL,NULL,1.000,1),(228,139,'ThisisaTest','testtesttest',NULL,NULL,NULL,0.500,1);
+INSERT INTO `app_menu_items` VALUES (1,NULL,'my stuff',NULL,NULL,'tmsapp.main.error',NULL,0.000,1,'mainnav'),(3,NULL,'trip managment',NULL,NULL,'tmsapp.main.trpmgmt',NULL,0.040,1,'mainnav'),(5,NULL,'finances',NULL,NULL,'tmsapp.main.fin',NULL,0.300,1,'mainnav'),(7,7,'safety',NULL,NULL,'tmsapp.main.safety',NULL,0.045,1,'mainnav'),(9,NULL,'administration',NULL,'sdfsd','tmsapp.main.admin',NULL,0.100,1,'mainnav'),(11,1,'dashboard','dashboard','imgs/icons.svg#square','tmsapp.main.dashboard',NULL,0.000,1,'mainnav'),(13,1,'calendar','calendar','imgs/icons.svg#calendar','tmsapp.main.calendar',NULL,0.100,1,'mainnav'),(15,3,'trucks','trucks','imgs/icons.svg#vehicle','tmsapp.main.trpmgmt.trucks',NULL,0.000,1,'mainnav'),(17,3,'loads','loads','imgs/icons.svg#boxes','tmsapp.main.trpmgmt.loads',NULL,0.100,1,'mainnav'),(23,15,'my trucks','my trucks',NULL,'tmsapp.main.trpmgmt.trucks.mytrucks',NULL,0.300,1,'topnav'),(25,17,'available','available',NULL,'tmsapp.main.trpmgmt.loads.available',NULL,0.000,1,'topnav'),(27,17,'en route','en route',NULL,'tmsapp.main.trpmgmt.loads.enroute',NULL,0.100,1,'topnav'),(29,17,'pending','pending',NULL,'tmsapp.main.trpmgmt.loads.pending',NULL,0.200,1,'topnav'),(31,17,'build a load','build a load',NULL,'tmsapp.main.trpmgmt.loads.buildaload',NULL,0.300,1,'mainnav'),(33,17,'archives','archives',NULL,'tmsapp.main.trpmgmt.loads.archives',NULL,0.400,1,'mainnav'),(35,9,'users','users','imgs/icons.svg#users','tmsapp.main.admin.users',NULL,0.000,1,'mainnav'),(37,9,'groups','groups',NULL,'tmsapp.main.error',NULL,0.100,0,'mainnav'),(39,9,'web admin','web admin','imgs/icons.svg#internet','tmsapp.main.admin.webadmin',NULL,0.200,1,'mainnav'),(45,39,'Nav Menu Editor','Nav Menu Editor',NULL,'tmsapp.main.admin.webadmin.navmenueditor',NULL,0.000,1,'mainnav'),(47,39,'test page','test page',NULL,'tmsapp.main.admin.webadmin.testpage',NULL,9.000,1,'mainnav'),(59,209,'buttons','buttons',NULL,'tmsapp.main.testpg.inputs.buttons',NULL,0.000,1,'topnav'),(61,191,'fonts','fonts',NULL,'tmsapp.main.testpg.fonts',NULL,0.000,1,'mainnav'),(63,191,'forms','forms',NULL,'tmsapp.main.testpg.forms',NULL,0.000,1,'mainnav'),(65,209,'input','inputs',NULL,'tmsapp.main.testpg.inputs.inputs',NULL,0.000,1,'topnav'),(67,63,'section','single',NULL,'tmsapp.main.testpg.forms.section',NULL,9.000,1,'topnav'),(72,NULL,'human resources',NULL,NULL,'tms.app.hr',NULL,0.050,1,'mainnav'),(74,72,'personnel','View Personnel','imgs/icons.svg#addressbook','tmsapp.main.hr.prsnl',NULL,0.000,1,'mainnav'),(119,5,'invoices',NULL,'imgs/icons.svg#document','tmsapp.main.fin.invoice',NULL,0.000,1,'mainnav'),(121,5,'settlements',NULL,'imgs/icons.svg#dollar-sign','tmsapp.main.fin.settlments',NULL,0.000,1,'mainnav'),(123,15,'view map',NULL,NULL,'tmsapp.main.trpmgmt.trucks.map',NULL,0.000,1,'mainnav'),(125,15,'my team','my team',NULL,'tmsapp.main.trpmgmt.trucks.myteam',NULL,0.200,1,'topnav'),(127,15,'all trucks','all trucks',NULL,'tmsapp.main.trpmgmt.trucks.all',NULL,0.100,1,'topnav'),(129,17,'public load boards','public load boards',NULL,'tmsapp.main.trpmgmt.loads.public',NULL,0.350,1,'mainnav'),(187,5,'transaction templates',NULL,NULL,'tmsapp.main.fin.chargeitems',NULL,9.000,1,'mainnav'),(189,187,'generate',NULL,NULL,'tmsapp.main.fin.chargeitems.generate',NULL,0.100,1,'topnav'),(191,NULL,'test pages',NULL,NULL,'tmsapp.main.testpg',NULL,9.999,1,'mainnav'),(197,191,'tables','list of different types of tables',NULL,'tmsapp.main.testpg.tables',NULL,0.000,1,'mainnav'),(199,197,'accordian','accordian style table',NULL,'tmsapp.main.testpg.tables.accordion',NULL,1.000,1,'topnav'),(201,197,'selector','table with selection',NULL,'tmsapp.main.testpg.tables.selector',NULL,2.000,1,'topnav'),(203,197,'flowout','table where data is displayed in another component',NULL,'tmsapp.main.testpg.tables.flowout',NULL,3.000,1,'topnav'),(205,197,'focused','table where data is displayed using all table area',NULL,'tmsapp.main.testpg.tables.focused',NULL,4.000,1,'topnav'),(209,191,'inputs','list of different input types',NULL,'tmsapp.main.testpg.inputs',NULL,0.100,1,'mainnav'),(211,209,'file upload','demo of uploading file','','tmsapp.main.testpg.inputs.uploadfile',NULL,9.000,1,'topnav');
 /*!40000 ALTER TABLE `app_menu_items` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -192,7 +194,7 @@ UNLOCK TABLES;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`192.168.1%.%`*/ /*!50003 TRIGGER `tms`.`app_menu_items_AFTER_INSERT` AFTER INSERT ON `app_menu_items` FOR EACH ROW
 BEGIN
@@ -279,9 +281,31 @@ CREATE TABLE `app_menu_items_trees` (
 
 LOCK TABLES `app_menu_items_trees` WRITE;
 /*!40000 ALTER TABLE `app_menu_items_trees` DISABLE KEYS */;
-INSERT INTO `app_menu_items_trees` VALUES (78,78,0),(119,119,0),(121,121,0),(123,123,0),(125,125,0),(127,127,0),(129,129,0),(131,131,0),(133,133,0),(135,135,0),(137,137,0),(139,139,0),(141,141,0),(143,143,0),(145,145,0),(147,147,0),(149,149,0),(151,151,0),(196,196,0),(202,202,0),(204,204,0),(207,207,0),(211,211,0),(213,213,0),(217,217,0),(219,219,0),(221,221,0),(223,223,0),(225,225,0),(227,227,0),(228,228,0),(121,123,1),(121,125,1),(121,127,1),(129,131,1),(129,133,1),(129,135,1),(129,137,1),(139,141,1),(139,143,1),(139,145,1),(139,147,1),(149,151,1),(196,202,1),(196,204,1),(217,228,1);
+INSERT INTO `app_menu_items_trees` VALUES (1,1,0),(3,3,0),(5,5,0),(7,7,0),(9,9,0),(11,11,0),(13,13,0),(15,15,0),(17,17,0),(23,23,0),(25,25,0),(27,27,0),(29,29,0),(31,31,0),(33,33,0),(35,35,0),(37,37,0),(39,39,0),(45,45,0),(47,47,0),(59,59,0),(61,61,0),(63,63,0),(65,65,0),(67,67,0),(72,72,0),(74,74,0),(119,119,0),(121,121,0),(123,123,0),(125,125,0),(127,127,0),(129,129,0),(187,187,0),(189,189,0),(191,191,0),(197,197,0),(199,199,0),(201,201,0),(203,203,0),(205,205,0),(209,209,0),(211,211,0),(1,11,1),(1,13,1),(3,15,1),(3,17,1),(5,119,1),(5,121,1),(5,187,1),(9,35,1),(9,37,1),(9,39,1),(15,23,1),(15,123,1),(15,125,1),(15,127,1),(17,25,1),(17,27,1),(17,29,1),(17,31,1),(17,33,1),(17,129,1),(39,45,1),(39,47,1),(47,59,1),(47,61,1),(47,63,1),(47,65,1),(47,67,1),(72,74,1),(187,189,1),(191,197,1),(191,209,1),(197,199,1),(197,201,1),(197,203,1),(197,205,1),(209,211,1),(3,23,2),(3,25,2),(3,27,2),(3,29,2),(3,31,2),(3,33,2),(3,123,2),(3,125,2),(3,127,2),(3,129,2),(5,189,2),(9,45,2),(9,47,2),(39,59,2),(39,61,2),(39,63,2),(39,65,2),(39,67,2),(191,199,2),(191,201,2),(191,203,2),(191,205,2),(191,211,2),(9,59,3),(9,61,3),(9,63,3),(9,65,3),(9,67,3);
 /*!40000 ALTER TABLE `app_menu_items_trees` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `app_menu_items_with_depth`
+--
+
+DROP TABLE IF EXISTS `app_menu_items_with_depth`;
+/*!50001 DROP VIEW IF EXISTS `app_menu_items_with_depth`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `app_menu_items_with_depth` AS SELECT 
+ 1 AS `MenuItemId`,
+ 1 AS `ParentId`,
+ 1 AS `Label`,
+ 1 AS `Title`,
+ 1 AS `Icon`,
+ 1 AS `Route`,
+ 1 AS `Help`,
+ 1 AS `SortIndex`,
+ 1 AS `Enabled`,
+ 1 AS `Path`,
+ 1 AS `Depth`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `app_permissions`
@@ -355,7 +379,7 @@ CREATE TABLE `app_role_permissions` (
   KEY `RolePermissionPermissionRef_idx` (`Permission`),
   CONSTRAINT `RolePermissionPermissionRef` FOREIGN KEY (`Permission`) REFERENCES `app_permissions` (`PermissionId`) ON UPDATE CASCADE,
   CONSTRAINT `RolePermissionRoleRef` FOREIGN KEY (`Role`) REFERENCES `app_roles` (`RoleId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -394,7 +418,7 @@ CREATE TABLE `app_roles` (
   KEY `idx_app_roles_DateUpdated` (`DateUpdated`),
   CONSTRAINT `AppRoleCreatorRef` FOREIGN KEY (`CreatedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
   CONSTRAINT `AppRoleUpdaterRef` FOREIGN KEY (`UpdatedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -413,7 +437,7 @@ UNLOCK TABLES;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`192.168.1%.%`*/ /*!50003 TRIGGER `tms`.`app_roles_editing_restrictions` BEFORE UPDATE ON `app_roles` FOR EACH ROW
 BEGIN
@@ -451,7 +475,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`192.168.1%.%`*/ /*!50003 TRIGGER `tms`.`app_roles_no_delete_admin` BEFORE DELETE ON `app_roles` FOR EACH ROW
 BEGIN
@@ -529,7 +553,7 @@ CREATE TABLE `biz_branches` (
   CONSTRAINT `BrnchBizNameRef` FOREIGN KEY (`BizId`) REFERENCES `ent_businesses` (`BizId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchFaxRef` FOREIGN KEY (`BrnchFax`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchPhoneRef` FOREIGN KEY (`BrnchPhone`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3788 DEFAULT CHARSET=utf8 COMMENT='Office Branch Details';
+) ENGINE=InnoDB AUTO_INCREMENT=3783 DEFAULT CHARSET=utf8 COMMENT='Office Branch Details';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -559,7 +583,7 @@ CREATE TABLE `biz_company_nodes` (
   KEY `BizName_inx` (`UnitName`),
   KEY `idx_biz_company_nodes_Type` (`Type`),
   CONSTRAINT `BizCompanyParentNodeRef` FOREIGN KEY (`ParentId`) REFERENCES `biz_company_nodes` (`NodeId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=398 DEFAULT CHARSET=utf8 COMMENT='Holds the nodes for the structure of the client/user company hierarchy ';
+) ENGINE=InnoDB AUTO_INCREMENT=395 DEFAULT CHARSET=utf8 COMMENT='Holds the nodes for the structure of the client/user company hierarchy ';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -606,7 +630,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`192.168.1%.%`*/ /*!50003 TRIGGER `tms`.`biz_company_node_BEFORE_UPDATE` BEFORE UPDATE ON `biz_company_nodes` FOR EACH ROW
 BEGIN
@@ -677,7 +701,7 @@ CREATE TABLE `biz_company_trees` (
   KEY `CompanyTreeDescendantNodeRef_idx` (`DescendantId`),
   CONSTRAINT `CompanyTreeAncestorNodeRef` FOREIGN KEY (`AncestorId`) REFERENCES `biz_company_nodes` (`NodeId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `CompanyTreeDescendantNodeRef` FOREIGN KEY (`DescendantId`) REFERENCES `biz_company_nodes` (`NodeId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8 COMMENT='Holds the tree for the structure of the heirarchy of the client/user company';
+) ENGINE=InnoDB AUTO_INCREMENT=123 DEFAULT CHARSET=utf8 COMMENT='Holds the tree for the structure of the heirarchy of the client/user company';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -870,7 +894,7 @@ CREATE TABLE `cnt_addresses` (
   KEY `idx_cnt_addresses_State` (`State`),
   KEY `idx_cnt_addresses_Country` (`Country`),
   KEY `idx_cnt_addresses_Street1` (`Street1`)
-) ENGINE=InnoDB AUTO_INCREMENT=3908 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3905 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -903,7 +927,7 @@ CREATE TABLE `cnt_phonesfaxes` (
   KEY `idx_cnt_phonesfaxes_Extension` (`Extension`) USING BTREE,
   KEY `idx_cnt_phonesfaxes_Features` (`Features`) USING BTREE,
   KEY `idx_cnt_phonesfaxes_Mobility` (`Mobility`)
-) ENGINE=InnoDB AUTO_INCREMENT=4224 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4221 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1021,6 +1045,7 @@ CREATE TABLE `drv_drivers` (
   `InternationalRoutes` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `LastAnnualReview` date DEFAULT NULL,
   `PullNotice` date DEFAULT NULL,
+  PRIMARY KEY (`DriverId`),
   KEY `DriverPersonRef_idx` (`DriverId`),
   KEY `idx_drv_drivers_LocalRoutes` (`LocalRoutes`),
   KEY `idx_drv_drivers_InternationalRoutes` (`InternationalRoutes`),
@@ -1163,6 +1188,7 @@ CREATE TABLE `dsp_loads` (
   `TeamRequired` enum('yes','no') DEFAULT NULL,
   `DispatchNote` text,
   `Job` bigint(20) unsigned DEFAULT NULL,
+  `GoogleRoute` text,
   PRIMARY KEY (`LoadId`),
   KEY `LoadsTrailerTypeRef_idx` (`TruckType`),
   KEY `LoadsBrokerRef_idx` (`BrokerId`),
@@ -1187,7 +1213,7 @@ CREATE TABLE `dsp_loads` (
   CONSTRAINT `LoadsJobRef` FOREIGN KEY (`Job`) REFERENCES `fin_jobs` (`JobId`) ON UPDATE CASCADE,
   CONSTRAINT `LoadsShipperRef` FOREIGN KEY (`ShipperId`) REFERENCES `ent_shippers` (`ShipperId`) ON UPDATE CASCADE,
   CONSTRAINT `LoadsTrailerTypeRef` FOREIGN KEY (`TruckType`) REFERENCES `inv_trailer_types` (`Name`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='tables of all loads in our system';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='tables of all loads in our system';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1270,7 +1296,7 @@ CREATE TABLE `dsp_loads_destinations_docs` (
   CONSTRAINT `LoadsDestinationDocsApproverRef` FOREIGN KEY (`ApprovedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
   CONSTRAINT `LoadsDestinationDocsFileRef` FOREIGN KEY (`FileId`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE,
   CONSTRAINT `LoadsDestinationDocsTrackingRef` FOREIGN KEY (`LoadDestinationId`) REFERENCES `dsp_loads_destinations` (`DestinationId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1303,7 +1329,7 @@ CREATE TABLE `dsp_loads_dispatched` (
   CONSTRAINT `DispacherRef` FOREIGN KEY (`DispatchedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
   CONSTRAINT `LoadsToUnitsLoadRef` FOREIGN KEY (`LoadId`) REFERENCES `dsp_loads` (`LoadId`) ON UPDATE CASCADE,
   CONSTRAINT `LoadsToUnitsUnitRef` FOREIGN KEY (`UnitId`) REFERENCES `inv_units` (`UnitId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1336,7 +1362,7 @@ CREATE TABLE `dsp_loads_docs` (
   CONSTRAINT `LoadsDocsFileRef` FOREIGN KEY (`FileId`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE,
   CONSTRAINT `LoadsDocsLoadRef` FOREIGN KEY (`LoadId`) REFERENCES `dsp_loads` (`LoadId`) ON UPDATE CASCADE,
   CONSTRAINT `LoadsDocsPersonRef` FOREIGN KEY (`AddedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1410,6 +1436,7 @@ CREATE TABLE `dsp_trips` (
   `IsValid` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `TripStatus` enum('Pending','Dispatched','Complete','Other','TONU','Cancelled') NOT NULL,
   `Notes` text,
+  `GoogleRoute` text,
   PRIMARY KEY (`TripId`),
   UNIQUE KEY `TripNumber_UNIQUE` (`TripNumber`),
   KEY `TripCreatedByRef_idx` (`CreatedBy`),
@@ -1422,7 +1449,7 @@ CREATE TABLE `dsp_trips` (
   KEY `idx_dsp_trips_IsValid` (`IsValid`),
   KEY `idx_dsp_trips_TripStatus` (`TripStatus`),
   CONSTRAINT `TripCreatedByRef` FOREIGN KEY (`CreatedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1455,7 +1482,7 @@ CREATE TABLE `dsp_trips_loads` (
   CONSTRAINT `TripLoadsDispatcherRef` FOREIGN KEY (`LoadDispatcher`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
   CONSTRAINT `TripsLoadsJobRef` FOREIGN KEY (`TripId`) REFERENCES `dsp_trips` (`TripId`) ON UPDATE CASCADE,
   CONSTRAINT `TripsLoadsLoadRef` FOREIGN KEY (`LoadId`) REFERENCES `dsp_loads` (`LoadId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1484,7 +1511,7 @@ CREATE TABLE `ent_businesses` (
   KEY `RootNodeRef_idx` (`RootNode`),
   KEY `idx_ent_businesses_BizURL` (`BizURL`),
   CONSTRAINT `RootNodeRef` FOREIGN KEY (`RootNode`) REFERENCES `biz_company_nodes` (`NodeId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=234 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=233 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1503,7 +1530,7 @@ UNLOCK TABLES;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`192.168.1%.%`*/ /*!50003 TRIGGER `tms`.`ent_businesses_AFTER_INSERT` AFTER INSERT ON `ent_businesses` FOR EACH ROW
 BEGIN
@@ -1674,7 +1701,7 @@ UNLOCK TABLES;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`192.168.1%.%`*/ /*!50003 TRIGGER `tms`.`ent_people_AFTER_INSERT` AFTER INSERT ON `ent_people` FOR EACH ROW
 BEGIN
@@ -1731,7 +1758,7 @@ CREATE TABLE `entities` (
   KEY `EntityBusinessRef_idx` (`BusinessId`),
   CONSTRAINT `EntityBusinessRef` FOREIGN KEY (`BusinessId`) REFERENCES `ent_businesses` (`BizId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `EntityPersonRef` FOREIGN KEY (`PersonId`) REFERENCES `ent_people` (`PrsnId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5248 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5247 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1750,7 +1777,7 @@ UNLOCK TABLES;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`192.168.1%.%`*/ /*!50003 TRIGGER `tms`.`entities_BEFORE_INSERT` BEFORE INSERT ON `entities` FOR EACH ROW
 BEGIN
@@ -1771,7 +1798,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`192.168.1%.%`*/ /*!50003 TRIGGER `tms`.`entities_BEFORE_UPDATE` BEFORE UPDATE ON `entities` FOR EACH ROW
 BEGIN
@@ -2017,7 +2044,7 @@ CREATE TABLE `fin_accounts` (
   KEY `idx_fin_accounts_Description` (`Description`),
   CONSTRAINT `AccAccTypeRef` FOREIGN KEY (`AccountTypeId`) REFERENCES `fin_account_types` (`AccountTypeId`) ON UPDATE CASCADE,
   CONSTRAINT `AccountParentRef` FOREIGN KEY (`ParentId`) REFERENCES `fin_accounts` (`AccountId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=212 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2261,7 +2288,7 @@ CREATE TABLE `fin_billing_tags` (
   KEY `idx_fin_billing_tags_UserDefined` (`UserDefined`),
   KEY `FinBillingTagsCreatorRef_idx` (`CreatedBy`),
   CONSTRAINT `FinBillingTagsCreatorRef` FOREIGN KEY (`CreatedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='Tags for billing info to distinguish the purpose of the billing info, shipping, billing, payment etc.';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='Tags for billing info to distinguish the purpose of the billing info, shipping, billing, payment etc.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2280,7 +2307,7 @@ UNLOCK TABLES;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`192.168.1%.%`*/ /*!50003 TRIGGER `tms`.`fin_billing_tags_BEFORE_UPDATE` BEFORE UPDATE ON `fin_billing_tags` FOR EACH ROW
 BEGIN
@@ -2301,7 +2328,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`192.168.1%.%`*/ /*!50003 TRIGGER `tms`.`fin_billing_tags_BEFORE_DELETE` BEFORE DELETE ON `fin_billing_tags` FOR EACH ROW
 BEGIN
@@ -2478,7 +2505,7 @@ CREATE TABLE `fin_invoice_payment_items` (
   KEY `InvoicePaymentItemsItemRef_idx` (`InvoiceItemId`),
   CONSTRAINT `InvoicePaymentItemsInvoicePaymentRef` FOREIGN KEY (`InvoicePaymentId`) REFERENCES `fin_invoice_payments` (`InvoicePaymentId`) ON UPDATE CASCADE,
   CONSTRAINT `InvoicePaymentItemsItemRef` FOREIGN KEY (`InvoiceItemId`) REFERENCES `fin_invoices_items` (`InvoiceItemId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='Which items have been paid for';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Which items have been paid for';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2682,7 +2709,7 @@ CREATE TABLE `fin_item_template` (
   CONSTRAINT `ItemTemplateTransTypeRef` FOREIGN KEY (`TransactionType`) REFERENCES `fin_transaction_types` (`TransTypeId`) ON UPDATE CASCADE,
   CONSTRAINT `ItemTemplateTypeRef` FOREIGN KEY (`TemplateTypeId`) REFERENCES `fin_item_templates_types` (`TemplateTypeId`) ON UPDATE CASCADE,
   CONSTRAINT `ItemTemplateUpdateByRef` FOREIGN KEY (`UpdatedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2691,7 +2718,7 @@ CREATE TABLE `fin_item_template` (
 
 LOCK TABLES `fin_item_template` WRITE;
 /*!40000 ALTER TABLE `fin_item_template` DISABLE KEYS */;
-INSERT INTO `fin_item_template` VALUES (34,7,NULL,NULL,3,NULL,NULL,'2019-07-08 14:16:13',NULL,0,'flat rate','Driver Payment','Payment to driver for delivery service',0,NULL,NULL,NULL,NULL,11),(36,7,1,7,NULL,NULL,34,'2019-07-08 14:19:22',100.00,0,'percentage','Driver Payment Expense','The expense part of the driver payment',0,NULL,NULL,NULL,NULL,11),(38,1,NULL,1,NULL,NULL,NULL,'2019-07-08 14:32:45',NULL,0,'flat rate','Load Rate from Broker','Load Rate from Broker',0,NULL,NULL,NULL,NULL,14),(40,1,1,NULL,13,NULL,38,'2019-07-08 14:32:45',100.00,0,'percentage','Load Rate from Broker Revenue','Load Rate from Broker recorded as Revenue',0,NULL,NULL,NULL,NULL,14);
+INSERT INTO `fin_item_template` VALUES (34,7,NULL,NULL,3,NULL,NULL,'2019-07-08 14:16:13',NULL,0,'flat rate','Driver Payment','Payment to driver for delivery service',0,NULL,NULL,NULL,NULL,11),(36,7,1,7,NULL,NULL,34,'2019-07-08 14:19:22',100.00,0,'percentage','Driver Payment Expense','The expense part of the driver payment',0,NULL,NULL,NULL,NULL,11),(38,1,NULL,1,NULL,NULL,NULL,'2019-07-08 14:32:45',NULL,0,'flat rate','Load Rate from Broker','Load Rate from Broker',0,NULL,NULL,NULL,NULL,14),(40,1,1,NULL,13,NULL,38,'2019-07-08 14:32:45',100.00,0,'percentage','Load Rate from Broker Revenue','Load Rate from Broker recorded as Revenue',0,NULL,NULL,NULL,NULL,14),(41,1,NULL,NULL,NULL,NULL,NULL,'2019-10-02 16:54:21',NULL,1,NULL,'sfgsdfgd',NULL,0,NULL,NULL,NULL,NULL,NULL),(75,1,NULL,NULL,NULL,NULL,NULL,'2019-10-03 10:25:01',NULL,1,NULL,'adfsadfsd',NULL,0,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `fin_item_template` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -2787,7 +2814,7 @@ CREATE TABLE `fin_item_templates_trees` (
 
 LOCK TABLES `fin_item_templates_trees` WRITE;
 /*!40000 ALTER TABLE `fin_item_templates_trees` DISABLE KEYS */;
-INSERT INTO `fin_item_templates_trees` VALUES (34,34,0),(36,36,0),(38,38,0),(40,40,0),(34,36,1),(38,40,1);
+INSERT INTO `fin_item_templates_trees` VALUES (34,34,0),(36,36,0),(38,38,0),(40,40,0),(41,41,0),(75,75,0),(34,36,1),(38,40,1);
 /*!40000 ALTER TABLE `fin_item_templates_trees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2837,7 +2864,7 @@ CREATE TABLE `fin_jobs` (
   KEY `idx_jobs_Title` (`Title`),
   KEY `JobAddedByEmplRef_idx` (`JobAddedBy`),
   KEY `idx_jobs_JobCreated` (`JobCreated`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2887,7 +2914,7 @@ CREATE TABLE `fin_journal_entries` (
   CONSTRAINT `JournalEntryEntityRef` FOREIGN KEY (`EntityId`) REFERENCES `entities` (`EntityId`) ON UPDATE CASCADE,
   CONSTRAINT `JournalEntryJobRef` FOREIGN KEY (`JobId`) REFERENCES `fin_jobs` (`JobId`) ON UPDATE CASCADE,
   CONSTRAINT `JournalEntryTransactionRef` FOREIGN KEY (`TransactionId`) REFERENCES `fin_transactions` (`TransactionId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2906,7 +2933,7 @@ UNLOCK TABLES;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`192.168.1%.%`*/ /*!50003 TRIGGER `tms`.`set_signed_amount` BEFORE INSERT ON `fin_journal_entries` FOR EACH ROW
 BEGIN
@@ -2942,7 +2969,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`192.168.1%.%`*/ /*!50003 TRIGGER `tms`.`update_account_balance_AFTER_INSERT` AFTER INSERT ON `fin_journal_entries` FOR EACH ROW
 BEGIN
@@ -2960,7 +2987,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`192.168.1%.%`*/ /*!50003 TRIGGER `tms`.`fin_journal_entries_BEFORE_UPDATE` BEFORE UPDATE ON `fin_journal_entries` FOR EACH ROW
 BEGIN
@@ -2981,7 +3008,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`192.168.1%.%`*/ /*!50003 TRIGGER `tms`.`update_account_balance_AFTER_UPDATE` AFTER UPDATE ON `fin_journal_entries` FOR EACH ROW
 BEGIN
@@ -2999,7 +3026,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`192.168.1%.%`*/ /*!50003 TRIGGER `tms`.`update_account_balance_AFTER_DELETE` AFTER DELETE ON `fin_journal_entries` FOR EACH ROW
 BEGIN
@@ -3172,7 +3199,7 @@ CREATE TABLE `fin_transaction_types` (
   PRIMARY KEY (`TransTypeId`),
   UNIQUE KEY `TransTypeName_UNIQUE` (`TransTypeName`),
   KEY `idx_fin_transaction_types_TransTypeName` (`TransTypeName`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3217,7 +3244,7 @@ CREATE TABLE `fin_transactions` (
   CONSTRAINT `TransactionCreatorRef` FOREIGN KEY (`CreatedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
   CONSTRAINT `TransactionJobRef` FOREIGN KEY (`JobId`) REFERENCES `fin_jobs` (`JobId`) ON UPDATE CASCADE,
   CONSTRAINT `TransactionTransTypeRef` FOREIGN KEY (`TransactionType`) REFERENCES `fin_transaction_types` (`TransTypeId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3257,7 +3284,7 @@ CREATE TABLE `gen_files` (
   KEY `idx_gen_files_UploadDate` (`UploadDate`),
   KEY `idx_gen_files_Keywords` (`Keywords`),
   KEY `idx_gen_files_ExpiredDate` (`ExpiredDate`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3266,7 +3293,7 @@ CREATE TABLE `gen_files` (
 
 LOCK TABLES `gen_files` WRITE;
 /*!40000 ALTER TABLE `gen_files` DISABLE KEYS */;
-INSERT INTO `gen_files` VALUES (2,'Sequi necessitatibus laborum accusamus. Nihil aut ut non. Consectetur at et harum non velit.','Et sit tenetur mollitia aut recusandae at officia. Voluptas voluptates qui tempora doloremque officiis.','Et ea ratione commodi dolor omnis quia beatae iste. Aliquam sed autem corrupti similique voluptatem ut.','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\n','Temporibus voluptas voluptates et nesciunt distinctio sint.','Provident minima eum rem est delectus blanditiis aperiam. Eaque ut nostrum quis ut et sunt error impedit.','2020-04-14 04:27:38','2020-06-05 13:36:32','Dolorem debitis blanditiis dolores. Iste sint assumenda modi recusandae.'),(8,'Praesentium id vel iste. Sapiente et iure voluptatibus eaque. Quis non nihil beatae amet soluta veniam voluptas ex.','Officia nobis et incidunt saepe. Et dolor quas earum.','Qui tempora neque minima nam.','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\n','Alias dolor molestias expedita.','Rerum vero ratione enim ipsa aperiam. Aut nulla quo at architecto sint odio modi.','2020-02-25 00:15:10','2019-10-10 15:30:29','Sequi qui recusandae earum perferendis quia accusamus dicta est.'),(22,'Omnis suscipit quaerat qui in. Consequuntur minima nam quidem rerum.','Enim eos aut adipisci impedit omnis ut. Et incidunt alias amet et in ut esse eos. Ex eum sit id est sunt sit ab.','A consequatur ullam neque tempore impedit omnis perferendis. Accusamus debitis hic totam odio maxime.','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\n','e6114a6c83f3dedede1637f2aa6ee42d094293bdb72c9573a753d813b1dcb512','Eum et nihil delectus harum quis unde.','2019-09-28 06:50:14','2020-06-26 18:50:39','Aliquam praesentium hic vero nostrum eveniet voluptate.'),(24,'Est praesentium eum eaque. Repudiandae iste non nesciunt perferendis.','Ad omnis deserunt modi. Sed dicta rem asperiores accusantium. Aut velit fugit voluptas.','Voluptatem quas inventore dolor qui repudiandae. Ut assumenda ullam explicabo ducimus quod labore aut. Nihil eaque facere iusto eos necessitatibus.','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\nRK5CYII=\n','26934c4a3c5111f99da04e2a9c7b6ed66d0a142b06d1b7bac3e7f80d05d28543','Delectus qui odio id officiis a.','2019-09-12 00:09:52','2019-11-22 14:22:58','Et sunt nulla earum qui. Sapiente optio porro eveniet culpa.'),(32,'Tempore atque qui quo corrupti eos sapiente aliquid ut. Suscipit maxime deleniti officiis.','Est autem rerum deleniti.','Repudiandae explicabo veritatis esse ut.','iVBORw0KGgoAAAANSUhEUgAAAGwAAACnAQMAAADOhyv5AAAABlBMVEV1wiT/uh9vt9lFAAAACXBI\nWXMAAA7EAAAOxAGVKw4bAAAJwklEQVRIiQ3UiT8Tjh8G8E8JKWVUKNfk+yMdWK7mCKF8UUaSrJjk\nNibHEjIldMh8kYqySK5klRwxOcLkPpJzm8w5x5y5/fwJz/N6njck9p34b+CuGgcZV78VgwR2Fn4j\nODuJQzyga71CgvQmmVTpJM3VmRx+WxIC2ol9IplyHbG/Zi2+zHHhnEu7rfrH6izOjlHJ4wB0lx3H\nw+w2eR6iln+NABBamlaZCzymVz8yVE+SQa+7O1JjyjPXun1FzA8B48mp+zVEC9UbnRafv6JCAKPF\nL/DbbJWlkv93ARyE0Qq/cxEFIRIF8xofMXDYs9WHyNf6LMZRffQJEghDs17zxzo2BSbXmMIEGMfO\nCc2JUDqfUfhqw6jwdOhA+7MOHl/J9zyRniyILS15kvoP3QZbVDmnjgRq8QrHqaG4LMktYzwLByVC\n8lu365wZ52kuYbNkmPD2+naqNCDe6vOTkktU4Ci+VnCdP/lOKeGApzIL9rRMehhIl3Ue8TrUZq8C\n4itHOY/vebTs+LqqI06GxmPccyvj9Wr1V9oEwzBwRDJbJq3cSCQ1Xo3yRQV+5NepJbn/JV5V0DDw\nJEHoV7P3E9mC8Z1BSso0BAjbV9oNSz/fCO9D5fVRYeZF3N5AOWuPTo1zFUFISD8xocQIx0N3QfPZ\nUhLEfynndc1pxBjwec46AWgwWdkLIjf7y6TeK22R4fpmjfEHq4wOto70tegKMLN2xIpk8Sathv5P\nyxcHmWcJ5dn03Cm1olWrNQoMhGREF8cZDEg+aLv2UQXeKryVbXGwCFrbh8pXo8I3LcPNNU3Gfy4j\nPm2qBNh3I6HHsJnSxdx6SK1DwqGvDahO6suGKOPZrZ8k8PiYzRVN+uIaTBzAl+NglxStDrUjSYdX\nlzaigIFFT94th83g4dnlRqFcAihWbtxS9FVfmOvaT5xGwFrF9TxGd7O73WIU5h4FNB4X/Wi02O2y\n/r/X5acJMImew7YQFCQGBYiVf1ngZejHEc0xHHwU/da1lwDOhJvFH5d/xHZf7HsyxwIhn0FXVWP0\nMacUkR4UCyzzH+HjZOQcrNu42o8BdvfI5q58Lll8Hi+pKE4BYZJfWqx4st6lCs6ff1vhOEcRWTr7\ni2uvlvdJnQR+olcuFnK/jl0pZjP4CaDLDDt6eCQvauXiqf4RfXB+eupsIP2E7aanBVuYC/2m3qFb\nIWUuLuP8f1taIWRncZAIEvXy2zTWak8rdN3s0jNPV+7gdKyWbMff+M1fer08knl7gDmwwYUi03wd\n80PLwQPVlyVk9YGwGadun8eo1cu9WW7JBZV2MSFSf4FwpMPkY0cqjCUq4Uy9JoZ1MZ9Dh8lgcopT\nu/nsFf/utqg/SxSgSWkkkEtlL53dQhpIswCL9RnDB/7o8g3d8TKZDOc/aJ/SVntkRWu58j2MAv6l\n8ktvpjrDtx5/dnAnALHZ9x9X81UKT7gOR5AAEX1+cyZS9bx2y0Oi+jj490KUA5EWah/wzVmWjoAG\nGkWQeYlrpiawhY+tgG/Nu+SkL/QzcvocbBQqIIJZYJ6yuot2Id42/VEFLB2snWvKSWZ/PXK3RIcL\nCX74SF+TTCpP9d382lY4fXlZyfXoZJtEREFBoT4YRxyu0Q6zOFIvyrM2RYH85eRCgYN6n+RjE4Kr\nMOAfV9OwtPtHck+wfNe/BOCV19gYixk85PmzynwEB8ROSw8V6/tLZ3b27Q8hwNvABiG4LKBz2tTa\nn0IBlYfKo6GiDQLBdq9tbDFQVu3j3+Cc6EubkGluRIAcljDFe1vS/492wX4LLgjeXRo++VVYBZ0x\neGoeoPlwGJ+8ex6vaJ7PTBQZyh5fd0XJTys3ot3EFEkQVIqOWUgp4k8amPz7ohXG0xacVgJrT2SX\n5PbcpwJFuqQzpSbIMo65X3YWBzPYsvj7yNulqr/W2UVUWBgcVvZ4XhanuLPsRDMX6jS6enqdjL7c\ncTyUu1wB+xIxg7yjoaP4jEbCm21FLXsb3eX3VmYkxpvXEeCq6D1DRY1ZxQ9sIb0H27WvOp8g2leV\n/ZleGmWTwFow/crEh0f3P1DDftlVQNKQwQH0eO7iUOyrTWEMXN7BqC+X+6RJF38Ue4wLtqwDevtV\nz8SR4rkzsa0gnIM+PnjtxgR6agQhyYV8+jTjuZbW+vXln5ISFZAemhEzSDTYuPcgewBJAlumGzH3\nGvJY54ZzVz0GTvbru3nzm0lok5VtRAkwKKX6cGBeZz67Ryc8BQdHUV7mxlb0KlNDxYdFrRCn4PXS\nWwaVJTHJKvHHwF3Sb/P6iNv0Hdm0kNcsMCpMlo/APG3x/nDUep0LV7PeYewMUIz8P/luaBLUoO3P\nBwuZc3bt6z/7CQl770Su3fLOOKd73UrclAzhytWp54+NB3PT5gM8uYC1KaHyKFoYi3IF1Z5QYPO7\nUNOzYikt0791bJvtAYu859fa6DQ+OB/cKoOAQZnvIe13on6b7hrVHWGBNm9fipSto7V7N/4WhwW/\n35sY1XiVG9wzwGVKUADPd+r5uoQebsnU930nAlzShkLNGMhOni6bUQ4JfFOLS359CvBwdVCS3IYi\nLf5Og7J1iFu+eeA9JBlujlaatK9pdnZY+pSsk6D/hV7TmzD01R/rvqQoDCzYjN36bOHId6F+jBZN\ngvFXubaZWBw/pq0QRSJB6dSeGcGegDNvHtiweivAZDlbH+UVe9xRUyxlqQLopwvZKUtKa5UXzWvl\nVGC5Hv9gFt2KTUiMXvmAgMX1YYkh/IFreHmh2vs4cLKWNuoazNlX8IleZ64P312Ka1r9o1PAMV05\nAQMcr/kJ5uTKq4O5qmN7KbBeFWJ06IUb7vyGa6IoDjoY+7X5uUHJqW1h54JVQN2ocnfvmfAQMp1H\n2p4MhZbXdKKJi1kalUJWnhTQfEXg+JdVHX/3mzF8DQk8S70nR9maLZe90dheLgS1Z71jpuY4fdGK\n0t9mZBrRkruye4aiJKb7ai8GakTSmhy30ml3dF6+OUyBKCV1RMxyW7fxl+ZyQwBEUY/BtwBtJUWN\ngJQsKkSyH3JX2ZKr1dhsMRMu3CpEig+WPj+PxiM8frDA7NhckWv2LYeMjjNhFymwM9XjabV2qoo/\nwr16FgNqd+mZsxs9wrJSlWsXyPD4HTUunZ8/duHBTUYXApQipeweRZoFOH9OPzBGhkV2PJOYWi9o\nzdcYM8GCE85iKTdCz/FH7SGtbz/UIzPiqWuv7mtf4zHjZhJ4Tr2wb6b9lKBa9gTpAmh5lu68EdF+\nm/s6u9WBAKjFeLqZw1nTKp7p16YkCN6Z6E7AFf5z4XqjY0YFsPdOLObhFDukrzaNZAHEajpZDOq+\noI+02R805P4f5Zy9z4fG93gAAAAASUVORK5CYII=\n','18ffab19085deb7bec2a09dd9176b1b504445456a1ec47bcd45bf2a1e6c40a49','Ut veniam itaque reprehenderit accusamus. Dolorem tempora earum saepe. Recusandae porro harum inventore.','2020-05-28 01:55:01','2019-10-04 07:31:23','Sed ea optio nihil voluptatum nulla eos debitis. Reprehenderit eaque incidunt et. Minus blanditiis ut quis repellat voluptates omnis est cum.'),(34,'Velit est vel porro qui laboriosam autem velit.','Culpa cum laboriosam commodi dolores ut accusantium. Voluptatem in molestiae qui dicta voluptatem vero et ea.','Corrupti error eius est explicabo excepturi alias repellat laborum. Aut voluptatibus eligendi in. Qui consequatur magni facere repellendus sint.','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\nRK5CYII=\n','5616d09aac0a390aedd15cd51efe2c3f4b47ec9195333e1759a4260b5cc2013a','Voluptas qui voluptas quam veritatis aspernatur. Possimus autem harum quis sint ex. Mollitia eum quibusdam nihil earum.','2020-03-31 14:31:04','2020-08-01 09:14:07','Eum culpa culpa sed omnis veniam unde aspernatur voluptatibus. Natus ea est impedit sequi vel nulla quia.'),(36,'Qui nisi quam eum. Eum nisi est quidem. Quia porro suscipit dignissimos fuga molestiae atque voluptatum.','Tempora pariatur rerum provident et ut.','Dolore voluptas laborum ex sunt neque perspiciatis atque. Sint voluptate illo illum ad quia in. Libero voluptatibus ea delectus cumque voluptatibus.','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\nSUVORK5CYII=\n','c80295d708dcab60667fed949ebf8d01bee0959b4e3188d5814a2f110641bf60','Quod similique sit dolores inventore quos. Velit aut voluptatem modi a culpa rerum quisquam expedita.','2019-10-16 22:58:53','2020-03-09 23:18:02','Vitae aut est atque et laborum dolor ut aspernatur. Fugit sit omnis alias minus cum.');
+INSERT INTO `gen_files` VALUES (2,'Sequi necessitatibus laborum accusamus. Nihil aut ut non. Consectetur at et harum non velit.','Et sit tenetur mollitia aut recusandae at officia. Voluptas voluptates qui tempora doloremque officiis.','Et ea ratione commodi dolor omnis quia beatae iste. Aliquam sed autem corrupti similique voluptatem ut.',_binary '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\n','Temporibus voluptas voluptates et nesciunt distinctio sint.','Provident minima eum rem est delectus blanditiis aperiam. Eaque ut nostrum quis ut et sunt error impedit.','2020-04-14 04:27:38','2020-06-05 13:36:32','Dolorem debitis blanditiis dolores. Iste sint assumenda modi recusandae.'),(8,'Praesentium id vel iste. Sapiente et iure voluptatibus eaque. Quis non nihil beatae amet soluta veniam voluptas ex.','Officia nobis et incidunt saepe. Et dolor quas earum.','Qui tempora neque minima nam.',_binary 'iVBORw0KGgoAAAANSUhEUgAAAJMAAADHAQMAAAAnNPO3AAAABlBMVEUsFqPehZ6zI2I8AAAACXBI\nWXMAAA7EAAAOxAGVKw4bAAAL1klEQVRIiSVXXWwc13k99+6d4Z3Vyr2zXNIjVjbuLJfMkKDhJUMY\nalGgd5YrYSkzwdCQA8JwgZGsBHKbACxqIC4KFHdGK3pFy+iKVhslSIElTRRskgfG9oMe8jCm5YAR\nUoBtVSAJ8sC0RZu+FG6Rl/ap37D7tJi5v+c73zln0EcnOsJdg8BAos0sgH9ROFFSo8efiWU36tSa\nQEtEQw4h3W170uJKhQJo7wylhaIZkMej9pymv1t8AR48zWsOk9zop3V6W8EjxcWlAXLGG0/kCPrs\nITJZIBZSc+7reXrERaaYz/XcrUI5tD4NU5KeW9xBoZlIEIEBf97105ataN5rfWAwpho3yjGhcWms\n/ncm4QeDQODsZ2f6qpsvJM3l+3eHVYuh33g8xAhgqvqxNnf42SiOGG5LvF8F+92evDYFhOA5ePVp\njda8JEQtpjMXHg1Nq2/m6vtoms9meED73fm786u3tIRcUcj6LZZrXExwZJuEVn1DGH8keYPmdWlt\nG05UrGd9xo9Vy8ARkwzKcEG7QdrzRQJ02FeqCPLro442OuTTnEqTqUYHW44yYa1iWIWDGVguJqy5\nJ12jUm2EYZsGrynueV8wJv5gKUZfa+gCzzp7jQcMl6H+bV0Q4NEccJOPT/LgBTrAypM+D5WhMzeK\nlc/V0AR+flPD7elZGMAfaVw/ds8hivUpZoECyUaOLt2W4BBWIRyPzgAUiWJcSTGdiT84+QsCtSG7\nfQ4jMTVX4Sd169Byhu+2ska8cK+GYXOP2HJMZRgLB/mouIUUSnUEFvYtVjRvznO8H3Q76l43FIxq\nPqhyJKns4O1YeJzuP6bRxmlrYFHF8gt3YP+nI4h/rKDTGGx9omHmWn4iGxodY3XcGnJ2e74xJF50\nCT99/G6NGN+8p4ZvYHaBFiQWMG+HSvyog0MqrMQR7ds3fXozIZqusrZ+S1ToHp5mdhzzW1Rrs0Z3\nNzgtu2CTTWsqp+zVOQqfZukRl60qWmpNGxv/viz3YIyl9U8glqKWRfpa7Qw98yEygkwToEgwBnrq\nZ0mXj1Hz/N75u3jE65PbFn+zudVAtZ1/myhVZLNbVlkwfnpfcQVv1bXpvfs3di8YRPmS/Ps95DNl\n88hzIpg1hJVdQ2ITtAjp2WPtEg62ghbvJYMpHhAJ38rBUuwagVSYkV78dtIpufkR4bLfy3HX4nw2\nJepGLjujUiVUn2AEj7x+Xn9WfaugZtULxt//1K6d8odCibGZD4FlAizFFdS0pM3tNaUMRHs6JHhT\noyclRvrjrARGobPyU2oUrr9aQhKWEsE25oVYEquOyIkyS+gAexO979QUFWgzYEIdgKhAc5Sc68oO\nQ/8CpoZtuitaNR0rb8jf6D+TWME00gI9BSlkGrmZJCZ37WQVOPdNasvE1JhRSjfbz3pXgaUrsQD1\n74B6qzYkIXzZwjWfL3cwgZHyNe2nKmMlzcbysmSkXvClvblxbGnnGXALAdHsS3kuTddJIaUOtm1G\nLZONPG55j7DymWXL/2Adx/jyf+kNC025LE5a6MOOQsM1ItLAF7Szph9fxanwmHrLVvLjAj/hdepv\nGszvq1ZUz2ISSiZkLnxiKppCvqJGAUmccOea9cPLMbvZtV7cbd+RJcntqqJTVnNTs/WW+CP6r8+b\nfy51FW7TebIl1SWqGNWjy2q/Zo6d7TbU21HziKgEKf9UIv/NoW2uRd4tRWfkGVzOImpm9YI1VuBr\nxKu7zuI5BjlhODTPQklIWdU64qjSIYHxBUXSoJFUF2iYToTsmxhs/HVLolLFQ68warD3xX/CeKQz\navA3an8tDxNb+6W5zJgVcXWpVJyBnWvqKrjDOjcr+MeSBpIK7Ldl7nWpwa/P94gvRposGcacAFcP\nCFKzpvFin/zsG20eTo/LxaCcB5ACJATB0gP0HklGT/6KIKjcf5OOlEOIHu7UzAk5l0+XKdR5gqfG\nRe/HECUGZB/sZ9h7Z7+5n0rOSixdtgoHpXlpy6+pjZIU2hZDEQuj2DELWhdZ9copxgMSLKGxA/lU\n1t7RA9LOFX5Nvjr/tT8MrETEH23pS7TMVNuF04MpdcUTdao+DkSHl/SLBPSPnItKD4nmf+lJ23Xj\n7YTMMoL4jBrEhxeRAsi+FRI/gHJpD7szJcXapRH5LbuMD28YsotO83CtT144OVmL5uVD2pRIFGCV\nuEqAaEka2OnwFGzbVlwsvbKLl3r6O6+KqEWWoV2fqiE38WQn1Wz2xzcL0sn9VW/fYVVRXz935UQ6\nSpe2P4eHRes4FSsX2z4qFYsOwdSPq/W78HOZJ2eWvx1m4irdi/mrWYDTiu5q3A3xmvGMEuepn6/c\nYKD7Jon9b6t1RQp8jvzl/XiUomn/PzbQ79OcqZ9nhJnUDFTLeKNUdtss3PItgSdpKbngBAhX0B+C\nHGXUp5ARMgE72NQTinrT6XUSn/PlK4QCHyU1yFOsNx5EVc1iwmjUKYQltz5bz4H2G5/Uwele2fGZ\nuOf2AZ7CmrAqN8V7NMxr7MJtdPcfRt3Nujt9jxoSNr6c0pn0TZFamnpsKI/phUNGHixQyzJtcNJX\nI2IdKeSo0WauuIzXvxxQMgLyeY+/qHlFSZt/L9gF9Yee6cUpk+IAtknpwGjy6TyOBkpeMPqUhYeq\nXuYqfEZIGbn9VSMeW1v94yprFVAf8aBls4HRMtJ8g42IG1m7l8uf9XTzY5KnRl+PSHf3+EYzHoK9\nJGCMbmhBObGINHEg+Y/K+5mwB19fiUrClqnS4UEP1yF8seQ2TvGZNQpHg2paYcQ4ao7bI1Iue05n\n1D228Qq+tNzaoau9eYQfSV69QBKDEXXOWV2NAXkA/vXCu2xA3SOJz+2AtONiDcYtTQk4oS1FHcmk\nL8zVAe7jtzfK65IOWU4eCMQpkYd5Za82arIiXKG2yXZTRd1MNVpfXC/YXdNuDCma1IU3E5fcpbkJ\nbg/jtYriVb8iSw+Ikt5z8w519UALu++RKU475KEhWM6keZ7MaHCWMNXKn/FVY4z3srzwX1aVwfNY\nChsw9sHYlLIh6ECkBVXeofp1GadYYRPepnvmQZSi4EV5ekMha0cVaL/3TYvnKrr4Vd7fXGLKtOkk\nJGJGzMzfWWEY6P3xOcJssBsK+WnrhFhemWUqP5OkgGg/qkbQ72Lgil6Z4C3hVvpIm3pOzMlUljkq\nDOk2PBovW6XhzunrZfZJ9evk/Fxo7a6XubbM0l0qgdw0z1uzrbq/LsoF9UzHcYdc6rfLAj/bO0v8\nNr5DTuHVnC/9gpqWRJ/qQBVQiwvmMcI+5V+Wl7S8wJlkAzaP32BBOpQiwfvCXfen2mXc+oohA3XJ\n4/URKYohhjUJuUFkQotveRTf5JTVgzG6zc5mryjIjEnzWtinsmvjCcF3aY9nXmy7Djq1qC4KnMU/\nVBpHhsID/x3ZumGHLG+WDUnPfcPQWbt9ka1107cSitU4WEHSz8z7plbvzNWX6Xxfnz6aUmyF4rgN\nvzCEGbgFKEmL5kHnmvRWlYBXGZDOHyell6QMM1zKPb+3WGJ7vkOcU7uwi7vxpSDjlP+2Loiw0WWy\nu9kT4ItHdarH1e3/BNMf7AosI+gRmp9QKUnS3YSrHnsHuTELFWtxDRtPQkbGyfD4Nk9S7o9KUNf2\nWHDR7BxMkS/PZaXfC888LUvvtnP6hHjOTcvvmwYCJbNdpJJNjnsNt1wmF9Q0N6z6xWNrYoYDwuVv\n7ZfdytL1kQo3fN0w4j7pLuwT4FW/wLp4wmPWJD3I2sLpeH/CmP/dmA5Z+R7FaRvxQP0UiPqDBJeL\n4WKFquh9IyXaRGLpKiM/vFdKQlv6yuyq0HL6kPlV3eCLwEc8TicZCRJlkR9ml5wp6qPnuyE96eg2\noS8xsOpK6alcBFz3RTFacSJqiyGFsv5vUTG7tdrKDcnkrfYYYWCUe7wFoSKKnnvkwkQhTIu41kOT\nSfXI4pBdu0LfVv0WRdb5bGJ22GvUyEt65Pv7rYMVm03AlaN3FOlDCZ+k/hw4lERlTqzK1l6icebw\nqb2lyhRcLyOeCGjfWAnpfKxPAsv6PHlvuGPwfwxQ5Ieql8l+AAAAAElFTkSuQmCC\n','Alias dolor molestias expedita.','Rerum vero ratione enim ipsa aperiam. Aut nulla quo at architecto sint odio modi.','2020-02-25 00:15:10','2019-10-10 15:30:29','Sequi qui recusandae earum perferendis quia accusamus dicta est.'),(22,'Omnis suscipit quaerat qui in. Consequuntur minima nam quidem rerum.','Enim eos aut adipisci impedit omnis ut. Et incidunt alias amet et in ut esse eos. Ex eum sit id est sunt sit ab.','A consequatur ullam neque tempore impedit omnis perferendis. Accusamus debitis hic totam odio maxime.',_binary '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\n','e6114a6c83f3dedede1637f2aa6ee42d094293bdb72c9573a753d813b1dcb512','Eum et nihil delectus harum quis unde.','2019-09-28 06:50:14','2020-06-26 18:50:39','Aliquam praesentium hic vero nostrum eveniet voluptate.'),(24,'Est praesentium eum eaque. Repudiandae iste non nesciunt perferendis.','Ad omnis deserunt modi. Sed dicta rem asperiores accusantium. Aut velit fugit voluptas.','Voluptatem quas inventore dolor qui repudiandae. Ut assumenda ullam explicabo ducimus quod labore aut. Nihil eaque facere iusto eos necessitatibus.',_binary 'iVBORw0KGgoAAAANSUhEUgAAAMEAAAB5AQMAAAC6FdfHAAAABlBMVEVFZ2KBsqc+eT0DAAAACXBI\nWXMAAA7EAAAOxAGVKw4bAAALcklEQVRIiQ2We1QTZxrG35lMwsxkiDMhYEBsJxfSIEgD3rBidxID\njIg0IFq81IaIbqDWBkt7sOvu+RJCDIJuAoqpvYWIlFprUWlrL6ebQNwCYgt0u9qzl0Nb7ME9dles\nPdvuaXd3/v7+eZ/3eZ7f90L0cGn5wJUtLmagspqvMrYxq1jtiDPvfwArlvomAkjQwC3B2EHYSxPN\nWbMG0L4FsFG4tLO5sWaINSbgUjx7N8WghTmqyQ1Acn7X/US/I9dMif4+9kogSShjK0K3EaAXt+xy\nnLJx41+klfkHG1iiE9dCmc0LEBkxrQtmODMGh5fkzggytl/V5DwvO3gJYCJMEPYrggMrOZ/AYs1B\nG/MKjAUuHwMQQkWZPJjW4qwnWEAnnLqQGgVJZylAyiwagRsXZEar6Nzg8b0PzxaJXdi6MQTWb+jQ\nIe6jcjZAKMPgYjkjLYM+wBCE6EdH8KK4exUTpUuDh5sXWY4LSq7RDNDQYIpVar9aUjxBZ1KdUXit\nnE0nrzACQBZbSL0qjzaosUVFp9pWA3We8EwIIQ7BixXUOCkw7RbTN3BwpsXxvJ/A7izCeQTpLJgX\nMvcU2Y1ZGe4J9F2ZxlLX1k31AxTSoNfzvs4SwTAzUabH9yKG2D+fpAEIreP4+/i9/24c2hw1PUf3\npZ3tM/jtbXsAFCB/V4PdFLc54JV/WtH1g/PsbTaOOQGyy4h4nOdpfo2q7K4+jFg2HVeV5I5I/hAX\n7ednmtO90ZVvaMloDmpXaF32XdJsItw8ZW0JtGiZxlNenv3GWXOAGbTt9iHQO4uDVHxpz4E6HdjG\nMRtRyIOyAC4hWMfW+Mh+g6y/v2DODkv24no5U3rbfwaBjKlmqyhstaNr0AWfWPuX8bL7ZgyPIGlq\noWQyVxtHxJ45D2hYPdYt6i++movA3RNaPsLnsBl+oy2nvD7Nyk6PidmzL0tKzUPLsKVb2vBR1yj4\nL5fu9Zkz5OzXUwB1rHoS6Z+PauuRAkq9yUtO0vSCxirpuW/Zk1M9plS/J16S6a0xrEOTJesWQpUA\nMfPFgym63dHbFVqiy9ck4nk2bUVgMQ9Qr3jsyVWp40fHV1aORxiLmCY/2w85EAPg3fv26ZZAMuZO\nkAKOu9ampgndtk8AgXKelRTxS8ZxHXA37/vVHbjybd5YBoAFg64nKix4SuCCLMvVcFN8xOPEu7Bq\ngBN1vWlKZj9z6K7TXEe583sVDYTB9pIIoMMqb+D5vVv9Xk4bySP1Rh8u/yCeL7WERkfP3T26oIGN\ntnErjNWeORZv2hB/5gbAItTlJNgP7iwjU7ufE7mFePW7InHoJI7Ar7z67EEsMuf43V5O20XkLB/j\njb/PghiCXW2m8HZsilptOFS3rBQXRmXqQj29wwOwhj4DshjVLpclFYluO//DAZv2VVyMA1xrvcVF\nZ1suZ6BRbxTdpPH26mmTYr8GoLbGzp1ZVaTEtqyaEaYu8bkYyZ027a0BQB4jK1DZ6YgkNCvMpV08\neTAxp2jaL+mJv2dvIa534S0Na2m1hfQ7icl/ZQVZBOGNM2UI2Px+5uEMzUxRIQHUxIPA4ABWPaZa\nNWivHAOvxXGtoL4KP0Zu5sufAnCX1UZZPAgPdyj0dxwdY9h/LO6IYhEG4F/Qu1uv4H4hE8qz9faM\nqjuWfXyjMYSgsp5NXRwPTS3wjU6WtZxwPodCBzJ8Ug7wN0hNcquA0k8Yfy6tZu+ELcnZaGelXnoB\nMdau/Vh3pvZgTyndzjR7ViRbg88YpMRjHYJN3hWruMkTvJ30ct4eCOjW0gjiPcZhbaNsFzF18/EP\novv5qp1y+VIiKHnaGdhCUnYuJWYzR3XLMHpezz6M5VpkAPJ8TWqOgXjWXg/LQaObVhIjzVpP3iIE\ntVrlL1TulFyb06qJDuZUpwQv5tX8NNyBwNPliL0wxjyKjnQ1OsuNiHjjyW9/BFMeAuxAb12Z2JRY\nFbSSH5blrqc79Y20CAaATOA3MDVOO4YQrLxcoR36yd4R+PwZBUAzfo1ID5ld8JIXx8AqPnt3Se4R\nPizRpdeaWUG8kt+kFt471xs/NxCQuQVztdcPMNvKC9sJJiwvtoXwB9vECsKzqsVmM0pMTPo7g7uF\nyFycCc7zX/plxuws/ywu7VplENS/UMa/2NHkMo7jwe6acKZ5FFLe+qg8tMv+un5Go4vSWJPDOiyw\nkY3RNRJ7je9M4wmD4swtedg6wrGswX5oQCAkVj0CynteKU797omk370vpVKc5B/5DSdlBx9VM/y7\n+4jfbb3AvoDOVYTKmJrUl2ccABzWQ243H4vlNsU8ZDG/xBiaIHmsPxtBbpv+J/GE+4CyJ8guuIDd\n8RFakddKhQA0w0+3kSXZpYVD4umoyeV1xBtKLDz7KQJiXnjOdmdpQf0mV3zoaqxiyrsQin/ASEoj\ngnHTIG4sOhzyBBRDb3X9HENmc/DLJIJI5MlZR/W356wdu8eMKr+PPdmAsatJF8CbLgsh9/DRE298\nVqUvjG7kN8ANU/s/tAgg6sXefp0gN/IJqLWRHm+kI86P1EqtP0WgYx2gM33WZ0LEy4mK+O6M4xFs\nqUS+1l8Oyo+k/lp9hsryFiB5nSVzS8Xy77ZJLfF5jogXV2J7zH/T/NhOqh/ib1e3h4VUNQJatv8B\n+oGcCpBtwxT8mjOxRHL3mthpFkAtOP08l6oGlu1NJyxKPWk01K9/WmqJKeTYL7JHVDbq679qWqPC\n+dj8cC8r5APoqzuvOXY2KNmjT+EJomOmgmqKxPpEQiKf+s1AIswRJ/t1tELVKwN352rvx9g+gJ1e\n/8e64zS78MfsqsczfourOf6kutb7d6klPduI1KlZ2UvFzShM/opp02ggmFV9AWA6Gr9mx8rrRXN7\nCfOh52pd6hfV0dvHJcI6fBOxF7elni4J8UFP/hZwhn3zpQM6C8B+nvPnPgbdPfEiE6wxp1zlcwaz\nnvA8DeDSCsTMSJZK8BE8UOqjx1TDyvJ+QfrNNA66at0E5HwxvjRQqWF3Cw3UiCqBpPuARAT2Wo0j\nKdtBHh9ICnGRqB90hHSScWR5sdUMdRr5HoHYA9f/sMk47RV1IPFgqdsYjTMdWR7X3sJli0xDznHu\nhcWFFyQemE8QdX45z4Wycn3E+ud3iMbRNFCcm5TosrmSbsMj309QL1/gd53gsWJye/3XLlFKYu2S\nWwHI0VZx6n7snKmTdiHhUbVkNkCP/6w/Dc8PZWDOL9pUPYajg6fxEmwdkkJV9L7es2Ebq+KjdFGG\n5i4W4dFqpdRGAZNBLo07FV/btX2QqeaTbKbTjEkZfUucvtu3M4bjmHWxJ0mu36zloZI0PQpwKogX\njGB9k4IifI88y9JCq2zc++l8pnTv+N9f766h2/8kqxU38Ye7/YQ6+5XXctIAxrJGraEdBHi21+jp\na0Ij1X6nY9Qtvw7AtuCWQqpxSudXWrhC/Pp27Agx0BeXmlWbhkK0ipg7mVa8PGTWWsvI+6d3eD3S\ni4J5aAsogvjRpNBkhYdGQuK0ufDddIn+cT5wfVhNnnq8PEPoYQxa74ZAKTmqk+6Q9Aof1S1CWDts\nEwWkziad+Zuvoh++lRjy7xHFQJrFS5A8Sau8TOpkFtFYQ0lTxyi1rsA65jeHY4wnpUaOw7e5JqX8\ne4ArQXSnto0i6ATM+aZEbnlgNi3G+TQIFlv9wbGdBH2P6yNa3xkq2/VUoalmjNsk+WM42wLTgaM1\nK0OyF628YNmBCwPbXCoEyco07bLuDEqBUpsIspc85M+Z/5llSGmj3sNYf4nN2gLe9EIYgBu2tV6L\nJ1IoEdZoGyGdQdLgmyOjjfYK7dprik3in6XOrZUl43x0K2+/0VFD3A0JZPHtDfxXL20ACNU54PPJ\njGK7nazf5hko4EKRQ7u0q2sRPCSgzSYur96iTmaGVepFVyEFCCpNgP8DIEfgY1NkTEkAAAAASUVO\nRK5CYII=\n','26934c4a3c5111f99da04e2a9c7b6ed66d0a142b06d1b7bac3e7f80d05d28543','Delectus qui odio id officiis a.','2019-09-12 00:09:52','2019-11-22 14:22:58','Et sunt nulla earum qui. Sapiente optio porro eveniet culpa.'),(32,'Tempore atque qui quo corrupti eos sapiente aliquid ut. Suscipit maxime deleniti officiis.','Est autem rerum deleniti.','Repudiandae explicabo veritatis esse ut.',_binary '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\noI+02R805P4f5Zy9z4fG93gAAAAASUVORK5CYII=\n','18ffab19085deb7bec2a09dd9176b1b504445456a1ec47bcd45bf2a1e6c40a49','Ut veniam itaque reprehenderit accusamus. Dolorem tempora earum saepe. Recusandae porro harum inventore.','2020-05-28 01:55:01','2019-10-04 07:31:23','Sed ea optio nihil voluptatum nulla eos debitis. Reprehenderit eaque incidunt et. Minus blanditiis ut quis repellat voluptates omnis est cum.'),(34,'Velit est vel porro qui laboriosam autem velit.','Culpa cum laboriosam commodi dolores ut accusantium. Voluptatem in molestiae qui dicta voluptatem vero et ea.','Corrupti error eius est explicabo excepturi alias repellat laborum. Aut voluptatibus eligendi in. Qui consequatur magni facere repellendus sint.',_binary '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\nRK5CYII=\n','5616d09aac0a390aedd15cd51efe2c3f4b47ec9195333e1759a4260b5cc2013a','Voluptas qui voluptas quam veritatis aspernatur. Possimus autem harum quis sint ex. Mollitia eum quibusdam nihil earum.','2020-03-31 14:31:04','2020-08-01 09:14:07','Eum culpa culpa sed omnis veniam unde aspernatur voluptatibus. Natus ea est impedit sequi vel nulla quia.'),(36,'Qui nisi quam eum. Eum nisi est quidem. Quia porro suscipit dignissimos fuga molestiae atque voluptatum.','Tempora pariatur rerum provident et ut.','Dolore voluptas laborum ex sunt neque perspiciatis atque. Sint voluptate illo illum ad quia in. Libero voluptatibus ea delectus cumque voluptatibus.',_binary 'iVBORw0KGgoAAAANSUhEUgAAALMAAAC0AQMAAADl348IAAAABlBMVEUM2gd+eKGUbwMvAAAACXBI\nWXMAAA7EAAAOxAGVKw4bAAAQzUlEQVRYhQ2VeTwT/h/HP/X9STq+Kt9IvpmSRDmSo1zbV1LkqJTl\nnhByDAsxbJEkV1FE2By5Z265tlXu+xyZMeQ+FnPb8fPv+/H+5/14vZ/PF3jIbh2I37zyXKPOzTzC\nPZqdfM59s7URAY6wlxv6nGlXuf6T3f/L1goqNEA91RZlAJGHnVDO2KmLfcUixPOOf6w5jx3gHWQ8\nWIltdFfvEBbuyPL7+0Qo/U+7WKckZpUBBKHYSnKej7O41E9V1DXWEDh1Md+MhQV8L/tZ3JHULyKd\ny9xU3wDi4+AEpE6RBKiHmtryqDn/PeuPTfKwjm/cgKYrjelhQbd0ae1z4Y3dREyc9p5PBw8j7vjC\ntYgBDIL5XLXW7iUfn1L1DUffnir46ym/T60EUEDXWTw8OHH7dnp/ZSzaIUbec6+UmYEHzYLfmnEy\nNSpHxEiOXn+xGu6VmF/Bm1KAM+ZKU2TaFNdaglpR69HJ6oiaoAaaUEC0oReaNPm2y/emmn/5F2J2\n2f+6VyvKYYCVmE8xzkLKNPUpIN/Z4VPf1C4PzORTgEmZSsWYlQl66hOFpLxQK6CnmTHVpEwB+tEr\nVYztCWnxFs6uZCCPHs4/amdViwfIDuRs6pGlFVrOQkDwqevw9XsWLeF9eIB/QBpooQdCrqUKc738\nn96fp90S/ayMAHP9Ba1tPsGJPxTmrx9FTMq3eyVT4iwRIEC6rfmgQbqHn/RqRKaEIEdO+N5N7bMU\nsNapv6ev1VVvRnacPl4kYUPFbr3++goBQmkZNW6XVlhFm0RRokxBPCuouw+KgYEejfb+9uBT+sEb\nyVPSdluBOXSQ4jGBBx9T+3WzHlXHCNgelapJXakTt1JicjcowG9VUH2ooUn8qry4q7yx46l/IBd1\nFBPxQOUBjR7M+1D9yDK7D8Putdygcsmr9ljwx91e903MQ+HbAmIXHDwig7RzB/IKjuOBb0Pl1EsF\n6CNSavGfC/2kyYNacP6JAQrYHeNOZy5Eu7Xd0tDYOgkfmlDbLYPHIsAPblcbp6SqAH3svaH2jWce\ntI5cHJezP1cy9sat1yZvozhpxBwj0zAXTjyVygBK489aUr/hiuySsyT+Gp66GcSejQlRxAJ4K7QU\nZfst8dKM/+3NIlpxbePBQogZDCy5AoF5P+G3DTJplfK9n/I59K5e0h4DiA+Z9wth1FH52BmrEKgx\nJfPdzP9aaVjQM/qou1Et2lS80Kgk0t4FYi8OERWRlgA1P8ZtcAJd4Y6d78tqd2IstFfnbwdfkwB1\n/Rha3tDNQYLN046YuZ8vEtyPBpWZUQC5Oi3Y8+0a7j7ahV8r4+8Fabq/EpInAcJDj7xo/vikX8pA\nmQOxHtQZO2Vc1PIOBu4vQ19o6w3LOw6bGqlePPaTVUXubl2mAHSWGTnD72KtSnWvCLuezdXfU/ob\njsWD6XanNguLPXOOE2sancgaYxXAdBZiYGA3jV5KJkM4J4S+xXp9Wno28pAUcqAXgMVxu4/Y5rEE\nkcRD/b7xqW/Fb588dARKAcOeZR/4qxNzWocG11uqracJ8wd28G/w4Dirp9tKtt3ky4ctAXKVyiiT\n5+tBiEAAMVGeuiMafW3moXGbSSVZL6F6M6ryPQOYrTBws7Yy2epGpr1CGc9W0nyh6+/e7ef16pIn\nIy7lXAV5i2/LxsHpIhk+i4YCkGL9Dfrmrk86khyICeqvXa1UqysbFYcBd+f7k8VJpb4jx+ter2Yd\nrv/I8x4z6qOAX8yWqOumVkVhxybIYaMYcrDzEGTxXwQQuLPwUi5cz3MyvtT6M/M91YYkwOaFMQAx\nfk/LeSQsM9Rnz81/UO74Yy/7pZsbMGDJWSU+9pPfJawOE/FyIQE9o5g2DgcLTkwjiekGOV/vxDfp\nWgU0xxblXNHjqSMAx/bh112pvUzcBrHl+5oVZHVGHpd4Fw9StU/DcSxj2/eJLFt9zpaxIOrd2lw4\nFnBvDsaqPNvsd60g7syuUHAiN3C25ySwoLA8y2Z4tcfMvrCSWYauhGziNjus/6GATl7ts/pPDVXK\nNscia+dsmksP/ykMuYcHcqchZm9jsyoU6VUxv6/WbApKVlfy6yFApuZ4udTMD+oSNLNuAuJHCJAJ\nZ3BxWCA58TO4fsReL5fOlyPLJOOqXBO+p3vgQZdYTnlFALWbxPNQf3w2UaamiCvxHxwPnm0h/dt7\nNH41V0MDPYMvE9bbZXZsnPGgrgSzlaBGDlRM7ErybEp3PNaCydzQY4AHZ7p+BbqOrZY9+LRcpdNu\nYls/EaGD2/d8LV+nb9UZzVZcc97BO3mBT0iwVwsFCNDb33Xbuihl/OL8jsarW+vzuZsVNU/3710d\nLq3N2ty6a9tkfbZ8Ti9Qt5dbaSSJBU1ubhwE1Xhn6Vu7Jm6kWWxGNtndqJsBIMSSFoHE9Ve/fw1I\nsFCF9qIH2gQtXGAgu3HwW7WL0s9cTk6rCOr8Bdqr1TneEAPsPTvljJSvIrG7z2iwf9RZdiIXyP2T\nFDC4hJp9XTGcV0h+HPhseUV+BZNDz9LCgvHnNNWFLx0vZvn33nxM8TpHSv4jfzmFAlTsaKA/3gqR\niUpFeXJj6CXf2OPBeXjgV//2FZQ7lWEhkj/vTeTmlF74PHr/FwIcIKjEmvcuzw7U5FmZX1kl7hCN\n+cavMICxUlK14pmp6jDl6qr2otBljKH+B0sfLCjO5g6PoAWTi0s2zstVK9mw8Ec3OFcA0P/zGxkl\nFdAuP7tccDg1pedw9/eN4nMUkItJlRwre6G+MHxS0c9wTQnLityZ2YEBoaJ4a9eCia/kbkSe2PaA\nocZuTJnAOSw4FVH54qZGjiPTyOk7LiVXnTQfJ+mwhQchgVmRL9iNSJHe60fl+T6OueENwu2GGaCJ\nqTnJD2mcFftLatUX59jWh/RdxhnAwEdUjNHpP0cO6TVY0LaER8Tuam58aTTAAzJfxMuE7jgqMkPa\njOOQVLblrIaxM8eCq5gSNwpy1kAUztKQO1lteH3M1DVwvy9etDOzkyhnU6zikGNNh5aiMrkzO6P7\nnPIRvXmal98vfVg5ABmnWa1U0bx+c2ZhwDQgpOgIq6hdGCr2Tn566LSgynTbXgIA4ypDlegBERrH\nv0v2sUW3nSRs+GHRbQq4GsezcPC6Nj6U13l2lv5JjJFya9R332NtjQFGY5//qPJlg4wAX7G7AX3y\nTktaeKD0De2xG9o6X617mqc70f1N7cOAlH/WPned9fJofFAgwRUBLKlwZmhqmVP+HTyIDr1WW/RF\nyMLvqLS/w5TXRsCNVantGwjgfFOmMiTi9KgHxmJHTnyS+fU+Xe0OVwLEaaU6CBK31TBK77mvKg64\nm2DYTbw5Bmi4sR52dFBZBHNzwbWfXReZFrFscqMeDwSTTDMS6oj4Jl1zRT+pkZMajfQC/kks2Jj+\nvQ6X+nzxPd1y5u4py50O3vKWkyQAxe8OLoZdxuE8gSDT72U72lzNWgQahAfQk5W5ndUaGm5Fgp03\nqttoh0eMzIYjGaDsYHGuzAZV7ud49T9XPjQmedYUZRBYFOAywiGRYtdoK5+duMtBWz2r3CcTulAY\nUJb3sVv4VRUr+2Zjlm1yda/8aF1teQQAQlUm05zFePVfjV/VEh77uOO8/l6C8uFBwW9dcfRm+qXc\nEvsvYvXdCuUSywT+ECzIUFtZNzeNzE8R0dSmjo4X33PaxlU1UcDTUbMM0jvTc1EYSN/TwtPzEXVa\nnvkbWLBgQ4pB6jpYG8LR3bku/blBVhzMHJoBFDrMrxG7LJvvr46v9T2JmlIQ8nsUM8IAG1ITUcul\ncML1Vt3FLHk8ijBzfPjSGBbEE9k2Zs/bScFXVaNfVx5XsHMsaK+5BAP8I+wgayd9WjDomwlaHLZl\nn2FrvDNFAAxr7ZK7q8bFiuhF3uyXM/dmmuM74Uf2+YLc2OJ1RRF2k88yMg5SoHUisfO3tvHA1Lkp\nlC01abDJFX3awjrPN1fjHr9EhwF6BOysMUZ2/EZTSU3SIMlw8R/pC6x6BmiDtmOCtqZEdgh6VbP2\nqyWzOTeIpzuwYCovzMVzPLeHLutt4h1uEqn4cnpvjosAbZZdNdbZl4RkCFTMg41M1RFRX+cxLAK4\nm73InoCywnM4mIoYrnS4rvLO1ONxPEgWtSbg/2nE0V6in84m7vg9jdMnTIUygBRv2J7omnlga61K\n8Km90m9zjtGO/w8sUDfz6DETE7t3ZCDSlrdnVOdne8JWWxoLJuQ5q1KxJg+zdQZ+P7NVEy5/FMxb\nagPg0Nf1a7kxHoLPxcsWzNjhhk/EzP99LkoBr+2P9FW+2JFFVTW4Xx1puBz7eTtcWIEC3nRvWks3\nXvXgR9N8Jv9yxjmzpdZrHABAs53u93DTatvi3K7ICN9zH2FKKX7aggHC0oOfi4grcrQtTAJurmrE\nzlH1UhkGD1DuxTZV13djIqhCCrCwRIF/+SDtkBoE2HUPrmGZkjOjWUYt2YKPyKVbSQObmxSgTK9Q\nh4svht2RJL9t7Z2frItwZYwcwIJaO62QPhsSn3XPkgEE42hgZoMWmt73uYLg1jqkYr2/+tJ6QfGt\nFy3UMUnO+DwF2L+GBPPsCMFXE1ZFd3/w3QrZ8GafpDMARUF2RHX0+MlLKRyUeKr1j3YkudfjbwZo\nfZ3SutfzX5/v2RUy4bwlCq2VpfDEFAtEMUOJUN0O5vzHQy4+8SGfGm7V6k6iYCDxgG9zzZeXsUs7\nA7EofmfjTYi4nHMUAxAqdmKiqF5xS2WHv+OYFTzMwXEhw+94UG7rms1u6rbutjv3vr7AgCJZ97Oa\nHUkBMzSj+36qdsPMqP8i2anQmDjZt+JddgCEr1X//euTDuaVrLBI3hCSPD36Jl4JMMCoWLZIeAaT\ndoHK2M7Ql8SQD1eaeWciwMC2Upe2It+5gA9ySPuv65NJai1Ky/UI0BWLakxNk8lsPBuxowxPLeXB\nvVy+6uDB6L1Aif7APU2uoq1EsYPscZ9RYd2VYRiwIFhawFn8AfL8LMs6AcwryTz0vyrRFHBdA/3x\ndgxaYyYyoCXf6trgoJLc+0fGeLCFItwViv7OVWE+/9wplbrC76k6tbG/b2qY/rMgtahTs7IxQPFs\nr6l6dWIGSZsCjD4s5TP9UU7X1i7rfyWFnulsZfo0ejHAstCejWXE95U+/yGe1Lidi3+f5KONLBh4\nxOzOmGGmq2h2orKYz1tlMJCQ3BmD/X/o0YK3qff/MDLyvCuMge/9coeLjRUwwII3xRKZodnptvMI\naumNcnzNjtIaU6EA3l26lqrV4Yv/6/Zw8UAFvg/widhOxWCB27ojEzogy02/c79Pw2top6PwkLef\nMQJUaZ+3MeAgFdNKhphsmHTxLGJ5paOGAXjEO4yxH5Yq5ceVAhnIxe38KKQ6dQsAJq2qZaa+4uVC\njd5zZqZPjrua3PI5EgAr7YWxkm7NSYTDgf1T/tJ0vlC8TCuXAgYOhOo1m0zXFyv6jzKefyvMWm+y\n2QzGA8/KCh/zdLveJ5ImVJ65vkO0CdPVMAULxnBV3jIkzp1dk6nPmpeTVF5GWnjG5DBA2pyyzAnG\nHYfFhu2sE3uBrenThjszX/f9iacOzI/tVUYFqHO4/+r02KWprlHXYSBvcE4A/qYnwCqAVJ9sjHoY\ndoWqxpbBg871M6U216ZLDs/+OTaWnxkZzwm++XO/N8VLXa9iZocK6/c+Ff1xgS+OqkZn6hhTABYJ\n0VrbbLLQLBWc0+C0LW0UQG3TLkgAazoVanCB2uxYZlg0q1lF1Jlwe9KQif0/NPHgUyQq2aoAAAAA\nSUVORK5CYII=\n','c80295d708dcab60667fed949ebf8d01bee0959b4e3188d5814a2f110641bf60','Quod similique sit dolores inventore quos. Velit aut voluptatem modi a culpa rerum quisquam expedita.','2019-10-16 22:58:53','2020-03-09 23:18:02','Vitae aut est atque et laborum dolor ut aspernatur. Fugit sit omnis alias minus cum.');
 /*!40000 ALTER TABLE `gen_files` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3281,6 +3308,7 @@ CREATE TABLE `hr_associates` (
   `AstId` bigint(20) unsigned NOT NULL,
   `CurrentTitle` varchar(255) DEFAULT NULL,
   `NodeId` bigint(20) unsigned DEFAULT NULL,
+  `AuthorityLevel` enum('member','vise','executive') NOT NULL DEFAULT 'member',
   `DateCreated` datetime DEFAULT NULL,
   `DateRemoved` datetime DEFAULT NULL,
   `BizPhone` bigint(20) unsigned DEFAULT NULL,
@@ -3296,6 +3324,7 @@ CREATE TABLE `hr_associates` (
   KEY `BizPhnRef_idx` (`BizPhone`),
   KEY `BizFaxRef_idx` (`BizFax`),
   KEY `idx_hr_associates_BizEmail` (`BizEmail`),
+  KEY `idx_hr_associates_AuthorityLevel` (`AuthorityLevel`),
   CONSTRAINT `AssociatePersonRef` FOREIGN KEY (`AstId`) REFERENCES `ent_people` (`PrsnId`) ON UPDATE CASCADE,
   CONSTRAINT `BizFaxRef` FOREIGN KEY (`BizFax`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE,
   CONSTRAINT `BizNodeRef` FOREIGN KEY (`NodeId`) REFERENCES `biz_company_nodes` (`NodeId`) ON UPDATE CASCADE,
@@ -3747,7 +3776,7 @@ CREATE TABLE `inv_equipment_docs` (
   KEY `EquipmentDocsEquipmentRef_idx` (`EquipmentId`),
   CONSTRAINT `EquipmentDocsEquipmentRef` FOREIGN KEY (`EquipmentId`) REFERENCES `inv_equipment` (`EquipmentId`) ON UPDATE CASCADE,
   CONSTRAINT `EquipmentDocsFileRef` FOREIGN KEY (`FileId`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3775,7 +3804,7 @@ CREATE TABLE `inv_equipment_to_support` (
   KEY `EquipSupportEquipRef` (`EquipmentId`),
   CONSTRAINT `EquipSupportEquipRef` FOREIGN KEY (`EquipmentId`) REFERENCES `inv_equipment` (`EquipmentId`) ON UPDATE CASCADE,
   CONSTRAINT `EquipSupportSupportRef` FOREIGN KEY (`SupportId`) REFERENCES `inv_support_vendors` (`SupportId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3856,7 +3885,7 @@ CREATE TABLE `inv_semitrucks` (
   `MilesPerGallonEstimated` decimal(12,2) unsigned DEFAULT NULL COMMENT 'estimated mpg from trip distances and fuel usage or reported by driver',
   `MilesPerGallonRated` int(11) unsigned DEFAULT NULL COMMENT 'manufacturer''s claimed mpg',
   `TowCapacity` int(11) unsigned DEFAULT NULL COMMENT 'pounds',
-  PRIMARY KEY (`SemitruckId`),
+  UNIQUE KEY `SemitruckId_UNIQUE` (`SemitruckId`),
   KEY `idx_inv_semitrucks_FuelTankSize` (`FuelTankSize`),
   KEY `idx_inv_semitrucks_MilesPerGallonEstimated` (`MilesPerGallonEstimated`),
   KEY `idx_inv_semitrucks_MilesPerGallonRated` (`MilesPerGallonRated`),
@@ -3894,7 +3923,7 @@ CREATE TABLE `inv_sprinters` (
   `TowCapacity` int(11) unsigned DEFAULT NULL COMMENT 'pounds',
   `LoadCapacity` int(11) unsigned DEFAULT NULL COMMENT 'pounds',
   `LoadVolume` int(11) GENERATED ALWAYS AS (if(((`LoadLength` is not null) and (`LoadWidth` is not null) and (`RoofHeight` is not null)),((`LoadLength` * `LoadWidth`) * `RoofHeight`),NULL)) VIRTUAL COMMENT 'cubic inches',
-  PRIMARY KEY (`SprinterId`),
+  UNIQUE KEY `SprinterId_UNIQUE` (`SprinterId`),
   KEY `idx_inv_sprinters_FuelTankCapacity` (`FuelTankCapacity`),
   KEY `idx_inv_sprinters_MilesPerGallonEstimated` (`MilesPerGallonEstimated`),
   KEY `idx_inv_sprinters_MilesPerGallonRated` (`MilesPerGallonRated`),
@@ -3964,7 +3993,7 @@ CREATE TABLE `inv_tiresizes` (
   PRIMARY KEY (`TireId`),
   UNIQUE KEY `Name_UNIQUE` (`Name`),
   KEY `idx_inv_tiresizes_Type` (`Type`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4022,6 +4051,7 @@ CREATE TABLE `inv_trailers` (
   `HasPalletJack` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `HasRamps` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `LoadVolume` int(11) GENERATED ALWAYS AS (if(((`LoadLength` is not null) and (`LoadWidth` is not null) and (`LoadHeight` is not null)),((`LoadLength` * `LoadWidth`) * `LoadHeight`),NULL)) STORED,
+  UNIQUE KEY `TrailerId_UNIQUE` (`TrailerId`),
   KEY `TrailerTrailerTypeRef_idx` (`Type`),
   KEY `TrailerEquipRef_idx` (`TrailerId`),
   KEY `idx_inv_trailers_HazMat` (`HazMat`),
@@ -4211,7 +4241,6 @@ CREATE TABLE `inv_vehicles` (
   `Model` varchar(24) DEFAULT NULL,
   `Color` varchar(24) DEFAULT NULL,
   `VIN` varchar(19) NOT NULL,
-  `StateTag` varchar(12) DEFAULT NULL COMMENT 'State tag for vehicle',
   `TireSize` bigint(20) unsigned DEFAULT NULL,
   `Year` year(4) DEFAULT NULL,
   `Axels` int(11) DEFAULT NULL,
@@ -4228,7 +4257,6 @@ CREATE TABLE `inv_vehicles` (
   KEY `idx_inv_vehicles_Model` (`Model`),
   KEY `idx_inv_vehicles_Color` (`Color`),
   KEY `idx_inv_vehicles_VIN` (`VIN`),
-  KEY `idx_inv_vehicles_StateTag` (`StateTag`),
   KEY `idx_inv_vehicles_TireSize` (`TireSize`),
   KEY `idx_inv_vehicles_Year` (`Year`),
   KEY `idx_inv_vehicles_Axels` (`Axels`),
@@ -4250,6 +4278,69 @@ CREATE TABLE `inv_vehicles` (
 LOCK TABLES `inv_vehicles` WRITE;
 /*!40000 ALTER TABLE `inv_vehicles` DISABLE KEYS */;
 /*!40000 ALTER TABLE `inv_vehicles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `msg_access`
+--
+
+DROP TABLE IF EXISTS `msg_access`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `msg_access` (
+  `macsid` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `PermissionName` varchar(255) NOT NULL,
+  PRIMARY KEY (`macsid`),
+  UNIQUE KEY `PermissionName_UNIQUE` (`PermissionName`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `msg_access`
+--
+
+LOCK TABLES `msg_access` WRITE;
+/*!40000 ALTER TABLE `msg_access` DISABLE KEYS */;
+/*!40000 ALTER TABLE `msg_access` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `msg_notes`
+--
+
+DROP TABLE IF EXISTS `msg_notes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `msg_notes` (
+  `mnoteid` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `subject` varchar(1024) DEFAULT NULL,
+  `body` text NOT NULL,
+  `posted` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `author` bigint(20) unsigned NOT NULL,
+  `sourcetable` varchar(64) NOT NULL,
+  `sourceid` bigint(20) unsigned NOT NULL COMMENT 'record id from the source table',
+  `macsid` bigint(20) unsigned NOT NULL,
+  `keywords` varchar(1024) DEFAULT NULL,
+  PRIMARY KEY (`mnoteid`),
+  KEY `NoteAuthorRef_idx` (`author`),
+  KEY `NoteACLref_idx` (`macsid`),
+  KEY `idx_msg_notes_subject` (`subject`),
+  KEY `idx_msg_notes_sourcetable` (`sourcetable`),
+  KEY `idx_msg_notes_posted` (`posted`),
+  KEY `idx_msg_notes_sourceid` (`sourceid`),
+  KEY `idx_msg_notes_keywords` (`keywords`),
+  CONSTRAINT `NoteACLref` FOREIGN KEY (`macsid`) REFERENCES `msg_access` (`macsid`) ON UPDATE CASCADE,
+  CONSTRAINT `NoteAuthorRef` FOREIGN KEY (`author`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `msg_notes`
+--
+
+LOCK TABLES `msg_notes` WRITE;
+/*!40000 ALTER TABLE `msg_notes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `msg_notes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -4309,7 +4400,7 @@ DROP TABLE IF EXISTS `sft_ifta`;
 CREATE TABLE `sft_ifta` (
   `IFTAId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`IFTAId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4422,7 +4513,7 @@ CREATE TABLE `sft_vehicle_inspect_items` (
   `Notes` text,
   PRIMARY KEY (`InspItmId`),
   UNIQUE KEY `ItemAreaName_UNIQUE` (`ItemAreaName`)
-) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4526,7 +4617,7 @@ CREATE TABLE `sft_vehicle_inspections` (
   CONSTRAINT `VehicleInspectInspectionScheduleIdRef` FOREIGN KEY (`InspectorId`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
   CONSTRAINT `VehicleInspectScheduleRef` FOREIGN KEY (`InspectionScheduleId`) REFERENCES `sft_inspection_schedules` (`InspectionScheduleId`) ON UPDATE CASCADE,
   CONSTRAINT `VehicleInspectionSignatureRef` FOREIGN KEY (`InspectorSignatureId`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4550,17 +4641,20 @@ CREATE TABLE `sft_vehicle_registration` (
   `VehicleId` bigint(20) unsigned NOT NULL,
   `PlateNumber` varchar(16) NOT NULL,
   `State` varchar(2) NOT NULL,
-  `DateRegistration` datetime NOT NULL,
+  `RegistrationCard` bigint(20) unsigned NOT NULL,
+  `RegistrationDate` datetime NOT NULL,
   `DateExpiration` datetime NOT NULL,
   `ProRate` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT 'vehicle has international tag',
   PRIMARY KEY (`RegistrationId`),
-  UNIQUE KEY `PlateNumber_UNIQUE` (`PlateNumber`),
+  UNIQUE KEY `PlateNumber_UNIQUE` (`PlateNumber`,`State`),
   KEY `VehicleRegVehicleRef_idx` (`VehicleId`),
   KEY `idx_sft_vehicle_registration_PlateNumber` (`PlateNumber`),
   KEY `idx_sft_vehicle_registration_State` (`State`),
-  KEY `idx_sft_vehicle_registration_DateRegistration` (`DateRegistration`),
+  KEY `idx_sft_vehicle_registration_DateRegistration` (`RegistrationDate`),
   KEY `idx_sft_vehicle_registration_DateExpiration` (`DateExpiration`),
   KEY `idx_sft_vehicle_registration_ProRate` (`ProRate`),
+  KEY `VehicleRegCardPhotoRef_idx` (`RegistrationCard`),
+  CONSTRAINT `VehicleRegCardPhotoRef` FOREIGN KEY (`RegistrationCard`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE,
   CONSTRAINT `VehicleRegVehicleRef` FOREIGN KEY (`VehicleId`) REFERENCES `inv_vehicles` (`VehicleId`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -4615,7 +4709,7 @@ CREATE TABLE `tmp_relations_nodes` (
   PRIMARY KEY (`RelNodeId`),
   KEY `TmpRelNodesParentRef_idx` (`ParentId`),
   CONSTRAINT `TmpRelNodesParentRef` FOREIGN KEY (`ParentId`) REFERENCES `tmp_relations_nodes` (`RelNodeId`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='This is a temporary Table that helps remind how to setup closure tables';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='This is a temporary Table that helps remind how to setup closure tables';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4750,7 +4844,7 @@ UNLOCK TABLES;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`192.168.1%.%`*/ /*!50003 TRIGGER `tms`.`tsk_actns_BEFORE_INSERT` BEFORE INSERT ON `tsk_actns` FOR EACH ROW
 BEGIN
@@ -4769,7 +4863,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`192.168.1%.%`*/ /*!50003 TRIGGER `tms`.`tsk_actns_AFTER_INSERT` AFTER INSERT ON `tsk_actns` FOR EACH ROW
 BEGIN
@@ -4957,7 +5051,7 @@ UNLOCK TABLES;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`192.168.1%.%`*/ /*!50003 TRIGGER `tms`.`tsk_tasks_AFTER_INSERT` AFTER INSERT ON `tsk_tasks` FOR EACH ROW
 BEGIN
@@ -4985,7 +5079,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`192.168.1%.%`*/ /*!50003 TRIGGER `tms`.`tsk_tasks_AFTER_UPDATE` AFTER UPDATE ON `tsk_tasks` FOR EACH ROW
 BEGIN
@@ -5067,7 +5161,7 @@ CREATE TABLE `tsk_trees` (
   KEY `DesTaskRef_idx` (`descendant`),
   CONSTRAINT `AncTaskRef` FOREIGN KEY (`ancestor`) REFERENCES `tsk_tasks` (`tskid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `DesTaskRef` FOREIGN KEY (`descendant`) REFERENCES `tsk_tasks` (`tskid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='Project Tree Closures';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Project Tree Closures';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -5141,7 +5235,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`192.168.1%.%` PROCEDURE `dist_500_meters`(IN lat DECIMAL(8,6) , IN lon DECIMAL(9,6))
 BEGIN
@@ -5160,7 +5254,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`192.168.1%.%` PROCEDURE `entities_per_jobid`(IN trip_id BIGINT(20))
 BEGIN
@@ -5272,7 +5366,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`192.168.1%.%` PROCEDURE `fin_invoice_factor`(IN parent BIGINT(20), IN invoice BIGINT(20))
 BEGIN
@@ -5307,7 +5401,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`192.168.1%.%` PROCEDURE `moveact`(IN PrjName VARCHAR(255),IN ActionID bigint unsigned)
 BEGIN
@@ -5330,7 +5424,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`192.168.1%.%` PROCEDURE `movetask`(IN PrjName VARCHAR(255),IN TskName VARCHAR(255))
 BEGIN
@@ -5357,7 +5451,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`192.168.1%.%` PROCEDURE `relatives`(IN PrjName VARCHAR(255))
 BEGIN
@@ -5382,7 +5476,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`192.168.1%.%` PROCEDURE `tv`(name varchar(255))
 BEGIN
@@ -5399,6 +5493,24 @@ DELIMITER ;
 --
 
 USE `tms`;
+
+--
+-- Final view structure for view `app_menu_items_with_depth`
+--
+
+/*!50001 DROP VIEW IF EXISTS `app_menu_items_with_depth`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`192.168.1%.%` SQL SECURITY DEFINER */
+/*!50001 VIEW `app_menu_items_with_depth` AS select `items`.`MenuItemId` AS `MenuItemId`,`items`.`ParentId` AS `ParentId`,`items`.`Label` AS `Label`,`items`.`Title` AS `Title`,`items`.`Icon` AS `Icon`,`items`.`Route` AS `Route`,`items`.`Help` AS `Help`,`items`.`SortIndex` AS `SortIndex`,`items`.`Enabled` AS `Enabled`,group_concat(`cl2`.`AncestorId` order by `cl2`.`Depth` DESC separator '.') AS `Path`,max(`cl2`.`Depth`) AS `Depth` from ((`app_menu_items` `items` left join `app_menu_items_trees` `cl1` on((`items`.`MenuItemId` = `cl1`.`DescendantId`))) left join `app_menu_items_trees` `cl2` on((`cl1`.`DescendantId` = `cl2`.`DescendantId`))) where `cl1`.`AncestorId` in (select `app_menu_items`.`MenuItemId` from `app_menu_items` where isnull(`app_menu_items`.`ParentId`)) group by `items`.`MenuItemId` order by `Path` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
 -- Final view structure for view `ent_dropdown_names`
@@ -5568,4 +5680,4 @@ USE `tms`;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-13 17:57:02
+-- Dump completed on 2019-11-12 15:00:20
