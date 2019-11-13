@@ -1,70 +1,97 @@
 class MetaBusinessSimpleFormCtrl {
   constructor() {
     this.meta = {
-      "BrnchFax": {
+      "BrnchId": {
+        "tree": {},
+        "attr": {
+          "required": null,
+          "label": "BrnchId",
+          "alias": "TA01.BrnchId",
+          "title": "BrnchId"
+        }
+      },
+      "BrnchPhone": {
+        "attr": {
+          "alias": "TA01.BrnchPhone",
+          "title": "BrnchPhone",
+          "required": "required",
+          "label": "BrnchPhone"
+        },
         "tree": {
-          "Notes": {
+          "Number": {
+            "tree": {},
             "attr": {
-              "required": null,
-              "label": "Notes",
-              "title": "Notes"
+              "label": "Number",
+              "required": "required",
+              "title": "Number",
+              "alias": "TA06.Number"
+            }
+          },
+          "Extension": {
+            "attr": {
+              "alias": "TA06.Extension",
+              "title": "Extension",
+              "label": "Extension",
+              "required": null
+            },
+            "tree": {}
+          }
+        }
+      },
+      "BrnchAddress": {
+        "tree": {
+          "Zip": {
+            "tree": {},
+            "attr": {
+              "required": "required",
+              "label": "Zip",
+              "alias": "TA05.Zip",
+              "title": "Zip"
+            }
+          },
+          "State": {
+            "attr": {
+              "alias": "TA05.State",
+              "title": "State",
+              "label": "State",
+              "required": "required"
             },
             "tree": {}
           },
-          "Features": {
+          "Country": {
             "attr": {
-              "required": null,
-              "label": "Features",
-              "title": "Features"
-            },
-            "tree": {}
-          },
-          "PhnFaxId": {
-            "attr": {
-              "required": null,
-              "title": "PhnFaxId",
-              "label": "PhnFaxId"
-            },
-            "tree": {}
-          },
-          "Mobility": {
-            "attr": {
-              "title": "Mobility",
-              "label": "Mobility",
+              "alias": "TA05.Country",
+              "title": "Country",
+              "label": "Country",
               "required": null
             },
             "tree": {}
           },
-          "Extension": {
-            "tree": {},
+          "City": {
             "attr": {
-              "required": null,
-              "label": "Extension",
-              "title": "Extension"
-            }
-          },
-          "Number": {
-            "attr": {
-              "title": "Number",
-              "label": "Number",
-              "required": "required"
+              "required": "required",
+              "label": "City",
+              "title": "City",
+              "alias": "TA05.City"
             },
             "tree": {}
+          },
+          "Street1": {
+            "tree": {},
+            "attr": {
+              "label": "Street1",
+              "required": "required",
+              "title": "Street or P.O. Box",
+              "alias": "TA05.Street1"
+            }
           }
         },
         "attr": {
-          "required": null,
-          "title": "BrnchFax",
-          "label": "BrnchFax"
+          "title": "BrnchAddress",
+          "alias": "TA01.BrnchAddress",
+          "label": "BrnchAddress",
+          "required": "required"
         }
-      },
-      "BrnchId": {
-        "attr": {
-          "label": "BrnchId",
-          "title": "BrnchId",
-          "required": null
-        },
-        "tree": {}
       },
       "BizId": {
         "tree": {
@@ -73,185 +100,35 @@ class MetaBusinessSimpleFormCtrl {
             "attr": {
               "required": null,
               "label": "RootNode",
-              "title": "RootNode"
+              "title": "RootNode",
+              "alias": "TA02.RootNode"
             }
           },
           "BizName": {
             "tree": {},
             "attr": {
+              "label": "BizName",
               "required": "required",
-              "title": "BizName",
-              "label": "BizName"
+              "alias": "TA02.BizName",
+              "title": "BizName"
             }
-          },
-          "BizURL": {
-            "attr": {
-              "title": "BizURL",
-              "label": "BizURL",
-              "required": null
-            },
-            "tree": {}
           },
           "BizId": {
             "attr": {
-              "required": null,
+              "alias": "TA02.BizId",
               "title": "BizId",
+              "required": null,
               "label": "BizId"
             },
             "tree": {}
           }
         },
         "attr": {
-          "required": "required",
+          "alias": "TA01.BizId",
           "title": "BizId",
+          "required": "required",
           "label": "BizId"
         }
-      },
-      "BrnchEMail": {
-        "attr": {
-          "title": "BrnchEMail",
-          "label": "BrnchEMail",
-          "required": null
-        },
-        "tree": {}
-      },
-      "BrnchPhone": {
-        "tree": {
-          "Number": {
-            "tree": {},
-            "attr": {
-              "required": "required",
-              "label": "Number",
-              "title": "Number"
-            }
-          },
-          "Extension": {
-            "attr": {
-              "title": "Extension",
-              "label": "Extension",
-              "required": null
-            },
-            "tree": {}
-          },
-          "PhnFaxId": {
-            "tree": {},
-            "attr": {
-              "required": null,
-              "title": "PhnFaxId",
-              "label": "PhnFaxId"
-            }
-          }
-        },
-        "attr": {
-          "required": "required",
-          "label": "BrnchPhone",
-          "title": "BrnchPhone"
-        }
-      },
-      "BrnchAddress": {
-        "tree": {
-          "City": {
-            "attr": {
-              "label": "City",
-              "title": "City",
-              "required": "required"
-            },
-            "tree": {}
-          },
-          "Country": {
-            "attr": {
-              "required": null,
-              "title": "Country",
-              "label": "Country"
-            },
-            "tree": {}
-          },
-          "GpsLat": {
-            "tree": {},
-            "attr": {
-              "title": "GpsLat",
-              "label": "GpsLat",
-              "required": null
-            }
-          },
-          "Street3": {
-            "attr": {
-              "required": null,
-              "title": "Street3",
-              "label": "Street3"
-            },
-            "tree": {}
-          },
-          "Notes": {
-            "attr": {
-              "required": null,
-              "label": "Notes",
-              "title": "Notes"
-            },
-            "tree": {}
-          },
-          "AddrId": {
-            "attr": {
-              "required": null,
-              "label": "AddrId",
-              "title": "AddrId"
-            },
-            "tree": {}
-          },
-          "GpsLng": {
-            "attr": {
-              "label": "GpsLng",
-              "title": "GpsLng",
-              "required": null
-            },
-            "tree": {}
-          },
-          "Street1": {
-            "attr": {
-              "title": "Street or P.O. Box",
-              "label": "Street1",
-              "required": "required"
-            },
-            "tree": {}
-          },
-          "State": {
-            "tree": {},
-            "attr": {
-              "required": "required",
-              "label": "State",
-              "title": "State"
-            }
-          },
-          "Street2": {
-            "tree": {},
-            "attr": {
-              "required": null,
-              "label": "Street2",
-              "title": "Street"
-            }
-          },
-          "Zip": {
-            "attr": {
-              "title": "Zip",
-              "label": "Zip",
-              "required": "required"
-            },
-            "tree": {}
-          }
-        },
-        "attr": {
-          "title": "BrnchAddress",
-          "label": "BrnchAddress",
-          "required": "required"
-        }
-      },
-      "OfficeName": {
-        "attr": {
-          "required": null,
-          "title": "OfficeName",
-          "label": "OfficeName"
-        },
-        "tree": {}
       }
     };
   }
