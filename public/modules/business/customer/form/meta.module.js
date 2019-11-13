@@ -1,6 +1,5 @@
 class MetaBusinessCustomerFormCtrl {
-  constructor(http) {
-    this.http = http;
+  constructor() {
     this.meta = {
       "DUNS": {
         "attr": {
@@ -125,17 +124,9 @@ class MetaBusinessCustomerFormCtrl {
       }
     };
   }
-
-  // TODO: remove this
-  Post() {
-    var self = this;
-    this.http.post("/echo", this.gate).then(function (res) {
-      console.log(res.status);
-    });
-  }
 }
 
-app.controller('MetaBusinessCustomerFormCtrl', ['$http', MetaBusinessCustomerFormCtrl]);
+app.controller('MetaBusinessCustomerFormCtrl', MetaBusinessCustomerFormCtrl);
 app.component('metaBusinessCustomerForm', {
   templateUrl: 'modules/business/customer/form/meta.template.html',
   controller: 'MetaBusinessCustomerFormCtrl',
