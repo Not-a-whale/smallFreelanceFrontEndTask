@@ -2,8 +2,27 @@ var configstates = {
   "tms": {
     url: "/tms"
   },
-  "tms.app": {
-    url: "/app"
+  "tms.dev": {
+    url: "/dev",
+    views: {
+      "main@": {
+        template: function(){
+          return `<style>
+                .btn-cont {
+                  margin: 10px 10px 10px 10px
+                }
+
+                #global-container {
+                  align-items: center;
+                  justify-content: center;
+                }
+            </style>
+
+
+          <div class="btn-cont"><a ui-sref="tms.test" class="btn btn-primary btn-lg">Components</a></div><div class="btn-cont"><a ui-sref="tmsapp.main.dashboard"class="btn btn-primary btn-lg">Web App</a></div>`
+        }
+      }
+    }
   },
   "tms.test": {
     url: "/test",
