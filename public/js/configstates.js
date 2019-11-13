@@ -112,7 +112,7 @@ var configstates = {
     url: "/dashboard",
     views: {
       "content@tmsapp.main": {
-        templateUrl: "/views/tmsapp/main/dashboard/content.html"
+        templateUrl: "modules/dashboard/template.html"
       }
     }
   },
