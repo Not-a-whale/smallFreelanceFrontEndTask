@@ -1,4 +1,4 @@
-class MetaBusinessMCFormCtrl {
+class MetaBusinessMCSimpleFormCtrl {
   constructor() {
 
     let bizmeta = {
@@ -14,30 +14,6 @@ class MetaBusinessMCFormCtrl {
             "required": "required",
             "title": "BizName",
             "label": "BizName"
-          }
-        },
-        "RootNode": {
-          "attr": {
-            "label": "RootNode",
-            "required": null,
-            "title": "RootNode"
-          },
-          "tree": {}
-        },
-        "BizId": {
-          "tree": {},
-          "attr": {
-            "title": "BizId",
-            "required": null,
-            "label": "BizId"
-          }
-        },
-        "BizURL": {
-          "tree": {},
-          "attr": {
-            "required": null,
-            "title": "BizURL",
-            "label": "BizURL"
           }
         }
       }
@@ -60,30 +36,6 @@ class MetaBusinessMCFormCtrl {
               "label": "Extension",
               "title": "Extension",
               "required": null
-            }
-          },
-          "Features": {
-            "tree": {},
-            "attr": {
-              "label": "Features",
-              "title": "Features",
-              "required": null
-            }
-          },
-          "PhnFaxId": {
-            "tree": {},
-            "attr": {
-              "label": "PhnFaxId",
-              "title": "PhnFaxId",
-              "required": null
-            }
-          },
-          "Mobility": {
-            "tree": {},
-            "attr": {
-              "label": "Mobility",
-              "required": null,
-              "title": "Mobility"
             }
           },
           "Number": {
@@ -133,14 +85,6 @@ class MetaBusinessMCFormCtrl {
           "label": "BrnchFax"
         },
         "tree": {
-          "Notes": {
-            "attr": {
-              "title": "Notes",
-              "required": null,
-              "label": "Notes"
-            },
-            "tree": {}
-          },
           "Extension": {
             "tree": {},
             "attr": {
@@ -149,30 +93,7 @@ class MetaBusinessMCFormCtrl {
               "label": "Extension"
             }
           },
-          "Features": {
-            "tree": {},
-            "attr": {
-              "label": "Features",
-              "title": "Features",
-              "required": null
-            }
-          },
-          "Mobility": {
-            "attr": {
-              "required": null,
-              "title": "Mobility",
-              "label": "Mobility"
-            },
-            "tree": {}
-          },
-          "PhnFaxId": {
-            "tree": {},
-            "attr": {
-              "required": null,
-              "title": "PhnFaxId",
-              "label": "PhnFaxId"
-            }
-          },
+
           "Number": {
             "attr": {
               "label": "Number",
@@ -183,23 +104,7 @@ class MetaBusinessMCFormCtrl {
           }
         }
       },
-      "BrnchEMail": {
-        "tree": {},
-        "attr": {
-          "label": "BrnchEMail",
-          "required": null,
-          "title": "BrnchEMail"
-        }
-      },
       "CstmrId": bizmeta,
-      "DontUse": {
-        "tree": {},
-        "attr": {
-          "required": null,
-          "title": "Do not use",
-          "label": "DontUse"
-        }
-      },
       "SCAC": {
         "tree": {},
         "attr": {
@@ -207,14 +112,6 @@ class MetaBusinessMCFormCtrl {
           "required": null,
           "title": "SCACC"
         }
-      },
-      "OfficeName": {
-        "attr": {
-          "required": null,
-          "title": "OfficeName",
-          "label": "OfficeName"
-        },
-        "tree": {}
       },
       "BrnchId": {
         "attr": {
@@ -224,14 +121,7 @@ class MetaBusinessMCFormCtrl {
         },
         "tree": {}
       },
-      "Bond": {
-        "attr": {
-          "required": null,
-          "title": "Bond",
-          "label": "Bond"
-        },
-        "tree": {}
-      },
+
       "BrnchAddress": {
         "attr": {
           "label": "BrnchAddress",
@@ -239,22 +129,6 @@ class MetaBusinessMCFormCtrl {
           "title": "BrnchAddress"
         },
         "tree": {
-          "GpsLng": {
-            "attr": {
-              "label": "GpsLng",
-              "title": "GpsLng",
-              "required": null
-            },
-            "tree": {}
-          },
-          "AddrId": {
-            "tree": {},
-            "attr": {
-              "label": "AddrId",
-              "title": "AddrId",
-              "required": null
-            }
-          },
           "State": {
             "tree": {},
             "attr": {
@@ -262,22 +136,6 @@ class MetaBusinessMCFormCtrl {
               "required": "required",
               "label": "State"
             }
-          },
-          "Street2": {
-            "attr": {
-              "title": "Street",
-              "required": null,
-              "label": "Street2"
-            },
-            "tree": {}
-          },
-          "GpsLat": {
-            "attr": {
-              "required": null,
-              "title": "GpsLat",
-              "label": "GpsLat"
-            },
-            "tree": {}
           },
           "Country": {
             "attr": {
@@ -310,22 +168,6 @@ class MetaBusinessMCFormCtrl {
               "title": "Street or P.O. Box"
             },
             "tree": {}
-          },
-          "Notes": {
-            "tree": {},
-            "attr": {
-              "label": "Notes",
-              "title": "Notes",
-              "required": null
-            }
-          },
-          "Street3": {
-            "tree": {},
-            "attr": {
-              "title": "Street3",
-              "required": null,
-              "label": "Street3"
-            }
           }
         }
       }
@@ -333,9 +175,9 @@ class MetaBusinessMCFormCtrl {
   }
 }
 
-app.controller('MetaBusinessMCFormCtrl', MetaBusinessMCFormCtrl);
-app.component('metaBusinessMcForm', {
+app.controller('MetaBusinessMCSimpleFormCtrl', MetaBusinessMCSimpleFormCtrl);
+app.component('metaBusinessMcSimpleForm', {
   templateUrl: 'modules/business/simple/mc/form/meta.template.html',
-  controller: 'MetaBusinessMCFormCtrl',
+  controller: 'MetaBusinessMCSimpleFormCtrl',
   bindings: meta_bindings
 });
