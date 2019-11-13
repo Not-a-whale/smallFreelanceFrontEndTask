@@ -920,12 +920,30 @@ INSERT INTO `fin_accounts_trees` VALUES (1,1,0),(3,3,0),(5,5,0),(7,7,0),(9,9,0),
 UNLOCK TABLES;
 
 --
+-- Dumping data for table `fin_billing_banks`
+--
+
+LOCK TABLES `fin_billing_banks` WRITE;
+/*!40000 ALTER TABLE `fin_billing_banks` DISABLE KEYS */;
+/*!40000 ALTER TABLE `fin_billing_banks` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `fin_billing_infos`
 --
 
 LOCK TABLES `fin_billing_infos` WRITE;
 /*!40000 ALTER TABLE `fin_billing_infos` DISABLE KEYS */;
 /*!40000 ALTER TABLE `fin_billing_infos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `fin_billing_rules`
+--
+
+LOCK TABLES `fin_billing_rules` WRITE;
+/*!40000 ALTER TABLE `fin_billing_rules` DISABLE KEYS */;
+/*!40000 ALTER TABLE `fin_billing_rules` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1345,6 +1363,15 @@ UNLOCK TABLES;
 LOCK TABLES `hr_associates` WRITE;
 /*!40000 ALTER TABLE `hr_associates` DISABLE KEYS */;
 /*!40000 ALTER TABLE `hr_associates` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `hr_confidentials`
+--
+
+LOCK TABLES `hr_confidentials` WRITE;
+/*!40000 ALTER TABLE `hr_confidentials` DISABLE KEYS */;
+/*!40000 ALTER TABLE `hr_confidentials` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -2003,4 +2030,4 @@ UNLOCK TABLES;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-12 15:00:16
+-- Dump completed on 2019-11-13 11:34:49

@@ -15,8 +15,8 @@ use Moose;
 use TMS::API::Core::FinInvoice;
 use TMS::API::Core::FinJournalEntry;
 use TMS::API::Core::HrAssociate;
-use TMS::API::Core::FinJob;
 use TMS::API::Core::FinItemTemplate;
+use TMS::API::Core::FinJob;
 
 # AUTO-GENERATED DEPENDENCIES END
 

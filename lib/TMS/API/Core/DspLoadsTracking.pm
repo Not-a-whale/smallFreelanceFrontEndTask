@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::DrvDriver;
 use TMS::API::Core::DspLoadsDestination;
+use TMS::API::Core::DrvDriver;
 
 # AUTO-GENERATED DEPENDENCIES END
 

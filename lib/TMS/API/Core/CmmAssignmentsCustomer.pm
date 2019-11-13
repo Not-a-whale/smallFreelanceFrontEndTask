@@ -13,8 +13,8 @@ use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
 use TMS::API::Core::HrAssociate;
-use TMS::API::Core::EntCustomer;
 use TMS::API::Core::CmmPackage;
+use TMS::API::Core::EntCustomer;
 
 # AUTO-GENERATED DEPENDENCIES END
 

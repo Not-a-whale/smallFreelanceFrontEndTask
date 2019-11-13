@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::AppRole;
 use TMS::API::Core::AppMenuItem;
+use TMS::API::Core::AppRole;
 
 # AUTO-GENERATED DEPENDENCIES END
 
