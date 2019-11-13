@@ -12,18 +12,11 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
+use TMS::API::Core::FinJob;
+use TMS::API::Core::InvTrailerType;
+use TMS::API::Core::HrAssociate;
+use TMS::API::Core::EntCustomer;
 use TMS::API::Core::EntShipper;
-<<<<<<< HEAD
-use TMS::API::Core::InvTrailerType;
-use TMS::API::Core::HrAssociate;
-use TMS::API::Core::EntCustomer;
-use TMS::API::Core::FinJob;
-=======
-use TMS::API::Core::HrAssociate;
-use TMS::API::Core::EntCustomer;
-use TMS::API::Core::FinJob;
-use TMS::API::Core::InvTrailerType;
->>>>>>> d8b237c0a271ea8cabf70fd6a1180c53f82a77e0
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -54,10 +47,7 @@ has TempMode       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'E
 has TeamRequired   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EnumYes',);
 has DispatchNote   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 has Job            => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'FinJobObj | Int ',);
-<<<<<<< HEAD
 has GoogleRoute    => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
-=======
->>>>>>> d8b237c0a271ea8cabf70fd6a1180c53f82a77e0
 
 # AUTO-GENERATED HAS-A END
 

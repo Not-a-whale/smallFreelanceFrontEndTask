@@ -26,15 +26,9 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has CstmrId          => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EntBusinessObj | Int ',);
-<<<<<<< HEAD
 has MC               => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'MCnum',);
 has DOT              => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DOTnum',);
 has SCAC             => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'SCAC',);
-=======
-has MC               => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
-has DOT              => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
-has SCAC             => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
->>>>>>> d8b237c0a271ea8cabf70fd6a1180c53f82a77e0
 has Terms            => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 has Factoring        => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EnumYes',);
 has CreditLimit      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Float',);

@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::FinInvoicePayment;
 use TMS::API::Core::FinInvoicesItem;
+use TMS::API::Core::FinInvoicePayment;
 
 # AUTO-GENERATED DEPENDENCIES END
 

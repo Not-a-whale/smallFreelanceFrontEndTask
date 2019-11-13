@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::DspLoad;
 use TMS::API::Core::BizBranch;
+use TMS::API::Core::DspLoad;
 
 # AUTO-GENERATED DEPENDENCIES END
 

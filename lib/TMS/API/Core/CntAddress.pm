@@ -25,13 +25,13 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has AddrId  => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has Street1 => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
-has Street2 => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
-has Street3 => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
-has City    => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
-has Zip     => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
-has State   => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
-has Country => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has Street1 => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'Street',);
+has Street2 => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Street',);
+has Street3 => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Street',);
+has City    => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'City',);
+has Zip     => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'ZipCanadaUSA',);
+has State   => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'SupportedStateAbbr',);
+has Country => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'SupportedCountryName',);
 has GpsLng  => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Float',);
 has GpsLat  => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Float',);
 has Notes   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);

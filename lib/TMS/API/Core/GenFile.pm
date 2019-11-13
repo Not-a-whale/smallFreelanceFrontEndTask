@@ -28,8 +28,8 @@ has FileId        => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Pr
 has DocumentTitle => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 has Keywords      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 has FileName      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
-has FileData      => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'LONGBLOB',);
-has SHASIG        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
+has FileData      => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'Blob',);
+has SHASIG        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'Sha256',);
 has MIMEType      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 has UploadDate    => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
 has ExpiredDate   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);

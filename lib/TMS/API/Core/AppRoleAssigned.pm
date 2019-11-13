@@ -12,9 +12,9 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::AppAccount;
-use TMS::API::Core::HrAssociate;
 use TMS::API::Core::AppRole;
+use TMS::API::Core::HrAssociate;
+use TMS::API::Core::AppAccount;
 
 # AUTO-GENERATED DEPENDENCIES END
 

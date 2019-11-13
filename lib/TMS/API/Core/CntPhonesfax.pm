@@ -25,8 +25,8 @@ extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
 has PhnFaxId  => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has Number    => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
-has Extension => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has Number    => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'PhoneNumber',);
+has Extension => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'PhoneExt',);
 has Features  => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'SetVoice',);
 has Mobility  => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'EnumLandLine',);
 has Notes     => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);

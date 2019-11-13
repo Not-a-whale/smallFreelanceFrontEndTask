@@ -23,6 +23,8 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
+has Parent => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
+has Child  => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
 
 # AUTO-GENERATED HAS-A END
 

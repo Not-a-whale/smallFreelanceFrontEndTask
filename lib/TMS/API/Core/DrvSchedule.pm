@@ -12,9 +12,9 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::HrAssociate;
-use TMS::API::Core::DrvDesttype;
 use TMS::API::Core::DrvDriver;
+use TMS::API::Core::DrvDesttype;
+use TMS::API::Core::HrAssociate;
 
 # AUTO-GENERATED DEPENDENCIES END
 

@@ -13,8 +13,8 @@ use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
 use TMS::API::Core::SftLogbook;
-use TMS::API::Core::DrvDriver;
 use TMS::API::Core::SftElogStat;
+use TMS::API::Core::DrvDriver;
 
 # AUTO-GENERATED DEPENDENCIES END
 
