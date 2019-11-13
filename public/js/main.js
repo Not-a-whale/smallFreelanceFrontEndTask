@@ -1,4 +1,4 @@
-var app = angular.module("tms", ["ui.router", "ngAnimate", "duScroll", "angularFileUpload"]);
+var app = angular.module("tms", ["ui.router", "duScroll"]);
 
 app.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("tmsapp/main/dashboard");
