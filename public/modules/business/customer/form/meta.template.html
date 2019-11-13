@@ -1,12 +1,10 @@
 
-<meta-input gate="$ctrl.gate.CstmrId.BizName" meta="$ctrl.meta.CstmrId.tree.BizName"></meta-input>
+<meta-business-form gate="$ctrl.gate" meta="$ctrl.meta"></meta-business-form>
 <div class="frow c12">
   <meta-input class="c5" ng-if="$ctrl.meta.DOT != undefined" gate="$ctrl.gate.DOT" meta="$ctrl.meta.DOT"></meta-input>
   <meta-input class="c5" ng-if="$ctrl.meta.MC != undefined" gate="$ctrl.gate.MC" meta="$ctrl.meta.MC"></meta-input>
   <a ng-if=""class="btn btn-primary btn-sm">verify</a>
 </div>
-
-
 <meta-input ng-if="$ctrl.meta.SCAC != undefined" gate="$ctrl.gate.SCAC" meta="$ctrl.meta.SCAC"></meta-input>
 <meta-input ng-if="$ctrl.meta.CstmrId.tree.BizUrl != undefined" gate="$ctrl.gate.CstmrId.BizURL" meta="$ctrl.meta.CstmrId.tree.BizURL"></meta-input>
 <meta-input ng-if="$ctrl.meta.Terms != undefined" gate="$ctrl.gate.Terms" meta="$ctrl.meta.Terms"></meta-input>
