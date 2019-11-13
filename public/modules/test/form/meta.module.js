@@ -1,5 +1,6 @@
-class MetaComponentPostCtrl {
+class MetaComponentPostCtrl extends GenericService {
   constructor(http) {
+    super(http);
     this.http = http;
     this.url = "/echo";
     this.gate = {};
@@ -11,8 +12,9 @@ class MetaComponentPostCtrl {
 
   Post() {
     var self = this;
-    this.http.post(this.url, this.gate).then(function (res) {
-      self.response = res.data;
+
+    this.Request('post', this.url, this.gate, undefined, function (res) {
+      self.response = JSON.stringify(res.data,undefined, '    ');
       console.log(res.status);
     });
   }

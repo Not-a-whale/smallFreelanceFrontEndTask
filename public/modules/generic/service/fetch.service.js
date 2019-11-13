@@ -63,8 +63,8 @@ class GenericService {
     var obj = this.BuildObject(object);
     var data = {
       POST: obj,
-      ERROR: undefined,
-      DATA: undefined
+      ERROR: '',
+      DATA: ''
     };
 
     let funSuccess = success || this.Success;
