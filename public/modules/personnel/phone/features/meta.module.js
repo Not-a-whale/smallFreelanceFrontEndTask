@@ -1,7 +1,7 @@
-class MetaPhoneFeaturesInputCtrl {
+class MetaPhoneFeaturesInputCtrl extends MetaGateCtrl{
   constructor() {
-
-    this.meta = {
+    super();
+    this.imeta = {
       "VOICE": {
         "tree": {},
         "attr": {

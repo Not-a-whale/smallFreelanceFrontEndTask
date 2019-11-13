@@ -1,5 +1,10 @@
 
-<meta-business-form gate="$ctrl.gate" meta="$ctrl.meta"></meta-business-form>
+<meta-biz-form gate="$ctrl.gate.CstmrId" meta="$ctrl.meta.CstmrId.tree"></meta-biz-form>
+<meta-input ng-if="$ctrl.meta.OfficeName !== undefined" gate="$ctrl.gate.OfficeName" meta="$ctrl.meta.OfficeName"></meta-input>
+<meta-address-form ng-if="$ctrl.meta.BrnchAddress != undefined" gate="$ctrl.gate.BrnchAddress" meta="$ctrl.meta.BrnchAddress.tree"></meta-address-form>
+<meta-phone-form ng-if="$ctrl.meta.BrnchPhone != undefined" gate="$ctrl.gate.BrnchPhone" meta="$ctrl.meta.BrnchPhone.tree"></meta-phone-form>
+<meta-phone-form ng-if="$ctrl.meta.BrnchFax != undefined" gate="$ctrl.gate.BrnchFax" meta="$ctrl.meta.BrnchFax.tree"></meta-phone-form>
+<meta-input ng-if="$ctrl.meta.BrnchEMail != undefined" gate="$ctrl.gate.BrnchEMail" meta="$ctrl.meta.BrnchEMail"></meta-input>
 <div class="frow c12">
   <meta-input class="c5" ng-if="$ctrl.meta.DOT != undefined" gate="$ctrl.gate.DOT" meta="$ctrl.meta.DOT"></meta-input>
   <meta-input class="c5" ng-if="$ctrl.meta.MC != undefined" gate="$ctrl.gate.MC" meta="$ctrl.meta.MC"></meta-input>
