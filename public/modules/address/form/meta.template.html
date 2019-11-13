@@ -3,6 +3,14 @@
   <meta-input meta="$ctrl.meta.Street1"
               gate="$ctrl.gate.Street1"
               class="c12"></meta-input>
+  <meta-input ng-if="$ctrl.meta.Street2 !== undefined"
+              meta="$ctrl.meta.Street2"
+              gate="$ctrl.gate.Street2"
+              class="c12"></meta-input>
+  <meta-input ng-if="$ctrl.meta.Street3 !== undefined"
+              meta="$ctrl.meta.Street3"
+              gate="$ctrl.gate.Street3"
+              class="c12"></meta-input>
   <div class="frow c12">
     <meta-input meta="$ctrl.meta.City"
                 gate="$ctrl.gate.City"
@@ -20,3 +28,5 @@
                 class="c9"></meta-input>
   </div>
 </div>
+<meta-input ng-if="$ctrl.meta.GpsLng !== undefined" gate="$ctrl.gate.GpsLng" meta="$ctrl.meta.GpsLng"></meta-input>
+<meta-input ng-if="$ctrl.meta.GpsLat !== undefined" gate="$ctrl.gate.GpsLat" meta="$ctrl.meta.GpsLat"></meta-input>

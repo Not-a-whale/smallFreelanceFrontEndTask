@@ -1,6 +1,7 @@
-class MetaAddressCtrl {
+class MetaAddressCtrl extends MetaGateCtrl{
   constructor() {
-    this.meta = {
+    super();
+    this.imeta = {
       "GpsLat": {
         "tree": {},
         "attr": {
@@ -90,11 +91,8 @@ class MetaAddressCtrl {
         "tree": {}
       }
     };
-
-    console.log(this.meta);
   }
 }
-
 
 app.component("metaAddressForm", {
   templateUrl: "modules/address/form/meta.template.html",
