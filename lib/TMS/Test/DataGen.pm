@@ -68,7 +68,7 @@ sub DataHash {
         next if !exists $list{$name};
         my $type = ref($$self{$name});
 
-        $$data{$name} = $type =~ /TMS::/ ? $self->$name->DataHashRef() : $self->$name if defined $self->$name;
+        $$data{$name} = $type =~ /TMS::/ ? $self->$name->DataHash() : $self->$name if defined $self->$name;
     }
     return $data;
 }

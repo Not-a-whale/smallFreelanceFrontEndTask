@@ -18,15 +18,15 @@ sub BasicDataManipAll {
     $self->Test_Create_Duplicate;
     $self->Test_Find;
     $self->Test_FindOrCreate_Existing;
-    $self->Test_Update;
-    $self->Test_Update_Unique;
-    $self->Test_Delete;
-    $self->Test_UpdateDeleted;
-    $self->Test_FindOrCreate_New;
-    $self->Test_Delete_Uniq;
-    $self->Test_UpdateOrCreate_New;
-    $self->Test_UpdateOrCreate_ExistingPK;
-    $self->Test_UpdateOrCreate_ExistingUK;
+#    $self->Test_Update;
+#    $self->Test_Update_Unique;
+#    $self->Test_Delete;
+#    $self->Test_UpdateDeleted;
+#    $self->Test_FindOrCreate_New;
+#    $self->Test_Delete_Uniq;
+#    $self->Test_UpdateOrCreate_New;
+#    $self->Test_UpdateOrCreate_ExistingPK;
+#    $self->Test_UpdateOrCreate_ExistingUK;
     $self->Test_Delete;
 }
 

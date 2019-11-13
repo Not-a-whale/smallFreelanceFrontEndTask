@@ -16,6 +16,8 @@ $Data::Dumper::Terse = 1;
 has Schema => (is => 'rw', lazy => 1, builder => '_get_dbix_hdl');
 sub _get_dbix_hdl { shift->Schema(TMS::Schema->new()->DBIxHandle) }
 
+has PrimaryKey => (is => 'rw');
+
 # -------------------------------------------------------------------------------------------------------------
 sub Storage { shift->Schema->storage }
 
@@ -105,6 +107,38 @@ sub NonPrimaryColumns {
 sub UniqueConstraints {
     my %data = shift->ResultSource->unique_constraints;
     return \%data;
+}
+
+# -------------------------------------------------------------------------------------------------------------
+sub Relationships { shift->ResultSource->relationships() }
+
+# -------------------------------------------------------------------------------------------------------------
+sub RelationshipInfo {
+    my $self = shift;
+    my %info = map { $_, $self->ResultSource->relationship_info($_) } $self->Relationships;
+    return \%info;
+}
+
+# -------------------------------------------------------------------------------------------------------------
+sub RelationshipAttr {
+    my $self = shift;
+    my $attr = undef;
+    my %info = map { $_, $self->ResultSource->relationship_info($_) } $self->Relationships;
+    foreach my $name ( keys %info ) {
+        next unless exists $info{$name}{attrs}{is_foreign_key_constraint};
+        my ($col) = values %{$info{$name}{cond}};
+        $col =~ s/self\.//;
+        $$attr{$col} = $info{$name};
+        $$attr{$col}{name} = $name;
+    }
+    return $attr;
+}
+
+# -------------------------------------------------------------------------------------------------------------
+sub ReverseRelationshipInfo {
+    my $self = shift;
+    my %info = map { $_, $self->ResultSource->reverse_relationship_info($_) } $self->Relationships;
+    return \%info;
 }
 
 # -------------------------------------------------------------------------------------------------------------
@@ -204,6 +238,7 @@ sub UpdateOrCreate {
 
 # -------------------------------------------------------------------------------------------------------------
 sub Update {    # https://github.com/castaway/dbix-class-book/blob/master/chapters/04-Creating-Reading-Updating-Deleting.md
+    $DB::single = 2;
     my $self = shift;
     my $what = shift || $self->_meta_loop;
     my $cond = shift || $self->FetchWhereKeys;

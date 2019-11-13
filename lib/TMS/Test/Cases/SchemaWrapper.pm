@@ -22,6 +22,10 @@ use Moose::Role;
 $Data::Dumper::Terse = 1;
 
 my @cases = qw(
+    Test_Relationships
+    Test_RelationshipInfo
+    Test_RelationshipAttr
+    Test_ReverseRelationshipInfo
     Test_DataHash
     Test_Schema
     Test_Storage
@@ -35,8 +39,54 @@ my @cases = qw(
 
 foreach my $CaseName (@cases) {    # print nice line before each test
     before $CaseName => sub {
+        my $self = shift;
         my ($line, $pads) = ('=' x 120, ' ' x 40);
-        printf "\n\n%s\n%s%s\n%s\n", $line, $pads, $CaseName, $line;
+        printf "\n\n%s\n%s%s %s\n%s\n", $line, $pads, ref($self), $CaseName, $line;
+    };
+}
+
+sub Test_Relationships {
+    my $self = shift;
+    try {
+        my @list = $self->Relationships;
+        ok(@list, "Relationships list") && diag(Dumper(\@list));
+    } catch {
+        BAIL_OUT(longmess($_));
+    };
+}
+
+sub Test_RelationshipAttr {
+    my $self = shift;
+    try {
+        my $info = $self->RelationshipAttr;
+        if (defined $info) {
+            ok($info, "Relationships Attributes Found");
+            diag(Dumper($info));
+        } else {
+            diag("No FK found");
+        }
+    } catch {
+        BAIL_OUT(longmess($_));
+    };
+}
+
+sub Test_RelationshipInfo {
+    my $self = shift;
+    try {
+        my $info = $self->RelationshipInfo;
+        ok($info, "Relationships Info") && diag(Dumper($info));
+    } catch {
+        BAIL_OUT(longmess($_));
+    };
+}
+
+sub Test_ReverseRelationshipInfo {
+    my $self = shift;
+    try {
+        my $info = $self->RelationshipInfo;
+        ok($info, "Relationships Info") && diag(Dumper($info));
+    } catch {
+        BAIL_OUT(longmess($_));
     };
 }
 
@@ -45,16 +95,27 @@ sub Test_DataHash {
     try {
         my $DataHash = $self->DataHash;
         my @ColsList = $self->NonPrimaryColumns;
+        my $FkeyList = $self->RelationshipAttr;
 
         ok(ref($DataHash) eq 'HASH', "Get generated data from DataGen instance and make sure it's a hash")
             || confess "DataHash call has not returned a hash";
+        print Dumper($DataHash);
 
         my $NonEmptyFieldCount = scalar(@ColsList);
-        my $ActualFieldsFound
-            = scalar(grep { exists $$DataHash{$_} && defined $$DataHash{$_} && $$DataHash{$_} =~ /\S+/ } @ColsList);
+        my $ActualFieldsFound  = 0;
+        my $OkToIgnoreColumns  = 0;
 
-        ok($ActualFieldsFound == $NonEmptyFieldCount, "Verify generated data is not an empty hash")
-            || confess "Generated data is insufficient. Expecting $NonEmptyFieldCount, got $ActualFieldsFound";
+        foreach (@ColsList) {
+            if (exists $$DataHash{$_} && defined $$DataHash{$_} && $$DataHash{$_} =~ /\S+/) {
+                $ActualFieldsFound++;
+            } else {
+                $OkToIgnoreColumns++ if defined $FkeyList && exists $$FkeyList{$_};
+            }
+        }
+
+        ok(($ActualFieldsFound + $OkToIgnoreColumns) == $NonEmptyFieldCount, "Verify generated data is not an empty hash")
+            || confess "Generated data is insufficient. Expecting $NonEmptyFieldCount, "
+            . "got $ActualFieldsFound, while ok to ignore count is $OkToIgnoreColumns";
 
     } catch {
         BAIL_OUT(longmess($_));

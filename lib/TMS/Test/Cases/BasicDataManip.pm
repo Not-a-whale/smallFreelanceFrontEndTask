@@ -45,16 +45,19 @@ my @cases = qw(
 
 foreach my $CaseName (@cases) {    # print nice line before each test
     before $CaseName => sub {
+        my $self = shift;
         my ($line, $pads) = ('=' x 120, ' ' x 40);
-        printf "\n\n%s\n%s%s\n%s\n", $line, $pads, $CaseName, $line;
+        printf "\n\n%s\n%s%s %s\n%s\n", $line, $pads, ref($self), $CaseName, $line;
     };
 }
 
 sub Test_Create {
+
     #    my $this = shift;
     #    my $self = $this->new(%{$this->DataRebuild});
 
     my $self = shift;
+    $self->DataHashTell;
 
     try {
         my $row = $self->Create;
@@ -136,7 +139,9 @@ sub Test_Update {
     my $UpdateMe = $self->DataRebuild;
     my %PrimKeys = map { $_, 1 } $self->PrimaryColumns;
     try {
+        $DB::single = 2;
         $self->$_($$UpdateMe{$_}) foreach (grep { !exists $PrimKeys{$_} } keys %$UpdateMe);
+        $self->DataHashTell;
         $self->Update();
         $self->DataCompare("Strict update on the primary key", undef);
         diag("Before Update: " . Dumper($Original));
@@ -152,7 +157,7 @@ sub Test_Update_Unique {
     try {
         my $Constraints = $self->UniqueConstraints;    # get constraints
         if (scalar(keys %{$Constraints}) < 2) {
-            ok(scalar(%$Constraints) < 2, "Skipping - no unique keys present");
+            ok(scalar(keys %$Constraints) < 2, "Skipping - no unique keys present");
             return undef;
         }
         my %PriKeyVals = map { $_, $self->$_ } $self->PrimaryColumns;    # save original primary keys
@@ -216,6 +221,13 @@ sub Test_FindOrCreate_New {
 sub Test_Delete_Uniq {
     my $self = shift;
     try {
+        my $Constraints = $self->UniqueConstraints;    # get constraints
+        if (scalar(keys %{$Constraints}) < 2) {
+            ok(scalar(keys %$Constraints) < 2, "Skipping - no unique keys present");
+            $self->Delete if $self->Find;
+            return undef;
+        }
+
         $self->$_(undef) foreach $self->PrimaryColumns;
         ok($self->Delete == 0, "Strict delete of created record") || confess "Unable to strict delete the record"
     } catch {
@@ -282,7 +294,7 @@ sub Test_UpdateOrCreate_ExistingUK {
         my $Constraints = $self->UniqueConstraints;    # get constraints
 
         if (scalar(keys %{$Constraints}) < 2) {
-            ok(scalar(%$Constraints) < 2, "Skipping - no unique keys present");
+            ok(scalar(keys %$Constraints) < 2, "Skipping - no unique keys present");
             return undef;
         }
 

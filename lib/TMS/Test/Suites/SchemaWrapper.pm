@@ -12,6 +12,12 @@ sub SchemaWrapperAll {
     $self->Test_Storage;
     $self->Test_ResultSet;
     $self->Test_ResultSource;
+
+    $self->Test_Relationships;
+    $self->Test_RelationshipInfo;
+    $self->Test_RelationshipAttr;
+    $self->Test_ReverseRelationshipInfo;
+
     $self->Test_PrimaryColumns;
     $self->Test_UniqueConstraints;
     $self->Test_ColumnsList;

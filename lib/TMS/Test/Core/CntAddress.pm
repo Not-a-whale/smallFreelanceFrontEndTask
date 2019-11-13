@@ -20,5 +20,7 @@ with 'TMS::Test::Suites::BasicDataManip';
 
 # override types here
 # has '+COLNAME' => (is => 'rw', coerce => 1, required => REQUIRED, isa => Undef | 'TYPE',);
+# has '+COLNAME' => (init_arg => undef, builder => '_build_undef' );
+# sub _build_undef { shift->COLNAME(undef) };
 
 1;

@@ -1,3 +1,5 @@
+## Please see file perltidy.ERR
+## Please see file perltidy.ERR
 package TMS::API::Types::Simple;
 
 use strict;
@@ -7,6 +9,7 @@ use Devel::Confess;
 use Data::Dumper;
 use Date::Manip;
 use Digest::SHA qw(sha256_hex);
+use MIME::Base64;
 
 use Text::Lorem::More;
 use Data::Random qw(:all);
@@ -120,6 +123,13 @@ my %rgx = (
     isSha256   => qr/^[0-9a-f]{64}$/,
     isCountry  => qr/^(United States|Canada)$/,
     isZipCode  => qr/^\d{5}(?:\-\d{4})?$/,
+    isBlob     => qr/\S/s,
+    isSha256   => qr/^[0-9a-fA-F]{64}$/,
+    isMCnum    => qr/^MC\d{6,8}$/,
+    isDOTnum   => qr/^USDOT\d{6,}$/,
+    isSCAC     => qr/^[A-Z]{2,4}$/,
+    isDUNS     => qr/^\d{9}$/,
+    isEmail    => qr/^[^\s\@]+\@[^\.\s]+(\.[^\.\s]+)+$/,
 );
 
 # ............................................................................
@@ -189,61 +199,92 @@ coerce 'City', from 'Str', via { tryNameCapitalized(tryMinMax($_, 2, 64)) };
 subtype 'ZipCanadaUSA', as 'Str',   where {/$rgx{isZipCode}/};
 coerce 'ZipCanadaUSA',  from 'Str', via { tryZipCanadaUSA($_) };
 
-subtype 'BizName', as 'Str',   where {/$rgx{isTidy}/ && /$rgx{isUpper}/};
+subtype 'BizName', as 'Str',   where { /$rgx{isTidy}/ && /$rgx{isUpper}/ };
 coerce 'BizName',  from 'Str', via { tryUpperCaseStr($_) };
 
 subtype 'VIN', as 'Str', where { isVIN($_) }, message {
     "The VIN you provided is invalid format. Please check and try again."
 };
 
+subtype 'Blob', as 'Str',   where {/$rgx{isBlob}/};
+coerce 'Blob',  from 'Str', via { tryBlob($_) };
+
+subtype 'Sha256', as 'Str',   where {/$rgx{isSha256}/};
+coerce 'Sha256',  from 'Str', via { trySha256($_) };
+
+subtype 'MCnum', as 'Str',   where {/$rgx{isMCnum}/};
+coerce 'MCnum',  from 'Str', via { tryMCnum($_) };
+
+subtype 'DOTnum', as 'Str',   where {/$rgx{isDOTnum}/};
+coerce 'DOTnum',  from 'Str', via { tryDOTnum($_) };
+
+subtype 'SCAC', as 'Str',   where {/$rgx{isSCAC}/};
+coerce 'SCAC',  from 'Str', via { trySCAC($_) };
+
+subtype 'DUNS', as 'Str',   where {/$rgx{isDUNS}/};
+coerce 'DUNS',  from 'Str', via { tryDUNS($_) };
+
+subtype 'Bonds', as 'Str', where { isMinMax($_, 2, 64) };
+coerce 'Bonds', from 'Str', via { tryNameCapitalized(tryMinMax($_, 2, 64)) };
+
+subtype 'Email', as 'Str',   where {/$rgx{isEmail}/};
+coerce 'Email',  from 'Str', via { tryEmail($_) };
+
+# ............................................................................
+sub _auto_ok { $AUTO_GENERATE && (!defined $_[0] || $_[0] !~ /\S+/s) ? 1 : 0 }
+
 sub tryTidySpacesString {
     my $text = shift;
-    return Text::Lorem::More->new->description() if $AUTO_GENERATE && $text !~ /\S+/s;
+    return Text::Lorem::More->new->description() if _auto_ok($text);
 
     $text =~ s/^\s+|\s+$//g;
     $text =~ s/\s+/ /g;
     return $text;
-} ## end sub tryTidySpacesString
+}
 
 sub tryUpperCaseStr {
     my $text = tryTidySpacesString(shift);
-    $text = Text::Lorem::More->new->description() if $AUTO_GENERATE && $text !~ /\S+/s;
+    $text = Text::Lorem::More->new->description() if _auto_ok($text);
     return uc($text);
 }
 
 sub tryNameCapitalized {
     my $text = tryTidySpacesString(shift);
-    return Text::Lorem::More->new->name() if $AUTO_GENERATE && $text !~ /\S+/s;
+    return Text::Lorem::More->new->name() if _auto_ok($text);
     $text =~ s/(\w+)/ucfirst(lc($1))/ge;
     return $text;
-} ## end sub tryNameCapitalized
+}
 
 sub tryPrimaryKeyInt {
-    return int(rand(999999999)) if $AUTO_GENERATE;
     my $text = shift;
+    return int(rand(999999999)) if _auto_ok($text);
     $text =~ s/\D+//g;
     return undef if !/\d+/;
     return $text;
-} ## end sub tryPrimaryKeyInt
+}
 
 sub tryPositiveInt {
-    return int(rand(999999999)) if $AUTO_GENERATE;
-    my $text = shift;
+    my $text = $_[0];
+
+    return int(rand(999999999)) if _auto_ok($text);
+
     $text =~ s/\D+//g;
-    return $text;
-} ## end sub tryPositiveInt
+    return $text =~ /^\d+$/ ? $text : $_[0];
+}
 
 sub tryBoolInt {
-    return rand_enum(set => [0, 1]) if $AUTO_GENERATE;
     my $text = shift;
+
+    return rand_enum(set => [0, 1]) if _auto_ok($text);
+
     return 0 if !defined $text;
     return ($text =~ /$rgx{yesBoolInt}/i ? 1 : 0) if $text =~ /$rgx{canBoolInt}/i;
     return $text;
-} ## end sub tryBoolInt
+}
 
 sub tryUserNameLowerCase {
     my $text = shift;
-    if ($AUTO_GENERATE) {
+    if (_auto_ok($text)) {
         return join("",
             rand_chars(set => "loweralpha", min => 3, max => 5),
             map {lc} rand_chars(set => "alphanumeric", min => 1, max => 7));
@@ -251,19 +292,24 @@ sub tryUserNameLowerCase {
         $text =~ s/[^a-z0-9_].*//gi;
         return lc($text);
     }
-} ## end sub tryUserNameLowerCase
+}
 
 sub tryEnumYesNo {
-    return rand_enum(set => ['yes', 'no']) if $AUTO_GENERATE;
-    my $text = shift;
-    $text =~ s/\s//g;
-    $text =~ s/.*(yes|no).*/$1/i;
+    my $text = $_[0];
+
+    return rand_enum(set => ['yes', 'no']) if _auto_ok($text);
+
+    return 'no' if !defined($text);
+
+    $text                 =~ s/\s//g;
+    $text                 =~ s/.*(yes|no).*/$1/i;
+    return $_[0] if $text !~ /$rgx{isYesNo}/i;      # return original on error
     return lc($text);
-} ## end sub tryEnumYesNo
+}
 
 sub trySha256Password {
     my $text = shift;
-    if ($AUTO_GENERATE) {
+    if (_auto_ok($text)) {
         $text = rand_chars(set => "all", min => 6, max => 15);
     } else {
         return 'Short Password' if $text !~ /.{6,}/;
@@ -272,7 +318,7 @@ sub trySha256Password {
         return 'No lower case'  if $text !~ /[a-z]/;
     }
     return sha256_hex($text);
-} ## end sub trySha256Password
+}
 
 sub isDateTime {
     my $date = shift;
@@ -287,15 +333,16 @@ sub isDateTime {
         return 1;
     }
     return undef;
-} ## end sub isDateTime
+}
 
 sub tryDateTime {
-    return rand_datetime() if $AUTO_GENERATE;
-    return undef if $DateObj->parse(shift);
+    my $text = $_[0];
+    return rand_datetime() if _auto_ok($text);
+    return $_[0] if $DateObj->parse($text);    # return original on error
     return $DateObj->printf('%Y-%m-%d %H:%M:%S');
 }
 
-sub tryDbDuration {
+sub tryDbDuration {    # ! HAS NO AUTO_GENERATE
     my $time     = shift;
     my $delta    = 1;
     my $duration = 0;
@@ -307,13 +354,14 @@ sub tryDbDuration {
     $duration += ($time =~ /(\d+)\s*w/i ? $1 : 0) * ($delta *= 7);     # (1W) weeks
     $duration += ($time =~ /(\d+)\s*r/i ? $1 : 0) * ($delta *= 5);     # (1R) 5 days woRk weeks
     return $duration;
-} ## end sub tryDbDuration
+}
 
 sub CurrencyValue {
-    return sprintf "%6.2f", rand(10000) if $AUTO_GENERATE;
-
-    my $money = shift;
+    my $money = $_[0];
     $money =~ s/[^\d\.\-\(\)]//g;                                      # remove all if not of "0-9.-()"
+    $money = sprintf "%6.2f", rand(10000) if _auto_ok($money);
+
+    return $_[0] if $money !~ /^[^\d\.\-\(\)]+$/;                      # return original value if we dont have digits
 
     my $isnegative = ($money =~ m/-(.*)/) ? 1 : 0;
     my $value      = ($isnegative ? $1 : undef) || $money;
@@ -326,34 +374,34 @@ sub CurrencyValue {
     my $number = $1 || 0;
 
     return sprintf('%s%0.2f', ($sign, $number));
-} ## end sub CurrencyValue
+}
 
 sub tryPhoneExt {
-    if ($AUTO_GENERATE) {
+    my $ext = $_[0];
+    $ext =~ s/[^0-9\#\*,]//gs;
+    if (_auto_ok($ext)) {
         my $ext  = undef;
         my @nums = ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '#', ',', '*');
         $ext .= $nums[int(rand(13))] for 1 .. 9;
         $ext .= $nums[int(rand(10))];
         return $ext;
     }
-    my $ext = shift;
-    $ext =~ s/[^0-9\#\*,]//gs;
-    return $ext;
-} ## end sub tryPhoneExt
+    return $ext =~ /$rgx{isPhoneExt}/ ? $ext : $_[0];
+}
 
 sub tryPhoneNumber {
-    if ($AUTO_GENERATE) {
+    my $phn = $_[0];
+    if (_auto_ok($phn)) {
         my $phone = 0;
         $phone = int(rand(9999999999)) while $phone < 1000000000;
         $phone =~ s/(\d{3})(\d{3})(\d{4})$/$1\-$2\-$3/;
         return $phone;
     } else {
-        my $phn = shift;
         $phn =~ s/\D+//g;
         $phn =~ s/.*?(\d{3})(\d{3})(\d{4})$/$1\-$2\-$3/;
         return $phn;
     }
-} ## end sub tryPhoneNumber
+}
 
 sub isVIN {
     my $vin = shift;
@@ -367,14 +415,14 @@ sub isVIN {
         $sum += index($translit, substr($vin, $i, 1)) % 10 * index($map, substr($weights, $i, 1));
     }
     return substr($map, $sum % 11, 1) == substr($vin, 8, 1);
-} ## end sub isVIN
+}
 
 sub tryFloat {
-    return sprintf "%6.2f", rand(10000) if $AUTO_GENERATE;
-    my $num = shift;
+    my $num = $_[0];
     $num =~ s/[^\d\.\-]//g;
-    return $num;
-} ## end sub tryFloat
+    return sprintf "%6.2f", rand(10000) if _auto_ok($num);
+    return $num =~ /$rgx{isFloat}/ ? $num : $_[0];
+}
 
 sub isSupportedStateName {
     my $state = shift;
@@ -382,9 +430,10 @@ sub isSupportedStateName {
 }
 
 sub trySupportedStateName {
-    return rand_enum(set => [values %$UsState_Abbr2Name]) if $AUTO_GENERATE;
+    my $state = uc($_[0]);
 
-    my $state = uc(shift);
+    return rand_enum(set => [values %$UsState_Abbr2Name]) if _auto_ok($state);
+
     $state =~ s/^\s+//;
     $state =~ s/\s+$//;
     $state =~ s/\s+/ /g;
@@ -398,7 +447,8 @@ sub trySupportedStateName {
 
     return $$CanadaState_Abbr2Name{$state} if exists $$CanadaState_Abbr2Name{$state};
     return $$UsState_Abbr2Name{$state}     if exists $$UsState_Abbr2Name{$state};
-} ## end sub trySupportedStateName
+    return $_[0];
+}
 
 sub isSupportedStateAbbr {
     my $state = shift;
@@ -406,8 +456,10 @@ sub isSupportedStateAbbr {
 }
 
 sub trySupportedStateAbbr {
-    return rand_enum(set => [keys %$UsState_Abbr2Name]) if $AUTO_GENERATE;
-    my $state = uc(shift);
+    my $state = uc($_[0]);
+
+    return rand_enum(set => [keys %$UsState_Abbr2Name]) if _auto_ok($state);
+
     $state =~ s/^\s+//;
     $state =~ s/\s+$//;
     $state =~ s/\s+/ /g;
@@ -415,15 +467,16 @@ sub trySupportedStateAbbr {
     return $state                            if exists $$UsState_Abbr2NameUC{$state} || exists $$CanadaState_Abbr2NameUC{$_};
     return $$CanadaState_Name2AbbrUC{$state} if exists $$CanadaState_Name2AbbrUC{$state};
     return $$UsState_Name2AbbrUC{$state}     if exists $$UsState_Name2AbbrUC{$state};
-} ## end sub trySupportedStateAbbr
+    return $_[0];
+}
 
 sub trySupportedCountryName {
-    return rand_enum(set => ['United States', 'Canada']) if $AUTO_GENERATE;
     my $country = shift;
-    return "United States" if $country =~ /US|USA|UNITED\s+STATES/i;
-    return "Canada"        if $country =~ /CANADA/i;
+    return rand_enum(set => ['United States', 'Canada']) if _auto_ok($country);
+    return "United States" if $country =~ /\b(US|USA|UNITED\s+STATES)\b/i;
+    return "Canada"        if $country =~ /\bCANADA\b/i;
     return $country;
-} ## end sub trySupportedCountryName
+}
 
 sub isMinMax {
     my ($text, $min, $max) = @_;
@@ -437,11 +490,11 @@ sub tryMinMax {
     my $len   = length($valid);
     return $valid if $len >= $min && $len <= $max;
     return $text;
-} ## end sub tryMinMax
+}
 
 sub tryZipCanadaUSA {
     my $zip = $_[0];
-    if ($AUTO_GENERATE) {
+    if (_auto_ok($zip)) {
         my $first_part  = 0;
         my $second_part = 0;
         $first_part  = int(rand(99999)) while $first_part < 10000;
@@ -456,6 +509,90 @@ sub tryZipCanadaUSA {
     } else {
         return $_[0];    # return original as is
     }
-} ## end sub tryZipCanadaUSA
+}
+
+sub tryBlob {
+    my $data = shift;
+    return encode_base64(
+        rand_image(
+            minwidth  => 100,
+            maxwidth  => 200,
+            minheight => 100,
+            maxheight => 200,
+            minpixels => 256
+        )
+    ) if _auto_ok($data);
+    return $data;
+}
+
+sub trySha256 {
+    my $data = shift;
+    $data = encode_base64(
+        rand_image(
+            minwidth  => 100,
+            maxwidth  => 200,
+            minheight => 100,
+            maxheight => 200,
+            minpixels => 256
+        )
+    ) if _auto_ok($data);
+    return sha256_hex($data);
+}
+
+sub tryMCnum {
+    my $text = $_[0];
+    if (_auto_ok($text)) {
+        my $mc = 0;
+        $mc = int(rand(99999999)) while $mc < 1000000;
+        return "MC$mc";
+    }
+    $text =~ s/\D+//g;
+    $text = 'MC' . $text;
+    return $text =~ /$rgx{isMCnum}/ ? $text : $_[0];
+}
+
+sub tryDOTnum {
+    my $text = $_[0];
+    if (_auto_ok($text)) {
+        my $dot = 0;
+        $dot = int(rand(99999999)) while $dot < 10000;
+        return "USDOT$dot";
+    }
+    $text =~ s/\D+//g;
+    $text = 'USDOT' . $text;
+    return $text =~ /$rgx{isDOTnum}/ ? $text : $_[0];
+}
+
+sub trySCAC {
+    my $text = uc($_[0]);
+
+    return rand_chars(set => 'upperalpha', min => 2, max => 4) if _auto_ok($text);
+
+    $text =~ s/\s+//g;
+    return $text =~ /$rgx{isSCAC}/ ? $text : $_[0];
+}
+
+sub tryDUNS {
+    my $text = $_[0];
+    if (_auto_ok($text)) {
+        my $duns = 0;
+        $duns = int(rand(999999999)) while $duns < 100000000;
+        return $duns;
+    }
+    $text =~ s/\D+//g;
+    return $text =~ /$rgx{isDUNS}/ ? $text : $_[0];
+}
+
+sub tryEmail {
+    my $text = $_[0];
+    if (_auto_ok($text)) {
+        return
+              rand_chars(set => 'alphanumeric', min => 3, max => 10) . '@'
+            . rand_chars(set => 'alphanumeric', min => 3, max => 10) . '.'
+            . rand_enum(set => [qw( com net org gov biz us ca uk fr ch ru ua )]);
+    }
+    $text =~ s/\s+//g;
+    return $text =~ /$rgx{isEmail}/ ? $text : $_[0];
+}
 
 1;

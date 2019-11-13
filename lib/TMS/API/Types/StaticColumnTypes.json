@@ -13,5 +13,31 @@
     "Country" : "SupportedCountryName",
     "City" :    "City",
     "State" :   "SupportedStateAbbr"
+  },
+
+  "gen_files" : {
+    "SHASIG" :  "Sha256",
+    "FileData" : "Blob"
+  },
+
+  "ent_customers" : {
+    "MC" : "MCnum",
+    "DOT" : "DOTnum",
+    "SCAC" : "SCAC",
+    "DUNS" : "DUNS",
+    "Bond" : "Bonds"
+  },
+
+  "ent_carriers" : {
+    "MC" : "MCnum",
+    "DOT" : "DOTnum",
+    "SCAC" : "SCAC",
+    "IFTA_State" : "SupportedStateAbbr"
+  },
+
+  "biz_branches" : {
+    "BrnchEMail" : "Email",
+    "OfficeName" : "UpperCaseStr"
   }
+
 }
