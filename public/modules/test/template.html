@@ -1,6 +1,12 @@
 <div class="test-component as-row c12">
   <div class="component-container as-col c2">
-    <div class="component" ng-repeat="t in $resolve.components"
+    <div>Atomic</div>
+    <div class="component"
+         ng-repeat="t in $resolve.components | filter: {atomic: true}"
+         ng-click="$resolve.SelectMe(t)">{{ t.component }}</div>
+    <div>Combined</div>
+    <div class="component"
+         ng-repeat="t in $resolve.components | filter: {atomic: false}"
          ng-click="$resolve.SelectMe(t)">{{ t.component }}</div>
   </div>
   <meta-component-post class="as-col c10"></meta-component-post>

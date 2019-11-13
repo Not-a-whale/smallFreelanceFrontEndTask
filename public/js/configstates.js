@@ -17,9 +17,12 @@ var configstates = {
                   justify-content: center;
                 }
             </style>
-
-
-          <div class="btn-cont"><a ui-sref="tms.test" class="btn btn-primary btn-lg">Components</a></div><div class="btn-cont"><a ui-sref="tmsapp.main.dashboard"class="btn btn-primary btn-lg">Web App</a></div>`
+          <div class="btn-cont">
+            <a ui-sref="tms.test" class="btn btn-primary btn-lg">Components</a>
+          </div>
+          <div class="btn-cont">
+            <a ui-sref="tmsapp.main.dashboard"class="btn btn-primary btn-lg">Web App</a>
+          </div>`;
         }
       }
     }

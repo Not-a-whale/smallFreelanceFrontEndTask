@@ -1,60 +1,54 @@
 [{
-    "component": "generic-input",
-    "dataurl": "123"
-  },
-  {
-    "component": "generic-datalist",
-    "dataurl": "123"
-  },
-  {
-    "component": "generic-select",
-    "dataurl": "modules/temp/select_data.json"
-  },
-  {
-    "component": "generic-checkbox"
-  },
-  {
-    "component": "ternary-checkbox"
-  },
-  {
-    "component": "generic-select"
-  },
-  {
-    "component": "phone-icon",
-    "dataurl": ""
-  },
-  {
-    "component": "input-phone-ext",
-    "dataurl": ""
-  },
-  {
-    "component": "insurance-form"
-  },
-  {
-    "component": "drivers-form"
-  }, {
-    "component": "meta-input"
-  }, {
-    "component": "meta-checkbox"
-  }, {
-    "component": "meta-address-form"
-  }, {
-    "component": "meta-name-form"
-  }, {
-    "component": "meta-phone-form"
-  }, {
-    "component": "meta-phone-features-form"
-  }, {
-    "component": "meta-contact-form"
-  }, {
-    "component": "meta-business-simple-form"
-  }, {
-    "component": "meta-business-customer-form"
-  }, {
-    "component": "meta-business-mc-form"
-  }, {
-    "component": "image-billboard"
-  }, {
-    "component": "generic-file-upload"
-  }
-]
+  "component": "phone-icon",
+  "dataurl": "",
+  "atomic": true
+}, {
+  "component": "meta-input",
+  "dataurl" : "123",
+  "atomic": true
+}, {
+  "component": "meta-checkbox",
+  "atomic": true
+}, {
+  "component": "meta-address-form",
+  "atomic": true
+}, {
+  "component": "meta-name-form",
+  "atomic": true
+}, {
+  "component": "meta-phone-form",
+  "atomic": true
+}, {
+  "component": "meta-phone-features-form",
+  "atomic": true
+}, {
+  "component": "meta-contact-form",
+  "atomic": false
+}, {
+  "component": "meta-business-form",
+  "atomic": false
+}, {
+  "component": "meta-biz-form",
+  "atomic": true
+}, {
+  "component": "meta-business-customer-form",
+  "atomic": false
+}, {
+  "component": "meta-business-mc-form",
+  "atomic": false
+}, {
+  "component": "meta-business-simple-form",
+  "atomic": false
+}, {
+  "component": "meta-business-customer-simple-form",
+  "atomic": false
+}, {
+  "component": "meta-business-mc-simple-form",
+  "atomic": false
+}, {
+  "component": "image-billboard",
+  "atomic": true
+}, {
+  "component": "generic-file-upload",
+  "atomic": true
+}]
