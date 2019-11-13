@@ -56,7 +56,7 @@ var configstates = {
     views: {
       "component@tms.test": {
         template: function(params) {
-          return `<` + params.component + ' value=$resolve.gate></' + params.component + `>`;
+          return `<` + params.component + ' gate="$ctrl.gate" ></' + params.component + `>`;
         }
       }
     }, resolve: {

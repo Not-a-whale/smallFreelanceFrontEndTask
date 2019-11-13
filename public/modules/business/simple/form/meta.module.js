@@ -260,6 +260,6 @@ class MetaBusinessSimpleFormCtrl {
 app.controller('MetaBusinessSimpleFormCtrl', MetaBusinessSimpleFormCtrl);
 app.component('metaBusinessSimpleForm', {
   templateUrl: 'modules/business/simple/form/meta.template.html',
-  controller: 'MetaBusinessSimpleCtrl',
+  controller: 'MetaBusinessSimpleFormCtrl',
   bindings: meta_bindings
 });
