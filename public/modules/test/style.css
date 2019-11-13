@@ -1,0 +1,17 @@
+.test-component .component-container {
+  background-color: var(--cp-grey-heavy);
+}
+
+.test-component .component {
+  cursor: pointer;
+  font-size: var(--font-large);
+  font-weight: normal;
+  color: var(--cp-grey-light);
+  font-family: var(--font-family-second);
+}
+
+.test-component .component:hover {
+  color: var(--navbar-font-nav-color-hover);
+  cursor: pointer;
+  background-color: var(--cp-grey-light);
+}
