@@ -6,26 +6,13 @@ var configstates = {
     url: "/app"
   },
   "tms.test": {
-    url: "/test/:template/:dataurl/:component",
+    url: "/test",
     views: {
       "main@": {
-        template: function (params) {
-          return `<div class="as-row c12"><div class="as-col c2">
-            <div ng-repeat="t in $resolve.components" ng-click="$resolve.SelectMe(t)">{{ t.component }}</div>
-          </div><div class="as-col c10"><` + params.component + ' value=$resolve.gate></' + params.component + `></div></div>`;
-        }
+        templateUrl: "modules/test/template.html"
       }
     },
     resolve: {
-      gate: function ($transition$, $http) {
-        let data = atob($transition$.params().dataurl);
-        return $http.get(data).then(function (res) {
-          return res.data.DATA.gate;
-        }, function (res) {
-          return data;
-        });
-
-      },
       components: function ($http) {
         return $http.get("components.json").then(function(res){
           return res.data;
@@ -40,9 +27,27 @@ var configstates = {
           let tc = t.component || "none";
 
           td = btoa(td);
-          let locurl = "tms/test/" + tt + "/" + td + "/" + tc;
+          let locurl = "tms/test/" + tc + "/" + td + "/" + tt;
           $location.url(locurl);
         };
+      }
+    }
+  },"tms.test.component": {
+    url: "/:component/:dataurl/:template",
+    views: {
+      "component@tms.test": {
+        template: function(params) {
+          return `<` + params.component + ' value=$resolve.gate></' + params.component + `>`;
+        }
+      }
+    }, resolve: {
+      gate: function ($transition$, $http) {
+        let data = atob($transition$.params().dataurl);
+        return $http.get(data).then(function (res) {
+          return res.data.DATA.gate;
+        }, function (res) {
+          return data;
+        });
       }
     }
   },
