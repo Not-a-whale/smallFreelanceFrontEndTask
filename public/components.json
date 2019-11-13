@@ -1,0 +1,60 @@
+[{
+    "component": "generic-input",
+    "dataurl": "123"
+  },
+  {
+    "component": "generic-datalist",
+    "dataurl": "123"
+  },
+  {
+    "component": "generic-select",
+    "dataurl": "modules/temp/select_data.json"
+  },
+  {
+    "component": "generic-checkbox"
+  },
+  {
+    "component": "ternary-checkbox"
+  },
+  {
+    "component": "generic-select"
+  },
+  {
+    "component": "phone-icon",
+    "dataurl": ""
+  },
+  {
+    "component": "input-phone-ext",
+    "dataurl": ""
+  },
+  {
+    "component": "insurance-form"
+  },
+  {
+    "component": "drivers-form"
+  }, {
+    "component": "meta-input"
+  }, {
+    "component": "meta-checkbox"
+  }, {
+    "component": "meta-address-form"
+  }, {
+    "component": "meta-name-form"
+  }, {
+    "component": "meta-phone-form"
+  }, {
+    "component": "meta-phone-features-form"
+  }, {
+    "component": "meta-contact-form"
+  }, {
+    "component": "meta-business-simple-form"
+  }, {
+    "component": "meta-business-customer-form"
+  }, {
+    "component": "meta-business-mc-form"
+  }, {
+    "component": "image-billboard"
+  }, {
+    "component": "generic-file-upload"
+  }
+]
