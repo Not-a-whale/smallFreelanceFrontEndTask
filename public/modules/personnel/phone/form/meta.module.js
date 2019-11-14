@@ -1,6 +1,7 @@
-class MetaPhoneInputCtrl {
+class MetaPhoneInputCtrl extends MetaGateCtrl {
    constructor() {
-      this.meta = {
+      super();
+      this.imeta = {
          "Number": {
             "attr": {
                "label": "Number",
