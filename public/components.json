@@ -1,10 +1,16 @@
 [{
+  "component": "image-billboard",
+  "atomic": true
+}, {
+  "component": "generic-file-upload",
+  "atomic": true
+}, {
   "component": "phone-icon",
   "dataurl": "",
   "atomic": true
 }, {
   "component": "meta-input",
-  "dataurl" : "123",
+  "dataurl": "123",
   "atomic": true
 }, {
   "component": "meta-checkbox",
@@ -37,18 +43,15 @@
   "component": "meta-business-mc-form",
   "atomic": false
 }, {
-  "component": "meta-business-simple-form",
-  "atomic": false
-}, {
-  "component": "meta-business-customer-simple-form",
-  "atomic": false
-}, {
-  "component": "meta-business-mc-simple-form",
-  "atomic": false
-}, {
-  "component": "image-billboard",
+  "component": "meta-person-form",
   "atomic": true
 }, {
-  "component": "generic-file-upload",
+  "component": "meta-associate-form",
+  "atomic": false
+}, {
+  "component": "meta-associate-part-form",
+  "atomic": true
+}, {
+  "component": "meta-driver-part-form",
   "atomic": true
 }]
