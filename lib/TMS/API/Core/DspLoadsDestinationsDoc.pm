@@ -12,9 +12,9 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
+use TMS::API::Core::DspLoadsDestination;
 use TMS::API::Core::GenFile;
 use TMS::API::Core::HrAssociate;
-use TMS::API::Core::DspLoadsDestination;
 
 # AUTO-GENERATED DEPENDENCIES END
 

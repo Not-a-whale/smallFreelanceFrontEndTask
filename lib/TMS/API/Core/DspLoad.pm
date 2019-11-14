@@ -12,11 +12,11 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
+use TMS::API::Core::EntShipper;
+use TMS::API::Core::EntCustomer;
 use TMS::API::Core::FinJob;
 use TMS::API::Core::InvTrailerType;
 use TMS::API::Core::HrAssociate;
-use TMS::API::Core::EntCustomer;
-use TMS::API::Core::EntShipper;
 
 # AUTO-GENERATED DEPENDENCIES END
 

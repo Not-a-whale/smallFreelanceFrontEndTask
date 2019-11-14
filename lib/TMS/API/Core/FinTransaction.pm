@@ -12,9 +12,9 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
+use TMS::API::Core::HrAssociate;
 use TMS::API::Core::FinTransactionType;
 use TMS::API::Core::FinClass;
-use TMS::API::Core::HrAssociate;
 use TMS::API::Core::FinJob;
 
 # AUTO-GENERATED DEPENDENCIES END

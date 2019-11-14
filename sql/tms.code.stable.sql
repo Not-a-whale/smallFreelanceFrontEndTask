@@ -1794,6 +1794,36 @@ CREATE TABLE `fin_accounts_trees` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `fin_billing_banks`
+--
+
+DROP TABLE IF EXISTS `fin_billing_banks`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `fin_billing_banks` (
+  `BankId` bigint(20) unsigned NOT NULL,
+  `BillingId` bigint(20) unsigned NOT NULL,
+  `Institution` bigint(20) unsigned NOT NULL,
+  `AccountNumber` varchar(255) NOT NULL,
+  `RoutingNumber` varchar(255) NOT NULL,
+  `AccountType` enum('checking','savings') NOT NULL,
+  `Purpose` enum('payment','billing','billing and payment','other') NOT NULL,
+  `Active` tinyint(1) NOT NULL DEFAULT '1',
+  `Notes` text,
+  PRIMARY KEY (`BankId`),
+  KEY `BankOrgRef_idx` (`Institution`),
+  KEY `BillingIdToBankRef_idx` (`BillingId`),
+  KEY `idx_fin_billing_banks_AccountNumber` (`AccountNumber`),
+  KEY `idx_fin_billing_banks_RoutingNumber` (`RoutingNumber`),
+  KEY `idx_fin_billing_banks_AccountType` (`AccountType`),
+  KEY `idx_fin_billing_banks_Purpose` (`Purpose`),
+  KEY `idx_fin_billing_banks_Active` (`Active`),
+  CONSTRAINT `BankOrgRef` FOREIGN KEY (`Institution`) REFERENCES `biz_branches` (`BrnchId`) ON UPDATE CASCADE,
+  CONSTRAINT `BillingIdToBankRef` FOREIGN KEY (`BillingId`) REFERENCES `fin_billing_infos` (`BillingId`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `fin_billing_infos`
 --
 
@@ -1829,6 +1859,29 @@ CREATE TABLE `fin_billing_infos` (
   CONSTRAINT `BillingInfoEntityRef` FOREIGN KEY (`EntityId`) REFERENCES `entities` (`EntityId`) ON UPDATE CASCADE,
   CONSTRAINT `BillingInfoTagRef` FOREIGN KEY (`BillingTagId`) REFERENCES `fin_billing_tags` (`BillingTagId`) ON UPDATE CASCADE,
   CONSTRAINT `BillingPhone` FOREIGN KEY (`Phone`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `fin_billing_rules`
+--
+
+DROP TABLE IF EXISTS `fin_billing_rules`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `fin_billing_rules` (
+  `BillRuleId` bigint(20) unsigned NOT NULL,
+  `BankAccount` bigint(20) unsigned NOT NULL,
+  `Rule` enum('percentage','fixed amount') NOT NULL DEFAULT 'percentage',
+  `Amount` decimal(12,2) NOT NULL DEFAULT '100.00',
+  `Notes` text,
+  `Active` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`BillRuleId`),
+  KEY `BankToRuleRef_idx` (`BankAccount`),
+  KEY `idx_fin_billing_rules_Rule` (`Rule`),
+  KEY `idx_fin_billing_rules_Active` (`Active`),
+  KEY `idx_fin_billing_rules_Amount` (`Amount`),
+  CONSTRAINT `BankToRuleRef` FOREIGN KEY (`BankAccount`) REFERENCES `fin_billing_banks` (`BankId`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -2706,6 +2759,31 @@ CREATE TABLE `hr_associates` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `hr_confidentials`
+--
+
+DROP TABLE IF EXISTS `hr_confidentials`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hr_confidentials` (
+  `AstId` bigint(20) unsigned NOT NULL,
+  `Birthday` date NOT NULL,
+  `MaritalStatus` enum('single','married','widowed','divorsed') NOT NULL,
+  `Gender` enum('male','female') NOT NULL,
+  `PersonalPhone` bigint(20) unsigned NOT NULL COMMENT 'mobile phone',
+  `PersonalEmail` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`AstId`),
+  KEY `CellPhoneRef_idx` (`PersonalPhone`),
+  KEY `idx_hr_confidentials_Birthday` (`Birthday`),
+  KEY `idx_hr_confidentials_MaritalStatus` (`MaritalStatus`),
+  KEY `idx_hr_confidentials_PersonalEmail` (`PersonalEmail`),
+  KEY `idx_hr_confidentials_Gender` (`Gender`),
+  CONSTRAINT `CellPhoneRef` FOREIGN KEY (`PersonalPhone`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE,
+  CONSTRAINT `ConfToAstRef` FOREIGN KEY (`AstId`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `hr_emrgency_contacts`
 --
 
@@ -2776,19 +2854,19 @@ CREATE TABLE `hr_hire_records` (
   `HireId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `AstId` bigint(20) unsigned NOT NULL,
   `Title` varchar(255) DEFAULT NULL,
-  `DateHired` date DEFAULT NULL,
-  `DateTerminated` date DEFAULT NULL,
-  `ReasonForTermination` varchar(1024) DEFAULT NULL,
+  `StatusChangedDate` date DEFAULT NULL,
+  `StatusChangedNote` varchar(1024) DEFAULT NULL,
+  `Status` enum('active','terminated','leave of absence','suspended') NOT NULL DEFAULT 'active',
   `Photo` bigint(20) unsigned DEFAULT NULL,
   `EmploymentAuthorization` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`HireId`),
   KEY `HireAstRef_idx` (`AstId`),
   KEY `idx_biz_hire_records_Title` (`Title`),
-  KEY `idx_biz_hire_records_DateHired` (`DateHired`),
-  KEY `idx_biz_hire_records_DateTerminated` (`DateTerminated`),
-  KEY `idx_biz_hire_records_ReasonForTermination` (`ReasonForTermination`),
+  KEY `idx_biz_hire_records_DateHired` (`StatusChangedDate`),
+  KEY `idx_biz_hire_records_ReasonForTermination` (`StatusChangedNote`),
   KEY `PhotoRef_idx` (`Photo`),
   KEY `EmplAuthDocRef_idx` (`EmploymentAuthorization`),
+  KEY `idx_hr_hire_records_Status` (`Status`),
   CONSTRAINT `EmplAuthDocRef` FOREIGN KEY (`EmploymentAuthorization`) REFERENCES `hr_govidcards` (`CardId`) ON UPDATE CASCADE,
   CONSTRAINT `HireAstRef` FOREIGN KEY (`AstId`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
   CONSTRAINT `PhotoRef` FOREIGN KEY (`Photo`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE
@@ -4624,4 +4702,4 @@ USE `tms`;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-12 15:00:19
+-- Dump completed on 2019-11-13 11:34:52
