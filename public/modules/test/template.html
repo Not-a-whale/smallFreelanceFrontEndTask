@@ -9,5 +9,5 @@
          ng-repeat="t in $resolve.components | filter: {atomic: false}"
          ng-click="$resolve.SelectMe(t)">{{ t.component }}</div>
   </div>
-  <meta-component-post class="as-col c10"></meta-component-post>
+  <meta-component-post class="as-col c10" gate="$resolve.gate"></meta-component-post>
 </div>
