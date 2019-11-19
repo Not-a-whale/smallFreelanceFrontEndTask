@@ -54,4 +54,16 @@
 }, {
   "component": "meta-driver-part-form",
   "atomic": true
+}, {
+  "component": "meta-table-accordion",
+  "atomic": false,
+  "state": "tms.test.table",
+  "dataurl": "/api/addresses/search",
+  "meta": "/api/addresses/meta"
+}, {
+  "component": "meta-table-selector",
+  "atomic": false,
+  "state": "tms.test.table",
+  "dataurl": "/api/addresses/search",
+  "meta": "/api/addresses/meta"
 }]
