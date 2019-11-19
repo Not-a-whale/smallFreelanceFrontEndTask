@@ -8,7 +8,17 @@ class GenericService {
   }
 
   Failure(res){
-    alert(res.statusText);
+    let messagestr = res.data.status + "\n";
+    if (res.data.title != undefined){
+      messagestr += res.data.title + "\n";
+    }
+    if (res.data.message != undefined){
+      messagestr += res.data.message + "\n";
+    }
+    if (res.data.exception != undefined){
+      messagestr += res.data.exception + "\n";
+    }
+    alert(messagestr);
   }
 
   BuildQuery(query) {
