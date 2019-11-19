@@ -6,7 +6,7 @@ var configstates = {
     url: "/dev",
     views: {
       "main@": {
-        template: function(){
+        template: function () {
           return `<style>
                 .btn-cont {
                   margin: 10px 10px 10px 10px
@@ -36,39 +36,112 @@ var configstates = {
     },
     resolve: {
       components: function ($http) {
-        return $http.get("components.json").then(function(res){
+        return $http.get("components.json").then(function (res) {
           return res.data;
-        }, function(res) {
+        }, function (res) {
           console.error("No components.json file found");
         });
       },
-      SelectMe: function ($location) {
+      SelectMe: function ($location, $state) {
         return function (t) {
           let tt = t.template || "none";
           let td = t.dataurl || "none";
           let tc = t.component || "none";
-
+          let tm = t.meta || "none";
+          let ts = t.state || undefined;
           td = btoa(td);
-          let locurl = "tms/test/" + tc + "/" + td + "/" + tt;
-          $location.url(locurl);
+          tm = btoa(tm);
+          if (ts !== undefined) {
+            let params = {
+              table: tc,
+              dataurl: td,
+              meta: tm
+            }
+            $state.go(ts, params);
+          } else {
+            let locurl = "tms/test/" + tc + "/" + td + "/" + tm + "/" + tt;
+            $location.url(locurl);
+          }
         };
       }
     }
-  },"tms.test.component": {
-    url: "/:component/:dataurl/:template",
+  },
+  "tms.test.component": {
+    url: "/:component/:dataurl/:meta/:template",
     views: {
       "component@tms.test": {
-        template: function(params) {
+        template: function (params) {
           return `<` + params.component + ' gate="$ctrl.gate" ></' + params.component + `>`;
         }
       }
-    }, resolve: {
+    },
+    resolve: {
       gate: function ($transition$, $http) {
         let data = atob($transition$.params().dataurl);
-        return $http.get(data).then(function (res) {
-          return res.data.DATA.gate;
+        return $http.post(data, "").then(function (res) {
+          return res.data.DATA;
         }, function (res) {
           return data;
+        });
+      },
+      meta: function ($transition$, $http) {
+        let meta = atob($transition$.params().meta);
+        return $http.get(meta).then(function (res) {
+          return res.data.META;
+        }, function (res) {
+          return meta;
+        });
+      }
+    }
+  },
+  "tms.test.table": {
+    url: "/:table/:dataurl/:meta",
+    views: {
+      "component@tms.test": {
+        template: function (params) {
+          return `<` + params.table + ` class="{{$resolve.tableSize}}"
+            gate="$ctrl.gate || $resolve.gate"
+            meta="$resolve.meta"
+            on-search="$ctrl.Search($resolve.meta.searchurl, query)"
+            ></` + params.table + '>';
+        }
+      },
+      "table_banner@.": {
+        templateUrl: "modules/generic/table/banner/default/meta.template.html"
+      },
+      "table_advanced@.": {
+        templateUrl: "modules/generic/table/searchbar/dropdown/meta.template.html"
+      },
+      "table_search@.": {
+        component: "metaTableSearchBar"
+      },
+      "table_select@.": {
+        templateUrl: "modules/temp/table/select.template.html"
+      },
+      "table_content@.": {
+        component: "metaTestTableContent"
+      }, "table_expansion@.": {
+        template: `<div style="height: 400px"> extra content </div>`
+      }
+    },
+    resolve: {
+      tableSize: function () {
+        return 'table-huge';
+      },
+      gate: function ($transition$, $http) {
+        let data = atob($transition$.params().dataurl);
+        return $http.post(data, "").then(function (res) {
+          return res.data.DATA;
+        }, function (res) {
+          return data;
+        });
+      },
+      meta: function ($transition$, $http) {
+        let meta = atob($transition$.params().meta);
+        return $http.get(meta).then(function (res) {
+          return res.data.META;
+        }, function (res) {
+          return meta;
         });
       }
     }
@@ -608,12 +681,12 @@ var configstates = {
     url: "/inputs"
   },
   "tmsapp.main.testpg.inputs.inputs": {
-      url: "/inputs",
-      views: {
-        "content@tmsapp.main": {
-          templateUrl: "/views/tmsapp/main/webadmin/testpage/inputs/content.html"
-        }
+    url: "/inputs",
+    views: {
+      "content@tmsapp.main": {
+        templateUrl: "/views/tmsapp/main/webadmin/testpage/inputs/content.html"
       }
+    }
   },
   "tmsapp.main.testpg.inputs.buttons": {
     url: "/buttons",
