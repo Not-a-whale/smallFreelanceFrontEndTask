@@ -3,24 +3,26 @@ class GenericService {
     this.http = http
   }
 
-  Success(res){
+  Success(res) {
     alert(res.statusText);
   }
 
-  Failure(res){
+  // Default verbose alert
+  Failure(res) {
     let messagestr = res.data.status + "\n";
-    if (res.data.title != undefined){
+    if (res.data.title != undefined) {
       messagestr += res.data.title + "\n";
     }
-    if (res.data.message != undefined){
+    if (res.data.message != undefined) {
       messagestr += res.data.message + "\n";
     }
-    if (res.data.exception != undefined){
+    if (res.data.exception != undefined) {
       messagestr += res.data.exception + "\n";
     }
     alert(messagestr);
   }
 
+  // builds query for url
   BuildQuery(query) {
     let query_str = "";
     if (query != undefined) {
@@ -28,7 +30,10 @@ class GenericService {
         let queries = [];
         for (let key in query) {
           let val = query[key];
-          queries.push(key + "=" + encodeURIComponent(val));
+          if (val != undefined && val != '') {
+            queries.push(key + "=" + encodeURIComponent(val));
+          }
+
         }
         query_str = "?" + queries.join('&');
       }
@@ -36,10 +41,22 @@ class GenericService {
     return query_str;
   }
 
+  // Builds the object to send to the server in request body
   BuildObject(object) {
+    // default behavior is to clean out undefined and empty strings
+    if (object !== undefined) {
+      let newobj = CloneObj(object);
+      for (let attr in newobj) {
+        if (newobj[attr] === '' || newobj[attr] == undefined) {
+          delete newobj[attr];
+        }
+      }
+      return newobj;
+    }
     return object;
   }
 
+  // Deprecated
   Single(url, object, query) {
     query.rc = '1';
     return this.Request('get', url, object, query,
@@ -51,6 +68,7 @@ class GenericService {
       });
   }
 
+  // Deprecated
   List(url, object, query) {
     return this.Request('get', url, object, query,
       function (res) {
