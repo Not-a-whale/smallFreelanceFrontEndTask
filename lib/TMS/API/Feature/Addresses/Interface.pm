@@ -26,7 +26,14 @@ sub meta {
     my $post = shift;
     my $args = $$post{POST};
     my $meta = {
-        headers   => [{Street1 => 'c2'}, {Street2 => 'c2'}, {Street3 => 'c2'}, {City => 'c2'}, {Zip => 'c2'}, {State => 'c2'},],
+        headers => [
+            {name => 'Street1', size => 'c2'},
+            {name => 'Street2', size => 'c2'},
+            {name => 'Street3', size => 'c2'},
+            {name => 'City',    size => 'c2'},
+            {name => 'Zip',     size => 'c2'},
+            {name => 'State',   size => 'c2'},
+        ],
         searchurl => '/api/addresses/search',
     };
 
