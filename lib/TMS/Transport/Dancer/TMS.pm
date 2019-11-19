@@ -10,9 +10,8 @@ use TMS::Transport::Dancer::Navigation;
 use TMS::Transport::Dancer::TransactionTemplate;
 use TMS::Transport::Dancer::FileUpload;
 use TMS::Transport::Dancer::Echo;
-use TMS::Transport::Dancer::CntAddresses;
 
-use TMS::API::Feature::CntAddress;
+use TMS::Transport::Dancer::Routes::Addresses;
 
 set session => 'Simple';
 set engines => {
