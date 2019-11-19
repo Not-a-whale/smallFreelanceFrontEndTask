@@ -2,7 +2,7 @@
           ng-click="$ctrl.Toggle()">
        <input type="checkbox"
               ng-model="$ctrl.gate"
-              ng-required="{{$ctrl.meta.attr.required}}"
+              ng-required="$ctrl.meta.attr.required"
               ng-disabled="{{$ctrl.meta.attr.disabled}}"
               ng-checked="$ctrl.gate == $ctrl.meta.attr.onvalue" />
        <label for="{{$ctrl.id}}"
