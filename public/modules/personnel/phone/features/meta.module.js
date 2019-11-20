@@ -39,18 +39,6 @@ class MetaPhoneFeaturesInputCtrl extends MetaGateCtrl{
         "tree": {}
       }
     };
-
-    this.values = {};
-  }
-
-  UpdateOutput(){
-    let vals = [];
-    for (let v in this.values){
-      if (this.values[v] == true){
-        vals.push(v);
-      }
-    }
-    this.gate = vals.join(',');
   }
 }
 
