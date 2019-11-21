@@ -28,7 +28,8 @@
       <div class="expansion"
            ng-class="{expanded: listitem.selected}"
            ui-view="{{ tctrl.expansionView }}"
-           gate="listitem"></div>
+           gate="listitem"
+           ng-on-animationend="console.error('Need to add animationend to focused tables')"></div>
     </div>
   </div>
 </div>
