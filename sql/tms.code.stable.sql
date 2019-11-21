@@ -451,7 +451,7 @@ CREATE TABLE `biz_branches` (
   CONSTRAINT `BrnchBizNameRef` FOREIGN KEY (`BizId`) REFERENCES `ent_businesses` (`BizId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchFaxRef` FOREIGN KEY (`BrnchFax`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchPhoneRef` FOREIGN KEY (`BrnchPhone`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3783 DEFAULT CHARSET=utf8 COMMENT='Office Branch Details';
+) ENGINE=InnoDB AUTO_INCREMENT=3789 DEFAULT CHARSET=utf8 COMMENT='Office Branch Details';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -717,7 +717,7 @@ CREATE TABLE `cnt_addresses` (
   KEY `idx_cnt_addresses_State` (`State`),
   KEY `idx_cnt_addresses_Country` (`Country`),
   KEY `idx_cnt_addresses_Street1` (`Street1`)
-) ENGINE=InnoDB AUTO_INCREMENT=3905 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3933 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -740,7 +740,7 @@ CREATE TABLE `cnt_phonesfaxes` (
   KEY `idx_cnt_phonesfaxes_Extension` (`Extension`) USING BTREE,
   KEY `idx_cnt_phonesfaxes_Features` (`Features`) USING BTREE,
   KEY `idx_cnt_phonesfaxes_Mobility` (`Mobility`)
-) ENGINE=InnoDB AUTO_INCREMENT=4221 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4241 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -929,6 +929,8 @@ CREATE TABLE `dsp_loads` (
   `DispatchNote` text,
   `Job` bigint(20) unsigned DEFAULT NULL,
   `GoogleRoute` text,
+  `Status` varchar(45) DEFAULT NULL COMMENT 'Internal status for load, cancelled, tonu, etc.',
+  `LoadRate` decimal(12,2) NOT NULL,
   PRIMARY KEY (`LoadId`),
   KEY `LoadsTrailerTypeRef_idx` (`TruckType`),
   KEY `LoadsBrokerRef_idx` (`BrokerId`),
@@ -947,6 +949,8 @@ CREATE TABLE `dsp_loads` (
   KEY `idx_dsp_loads_Precooling` (`Precooling`),
   KEY `idx_dsp_loads_TempMode` (`TempMode`),
   KEY `idx_dsp_loads_TeamRequired` (`TeamRequired`),
+  KEY `idx_dsp_loads_Status` (`Status`),
+  KEY `idx_dsp_loads_LoadRate` (`LoadRate`),
   CONSTRAINT `LoadsBookedByRef` FOREIGN KEY (`BookedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
   CONSTRAINT `LoadsBrokerRef` FOREIGN KEY (`BrokerId`) REFERENCES `ent_customers` (`CstmrId`) ON UPDATE CASCADE,
   CONSTRAINT `LoadsCreatedByRef` FOREIGN KEY (`CreatedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
@@ -1009,12 +1013,14 @@ CREATE TABLE `dsp_loads_destinations_docs` (
   `FileId` bigint(20) unsigned NOT NULL,
   `Verified` enum('unknown','yes','no') NOT NULL,
   `ApprovedBy` bigint(20) unsigned NOT NULL,
+  `FactoredDoc` tinyint(4) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`DestFileId`),
   UNIQUE KEY `LoadDestUnqDoc` (`LoadDestinationId`,`FileId`),
   KEY `LoadsTrackingDocsTrackingRef_idx` (`LoadDestinationId`),
   KEY `LoadsDestinationDocsApproverRef_idx` (`ApprovedBy`),
   KEY `idx_dsp_loads_destinations_docs_Verified` (`Verified`),
   KEY `LoadsDestinationDocsFileRef_idx` (`FileId`),
+  KEY `idx_dsp_loads_destinations_docs_FactoredDoc` (`FactoredDoc`),
   CONSTRAINT `LoadsDestinationDocsApproverRef` FOREIGN KEY (`ApprovedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
   CONSTRAINT `LoadsDestinationDocsFileRef` FOREIGN KEY (`FileId`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE,
   CONSTRAINT `LoadsDestinationDocsTrackingRef` FOREIGN KEY (`LoadDestinationId`) REFERENCES `dsp_loads_destinations` (`DestinationId`) ON UPDATE CASCADE
@@ -1058,15 +1064,36 @@ CREATE TABLE `dsp_loads_docs` (
   `LoadId` bigint(20) unsigned NOT NULL,
   `DateAdded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `AddedBy` bigint(20) unsigned NOT NULL,
+  `FactoredDoc` tinyint(4) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`DocsLoadId`),
   KEY `LoadsDocsPersonRef_idx` (`AddedBy`),
   KEY `idx_dsp_loads_docs_DateAdded` (`DateAdded`),
   KEY `LoadsDocsFileRef_idx` (`FileId`),
   KEY `LoadsDocsLoadRef_idx` (`LoadId`),
+  KEY `idx_dsp_loads_docs_FactoredDoc` (`FactoredDoc`),
   CONSTRAINT `LoadsDocsFileRef` FOREIGN KEY (`FileId`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE,
   CONSTRAINT `LoadsDocsLoadRef` FOREIGN KEY (`LoadId`) REFERENCES `dsp_loads` (`LoadId`) ON UPDATE CASCADE,
   CONSTRAINT `LoadsDocsPersonRef` FOREIGN KEY (`AddedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `dsp_loads_required_equipment`
+--
+
+DROP TABLE IF EXISTS `dsp_loads_required_equipment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `dsp_loads_required_equipment` (
+  `LoadsEquipId` bigint(64) unsigned NOT NULL,
+  `LoadId` bigint(64) unsigned NOT NULL,
+  `EquipmentType` bigint(64) unsigned NOT NULL,
+  PRIMARY KEY (`LoadsEquipId`),
+  KEY `LoadsReqEquipmentRef_idx` (`EquipmentType`),
+  KEY `LoadsReqLoadRef_idx` (`LoadId`),
+  CONSTRAINT `LoadsReqEquipmentRef` FOREIGN KEY (`EquipmentType`) REFERENCES `inv_equipment_types` (`EquipmentTypeId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `LoadsReqLoadRef` FOREIGN KEY (`LoadId`) REFERENCES `dsp_loads` (`LoadId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='list of equipment required for the load, will be used to search for trucks that satisfy the criteria ';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1088,6 +1115,7 @@ CREATE TABLE `dsp_loads_tracking` (
   `BolPodNumber` varchar(255) DEFAULT NULL,
   `SealNumber` varchar(255) DEFAULT NULL,
   `Notes` text,
+  `ReeferTemp` decimal(5,2) DEFAULT NULL,
   PRIMARY KEY (`DestinationId`),
   KEY `LoadsTrackingDriverRef_idx` (`DriverId`),
   KEY `idx_dsp_loads_tracking_DateArrived` (`DateArrived`),
@@ -1179,7 +1207,7 @@ CREATE TABLE `ent_businesses` (
   KEY `RootNodeRef_idx` (`RootNode`),
   KEY `idx_ent_businesses_BizURL` (`BizURL`),
   CONSTRAINT `RootNodeRef` FOREIGN KEY (`RootNode`) REFERENCES `biz_company_nodes` (`NodeId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=233 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=243 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1223,6 +1251,7 @@ CREATE TABLE `ent_carriers` (
   `state_NM` varchar(255) DEFAULT NULL,
   `state_KY` varchar(255) DEFAULT NULL,
   `state_FL` varchar(255) DEFAULT NULL,
+  `RateConfEmailAddress` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`CarrierId`),
   UNIQUE KEY `MC_UNIQUE` (`MC`),
   UNIQUE KEY `DOT_UNIQUE` (`DOT`),
@@ -1240,6 +1269,7 @@ CREATE TABLE `ent_carriers` (
   KEY `idx_ent_carriers_state_KY` (`state_KY`),
   KEY `idx_ent_carriers_state_FL` (`state_FL`),
   KEY `idx_ent_carriers_IFTA_State` (`IFTA_State`),
+  KEY `idx_ent_carriers_RateConfEmailAddress` (`RateConfEmailAddress`),
   CONSTRAINT `CarrierBusinessRef` FOREIGN KEY (`CarrierId`) REFERENCES `ent_businesses` (`BizId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `McCertRef` FOREIGN KEY (`McCertificatePhoto`) REFERENCES `gen_files` (`FileId`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1278,6 +1308,7 @@ CREATE TABLE `ent_customers` (
   KEY `idx_ent_customers_Bond` (`Bond`),
   KEY `idx_ent_customers_DUNS` (`DUNS`),
   KEY `idx_ent_customers_DontUse` (`DontUse`),
+  KEY `idx_ent_customers_RequireOriginals` (`RequireOriginals`),
   CONSTRAINT `CustomerBusinessRef` FOREIGN KEY (`CstmrId`) REFERENCES `ent_businesses` (`BizId`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1380,7 +1411,7 @@ CREATE TABLE `entities` (
   KEY `EntityBusinessRef_idx` (`BusinessId`),
   CONSTRAINT `EntityBusinessRef` FOREIGN KEY (`BusinessId`) REFERENCES `ent_businesses` (`BizId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `EntityPersonRef` FOREIGN KEY (`PersonId`) REFERENCES `ent_people` (`PrsnId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5247 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5257 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -3089,6 +3120,7 @@ CREATE TABLE `inv_equipment` (
   `PricePurchased` decimal(12,2) DEFAULT NULL,
   `PriceSold` decimal(12,2) DEFAULT NULL,
   `SerialNo` varchar(255) DEFAULT NULL,
+  `EquipmentType` bigint(20) unsigned DEFAULT NULL,
   PRIMARY KEY (`EquipmentId`),
   KEY `EquipVendorRef_idx` (`VendorId`),
   KEY `idx_inv_equipment_GeneralName` (`GeneralName`),
@@ -3098,8 +3130,10 @@ CREATE TABLE `inv_equipment` (
   KEY `idx_inv_equipment_PriceSold` (`PriceSold`),
   KEY `idx_inv_equipment_SerialNo` (`SerialNo`),
   KEY `EquipmentOwnerRef_idx` (`OwnerId`),
+  KEY `EquipmentTypeRef_idx` (`EquipmentType`),
   CONSTRAINT `EquipVendorRef` FOREIGN KEY (`VendorId`) REFERENCES `biz_branches` (`BrnchId`) ON UPDATE CASCADE,
-  CONSTRAINT `EquipmentOwnerRef` FOREIGN KEY (`OwnerId`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE
+  CONSTRAINT `EquipmentOwnerRef` FOREIGN KEY (`OwnerId`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
+  CONSTRAINT `EquipmentTypeRef` FOREIGN KEY (`EquipmentType`) REFERENCES `inv_equipment_types` (`EquipmentTypeId`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Connects all equipment tables with unique primary keys';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -3139,6 +3173,21 @@ CREATE TABLE `inv_equipment_to_support` (
   CONSTRAINT `EquipSupportEquipRef` FOREIGN KEY (`EquipmentId`) REFERENCES `inv_equipment` (`EquipmentId`) ON UPDATE CASCADE,
   CONSTRAINT `EquipSupportSupportRef` FOREIGN KEY (`SupportId`) REFERENCES `inv_support_vendors` (`SupportId`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `inv_equipment_types`
+--
+
+DROP TABLE IF EXISTS `inv_equipment_types`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `inv_equipment_types` (
+  `EquipmentTypeId` bigint(64) unsigned NOT NULL,
+  `Name` varchar(64) NOT NULL,
+  PRIMARY KEY (`EquipmentTypeId`),
+  KEY `idx_inv_equipment_types_Name` (`Name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Types of equipment used for load requirement contraints';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4702,4 +4751,4 @@ USE `tms`;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-13 11:34:52
+-- Dump completed on 2019-11-21  7:51:32
