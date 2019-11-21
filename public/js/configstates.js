@@ -21,12 +21,6 @@ var configstates = {
     resolve: {
       components: ['MetaComponentService', function (mcs) {
         return mcs.GetComponents();
-      }],
-      gate: ['MetaComponentService', '$transition$', 'components', function (mcs, t, c) {
-        return mcs.GetData(t.params().component);
-      }],
-      meta: ['MetaComponentService', '$transition$', 'components', function (mcs, t, c) {
-        return mcs.GetMeta(t.params().component);
       }]
     }
   },
@@ -69,6 +63,43 @@ var configstates = {
       },
       "table_expansion@.": {
         template: `<div style="height: 400px"> extra content </div>`
+      }
+    }
+  },
+  "tms.test.form": {
+    url: "/f/show",
+    views: {
+      "component@tms.test": {
+        template: function (params) {
+          return `<` + params.component + `
+            forms="$resolve.forms"
+            gate="$ctrl.gate"
+            meta="$ctrl.meta"
+            on-search="$ctrl.Search($resolve.meta.searchurl, query)"
+            ></` + params.component + '>';
+        }
+      },
+      "form@.": {
+        templateUrl: "modules/generic/form/section/template.html"
+      },
+      "table_advanced@.": {
+        templateUrl: "modules/generic/table/searchbar/dropdown/meta.template.html"
+      },
+      "table_search@.": {
+        component: "metaTableSearchBar"
+      },
+      "table_select@.": {
+        templateUrl: "modules/temp/table/select.template.html"
+      },
+      "table_content@.": {
+        component: "metaTestTableContent"
+      },
+      "table_expansion@.": {
+        template: `<div style="height: 400px"> extra content </div>`
+      }
+    }, resolve: {
+      forms: function(){
+        return [{title: 'Associate Information', optional: false, status: 0, enabled: true, viewname: "ascoinfo"}];
       }
     }
   },

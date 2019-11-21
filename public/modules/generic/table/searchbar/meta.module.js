@@ -4,13 +4,17 @@ class MetaTableSearchBarCtrl extends MetaGateCtrl {
     super();
   }
 
-  $onInit(){
+  $onInit() {
     super.$onInit();
     var self = this;
     // setup the data for the search
-    this.meta.headers.forEach(x => {
-      self.gate[x.name] = '';
-    });
+    if (this.meta !== undefined) {
+      if (this.meta.headers !== undefined) {
+        this.meta.headers.forEach(x => {
+          self.gate[x.name] = '';
+        });
+      }
+    }
   }
 }
 

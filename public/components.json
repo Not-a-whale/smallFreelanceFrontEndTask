@@ -6,11 +6,9 @@
   "atomic": true
 }, {
   "component": "phone-icon",
-  "dataurl": "",
   "atomic": true
 }, {
   "component": "meta-input",
-  "dataurl": "123",
   "atomic": true
 }, {
   "component": "meta-checkbox",
@@ -57,25 +55,31 @@
 }, {
   "component": "meta-table-accordion",
   "atomic": false,
-  "state": "tms.test.table",
-  "dataurl": "/api/addresses/search",
-  "meta": "/api/addresses/meta"
+  "state": "tms.test.table"
+
 }, {
   "component": "meta-table-selector",
   "atomic": false,
-  "state": "tms.test.table",
-  "dataurl": "/api/addresses/search",
-  "meta": "/api/addresses/meta"
+  "state": "tms.test.table"
+
 }, {
   "component": "meta-table-focused",
   "atomic": false,
-  "state": "tms.test.table",
-  "dataurl": "/api/addresses/search",
-  "meta": "/api/addresses/meta"
+  "state": "tms.test.table"
+
+
 }, {
   "component": "meta-table-flowout",
   "atomic": false,
-  "state": "tms.test.table",
-  "dataurl": "/api/addresses/search",
-  "meta": "/api/addresses/meta"
+  "state": "tms.test.table"
+
+}, {
+  "component": "meta-template-form",
+  "atomic": false,
+  "state": "tms.test.form"
+}, {
+  "component": "meta-template-form",
+  "category": "form",
+  "title": "New Customer",
+  "state": "tms.test.form"
 }]

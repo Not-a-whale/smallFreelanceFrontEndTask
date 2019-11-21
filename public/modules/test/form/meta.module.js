@@ -17,6 +17,8 @@ class MetaComponentPostCtrl extends GenericService {
 
   ResetData() {
     this.gate = {};
+    this.meta = undefined;
+    this.response = undefined;
   }
 
   Post(url, data) {
@@ -29,16 +31,21 @@ class MetaComponentPostCtrl extends GenericService {
     }
     var self = this;
 
-    this.Request('post', url, data, undefined, function (res) {
+    let resfun = function (res) {
       self.response = JSON.stringify(res.data, undefined, '    ');
       console.log(res.status);
-    });
+    };
+    this.Request('post', url, data, undefined, resfun, resfun);
   }
 
   Pull() {
     var self = this;
-    this.Request('post', this.geturl, this.gate, undefined, function (res) {
+    this.Request('post', this.geturl + '/search', this.gate, undefined, function (res) {
       self.gate = res.data.DATA;
+    });
+
+    this.Request('post', this.geturl + '/meta', this.gate, undefined, function (res) {
+      self.meta = res.data.META;
     });
 
   }
@@ -48,14 +55,14 @@ class MetaComponentPostCtrl extends GenericService {
     this.Request('get', this.geturl, undefined, undefined, function (res) {
       self.gate = res.data.DATA;
     });
+    this.Request('get', this.geturl + '/meta', this.gate, undefined, function (res) {
+      self.meta = res.data.META;
+    });
   }
 
   Search(url, query) {
-    console.log("this is the form doing search");
-    console.log("this is the url " + url);
-    console.log(query);
     let self = this;
-    // because its a post and body is where the params are expected....
+    // query is going as the "object" because its a post and body is where the params are expected....
     this.Request('post', url, query, undefined, function (res) {
       self.gate = res.data.DATA;
     }, undefined);

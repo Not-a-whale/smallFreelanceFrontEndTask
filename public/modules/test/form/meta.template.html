@@ -17,7 +17,7 @@
        ui-view="component"></div>
   <div class="cmpt-panel-btns">
     <div class="as-col">
-      <meta-input meta="{attr: {label: 'URL to Push data to server'}}"
+      <meta-input meta="{attr: {label: 'URL (as-is) to Push data to server'}}"
                   gate="$ctrl.url"></meta-input>
       <div class="btns as-row">
         <a class="btn btn-primary btn-sm"
@@ -35,6 +35,9 @@
         <a class="btn btn-second btn-sm"
            ng-click="$ctrl.Get()">get</a>
       </div>
+    </div>
+    <div class="as-col">
+      When pulling data from server, it will append /search and /meta
     </div>
   </div>
 </div>
