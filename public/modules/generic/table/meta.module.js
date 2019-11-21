@@ -13,6 +13,9 @@ class MetaTableCtrl extends MetaGateCtrl {
     this.expanded = false;
     this.selectCount = 0;
 
+    this.page = 1;
+    this.rows = 25;
+
     this.searchView = "table_search";
     this.selectView = "table_select";
     this.contentView = "table_content";
@@ -123,7 +126,9 @@ class MetaTableCtrl extends MetaGateCtrl {
             query: {
               search: {
                 fields: fields,
-                orderby: order
+                orderby: order,
+                page: self.page,
+                rows: self.rows
               }
             }
           });
