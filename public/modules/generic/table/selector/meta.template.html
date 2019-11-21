@@ -15,9 +15,9 @@
     <div class="search"
          ng-class="{expanded: tctrl.expanded}"
          ui-view="{{ tctrl.searchView }}"
-         search="tctrl.search"
-         colsize="tctrl.colsize"
-         on-search="tctrl.SearchField(field, value)">
+         meta="tctrl.meta"
+         gate="tctrl.searchVal"
+         on-search="tctrl.Search()">
     </div>
     <div class="select"
          ng-class="{expanded: tctrl.SelectCount() > 0}">

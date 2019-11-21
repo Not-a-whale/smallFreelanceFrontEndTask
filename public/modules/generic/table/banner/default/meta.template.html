@@ -2,12 +2,12 @@
      ng-repeat="h in tctrl.meta.headers">
   <div class="colname font-tbl-head"
        ng-click="tctrl.SearchFocus($index);tctrl.SearchExpand();">{{ h.name }}</div>
-  <svg class="sort-arrow top"
-       ng-click="tctrl.SearchExpand()">
+  <svg class="sort-arrow top" ng-class="{active: tctrl.SearchOrderActive(h.name, 'up') }"
+       ng-click="tctrl.SearchOrder(h.name, 'up'); tctrl.Search()">
     <use xlink:href="imgs/icons.svg#triangle"></use>
   </svg>
-  <svg class="sort-arrow bottom"
-       ng-click="tctrl.SearchExpand()">
+  <svg class="sort-arrow bottom" ng-class="{active: tctrl.SearchOrderActive(h.name, 'down') }"
+       ng-click="tctrl.SearchOrder(h.name, 'down'); tctrl.Search()">
     <use xlink:href="imgs/icons.svg#triangle"></use>
   </svg>
 </div>
