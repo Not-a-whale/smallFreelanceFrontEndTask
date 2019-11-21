@@ -602,6 +602,13 @@ coerce 'EnumTYPENAME',
             }
         };
 
+coerce 'EnumTYPENAME', from 'HashRef', via {
+    my @list   = ('voice', 'sms', 'mms', 'fax');
+    my %posted = map { lc($_), 1 } keys %$_;
+    join(',', grep {defined} map { exists $posted{$_} ? $_ : undef } @list);
+};
+
+
 # ----------------------------------------------------------------------------------------------------------------------
 file-delimiter: CLASS_HEADER
 
