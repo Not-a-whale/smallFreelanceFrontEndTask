@@ -9,6 +9,7 @@ class MetaTableCtrl extends MetaGateCtrl {
     this.timeoutCall = {};
 
     this.searchVal = {};
+    this.searchOrd = {};
     this.expanded = false;
     this.selectCount = 0;
 
@@ -19,6 +20,22 @@ class MetaTableCtrl extends MetaGateCtrl {
     this.bannerView = "table_banner";
   }
 
+  _ListofAttrs(obj) {
+    let list = [];
+    for (let i in obj) {
+      if (obj[i] !== '' && obj[i] !== undefined) {
+        let newobj = {}
+        newobj[i] = obj[i];
+        list.push(newobj);
+      }
+    }
+    return list;
+  }
+
+  _CanIterate(obj) {
+    return obj !== undefined && typeof obj[Symbol.iterator] === 'function';
+  }
+
   _SelectMulti(item) {
     item.selected = !item.selected;
   }
@@ -27,8 +44,10 @@ class MetaTableCtrl extends MetaGateCtrl {
     if (item.selected) {
       item.selected = false;
     } else {
-      for (let l of this.gate) {
-        l.selected = false;
+      if (this._CanIterate(this.gate)) {
+        for (let l of this.gate) {
+          l.selected = false;
+        }
       }
       item.selected = true;
     }
@@ -41,25 +60,31 @@ class MetaTableCtrl extends MetaGateCtrl {
 
   SelectCount() {
     let totalselected = 0;
-    for (let el of this.gate) {
-      if (el.selected) {
-        totalselected++;
+    if (this._CanIterate(this.gate)) {
+      for (let el of this.gate) {
+        if (el.selected) {
+          totalselected++;
+        }
       }
+      this.selectCount = totalselected;
     }
-    this.selectCount = totalselected;
     return totalselected;
   }
 
   SelectAll() {
-    for (let el of this.gate) {
-      el.selected = true;
+    if (this._CanIterate(this.gate)) {
+      for (let el of this.gate) {
+        el.selected = true;
+      }
     }
     this.SelectCount();
   }
 
   SelectClear() {
-    for (let el of this.gate) {
-      el.selected = false;
+    if (this._CanIterate(this.gate)) {
+      for (let el of this.gate) {
+        el.selected = false;
+      }
     }
     this.selectCount = 0;
   }
@@ -81,14 +106,26 @@ class MetaTableCtrl extends MetaGateCtrl {
     this.expanded = !this.expanded;
   }
 
+  /* Function that puts the search query and order together */
+
   Search() {
+
     if (this.onSearch instanceof Function) {
       this.timeout.cancel(this.timeoutCall['search']);
       var self = this;
       this.timeoutCall['search'] = this.timeout(
         function () {
+
+          let fields = self._ListofAttrs(self.searchVal);
+          let order = self._ListofAttrs(self.searchOrd);
+
           self.onSearch({
-            query: self.searchVal
+            query: {
+              search: {
+                fields: fields,
+                orderby: order
+              }
+            }
           });
         }, 500);
     } else {
@@ -110,12 +147,36 @@ class MetaTableCtrl extends MetaGateCtrl {
     }
   }
 
+  SearchOrder(key, dir) {
+    dir = this._SearchOrderDir(dir);
+
+    if (key in this.searchOrd && this.searchOrd[key] == dir) {
+      delete this.searchOrd[key];
+    } else {
+      this.searchOrd[key] = dir;
+    }
+  }
+
+  SearchOrderActive(key, dir){
+    dir = this._SearchOrderDir(dir);
+    if (key in this.searchOrd){
+      return this.searchOrd[key] === dir;
+    }
+    return false;
+  }
+
+  _SearchOrderDir(dir){
+    if (dir == 'up') {
+      return 1;
+    }
+    return 0;
+  }
+
   $onInit() {
     super.$onInit();
     this.SelectCount();
     let self = this;
     this.scope.$on('TableSearch', function (event, data) {
-      console.log("heard you like to search things");
       self.Search();
     });
   }
