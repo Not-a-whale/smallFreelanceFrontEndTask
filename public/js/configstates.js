@@ -42,7 +42,7 @@ var configstates = {
           return `<` + params.component + ` class="table-huge"
             gate="$ctrl.gate"
             meta="$ctrl.meta"
-            on-search="$ctrl.Search($resolve.meta.searchurl, query)"
+            on-search="$ctrl.Search($ctrl.meta.url + '/search' , query)"
             ></` + params.component + '>';
         }
       },
