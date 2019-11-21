@@ -1,0 +1,32 @@
+<div class="table">
+  <div class="head">
+    <div class="header">
+      <div class="banner"
+           ui-view="table_banner"></div>
+      <div class="dropdown"
+           ui-view="table_advanced"></div>
+    </div>
+    <div class="search"
+         ng-class="{expanded: tctrl.expanded}"
+         ui-view="{{ tctrl.searchView }}"
+         meta="tctrl.meta"
+         gate="tctrl.searchVal"
+         on-search="tctrl.Search()">
+    </div>
+  </div>
+  <div class="body scrollable">
+    <div class="row"
+         ng-mouseenter="listitem.hover = 1"
+         ng-mouseleave="listitem.hover = 0"
+         ng-init="listitem.hover = 0"
+         ng-class="{selected: listitem.selected }"
+         ng-repeat="listitem in tctrl.gate"
+         ng-click="tctrl.Select(listitem)">
+      <div class="content"
+           ui-view="{{ tctrl.contentView }}"
+           gate="listitem"
+           meta="tctrl.meta"
+           table-meta="tctrl.meta"></div>
+    </div>
+  </div>
+</div>
