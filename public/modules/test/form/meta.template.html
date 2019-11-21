@@ -1,8 +1,48 @@
-<div class="comp-container" ui-view="component" gate="$ctrl.gate"></div>
-<meta-input gate="$ctrl.url"></meta-input>
-<div class="btns as-row">
-  <a class="btn btn-primary btn-sm" ng-click="$ctrl.Post()">post</a>
-  <a class="btn btn-danger btn-sm" ng-click="$ctrl.ResetData()">reset data</a>
+<div class="cmpt-list-container scrollable c1">
+  <div class="cmpt-title">Atomic</div>
+  <div class="cmpt-list"
+       ng-repeat="t in $ctrl.components | filter: {atomic: true}"
+       ng-click="$ctrl.SelectMe(t)">{{ t.component }}</div>
+  <div class="cmpt-title">Combined</div>
+  <div class="cmpt-list"
+       ng-repeat="t in $ctrl.components | filter: {atomic: false}"
+       ng-click="$ctrl.SelectMe(t)">{{ t.component }}</div>
 </div>
-<div>Response:</div>
-<pre >{{ $ctrl.response }}</pre>
+<div class="cmpt-res-container scrollable">
+  <div>Response:</div>
+  <pre>{{ $ctrl.response }}</pre>
+</div>
+<div class="cmpt-panel-container">
+  <div class="cmpt-container scrollable"
+       ui-view="component"></div>
+  <div class="cmpt-panel-btns">
+    <div class="as-col">
+      <meta-input meta="{attr: {label: 'URL to Push data to server'}}"
+                  gate="$ctrl.url"></meta-input>
+      <div class="btns as-row">
+        <a class="btn btn-primary btn-sm"
+           ng-click="$ctrl.Post()">post</a>
+        <a class="btn btn-danger btn-sm"
+           ng-click="$ctrl.ResetData()">reset data</a>
+      </div>
+    </div>
+    <div class="as-col">
+      <meta-input meta="{attr: {label: 'URL to Pull data from server'}}"
+                  gate="$ctrl.dataurl"></meta-input>
+      <div class="btns as-row">
+        <a class="btn btn-primary btn-sm"
+           ng-click="$ctrl.Pull()">post</a>
+        <a class="btn btn-second btn-sm"
+           ng-click="$ctrl.Get()">get</a>
+      </div>
+    </div>
+    <div class="as-col">
+      <meta-input meta="{attr: {label: 'URL to GET data from server'}}"
+                  gate="$ctrl.metaurl"></meta-input>
+      <div class="btns as-row">
+
+      </div>
+    </div>
+  </div>
+
+</div>

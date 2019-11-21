@@ -1,109 +1,55 @@
 var configstates = {
   "tms": {
+    abstract: true,
     url: "/tms"
   },
   "tms.dev": {
     url: "/dev",
     views: {
       "main@": {
-        template: function () {
-          return `<style>
-                .btn-cont {
-                  margin: 10px 10px 10px 10px
-                }
-
-                #global-container {
-                  align-items: center;
-                  justify-content: center;
-                }
-            </style>
-          <div class="btn-cont">
-            <a ui-sref="tms.test" class="btn btn-primary btn-lg">Components</a>
-          </div>
-          <div class="btn-cont">
-            <a ui-sref="tmsapp.main.dashboard"class="btn btn-primary btn-lg">Web App</a>
-          </div>`;
-        }
+        templateUrl: "modules/test/landingpage/meta.template.html"
       }
     }
   },
   "tms.test": {
-    url: "/test",
+    url: "/test/:component",
     views: {
       "main@": {
-        templateUrl: "modules/test/template.html"
+        component: "metaComponentPost"
       }
     },
     resolve: {
-      components: function ($http) {
-        return $http.get("components.json").then(function (res) {
-          return res.data;
-        }, function (res) {
-          console.error("No components.json file found");
-        });
-      },
-      SelectMe: function ($location, $state) {
-        return function (t) {
-          let tt = t.template || "none";
-          let td = t.dataurl || "none";
-          let tc = t.component || "none";
-          let tm = t.meta || "none";
-          let ts = t.state || undefined;
-          td = btoa(td);
-          tm = btoa(tm);
-          if (ts !== undefined) {
-            let params = {
-              table: tc,
-              dataurl: td,
-              meta: tm
-            }
-            $state.go(ts, params);
-          } else {
-            let locurl = "tms/test/" + tc + "/" + td + "/" + tm + "/" + tt;
-            $location.url(locurl);
-          }
-        };
-      }
+      components: ['MetaComponentService', function (mcs) {
+        return mcs.GetComponents();
+      }],
+      gate: ['MetaComponentService', '$transition$', 'components', function (mcs, t, c) {
+        return mcs.GetData(t.params().component);
+      }],
+      meta: ['MetaComponentService', '$transition$', 'components', function (mcs, t, c) {
+        return mcs.GetMeta(t.params().component);
+      }]
     }
   },
   "tms.test.component": {
-    url: "/:component/:dataurl/:meta/:template",
+    url: "/c/show",
     views: {
       "component@tms.test": {
         template: function (params) {
           return `<` + params.component + ' gate="$ctrl.gate" ></' + params.component + `>`;
         }
       }
-    },
-    resolve: {
-      gate: function ($transition$, $http) {
-        let data = atob($transition$.params().dataurl);
-        return $http.post(data, "").then(function (res) {
-          return res.data.DATA;
-        }, function (res) {
-          return data;
-        });
-      },
-      meta: function ($transition$, $http) {
-        let meta = atob($transition$.params().meta);
-        return $http.get(meta).then(function (res) {
-          return res.data.META;
-        }, function (res) {
-          return meta;
-        });
-      }
     }
   },
   "tms.test.table": {
-    url: "/:table/:dataurl/:meta",
+    url: "/t/show",
     views: {
       "component@tms.test": {
         template: function (params) {
-          return `<` + params.table + ` class="{{$resolve.tableSize}}"
-            gate="$ctrl.gate || $resolve.gate"
-            meta="$resolve.meta"
+          return `<` + params.component + ` class="table-huge"
+            gate="$ctrl.gate"
+            meta="$ctrl.meta"
             on-search="$ctrl.Search($resolve.meta.searchurl, query)"
-            ></` + params.table + '>';
+            ></` + params.component + '>';
         }
       },
       "table_banner@.": {
@@ -120,29 +66,9 @@ var configstates = {
       },
       "table_content@.": {
         component: "metaTestTableContent"
-      }, "table_expansion@.": {
+      },
+      "table_expansion@.": {
         template: `<div style="height: 400px"> extra content </div>`
-      }
-    },
-    resolve: {
-      tableSize: function () {
-        return 'table-huge';
-      },
-      gate: function ($transition$, $http) {
-        let data = atob($transition$.params().dataurl);
-        return $http.post(data, "").then(function (res) {
-          return res.data.DATA;
-        }, function (res) {
-          return data;
-        });
-      },
-      meta: function ($transition$, $http) {
-        let meta = atob($transition$.params().meta);
-        return $http.get(meta).then(function (res) {
-          return res.data.META;
-        }, function (res) {
-          return meta;
-        });
       }
     }
   },
