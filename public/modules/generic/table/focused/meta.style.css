@@ -1,0 +1,21 @@
+meta-table-focused .body>.row {
+  flex-direction: column;
+}
+
+meta-table-focused .body>.row>.expansion {
+  overflow: hidden;
+  display: flex;
+  flex: 1;
+  max-height: 0px;
+  min-height: 0px;
+  visibility: hidden;
+  transition: min-height 0.25s ease-in-out, max-height 0.25s ease-in-out, visibility 0s linear 0.25s;
+  background-color: var(--table-body-row-bg-color-selected);
+}
+
+meta-table-focused .body>.row>.expansion.expanded {
+  min-height: 600px;
+  max-height: 600px;
+  visibility: visible;
+  transition: min-height 0.25s ease-in-out, max-height 0.25s ease-in-out;
+}
