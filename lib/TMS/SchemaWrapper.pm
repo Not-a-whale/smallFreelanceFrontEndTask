@@ -38,12 +38,21 @@ sub _meta_loop {
         next if !exists $list{$name};
         my $type = ref($$self{$name});
         if ($type =~ /TMS::/) {
-            my $row = $self->$name->$method;
-            if (ref($row) =~ /^TMS::Schema::Result::\w+$/ && $row->can('id')) {
-                $$data{$name} = $row->id;
-            } else {
-                $$data{$name} = $row;
-            }
+            try {
+                my $row = $self->$name->$method;
+                if (ref($row) =~ /^TMS::Schema::Result::\w+$/ && $row->can('id')) {
+                    $$data{$name} = $row->id;
+                } else {
+                    $$data{$name} = $row;
+                }
+            } catch {
+                my $error = $_;
+                if ($attr->is_required) {
+                    confess "$error";
+                } else {
+                    $$data{$name} = undef;
+                }
+            };
         } else {
             $$data{$name} = $self->$name if defined $self->$name;
         }
@@ -124,7 +133,7 @@ sub RelationshipAttr {
     my $self = shift;
     my $attr = undef;
     my %info = map { $_, $self->ResultSource->relationship_info($_) } $self->Relationships;
-    foreach my $name ( keys %info ) {
+    foreach my $name (keys %info) {
         next unless exists $info{$name}{attrs}{is_foreign_key_constraint};
         my ($col) = values %{$info{$name}{cond}};
         $col =~ s/self\.//;
@@ -238,7 +247,6 @@ sub UpdateOrCreate {
 
 # -------------------------------------------------------------------------------------------------------------
 sub Update {    # https://github.com/castaway/dbix-class-book/blob/master/chapters/04-Creating-Reading-Updating-Deleting.md
-    $DB::single = 2;
     my $self = shift;
     my $what = shift || $self->_meta_loop;
     my $cond = shift || $self->FetchWhereKeys;
