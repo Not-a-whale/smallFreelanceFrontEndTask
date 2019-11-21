@@ -92,6 +92,14 @@ __PACKAGE__->table("inv_equipment");
   is_nullable: 1
   size: 255
 
+=head2 EquipmentType
+
+  accessor: 'equipment_type'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_foreign_key: 1
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -161,6 +169,14 @@ __PACKAGE__->add_columns(
     is_nullable => 1,
     size => 255,
   },
+  "EquipmentType",
+  {
+    accessor       => "equipment_type",
+    data_type      => "bigint",
+    extra          => { unsigned => 1 },
+    is_foreign_key => 1,
+    is_nullable    => 1,
+  },
 );
 
 =head1 PRIMARY KEY
@@ -176,6 +192,26 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("EquipmentId");
 
 =head1 RELATIONS
+
+=head2 equipment_type
+
+Type: belongs_to
+
+Related object: L<TMS::Schema::Result::InvEquipmentType>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "equipment_type",
+  "TMS::Schema::Result::InvEquipmentType",
+  { EquipmentTypeId => "EquipmentType" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "NO ACTION",
+    on_update     => "NO ACTION",
+  },
+);
 
 =head2 inv_elog_device
 
@@ -318,8 +354,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:gjFvWe402mafXKPoDkhwug
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9Dx8Imu2GI3xFUxOwAEfmQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

@@ -13,8 +13,8 @@ use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
 use TMS::API::Core::InvUnit;
-use TMS::API::Core::HrAssociate;
 use TMS::API::Core::InvEquipment;
+use TMS::API::Core::HrAssociate;
 
 # AUTO-GENERATED DEPENDENCIES END
 

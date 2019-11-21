@@ -12,8 +12,9 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::HrAssociate;
 use TMS::API::Core::BizBranch;
+use TMS::API::Core::InvEquipmentType;
+use TMS::API::Core::HrAssociate;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -35,6 +36,7 @@ has DateSold       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'D
 has PricePurchased => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Float',);
 has PriceSold      => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'Float',);
 has SerialNo       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has EquipmentType  => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'InvEquipmentTypeObj | Int ',);
 
 # AUTO-GENERATED HAS-A END
 

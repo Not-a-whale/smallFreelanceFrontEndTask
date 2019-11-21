@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::AppPermission;
 use TMS::API::Core::AppRole;
+use TMS::API::Core::AppPermission;
 
 # AUTO-GENERATED DEPENDENCIES END
 

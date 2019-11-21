@@ -13,9 +13,9 @@ use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
 use TMS::API::Core::CntAddress;
+use TMS::API::Core::HrAssociate;
 use TMS::API::Core::GenFile;
 use TMS::API::Core::SftInspectionSchedule;
-use TMS::API::Core::HrAssociate;
 
 # AUTO-GENERATED DEPENDENCIES END
 

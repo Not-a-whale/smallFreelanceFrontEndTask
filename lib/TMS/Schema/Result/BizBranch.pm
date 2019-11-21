@@ -248,6 +248,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 fin_billing_banks
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::FinBillingBank>
+
+=cut
+
+__PACKAGE__->has_many(
+  "fin_billing_banks",
+  "TMS::Schema::Result::FinBillingBank",
+  { "foreign.Institution" => "self.BrnchId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 fin_cheques
 
 Type: has_many
@@ -294,8 +309,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:QtX+vmlQTHvqEFjQnX72jA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cZix2gV6GmN1Nn6ncGoWpQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

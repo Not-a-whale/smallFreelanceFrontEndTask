@@ -49,26 +49,27 @@ __PACKAGE__->table("hr_hire_records");
   is_nullable: 1
   size: 255
 
-=head2 DateHired
+=head2 StatusChangedDate
 
-  accessor: 'date_hired'
+  accessor: 'status_changed_date'
   data_type: 'date'
   datetime_undef_if_invalid: 1
   is_nullable: 1
 
-=head2 DateTerminated
+=head2 StatusChangedNote
 
-  accessor: 'date_terminated'
-  data_type: 'date'
-  datetime_undef_if_invalid: 1
-  is_nullable: 1
-
-=head2 ReasonForTermination
-
-  accessor: 'reason_for_termination'
+  accessor: 'status_changed_note'
   data_type: 'varchar'
   is_nullable: 1
   size: 1024
+
+=head2 Status
+
+  accessor: 'status'
+  data_type: 'enum'
+  default_value: 'active'
+  extra: {list => ["active","terminated","leave of absence","suspended"]}
+  is_nullable: 0
 
 =head2 Photo
 
@@ -107,26 +108,29 @@ __PACKAGE__->add_columns(
   },
   "Title",
   { accessor => "title", data_type => "varchar", is_nullable => 1, size => 255 },
-  "DateHired",
+  "StatusChangedDate",
   {
-    accessor => "date_hired",
+    accessor => "status_changed_date",
     data_type => "date",
     datetime_undef_if_invalid => 1,
     is_nullable => 1,
   },
-  "DateTerminated",
+  "StatusChangedNote",
   {
-    accessor => "date_terminated",
-    data_type => "date",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
-  },
-  "ReasonForTermination",
-  {
-    accessor => "reason_for_termination",
+    accessor => "status_changed_note",
     data_type => "varchar",
     is_nullable => 1,
     size => 1024,
+  },
+  "Status",
+  {
+    accessor      => "status",
+    data_type     => "enum",
+    default_value => "active",
+    extra         => {
+                       list => ["active", "terminated", "leave of absence", "suspended"],
+                     },
+    is_nullable   => 0,
   },
   "Photo",
   {
@@ -211,8 +215,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:w2js5PgC1DbIX+glG8sKdQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Lkdi9IRBIGk+W5xp0lMDbQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

@@ -115,7 +115,9 @@ __PACKAGE__->add_columns(
   },
 );
 
-=head1 PRIMARY KEY
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<SemitruckId_UNIQUE>
 
 =over 4
 
@@ -125,7 +127,7 @@ __PACKAGE__->add_columns(
 
 =cut
 
-__PACKAGE__->set_primary_key("SemitruckId");
+__PACKAGE__->add_unique_constraint("SemitruckId_UNIQUE", ["SemitruckId"]);
 
 =head1 RELATIONS
 
@@ -145,8 +147,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:07TRWdomGaDshlUp6Ozjng
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:DpNQU2hXfhH+LFelC1ICaQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

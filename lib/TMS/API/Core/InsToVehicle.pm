@@ -12,9 +12,9 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
+use TMS::API::Core::InsPolicy;
 use TMS::API::Core::InvVehicle;
 use TMS::API::Core::HrAssociate;
-use TMS::API::Core::InsPolicy;
 
 # AUTO-GENERATED DEPENDENCIES END
 

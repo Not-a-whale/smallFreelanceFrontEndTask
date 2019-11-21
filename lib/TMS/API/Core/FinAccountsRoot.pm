@@ -23,8 +23,6 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has RootId       => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Int',);
-has DescendantId => (is => 'rw', coerce => 0, required => 1, isa => Undef | 'Int',);
 
 # AUTO-GENERATED HAS-A END
 

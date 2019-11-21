@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::BizCompanyNode;
 use TMS::API::Core::CntPhonesfax;
+use TMS::API::Core::BizCompanyNode;
 use TMS::API::Core::EntPerson;
 
 # AUTO-GENERATED DEPENDENCIES END

@@ -70,15 +70,6 @@ __PACKAGE__->table("inv_vehicles");
   is_nullable: 0
   size: 19
 
-=head2 StateTag
-
-  accessor: 'state_tag'
-  data_type: 'varchar'
-  is_nullable: 1
-  size: 12
-
-State tag for vehicle
-
 =head2 TireSize
 
   accessor: 'tire_size'
@@ -161,13 +152,6 @@ __PACKAGE__->add_columns(
   { accessor => "color", data_type => "varchar", is_nullable => 1, size => 24 },
   "VIN",
   { accessor => "vin", data_type => "varchar", is_nullable => 0, size => 19 },
-  "StateTag",
-  {
-    accessor => "state_tag",
-    data_type => "varchar",
-    is_nullable => 1,
-    size => 12,
-  },
   "TireSize",
   {
     accessor       => "tire_size",
@@ -301,16 +285,16 @@ __PACKAGE__->might_have(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 inv_trailers
+=head2 inv_trailer
 
-Type: has_many
+Type: might_have
 
 Related object: L<TMS::Schema::Result::InvTrailer>
 
 =cut
 
-__PACKAGE__->has_many(
-  "inv_trailers",
+__PACKAGE__->might_have(
+  "inv_trailer",
   "TMS::Schema::Result::InvTrailer",
   { "foreign.TrailerId" => "self.VehicleId" },
   { cascade_copy => 0, cascade_delete => 0 },
@@ -382,8 +366,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4GKkHIzEm6KMCgDvGobgOw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:b9oW/HwTe3Bm+FgpREgNwA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

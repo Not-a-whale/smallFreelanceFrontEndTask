@@ -161,6 +161,28 @@ This is technically the trailer type for the load but will be called TruckType d
   is_foreign_key: 1
   is_nullable: 1
 
+=head2 GoogleRoute
+
+  accessor: 'google_route'
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 Status
+
+  accessor: 'status'
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 45
+
+Internal status for load, cancelled, tonu, etc.
+
+=head2 LoadRate
+
+  accessor: 'load_rate'
+  data_type: 'decimal'
+  is_nullable: 0
+  size: [12,2]
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -293,6 +315,17 @@ __PACKAGE__->add_columns(
     is_foreign_key => 1,
     is_nullable    => 1,
   },
+  "GoogleRoute",
+  { accessor => "google_route", data_type => "text", is_nullable => 1 },
+  "Status",
+  { accessor => "status", data_type => "varchar", is_nullable => 1, size => 45 },
+  "LoadRate",
+  {
+    accessor => "load_rate",
+    data_type => "decimal",
+    is_nullable => 0,
+    size => [12, 2],
+  },
 );
 
 =head1 PRIMARY KEY
@@ -404,6 +437,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 dsp_loads_required_equipments
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::DspLoadsRequiredEquipment>
+
+=cut
+
+__PACKAGE__->has_many(
+  "dsp_loads_required_equipments",
+  "TMS::Schema::Result::DspLoadsRequiredEquipment",
+  { "foreign.LoadId" => "self.LoadId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 dsp_trips_loads
 
 Type: has_many
@@ -480,8 +528,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:LdA9biuc55fZWmYq+lk1PA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:hwE1XcCB+M4dZw3yVpgj4w
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

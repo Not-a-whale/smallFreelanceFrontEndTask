@@ -12,9 +12,9 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::CntAddress;
 use TMS::API::Core::CntPhonesfax;
 use TMS::API::Core::HrAssociate;
+use TMS::API::Core::CntAddress;
 
 # AUTO-GENERATED DEPENDENCIES END
 

@@ -102,6 +102,13 @@ __PACKAGE__->table("dsp_loads_tracking");
   data_type: 'text'
   is_nullable: 1
 
+=head2 ReeferTemp
+
+  accessor: 'reefer_temp'
+  data_type: 'decimal'
+  is_nullable: 1
+  size: [5,2]
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -165,6 +172,13 @@ __PACKAGE__->add_columns(
   },
   "Notes",
   { accessor => "notes", data_type => "text", is_nullable => 1 },
+  "ReeferTemp",
+  {
+    accessor => "reefer_temp",
+    data_type => "decimal",
+    is_nullable => 1,
+    size => [5, 2],
+  },
 );
 
 =head1 PRIMARY KEY
@@ -212,8 +226,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Xz3mtIz8eeE3c7d7r3E3RQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:CqhM8kSUL3rD+KOZTYAEgQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

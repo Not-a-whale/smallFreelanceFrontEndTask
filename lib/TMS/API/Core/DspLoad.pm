@@ -12,11 +12,11 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::EntShipper;
-use TMS::API::Core::EntCustomer;
 use TMS::API::Core::FinJob;
+use TMS::API::Core::EntCustomer;
 use TMS::API::Core::InvTrailerType;
 use TMS::API::Core::HrAssociate;
+use TMS::API::Core::EntShipper;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -48,6 +48,8 @@ has TeamRequired   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'E
 has DispatchNote   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
 has Job            => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'FinJobObj | Int ',);
 has GoogleRoute    => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has Status         => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TidySpacesString',);
+has LoadRate       => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'Float',);
 
 # AUTO-GENERATED HAS-A END
 

@@ -55,9 +55,17 @@ __PACKAGE__->table("sft_vehicle_registration");
   is_nullable: 0
   size: 2
 
-=head2 DateRegistration
+=head2 RegistrationCard
 
-  accessor: 'date_registration'
+  accessor: 'registration_card'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_foreign_key: 1
+  is_nullable: 0
+
+=head2 RegistrationDate
+
+  accessor: 'registration_date'
   data_type: 'datetime'
   datetime_undef_if_invalid: 1
   is_nullable: 0
@@ -106,9 +114,17 @@ __PACKAGE__->add_columns(
   },
   "State",
   { accessor => "state", data_type => "varchar", is_nullable => 0, size => 2 },
-  "DateRegistration",
+  "RegistrationCard",
   {
-    accessor => "date_registration",
+    accessor       => "registration_card",
+    data_type      => "bigint",
+    extra          => { unsigned => 1 },
+    is_foreign_key => 1,
+    is_nullable    => 0,
+  },
+  "RegistrationDate",
+  {
+    accessor => "registration_date",
     data_type => "datetime",
     datetime_undef_if_invalid => 1,
     is_nullable => 0,
@@ -150,13 +166,30 @@ __PACKAGE__->set_primary_key("RegistrationId");
 
 =item * L</PlateNumber>
 
+=item * L</State>
+
 =back
 
 =cut
 
-__PACKAGE__->add_unique_constraint("PlateNumber_UNIQUE", ["PlateNumber"]);
+__PACKAGE__->add_unique_constraint("PlateNumber_UNIQUE", ["PlateNumber", "State"]);
 
 =head1 RELATIONS
+
+=head2 registration_card
+
+Type: belongs_to
+
+Related object: L<TMS::Schema::Result::GenFile>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "registration_card",
+  "TMS::Schema::Result::GenFile",
+  { FileId => "RegistrationCard" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+);
 
 =head2 vehicle
 
@@ -174,8 +207,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:34:11
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:kiAY3/etPiZxZhOpgKvN4w
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:UKWqdrbdqhLzKTTZkrSm8Q
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

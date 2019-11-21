@@ -232,6 +232,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 hr_confidentials
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::HrConfidential>
+
+=cut
+
+__PACKAGE__->has_many(
+  "hr_confidentials",
+  "TMS::Schema::Result::HrConfidential",
+  { "foreign.PersonalPhone" => "self.PhnFaxId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 hr_emrgency_contacts
 
 Type: has_many
@@ -278,8 +293,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:CVvrqiUffEfgs4pyZi8pjg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:bPR4nGMGxpP9T8GfhST8TA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

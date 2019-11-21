@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::SftVehicleInspectItem;
 use TMS::API::Core::SftVehicleInspection;
+use TMS::API::Core::SftVehicleInspectItem;
 
 # AUTO-GENERATED DEPENDENCIES END
 

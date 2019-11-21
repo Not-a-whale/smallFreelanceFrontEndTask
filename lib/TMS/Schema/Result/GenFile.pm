@@ -381,9 +381,24 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 sft_vehicle_registrations
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:lE16IhnNpioEDXcnFF60cA
+Type: has_many
+
+Related object: L<TMS::Schema::Result::SftVehicleRegistration>
+
+=cut
+
+__PACKAGE__->has_many(
+  "sft_vehicle_registrations",
+  "TMS::Schema::Result::SftVehicleRegistration",
+  { "foreign.RegistrationCard" => "self.FileId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yrOYE96ObhBNzgQLYG1CUw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

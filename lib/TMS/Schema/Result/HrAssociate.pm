@@ -49,6 +49,14 @@ __PACKAGE__->table("hr_associates");
   is_foreign_key: 1
   is_nullable: 1
 
+=head2 AuthorityLevel
+
+  accessor: 'authority_level'
+  data_type: 'enum'
+  default_value: 'member'
+  extra: {list => ["member","vise","executive"]}
+  is_nullable: 0
+
 =head2 DateCreated
 
   accessor: 'date_created'
@@ -117,6 +125,14 @@ __PACKAGE__->add_columns(
     extra          => { unsigned => 1 },
     is_foreign_key => 1,
     is_nullable    => 1,
+  },
+  "AuthorityLevel",
+  {
+    accessor      => "authority_level",
+    data_type     => "enum",
+    default_value => "member",
+    extra         => { list => ["member", "vise", "executive"] },
+    is_nullable   => 0,
   },
   "DateCreated",
   {
@@ -378,16 +394,16 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 drv_drivers
+=head2 drv_driver
 
-Type: has_many
+Type: might_have
 
 Related object: L<TMS::Schema::Result::DrvDriver>
 
 =cut
 
-__PACKAGE__->has_many(
-  "drv_drivers",
+__PACKAGE__->might_have(
+  "drv_driver",
   "TMS::Schema::Result::DrvDriver",
   { "foreign.DriverId" => "self.AstId" },
   { cascade_copy => 0, cascade_delete => 0 },
@@ -723,6 +739,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 hr_confidential
+
+Type: might_have
+
+Related object: L<TMS::Schema::Result::HrConfidential>
+
+=cut
+
+__PACKAGE__->might_have(
+  "hr_confidential",
+  "TMS::Schema::Result::HrConfidential",
+  { "foreign.AstId" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 hr_emrgency_contacts
 
 Type: has_many
@@ -1023,6 +1054,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 msg_notes
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::MsgNote>
+
+=cut
+
+__PACKAGE__->has_many(
+  "msg_notes",
+  "TMS::Schema::Result::MsgNote",
+  { "foreign.author" => "self.AstId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 node
 
 Type: belongs_to
@@ -1059,8 +1105,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4bOITwrA5YnCV+6pJloISA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:2h8hTpw9F2W+XQL2LYVACA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

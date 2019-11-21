@@ -133,6 +133,13 @@ __PACKAGE__->table("ent_carriers");
   is_nullable: 1
   size: 255
 
+=head2 RateConfEmailAddress
+
+  accessor: 'rate_conf_email_address'
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 255
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -219,6 +226,13 @@ __PACKAGE__->add_columns(
   "state_FL",
   {
     accessor => "state_fl",
+    data_type => "varchar",
+    is_nullable => 1,
+    size => 255,
+  },
+  "RateConfEmailAddress",
+  {
+    accessor => "rate_conf_email_address",
     data_type => "varchar",
     is_nullable => 1,
     size => 255,
@@ -328,8 +342,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7d9mlTiPM9SStSvTF9Rm/Q
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:fpjn7hcPxzRDVCAziMJKJQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

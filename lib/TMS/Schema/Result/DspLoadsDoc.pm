@@ -66,6 +66,14 @@ __PACKAGE__->table("dsp_loads_docs");
   is_foreign_key: 1
   is_nullable: 0
 
+=head2 FactoredDoc
+
+  accessor: 'factored_doc'
+  data_type: 'tinyint'
+  default_value: 0
+  extra: {unsigned => 1}
+  is_nullable: 0
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -108,6 +116,14 @@ __PACKAGE__->add_columns(
     extra          => { unsigned => 1 },
     is_foreign_key => 1,
     is_nullable    => 0,
+  },
+  "FactoredDoc",
+  {
+    accessor      => "factored_doc",
+    data_type     => "tinyint",
+    default_value => 0,
+    extra         => { unsigned => 1 },
+    is_nullable   => 0,
   },
 );
 
@@ -171,8 +187,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1T3hwcuxI8JI5pTtUIev7w
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:dHu3ppSi4LS9KIEnFNrEGg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

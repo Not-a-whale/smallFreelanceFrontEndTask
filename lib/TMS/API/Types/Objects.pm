@@ -12,209 +12,131 @@ use Moose::Util::TypeConstraints;
 our $AUTO_GENERATE = 0;
 
 # ............................................................................
-subtype 'BizCompanyNodeObj', as class_type('TMS::API::Core::BizCompanyNode');
-coerce 'BizCompanyNodeObj', from 'HashRef', via {
+subtype 'FinClassObj', as class_type('TMS::API::Core::FinClass');
+coerce 'FinClassObj', from 'HashRef', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'ParentId' => ' ',
-            'NodeId'   => undef,
-            'UnitName' => ' ',
-            'Type'     => ' '
+            'Name'    => ' ',
+            'ClassId' => undef
         };
-        return TMS::Test::Core::BizCompanyNode->new(%$TheDefault);
+        return TMS::Test::Core::FinClass->new(%$TheDefault);
     }
-    return TMS::API::Core::BizCompanyNode->new(%{$_});
+    return TMS::API::Core::FinClass->new(%{$_});
 }, from 'Str', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'ParentId' => ' ',
-            'NodeId'   => undef,
-            'UnitName' => ' ',
-            'Type'     => ' '
+            'Name'    => ' ',
+            'ClassId' => undef
         };
-        return TMS::Test::Core::BizCompanyNode->new(%$TheDefault);
+        return TMS::Test::Core::FinClass->new(%$TheDefault);
     }
     return $_;
 };
 
 # ............................................................................
-subtype 'FinTransactionTypeObj', as class_type('TMS::API::Core::FinTransactionType');
-coerce 'FinTransactionTypeObj', from 'HashRef', via {
+subtype 'FinInvoicePaymentObj', as class_type('TMS::API::Core::FinInvoicePayment');
+coerce 'FinInvoicePaymentObj', from 'HashRef', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'TransTypeName' => ' ',
-            'TransTypeId'   => undef
+            'TransactionId'    => ' ',
+            'InvoiceId'        => ' ',
+            'DatePayment'      => ' ',
+            'InvoicePaymentId' => undef,
+            'CreatedBy'        => ' ',
+            'PayerId'          => ' ',
+            'DateCreated'      => ' ',
+            'Amount'           => ' ',
+            'PaymentMethodId'  => ' ',
+            'Valid'            => ' '
         };
-        return TMS::Test::Core::FinTransactionType->new(%$TheDefault);
+        return TMS::Test::Core::FinInvoicePayment->new(%$TheDefault);
     }
-    return TMS::API::Core::FinTransactionType->new(%{$_});
+    return TMS::API::Core::FinInvoicePayment->new(%{$_});
 }, from 'Str', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'TransTypeName' => ' ',
-            'TransTypeId'   => undef
+            'TransactionId'    => ' ',
+            'InvoiceId'        => ' ',
+            'DatePayment'      => ' ',
+            'InvoicePaymentId' => undef,
+            'CreatedBy'        => ' ',
+            'PayerId'          => ' ',
+            'DateCreated'      => ' ',
+            'Amount'           => ' ',
+            'PaymentMethodId'  => ' ',
+            'Valid'            => ' '
         };
-        return TMS::Test::Core::FinTransactionType->new(%$TheDefault);
+        return TMS::Test::Core::FinInvoicePayment->new(%$TheDefault);
     }
     return $_;
 };
 
 # ............................................................................
-subtype 'InvSupportVendorObj', as class_type('TMS::API::Core::InvSupportVendor');
-coerce 'InvSupportVendorObj', from 'HashRef', via {
+subtype 'HrAssociateObj', as class_type('TMS::API::Core::HrAssociate');
+coerce 'HrAssociateObj', from 'HashRef', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'Name'           => ' ',
-            'SupportId'      => undef,
-            'PrimaryContact' => ' ',
-            'VendorId'       => ' ',
-            'Description'    => ' '
-        };
-        return TMS::Test::Core::InvSupportVendor->new(%$TheDefault);
-    }
-    return TMS::API::Core::InvSupportVendor->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'Name'           => ' ',
-            'SupportId'      => undef,
-            'PrimaryContact' => ' ',
-            'VendorId'       => ' ',
-            'Description'    => ' '
-        };
-        return TMS::Test::Core::InvSupportVendor->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'FinItemTemplatesTypeObj', as class_type('TMS::API::Core::FinItemTemplatesType');
-coerce 'FinItemTemplatesTypeObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'Name'           => ' ',
-            'TemplateTypeId' => undef,
-            'DisplayToUser'  => ' ',
-            'Description'    => ' ',
-            'UserDefined'    => ' '
-        };
-        return TMS::Test::Core::FinItemTemplatesType->new(%$TheDefault);
-    }
-    return TMS::API::Core::FinItemTemplatesType->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'Name'           => ' ',
-            'TemplateTypeId' => undef,
-            'DisplayToUser'  => ' ',
-            'Description'    => ' ',
-            'UserDefined'    => ' '
-        };
-        return TMS::Test::Core::FinItemTemplatesType->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'SftVehicleInspectionObj', as class_type('TMS::API::Core::SftVehicleInspection');
-coerce 'SftVehicleInspectionObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'InspectorId'          => ' ',
-            'Remarks'              => ' ',
-            'LocationOfRecords'    => ' ',
-            'Mileage'              => ' ',
-            'Status'               => ' ',
-            'DateInspection'       => ' ',
-            'InspectionScheduleId' => ' ',
-            'InspectionId'         => undef,
-            'InspectorSignatureId' => ' ',
-            'InspectionNumber'     => ' '
-        };
-        return TMS::Test::Core::SftVehicleInspection->new(%$TheDefault);
-    }
-    return TMS::API::Core::SftVehicleInspection->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'InspectorId'          => ' ',
-            'Remarks'              => ' ',
-            'LocationOfRecords'    => ' ',
-            'Mileage'              => ' ',
-            'Status'               => ' ',
-            'DateInspection'       => ' ',
-            'InspectionScheduleId' => ' ',
-            'InspectionId'         => undef,
-            'InspectorSignatureId' => ' ',
-            'InspectionNumber'     => ' '
-        };
-        return TMS::Test::Core::SftVehicleInspection->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'SftVehicleInspectItemObj', as class_type('TMS::API::Core::SftVehicleInspectItem');
-coerce 'SftVehicleInspectItemObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'ItemAreaName' => ' ',
-            'Notes'        => ' ',
-            'InspItmId'    => undef
-        };
-        return TMS::Test::Core::SftVehicleInspectItem->new(%$TheDefault);
-    }
-    return TMS::API::Core::SftVehicleInspectItem->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'ItemAreaName' => ' ',
-            'Notes'        => ' ',
-            'InspItmId'    => undef
-        };
-        return TMS::Test::Core::SftVehicleInspectItem->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'DspTripObj', as class_type('TMS::API::Core::DspTrip');
-coerce 'DspTripObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'DateBooked'     => ' ',
-            'TripNumber'     => ' ',
-            'GoogleRoute'    => ' ',
-            'DateDispatched' => ' ',
-            'DateStarted'    => ' ',
-            'DateCreated'    => ' ',
-            'CreatedBy'      => ' ',
-            'IsValid'        => ' ',
-            'TripId'         => undef,
+            'AuthorityLevel' => ' ',
+            'CurrentTitle'   => ' ',
+            'BizEmail'       => ' ',
+            'BizPhone'       => ' ',
             'Notes'          => ' ',
-            'TripStatus'     => ' ',
-            'DateCompleted'  => ' '
+            'DateCreated'    => ' ',
+            'AstId'          => undef,
+            'BizFax'         => ' ',
+            'DateRemoved'    => ' ',
+            'NodeId'         => ' '
         };
-        return TMS::Test::Core::DspTrip->new(%$TheDefault);
+        return TMS::Test::Core::HrAssociate->new(%$TheDefault);
     }
-    return TMS::API::Core::DspTrip->new(%{$_});
+    return TMS::API::Core::HrAssociate->new(%{$_});
 }, from 'Str', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'DateBooked'     => ' ',
-            'TripNumber'     => ' ',
-            'GoogleRoute'    => ' ',
-            'DateDispatched' => ' ',
-            'DateStarted'    => ' ',
-            'DateCreated'    => ' ',
-            'CreatedBy'      => ' ',
-            'IsValid'        => ' ',
-            'TripId'         => undef,
+            'AuthorityLevel' => ' ',
+            'CurrentTitle'   => ' ',
+            'BizEmail'       => ' ',
+            'BizPhone'       => ' ',
             'Notes'          => ' ',
-            'TripStatus'     => ' ',
-            'DateCompleted'  => ' '
+            'DateCreated'    => ' ',
+            'AstId'          => undef,
+            'BizFax'         => ' ',
+            'DateRemoved'    => ' ',
+            'NodeId'         => ' '
         };
-        return TMS::Test::Core::DspTrip->new(%$TheDefault);
+        return TMS::Test::Core::HrAssociate->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'TskAlrmObj', as class_type('TMS::API::Core::TskAlrm');
+coerce 'TskAlrmObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'message'   => ' ',
+            'tskid'     => ' ',
+            'repeat'    => ' ',
+            'periodic'  => ' ',
+            'turnoff'   => ' ',
+            'alrmid'    => undef,
+            'atcrontab' => ' '
+        };
+        return TMS::Test::Core::TskAlrm->new(%$TheDefault);
+    }
+    return TMS::API::Core::TskAlrm->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'message'   => ' ',
+            'tskid'     => ' ',
+            'repeat'    => ' ',
+            'periodic'  => ' ',
+            'turnoff'   => ' ',
+            'alrmid'    => undef,
+            'atcrontab' => ' '
+        };
+        return TMS::Test::Core::TskAlrm->new(%$TheDefault);
     }
     return $_;
 };
@@ -224,20 +146,20 @@ subtype 'DspLoadsDestinationObj', as class_type('TMS::API::Core::DspLoadsDestina
 coerce 'DspLoadsDestinationObj', from 'HashRef', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'PU_PO'            => ' ',
-            'DestinationId'    => undef,
-            'AppointmentNotes' => ' ',
-            'Pallets'          => ' ',
-            'AppointmentStart' => ' ',
-            'AppointmentEnd'   => ' ',
-            'Weight'           => ' ',
-            'StopOrder'        => ' ',
-            'Branch'           => ' ',
-            'Pieces'           => ' ',
-            'Commodity'        => ' ',
-            'StopType'         => ' ',
             'LoadId'           => ' ',
-            'AppointmentType'  => ' '
+            'PU_PO'            => ' ',
+            'Pallets'          => ' ',
+            'AppointmentEnd'   => ' ',
+            'AppointmentStart' => ' ',
+            'Commodity'        => ' ',
+            'Branch'           => ' ',
+            'AppointmentType'  => ' ',
+            'StopOrder'        => ' ',
+            'StopType'         => ' ',
+            'AppointmentNotes' => ' ',
+            'Pieces'           => ' ',
+            'Weight'           => ' ',
+            'DestinationId'    => undef
         };
         return TMS::Test::Core::DspLoadsDestination->new(%$TheDefault);
     }
@@ -245,20 +167,20 @@ coerce 'DspLoadsDestinationObj', from 'HashRef', via {
 }, from 'Str', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'PU_PO'            => ' ',
-            'DestinationId'    => undef,
-            'AppointmentNotes' => ' ',
-            'Pallets'          => ' ',
-            'AppointmentStart' => ' ',
-            'AppointmentEnd'   => ' ',
-            'Weight'           => ' ',
-            'StopOrder'        => ' ',
-            'Branch'           => ' ',
-            'Pieces'           => ' ',
-            'Commodity'        => ' ',
-            'StopType'         => ' ',
             'LoadId'           => ' ',
-            'AppointmentType'  => ' '
+            'PU_PO'            => ' ',
+            'Pallets'          => ' ',
+            'AppointmentEnd'   => ' ',
+            'AppointmentStart' => ' ',
+            'Commodity'        => ' ',
+            'Branch'           => ' ',
+            'AppointmentType'  => ' ',
+            'StopOrder'        => ' ',
+            'StopType'         => ' ',
+            'AppointmentNotes' => ' ',
+            'Pieces'           => ' ',
+            'Weight'           => ' ',
+            'DestinationId'    => undef
         };
         return TMS::Test::Core::DspLoadsDestination->new(%$TheDefault);
     }
@@ -266,119 +188,69 @@ coerce 'DspLoadsDestinationObj', from 'HashRef', via {
 };
 
 # ............................................................................
-subtype 'SftElogStatObj', as class_type('TMS::API::Core::SftElogStat');
-coerce 'SftElogStatObj', from 'HashRef', via {
+subtype 'TskActnObj', as class_type('TMS::API::Core::TskActn');
+coerce 'TskActnObj', from 'HashRef', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'Longitude'          => ' ',
-            'EquipmentId'        => ' ',
-            'Odometer'           => ' ',
-            'GpsReqId'           => undef,
-            'Latitude'           => ' ',
-            'EngineHours'        => ' ',
-            'Speed'              => ' ',
-            'LocationProviderId' => ' ',
-            'Bearings'           => ' ',
-            'Fuel'               => ' ',
-            'Acquired'           => ' ',
-            'Posted'             => ' ',
-            'VehicleState'       => ' '
+            'actid'  => undef,
+            'note'   => ' ',
+            'PrsnId' => ' ',
+            'tskid'  => ' '
         };
-        return TMS::Test::Core::SftElogStat->new(%$TheDefault);
+        return TMS::Test::Core::TskActn->new(%$TheDefault);
     }
-    return TMS::API::Core::SftElogStat->new(%{$_});
+    return TMS::API::Core::TskActn->new(%{$_});
 }, from 'Str', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'Longitude'          => ' ',
-            'EquipmentId'        => ' ',
-            'Odometer'           => ' ',
-            'GpsReqId'           => undef,
-            'Latitude'           => ' ',
-            'EngineHours'        => ' ',
-            'Speed'              => ' ',
-            'LocationProviderId' => ' ',
-            'Bearings'           => ' ',
-            'Fuel'               => ' ',
-            'Acquired'           => ' ',
-            'Posted'             => ' ',
-            'VehicleState'       => ' '
+            'actid'  => undef,
+            'note'   => ' ',
+            'PrsnId' => ' ',
+            'tskid'  => ' '
         };
-        return TMS::Test::Core::SftElogStat->new(%$TheDefault);
+        return TMS::Test::Core::TskActn->new(%$TheDefault);
     }
     return $_;
 };
 
 # ............................................................................
-subtype 'InvVehicleObj', as class_type('TMS::API::Core::InvVehicle');
-coerce 'InvVehicleObj', from 'HashRef', via {
+subtype 'FinJournalEntryObj', as class_type('TMS::API::Core::FinJournalEntry');
+coerce 'FinJournalEntryObj', from 'HashRef', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'Color'         => ' ',
-            'Length'        => ' ',
-            'Width'         => ' ',
-            'UnladenWeight' => ' ',
-            'TireSize'      => ' ',
-            'CarrierId'     => ' ',
-            'Model'         => ' ',
-            'VIN'           => ' ',
-            'Make'          => ' ',
-            'Fuel'          => ' ',
-            'VehicleId'     => undef,
-            'Axels'         => ' ',
-            'Year'          => ' ',
-            'Height'        => ' '
+            'Classification' => ' ',
+            'AccountId'      => ' ',
+            'VendorAmount'   => ' ',
+            'DateCreated'    => ' ',
+            'JrlEntryId'     => undef,
+            'Amount'         => ' ',
+            'JobId'          => ' ',
+            'CreatedBy'      => ' ',
+            'EntityId'       => ' ',
+            'TransactionId'  => ' ',
+            'ReportAmount'   => ' ',
+            'DebitCredit'    => ' '
         };
-        return TMS::Test::Core::InvVehicle->new(%$TheDefault);
+        return TMS::Test::Core::FinJournalEntry->new(%$TheDefault);
     }
-    return TMS::API::Core::InvVehicle->new(%{$_});
+    return TMS::API::Core::FinJournalEntry->new(%{$_});
 }, from 'Str', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'Color'         => ' ',
-            'Length'        => ' ',
-            'Width'         => ' ',
-            'UnladenWeight' => ' ',
-            'TireSize'      => ' ',
-            'CarrierId'     => ' ',
-            'Model'         => ' ',
-            'VIN'           => ' ',
-            'Make'          => ' ',
-            'Fuel'          => ' ',
-            'VehicleId'     => undef,
-            'Axels'         => ' ',
-            'Year'          => ' ',
-            'Height'        => ' '
+            'Classification' => ' ',
+            'AccountId'      => ' ',
+            'VendorAmount'   => ' ',
+            'DateCreated'    => ' ',
+            'JrlEntryId'     => undef,
+            'Amount'         => ' ',
+            'JobId'          => ' ',
+            'CreatedBy'      => ' ',
+            'EntityId'       => ' ',
+            'TransactionId'  => ' ',
+            'ReportAmount'   => ' ',
+            'DebitCredit'    => ' '
         };
-        return TMS::Test::Core::InvVehicle->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'SftVehicleInspectedItemObj', as class_type('TMS::API::Core::SftVehicleInspectedItem');
-coerce 'SftVehicleInspectedItemObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'InspectedItem' => ' ',
-            'InspectedDate' => ' ',
-            'InspectedId'   => undef,
-            'InspectionId'  => ' ',
-            'Status'        => ' '
-        };
-        return TMS::Test::Core::SftVehicleInspectedItem->new(%$TheDefault);
-    }
-    return TMS::API::Core::SftVehicleInspectedItem->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'InspectedItem' => ' ',
-            'InspectedDate' => ' ',
-            'InspectedId'   => undef,
-            'InspectionId'  => ' ',
-            'Status'        => ' '
-        };
-        return TMS::Test::Core::SftVehicleInspectedItem->new(%$TheDefault);
+        return TMS::Test::Core::FinJournalEntry->new(%$TheDefault);
     }
     return $_;
 };
@@ -400,167 +272,277 @@ coerce 'CmmPackageObj', from 'HashRef', via {
 };
 
 # ............................................................................
-subtype 'FinChequeObj', as class_type('TMS::API::Core::FinCheque');
-coerce 'FinChequeObj', from 'HashRef', via {
+subtype 'MsgAccessObj', as class_type('TMS::API::Core::MsgAccess');
+coerce 'MsgAccessObj', from 'HashRef', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'Memo'               => ' ',
-            'CreatedBy'          => ' ',
-            'PayerPhone'         => ' ',
-            'BankRoutingNumber'  => ' ',
-            'Payee'              => ' ',
-            'PayeeCityAddress'   => ' ',
-            'PayerName'          => ' ',
-            'DateCreated'        => ' ',
-            'ChequeId'           => undef,
-            'PayerStreetAddress' => ' ',
-            'VoidedBy'           => ' ',
-            'DateVoided'         => ' ',
-            'Amount'             => ' ',
-            'Payer'              => ' ',
-            'AuthorizedBy'       => ' ',
-            'PayeeName'          => ' ',
-            'PayerCityAddress'   => ' ',
-            'PayeeStreetAddress' => ' ',
-            'BankCityAddress'    => ' ',
-            'BankPhone'          => ' ',
-            'BankStreetAddress'  => ' ',
-            'ChequeNumber'       => ' ',
-            'TransactionId'      => ' ',
-            'BankAccountNumber'  => ' ',
-            'Bank'               => ' ',
-            'BankName'           => ' ',
-            'PayeePhone'         => ' ',
-            'DateAuthorized'     => ' '
+            'macsid'         => undef,
+            'PermissionName' => ' '
         };
-        return TMS::Test::Core::FinCheque->new(%$TheDefault);
+        return TMS::Test::Core::MsgAccess->new(%$TheDefault);
     }
-    return TMS::API::Core::FinCheque->new(%{$_});
+    return TMS::API::Core::MsgAccess->new(%{$_});
 }, from 'Str', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'Memo'               => ' ',
-            'CreatedBy'          => ' ',
-            'PayerPhone'         => ' ',
-            'BankRoutingNumber'  => ' ',
-            'Payee'              => ' ',
-            'PayeeCityAddress'   => ' ',
-            'PayerName'          => ' ',
-            'DateCreated'        => ' ',
-            'ChequeId'           => undef,
-            'PayerStreetAddress' => ' ',
-            'VoidedBy'           => ' ',
-            'DateVoided'         => ' ',
-            'Amount'             => ' ',
-            'Payer'              => ' ',
-            'AuthorizedBy'       => ' ',
-            'PayeeName'          => ' ',
-            'PayerCityAddress'   => ' ',
-            'PayeeStreetAddress' => ' ',
-            'BankCityAddress'    => ' ',
-            'BankPhone'          => ' ',
-            'BankStreetAddress'  => ' ',
-            'ChequeNumber'       => ' ',
-            'TransactionId'      => ' ',
-            'BankAccountNumber'  => ' ',
-            'Bank'               => ' ',
-            'BankName'           => ' ',
-            'PayeePhone'         => ' ',
-            'DateAuthorized'     => ' '
+            'macsid'         => undef,
+            'PermissionName' => ' '
         };
-        return TMS::Test::Core::FinCheque->new(%$TheDefault);
+        return TMS::Test::Core::MsgAccess->new(%$TheDefault);
     }
     return $_;
 };
 
 # ............................................................................
-subtype 'InvEquipmentObj', as class_type('TMS::API::Core::InvEquipment');
-coerce 'InvEquipmentObj', from 'HashRef', via {
+subtype 'BizBranchObj', as class_type('TMS::API::Core::BizBranch');
+coerce 'BizBranchObj', from 'HashRef', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'DateSold'       => ' ',
-            'VendorId'       => ' ',
-            'SerialNo'       => ' ',
-            'GeneralName'    => ' ',
-            'DatePurchased'  => ' ',
-            'OwnerId'        => ' ',
-            'PriceSold'      => ' ',
-            'EquipmentId'    => undef,
-            'PricePurchased' => ' '
+            'BrnchFax'     => ' ',
+            'BizId'        => ' ',
+            'BrnchAddress' => ' ',
+            'BrnchPhone'   => ' ',
+            'BrnchId'      => undef,
+            'BrnchEMail'   => ' ',
+            'OfficeName'   => ' '
         };
-        return TMS::Test::Core::InvEquipment->new(%$TheDefault);
+        return TMS::Test::Core::BizBranch->new(%$TheDefault);
     }
-    return TMS::API::Core::InvEquipment->new(%{$_});
+    return TMS::API::Core::BizBranch->new(%{$_});
 }, from 'Str', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'DateSold'       => ' ',
-            'VendorId'       => ' ',
-            'SerialNo'       => ' ',
-            'GeneralName'    => ' ',
-            'DatePurchased'  => ' ',
-            'OwnerId'        => ' ',
-            'PriceSold'      => ' ',
-            'EquipmentId'    => undef,
-            'PricePurchased' => ' '
+            'BrnchFax'     => ' ',
+            'BizId'        => ' ',
+            'BrnchAddress' => ' ',
+            'BrnchPhone'   => ' ',
+            'BrnchId'      => undef,
+            'BrnchEMail'   => ' ',
+            'OfficeName'   => ' '
         };
-        return TMS::Test::Core::InvEquipment->new(%$TheDefault);
+        return TMS::Test::Core::BizBranch->new(%$TheDefault);
     }
     return $_;
 };
 
 # ............................................................................
-subtype 'DspLoadObj', as class_type('TMS::API::Core::DspLoad');
-coerce 'DspLoadObj', from 'HashRef', via {
+subtype 'SftVehicleInspectionObj', as class_type('TMS::API::Core::SftVehicleInspection');
+coerce 'SftVehicleInspectionObj', from 'HashRef', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'TempMode'       => ' ',
-            'BrokerId'       => ' ',
-            'ProNumber'      => ' ',
-            'DateBooked'     => ' ',
-            'Job'            => ' ',
-            'ReeferTempHigh' => ' ',
-            'DispatchNote'   => ' ',
-            'ReeferTempLow'  => ' ',
-            'GoogleRoute'    => ' ',
-            'ShipperId'      => ' ',
-            'DateCreated'    => ' ',
-            'LoadId'         => undef,
-            'Precooling'     => ' ',
-            'LoadNumber'     => ' ',
-            'CreatedBy'      => ' ',
-            'LoadType'       => ' ',
-            'TeamRequired'   => ' ',
-            'BookedBy'       => ' ',
-            'TruckType'      => ' '
+            'Status'               => ' ',
+            'DateInspection'       => ' ',
+            'InspectionNumber'     => ' ',
+            'InspectionId'         => undef,
+            'InspectionScheduleId' => ' ',
+            'Remarks'              => ' ',
+            'Mileage'              => ' ',
+            'LocationOfRecords'    => ' ',
+            'InspectorId'          => ' ',
+            'InspectorSignatureId' => ' '
         };
-        return TMS::Test::Core::DspLoad->new(%$TheDefault);
+        return TMS::Test::Core::SftVehicleInspection->new(%$TheDefault);
     }
-    return TMS::API::Core::DspLoad->new(%{$_});
+    return TMS::API::Core::SftVehicleInspection->new(%{$_});
 }, from 'Str', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'TempMode'       => ' ',
-            'BrokerId'       => ' ',
-            'ProNumber'      => ' ',
-            'DateBooked'     => ' ',
-            'Job'            => ' ',
-            'ReeferTempHigh' => ' ',
-            'DispatchNote'   => ' ',
-            'ReeferTempLow'  => ' ',
-            'GoogleRoute'    => ' ',
-            'ShipperId'      => ' ',
-            'DateCreated'    => ' ',
-            'LoadId'         => undef,
-            'Precooling'     => ' ',
-            'LoadNumber'     => ' ',
-            'CreatedBy'      => ' ',
-            'LoadType'       => ' ',
-            'TeamRequired'   => ' ',
-            'BookedBy'       => ' ',
-            'TruckType'      => ' '
+            'Status'               => ' ',
+            'DateInspection'       => ' ',
+            'InspectionNumber'     => ' ',
+            'InspectionId'         => undef,
+            'InspectionScheduleId' => ' ',
+            'Remarks'              => ' ',
+            'Mileage'              => ' ',
+            'LocationOfRecords'    => ' ',
+            'InspectorId'          => ' ',
+            'InspectorSignatureId' => ' '
         };
-        return TMS::Test::Core::DspLoad->new(%$TheDefault);
+        return TMS::Test::Core::SftVehicleInspection->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'FinInvoicesItemObj', as class_type('TMS::API::Core::FinInvoicesItem');
+coerce 'FinInvoicesItemObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'InvoiceId'            => ' ',
+            'ItemTemplateId'       => ' ',
+            'Notes'                => ' ',
+            'InvoiceItemId'        => undef,
+            'DateCreated'          => ' ',
+            'JobId'                => ' ',
+            'Comments'             => ' ',
+            'DebitJournalEntryId'  => ' ',
+            'CreatedBy'            => ' ',
+            'CreditJournalEntryId' => ' ',
+            'Quantity'             => ' ',
+            'Amount'               => ' '
+        };
+        return TMS::Test::Core::FinInvoicesItem->new(%$TheDefault);
+    }
+    return TMS::API::Core::FinInvoicesItem->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'InvoiceId'            => ' ',
+            'ItemTemplateId'       => ' ',
+            'Notes'                => ' ',
+            'InvoiceItemId'        => undef,
+            'DateCreated'          => ' ',
+            'JobId'                => ' ',
+            'Comments'             => ' ',
+            'DebitJournalEntryId'  => ' ',
+            'CreatedBy'            => ' ',
+            'CreditJournalEntryId' => ' ',
+            'Quantity'             => ' ',
+            'Amount'               => ' '
+        };
+        return TMS::Test::Core::FinInvoicesItem->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'SftVehicleInspectItemObj', as class_type('TMS::API::Core::SftVehicleInspectItem');
+coerce 'SftVehicleInspectItemObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'InspItmId'    => undef,
+            'ItemAreaName' => ' ',
+            'Notes'        => ' '
+        };
+        return TMS::Test::Core::SftVehicleInspectItem->new(%$TheDefault);
+    }
+    return TMS::API::Core::SftVehicleInspectItem->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'InspItmId'    => undef,
+            'ItemAreaName' => ' ',
+            'Notes'        => ' '
+        };
+        return TMS::Test::Core::SftVehicleInspectItem->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'InvEquipmentTypeObj', as class_type('TMS::API::Core::InvEquipmentType');
+coerce 'InvEquipmentTypeObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'EquipmentTypeId' => undef,
+            'Name'            => ' '
+        };
+        return TMS::Test::Core::InvEquipmentType->new(%$TheDefault);
+    }
+    return TMS::API::Core::InvEquipmentType->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'EquipmentTypeId' => undef,
+            'Name'            => ' '
+        };
+        return TMS::Test::Core::InvEquipmentType->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'InvTiresizeObj', as class_type('TMS::API::Core::InvTiresize');
+coerce 'InvTiresizeObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Type'   => ' ',
+            'Name'   => ' ',
+            'TireId' => undef
+        };
+        return TMS::Test::Core::InvTiresize->new(%$TheDefault);
+    }
+    return TMS::API::Core::InvTiresize->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Type'   => ' ',
+            'Name'   => ' ',
+            'TireId' => undef
+        };
+        return TMS::Test::Core::InvTiresize->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'FinBillingTagObj', as class_type('TMS::API::Core::FinBillingTag');
+coerce 'FinBillingTagObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'DateCreated'  => ' ',
+            'CreatedBy'    => ' ',
+            'BillingTagId' => undef,
+            'UserDefined'  => ' ',
+            'BillingTag'   => ' '
+        };
+        return TMS::Test::Core::FinBillingTag->new(%$TheDefault);
+    }
+    return TMS::API::Core::FinBillingTag->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'DateCreated'  => ' ',
+            'CreatedBy'    => ' ',
+            'BillingTagId' => undef,
+            'UserDefined'  => ' ',
+            'BillingTag'   => ' '
+        };
+        return TMS::Test::Core::FinBillingTag->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'InvSupportVendorObj', as class_type('TMS::API::Core::InvSupportVendor');
+coerce 'InvSupportVendorObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'PrimaryContact' => ' ',
+            'Name'           => ' ',
+            'VendorId'       => ' ',
+            'Description'    => ' ',
+            'SupportId'      => undef
+        };
+        return TMS::Test::Core::InvSupportVendor->new(%$TheDefault);
+    }
+    return TMS::API::Core::InvSupportVendor->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'PrimaryContact' => ' ',
+            'Name'           => ' ',
+            'VendorId'       => ' ',
+            'Description'    => ' ',
+            'SupportId'      => undef
+        };
+        return TMS::Test::Core::InvSupportVendor->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'FinPaymentMethodObj', as class_type('TMS::API::Core::FinPaymentMethod');
+coerce 'FinPaymentMethodObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {'PaymentMethodId' => undef};
+        return TMS::Test::Core::FinPaymentMethod->new(%$TheDefault);
+    }
+    return TMS::API::Core::FinPaymentMethod->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {'PaymentMethodId' => undef};
+        return TMS::Test::Core::FinPaymentMethod->new(%$TheDefault);
     }
     return $_;
 };
@@ -570,17 +552,17 @@ subtype 'FinAccountTypeObj', as class_type('TMS::API::Core::FinAccountType');
 coerce 'FinAccountTypeObj', from 'HashRef', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'Name'          => ' ',
+            'AccountTypeId' => undef,
+            'ParentId'      => ' ',
             'Temp'          => ' ',
+            'Editable'      => ' ',
+            'DisplayOrder'  => ' ',
+            'Credit'        => ' ',
             'UserDefined'   => ' ',
             'Debit'         => ' ',
-            'Editable'      => ' ',
-            'ParentId'      => ' ',
-            'Credit'        => ' ',
             'IncomeSheet'   => ' ',
+            'Name'          => ' ',
             'Valid'         => ' ',
-            'AccountTypeId' => undef,
-            'DisplayOrder'  => ' ',
             'BalanceSheet'  => ' '
         };
         return TMS::Test::Core::FinAccountType->new(%$TheDefault);
@@ -589,17 +571,17 @@ coerce 'FinAccountTypeObj', from 'HashRef', via {
 }, from 'Str', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'Name'          => ' ',
+            'AccountTypeId' => undef,
+            'ParentId'      => ' ',
             'Temp'          => ' ',
+            'Editable'      => ' ',
+            'DisplayOrder'  => ' ',
+            'Credit'        => ' ',
             'UserDefined'   => ' ',
             'Debit'         => ' ',
-            'Editable'      => ' ',
-            'ParentId'      => ' ',
-            'Credit'        => ' ',
             'IncomeSheet'   => ' ',
+            'Name'          => ' ',
             'Valid'         => ' ',
-            'AccountTypeId' => undef,
-            'DisplayOrder'  => ' ',
             'BalanceSheet'  => ' '
         };
         return TMS::Test::Core::FinAccountType->new(%$TheDefault);
@@ -608,137 +590,27 @@ coerce 'FinAccountTypeObj', from 'HashRef', via {
 };
 
 # ............................................................................
-subtype 'FinAccountObj', as class_type('TMS::API::Core::FinAccount');
-coerce 'FinAccountObj', from 'HashRef', via {
+subtype 'DrvCdlEndorsementObj', as class_type('TMS::API::Core::DrvCdlEndorsement');
+coerce 'DrvCdlEndorsementObj', from 'HashRef', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'AccountTypeId' => ' ',
-            'ExternalName'  => ' ',
-            'DateCreated'   => ' ',
-            'ParentId'      => ' ',
-            'AccountId'     => undef,
-            'Balance'       => ' ',
-            'Active'        => ' ',
-            'Name'          => ' ',
-            'Code'          => ' ',
-            'UserDefined'   => ' ',
-            'Description'   => ' ',
-            'Valid'         => ' '
-        };
-        return TMS::Test::Core::FinAccount->new(%$TheDefault);
-    }
-    return TMS::API::Core::FinAccount->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'AccountTypeId' => ' ',
-            'ExternalName'  => ' ',
-            'DateCreated'   => ' ',
-            'ParentId'      => ' ',
-            'AccountId'     => undef,
-            'Balance'       => ' ',
-            'Active'        => ' ',
-            'Name'          => ' ',
-            'Code'          => ' ',
-            'UserDefined'   => ' ',
-            'Description'   => ' ',
-            'Valid'         => ' '
-        };
-        return TMS::Test::Core::FinAccount->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'AppAccountObj', as class_type('TMS::API::Core::AppAccount');
-coerce 'AppAccountObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'DateCreated'  => ' ',
-            'Locked'       => ' ',
-            'Username'     => ' ',
-            'AppAccountId' => undef,
-            'PasswordHash' => ' ',
-            'UserId'       => ' ',
-            'Salt'         => ' '
-        };
-        return TMS::Test::Core::AppAccount->new(%$TheDefault);
-    }
-    return TMS::API::Core::AppAccount->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'DateCreated'  => ' ',
-            'Locked'       => ' ',
-            'Username'     => ' ',
-            'AppAccountId' => undef,
-            'PasswordHash' => ' ',
-            'UserId'       => ' ',
-            'Salt'         => ' '
-        };
-        return TMS::Test::Core::AppAccount->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'TmpRelationsNodeObj', as class_type('TMS::API::Core::TmpRelationsNode');
-coerce 'TmpRelationsNodeObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'ParentId'  => ' ',
-            'Name'      => ' ',
-            'RelNodeId' => undef
-        };
-        return TMS::Test::Core::TmpRelationsNode->new(%$TheDefault);
-    }
-    return TMS::API::Core::TmpRelationsNode->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'ParentId'  => ' ',
-            'Name'      => ' ',
-            'RelNodeId' => undef
-        };
-        return TMS::Test::Core::TmpRelationsNode->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'GenFileObj', as class_type('TMS::API::Core::GenFile');
-coerce 'GenFileObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'MIMEType'      => ' ',
-            'SHASIG'        => ' ',
-            'FileData'      => ' ',
-            'Notes'         => ' ',
+            'Endorsement'   => ' ',
             'ExpiredDate'   => ' ',
-            'DocumentTitle' => ' ',
-            'UploadDate'    => ' ',
-            'FileId'        => undef,
-            'FileName'      => ' ',
-            'Keywords'      => ' '
+            'ValidFromDate' => ' ',
+            'EndrsId'       => undef
         };
-        return TMS::Test::Core::GenFile->new(%$TheDefault);
+        return TMS::Test::Core::DrvCdlEndorsement->new(%$TheDefault);
     }
-    return TMS::API::Core::GenFile->new(%{$_});
+    return TMS::API::Core::DrvCdlEndorsement->new(%{$_});
 }, from 'Str', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'MIMEType'      => ' ',
-            'SHASIG'        => ' ',
-            'FileData'      => ' ',
-            'Notes'         => ' ',
+            'Endorsement'   => ' ',
             'ExpiredDate'   => ' ',
-            'DocumentTitle' => ' ',
-            'UploadDate'    => ' ',
-            'FileId'        => undef,
-            'FileName'      => ' ',
-            'Keywords'      => ' '
+            'ValidFromDate' => ' ',
+            'EndrsId'       => undef
         };
-        return TMS::Test::Core::GenFile->new(%$TheDefault);
+        return TMS::Test::Core::DrvCdlEndorsement->new(%$TheDefault);
     }
     return $_;
 };
@@ -748,12 +620,12 @@ subtype 'EntityObj', as class_type('TMS::API::Core::Entity');
 coerce 'EntityObj', from 'HashRef', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'BusinessId'  => ' ',
-            'DateCreated' => ' ',
-            'Notes'       => ' ',
             'EntityId'    => undef,
+            'PersonId'    => ' ',
+            'Notes'       => ' ',
+            'BusinessId'  => ' ',
             'IsActive'    => ' ',
-            'PersonId'    => ' '
+            'DateCreated' => ' '
         };
         return TMS::Test::Core::Entity->new(%$TheDefault);
     }
@@ -761,12 +633,12 @@ coerce 'EntityObj', from 'HashRef', via {
 }, from 'Str', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'BusinessId'  => ' ',
-            'DateCreated' => ' ',
-            'Notes'       => ' ',
             'EntityId'    => undef,
+            'PersonId'    => ' ',
+            'Notes'       => ' ',
+            'BusinessId'  => ' ',
             'IsActive'    => ' ',
-            'PersonId'    => ' '
+            'DateCreated' => ' '
         };
         return TMS::Test::Core::Entity->new(%$TheDefault);
     }
@@ -774,57 +646,493 @@ coerce 'EntityObj', from 'HashRef', via {
 };
 
 # ............................................................................
-subtype 'FinItemTemplateObj', as class_type('TMS::API::Core::FinItemTemplate');
-coerce 'FinItemTemplateObj', from 'HashRef', via {
+subtype 'InsPolicyObj', as class_type('TMS::API::Core::InsPolicy');
+coerce 'InsPolicyObj', from 'HashRef', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'ParentId'        => ' ',
-            'DateCreated'     => ' ',
-            'ItemTemplateId'  => undef,
-            'Deleted'         => ' ',
-            'Description'     => ' ',
-            'UserDefined'     => ' ',
-            'Name'            => ' ',
-            'TemplateTypeId'  => ' ',
-            'PriceType'       => ' ',
-            'UpdatedBy'       => ' ',
-            'CreditAccountId' => ' ',
-            'DebitAccountId'  => ' ',
-            'TransactionType' => ' ',
-            'Price'           => ' ',
-            'DateUpdated'     => ' ',
-            'DateDeleted'     => ' ',
-            'CreatedBy'       => ' ',
-            'DeletedBy'       => ' ',
-            'EntityId'        => ' '
+            'DownpaymentAmount' => ' ',
+            'PaidBy'            => ' ',
+            'WhatIsInsured'     => ' ',
+            'ExpirationDate'    => ' ',
+            'ProviderAgent'     => ' ',
+            'PolicyNumber'      => ' ',
+            'ProofOfInsurance'  => ' ',
+            'EffectiveDate'     => ' ',
+            'InsId'             => undef,
+            'TagName'           => ' ',
+            'InsuredAmount'     => ' '
         };
-        return TMS::Test::Core::FinItemTemplate->new(%$TheDefault);
+        return TMS::Test::Core::InsPolicy->new(%$TheDefault);
     }
-    return TMS::API::Core::FinItemTemplate->new(%{$_});
+    return TMS::API::Core::InsPolicy->new(%{$_});
 }, from 'Str', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'ParentId'        => ' ',
-            'DateCreated'     => ' ',
-            'ItemTemplateId'  => undef,
-            'Deleted'         => ' ',
-            'Description'     => ' ',
-            'UserDefined'     => ' ',
-            'Name'            => ' ',
-            'TemplateTypeId'  => ' ',
-            'PriceType'       => ' ',
-            'UpdatedBy'       => ' ',
-            'CreditAccountId' => ' ',
-            'DebitAccountId'  => ' ',
-            'TransactionType' => ' ',
-            'Price'           => ' ',
-            'DateUpdated'     => ' ',
-            'DateDeleted'     => ' ',
-            'CreatedBy'       => ' ',
-            'DeletedBy'       => ' ',
-            'EntityId'        => ' '
+            'DownpaymentAmount' => ' ',
+            'PaidBy'            => ' ',
+            'WhatIsInsured'     => ' ',
+            'ExpirationDate'    => ' ',
+            'ProviderAgent'     => ' ',
+            'PolicyNumber'      => ' ',
+            'ProofOfInsurance'  => ' ',
+            'EffectiveDate'     => ' ',
+            'InsId'             => undef,
+            'TagName'           => ' ',
+            'InsuredAmount'     => ' '
         };
-        return TMS::Test::Core::FinItemTemplate->new(%$TheDefault);
+        return TMS::Test::Core::InsPolicy->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'InvTrailerTypeObj', as class_type('TMS::API::Core::InvTrailerType');
+coerce 'InvTrailerTypeObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {'Name' => undef};
+        return TMS::Test::Core::InvTrailerType->new(%$TheDefault);
+    }
+    return TMS::API::Core::InvTrailerType->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {'Name' => undef};
+        return TMS::Test::Core::InvTrailerType->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'FinPaymentTermObj', as class_type('TMS::API::Core::FinPaymentTerm');
+coerce 'FinPaymentTermObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'DiscountPercent' => ' ',
+            'DueNext'         => ' ',
+            'DiscountInDays'  => ' ',
+            'DueInDays'       => ' ',
+            'Name'            => ' ',
+            'Type'            => ' ',
+            'DiscountAmount'  => ' ',
+            'PaymentTermId'   => undef
+        };
+        return TMS::Test::Core::FinPaymentTerm->new(%$TheDefault);
+    }
+    return TMS::API::Core::FinPaymentTerm->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'DiscountPercent' => ' ',
+            'DueNext'         => ' ',
+            'DiscountInDays'  => ' ',
+            'DueInDays'       => ' ',
+            'Name'            => ' ',
+            'Type'            => ' ',
+            'DiscountAmount'  => ' ',
+            'PaymentTermId'   => undef
+        };
+        return TMS::Test::Core::FinPaymentTerm->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'TskTaskObj', as class_type('TMS::API::Core::TskTask');
+coerce 'TskTaskObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'tskid'     => undef,
+            'estimated' => ' ',
+            'completed' => ' ',
+            'created'   => ' ',
+            'PrsnId'    => ' ',
+            'duedate'   => ' ',
+            'priority'  => ' ',
+            'startdate' => ' ',
+            'prjid'     => ' ',
+            'name'      => ' ',
+            'severity'  => ' '
+        };
+        return TMS::Test::Core::TskTask->new(%$TheDefault);
+    }
+    return TMS::API::Core::TskTask->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'tskid'     => undef,
+            'estimated' => ' ',
+            'completed' => ' ',
+            'created'   => ' ',
+            'PrsnId'    => ' ',
+            'duedate'   => ' ',
+            'priority'  => ' ',
+            'startdate' => ' ',
+            'prjid'     => ' ',
+            'name'      => ' ',
+            'severity'  => ' '
+        };
+        return TMS::Test::Core::TskTask->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'InvVehicleObj', as class_type('TMS::API::Core::InvVehicle');
+coerce 'InvVehicleObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Axels'         => ' ',
+            'Length'        => ' ',
+            'Height'        => ' ',
+            'TireSize'      => ' ',
+            'Fuel'          => ' ',
+            'VIN'           => ' ',
+            'Year'          => ' ',
+            'Model'         => ' ',
+            'VehicleId'     => undef,
+            'Make'          => ' ',
+            'Color'         => ' ',
+            'Width'         => ' ',
+            'CarrierId'     => ' ',
+            'UnladenWeight' => ' '
+        };
+        return TMS::Test::Core::InvVehicle->new(%$TheDefault);
+    }
+    return TMS::API::Core::InvVehicle->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Axels'         => ' ',
+            'Length'        => ' ',
+            'Height'        => ' ',
+            'TireSize'      => ' ',
+            'Fuel'          => ' ',
+            'VIN'           => ' ',
+            'Year'          => ' ',
+            'Model'         => ' ',
+            'VehicleId'     => undef,
+            'Make'          => ' ',
+            'Color'         => ' ',
+            'Width'         => ' ',
+            'CarrierId'     => ' ',
+            'UnladenWeight' => ' '
+        };
+        return TMS::Test::Core::InvVehicle->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'TmpRelationsNodeObj', as class_type('TMS::API::Core::TmpRelationsNode');
+coerce 'TmpRelationsNodeObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Name'      => ' ',
+            'ParentId'  => ' ',
+            'RelNodeId' => undef
+        };
+        return TMS::Test::Core::TmpRelationsNode->new(%$TheDefault);
+    }
+    return TMS::API::Core::TmpRelationsNode->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Name'      => ' ',
+            'ParentId'  => ' ',
+            'RelNodeId' => undef
+        };
+        return TMS::Test::Core::TmpRelationsNode->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'InvUnitObj', as class_type('TMS::API::Core::InvUnit');
+coerce 'InvUnitObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'UnitTag' => ' ',
+            'UnitId'  => undef
+        };
+        return TMS::Test::Core::InvUnit->new(%$TheDefault);
+    }
+    return TMS::API::Core::InvUnit->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'UnitTag' => ' ',
+            'UnitId'  => undef
+        };
+        return TMS::Test::Core::InvUnit->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'EntPersonObj', as class_type('TMS::API::Core::EntPerson');
+coerce 'EntPersonObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'NickName'   => ' ',
+            'MiddleName' => ' ',
+            'BrnchId'    => ' ',
+            'LastName'   => ' ',
+            'Prefix'     => ' ',
+            'FirstName'  => ' ',
+            'PrsnId'     => undef,
+            'Suffix'     => ' '
+        };
+        return TMS::Test::Core::EntPerson->new(%$TheDefault);
+    }
+    return TMS::API::Core::EntPerson->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'NickName'   => ' ',
+            'MiddleName' => ' ',
+            'BrnchId'    => ' ',
+            'LastName'   => ' ',
+            'Prefix'     => ' ',
+            'FirstName'  => ' ',
+            'PrsnId'     => undef,
+            'Suffix'     => ' '
+        };
+        return TMS::Test::Core::EntPerson->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'SftVehicleInspectedItemObj', as class_type('TMS::API::Core::SftVehicleInspectedItem');
+coerce 'SftVehicleInspectedItemObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Status'        => ' ',
+            'InspectionId'  => ' ',
+            'InspectedId'   => undef,
+            'InspectedItem' => ' ',
+            'InspectedDate' => ' '
+        };
+        return TMS::Test::Core::SftVehicleInspectedItem->new(%$TheDefault);
+    }
+    return TMS::API::Core::SftVehicleInspectedItem->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Status'        => ' ',
+            'InspectionId'  => ' ',
+            'InspectedId'   => undef,
+            'InspectedItem' => ' ',
+            'InspectedDate' => ' '
+        };
+        return TMS::Test::Core::SftVehicleInspectedItem->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'CntPhonesfaxObj', as class_type('TMS::API::Core::CntPhonesfax');
+coerce 'CntPhonesfaxObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Features'  => ' ',
+            'Number'    => ' ',
+            'Extension' => ' ',
+            'PhnFaxId'  => undef,
+            'Mobility'  => ' ',
+            'Notes'     => ' '
+        };
+        return TMS::Test::Core::CntPhonesfax->new(%$TheDefault);
+    }
+    return TMS::API::Core::CntPhonesfax->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Features'  => ' ',
+            'Number'    => ' ',
+            'Extension' => ' ',
+            'PhnFaxId'  => undef,
+            'Mobility'  => ' ',
+            'Notes'     => ' '
+        };
+        return TMS::Test::Core::CntPhonesfax->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'FinTransactionTypeObj', as class_type('TMS::API::Core::FinTransactionType');
+coerce 'FinTransactionTypeObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'TransTypeId'   => undef,
+            'TransTypeName' => ' '
+        };
+        return TMS::Test::Core::FinTransactionType->new(%$TheDefault);
+    }
+    return TMS::API::Core::FinTransactionType->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'TransTypeId'   => undef,
+            'TransTypeName' => ' '
+        };
+        return TMS::Test::Core::FinTransactionType->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'FinBillingInfoObj', as class_type('TMS::API::Core::FinBillingInfo');
+coerce 'FinBillingInfoObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Address'         => ' ',
+            'PayToTheOrderOf' => ' ',
+            'DateIn'          => ' ',
+            'Phone'           => ' ',
+            'ContactName'     => ' ',
+            'BillingTagId'    => ' ',
+            'BillingId'       => undef,
+            'DateOut'         => ' ',
+            'EMail'           => ' ',
+            'Notes'           => ' ',
+            'EntityId'        => ' ',
+            'Fax'             => ' '
+        };
+        return TMS::Test::Core::FinBillingInfo->new(%$TheDefault);
+    }
+    return TMS::API::Core::FinBillingInfo->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Address'         => ' ',
+            'PayToTheOrderOf' => ' ',
+            'DateIn'          => ' ',
+            'Phone'           => ' ',
+            'ContactName'     => ' ',
+            'BillingTagId'    => ' ',
+            'BillingId'       => undef,
+            'DateOut'         => ' ',
+            'EMail'           => ' ',
+            'Notes'           => ' ',
+            'EntityId'        => ' ',
+            'Fax'             => ' '
+        };
+        return TMS::Test::Core::FinBillingInfo->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'EntCarrierObj', as class_type('TMS::API::Core::EntCarrier');
+coerce 'EntCarrierObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'IFTA_State'           => ' ',
+            'state_FL'             => ' ',
+            'CrType'               => ' ',
+            'state_OR'             => ' ',
+            'state_NC'             => ' ',
+            'state_KY'             => ' ',
+            'CarrierId'            => undef,
+            'McCertificatePhoto'   => ' ',
+            'SCAC'                 => ' ',
+            'state_SC'             => ' ',
+            'RateConfEmailAddress' => ' ',
+            'state_NM'             => ' ',
+            'MC'                   => ' ',
+            'state_NY'             => ' ',
+            'IFTA_Acc'             => ' ',
+            'DOT'                  => ' '
+        };
+        return TMS::Test::Core::EntCarrier->new(%$TheDefault);
+    }
+    return TMS::API::Core::EntCarrier->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'IFTA_State'           => ' ',
+            'state_FL'             => ' ',
+            'CrType'               => ' ',
+            'state_OR'             => ' ',
+            'state_NC'             => ' ',
+            'state_KY'             => ' ',
+            'CarrierId'            => undef,
+            'McCertificatePhoto'   => ' ',
+            'SCAC'                 => ' ',
+            'state_SC'             => ' ',
+            'RateConfEmailAddress' => ' ',
+            'state_NM'             => ' ',
+            'MC'                   => ' ',
+            'state_NY'             => ' ',
+            'IFTA_Acc'             => ' ',
+            'DOT'                  => ' '
+        };
+        return TMS::Test::Core::EntCarrier->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'AppRoleObj', as class_type('TMS::API::Core::AppRole');
+coerce 'AppRoleObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Editable'    => ' ',
+            'UpdatedBy'   => ' ',
+            'CreatedBy'   => ' ',
+            'RoleName'    => ' ',
+            'UserDefined' => ' ',
+            'DateCreated' => ' ',
+            'DateUpdated' => ' ',
+            'Description' => ' ',
+            'RoleId'      => undef
+        };
+        return TMS::Test::Core::AppRole->new(%$TheDefault);
+    }
+    return TMS::API::Core::AppRole->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Editable'    => ' ',
+            'UpdatedBy'   => ' ',
+            'CreatedBy'   => ' ',
+            'RoleName'    => ' ',
+            'UserDefined' => ' ',
+            'DateCreated' => ' ',
+            'DateUpdated' => ' ',
+            'Description' => ' ',
+            'RoleId'      => undef
+        };
+        return TMS::Test::Core::AppRole->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'DrvDriverObj', as class_type('TMS::API::Core::DrvDriver');
+coerce 'DrvDriverObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'LastAnnualReview'    => ' ',
+            'PullNotice'          => ' ',
+            'LocalRoutes'         => ' ',
+            'DriverId'            => undef,
+            'InternationalRoutes' => ' '
+        };
+        return TMS::Test::Core::DrvDriver->new(%$TheDefault);
+    }
+    return TMS::API::Core::DrvDriver->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'LastAnnualReview'    => ' ',
+            'PullNotice'          => ' ',
+            'LocalRoutes'         => ' ',
+            'DriverId'            => undef,
+            'InternationalRoutes' => ' '
+        };
+        return TMS::Test::Core::DrvDriver->new(%$TheDefault);
     }
     return $_;
 };
@@ -854,895 +1162,45 @@ coerce 'InvRoleObj', from 'HashRef', via {
 };
 
 # ............................................................................
-subtype 'FinBillingTagObj', as class_type('TMS::API::Core::FinBillingTag');
-coerce 'FinBillingTagObj', from 'HashRef', via {
+subtype 'SftElogStatObj', as class_type('TMS::API::Core::SftElogStat');
+coerce 'SftElogStatObj', from 'HashRef', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'BillingTag'   => ' ',
-            'CreatedBy'    => ' ',
-            'DateCreated'  => ' ',
-            'UserDefined'  => ' ',
-            'BillingTagId' => undef
+            'LocationProviderId' => ' ',
+            'GpsReqId'           => undef,
+            'Speed'              => ' ',
+            'Fuel'               => ' ',
+            'Latitude'           => ' ',
+            'Longitude'          => ' ',
+            'Acquired'           => ' ',
+            'EquipmentId'        => ' ',
+            'Posted'             => ' ',
+            'Odometer'           => ' ',
+            'Bearings'           => ' ',
+            'EngineHours'        => ' ',
+            'VehicleState'       => ' '
         };
-        return TMS::Test::Core::FinBillingTag->new(%$TheDefault);
+        return TMS::Test::Core::SftElogStat->new(%$TheDefault);
     }
-    return TMS::API::Core::FinBillingTag->new(%{$_});
+    return TMS::API::Core::SftElogStat->new(%{$_});
 }, from 'Str', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'BillingTag'   => ' ',
-            'CreatedBy'    => ' ',
-            'DateCreated'  => ' ',
-            'UserDefined'  => ' ',
-            'BillingTagId' => undef
+            'LocationProviderId' => ' ',
+            'GpsReqId'           => undef,
+            'Speed'              => ' ',
+            'Fuel'               => ' ',
+            'Latitude'           => ' ',
+            'Longitude'          => ' ',
+            'Acquired'           => ' ',
+            'EquipmentId'        => ' ',
+            'Posted'             => ' ',
+            'Odometer'           => ' ',
+            'Bearings'           => ' ',
+            'EngineHours'        => ' ',
+            'VehicleState'       => ' '
         };
-        return TMS::Test::Core::FinBillingTag->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'FinClassObj', as class_type('TMS::API::Core::FinClass');
-coerce 'FinClassObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'ClassId' => undef,
-            'Name'    => ' '
-        };
-        return TMS::Test::Core::FinClass->new(%$TheDefault);
-    }
-    return TMS::API::Core::FinClass->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'ClassId' => undef,
-            'Name'    => ' '
-        };
-        return TMS::Test::Core::FinClass->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'EntPersonObj', as class_type('TMS::API::Core::EntPerson');
-coerce 'EntPersonObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'PrsnId'     => undef,
-            'BrnchId'    => ' ',
-            'Prefix'     => ' ',
-            'Suffix'     => ' ',
-            'NickName'   => ' ',
-            'MiddleName' => ' ',
-            'FirstName'  => ' ',
-            'LastName'   => ' '
-        };
-        return TMS::Test::Core::EntPerson->new(%$TheDefault);
-    }
-    return TMS::API::Core::EntPerson->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'PrsnId'     => undef,
-            'BrnchId'    => ' ',
-            'Prefix'     => ' ',
-            'Suffix'     => ' ',
-            'NickName'   => ' ',
-            'MiddleName' => ' ',
-            'FirstName'  => ' ',
-            'LastName'   => ' '
-        };
-        return TMS::Test::Core::EntPerson->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'CntAddressObj', as class_type('TMS::API::Core::CntAddress');
-coerce 'CntAddressObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'City'    => ' ',
-            'AddrId'  => undef,
-            'GpsLng'  => ' ',
-            'GpsLat'  => ' ',
-            'Notes'   => ' ',
-            'Zip'     => ' ',
-            'Street3' => ' ',
-            'State'   => ' ',
-            'Street2' => ' ',
-            'Country' => ' ',
-            'Street1' => ' '
-        };
-        return TMS::Test::Core::CntAddress->new(%$TheDefault);
-    }
-    return TMS::API::Core::CntAddress->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'City'    => ' ',
-            'AddrId'  => undef,
-            'GpsLng'  => ' ',
-            'GpsLat'  => ' ',
-            'Notes'   => ' ',
-            'Zip'     => ' ',
-            'Street3' => ' ',
-            'State'   => ' ',
-            'Street2' => ' ',
-            'Country' => ' ',
-            'Street1' => ' '
-        };
-        return TMS::Test::Core::CntAddress->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'InvTrailerTypeObj', as class_type('TMS::API::Core::InvTrailerType');
-coerce 'InvTrailerTypeObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {'Name' => undef};
-        return TMS::Test::Core::InvTrailerType->new(%$TheDefault);
-    }
-    return TMS::API::Core::InvTrailerType->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {'Name' => undef};
-        return TMS::Test::Core::InvTrailerType->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'DrvDesttypeObj', as class_type('TMS::API::Core::DrvDesttype');
-coerce 'DrvDesttypeObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'Notes'         => ' ',
-            'DestName'      => ' ',
-            'DesiredDestId' => undef
-        };
-        return TMS::Test::Core::DrvDesttype->new(%$TheDefault);
-    }
-    return TMS::API::Core::DrvDesttype->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'Notes'         => ' ',
-            'DestName'      => ' ',
-            'DesiredDestId' => undef
-        };
-        return TMS::Test::Core::DrvDesttype->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'FinPaymentMethodObj', as class_type('TMS::API::Core::FinPaymentMethod');
-coerce 'FinPaymentMethodObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {'PaymentMethodId' => undef};
-        return TMS::Test::Core::FinPaymentMethod->new(%$TheDefault);
-    }
-    return TMS::API::Core::FinPaymentMethod->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {'PaymentMethodId' => undef};
-        return TMS::Test::Core::FinPaymentMethod->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'SftInspectionScheduleObj', as class_type('TMS::API::Core::SftInspectionSchedule');
-coerce 'SftInspectionScheduleObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'InspectionScheduleId' => undef,
-            'VehicleId'            => ' ',
-            'InspectionType'       => ' '
-        };
-        return TMS::Test::Core::SftInspectionSchedule->new(%$TheDefault);
-    }
-    return TMS::API::Core::SftInspectionSchedule->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'InspectionScheduleId' => undef,
-            'VehicleId'            => ' ',
-            'InspectionType'       => ' '
-        };
-        return TMS::Test::Core::SftInspectionSchedule->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'DrvCdlEndorsementObj', as class_type('TMS::API::Core::DrvCdlEndorsement');
-coerce 'DrvCdlEndorsementObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'Endorsement'   => ' ',
-            'EndrsId'       => undef,
-            'ExpiredDate'   => ' ',
-            'ValidFromDate' => ' '
-        };
-        return TMS::Test::Core::DrvCdlEndorsement->new(%$TheDefault);
-    }
-    return TMS::API::Core::DrvCdlEndorsement->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'Endorsement'   => ' ',
-            'EndrsId'       => undef,
-            'ExpiredDate'   => ' ',
-            'ValidFromDate' => ' '
-        };
-        return TMS::Test::Core::DrvCdlEndorsement->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'HrAssociateObj', as class_type('TMS::API::Core::HrAssociate');
-coerce 'HrAssociateObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'AuthorityLevel' => ' ',
-            'DateCreated'    => ' ',
-            'CurrentTitle'   => ' ',
-            'AstId'          => undef,
-            'DateRemoved'    => ' ',
-            'BizPhone'       => ' ',
-            'Notes'          => ' ',
-            'NodeId'         => ' ',
-            'BizFax'         => ' ',
-            'BizEmail'       => ' '
-        };
-        return TMS::Test::Core::HrAssociate->new(%$TheDefault);
-    }
-    return TMS::API::Core::HrAssociate->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'AuthorityLevel' => ' ',
-            'DateCreated'    => ' ',
-            'CurrentTitle'   => ' ',
-            'AstId'          => undef,
-            'DateRemoved'    => ' ',
-            'BizPhone'       => ' ',
-            'Notes'          => ' ',
-            'NodeId'         => ' ',
-            'BizFax'         => ' ',
-            'BizEmail'       => ' '
-        };
-        return TMS::Test::Core::HrAssociate->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'EntCarrierObj', as class_type('TMS::API::Core::EntCarrier');
-coerce 'EntCarrierObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'state_NY'           => ' ',
-            'state_NM'           => ' ',
-            'McCertificatePhoto' => ' ',
-            'DOT'                => ' ',
-            'CrType'             => ' ',
-            'IFTA_Acc'           => ' ',
-            'state_OR'           => ' ',
-            'state_SC'           => ' ',
-            'IFTA_State'         => ' ',
-            'state_KY'           => ' ',
-            'CarrierId'          => undef,
-            'SCAC'               => ' ',
-            'state_FL'           => ' ',
-            'state_NC'           => ' ',
-            'MC'                 => ' '
-        };
-        return TMS::Test::Core::EntCarrier->new(%$TheDefault);
-    }
-    return TMS::API::Core::EntCarrier->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'state_NY'           => ' ',
-            'state_NM'           => ' ',
-            'McCertificatePhoto' => ' ',
-            'DOT'                => ' ',
-            'CrType'             => ' ',
-            'IFTA_Acc'           => ' ',
-            'state_OR'           => ' ',
-            'state_SC'           => ' ',
-            'IFTA_State'         => ' ',
-            'state_KY'           => ' ',
-            'CarrierId'          => undef,
-            'SCAC'               => ' ',
-            'state_FL'           => ' ',
-            'state_NC'           => ' ',
-            'MC'                 => ' '
-        };
-        return TMS::Test::Core::EntCarrier->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'EntBusinessObj', as class_type('TMS::API::Core::EntBusiness');
-coerce 'EntBusinessObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'RootNode' => ' ',
-            'BizURL'   => ' ',
-            'BizName'  => ' ',
-            'BizId'    => undef
-        };
-        return TMS::Test::Core::EntBusiness->new(%$TheDefault);
-    }
-    return TMS::API::Core::EntBusiness->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'RootNode' => ' ',
-            'BizURL'   => ' ',
-            'BizName'  => ' ',
-            'BizId'    => undef
-        };
-        return TMS::Test::Core::EntBusiness->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'DrvDriverObj', as class_type('TMS::API::Core::DrvDriver');
-coerce 'DrvDriverObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'InternationalRoutes' => ' ',
-            'LastAnnualReview'    => ' ',
-            'DriverId'            => undef,
-            'LocalRoutes'         => ' ',
-            'PullNotice'          => ' '
-        };
-        return TMS::Test::Core::DrvDriver->new(%$TheDefault);
-    }
-    return TMS::API::Core::DrvDriver->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'InternationalRoutes' => ' ',
-            'LastAnnualReview'    => ' ',
-            'DriverId'            => undef,
-            'LocalRoutes'         => ' ',
-            'PullNotice'          => ' '
-        };
-        return TMS::Test::Core::DrvDriver->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'AppRoleObj', as class_type('TMS::API::Core::AppRole');
-coerce 'AppRoleObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'DateCreated' => ' ',
-            'Editable'    => ' ',
-            'UpdatedBy'   => ' ',
-            'CreatedBy'   => ' ',
-            'UserDefined' => ' ',
-            'RoleId'      => undef,
-            'DateUpdated' => ' ',
-            'RoleName'    => ' ',
-            'Description' => ' '
-        };
-        return TMS::Test::Core::AppRole->new(%$TheDefault);
-    }
-    return TMS::API::Core::AppRole->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'DateCreated' => ' ',
-            'Editable'    => ' ',
-            'UpdatedBy'   => ' ',
-            'CreatedBy'   => ' ',
-            'UserDefined' => ' ',
-            'RoleId'      => undef,
-            'DateUpdated' => ' ',
-            'RoleName'    => ' ',
-            'Description' => ' '
-        };
-        return TMS::Test::Core::AppRole->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'InsPolicyObj', as class_type('TMS::API::Core::InsPolicy');
-coerce 'InsPolicyObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'PolicyNumber'      => ' ',
-            'EffectiveDate'     => ' ',
-            'TagName'           => ' ',
-            'ExpirationDate'    => ' ',
-            'PaidBy'            => ' ',
-            'DownpaymentAmount' => ' ',
-            'InsId'             => undef,
-            'InsuredAmount'     => ' ',
-            'WhatIsInsured'     => ' ',
-            'ProofOfInsurance'  => ' ',
-            'ProviderAgent'     => ' '
-        };
-        return TMS::Test::Core::InsPolicy->new(%$TheDefault);
-    }
-    return TMS::API::Core::InsPolicy->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'PolicyNumber'      => ' ',
-            'EffectiveDate'     => ' ',
-            'TagName'           => ' ',
-            'ExpirationDate'    => ' ',
-            'PaidBy'            => ' ',
-            'DownpaymentAmount' => ' ',
-            'InsId'             => undef,
-            'InsuredAmount'     => ' ',
-            'WhatIsInsured'     => ' ',
-            'ProofOfInsurance'  => ' ',
-            'ProviderAgent'     => ' '
-        };
-        return TMS::Test::Core::InsPolicy->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'FinTransactionObj', as class_type('TMS::API::Core::FinTransaction');
-coerce 'FinTransactionObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'DateTransaction' => ' ',
-            'DateCreated'     => ' ',
-            'Status'          => ' ',
-            'RefNumber'       => ' ',
-            'TransactionType' => ' ',
-            'Memo'            => ' ',
-            'TransactionId'   => undef,
-            'JobId'           => ' ',
-            'CreatedBy'       => ' ',
-            'Class'           => ' '
-        };
-        return TMS::Test::Core::FinTransaction->new(%$TheDefault);
-    }
-    return TMS::API::Core::FinTransaction->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'DateTransaction' => ' ',
-            'DateCreated'     => ' ',
-            'Status'          => ' ',
-            'RefNumber'       => ' ',
-            'TransactionType' => ' ',
-            'Memo'            => ' ',
-            'TransactionId'   => undef,
-            'JobId'           => ' ',
-            'CreatedBy'       => ' ',
-            'Class'           => ' '
-        };
-        return TMS::Test::Core::FinTransaction->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'TskAlrmObj', as class_type('TMS::API::Core::TskAlrm');
-coerce 'TskAlrmObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'alrmid'    => undef,
-            'repeat'    => ' ',
-            'periodic'  => ' ',
-            'message'   => ' ',
-            'turnoff'   => ' ',
-            'atcrontab' => ' ',
-            'tskid'     => ' '
-        };
-        return TMS::Test::Core::TskAlrm->new(%$TheDefault);
-    }
-    return TMS::API::Core::TskAlrm->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'alrmid'    => undef,
-            'repeat'    => ' ',
-            'periodic'  => ' ',
-            'message'   => ' ',
-            'turnoff'   => ' ',
-            'atcrontab' => ' ',
-            'tskid'     => ' '
-        };
-        return TMS::Test::Core::TskAlrm->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'SftLogbookObj', as class_type('TMS::API::Core::SftLogbook');
-coerce 'SftLogbookObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'LogbookId'   => undef,
-            'Trip'        => ' ',
-            'Notes'       => ' ',
-            'DateStarted' => ' '
-        };
-        return TMS::Test::Core::SftLogbook->new(%$TheDefault);
-    }
-    return TMS::API::Core::SftLogbook->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'LogbookId'   => undef,
-            'Trip'        => ' ',
-            'Notes'       => ' ',
-            'DateStarted' => ' '
-        };
-        return TMS::Test::Core::SftLogbook->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'InvUnitObj', as class_type('TMS::API::Core::InvUnit');
-coerce 'InvUnitObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'UnitId'  => undef,
-            'UnitTag' => ' '
-        };
-        return TMS::Test::Core::InvUnit->new(%$TheDefault);
-    }
-    return TMS::API::Core::InvUnit->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'UnitId'  => undef,
-            'UnitTag' => ' '
-        };
-        return TMS::Test::Core::InvUnit->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'EntCustomerObj', as class_type('TMS::API::Core::EntCustomer');
-coerce 'EntCustomerObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'SCAC'             => ' ',
-            'Bond'             => ' ',
-            'DUNS'             => ' ',
-            'WhyDontUse'       => ' ',
-            'MC'               => ' ',
-            'DontUse'          => ' ',
-            'CstmrId'          => undef,
-            'DOT'              => ' ',
-            'CreditLimit'      => ' ',
-            'Factoring'        => ' ',
-            'RequireOriginals' => ' ',
-            'Terms'            => ' '
-        };
-        return TMS::Test::Core::EntCustomer->new(%$TheDefault);
-    }
-    return TMS::API::Core::EntCustomer->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'SCAC'             => ' ',
-            'Bond'             => ' ',
-            'DUNS'             => ' ',
-            'WhyDontUse'       => ' ',
-            'MC'               => ' ',
-            'DontUse'          => ' ',
-            'CstmrId'          => undef,
-            'DOT'              => ' ',
-            'CreditLimit'      => ' ',
-            'Factoring'        => ' ',
-            'RequireOriginals' => ' ',
-            'Terms'            => ' '
-        };
-        return TMS::Test::Core::EntCustomer->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'FinJobObj', as class_type('TMS::API::Core::FinJob');
-coerce 'FinJobObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'JobId'      => undef,
-            'JobAddedBy' => ' ',
-            'JobCreated' => ' ',
-            'Title'      => ' '
-        };
-        return TMS::Test::Core::FinJob->new(%$TheDefault);
-    }
-    return TMS::API::Core::FinJob->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'JobId'      => undef,
-            'JobAddedBy' => ' ',
-            'JobCreated' => ' ',
-            'Title'      => ' '
-        };
-        return TMS::Test::Core::FinJob->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'FinInvoicesItemObj', as class_type('TMS::API::Core::FinInvoicesItem');
-coerce 'FinInvoicesItemObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'DateCreated'          => ' ',
-            'ItemTemplateId'       => ' ',
-            'InvoiceId'            => ' ',
-            'CreditJournalEntryId' => ' ',
-            'JobId'                => ' ',
-            'Comments'             => ' ',
-            'Notes'                => ' ',
-            'DebitJournalEntryId'  => ' ',
-            'Amount'               => ' ',
-            'InvoiceItemId'        => undef,
-            'Quantity'             => ' ',
-            'CreatedBy'            => ' '
-        };
-        return TMS::Test::Core::FinInvoicesItem->new(%$TheDefault);
-    }
-    return TMS::API::Core::FinInvoicesItem->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'DateCreated'          => ' ',
-            'ItemTemplateId'       => ' ',
-            'InvoiceId'            => ' ',
-            'CreditJournalEntryId' => ' ',
-            'JobId'                => ' ',
-            'Comments'             => ' ',
-            'Notes'                => ' ',
-            'DebitJournalEntryId'  => ' ',
-            'Amount'               => ' ',
-            'InvoiceItemId'        => undef,
-            'Quantity'             => ' ',
-            'CreatedBy'            => ' '
-        };
-        return TMS::Test::Core::FinInvoicesItem->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'CntPhonesfaxObj', as class_type('TMS::API::Core::CntPhonesfax');
-coerce 'CntPhonesfaxObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'Notes'     => ' ',
-            'Number'    => ' ',
-            'Mobility'  => ' ',
-            'Features'  => ' ',
-            'PhnFaxId'  => undef,
-            'Extension' => ' '
-        };
-        return TMS::Test::Core::CntPhonesfax->new(%$TheDefault);
-    }
-    return TMS::API::Core::CntPhonesfax->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'Notes'     => ' ',
-            'Number'    => ' ',
-            'Mobility'  => ' ',
-            'Features'  => ' ',
-            'PhnFaxId'  => undef,
-            'Extension' => ' '
-        };
-        return TMS::Test::Core::CntPhonesfax->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'TskActnObj', as class_type('TMS::API::Core::TskActn');
-coerce 'TskActnObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'tskid'  => ' ',
-            'actid'  => undef,
-            'note'   => ' ',
-            'PrsnId' => ' '
-        };
-        return TMS::Test::Core::TskActn->new(%$TheDefault);
-    }
-    return TMS::API::Core::TskActn->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'tskid'  => ' ',
-            'actid'  => undef,
-            'note'   => ' ',
-            'PrsnId' => ' '
-        };
-        return TMS::Test::Core::TskActn->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'FinInvoicePaymentObj', as class_type('TMS::API::Core::FinInvoicePayment');
-coerce 'FinInvoicePaymentObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'InvoiceId'        => ' ',
-            'PayerId'          => ' ',
-            'PaymentMethodId'  => ' ',
-            'DateCreated'      => ' ',
-            'InvoicePaymentId' => undef,
-            'DatePayment'      => ' ',
-            'Valid'            => ' ',
-            'CreatedBy'        => ' ',
-            'TransactionId'    => ' ',
-            'Amount'           => ' '
-        };
-        return TMS::Test::Core::FinInvoicePayment->new(%$TheDefault);
-    }
-    return TMS::API::Core::FinInvoicePayment->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'InvoiceId'        => ' ',
-            'PayerId'          => ' ',
-            'PaymentMethodId'  => ' ',
-            'DateCreated'      => ' ',
-            'InvoicePaymentId' => undef,
-            'DatePayment'      => ' ',
-            'Valid'            => ' ',
-            'CreatedBy'        => ' ',
-            'TransactionId'    => ' ',
-            'Amount'           => ' '
-        };
-        return TMS::Test::Core::FinInvoicePayment->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'AppFeatureObj', as class_type('TMS::API::Core::AppFeature');
-coerce 'AppFeatureObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'Notes'        => ' ',
-            'Name'         => ' ',
-            'AppFeatureId' => undef
-        };
-        return TMS::Test::Core::AppFeature->new(%$TheDefault);
-    }
-    return TMS::API::Core::AppFeature->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'Notes'        => ' ',
-            'Name'         => ' ',
-            'AppFeatureId' => undef
-        };
-        return TMS::Test::Core::AppFeature->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'AppMenuItemObj', as class_type('TMS::API::Core::AppMenuItem');
-coerce 'AppMenuItemObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'Enabled'    => ' ',
-            'Target'     => ' ',
-            'Label'      => ' ',
-            'Help'       => ' ',
-            'ParentId'   => ' ',
-            'MenuItemId' => undef,
-            'SortIndex'  => ' ',
-            'Icon'       => ' ',
-            'Route'      => ' ',
-            'Title'      => ' '
-        };
-        return TMS::Test::Core::AppMenuItem->new(%$TheDefault);
-    }
-    return TMS::API::Core::AppMenuItem->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'Enabled'    => ' ',
-            'Target'     => ' ',
-            'Label'      => ' ',
-            'Help'       => ' ',
-            'ParentId'   => ' ',
-            'MenuItemId' => undef,
-            'SortIndex'  => ' ',
-            'Icon'       => ' ',
-            'Route'      => ' ',
-            'Title'      => ' '
-        };
-        return TMS::Test::Core::AppMenuItem->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'FinInvoiceObj', as class_type('TMS::API::Core::FinInvoice');
-coerce 'FinInvoiceObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'RefNumber'      => ' ',
-            'Notes'          => ' ',
-            'DateInvoiced'   => ' ',
-            'Comments'       => ' ',
-            'InvoiceId'      => undef,
-            'Status'         => ' ',
-            'DateCreated'    => ' ',
-            'PONumber'       => ' ',
-            'EntityId'       => ' ',
-            'PaymentTermsId' => ' ',
-            'FactoredParent' => ' '
-        };
-        return TMS::Test::Core::FinInvoice->new(%$TheDefault);
-    }
-    return TMS::API::Core::FinInvoice->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'RefNumber'      => ' ',
-            'Notes'          => ' ',
-            'DateInvoiced'   => ' ',
-            'Comments'       => ' ',
-            'InvoiceId'      => undef,
-            'Status'         => ' ',
-            'DateCreated'    => ' ',
-            'PONumber'       => ' ',
-            'EntityId'       => ' ',
-            'PaymentTermsId' => ' ',
-            'FactoredParent' => ' '
-        };
-        return TMS::Test::Core::FinInvoice->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'InvTiresizeObj', as class_type('TMS::API::Core::InvTiresize');
-coerce 'InvTiresizeObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'Type'   => ' ',
-            'TireId' => undef,
-            'Name'   => ' '
-        };
-        return TMS::Test::Core::InvTiresize->new(%$TheDefault);
-    }
-    return TMS::API::Core::InvTiresize->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'Type'   => ' ',
-            'TireId' => undef,
-            'Name'   => ' '
-        };
-        return TMS::Test::Core::InvTiresize->new(%$TheDefault);
+        return TMS::Test::Core::SftElogStat->new(%$TheDefault);
     }
     return $_;
 };
@@ -1772,43 +1230,535 @@ coerce 'AppPermissionObj', from 'HashRef', via {
 };
 
 # ............................................................................
-subtype 'FinJournalEntryObj', as class_type('TMS::API::Core::FinJournalEntry');
-coerce 'FinJournalEntryObj', from 'HashRef', via {
+subtype 'FinItemTemplatesTypeObj', as class_type('TMS::API::Core::FinItemTemplatesType');
+coerce 'FinItemTemplatesTypeObj', from 'HashRef', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'ReportAmount'   => ' ',
-            'DebitCredit'    => ' ',
-            'VendorAmount'   => ' ',
-            'AccountId'      => ' ',
-            'DateCreated'    => ' ',
-            'JrlEntryId'     => undef,
-            'Amount'         => ' ',
-            'EntityId'       => ' ',
-            'Classification' => ' ',
-            'CreatedBy'      => ' ',
-            'JobId'          => ' ',
-            'TransactionId'  => ' '
+            'UserDefined'    => ' ',
+            'TemplateTypeId' => undef,
+            'DisplayToUser'  => ' ',
+            'Description'    => ' ',
+            'Name'           => ' '
         };
-        return TMS::Test::Core::FinJournalEntry->new(%$TheDefault);
+        return TMS::Test::Core::FinItemTemplatesType->new(%$TheDefault);
     }
-    return TMS::API::Core::FinJournalEntry->new(%{$_});
+    return TMS::API::Core::FinItemTemplatesType->new(%{$_});
 }, from 'Str', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'ReportAmount'   => ' ',
-            'DebitCredit'    => ' ',
-            'VendorAmount'   => ' ',
-            'AccountId'      => ' ',
-            'DateCreated'    => ' ',
-            'JrlEntryId'     => undef,
-            'Amount'         => ' ',
-            'EntityId'       => ' ',
-            'Classification' => ' ',
-            'CreatedBy'      => ' ',
-            'JobId'          => ' ',
-            'TransactionId'  => ' '
+            'UserDefined'    => ' ',
+            'TemplateTypeId' => undef,
+            'DisplayToUser'  => ' ',
+            'Description'    => ' ',
+            'Name'           => ' '
         };
-        return TMS::Test::Core::FinJournalEntry->new(%$TheDefault);
+        return TMS::Test::Core::FinItemTemplatesType->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'FinTransactionObj', as class_type('TMS::API::Core::FinTransaction');
+coerce 'FinTransactionObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'JobId'           => ' ',
+            'DateCreated'     => ' ',
+            'TransactionType' => ' ',
+            'RefNumber'       => ' ',
+            'DateTransaction' => ' ',
+            'Memo'            => ' ',
+            'TransactionId'   => undef,
+            'Class'           => ' ',
+            'Status'          => ' ',
+            'CreatedBy'       => ' '
+        };
+        return TMS::Test::Core::FinTransaction->new(%$TheDefault);
+    }
+    return TMS::API::Core::FinTransaction->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'JobId'           => ' ',
+            'DateCreated'     => ' ',
+            'TransactionType' => ' ',
+            'RefNumber'       => ' ',
+            'DateTransaction' => ' ',
+            'Memo'            => ' ',
+            'TransactionId'   => undef,
+            'Class'           => ' ',
+            'Status'          => ' ',
+            'CreatedBy'       => ' '
+        };
+        return TMS::Test::Core::FinTransaction->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'GenFileObj', as class_type('TMS::API::Core::GenFile');
+coerce 'GenFileObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'SHASIG'        => ' ',
+            'FileName'      => ' ',
+            'ExpiredDate'   => ' ',
+            'UploadDate'    => ' ',
+            'DocumentTitle' => ' ',
+            'Notes'         => ' ',
+            'FileData'      => ' ',
+            'FileId'        => undef,
+            'MIMEType'      => ' ',
+            'Keywords'      => ' '
+        };
+        return TMS::Test::Core::GenFile->new(%$TheDefault);
+    }
+    return TMS::API::Core::GenFile->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'SHASIG'        => ' ',
+            'FileName'      => ' ',
+            'ExpiredDate'   => ' ',
+            'UploadDate'    => ' ',
+            'DocumentTitle' => ' ',
+            'Notes'         => ' ',
+            'FileData'      => ' ',
+            'FileId'        => undef,
+            'MIMEType'      => ' ',
+            'Keywords'      => ' '
+        };
+        return TMS::Test::Core::GenFile->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'AppMenuItemObj', as class_type('TMS::API::Core::AppMenuItem');
+coerce 'AppMenuItemObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'SortIndex'  => ' ',
+            'MenuItemId' => undef,
+            'Icon'       => ' ',
+            'Target'     => ' ',
+            'Label'      => ' ',
+            'Title'      => ' ',
+            'Route'      => ' ',
+            'Help'       => ' ',
+            'Enabled'    => ' ',
+            'ParentId'   => ' '
+        };
+        return TMS::Test::Core::AppMenuItem->new(%$TheDefault);
+    }
+    return TMS::API::Core::AppMenuItem->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'SortIndex'  => ' ',
+            'MenuItemId' => undef,
+            'Icon'       => ' ',
+            'Target'     => ' ',
+            'Label'      => ' ',
+            'Title'      => ' ',
+            'Route'      => ' ',
+            'Help'       => ' ',
+            'Enabled'    => ' ',
+            'ParentId'   => ' '
+        };
+        return TMS::Test::Core::AppMenuItem->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'DrvDesttypeObj', as class_type('TMS::API::Core::DrvDesttype');
+coerce 'DrvDesttypeObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Notes'         => ' ',
+            'DesiredDestId' => undef,
+            'DestName'      => ' '
+        };
+        return TMS::Test::Core::DrvDesttype->new(%$TheDefault);
+    }
+    return TMS::API::Core::DrvDesttype->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Notes'         => ' ',
+            'DesiredDestId' => undef,
+            'DestName'      => ' '
+        };
+        return TMS::Test::Core::DrvDesttype->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'AppFeatureObj', as class_type('TMS::API::Core::AppFeature');
+coerce 'AppFeatureObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'AppFeatureId' => undef,
+            'Name'         => ' ',
+            'Notes'        => ' '
+        };
+        return TMS::Test::Core::AppFeature->new(%$TheDefault);
+    }
+    return TMS::API::Core::AppFeature->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'AppFeatureId' => undef,
+            'Name'         => ' ',
+            'Notes'        => ' '
+        };
+        return TMS::Test::Core::AppFeature->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'DspLoadObj', as class_type('TMS::API::Core::DspLoad');
+coerce 'DspLoadObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'LoadType'       => ' ',
+            'ProNumber'      => ' ',
+            'DateBooked'     => ' ',
+            'TempMode'       => ' ',
+            'CreatedBy'      => ' ',
+            'Status'         => ' ',
+            'LoadId'         => undef,
+            'BrokerId'       => ' ',
+            'ReeferTempHigh' => ' ',
+            'TeamRequired'   => ' ',
+            'GoogleRoute'    => ' ',
+            'TruckType'      => ' ',
+            'LoadNumber'     => ' ',
+            'ShipperId'      => ' ',
+            'DateCreated'    => ' ',
+            'BookedBy'       => ' ',
+            'Precooling'     => ' ',
+            'Job'            => ' ',
+            'LoadRate'       => ' ',
+            'DispatchNote'   => ' ',
+            'ReeferTempLow'  => ' '
+        };
+        return TMS::Test::Core::DspLoad->new(%$TheDefault);
+    }
+    return TMS::API::Core::DspLoad->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'LoadType'       => ' ',
+            'ProNumber'      => ' ',
+            'DateBooked'     => ' ',
+            'TempMode'       => ' ',
+            'CreatedBy'      => ' ',
+            'Status'         => ' ',
+            'LoadId'         => undef,
+            'BrokerId'       => ' ',
+            'ReeferTempHigh' => ' ',
+            'TeamRequired'   => ' ',
+            'GoogleRoute'    => ' ',
+            'TruckType'      => ' ',
+            'LoadNumber'     => ' ',
+            'ShipperId'      => ' ',
+            'DateCreated'    => ' ',
+            'BookedBy'       => ' ',
+            'Precooling'     => ' ',
+            'Job'            => ' ',
+            'LoadRate'       => ' ',
+            'DispatchNote'   => ' ',
+            'ReeferTempLow'  => ' '
+        };
+        return TMS::Test::Core::DspLoad->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'AppAccountObj', as class_type('TMS::API::Core::AppAccount');
+coerce 'AppAccountObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Locked'       => ' ',
+            'Salt'         => ' ',
+            'Username'     => ' ',
+            'DateCreated'  => ' ',
+            'AppAccountId' => undef,
+            'PasswordHash' => ' ',
+            'UserId'       => ' '
+        };
+        return TMS::Test::Core::AppAccount->new(%$TheDefault);
+    }
+    return TMS::API::Core::AppAccount->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Locked'       => ' ',
+            'Salt'         => ' ',
+            'Username'     => ' ',
+            'DateCreated'  => ' ',
+            'AppAccountId' => undef,
+            'PasswordHash' => ' ',
+            'UserId'       => ' '
+        };
+        return TMS::Test::Core::AppAccount->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'FinItemTemplateObj', as class_type('TMS::API::Core::FinItemTemplate');
+coerce 'FinItemTemplateObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Deleted'         => ' ',
+            'DateCreated'     => ' ',
+            'Description'     => ' ',
+            'DateUpdated'     => ' ',
+            'DateDeleted'     => ' ',
+            'CreditAccountId' => ' ',
+            'ItemTemplateId'  => undef,
+            'UpdatedBy'       => ' ',
+            'EntityId'        => ' ',
+            'DeletedBy'       => ' ',
+            'UserDefined'     => ' ',
+            'TemplateTypeId'  => ' ',
+            'TransactionType' => ' ',
+            'Name'            => ' ',
+            'PriceType'       => ' ',
+            'DebitAccountId'  => ' ',
+            'ParentId'        => ' ',
+            'Price'           => ' ',
+            'CreatedBy'       => ' '
+        };
+        return TMS::Test::Core::FinItemTemplate->new(%$TheDefault);
+    }
+    return TMS::API::Core::FinItemTemplate->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Deleted'         => ' ',
+            'DateCreated'     => ' ',
+            'Description'     => ' ',
+            'DateUpdated'     => ' ',
+            'DateDeleted'     => ' ',
+            'CreditAccountId' => ' ',
+            'ItemTemplateId'  => undef,
+            'UpdatedBy'       => ' ',
+            'EntityId'        => ' ',
+            'DeletedBy'       => ' ',
+            'UserDefined'     => ' ',
+            'TemplateTypeId'  => ' ',
+            'TransactionType' => ' ',
+            'Name'            => ' ',
+            'PriceType'       => ' ',
+            'DebitAccountId'  => ' ',
+            'ParentId'        => ' ',
+            'Price'           => ' ',
+            'CreatedBy'       => ' '
+        };
+        return TMS::Test::Core::FinItemTemplate->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'FinBillingBankObj', as class_type('TMS::API::Core::FinBillingBank');
+coerce 'FinBillingBankObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Notes'         => ' ',
+            'Institution'   => ' ',
+            'AccountNumber' => ' ',
+            'Active'        => ' ',
+            'RoutingNumber' => ' ',
+            'AccountType'   => ' ',
+            'Purpose'       => ' ',
+            'BankId'        => undef,
+            'BillingId'     => ' '
+        };
+        return TMS::Test::Core::FinBillingBank->new(%$TheDefault);
+    }
+    return TMS::API::Core::FinBillingBank->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Notes'         => ' ',
+            'Institution'   => ' ',
+            'AccountNumber' => ' ',
+            'Active'        => ' ',
+            'RoutingNumber' => ' ',
+            'AccountType'   => ' ',
+            'Purpose'       => ' ',
+            'BankId'        => undef,
+            'BillingId'     => ' '
+        };
+        return TMS::Test::Core::FinBillingBank->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'SftInspectionScheduleObj', as class_type('TMS::API::Core::SftInspectionSchedule');
+coerce 'SftInspectionScheduleObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'InspectionScheduleId' => undef,
+            'InspectionType'       => ' ',
+            'VehicleId'            => ' '
+        };
+        return TMS::Test::Core::SftInspectionSchedule->new(%$TheDefault);
+    }
+    return TMS::API::Core::SftInspectionSchedule->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'InspectionScheduleId' => undef,
+            'InspectionType'       => ' ',
+            'VehicleId'            => ' '
+        };
+        return TMS::Test::Core::SftInspectionSchedule->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'FinAccountObj', as class_type('TMS::API::Core::FinAccount');
+coerce 'FinAccountObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Code'          => ' ',
+            'UserDefined'   => ' ',
+            'Active'        => ' ',
+            'ExternalName'  => ' ',
+            'ParentId'      => ' ',
+            'AccountTypeId' => ' ',
+            'Balance'       => ' ',
+            'AccountId'     => undef,
+            'Valid'         => ' ',
+            'Name'          => ' ',
+            'Description'   => ' ',
+            'DateCreated'   => ' '
+        };
+        return TMS::Test::Core::FinAccount->new(%$TheDefault);
+    }
+    return TMS::API::Core::FinAccount->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Code'          => ' ',
+            'UserDefined'   => ' ',
+            'Active'        => ' ',
+            'ExternalName'  => ' ',
+            'ParentId'      => ' ',
+            'AccountTypeId' => ' ',
+            'Balance'       => ' ',
+            'AccountId'     => undef,
+            'Valid'         => ' ',
+            'Name'          => ' ',
+            'Description'   => ' ',
+            'DateCreated'   => ' '
+        };
+        return TMS::Test::Core::FinAccount->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'DspTripObj', as class_type('TMS::API::Core::DspTrip');
+coerce 'DspTripObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'IsValid'        => ' ',
+            'TripNumber'     => ' ',
+            'Notes'          => ' ',
+            'GoogleRoute'    => ' ',
+            'DateDispatched' => ' ',
+            'DateCreated'    => ' ',
+            'DateCompleted'  => ' ',
+            'CreatedBy'      => ' ',
+            'DateStarted'    => ' ',
+            'TripId'         => undef,
+            'TripStatus'     => ' ',
+            'DateBooked'     => ' '
+        };
+        return TMS::Test::Core::DspTrip->new(%$TheDefault);
+    }
+    return TMS::API::Core::DspTrip->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'IsValid'        => ' ',
+            'TripNumber'     => ' ',
+            'Notes'          => ' ',
+            'GoogleRoute'    => ' ',
+            'DateDispatched' => ' ',
+            'DateCreated'    => ' ',
+            'DateCompleted'  => ' ',
+            'CreatedBy'      => ' ',
+            'DateStarted'    => ' ',
+            'TripId'         => undef,
+            'TripStatus'     => ' ',
+            'DateBooked'     => ' '
+        };
+        return TMS::Test::Core::DspTrip->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'SftLogbookObj', as class_type('TMS::API::Core::SftLogbook');
+coerce 'SftLogbookObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'DateStarted' => ' ',
+            'Notes'       => ' ',
+            'Trip'        => ' ',
+            'LogbookId'   => undef
+        };
+        return TMS::Test::Core::SftLogbook->new(%$TheDefault);
+    }
+    return TMS::API::Core::SftLogbook->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'DateStarted' => ' ',
+            'Notes'       => ' ',
+            'Trip'        => ' ',
+            'LogbookId'   => undef
+        };
+        return TMS::Test::Core::SftLogbook->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'EntBusinessObj', as class_type('TMS::API::Core::EntBusiness');
+coerce 'EntBusinessObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'BizURL'   => ' ',
+            'BizName'  => ' ',
+            'BizId'    => undef,
+            'RootNode' => ' '
+        };
+        return TMS::Test::Core::EntBusiness->new(%$TheDefault);
+    }
+    return TMS::API::Core::EntBusiness->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'BizURL'   => ' ',
+            'BizName'  => ' ',
+            'BizId'    => undef,
+            'RootNode' => ' '
+        };
+        return TMS::Test::Core::EntBusiness->new(%$TheDefault);
     }
     return $_;
 };
@@ -1818,15 +1768,15 @@ subtype 'HrGovidcardObj', as class_type('TMS::API::Core::HrGovidcard');
 coerce 'HrGovidcardObj', from 'HashRef', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'CardDateExpired' => ' ',
-            'CardSate'        => ' ',
-            'CardId'          => undef,
-            'AddedBy'         => ' ',
-            'Photo'           => ' ',
-            'CardType'        => ' ',
-            'CardDateValid'   => ' ',
             'AstId'           => ' ',
-            'CardNumber'      => ' '
+            'CardSate'        => ' ',
+            'CardType'        => ' ',
+            'CardNumber'      => ' ',
+            'CardDateValid'   => ' ',
+            'CardDateExpired' => ' ',
+            'CardId'          => undef,
+            'Photo'           => ' ',
+            'AddedBy'         => ' '
         };
         return TMS::Test::Core::HrGovidcard->new(%$TheDefault);
     }
@@ -1834,15 +1784,15 @@ coerce 'HrGovidcardObj', from 'HashRef', via {
 }, from 'Str', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'CardDateExpired' => ' ',
-            'CardSate'        => ' ',
-            'CardId'          => undef,
-            'AddedBy'         => ' ',
-            'Photo'           => ' ',
-            'CardType'        => ' ',
-            'CardDateValid'   => ' ',
             'AstId'           => ' ',
-            'CardNumber'      => ' '
+            'CardSate'        => ' ',
+            'CardType'        => ' ',
+            'CardNumber'      => ' ',
+            'CardDateValid'   => ' ',
+            'CardDateExpired' => ' ',
+            'CardId'          => undef,
+            'Photo'           => ' ',
+            'AddedBy'         => ' '
         };
         return TMS::Test::Core::HrGovidcard->new(%$TheDefault);
     }
@@ -1850,67 +1800,287 @@ coerce 'HrGovidcardObj', from 'HashRef', via {
 };
 
 # ............................................................................
-subtype 'FinPaymentTermObj', as class_type('TMS::API::Core::FinPaymentTerm');
-coerce 'FinPaymentTermObj', from 'HashRef', via {
+subtype 'CntAddressObj', as class_type('TMS::API::Core::CntAddress');
+coerce 'CntAddressObj', from 'HashRef', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'DiscountPercent' => ' ',
-            'DiscountInDays'  => ' ',
-            'Name'            => ' ',
-            'DiscountAmount'  => ' ',
-            'DueNext'         => ' ',
-            'DueInDays'       => ' ',
-            'Type'            => ' ',
-            'PaymentTermId'   => undef
+            'Zip'     => ' ',
+            'Notes'   => ' ',
+            'State'   => ' ',
+            'City'    => ' ',
+            'Street1' => ' ',
+            'Street2' => ' ',
+            'GpsLng'  => ' ',
+            'AddrId'  => undef,
+            'Country' => ' ',
+            'GpsLat'  => ' ',
+            'Street3' => ' '
         };
-        return TMS::Test::Core::FinPaymentTerm->new(%$TheDefault);
+        return TMS::Test::Core::CntAddress->new(%$TheDefault);
     }
-    return TMS::API::Core::FinPaymentTerm->new(%{$_});
+    return TMS::API::Core::CntAddress->new(%{$_});
 }, from 'Str', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'DiscountPercent' => ' ',
-            'DiscountInDays'  => ' ',
-            'Name'            => ' ',
-            'DiscountAmount'  => ' ',
-            'DueNext'         => ' ',
-            'DueInDays'       => ' ',
-            'Type'            => ' ',
-            'PaymentTermId'   => undef
+            'Zip'     => ' ',
+            'Notes'   => ' ',
+            'State'   => ' ',
+            'City'    => ' ',
+            'Street1' => ' ',
+            'Street2' => ' ',
+            'GpsLng'  => ' ',
+            'AddrId'  => undef,
+            'Country' => ' ',
+            'GpsLat'  => ' ',
+            'Street3' => ' '
         };
-        return TMS::Test::Core::FinPaymentTerm->new(%$TheDefault);
+        return TMS::Test::Core::CntAddress->new(%$TheDefault);
     }
     return $_;
 };
 
 # ............................................................................
-subtype 'BizBranchObj', as class_type('TMS::API::Core::BizBranch');
-coerce 'BizBranchObj', from 'HashRef', via {
+subtype 'FinJobObj', as class_type('TMS::API::Core::FinJob');
+coerce 'FinJobObj', from 'HashRef', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'BrnchEMail'   => ' ',
-            'BrnchAddress' => ' ',
-            'BrnchId'      => undef,
-            'BrnchFax'     => ' ',
-            'BrnchPhone'   => ' ',
-            'BizId'        => ' ',
-            'OfficeName'   => ' '
+            'JobAddedBy' => ' ',
+            'JobCreated' => ' ',
+            'JobId'      => undef,
+            'Title'      => ' '
         };
-        return TMS::Test::Core::BizBranch->new(%$TheDefault);
+        return TMS::Test::Core::FinJob->new(%$TheDefault);
     }
-    return TMS::API::Core::BizBranch->new(%{$_});
+    return TMS::API::Core::FinJob->new(%{$_});
 }, from 'Str', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'BrnchEMail'   => ' ',
-            'BrnchAddress' => ' ',
-            'BrnchId'      => undef,
-            'BrnchFax'     => ' ',
-            'BrnchPhone'   => ' ',
-            'BizId'        => ' ',
-            'OfficeName'   => ' '
+            'JobAddedBy' => ' ',
+            'JobCreated' => ' ',
+            'JobId'      => undef,
+            'Title'      => ' '
         };
-        return TMS::Test::Core::BizBranch->new(%$TheDefault);
+        return TMS::Test::Core::FinJob->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'InvEquipmentObj', as class_type('TMS::API::Core::InvEquipment');
+coerce 'InvEquipmentObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'PriceSold'      => ' ',
+            'DateSold'       => ' ',
+            'OwnerId'        => ' ',
+            'EquipmentId'    => undef,
+            'GeneralName'    => ' ',
+            'PricePurchased' => ' ',
+            'SerialNo'       => ' ',
+            'EquipmentType'  => ' ',
+            'DatePurchased'  => ' ',
+            'VendorId'       => ' '
+        };
+        return TMS::Test::Core::InvEquipment->new(%$TheDefault);
+    }
+    return TMS::API::Core::InvEquipment->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'PriceSold'      => ' ',
+            'DateSold'       => ' ',
+            'OwnerId'        => ' ',
+            'EquipmentId'    => undef,
+            'GeneralName'    => ' ',
+            'PricePurchased' => ' ',
+            'SerialNo'       => ' ',
+            'EquipmentType'  => ' ',
+            'DatePurchased'  => ' ',
+            'VendorId'       => ' '
+        };
+        return TMS::Test::Core::InvEquipment->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'FinInvoiceObj', as class_type('TMS::API::Core::FinInvoice');
+coerce 'FinInvoiceObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'DateInvoiced'   => ' ',
+            'InvoiceId'      => undef,
+            'Notes'          => ' ',
+            'EntityId'       => ' ',
+            'PaymentTermsId' => ' ',
+            'Comments'       => ' ',
+            'DateCreated'    => ' ',
+            'RefNumber'      => ' ',
+            'FactoredParent' => ' ',
+            'Status'         => ' ',
+            'PONumber'       => ' '
+        };
+        return TMS::Test::Core::FinInvoice->new(%$TheDefault);
+    }
+    return TMS::API::Core::FinInvoice->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'DateInvoiced'   => ' ',
+            'InvoiceId'      => undef,
+            'Notes'          => ' ',
+            'EntityId'       => ' ',
+            'PaymentTermsId' => ' ',
+            'Comments'       => ' ',
+            'DateCreated'    => ' ',
+            'RefNumber'      => ' ',
+            'FactoredParent' => ' ',
+            'Status'         => ' ',
+            'PONumber'       => ' '
+        };
+        return TMS::Test::Core::FinInvoice->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'BizCompanyNodeObj', as class_type('TMS::API::Core::BizCompanyNode');
+coerce 'BizCompanyNodeObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Type'     => ' ',
+            'UnitName' => ' ',
+            'ParentId' => ' ',
+            'NodeId'   => undef
+        };
+        return TMS::Test::Core::BizCompanyNode->new(%$TheDefault);
+    }
+    return TMS::API::Core::BizCompanyNode->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'Type'     => ' ',
+            'UnitName' => ' ',
+            'ParentId' => ' ',
+            'NodeId'   => undef
+        };
+        return TMS::Test::Core::BizCompanyNode->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'FinChequeObj', as class_type('TMS::API::Core::FinCheque');
+coerce 'FinChequeObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'TransactionId'      => ' ',
+            'DateVoided'         => ' ',
+            'Amount'             => ' ',
+            'BankAccountNumber'  => ' ',
+            'Payer'              => ' ',
+            'PayeeName'          => ' ',
+            'PayerPhone'         => ' ',
+            'Memo'               => ' ',
+            'PayerCityAddress'   => ' ',
+            'VoidedBy'           => ' ',
+            'PayeeStreetAddress' => ' ',
+            'DateCreated'        => ' ',
+            'Bank'               => ' ',
+            'ChequeNumber'       => ' ',
+            'BankStreetAddress'  => ' ',
+            'BankName'           => ' ',
+            'CreatedBy'          => ' ',
+            'PayerName'          => ' ',
+            'BankPhone'          => ' ',
+            'Payee'              => ' ',
+            'ChequeId'           => undef,
+            'DateAuthorized'     => ' ',
+            'BankCityAddress'    => ' ',
+            'PayeePhone'         => ' ',
+            'BankRoutingNumber'  => ' ',
+            'AuthorizedBy'       => ' ',
+            'PayeeCityAddress'   => ' ',
+            'PayerStreetAddress' => ' '
+        };
+        return TMS::Test::Core::FinCheque->new(%$TheDefault);
+    }
+    return TMS::API::Core::FinCheque->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'TransactionId'      => ' ',
+            'DateVoided'         => ' ',
+            'Amount'             => ' ',
+            'BankAccountNumber'  => ' ',
+            'Payer'              => ' ',
+            'PayeeName'          => ' ',
+            'PayerPhone'         => ' ',
+            'Memo'               => ' ',
+            'PayerCityAddress'   => ' ',
+            'VoidedBy'           => ' ',
+            'PayeeStreetAddress' => ' ',
+            'DateCreated'        => ' ',
+            'Bank'               => ' ',
+            'ChequeNumber'       => ' ',
+            'BankStreetAddress'  => ' ',
+            'BankName'           => ' ',
+            'CreatedBy'          => ' ',
+            'PayerName'          => ' ',
+            'BankPhone'          => ' ',
+            'Payee'              => ' ',
+            'ChequeId'           => undef,
+            'DateAuthorized'     => ' ',
+            'BankCityAddress'    => ' ',
+            'PayeePhone'         => ' ',
+            'BankRoutingNumber'  => ' ',
+            'AuthorizedBy'       => ' ',
+            'PayeeCityAddress'   => ' ',
+            'PayerStreetAddress' => ' '
+        };
+        return TMS::Test::Core::FinCheque->new(%$TheDefault);
+    }
+    return $_;
+};
+
+# ............................................................................
+subtype 'EntCustomerObj', as class_type('TMS::API::Core::EntCustomer');
+coerce 'EntCustomerObj', from 'HashRef', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'CreditLimit'      => ' ',
+            'MC'               => ' ',
+            'DontUse'          => ' ',
+            'DOT'              => ' ',
+            'WhyDontUse'       => ' ',
+            'CstmrId'          => undef,
+            'RequireOriginals' => ' ',
+            'Bond'             => ' ',
+            'SCAC'             => ' ',
+            'DUNS'             => ' ',
+            'Terms'            => ' ',
+            'Factoring'        => ' '
+        };
+        return TMS::Test::Core::EntCustomer->new(%$TheDefault);
+    }
+    return TMS::API::Core::EntCustomer->new(%{$_});
+}, from 'Str', via {
+    if ($AUTO_GENERATE) {
+        my $TheDefault = {
+            'CreditLimit'      => ' ',
+            'MC'               => ' ',
+            'DontUse'          => ' ',
+            'DOT'              => ' ',
+            'WhyDontUse'       => ' ',
+            'CstmrId'          => undef,
+            'RequireOriginals' => ' ',
+            'Bond'             => ' ',
+            'SCAC'             => ' ',
+            'DUNS'             => ' ',
+            'Terms'            => ' ',
+            'Factoring'        => ' '
+        };
+        return TMS::Test::Core::EntCustomer->new(%$TheDefault);
     }
     return $_;
 };
@@ -1920,8 +2090,8 @@ subtype 'EntShipperObj', as class_type('TMS::API::Core::EntShipper');
 coerce 'EntShipperObj', from 'HashRef', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'Notes'     => ' ',
-            'ShipperId' => undef
+            'ShipperId' => undef,
+            'Notes'     => ' '
         };
         return TMS::Test::Core::EntShipper->new(%$TheDefault);
     }
@@ -1929,50 +2099,10 @@ coerce 'EntShipperObj', from 'HashRef', via {
 }, from 'Str', via {
     if ($AUTO_GENERATE) {
         my $TheDefault = {
-            'Notes'     => ' ',
-            'ShipperId' => undef
+            'ShipperId' => undef,
+            'Notes'     => ' '
         };
         return TMS::Test::Core::EntShipper->new(%$TheDefault);
-    }
-    return $_;
-};
-
-# ............................................................................
-subtype 'TskTaskObj', as class_type('TMS::API::Core::TskTask');
-coerce 'TskTaskObj', from 'HashRef', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'duedate'   => ' ',
-            'startdate' => ' ',
-            'severity'  => ' ',
-            'created'   => ' ',
-            'estimated' => ' ',
-            'completed' => ' ',
-            'prjid'     => ' ',
-            'tskid'     => undef,
-            'priority'  => ' ',
-            'PrsnId'    => ' ',
-            'name'      => ' '
-        };
-        return TMS::Test::Core::TskTask->new(%$TheDefault);
-    }
-    return TMS::API::Core::TskTask->new(%{$_});
-}, from 'Str', via {
-    if ($AUTO_GENERATE) {
-        my $TheDefault = {
-            'duedate'   => ' ',
-            'startdate' => ' ',
-            'severity'  => ' ',
-            'created'   => ' ',
-            'estimated' => ' ',
-            'completed' => ' ',
-            'prjid'     => ' ',
-            'tskid'     => undef,
-            'priority'  => ' ',
-            'PrsnId'    => ' ',
-            'name'      => ' '
-        };
-        return TMS::Test::Core::TskTask->new(%$TheDefault);
     }
     return $_;
 };

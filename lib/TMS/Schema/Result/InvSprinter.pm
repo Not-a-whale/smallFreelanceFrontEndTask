@@ -221,7 +221,9 @@ __PACKAGE__->add_columns(
   { accessor => "load_volume", data_type => "integer", is_nullable => 1 },
 );
 
-=head1 PRIMARY KEY
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<SprinterId_UNIQUE>
 
 =over 4
 
@@ -231,7 +233,7 @@ __PACKAGE__->add_columns(
 
 =cut
 
-__PACKAGE__->set_primary_key("SprinterId");
+__PACKAGE__->add_unique_constraint("SprinterId_UNIQUE", ["SprinterId"]);
 
 =head1 RELATIONS
 
@@ -251,8 +253,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5mSc1X3M0jVMeMu9oeWONw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:NzWItEQh/yXtnvyOqYl59w
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

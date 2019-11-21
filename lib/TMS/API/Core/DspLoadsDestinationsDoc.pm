@@ -13,8 +13,8 @@ use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
 use TMS::API::Core::DspLoadsDestination;
-use TMS::API::Core::GenFile;
 use TMS::API::Core::HrAssociate;
+use TMS::API::Core::GenFile;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -32,6 +32,7 @@ has LoadDestinationId => (is => 'rw', coerce => 1, required => 1, isa => Undef |
 has FileId            => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'GenFileObj | Int ',);
 has Verified          => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'EnumUnknown',);
 has ApprovedBy        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj | Int ',);
+has FactoredDoc       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'BoolInt',);
 
 # AUTO-GENERATED HAS-A END
 

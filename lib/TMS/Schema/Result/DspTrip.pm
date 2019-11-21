@@ -110,6 +110,12 @@ For financial purposes TripNumber === JobNumber, TripId === JobId
   data_type: 'text'
   is_nullable: 1
 
+=head2 GoogleRoute
+
+  accessor: 'google_route'
+  data_type: 'text'
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -191,6 +197,8 @@ __PACKAGE__->add_columns(
   },
   "Notes",
   { accessor => "notes", data_type => "text", is_nullable => 1 },
+  "GoogleRoute",
+  { accessor => "google_route", data_type => "text", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -267,8 +275,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ucX1IQs78dzE1nzFpug2wg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:qNOg167Wtnpp96aFr/I7zQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

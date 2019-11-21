@@ -281,6 +281,21 @@ __PACKAGE__->belongs_to(
   },
 );
 
+=head2 fin_billing_banks
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::FinBillingBank>
+
+=cut
+
+__PACKAGE__->has_many(
+  "fin_billing_banks",
+  "TMS::Schema::Result::FinBillingBank",
+  { "foreign.BillingId" => "self.BillingId" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 phone
 
 Type: belongs_to
@@ -297,8 +312,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:JdAl54CgaP1cR6c5eBzwJA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Q/ZWj2iylgrXtGOLthNpfg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
