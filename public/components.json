@@ -66,4 +66,16 @@
   "state": "tms.test.table",
   "dataurl": "/api/addresses/search",
   "meta": "/api/addresses/meta"
+}, {
+  "component": "meta-table-focused",
+  "atomic": false,
+  "state": "tms.test.table",
+  "dataurl": "/api/addresses/search",
+  "meta": "/api/addresses/meta"
+}, {
+  "component": "meta-table-flowout",
+  "atomic": false,
+  "state": "tms.test.table",
+  "dataurl": "/api/addresses/search",
+  "meta": "/api/addresses/meta"
 }]
