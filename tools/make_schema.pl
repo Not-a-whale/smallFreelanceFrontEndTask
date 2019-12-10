@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/local/bin/perl
 # $Id: $
 
 BEGIN {
@@ -8,6 +8,8 @@ BEGIN {
 
 use strict;
 use warnings FATAL => 'all';
+use threads;
+
 use Carp qw(confess longmess);
 use Devel::Confess;
 use Data::Dumper;
@@ -35,16 +37,16 @@ my %FILTERED_ONLY     = ();       # process only specific tables and their depen
 my $CLI = ParseCLI(
     isfatal => 1,
     rules   => {
-        dbuser => {isa => 'Str', required => 1, default => 'root',         comment => 'Database User'},
-        dbpass => {isa => 'Str', required => 1, default => 'Nlvae4asd!',   comment => 'Database Password'},
-        dbhost => {isa => 'Str', required => 1, default => '192.168.11.7', comment => 'Database Host or IP'},
-        dbname => {isa => 'Str', required => 1, default => 'tms',          comment => 'Database Name'},
-        class  => {isa => 'Str', required => 1, default => 'TMS',          comment => 'Name of the perl class'},
-        dest   => {isa => 'Str', required => 1, default => 'lib',          comment => 'Library destination folder'},
-        prove  => {isa => 'Str', required => 1, default => 't',            comment => 'Test scripts destination'},
-        skip_dump => {isa => 'Bool', comment => 'Skip execution of the DBICDUMP'},
-        types     => {isa => 'Str',  comment => 'Use predefined types for "HAS" from the JSON file. Run -help for info'},
-        tables    => {isa => 'Str',  comment => 'Just process specific tables or classes, comma delimited, use with caution*'},
+        dbuser    => {isa => 'Str',  required => 1, default => 'root',         comment => 'Database User'},
+        dbpass    => {isa => 'Str',  required => 1, default => 'Nlvae4asd!',   comment => 'Database Password'},
+        dbhost    => {isa => 'Str',  required => 1, default => '192.168.11.7', comment => 'Database Host or IP'},
+        dbname    => {isa => 'Str',  required => 1, default => 'tms',          comment => 'Database Name'},
+        class     => {isa => 'Str',  required => 1, default => 'TMS',          comment => 'Name of the perl class'},
+        dest      => {isa => 'Str',  required => 1, default => 'lib',          comment => 'Library destination folder'},
+        prove     => {isa => 'Str',  required => 1, default => 't',            comment => 'Test scripts destination'},
+        skip_dump => {isa => 'Bool', comment  => 'Skip execution of the DBICDUMP'},
+        types     => {isa => 'Str',  comment  => 'Use predefined types for "HAS" from the JSON file. Run -help for info'},
+        tables    => {isa => 'Str',  comment  => 'Just process specific tables or classes, comma delimited, use with caution*'},
     }
 );
 
@@ -112,10 +114,6 @@ if (defined $$CLI{types}) {
 $ENV{DBIC_OVERWRITE_HELPER_METHODS_OK} = 1;
 
 # ----------------------------------------------------------------------------------------------------------------------
-# instance of ClassDBI, use DBI to read tables and views detals.
-my $h = ClassDBI->new(user => $$CLI{dbuser}, password => $$CLI{dbpass}, host => $$CLI{dbhost}, database => $$CLI{dbname});
-
-# ----------------------------------------------------------------------------------------------------------------------
 # patch data and template files are embedded in the script. Multiple files are stored using a 'two-lines' delimeter
 #       # ------------------------------
 #       file-delimiter: <tag>
@@ -140,16 +138,7 @@ print "... Preparing $COREAPI, $WEBAPI, $TYPESDIR, $TESTCORE, $PROVEDIR\n";
 # ----------------------------------------------------------------------------------------------------------------------
 # build DBIx using dbicdump with MOOSE flags
 unless (defined $$CLI{skip_dump}) {
-    my $cmd
-        = "dbicdump"
-        . " -o preserve_case=1"
-        . " -o dump_directory=$$CLI{dest}"
-        . " -o use_moose=1"
-        . " $$CLI{class}::Schema"
-        . " \"dbi:mysql:database=$$CLI{dbname};host=$$CLI{dbhost}\""
-        . " $$CLI{dbuser}"
-        . " $$CLI{dbpass}"
-        . " '{ quote_char => \"\`\" }'";
+    my $cmd = "dbicdump" . " -o preserve_case=1" . " -o dump_directory=$$CLI{dest}" . " -o use_moose=1" . " $$CLI{class}::Schema" . " \"dbi:mysql:database=$$CLI{dbname};host=$$CLI{dbhost}\"" . " $$CLI{dbuser}" . " $$CLI{dbpass}" . " '{ quote_char => \"\`\" }'";
 
     print "... Dumping schema\n$cmd\n";
     print `$cmd`;
@@ -213,7 +202,10 @@ if (open(FO, ">$json_map")) {
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Building MOOSE API high level classes
+
 foreach my $base (sort keys %CLASS_TO_TABLE) {
+    my $h       = ClassDBI->new(user => $$CLI{dbuser}, password => $$CLI{dbpass}, host => $$CLI{dbhost}, database => $$CLI{dbname});
+    my @threads = ();
     my $coreapi
         = -f "$COREAPI/$base.pm"
         ? `cat $COREAPI/$base.pm`
@@ -231,17 +223,12 @@ foreach my $base (sort keys %CLASS_TO_TABLE) {
         $table_info = $h->full_table_info(table => $table);    # see ClassDBI.pm
     } catch {
         if (/(No table info for[^\n]+)/si) {                   # show info about possible removal for missing tables
-            print "\n$1\n"
-                . "  git rm $result_dir/$base.pm\n"
-                . "  git commit -m \"removed $result_dir/$base.pm\"\n"
-                . "  git rm $COREAPI/$base.pm\n"
-                . "  git commit -m \"removed $COREAPI/$base.pm\"\n"
-                . "  rm $result_dir/$base.pm $COREAPI/$base.pm\n\n";
+            print "\n$1\n" . "  git rm $result_dir/$base.pm\n" . "  git commit -m \"removed $result_dir/$base.pm\"\n" . "  git rm $COREAPI/$base.pm\n" . "  git commit -m \"removed $COREAPI/$base.pm\"\n" . "  rm $result_dir/$base.pm $COREAPI/$base.pm\n\n";
 
             $skip_base++;
         }
     };
-    next if $skip_base;    # cannot run 'next' from within 'try/catch' since it's really a fancy declaration of the function
+    next if $skip_base;                                        # cannot run 'next' from within 'try/catch' since it's really a fancy declaration of the function
 
     print "$base - $table\n";
 
@@ -249,8 +236,7 @@ foreach my $base (sort keys %CLASS_TO_TABLE) {
     my $TheCoreClass = "$$CLI{class}::API::Core::$base";
     print "... Building $TheCoreClass\n";
     my $testdefaults = undef;
-    $coreapi =~ s/package $$CLI{class}::API::Core::;/package $$CLI{class}::API::Core::$base;/s
-        ;                  # add the proper class name to the package
+    $coreapi =~ s/package $$CLI{class}::API::Core::;/package $$CLI{class}::API::Core::$base;/s;    # add the proper class name to the package
 
     %$fks = map { $$_{'COLUMN_NAME'}, $_ }
         grep { defined $$_{'REFERENCED_TABLE_NAME'} && defined $$_{'REFERENCED_COLUMN_NAME'} } @{$$table_info{'constraints'}}
@@ -261,7 +247,7 @@ foreach my $base (sort keys %CLASS_TO_TABLE) {
         my %fk_classes = map { $TABLE_TO_CLASS{$$fks{$_}{'REFERENCED_TABLE_NAME'}}, 1 } keys %$fks;
         foreach (keys %fk_classes) {
             my $TheDepClass = "$$CLI{class}::API::Core::$_";
-            next if $TheCoreClass eq $TheDepClass;                  # required for trees;
+            next if $TheCoreClass eq $TheDepClass;                                                 # required for trees;
             $dependency .= "use $$CLI{class}::API::Core::$_;\n";
             $$ObjectTypes{$_ . 'Obj'}{name}  = "$$CLI{class}::API::Core::$_";
             $$ObjectTypes{$_ . 'Obj'}{table} = $h->full_table_info(table => $CLASS_TO_TABLE{$_});
@@ -270,11 +256,15 @@ foreach my $base (sort keys %CLASS_TO_TABLE) {
     }
     $coreapi .= "\n\n";
 
+    $h = undef;                                                                                    # calling class dbi destroy before all threads
+
     my $has_content = "";
 
+    my $metadata = {};
     foreach my $cl (@{$$table_info{'columns'}}) {
-        my $coerce = 1;
-        my $isa    = uc($$cl{'COLUMN_TYPE'});
+        my $coerce   = 1;
+        my $apiclass = undef;
+        my $isa      = uc($$cl{'COLUMN_TYPE'});
         $isa =~ s/\(.*//;
 
         if ($$CLI{types} && exists $$TYPEDATA{$table}{$$cl{'COLUMN_NAME'}}) {
@@ -302,109 +292,145 @@ foreach my $base (sort keys %CLASS_TO_TABLE) {
         }
 
         if (defined $fks && exists $$fks{$$cl{'COLUMN_NAME'}}) {
-            $isa = $TABLE_TO_CLASS{$$fks{$$cl{'COLUMN_NAME'}}{'REFERENCED_TABLE_NAME'}} . 'Obj' . ' | Int ';
+            $isa      = $TABLE_TO_CLASS{$$fks{$$cl{'COLUMN_NAME'}}{'REFERENCED_TABLE_NAME'}} . 'Obj' . ' | Int ';
+            $apiclass = "$$CLI{class}::API::Core::" . $TABLE_TO_CLASS{$$fks{$$cl{'COLUMN_NAME'}}{'REFERENCED_TABLE_NAME'}};
             if ($$fks{$$cl{'COLUMN_NAME'}}{'REFERENCED_TABLE_NAME'} eq $table) {
                 $$testdefaults{$$cl{'COLUMN_NAME'}} = undef;
             } else {
                 $coerce = 1;
             }
         }
+        $isa = "Undef | $isa"
+            if (exists $$cl{'IS_NULLABLE'} && $$cl{'IS_NULLABLE'} eq 'YES')
+            || (exists $$cl{'EXTRA'} && $$cl{'EXTRA'} eq 'auto_increment')
+            || (exists $$cl{'COLUMN_DEFAULT'} && defined $$cl{'COLUMN_DEFAULT'});
 
         my $required = $$cl{'REQUIRED'} ? 1 : 0;
         my $has      = $DATA{has_a_statement};
 
         $has =~ s/COLNAME/$$cl{'COLUMN_NAME'}/s;
         $has =~ s/TYPE/$isa/s;
-        $has =~ s/REQUIRED/$required/s;
+
+        # $has =~ s/REQUIRED/$required/s;
         $has =~ s/coerce => \d+/coerce => $coerce/s;
 
         $has_content .= $has;
+
+        $$metadata{$$cl{'COLUMN_NAME'}} = {
+            required => $required,
+            apiclass => $apiclass,
+            is_null  => $$cl{'IS_NULLABLE'} eq 'YES' ? 1 : 0,
+            default  => $$cl{'COLUMN_DEFAULT'},
+            comment  => $$cl{'COLUMN_COMMENT'},
+            db_type  => $$cl{'COLUMN_TYPE'},
+        };
     }
 
-    $coreapi =~ s/(# AUTO-GENERATED HAS-A START).*?(# AUTO-GENERATED HAS-A END)/$1\n$has_content\n$2\n/s;
-    $coreapi =~ s/\s+1;\s+1;\s*$/\n1;/g;
-    save_n_tidy("$COREAPI/$base.pm", $coreapi);
+    push @threads, threads->create(
+        sub {
+            my $meta_source = $DATA{has_a_meta};
+            my $meta_dumped = Dumper($metadata);
+            $meta_source =~ s/METADATA/$meta_dumped/s;
+
+            $has_content .= "\n\n$meta_source\n";
+
+            $coreapi =~ s/(# AUTO-GENERATED HAS-A START).*?(# AUTO-GENERATED HAS-A END)/$1\n$has_content\n$2\n/s;
+            $coreapi =~ s/\s+1;\s+1;\s*$/\n1;/g;
+            save_n_tidy("$COREAPI/$base.pm", $coreapi);
+        }
+    );
 
     #-------------------------------------------------------------------------------------------------------------------
-    {
-        my $filename = "$TESTCORE/$base.pm";
-        my $template = $DATA{CLASS_TEST};
+    push @threads, threads->create(
+        sub {
+            my $filename = "$TESTCORE/$base.pm";
+            my $template = $DATA{CLASS_TEST};
 
-        print "... Building $$CLI{class}::Test::Core::$base\n";
+            print "... Building $$CLI{class}::Test::Core::$base\n";
 
-        $template =~ s/CLASS/$$CLI{class}/gs;
-        $template =~ s/Core::/Core::$base/gs;
-        save_n_tidy($filename, $template);
-    }
-
-    #-------------------------------------------------------------------------------------------------------------------
-    {
-        my $filename = "001_$base.CoreSchema.t";
-        my $template = $DATA{TEST_CORE_SCHEMA};
-
-        print "... Building t/$filename\n";
-
-        $template =~ s/CLASS/$$CLI{class}/gs;
-        $template =~ s/Core::/Core::$base/gs;
-
-        my $attributedefaults = Dumper($testdefaults);
-        $template =~ s/TESTDEFAULTS/$attributedefaults/s;
-        save_n_tidy("$PROVEDIR/$filename", $template);
-    }
+            $template =~ s/CLASS/$$CLI{class}/gs;
+            $template =~ s/Core::/Core::$base/gs;
+            save_n_tidy($filename, $template);
+        }
+    );
 
     #-------------------------------------------------------------------------------------------------------------------
-    {
-        my $filename = "001_$base.CoreDataManip.t";
-        my $template = $DATA{TEST_CORE_DATAMANIP};
+    push @threads, threads->create(
+        sub {
+            my $filename = "001_$base.CoreSchema.t";
+            my $template = $DATA{TEST_CORE_SCHEMA};
 
-        print "... Building t/$filename\n";
+            print "... Building t/$filename\n";
 
-        $template =~ s/CLASS/$$CLI{class}/gs;
-        $template =~ s/Core::/Core::$base/gs;
+            $template =~ s/CLASS/$$CLI{class}/gs;
+            $template =~ s/Core::/Core::$base/gs;
 
-        my $attributedefaults = Dumper($testdefaults);
-        $template =~ s/TESTDEFAULTS/$attributedefaults/s;
-        save_n_tidy("$PROVEDIR/$filename", $template);
-    }
+            my $attributedefaults = Dumper($testdefaults);
+            $template =~ s/TESTDEFAULTS/$attributedefaults/s;
+            save_n_tidy("$PROVEDIR/$filename", $template);
+        }
+    );
+
+    #-------------------------------------------------------------------------------------------------------------------
+    push @threads, threads->create(
+        sub {
+            my $filename = "001_$base.CoreDataManip.t";
+            my $template = $DATA{TEST_CORE_DATAMANIP};
+
+            print "... Building t/$filename\n";
+
+            $template =~ s/CLASS/$$CLI{class}/gs;
+            $template =~ s/Core::/Core::$base/gs;
+
+            my $attributedefaults = Dumper($testdefaults);
+            $template =~ s/TESTDEFAULTS/$attributedefaults/s;
+            save_n_tidy("$PROVEDIR/$filename", $template);
+        }
+    );
+    foreach (@threads) { $_->join }
 }
 
 # ----------------------------------------------------------------------------------------------------------------------
-{
-    print "... Saving Column Types\n";
-    my $column_types = "";
-    foreach my $type (keys %$ColumnTypes) {
-        print "     $type\n";
-        my $col  = $$ColumnTypes{$type};
-        my $text = '';
-        if ($$col{DATA_TYPE} eq 'enum') {
-            $text = enum_type($type, $col);
-        } elsif ($$col{DATA_TYPE} eq 'set') {
-            $text = set_type($type, $col);
+my $thrd = threads->create(
+    sub {
+        print "... Saving Column Types\n";
+        my $column_types = "";
+        foreach my $type (keys %$ColumnTypes) {
+            print "     $type\n";
+            my $col  = $$ColumnTypes{$type};
+            my $text = '';
+            if ($$col{DATA_TYPE} eq 'enum') {
+                $text = enum_type($type, $col);
+            } elsif ($$col{DATA_TYPE} eq 'set') {
+                $text = set_type($type, $col);
+            }
+
+            $column_types .= $text;
         }
 
-        $column_types .= $text;
+        my $column_types_filename = "$TYPESDIR/Columns.pm";
+
+        #Save the column types contents into an already existing file, or use the template
+        # $DATA{ColumnTypes} =~ s/package CLASS::/package $$CLI{class}\:\:/s;
+        my $column_types_content = -f $column_types_filename ? `cat $column_types_filename` : $DATA{ColumnTypes};
+        $column_types_content =~ s/(#AUTO-GENERATED).*(#AUTO-GENERATED)/$1\n$column_types\n$2/s;
+        save_n_tidy($column_types_filename, $column_types_content);
     }
-
-    my $column_types_filename = "$TYPESDIR/Columns.pm";
-
-    #Save the column types contents into an already existing file, or use the template
-    # $DATA{ColumnTypes} =~ s/package CLASS::/package $$CLI{class}\:\:/s;
-    my $column_types_content = -f $column_types_filename ? `cat $column_types_filename` : $DATA{ColumnTypes};
-    $column_types_content =~ s/(#AUTO-GENERATED).*(#AUTO-GENERATED)/$1\n$column_types\n$2/s;
-    save_n_tidy($column_types_filename, $column_types_content);
-}
+);
 
 # ----------------------------------------------------------------------------------------------------------------------
 {
     print "... Saving Object Types\n";
     foreach my $type (keys %$ObjectTypes) {
-        my $class   = $$ObjectTypes{$type}{name};
-        my $ctest   = $class;
-        my $otype   = $DATA{ObjectType};
-        my $attrs   = undef;
-        my $aschr   = undef;
+        print "$type\n";
+        my $class = $$ObjectTypes{$type}{name};
+        my $ctest = $class;
+        my $otype = $DATA{ObjectType};
+        my $attrs = undef;
+        my $aschr = undef;
+
         my %prikeys = map { $$_{COLUMN_NAME}, 1 }
-            grep { $$_{CONSTRAINT_TYPE} eq 'PRIMARY KEY' } @{$$ObjectTypes{$type}{table}{constraints}};
+            grep { (exists $$_{CONSTRAINT_TYPE} && $$_{CONSTRAINT_TYPE} eq 'PRIMARY KEY') || (exists $$_{'CONSTRAINT_NAME'} && $$_{'CONSTRAINT_NAME'} eq 'PRIMARY') } @{$$ObjectTypes{$type}{table}{constraints}};
 
         foreach my $cl (@{$$ObjectTypes{$type}{table}{columns}}) {
             $$attrs{$$cl{COLUMN_NAME}} = exists $prikeys{$$cl{COLUMN_NAME}} ? undef : ' ';
@@ -425,6 +451,8 @@ foreach my $base (sort keys %CLASS_TO_TABLE) {
     save_n_tidy("$TYPESDIR/Objects.pm", $DATA{ObjectTypes});
 }
 
+$thrd->join;
+
 # ----------------------------------------------------------------------------------------------------------------------
 sub save_n_tidy {
     my ($file, $data) = @_;
@@ -433,7 +461,7 @@ sub save_n_tidy {
     close(FO);
     `/usr/local/bin/perltidy "$file"`;
     `mv "$file.tdy" "$file"`;
-}
+} ## end sub save_n_tidy
 
 sub enum_type {
     my ($type, $col) = @_;
@@ -445,7 +473,7 @@ sub enum_type {
     $text =~ s/OPTIONS/$opts/gs;
     $text =~ s/LISTS/$list/gs;
     return "$text\n";
-}
+} ## end sub enum_type
 
 sub set_type {
     my ($type, $col) = @_;
@@ -456,7 +484,7 @@ sub set_type {
     $text =~ s/OPTIONS/$opts/gs;
     $text =~ s/LISTS/$list/gs;
     return "$text\n";
-}
+} ## end sub set_type
 
 sub check_col_type {
     my ($isa, $col, $typeshash, $regex) = @_;
@@ -490,7 +518,7 @@ sub check_col_type {
         }
     }
     return $typename;
-}
+} ## end sub check_col_type
 
 sub check_enum_type {
     my ($isa, $col, $typeshash) = @_;
@@ -502,7 +530,7 @@ sub check_enum_type {
         return check_col_type($isa, $col, $typeshash, $regex);
     }
     return undef;
-}
+} ## end sub check_enum_type
 
 sub check_set_type {
     my ($isa, $col, $ColumnTypes) = @_;
@@ -512,7 +540,7 @@ sub check_set_type {
         return check_col_type($isa, $col, $ColumnTypes, $regex);
     }
     return undef;
-}
+} ## end sub check_set_type
 
 __DATA__
 
@@ -777,7 +805,21 @@ coerce 'TYPENAME',
 # ----------------------------------------------------------------------------------------------------------------------
 file-delimiter: has_a_statement
 
-has COLNAME => (is => 'rw', coerce => 1, required => REQUIRED, isa => Undef | 'TYPE',);
+has COLNAME => (is => 'rw', coerce => 1, isa => 'TYPE');
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+file-delimiter: has_a_meta
+has AllErrors => (is => 'rw', isa => 'ArrayRef', default    => sub { [] });
+has LastError => (is => 'rw', isa => 'Undef | Str', default => undef );
+has TableMeta => (is => 'rw', isa => 'HashRef',  lazy_build => 1);
+has DoIfError => (is => 'rw', isa => 'Str', default => 'confess');  # confess or ignore
+
+sub _build_TableMeta {
+    my $self = shift;
+    my $data = METADATA;
+    $self->TableMeta($data);
+}
 
 
 # ----------------------------------------------------------------------------------------------------------------------
