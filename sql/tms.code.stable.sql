@@ -452,7 +452,7 @@ CREATE TABLE `biz_branches` (
   CONSTRAINT `BrnchBizNameRef` FOREIGN KEY (`BizId`) REFERENCES `ent_businesses` (`BizId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchFaxRef` FOREIGN KEY (`BrnchFax`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchPhoneRef` FOREIGN KEY (`BrnchPhone`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3807 DEFAULT CHARSET=utf8 COMMENT='Office Branch Details';
+) ENGINE=InnoDB AUTO_INCREMENT=3815 DEFAULT CHARSET=utf8 COMMENT='Office Branch Details';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -719,7 +719,7 @@ CREATE TABLE `cnt_addresses` (
   KEY `idx_cnt_addresses_State` (`State`),
   KEY `idx_cnt_addresses_Country` (`Country`),
   KEY `idx_cnt_addresses_Street1` (`Street1`)
-) ENGINE=InnoDB AUTO_INCREMENT=3944 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3955 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -742,7 +742,7 @@ CREATE TABLE `cnt_phonesfaxes` (
   KEY `idx_cnt_phonesfaxes_Extension` (`Extension`) USING BTREE,
   KEY `idx_cnt_phonesfaxes_Features` (`Features`) USING BTREE,
   KEY `idx_cnt_phonesfaxes_Mobility` (`Mobility`)
-) ENGINE=InnoDB AUTO_INCREMENT=4266 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4287 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -845,7 +845,7 @@ CREATE TABLE `crr_permit_accounts` (
   KEY `idx_crr_permit_accounts_AccountNo` (`AccountNo`),
   KEY `idx_crr_permit_accounts_State` (`State`),
   CONSTRAINT `PermCarrRef` FOREIGN KEY (`CarrierId`) REFERENCES `ent_carriers` (`CarrierId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1362,26 +1362,8 @@ CREATE TABLE `ent_businesses` (
   UNIQUE KEY `BizName_UNIQUE` (`BizName`),
   KEY `idx_ent_businesses_BizName` (`BizName`) USING BTREE,
   KEY `idx_ent_businesses_BizURL` (`BizURL`)
-) ENGINE=InnoDB AUTO_INCREMENT=258 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=273 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`192.168.1%.%`*/ /*!50003 TRIGGER `tms`.`ent_businesses_AFTER_INSERT` AFTER INSERT ON `ent_businesses` FOR EACH ROW
-BEGIN
-INSERT INTO entities (BusinessId,Notes) VALUES (NEW.BizId,NEW.BizName);
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `ent_carriers`
@@ -1510,24 +1492,6 @@ CREATE TABLE `ent_people` (
   CONSTRAINT `PeopleBranchRef` FOREIGN KEY (`BrnchId`) REFERENCES `biz_branches` (`BrnchId`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`192.168.1%.%`*/ /*!50003 TRIGGER `tms`.`ent_people_AFTER_INSERT` AFTER INSERT ON `ent_people` FOR EACH ROW
-BEGIN
-INSERT INTO entities (PersonId,Notes) VALUES (NEW.PrsnId, concat_ws(' ',NEW.NickName, NEW.Prefix, NEW.FirstName, NEW.LastName, NEW.Suffix));
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `ent_shippers`
@@ -1567,7 +1531,7 @@ CREATE TABLE `entities` (
   KEY `EntityBusinessRef_idx` (`BusinessId`),
   CONSTRAINT `EntityBusinessRef` FOREIGN KEY (`BusinessId`) REFERENCES `ent_businesses` (`BizId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `EntityPersonRef` FOREIGN KEY (`PersonId`) REFERENCES `ent_people` (`PrsnId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5291 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5313 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1988,13 +1952,14 @@ DROP TABLE IF EXISTS `fin_billing_banks`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `fin_billing_banks` (
-  `BankId` bigint(20) unsigned NOT NULL,
+  `BankId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `BillingId` bigint(20) unsigned NOT NULL,
   `Institution` bigint(20) unsigned NOT NULL,
+  `AccountNickname` varchar(255) DEFAULT NULL,
   `AccountNumber` varchar(255) NOT NULL,
   `RoutingNumber` varchar(255) NOT NULL,
-  `AccountType` enum('checking','savings') NOT NULL,
-  `Purpose` enum('payment','billing','billing and payment','other') NOT NULL,
+  `AccountType` enum('checking','savings') NOT NULL DEFAULT 'checking',
+  `Purpose` enum('payment','billing','billing and payment','other') NOT NULL DEFAULT 'billing and payment',
   `Active` tinyint(1) NOT NULL DEFAULT '1',
   `VoidCheck` bigint(20) unsigned DEFAULT NULL,
   `Notes` text,
@@ -2010,7 +1975,7 @@ CREATE TABLE `fin_billing_banks` (
   CONSTRAINT `BankOrgRef` FOREIGN KEY (`Institution`) REFERENCES `biz_branches` (`BrnchId`) ON UPDATE CASCADE,
   CONSTRAINT `BillingIdToBankRef` FOREIGN KEY (`BillingId`) REFERENCES `fin_billing_infos` (`BillingId`) ON UPDATE CASCADE,
   CONSTRAINT `VoidCheckRef` FOREIGN KEY (`VoidCheck`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2065,7 +2030,7 @@ DROP TABLE IF EXISTS `fin_billing_rules`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `fin_billing_rules` (
-  `BillRuleId` bigint(20) unsigned NOT NULL,
+  `BillRuleId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `BankAccount` bigint(20) unsigned NOT NULL,
   `Rule` enum('percentage','fixed amount') NOT NULL DEFAULT 'percentage',
   `Amount` decimal(12,2) NOT NULL DEFAULT '100.00',
@@ -2077,7 +2042,7 @@ CREATE TABLE `fin_billing_rules` (
   KEY `idx_fin_billing_rules_Active` (`Active`),
   KEY `idx_fin_billing_rules_Amount` (`Amount`),
   CONSTRAINT `BankToRuleRef` FOREIGN KEY (`BankAccount`) REFERENCES `fin_billing_banks` (`BankId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2915,7 +2880,7 @@ CREATE TABLE `gen_files` (
   KEY `idx_gen_files_UploadDate` (`UploadDate`),
   KEY `idx_gen_files_Keywords` (`Keywords`),
   KEY `idx_gen_files_ExpiredDate` (`ExpiredDate`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4915,4 +4880,4 @@ USE `tms`;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-10 11:13:18
+-- Dump completed on 2019-12-10 15:36:42
