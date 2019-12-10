@@ -139,7 +139,7 @@ CREATE TABLE `app_menu_items` (
   KEY `idx_app_menu_items_Route` (`Route`),
   KEY `idx_app_menu_items_Target` (`Target`),
   CONSTRAINT `MenuItemParentRef` FOREIGN KEY (`ParentId`) REFERENCES `app_menu_items` (`MenuItemId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=232 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=245 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -434,25 +434,25 @@ DROP TABLE IF EXISTS `biz_branches`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `biz_branches` (
   `BrnchId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `OfficeName` varchar(255) DEFAULT NULL,
+  `OfficeName` varchar(255) NOT NULL DEFAULT '',
   `BizId` bigint(20) unsigned NOT NULL,
   `BrnchAddress` bigint(20) unsigned NOT NULL,
   `BrnchPhone` bigint(20) unsigned NOT NULL,
   `BrnchFax` bigint(20) unsigned DEFAULT NULL,
   `BrnchEMail` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`BrnchId`),
-  UNIQUE KEY `UniqBranch` (`BizId`,`BrnchAddress`),
   KEY `idx_biz_branches_OfficeName` (`OfficeName`),
   KEY `BrnchAddrRef_idx` (`BrnchAddress`),
   KEY `BrnchPhoneRef_idx` (`BrnchPhone`),
   KEY `BrnchFaxRef_idx` (`BrnchFax`),
   KEY `idx_biz_branches_BrnchEMail` (`BrnchEMail`),
   KEY `BrnchBizNameRef_idx` (`BizId`),
+  KEY `UniqBranch` (`OfficeName`,`BizId`,`BrnchAddress`),
   CONSTRAINT `BrnchAddress` FOREIGN KEY (`BrnchAddress`) REFERENCES `cnt_addresses` (`AddrId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchBizNameRef` FOREIGN KEY (`BizId`) REFERENCES `ent_businesses` (`BizId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchFaxRef` FOREIGN KEY (`BrnchFax`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchPhoneRef` FOREIGN KEY (`BrnchPhone`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3804 DEFAULT CHARSET=utf8 COMMENT='Office Branch Details';
+) ENGINE=InnoDB AUTO_INCREMENT=3807 DEFAULT CHARSET=utf8 COMMENT='Office Branch Details';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -465,17 +465,14 @@ DROP TABLE IF EXISTS `biz_company_nodes`;
 CREATE TABLE `biz_company_nodes` (
   `NodeId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `ParentId` bigint(20) unsigned DEFAULT NULL,
-  `BizId` bigint(20) unsigned NOT NULL,
   `UnitName` varchar(255) NOT NULL,
   `Type` enum('Department','Office','Team','Group','Other') NOT NULL DEFAULT 'Other',
   PRIMARY KEY (`NodeId`),
-  UNIQUE KEY `UniqBizUnitName` (`UnitName`,`BizId`,`Type`),
+  UNIQUE KEY `UniqBizUnitName` (`UnitName`,`Type`),
   KEY `BizParentRef_idx` (`ParentId`),
   KEY `BizName_inx` (`UnitName`),
   KEY `idx_biz_company_nodes_Type` (`Type`),
-  KEY `NodeToBizRef_idx` (`BizId`),
-  CONSTRAINT `BizCompanyParentNodeRef` FOREIGN KEY (`ParentId`) REFERENCES `biz_company_nodes` (`NodeId`) ON UPDATE CASCADE,
-  CONSTRAINT `NodeToBizNameRef` FOREIGN KEY (`BizId`) REFERENCES `ent_businesses` (`BizId`) ON UPDATE CASCADE
+  CONSTRAINT `BizCompanyParentNodeRef` FOREIGN KEY (`ParentId`) REFERENCES `biz_company_nodes` (`NodeId`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=402 DEFAULT CHARSET=utf8 COMMENT='Holds the nodes for the structure of the client/user company hierarchy ';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -749,6 +746,157 @@ CREATE TABLE `cnt_phonesfaxes` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `crr_ifta_decal`
+--
+
+DROP TABLE IF EXISTS `crr_ifta_decal`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `crr_ifta_decal` (
+  `DecalId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `IftaAcctId` bigint(20) unsigned NOT NULL,
+  `DecalNo` varchar(255) NOT NULL,
+  `DecalImg` bigint(20) unsigned NOT NULL,
+  `VehicleId` bigint(20) unsigned NOT NULL,
+  `EffectiveDate` date NOT NULL,
+  `ExpirationDate` date NOT NULL,
+  `DateIssued` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `CreatedBy` bigint(20) unsigned DEFAULT NULL,
+  PRIMARY KEY (`DecalId`),
+  KEY `IftaDeclRef_idx` (`IftaAcctId`),
+  KEY `DecalImfRef_idx` (`DecalImg`),
+  KEY `IftaTruckRef_idx` (`VehicleId`),
+  KEY `idx_crr_ifta_decal_DecalNo` (`DecalNo`),
+  KEY `DecalIssuedBy_idx` (`CreatedBy`),
+  KEY `idx_crr_ifta_decal_EffectiveDate` (`EffectiveDate`),
+  KEY `idx_crr_ifta_decal_ExpirationDate` (`ExpirationDate`),
+  KEY `idx_crr_ifta_decal_DateIssued` (`DateIssued`),
+  CONSTRAINT `DecalImfRef` FOREIGN KEY (`DecalImg`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE,
+  CONSTRAINT `DecalIssuedBy` FOREIGN KEY (`CreatedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
+  CONSTRAINT `IftaDeclRef` FOREIGN KEY (`IftaAcctId`) REFERENCES `crr_iftas` (`IftaAcctId`) ON UPDATE CASCADE,
+  CONSTRAINT `IftaTruckRef` FOREIGN KEY (`VehicleId`) REFERENCES `inv_vehicles` (`VehicleId`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `crr_iftas`
+--
+
+DROP TABLE IF EXISTS `crr_iftas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `crr_iftas` (
+  `IftaAcctId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `State` char(2) NOT NULL,
+  `IFTALicense` varchar(255) NOT NULL,
+  `McAccount` varchar(255) NOT NULL,
+  `ProofDoc` bigint(20) unsigned DEFAULT NULL,
+  `Effective` date NOT NULL,
+  `Expiration` date NOT NULL,
+  `BizId` bigint(20) unsigned NOT NULL COMMENT 'Who pays for it',
+  PRIMARY KEY (`IftaAcctId`),
+  UNIQUE KEY `mcaccount_UNIQUE` (`McAccount`),
+  UNIQUE KEY `IFTALicense_UNIQUE` (`IFTALicense`),
+  KEY `IftaProofRef_idx` (`ProofDoc`),
+  KEY `idx_crr_iftas_State` (`State`),
+  KEY `idx_crr_iftas_Effective` (`Effective`),
+  KEY `idx_crr_iftas_Expiration` (`Expiration`),
+  KEY `IftaPayerBizRef_idx` (`BizId`),
+  KEY `idx_crr_iftas_IFTALicense` (`IFTALicense`),
+  KEY `idx_crr_iftas_McAccount` (`McAccount`),
+  CONSTRAINT `IftaPayerBizRef` FOREIGN KEY (`BizId`) REFERENCES `ent_businesses` (`BizId`) ON UPDATE CASCADE,
+  CONSTRAINT `IftaProofRef` FOREIGN KEY (`ProofDoc`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `crr_permit_account_docs`
+--
+
+DROP TABLE IF EXISTS `crr_permit_account_docs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `crr_permit_account_docs` (
+  `PrmtRegDocId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `CrrPrmtAccId` bigint(20) unsigned NOT NULL,
+  `CrrPrmtAccDoc` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`PrmtRegDocId`),
+  UNIQUE KEY `UniqPermitRegDoc` (`CrrPrmtAccId`,`CrrPrmtAccDoc`),
+  KEY `PrmtRegAccDocRef_idx` (`CrrPrmtAccDoc`),
+  CONSTRAINT `PrmtRegAccDocRef` FOREIGN KEY (`CrrPrmtAccDoc`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE,
+  CONSTRAINT `PrmtRegAccRef` FOREIGN KEY (`CrrPrmtAccId`) REFERENCES `crr_permit_accounts` (`CrrPrmtAccId`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='State Registration Documents	';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `crr_permit_accounts`
+--
+
+DROP TABLE IF EXISTS `crr_permit_accounts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `crr_permit_accounts` (
+  `CrrPrmtAccId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `AccountNo` varchar(255) NOT NULL,
+  `State` char(2) NOT NULL,
+  `CarrierId` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`CrrPrmtAccId`),
+  KEY `PermCarrRef_idx` (`CarrierId`),
+  KEY `idx_crr_permit_accounts_AccountNo` (`AccountNo`),
+  KEY `idx_crr_permit_accounts_State` (`State`),
+  CONSTRAINT `PermCarrRef` FOREIGN KEY (`CarrierId`) REFERENCES `ent_carriers` (`CarrierId`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `crr_permit_images`
+--
+
+DROP TABLE IF EXISTS `crr_permit_images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `crr_permit_images` (
+  `PrmtImgId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `StatePrmtId` bigint(20) unsigned NOT NULL,
+  `PermtImageId` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`PrmtImgId`),
+  UNIQUE KEY `StateUnqImage` (`StatePrmtId`,`PermtImageId`),
+  KEY `StatePermRef_idx` (`StatePrmtId`),
+  KEY `StatePermImg_idx` (`PermtImageId`),
+  CONSTRAINT `StatePermImg` FOREIGN KEY (`PermtImageId`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE,
+  CONSTRAINT `StatePermRef` FOREIGN KEY (`StatePrmtId`) REFERENCES `crr_state_permits` (`StatePrmtId`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `crr_state_permits`
+--
+
+DROP TABLE IF EXISTS `crr_state_permits`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `crr_state_permits` (
+  `StatePrmtId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `CrrPrmtAccId` bigint(20) unsigned NOT NULL,
+  `VehicleId` bigint(20) unsigned NOT NULL,
+  `ReceiptNo` varchar(255) NOT NULL,
+  `Effective` date NOT NULL,
+  `Expired` date NOT NULL,
+  `Issued` date NOT NULL,
+  PRIMARY KEY (`StatePrmtId`),
+  UNIQUE KEY `UniqVhclPermit` (`ReceiptNo`,`Effective`,`Expired`),
+  KEY `PermAccRef_idx` (`CrrPrmtAccId`),
+  KEY `PermVhclRef_idx` (`VehicleId`),
+  KEY `idx_crr_state_permits_ReceiptNo` (`ReceiptNo`),
+  KEY `idx_crr_state_permits_Effective` (`Effective`),
+  KEY `idx_crr_state_permits_Expired` (`Expired`),
+  KEY `idx_crr_state_permits_Issued` (`Issued`),
+  CONSTRAINT `PermAccRef` FOREIGN KEY (`CrrPrmtAccId`) REFERENCES `crr_permit_accounts` (`CrrPrmtAccId`) ON UPDATE CASCADE,
+  CONSTRAINT `PermVhclRef` FOREIGN KEY (`VehicleId`) REFERENCES `inv_vehicles` (`VehicleId`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `drv_cdl_endorsements`
 --
 
@@ -882,29 +1030,6 @@ CREATE TABLE `drv_schedules` (
   CONSTRAINT `SchToDrvRef` FOREIGN KEY (`DriverId`) REFERENCES `drv_drivers` (`DriverId`) ON UPDATE CASCADE,
   CONSTRAINT `SchdUpdatedByRef` FOREIGN KEY (`PostedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `dsp_blacklist`
---
-
-DROP TABLE IF EXISTS `dsp_blacklist`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `dsp_blacklist` (
-  `BlackListId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `CstmrId` bigint(20) unsigned NOT NULL,
-  `DateCreated` datetime NOT NULL,
-  `Creator` bigint(20) unsigned NOT NULL,
-  `ReasonPublic` text NOT NULL,
-  `ReasonPrivate` text,
-  PRIMARY KEY (`BlackListId`),
-  KEY `DspBlacklistCreatorRef_idx` (`Creator`),
-  KEY `idx_dsp_blacklist_DateCreated` (`DateCreated`),
-  KEY `BadCstmrRef_idx` (`CstmrId`),
-  CONSTRAINT `BadCstmrRef` FOREIGN KEY (`CstmrId`) REFERENCES `ent_customers` (`CstmrId`) ON UPDATE CASCADE,
-  CONSTRAINT `DspBlacklistCreatorRef` FOREIGN KEY (`Creator`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Complaints about entities and why you should not do business with them';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1199,6 +1324,30 @@ CREATE TABLE `dsp_trips_loads` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `ent_blacklist`
+--
+
+DROP TABLE IF EXISTS `ent_blacklist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ent_blacklist` (
+  `BlackListId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `EntityId` bigint(20) unsigned NOT NULL,
+  `DateCreated` datetime NOT NULL,
+  `Creator` bigint(20) unsigned NOT NULL,
+  `Reason` text NOT NULL,
+  `Type` enum('public','private') NOT NULL DEFAULT 'private',
+  PRIMARY KEY (`BlackListId`),
+  KEY `DspBlacklistCreatorRef_idx` (`Creator`),
+  KEY `idx_dsp_blacklist_DateCreated` (`DateCreated`),
+  KEY `BadCstmrRef_idx` (`EntityId`),
+  KEY `idx_ent_blacklist_Type` (`Type`),
+  CONSTRAINT `BadCstmrRef` FOREIGN KEY (`EntityId`) REFERENCES `entities` (`EntityId`) ON UPDATE CASCADE,
+  CONSTRAINT `DspBlacklistCreatorRef` FOREIGN KEY (`Creator`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Complaints about entities and why you should not do business with them';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `ent_businesses`
 --
 
@@ -1247,16 +1396,7 @@ CREATE TABLE `ent_carriers` (
   `McCertificatePhoto` bigint(20) unsigned DEFAULT NULL,
   `DOT` varchar(15) DEFAULT NULL,
   `CrType` enum('Company Carrier','Brokerage Only') DEFAULT NULL,
-  `IFTA_Acc` varchar(255) DEFAULT NULL,
-  `IFTA_State` char(2) DEFAULT NULL,
   `SCAC` varchar(4) DEFAULT NULL,
-  `state_OR` varchar(255) DEFAULT NULL,
-  `state_NY` varchar(255) DEFAULT NULL,
-  `state_NC` varchar(255) DEFAULT NULL,
-  `state_SC` varchar(255) DEFAULT NULL,
-  `state_NM` varchar(255) DEFAULT NULL,
-  `state_KY` varchar(255) DEFAULT NULL,
-  `state_FL` varchar(255) DEFAULT NULL,
   `RateConfEmailAddress` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`CarrierId`),
   UNIQUE KEY `MC_UNIQUE` (`MC`),
@@ -1265,16 +1405,7 @@ CREATE TABLE `ent_carriers` (
   KEY `McCertRef_idx` (`McCertificatePhoto`),
   KEY `idx_ent_carriers_MC` (`MC`),
   KEY `idx_ent_carriers_CrType` (`CrType`),
-  KEY `idx_ent_carriers_IFTA_Acc` (`IFTA_Acc`),
   KEY `idx_ent_carriers_SCAC` (`SCAC`),
-  KEY `idx_ent_carriers_state_OR` (`state_OR`),
-  KEY `idx_ent_carriers_state_NY` (`state_NY`),
-  KEY `idx_ent_carriers_state_NC` (`state_NC`),
-  KEY `idx_ent_carriers_state_SC` (`state_SC`),
-  KEY `idx_ent_carriers_state_NM` (`state_NM`),
-  KEY `idx_ent_carriers_state_KY` (`state_KY`),
-  KEY `idx_ent_carriers_state_FL` (`state_FL`),
-  KEY `idx_ent_carriers_IFTA_State` (`IFTA_State`),
   KEY `idx_ent_carriers_RateConfEmailAddress` (`RateConfEmailAddress`),
   CONSTRAINT `CarrierBusinessRef` FOREIGN KEY (`CarrierId`) REFERENCES `ent_businesses` (`BizId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `McCertRef` FOREIGN KEY (`McCertificatePhoto`) REFERENCES `gen_files` (`FileId`) ON DELETE SET NULL ON UPDATE CASCADE
@@ -1334,6 +1465,23 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Table structure for table `ent_owner_operators`
+--
+
+DROP TABLE IF EXISTS `ent_owner_operators`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ent_owner_operators` (
+  `BizId` bigint(20) unsigned NOT NULL,
+  `CarrierId` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`BizId`),
+  KEY `UnderCarrierSignesRef_idx` (`CarrierId`),
+  CONSTRAINT `OwnerOprBizRef` FOREIGN KEY (`BizId`) REFERENCES `ent_businesses` (`BizId`) ON UPDATE CASCADE,
+  CONSTRAINT `UnderCarrierSignesRef` FOREIGN KEY (`CarrierId`) REFERENCES `ent_carriers` (`CarrierId`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `ent_people`
 --
 
@@ -1360,7 +1508,7 @@ CREATE TABLE `ent_people` (
   KEY `idx_ent_people_Suffix` (`Suffix`) USING BTREE,
   KEY `idx_ent_people_BrnchId` (`BrnchId`) USING BTREE,
   CONSTRAINT `PeopleBranchRef` FOREIGN KEY (`BrnchId`) REFERENCES `biz_branches` (`BrnchId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1419,7 +1567,7 @@ CREATE TABLE `entities` (
   KEY `EntityBusinessRef_idx` (`BusinessId`),
   CONSTRAINT `EntityBusinessRef` FOREIGN KEY (`BusinessId`) REFERENCES `ent_businesses` (`BizId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `EntityPersonRef` FOREIGN KEY (`PersonId`) REFERENCES `ent_people` (`PrsnId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5286 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5291 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1848,6 +1996,7 @@ CREATE TABLE `fin_billing_banks` (
   `AccountType` enum('checking','savings') NOT NULL,
   `Purpose` enum('payment','billing','billing and payment','other') NOT NULL,
   `Active` tinyint(1) NOT NULL DEFAULT '1',
+  `VoidCheck` bigint(20) unsigned DEFAULT NULL,
   `Notes` text,
   PRIMARY KEY (`BankId`),
   KEY `BankOrgRef_idx` (`Institution`),
@@ -1857,8 +2006,10 @@ CREATE TABLE `fin_billing_banks` (
   KEY `idx_fin_billing_banks_AccountType` (`AccountType`),
   KEY `idx_fin_billing_banks_Purpose` (`Purpose`),
   KEY `idx_fin_billing_banks_Active` (`Active`),
+  KEY `VoidCheckRef_idx` (`VoidCheck`),
   CONSTRAINT `BankOrgRef` FOREIGN KEY (`Institution`) REFERENCES `biz_branches` (`BrnchId`) ON UPDATE CASCADE,
-  CONSTRAINT `BillingIdToBankRef` FOREIGN KEY (`BillingId`) REFERENCES `fin_billing_infos` (`BillingId`) ON UPDATE CASCADE
+  CONSTRAINT `BillingIdToBankRef` FOREIGN KEY (`BillingId`) REFERENCES `fin_billing_infos` (`BillingId`) ON UPDATE CASCADE,
+  CONSTRAINT `VoidCheckRef` FOREIGN KEY (`VoidCheck`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1881,6 +2032,8 @@ CREATE TABLE `fin_billing_infos` (
   `BillingTagId` bigint(20) unsigned NOT NULL,
   `DateIn` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `DateOut` datetime DEFAULT NULL,
+  `CreditLimit` decimal(10,2) DEFAULT NULL,
+  `CreditHold` enum('yes','no') DEFAULT NULL,
   `Notes` text,
   PRIMARY KEY (`BillingId`),
   UNIQUE KEY `TagVsEntity` (`EntityId`,`BillingTagId`),
@@ -1894,6 +2047,8 @@ CREATE TABLE `fin_billing_infos` (
   KEY `BillingAddress_idx` (`Address`),
   KEY `idx_fin_billing_infos_ContactName` (`ContactName`),
   KEY `idx_fin_billing_infos_EMail` (`EMail`),
+  KEY `idx_fin_billing_infos_CreditLimit` (`CreditLimit`),
+  KEY `idx_fin_billing_infos_CreditHold` (`CreditHold`),
   CONSTRAINT `BillingAddress` FOREIGN KEY (`Address`) REFERENCES `cnt_addresses` (`AddrId`) ON UPDATE CASCADE,
   CONSTRAINT `BillingFax` FOREIGN KEY (`Fax`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE,
   CONSTRAINT `BillingInfoEntityRef` FOREIGN KEY (`EntityId`) REFERENCES `entities` (`EntityId`) ON UPDATE CASCADE,
@@ -4760,4 +4915,4 @@ USE `tms`;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-02 16:58:01
+-- Dump completed on 2019-12-10 11:13:18

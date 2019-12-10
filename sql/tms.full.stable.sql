@@ -175,7 +175,7 @@ CREATE TABLE `app_menu_items` (
   KEY `idx_app_menu_items_Route` (`Route`),
   KEY `idx_app_menu_items_Target` (`Target`),
   CONSTRAINT `MenuItemParentRef` FOREIGN KEY (`ParentId`) REFERENCES `app_menu_items` (`MenuItemId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=232 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=245 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,7 +184,7 @@ CREATE TABLE `app_menu_items` (
 
 LOCK TABLES `app_menu_items` WRITE;
 /*!40000 ALTER TABLE `app_menu_items` DISABLE KEYS */;
-INSERT INTO `app_menu_items` VALUES (1,NULL,'my stuff',NULL,NULL,'tmsapp.main.error',NULL,0.000,1,'mainnav'),(3,NULL,'trip managment',NULL,NULL,'tmsapp.main.trpmgmt',NULL,0.040,1,'mainnav'),(5,NULL,'finances',NULL,NULL,'tmsapp.main.fin',NULL,0.300,1,'mainnav'),(7,NULL,'safety',NULL,NULL,'tmsapp.main.safety',NULL,0.045,1,'mainnav'),(9,NULL,'administration',NULL,'sdfsd','tmsapp.main.admin',NULL,0.100,1,'mainnav'),(11,1,'dashboard','dashboard','imgs/icons.svg#square','tmsapp.main.dashboard',NULL,0.000,1,'mainnav'),(13,1,'calendar','calendar','imgs/icons.svg#calendar','tmsapp.main.calendar',NULL,0.100,1,'mainnav'),(15,3,'trucks','trucks','imgs/icons.svg#vehicle','tmsapp.main.trpmgmt.trucks',NULL,0.000,1,'mainnav'),(17,3,'loads','loads','imgs/icons.svg#boxes','tmsapp.main.trpmgmt.loads.availability',NULL,0.100,1,'mainnav'),(23,15,'my trucks','my trucks',NULL,'tmsapp.main.trpmgmt.trucks.mytrucks',NULL,0.300,1,'topnav'),(25,17,'available','available',NULL,'tmsapp.main.trpmgmt.loads.available',NULL,0.000,1,'topnav'),(27,17,'en route','en route',NULL,'tmsapp.main.trpmgmt.loads.enroute',NULL,0.100,1,'topnav'),(29,17,'pending','pending',NULL,'tmsapp.main.trpmgmt.loads.pending',NULL,0.200,1,'topnav'),(31,17,'build a load','build a load',NULL,'tmsapp.main.trpmgmt.loads.buildaload',NULL,0.300,1,'mainnav'),(33,17,'archives','archives',NULL,'tmsapp.main.trpmgmt.loads.archives',NULL,0.400,1,'mainnav'),(35,9,'users','users','imgs/icons.svg#users','tmsapp.main.admin.users',NULL,0.000,1,'mainnav'),(37,9,'groups','groups',NULL,'tmsapp.main.error',NULL,0.100,0,'mainnav'),(39,9,'web admin','web admin','imgs/icons.svg#internet','tmsapp.main.admin.webadmin',NULL,0.200,1,'mainnav'),(45,39,'Nav Menu Editor','Nav Menu Editor',NULL,'tmsapp.main.admin.webadmin.navmenueditor',NULL,0.000,1,'mainnav'),(47,39,'test page','test page',NULL,'tmsapp.main.admin.webadmin.testpage',NULL,9.000,1,'mainnav'),(59,209,'buttons','buttons',NULL,'tmsapp.main.testpg.inputs.buttons',NULL,0.000,1,'topnav'),(61,191,'fonts','fonts',NULL,'tmsapp.main.testpg.fonts',NULL,0.000,1,'mainnav'),(63,191,'forms','forms',NULL,'tmsapp.main.testpg.forms',NULL,0.000,1,'mainnav'),(65,209,'input','inputs',NULL,'tmsapp.main.testpg.inputs.inputs',NULL,0.000,1,'topnav'),(67,63,'section','single',NULL,'tmsapp.main.testpg.forms.section',NULL,9.000,1,'topnav'),(72,NULL,'human resources',NULL,NULL,'tms.app.hr',NULL,0.050,1,'mainnav'),(74,72,'personnel','View Personnel','imgs/icons.svg#addressbook','tmsapp.main.hr.prsnl.ops',NULL,0.000,1,'mainnav'),(119,5,'invoices',NULL,'imgs/icons.svg#document','tmsapp.main.fin.invoice',NULL,0.000,1,'mainnav'),(121,5,'settlements',NULL,'imgs/icons.svg#dollar-sign','tmsapp.main.fin.settlments',NULL,0.000,1,'mainnav'),(123,15,'view map',NULL,NULL,'tmsapp.main.trpmgmt.trucks.map',NULL,0.000,1,'mainnav'),(125,15,'my team','my team',NULL,'tmsapp.main.trpmgmt.trucks.myteam',NULL,0.200,1,'topnav'),(127,15,'all trucks','all trucks',NULL,'tmsapp.main.trpmgmt.trucks.all',NULL,0.100,1,'topnav'),(129,17,'public load boards','public load boards',NULL,'tmsapp.main.trpmgmt.loads.public',NULL,0.350,1,'mainnav'),(187,5,'transaction templates',NULL,NULL,'tmsapp.main.fin.chargeitems',NULL,9.000,1,'mainnav'),(189,187,'generate',NULL,NULL,'tmsapp.main.fin.chargeitems.generate',NULL,0.100,1,'topnav'),(191,NULL,'test pages',NULL,NULL,'tmsapp.main.testpg',NULL,9.999,1,'mainnav'),(197,191,'tables','list of different types of tables',NULL,'tmsapp.main.testpg.tables',NULL,0.000,1,'mainnav'),(199,197,'accordian','accordian style table',NULL,'tmsapp.main.testpg.tables.accordion',NULL,1.000,1,'topnav'),(201,197,'selector','table with selection',NULL,'tmsapp.main.testpg.tables.selector',NULL,2.000,1,'topnav'),(203,197,'flowout','table where data is displayed in another component',NULL,'tmsapp.main.testpg.tables.flowout',NULL,3.000,1,'topnav'),(205,197,'focused','table where data is displayed using all table area',NULL,'tmsapp.main.testpg.tables.focused',NULL,4.000,1,'topnav'),(209,191,'inputs','list of different input types',NULL,'tmsapp.main.testpg.inputs',NULL,0.100,1,'mainnav'),(211,209,'file upload','demo of uploading file','','tmsapp.main.testpg.inputs.uploadfile',NULL,9.000,1,'topnav'),(213,74,'operators','list of operators',NULL,'tmsapp.main.hr.prsnl.ops',NULL,0.000,1,'topnav'),(215,74,'associates','list of all associates',NULL,'tmsapp.main.hr.prsnl.asc',NULL,1.000,1,'topnav'),(217,74,'employees','list of all employees',NULL,'tmsapp.main.hr.prsnl.emp',NULL,2.000,1,'topnav'),(219,7,'inventory','list of all equipment',NULL,'tmsapp.main.safety.inv',NULL,1.000,1,'mainnav'),(221,7,'maintenance',NULL,NULL,'tms.app.error',NULL,2.000,1,'mainnav'),(223,7,'expirations',NULL,NULL,'tms.app.error',NULL,3.000,1,'mainnav'),(225,219,'register truck',NULL,NULL,'tmsapp.main.safety.inv.regtruck',NULL,1.000,1,'mainnav'),(227,219,'register trailer',NULL,NULL,'tmsapp.main.safety.inv.regtrailer',NULL,2.000,1,'mainnav'),(229,219,'vehicles','all vehicles registered',NULL,'tmsapp.main.safety.inv.vehicles',NULL,1.000,1,'topnav'),(231,219,'other assets','all other assets registered in the system',NULL,'tmsapp.main.safety.inv.assets',NULL,2.000,1,'topnav');
+INSERT INTO `app_menu_items` VALUES (1,NULL,'my stuff',NULL,NULL,'tmsapp.main.error',NULL,0.000,1,'mainnav'),(3,NULL,'trip managment',NULL,NULL,'tmsapp.main.trpmgmt',NULL,0.040,1,'mainnav'),(5,NULL,'finances',NULL,NULL,'tmsapp.main.fin',NULL,0.300,1,'mainnav'),(7,NULL,'safety',NULL,NULL,'tmsapp.main.safety',NULL,0.045,1,'mainnav'),(9,NULL,'administration',NULL,'sdfsd','tmsapp.main.admin',NULL,0.100,1,'mainnav'),(11,1,'dashboard','dashboard','imgs/icons.svg#square','tmsapp.main.dashboard',NULL,0.000,1,'mainnav'),(13,1,'calendar','calendar','imgs/icons.svg#calendar','tmsapp.main.calendar',NULL,0.100,1,'mainnav'),(15,3,'trucks','trucks','imgs/icons.svg#vehicle','tmsapp.main.trpmgmt.trucks',NULL,0.000,1,'mainnav'),(17,3,'loads','loads','imgs/icons.svg#boxes','tmsapp.main.trpmgmt.loads.availability',NULL,0.100,1,'mainnav'),(23,15,'my trucks','my trucks',NULL,'tmsapp.main.trpmgmt.trucks.mytrucks',NULL,0.300,1,'topnav'),(25,17,'available','available',NULL,'tmsapp.main.trpmgmt.loads.available',NULL,0.000,1,'topnav'),(27,17,'en route','en route',NULL,'tmsapp.main.trpmgmt.loads.enroute',NULL,0.100,1,'topnav'),(29,17,'pending','pending',NULL,'tmsapp.main.trpmgmt.loads.pending',NULL,0.200,1,'topnav'),(31,17,'build a load','build a load',NULL,'tmsapp.main.trpmgmt.loads.buildaload',NULL,0.300,1,'mainnav'),(33,17,'archives','archives',NULL,'tmsapp.main.trpmgmt.loads.archives',NULL,0.400,1,'mainnav'),(35,9,'users','users','imgs/icons.svg#users','tmsapp.main.admin.users',NULL,0.000,1,'mainnav'),(37,9,'groups','groups',NULL,'tmsapp.main.error',NULL,0.100,0,'mainnav'),(39,9,'web admin','web admin','imgs/icons.svg#internet','tmsapp.main.admin.webadmin',NULL,0.200,1,'mainnav'),(45,39,'Nav Menu Editor','Nav Menu Editor',NULL,'tmsapp.main.admin.webadmin.navmenueditor',NULL,0.000,1,'mainnav'),(47,39,'test page','test page',NULL,'tmsapp.main.admin.webadmin.testpage',NULL,9.000,1,'mainnav'),(59,209,'buttons','buttons',NULL,'tmsapp.main.testpg.inputs.buttons',NULL,0.000,1,'topnav'),(61,191,'fonts','fonts',NULL,'tmsapp.main.testpg.fonts',NULL,0.000,1,'mainnav'),(63,191,'forms','forms',NULL,'tmsapp.main.testpg.forms',NULL,0.000,1,'mainnav'),(65,209,'input','inputs',NULL,'tmsapp.main.testpg.inputs.inputs',NULL,0.000,1,'topnav'),(67,63,'section','single',NULL,'tmsapp.main.testpg.forms.section',NULL,9.000,1,'topnav'),(72,NULL,'human resources',NULL,NULL,'tms.app.hr',NULL,0.050,1,'mainnav'),(74,72,'personnel','View Personnel','imgs/icons.svg#addressbook','tmsapp.main.hr.prsnl.ops',NULL,0.000,1,'mainnav'),(119,5,'invoices',NULL,'imgs/icons.svg#document','tmsapp.main.fin.invoice',NULL,0.000,1,'mainnav'),(121,5,'settlements',NULL,'imgs/icons.svg#dollar-sign','tmsapp.main.fin.settlments',NULL,0.000,1,'mainnav'),(123,15,'view map',NULL,NULL,'tmsapp.main.trpmgmt.trucks.map',NULL,0.000,1,'mainnav'),(125,15,'my team','my team',NULL,'tmsapp.main.trpmgmt.trucks.myteam',NULL,0.200,1,'topnav'),(127,15,'all trucks','all trucks',NULL,'tmsapp.main.trpmgmt.trucks.all',NULL,0.100,1,'topnav'),(129,17,'public load boards','public load boards',NULL,'tmsapp.main.trpmgmt.loads.public',NULL,0.350,1,'mainnav'),(187,5,'transaction templates',NULL,NULL,'tmsapp.main.fin.chargeitems',NULL,9.000,1,'mainnav'),(189,187,'generate',NULL,NULL,'tmsapp.main.fin.chargeitems.generate',NULL,0.100,1,'topnav'),(191,NULL,'test pages',NULL,NULL,'tmsapp.main.testpg',NULL,9.999,1,'mainnav'),(197,191,'tables','list of different types of tables',NULL,'tmsapp.main.testpg.tables',NULL,0.000,1,'mainnav'),(199,197,'accordian','accordian style table',NULL,'tmsapp.main.testpg.tables.accordion',NULL,1.000,1,'topnav'),(201,197,'selector','table with selection',NULL,'tmsapp.main.testpg.tables.selector',NULL,2.000,1,'topnav'),(203,197,'flowout','table where data is displayed in another component',NULL,'tmsapp.main.testpg.tables.flowout',NULL,3.000,1,'topnav'),(205,197,'focused','table where data is displayed using all table area',NULL,'tmsapp.main.testpg.tables.focused',NULL,4.000,1,'topnav'),(209,191,'inputs','list of different input types',NULL,'tmsapp.main.testpg.inputs',NULL,0.100,1,'mainnav'),(211,209,'file upload','demo of uploading file','','tmsapp.main.testpg.inputs.uploadfile',NULL,9.000,1,'topnav'),(213,74,'operators','list of operators',NULL,'tmsapp.main.hr.prsnl.ops.list',NULL,0.000,1,'topnav'),(215,74,'associates','list of all associates',NULL,'tmsapp.main.hr.prsnl.asc',NULL,1.000,1,'topnav'),(217,74,'employees','list of all employees',NULL,'tmsapp.main.hr.prsnl.emp',NULL,2.000,1,'topnav'),(219,7,'inventory','list of all equipment',NULL,'tmsapp.main.safety.inv',NULL,1.000,1,'mainnav'),(221,7,'maintenance',NULL,NULL,'tms.app.error',NULL,2.000,1,'mainnav'),(223,7,'expirations',NULL,NULL,'tms.app.error',NULL,3.000,1,'mainnav'),(225,219,'register truck',NULL,NULL,'tmsapp.main.safety.inv.regtruck',NULL,1.000,1,'mainnav'),(227,219,'register trailer',NULL,NULL,'tmsapp.main.safety.inv.regtrailer',NULL,2.000,1,'mainnav'),(229,219,'vehicles','all vehicles registered',NULL,'tmsapp.main.safety.inv.vehicles',NULL,1.000,1,'topnav'),(231,219,'other assets','all other assets registered in the system',NULL,'tmsapp.main.safety.inv.assets',NULL,2.000,1,'topnav'),(233,72,'businesses','all the businesses',NULL,'tmsapp.main.hr.biz',NULL,2.000,1,'mainnav'),(235,233,'register carrier','register a new carrier business',NULL,'tmsapp.main.hr.biz.carrier.form',NULL,1.000,1,'mainnav'),(237,233,'carriers','list of carriers',NULL,'tmsapp.main.hr.biz.carrier.list',NULL,1.000,1,'topnav'),(239,233,'customers','list of customers',NULL,'tms.app.error',NULL,0.000,1,'topnav'),(241,233,'vendors','list of vendors','','tms.app.error',NULL,0.000,1,'topnav'),(243,233,'other','list of everyone else',NULL,'tms.app.error',NULL,0.000,1,'topnav');
 /*!40000 ALTER TABLE `app_menu_items` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -281,7 +281,7 @@ CREATE TABLE `app_menu_items_trees` (
 
 LOCK TABLES `app_menu_items_trees` WRITE;
 /*!40000 ALTER TABLE `app_menu_items_trees` DISABLE KEYS */;
-INSERT INTO `app_menu_items_trees` VALUES (1,1,0),(3,3,0),(5,5,0),(7,7,0),(9,9,0),(11,11,0),(13,13,0),(15,15,0),(17,17,0),(23,23,0),(25,25,0),(27,27,0),(29,29,0),(31,31,0),(33,33,0),(35,35,0),(37,37,0),(39,39,0),(45,45,0),(47,47,0),(59,59,0),(61,61,0),(63,63,0),(65,65,0),(67,67,0),(72,72,0),(74,74,0),(119,119,0),(121,121,0),(123,123,0),(125,125,0),(127,127,0),(129,129,0),(187,187,0),(189,189,0),(191,191,0),(197,197,0),(199,199,0),(201,201,0),(203,203,0),(205,205,0),(209,209,0),(211,211,0),(213,213,0),(215,215,0),(217,217,0),(219,219,0),(221,221,0),(223,223,0),(225,225,0),(227,227,0),(229,229,0),(231,231,0),(1,11,1),(1,13,1),(3,15,1),(3,17,1),(5,119,1),(5,121,1),(5,187,1),(7,219,1),(7,221,1),(7,223,1),(9,35,1),(9,37,1),(9,39,1),(15,23,1),(15,123,1),(15,125,1),(15,127,1),(17,25,1),(17,27,1),(17,29,1),(17,31,1),(17,33,1),(17,129,1),(39,45,1),(39,47,1),(47,59,1),(47,61,1),(47,63,1),(47,65,1),(47,67,1),(72,74,1),(74,213,1),(74,215,1),(74,217,1),(187,189,1),(191,197,1),(191,209,1),(197,199,1),(197,201,1),(197,203,1),(197,205,1),(209,211,1),(219,225,1),(219,227,1),(219,229,1),(219,231,1),(3,23,2),(3,25,2),(3,27,2),(3,29,2),(3,31,2),(3,33,2),(3,123,2),(3,125,2),(3,127,2),(3,129,2),(5,189,2),(7,225,2),(7,227,2),(7,229,2),(7,231,2),(9,45,2),(9,47,2),(39,59,2),(39,61,2),(39,63,2),(39,65,2),(39,67,2),(72,213,2),(72,215,2),(72,217,2),(191,199,2),(191,201,2),(191,203,2),(191,205,2),(191,211,2),(9,59,3),(9,61,3),(9,63,3),(9,65,3),(9,67,3);
+INSERT INTO `app_menu_items_trees` VALUES (1,1,0),(3,3,0),(5,5,0),(7,7,0),(9,9,0),(11,11,0),(13,13,0),(15,15,0),(17,17,0),(23,23,0),(25,25,0),(27,27,0),(29,29,0),(31,31,0),(33,33,0),(35,35,0),(37,37,0),(39,39,0),(45,45,0),(47,47,0),(59,59,0),(61,61,0),(63,63,0),(65,65,0),(67,67,0),(72,72,0),(74,74,0),(119,119,0),(121,121,0),(123,123,0),(125,125,0),(127,127,0),(129,129,0),(187,187,0),(189,189,0),(191,191,0),(197,197,0),(199,199,0),(201,201,0),(203,203,0),(205,205,0),(209,209,0),(211,211,0),(213,213,0),(215,215,0),(217,217,0),(219,219,0),(221,221,0),(223,223,0),(225,225,0),(227,227,0),(229,229,0),(231,231,0),(233,233,0),(235,235,0),(237,237,0),(239,239,0),(241,241,0),(243,243,0),(1,11,1),(1,13,1),(3,15,1),(3,17,1),(5,119,1),(5,121,1),(5,187,1),(7,219,1),(7,221,1),(7,223,1),(9,35,1),(9,37,1),(9,39,1),(15,23,1),(15,123,1),(15,125,1),(15,127,1),(17,25,1),(17,27,1),(17,29,1),(17,31,1),(17,33,1),(17,129,1),(39,45,1),(39,47,1),(47,59,1),(47,61,1),(47,63,1),(47,65,1),(47,67,1),(72,74,1),(72,233,1),(74,213,1),(74,215,1),(74,217,1),(187,189,1),(191,197,1),(191,209,1),(197,199,1),(197,201,1),(197,203,1),(197,205,1),(209,211,1),(219,225,1),(219,227,1),(219,229,1),(219,231,1),(233,235,1),(233,237,1),(233,239,1),(233,241,1),(233,243,1),(3,23,2),(3,25,2),(3,27,2),(3,29,2),(3,31,2),(3,33,2),(3,123,2),(3,125,2),(3,127,2),(3,129,2),(5,189,2),(7,225,2),(7,227,2),(7,229,2),(7,231,2),(9,45,2),(9,47,2),(39,59,2),(39,61,2),(39,63,2),(39,65,2),(39,67,2),(72,213,2),(72,215,2),(72,217,2),(72,235,2),(72,237,2),(72,239,2),(72,241,2),(72,243,2),(191,199,2),(191,201,2),(191,203,2),(191,205,2),(191,211,2),(9,59,3),(9,61,3),(9,63,3),(9,65,3),(9,67,3);
 /*!40000 ALTER TABLE `app_menu_items_trees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -536,25 +536,25 @@ DROP TABLE IF EXISTS `biz_branches`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `biz_branches` (
   `BrnchId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `OfficeName` varchar(255) DEFAULT NULL,
+  `OfficeName` varchar(255) NOT NULL DEFAULT '',
   `BizId` bigint(20) unsigned NOT NULL,
   `BrnchAddress` bigint(20) unsigned NOT NULL,
   `BrnchPhone` bigint(20) unsigned NOT NULL,
   `BrnchFax` bigint(20) unsigned DEFAULT NULL,
   `BrnchEMail` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`BrnchId`),
-  UNIQUE KEY `UniqBranch` (`BizId`,`BrnchAddress`),
   KEY `idx_biz_branches_OfficeName` (`OfficeName`),
   KEY `BrnchAddrRef_idx` (`BrnchAddress`),
   KEY `BrnchPhoneRef_idx` (`BrnchPhone`),
   KEY `BrnchFaxRef_idx` (`BrnchFax`),
   KEY `idx_biz_branches_BrnchEMail` (`BrnchEMail`),
   KEY `BrnchBizNameRef_idx` (`BizId`),
+  KEY `UniqBranch` (`OfficeName`,`BizId`,`BrnchAddress`),
   CONSTRAINT `BrnchAddress` FOREIGN KEY (`BrnchAddress`) REFERENCES `cnt_addresses` (`AddrId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchBizNameRef` FOREIGN KEY (`BizId`) REFERENCES `ent_businesses` (`BizId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchFaxRef` FOREIGN KEY (`BrnchFax`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchPhoneRef` FOREIGN KEY (`BrnchPhone`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3804 DEFAULT CHARSET=utf8 COMMENT='Office Branch Details';
+) ENGINE=InnoDB AUTO_INCREMENT=3807 DEFAULT CHARSET=utf8 COMMENT='Office Branch Details';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -563,7 +563,7 @@ CREATE TABLE `biz_branches` (
 
 LOCK TABLES `biz_branches` WRITE;
 /*!40000 ALTER TABLE `biz_branches` DISABLE KEYS */;
-INSERT INTO `biz_branches` VALUES (3801,'California Head Quarters',253,3935,4255,4257,'info@uskoinc.com'),(3803,NULL,255,3941,4259,NULL,NULL);
+INSERT INTO `biz_branches` VALUES (3801,'California Head Quarters',253,3935,4255,4257,'info@uskoinc.com'),(3803,'',255,3941,4259,NULL,NULL),(3805,'',257,3943,4265,NULL,NULL);
 /*!40000 ALTER TABLE `biz_branches` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -577,17 +577,14 @@ DROP TABLE IF EXISTS `biz_company_nodes`;
 CREATE TABLE `biz_company_nodes` (
   `NodeId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `ParentId` bigint(20) unsigned DEFAULT NULL,
-  `BizId` bigint(20) unsigned NOT NULL,
   `UnitName` varchar(255) NOT NULL,
   `Type` enum('Department','Office','Team','Group','Other') NOT NULL DEFAULT 'Other',
   PRIMARY KEY (`NodeId`),
-  UNIQUE KEY `UniqBizUnitName` (`UnitName`,`BizId`,`Type`),
+  UNIQUE KEY `UniqBizUnitName` (`UnitName`,`Type`),
   KEY `BizParentRef_idx` (`ParentId`),
   KEY `BizName_inx` (`UnitName`),
   KEY `idx_biz_company_nodes_Type` (`Type`),
-  KEY `NodeToBizRef_idx` (`BizId`),
-  CONSTRAINT `BizCompanyParentNodeRef` FOREIGN KEY (`ParentId`) REFERENCES `biz_company_nodes` (`NodeId`) ON UPDATE CASCADE,
-  CONSTRAINT `NodeToBizNameRef` FOREIGN KEY (`BizId`) REFERENCES `ent_businesses` (`BizId`) ON UPDATE CASCADE
+  CONSTRAINT `BizCompanyParentNodeRef` FOREIGN KEY (`ParentId`) REFERENCES `biz_company_nodes` (`NodeId`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=402 DEFAULT CHARSET=utf8 COMMENT='Holds the nodes for the structure of the client/user company hierarchy ';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -597,7 +594,7 @@ CREATE TABLE `biz_company_nodes` (
 
 LOCK TABLES `biz_company_nodes` WRITE;
 /*!40000 ALTER TABLE `biz_company_nodes` DISABLE KEYS */;
-INSERT INTO `biz_company_nodes` VALUES (395,NULL,253,'Dispatchers','Other'),(397,395,253,'Express','Other'),(399,NULL,253,'Executive Office','Other'),(401,NULL,253,'IT','Other');
+INSERT INTO `biz_company_nodes` VALUES (395,NULL,'Dispatchers','Other'),(397,395,'Express','Other'),(399,NULL,'Executive Office','Other'),(401,NULL,'IT','Other');
 /*!40000 ALTER TABLE `biz_company_nodes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -908,7 +905,7 @@ CREATE TABLE `cnt_addresses` (
 
 LOCK TABLES `cnt_addresses` WRITE;
 /*!40000 ALTER TABLE `cnt_addresses` DISABLE KEYS */;
-INSERT INTO `cnt_addresses` VALUES (1,'12344 Fake Street','','','Antelope','','55555','USA',NULL,NULL,NULL),(3764,'Ut In Reprehenderit Molestiae Quo Id.','Ut Modi Repellendus Quia Laudantium. Odit Recusandae Consequatur','Omnis Consectetur Ex Enim Nam Nesciunt Provident. Voluptatibus T','Cumque Quos Adipisci Doloremque.','TX','98690-9361','Canada',9451.56,7425.48,'Fuga vel est eligendi quos deleniti consequuntur qui non.'),(3768,'Magni Aut Dolores Similique. Ad Et Quis Odio Deleniti Earum Labo','Reprehenderit Minus Sunt Rem Fugiat Rerum Natus Rem.','Nisi Enim Est Tempore Et Voluptas Qui Quia Veniam. Assumenda Acc','Corporis Exercitationem Repudiandae Non. Voluptatibus Qui Qui At','VT','63520-8542','United States',5575.04,5004.2,'Qui et voluptatem quia facilis quibusdam cum ea. Rerum et consequuntur repudiandae molestiae alias.'),(3772,'Corporis Sequi Maiores Omnis Aut. Voluptate Nam Accusamus Itaque','Minima Et Et Ex Esse Dolorem Corporis. Ut Eos Dignissimos Repell','Culpa Quia Qui Alias. Minima Quibusdam Blanditiis Unde Magni.','Totam Nihil Eaque Iusto. Aliquam Commodi Dignissimos Accusamus E','HI','93430-1603','Canada',9133.22,2673.8,'Placeat deserunt qui et consequuntur eum. Modi eius natus praesentium minus quae quos nobis. Est culpa aut quod eum aut architecto voluptas neque.'),(3800,'Expedita Ut Suscipit Asperiores Qui Tenetur Molestiae Qui.','Repellat Voluptatem Fugiat Voluptatem Voluptate Aliquam.','Alias Recusandae Odio Illum. Suscipit Consectetur Facilis Et Tem','Nobis Eos Eum Esse Enim Est. Saepe Deleniti Distinctio Odit. Dol','WV','61796-8481','Canada',5925.27,3586.33,'Adipisci quidem omnis sit sunt qui dolores voluptas. Voluptatem magni iusto labore alias.'),(3804,'Dolorum Libero Quo Est Vero. Quae Nulla Dolores Porro.','Reprehenderit Sed Quo Impedit Accusantium Itaque Velit In. Corru','Sunt Vitae Doloribus Culpa. Tempore Eos Nihil Nostrum Et Consequ','Quae Accusamus Sit Eos Quod Sed Aut.','VT','30553-2890','Canada',2838.1,9523.48,'Sunt modi sint velit est nesciunt. Laboriosam iusto enim soluta nihil assumenda ipsum.'),(3820,'Ipsam Inventore Ullam Omnis Voluptatum.','Natus Atque Consectetur Velit Laudantium Eaque Fugit Perferendis','Porro Atque Quos Nesciunt Et Vitae Dolorem. Illum Repellendus Et','Sequi Voluptatem Rerum Id Eius Earum. Eaque Eius Enim Beatae Qui','TN','62622-8741','United States',5306.99,297.53,'Animi facere sed minima qui inventore. Rerum qui perferendis quisquam. Provident eveniet maxime quia.'),(3824,'Et Voluptatem Est Ratione Nihil Autem Et Quasi. Quasi Vero Volup','Et Culpa Ex Hic Veritatis Quae Ea Id. Quia Sed Tempore Sed Dicta','Iure Hic Qui Cum Corporis Sit. Et Eius Officia Quia Exercitation','Voluptatem Nam Est Vero Impedit. Architecto Qui Qui Et.','ND','67898-6806','United States',9484.3,1056.18,'Explicabo reiciendis commodi sunt.'),(3828,'Vel Ullam Quis Quia.','In Molestiae Ut Praesentium Enim Inventore Velit Omnis. Deleniti','Ab Suscipit Quia Modi Commodi In.','Dicta Repellendus Possimus Doloribus Porro Sunt Eaque.','MI','84176-3533','United States',5937.31,5678.19,'Cupiditate accusamus ad eius hic.'),(3832,'Dolores Quasi Iste In Velit Id Cumque Sunt Placeat. Commodi Sint','Sapiente Qui Neque Quis Inventore Dolorem. Nobis Incidunt Est No','Et Tempora Sint Officiis Ratione. Ullam Reiciendis Et Enim. Hic','Nemo Molestias Repudiandae Qui Rem Aperiam. Facere Laborum Sit E','PA','60344-9832','United States',4004.4,1553.24,'Sunt est voluptas sint quasi voluptatem. Distinctio optio maiores quia saepe.'),(3836,'Maiores Optio Sit In Omnis. Vitae Placeat Quas Ab. Cum Qui Volup','Pariatur Blanditiis Ut Earum Veniam Ex.','Est Fugiat Magnam Consequatur Fugit Impedit Repellendus Voluptat','Occaecati Neque Illo Consequatur Et Ipsum Ratione Odio Placeat.','NE','30087-4287','Canada',9683.85,7360.14,'Voluptas qui aut dignissimos et quasi in commodi dolores. Aliquam sunt exercitationem ipsam officia at enim aut. Ea et iusto voluptatem et dolores magnam aspernatur reprehenderit.'),(3840,'Consequuntur Voluptatum Placeat Assumenda Consequatur Reiciendis','Qui Tenetur Doloremque Enim Debitis Adipisci Voluptatem. Molesti','Reiciendis Omnis Est Qui Eius Quibusdam Minus Sit.','Et Cupiditate Veniam Et Vel Omnis.','WY','48237-2874','Canada',1924.54,5654.7,'Voluptatibus et pariatur aut.'),(3846,'Unde Vero Dolor Nulla Nobis Iusto Ipsa Ut Est. Sed Vel Et Suscip','Maxime Nihil Nihil Modi Laudantium Voluptatibus Excepturi.','Esse Exercitationem Modi Ducimus. Ut Laboriosam Sed Rerum Dolore','Aut Omnis Et Quo Minus Possimus Rerum.','PA','96830-5124','United States',4814.75,1650.41,'Aut distinctio ut ullam nulla in ut.'),(3898,'Sint Debitis Rem Autem Vel. Eos Aut Corrupti Cupiditate Sint Eaq','Nobis Maxime Accusantium Maiores.','Ratione Iure Similique Aut Sint Quia Qui. Reprehenderit Rerum Cu','Corrupti Officiis Eaque Distinctio.','OK','64640-7762','Canada',6270.16,6652.13,'Sapiente omnis quos dicta in id error debitis ratione.'),(3900,'Hic In Delectus Eligendi Alias Ab Corrupti Perspiciatis. Dolores','Tempora Ea Libero Voluptatibus Molestias Animi Libero Iste. Est','Quas Eos Soluta Eum Nobis Quia Minus Asperiores.','Consequatur Amet Enim Ut Dolorem. Harum Et Et Quia Ab Ex Aperiam','NJ','65341-3932','Canada',2898.13,7036.85,'Sint consequatur repellendus error. Consequatur aut dignissimos nihil nulla. Ullam quas dolor in amet ex.'),(3902,'Illo Voluptas Suscipit Quia Sit. Deserunt Blanditiis Omnis Quasi','Ut Tenetur Ab Sed Quibusdam Accusantium Dignissimos Nobis. Enim','Iure Accusantium Laborum Aut Quia Sint Excepturi Voluptas.','Et Enim Inventore Et Quia Aliquam Consectetur Quo Laudantium. Es','WY','79469-7658','Canada',1444.45,4240.48,'Sint nesciunt quia excepturi corporis totam cumque. Alias quam rem voluptatem delectus quam. In vel rerum nihil.'),(3904,'Praesentium A Facilis Corrupti Distinctio Maiores Aut. Cum Corpo','Est Voluptatem Quas Dolorum Voluptatem Dolores. Perferendis Ut E','Quae Rerum Rerum Perferendis Officiis Ratione.','Magnam Velit Est Eveniet Sit Maxime Necessitatibus Occaecati. Ma','MA','27561-9954','United States',3757.63,5129.49,'Explicabo eligendi quia inventore at ea adipisci et. Minus pariatur non ea. Qui sed ex rerum et.'),(3919,'1234 MAIN CT','','','SAN FRANCISCO','CA','12345','USA',NULL,NULL,NULL),(3921,'1234 POINT Z CT','','','SAN FRANCISCO','CA','12345','USA',NULL,NULL,NULL),(3923,'ABC','HELLO','','HJKWHJ','CA','67629','USA',NULL,NULL,NULL),(3925,'ABC','HELLO','','HJKWHJ','FL','67629','USA',NULL,NULL,NULL),(3929,'35558 MAX AVE','','','SACRAMENTO','CA','88762','USA',NULL,NULL,NULL),(3935,'11290 POINT EAST DRIVE','STE 200','','RANCHO CORDOVA','CA','95742','USA',NULL,NULL,NULL),(3941,'3558 MADDIEWOOD CIR','','','SACRAMENTO','CA','95827','USA',NULL,NULL,NULL),(3943,'8130 LEYDEN ST','','','ELVERTA','CA','95626','USA',NULL,NULL,NULL);
+INSERT INTO `cnt_addresses` VALUES (1,'12344 Fake Street','','','Antelope','','55555','USA',NULL,NULL,NULL),(3764,'Ut In Reprehenderit Molestiae Quo Id.','Ut Modi Repellendus Quia Laudantium. Odit Recusandae Consequatur','Omnis Consectetur Ex Enim Nam Nesciunt Provident. Voluptatibus T','Cumque Quos Adipisci Doloremque.','TX','98690-9361','Canada',9451.56,7425.48,'Fuga vel est eligendi quos deleniti consequuntur qui non.'),(3768,'Magni Aut Dolores Similique. Ad Et Quis Odio Deleniti Earum Labo','Reprehenderit Minus Sunt Rem Fugiat Rerum Natus Rem.','Nisi Enim Est Tempore Et Voluptas Qui Quia Veniam. Assumenda Acc','Corporis Exercitationem Repudiandae Non. Voluptatibus Qui Qui At','VT','63520-8542','United States',5575.04,5004.2,'Qui et voluptatem quia facilis quibusdam cum ea. Rerum et consequuntur repudiandae molestiae alias.'),(3772,'Corporis Sequi Maiores Omnis Aut. Voluptate Nam Accusamus Itaque','Minima Et Et Ex Esse Dolorem Corporis. Ut Eos Dignissimos Repell','Culpa Quia Qui Alias. Minima Quibusdam Blanditiis Unde Magni.','Totam Nihil Eaque Iusto. Aliquam Commodi Dignissimos Accusamus E','HI','93430-1603','Canada',9133.22,2673.8,'Placeat deserunt qui et consequuntur eum. Modi eius natus praesentium minus quae quos nobis. Est culpa aut quod eum aut architecto voluptas neque.'),(3800,'Expedita Ut Suscipit Asperiores Qui Tenetur Molestiae Qui.','Repellat Voluptatem Fugiat Voluptatem Voluptate Aliquam.','Alias Recusandae Odio Illum. Suscipit Consectetur Facilis Et Tem','Nobis Eos Eum Esse Enim Est. Saepe Deleniti Distinctio Odit. Dol','WV','61796-8481','Canada',5925.27,3586.33,'Adipisci quidem omnis sit sunt qui dolores voluptas. Voluptatem magni iusto labore alias.'),(3804,'Dolorum Libero Quo Est Vero. Quae Nulla Dolores Porro.','Reprehenderit Sed Quo Impedit Accusantium Itaque Velit In. Corru','Sunt Vitae Doloribus Culpa. Tempore Eos Nihil Nostrum Et Consequ','Quae Accusamus Sit Eos Quod Sed Aut.','VT','30553-2890','Canada',2838.1,9523.48,'Sunt modi sint velit est nesciunt. Laboriosam iusto enim soluta nihil assumenda ipsum.'),(3820,'Ipsam Inventore Ullam Omnis Voluptatum.','Natus Atque Consectetur Velit Laudantium Eaque Fugit Perferendis','Porro Atque Quos Nesciunt Et Vitae Dolorem. Illum Repellendus Et','Sequi Voluptatem Rerum Id Eius Earum. Eaque Eius Enim Beatae Qui','TN','62622-8741','United States',5306.99,297.53,'Animi facere sed minima qui inventore. Rerum qui perferendis quisquam. Provident eveniet maxime quia.'),(3824,'Et Voluptatem Est Ratione Nihil Autem Et Quasi. Quasi Vero Volup','Et Culpa Ex Hic Veritatis Quae Ea Id. Quia Sed Tempore Sed Dicta','Iure Hic Qui Cum Corporis Sit. Et Eius Officia Quia Exercitation','Voluptatem Nam Est Vero Impedit. Architecto Qui Qui Et.','ND','67898-6806','United States',9484.3,1056.18,'Explicabo reiciendis commodi sunt.'),(3828,'Vel Ullam Quis Quia.','In Molestiae Ut Praesentium Enim Inventore Velit Omnis. Deleniti','Ab Suscipit Quia Modi Commodi In.','Dicta Repellendus Possimus Doloribus Porro Sunt Eaque.','MI','84176-3533','United States',5937.31,5678.19,'Cupiditate accusamus ad eius hic.'),(3832,'Dolores Quasi Iste In Velit Id Cumque Sunt Placeat. Commodi Sint','Sapiente Qui Neque Quis Inventore Dolorem. Nobis Incidunt Est No','Et Tempora Sint Officiis Ratione. Ullam Reiciendis Et Enim. Hic','Nemo Molestias Repudiandae Qui Rem Aperiam. Facere Laborum Sit E','PA','60344-9832','United States',4004.4,1553.24,'Sunt est voluptas sint quasi voluptatem. Distinctio optio maiores quia saepe.'),(3836,'Maiores Optio Sit In Omnis. Vitae Placeat Quas Ab. Cum Qui Volup','Pariatur Blanditiis Ut Earum Veniam Ex.','Est Fugiat Magnam Consequatur Fugit Impedit Repellendus Voluptat','Occaecati Neque Illo Consequatur Et Ipsum Ratione Odio Placeat.','NE','30087-4287','Canada',9683.85,7360.14,'Voluptas qui aut dignissimos et quasi in commodi dolores. Aliquam sunt exercitationem ipsam officia at enim aut. Ea et iusto voluptatem et dolores magnam aspernatur reprehenderit.'),(3840,'Consequuntur Voluptatum Placeat Assumenda Consequatur Reiciendis','Qui Tenetur Doloremque Enim Debitis Adipisci Voluptatem. Molesti','Reiciendis Omnis Est Qui Eius Quibusdam Minus Sit.','Et Cupiditate Veniam Et Vel Omnis.','WY','48237-2874','Canada',1924.54,5654.7,'Voluptatibus et pariatur aut.'),(3846,'Unde Vero Dolor Nulla Nobis Iusto Ipsa Ut Est. Sed Vel Et Suscip','Maxime Nihil Nihil Modi Laudantium Voluptatibus Excepturi.','Esse Exercitationem Modi Ducimus. Ut Laboriosam Sed Rerum Dolore','Aut Omnis Et Quo Minus Possimus Rerum.','PA','96830-5124','United States',4814.75,1650.41,'Aut distinctio ut ullam nulla in ut.'),(3898,'Sint Debitis Rem Autem Vel. Eos Aut Corrupti Cupiditate Sint Eaq','Nobis Maxime Accusantium Maiores.','Ratione Iure Similique Aut Sint Quia Qui. Reprehenderit Rerum Cu','Corrupti Officiis Eaque Distinctio.','OK','64640-7762','Canada',6270.16,6652.13,'Sapiente omnis quos dicta in id error debitis ratione.'),(3900,'Hic In Delectus Eligendi Alias Ab Corrupti Perspiciatis. Dolores','Tempora Ea Libero Voluptatibus Molestias Animi Libero Iste. Est','Quas Eos Soluta Eum Nobis Quia Minus Asperiores.','Consequatur Amet Enim Ut Dolorem. Harum Et Et Quia Ab Ex Aperiam','NJ','65341-3932','Canada',2898.13,7036.85,'Sint consequatur repellendus error. Consequatur aut dignissimos nihil nulla. Ullam quas dolor in amet ex.'),(3902,'Illo Voluptas Suscipit Quia Sit. Deserunt Blanditiis Omnis Quasi','Ut Tenetur Ab Sed Quibusdam Accusantium Dignissimos Nobis. Enim','Iure Accusantium Laborum Aut Quia Sint Excepturi Voluptas.','Et Enim Inventore Et Quia Aliquam Consectetur Quo Laudantium. Es','WY','79469-7658','Canada',1444.45,4240.48,'Sint nesciunt quia excepturi corporis totam cumque. Alias quam rem voluptatem delectus quam. In vel rerum nihil.'),(3904,'Praesentium A Facilis Corrupti Distinctio Maiores Aut. Cum Corpo','Est Voluptatem Quas Dolorum Voluptatem Dolores. Perferendis Ut E','Quae Rerum Rerum Perferendis Officiis Ratione.','Magnam Velit Est Eveniet Sit Maxime Necessitatibus Occaecati. Ma','MA','27561-9954','United States',3757.63,5129.49,'Explicabo eligendi quia inventore at ea adipisci et. Minus pariatur non ea. Qui sed ex rerum et.'),(3919,'1234 MAIN CT','','','SAN FRANCISCO','CA','12345','USA',NULL,NULL,NULL),(3921,'1234 POINT Z CT','','','SAN FRANCISCO','CA','12345','USA',NULL,NULL,NULL),(3923,'ABC','HELLO','','HJKWHJ','CA','67629','USA',NULL,NULL,NULL),(3925,'ABC','HELLO','','HJKWHJ','FL','67629','USA',NULL,NULL,NULL),(3929,'35558 MAX AVE','','','SACRAMENTO','CA','88762','USA',NULL,NULL,NULL),(3935,'11290 POINT EAST DRIVE','STE 200','','RANCHO CORDOVA','CA','95742','USA',NULL,NULL,NULL),(3941,'3558 MADDIEWOOD CIR','','','SACRAMENTO','CA','95827','United States',NULL,NULL,NULL),(3943,'8130 LEYDEN ST','','','ELVERTA','CA','95626','USA',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `cnt_addresses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -943,6 +940,213 @@ LOCK TABLES `cnt_phonesfaxes` WRITE;
 /*!40000 ALTER TABLE `cnt_phonesfaxes` DISABLE KEYS */;
 INSERT INTO `cnt_phonesfaxes` VALUES (3974,'762-824-2352','98607*0509','SMS','MOBILE','Necessitatibus dolor deserunt tempore eaque.'),(3976,'918-378-0840','#84,**#363','SMS','SOFT PHONE','Illum enim quo iure aut fuga minus. Non sed sit nihil incidunt ut nisi asperiores maxime. Cum est eligendi cumque occaecati dolores sapiente vitae est.'),(3982,'382-030-4839','**21#*,##4','SMS,MMS','LAND LINE','Voluptatem nemo modi optio amet. Ipsum adipisci exercitationem quasi quasi consequuntur.'),(3984,'418-388-4783','0*64#43470','MMS,FAX','SOFT PHONE','Eius ipsam voluptate aut.'),(3990,'969-357-7270','018,8*5*15','VOICE,SMS,MMS,FAX','LAND LINE','Qui debitis ducimus corrupti beatae placeat.'),(3992,'298-082-6481','26#05#5439','SMS,MMS','SOFT PHONE','Optio blanditiis aut provident repellat tempore dolorem.'),(4028,'116-274-6116','40#5#68282','SMS,FAX','MOBILE','Sit sit voluptatem delectus. Et fugit quisquam perferendis. Et commodi reprehenderit assumenda quia a.'),(4030,'935-236-2187','6#220#8#84','VOICE,SMS,MMS,FAX','MOBILE','Veritatis velit et dolorem aut ratione.'),(4036,'264-230-3059','2500*#*,,9','SMS,MMS,FAX','MOBILE','Magni magni voluptatum quasi et cum. Et velit impedit vero nihil tempore ipsam qui est. Neque hic sequi excepturi dolor.'),(4038,'419-061-3999','512786*2#7','VOICE,SMS,MMS,FAX','MOBILE','Iste laboriosam optio exercitationem doloremque eaque voluptatem. Suscipit ex doloribus odit. Recusandae quis omnis aliquam fugiat dolores.'),(4086,'319-310-7211','1613143862','SMS','LAND LINE','Vel laborum rerum facere iusto.'),(4088,'301-264-8672','64#3327660','VOICE,FAX','SOFT PHONE','Pariatur debitis dolores cum ad maiores.'),(4094,'587-582-0072','56#3*#7936','FAX','LAND LINE','Hic perferendis nihil quaerat quisquam. In dolores possimus magnam. Eius provident quidem repellat veniam voluptatem aut blanditiis.'),(4096,'616-622-8955','4995341145','FAX','SOFT PHONE','Neque ea sunt et repellat voluptas nihil sequi. Dolorem quod quos sunt laudantium natus suscipit eaque. Saepe vero dolores odit quae sint quaerat nulla.'),(4102,'398-845-5037','9933,18,*6','VOICE,SMS,FAX','MOBILE','Provident earum expedita sint. Doloribus esse porro dolorem totam.'),(4104,'128-924-7809','7,866*9654','VOICE','LAND LINE','Vero est beatae quaerat similique atque laborum rem. Debitis aut hic atque rerum.'),(4110,'248-315-1753','8#617958#4','SMS,MMS,FAX','LAND LINE','In provident dolorem itaque voluptatem voluptas.'),(4112,'608-633-3721','3646,03354','VOICE,FAX','SOFT PHONE','Debitis provident excepturi sed odio. Est ex dolore qui impedit. Atque recusandae et non in minus enim ab quo.'),(4118,'343-693-3697','649194#7#0','VOICE,MMS,FAX','LAND LINE','Corporis atque ullam fuga quos enim.'),(4120,'394-819-9334','388*955446','MMS','MOBILE','Porro dolorem sed facilis aliquid cumque.'),(4126,'613-678-3141','5493363574','VOICE','SOFT PHONE','Rerum possimus unde sed optio natus. Voluptas voluptate aut eligendi fuga in ut.'),(4128,'788-991-2169','11*09,8*#8','VOICE','SOFT PHONE','Harum sequi molestiae est voluptatem quos. Similique quibusdam ut voluptas exercitationem.'),(4138,'597-155-5654','63,6#,,338','VOICE,MMS,FAX','LAND LINE','Eos iure velit a ut dolor ex quibusdam qui. Dolorum doloribus cum odit ipsa. Sequi reiciendis error voluptatibus vero autem quas.'),(4140,'868-083-5572','0791119494','VOICE,SMS,MMS,FAX','LAND LINE','Maiores reiciendis nemo harum quisquam. Eos est consequatur dolores nihil hic.'),(4198,'787-983-5692','85906#*8,6','VOICE,SMS,MMS,FAX','MOBILE','Odit quia autem eligendi harum nobis totam assumenda optio. Quia error molestias est nostrum. Corrupti ratione voluptatibus et reprehenderit qui voluptatibus numquam.'),(4200,'668-891-4055','2047293753','SMS,MMS','MOBILE','Neque velit perspiciatis similique voluptas non iure.'),(4202,'180-900-2566','*92,235543','VOICE,SMS,FAX','MOBILE','Voluptas asperiores impedit voluptas delectus et aut et perspiciatis.'),(4204,'344-280-2437','69570,7051','SMS,MMS,FAX','MOBILE','Et illum est officiis aut. Ad nesciunt distinctio voluptatum impedit explicabo sunt.'),(4206,'796-133-9327','2738005242','VOICE,MMS,FAX','MOBILE','Exercitationem nihil recusandae nemo quis doloribus. Itaque incidunt itaque et quis facere ut dolor sit.'),(4208,'744-981-1054','1,,#40*362','SMS','LAND LINE','Ducimus labore odio quam quas.'),(4210,'464-059-6382','4869,6#749','MMS,FAX','SOFT PHONE','Et impedit tempora sint hic cupiditate placeat nam autem. Sequi sapiente fugit ad tempora id. Sed et adipisci a dolor qui sint.'),(4212,'768-853-8546','*54,74*#76','SMS,FAX','MOBILE','Dolorum culpa ab placeat quo. Ea quasi quo sit nemo magni ea aut.'),(4214,'786-491-3038','0214*,9852','SMS,MMS','SOFT PHONE','Quia dicta ea inventore illo ducimus ut dignissimos et. Et excepturi est eveniet aliquam.'),(4216,'421-567-1640','*4##607#82','VOICE,MMS','SOFT PHONE','Eum dolorum molestias fugit. Sit harum illum libero omnis. Aut dolorum nisi quis inventore adipisci.'),(4218,'428-252-2894','**27080481','VOICE,SMS,MMS,FAX','MOBILE','Dolores illum ea culpa facere aut sapiente enim. Optio enim fugit veniam animi dolorem perferendis. Reprehenderit quisquam necessitatibus hic ipsum dolores quis harum amet.'),(4220,'601-539-9318','#85688,919','VOICE,SMS,MMS,FAX','LAND LINE','Quas ut ad ut ea deserunt corrupti. Iure velit ullam odio.'),(4221,'916-718-8451','0','VOICE','LAND LINE',NULL),(4223,'619-555-1212','0','VOICE','LAND LINE',NULL),(4255,'916-515-8065','0','VOICE','LAND LINE',NULL),(4257,'916-515-8066','0','VOICE','LAND LINE',NULL),(4259,'916-880-8506','0','VOICE','LAND LINE',NULL),(4261,'916-515-8065','1001','VOICE','LAND LINE',NULL),(4263,'916-515-8065','1009','VOICE','LAND LINE',NULL),(4265,'916-389-4508','0','VOICE','LAND LINE',NULL);
 /*!40000 ALTER TABLE `cnt_phonesfaxes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `crr_ifta_decal`
+--
+
+DROP TABLE IF EXISTS `crr_ifta_decal`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `crr_ifta_decal` (
+  `DecalId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `IftaAcctId` bigint(20) unsigned NOT NULL,
+  `DecalNo` varchar(255) NOT NULL,
+  `DecalImg` bigint(20) unsigned NOT NULL,
+  `VehicleId` bigint(20) unsigned NOT NULL,
+  `EffectiveDate` date NOT NULL,
+  `ExpirationDate` date NOT NULL,
+  `DateIssued` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `CreatedBy` bigint(20) unsigned DEFAULT NULL,
+  PRIMARY KEY (`DecalId`),
+  KEY `IftaDeclRef_idx` (`IftaAcctId`),
+  KEY `DecalImfRef_idx` (`DecalImg`),
+  KEY `IftaTruckRef_idx` (`VehicleId`),
+  KEY `idx_crr_ifta_decal_DecalNo` (`DecalNo`),
+  KEY `DecalIssuedBy_idx` (`CreatedBy`),
+  KEY `idx_crr_ifta_decal_EffectiveDate` (`EffectiveDate`),
+  KEY `idx_crr_ifta_decal_ExpirationDate` (`ExpirationDate`),
+  KEY `idx_crr_ifta_decal_DateIssued` (`DateIssued`),
+  CONSTRAINT `DecalImfRef` FOREIGN KEY (`DecalImg`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE,
+  CONSTRAINT `DecalIssuedBy` FOREIGN KEY (`CreatedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
+  CONSTRAINT `IftaDeclRef` FOREIGN KEY (`IftaAcctId`) REFERENCES `crr_iftas` (`IftaAcctId`) ON UPDATE CASCADE,
+  CONSTRAINT `IftaTruckRef` FOREIGN KEY (`VehicleId`) REFERENCES `inv_vehicles` (`VehicleId`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `crr_ifta_decal`
+--
+
+LOCK TABLES `crr_ifta_decal` WRITE;
+/*!40000 ALTER TABLE `crr_ifta_decal` DISABLE KEYS */;
+/*!40000 ALTER TABLE `crr_ifta_decal` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `crr_iftas`
+--
+
+DROP TABLE IF EXISTS `crr_iftas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `crr_iftas` (
+  `IftaAcctId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `State` char(2) NOT NULL,
+  `IFTALicense` varchar(255) NOT NULL,
+  `McAccount` varchar(255) NOT NULL,
+  `ProofDoc` bigint(20) unsigned DEFAULT NULL,
+  `Effective` date NOT NULL,
+  `Expiration` date NOT NULL,
+  `BizId` bigint(20) unsigned NOT NULL COMMENT 'Who pays for it',
+  PRIMARY KEY (`IftaAcctId`),
+  UNIQUE KEY `mcaccount_UNIQUE` (`McAccount`),
+  UNIQUE KEY `IFTALicense_UNIQUE` (`IFTALicense`),
+  KEY `IftaProofRef_idx` (`ProofDoc`),
+  KEY `idx_crr_iftas_State` (`State`),
+  KEY `idx_crr_iftas_Effective` (`Effective`),
+  KEY `idx_crr_iftas_Expiration` (`Expiration`),
+  KEY `IftaPayerBizRef_idx` (`BizId`),
+  KEY `idx_crr_iftas_IFTALicense` (`IFTALicense`),
+  KEY `idx_crr_iftas_McAccount` (`McAccount`),
+  CONSTRAINT `IftaPayerBizRef` FOREIGN KEY (`BizId`) REFERENCES `ent_businesses` (`BizId`) ON UPDATE CASCADE,
+  CONSTRAINT `IftaProofRef` FOREIGN KEY (`ProofDoc`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `crr_iftas`
+--
+
+LOCK TABLES `crr_iftas` WRITE;
+/*!40000 ALTER TABLE `crr_iftas` DISABLE KEYS */;
+INSERT INTO `crr_iftas` VALUES (1,'CA','changeme','changeme',NULL,'2019-01-01','2019-12-31',257);
+/*!40000 ALTER TABLE `crr_iftas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `crr_permit_account_docs`
+--
+
+DROP TABLE IF EXISTS `crr_permit_account_docs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `crr_permit_account_docs` (
+  `PrmtRegDocId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `CrrPrmtAccId` bigint(20) unsigned NOT NULL,
+  `CrrPrmtAccDoc` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`PrmtRegDocId`),
+  UNIQUE KEY `UniqPermitRegDoc` (`CrrPrmtAccId`,`CrrPrmtAccDoc`),
+  KEY `PrmtRegAccDocRef_idx` (`CrrPrmtAccDoc`),
+  CONSTRAINT `PrmtRegAccDocRef` FOREIGN KEY (`CrrPrmtAccDoc`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE,
+  CONSTRAINT `PrmtRegAccRef` FOREIGN KEY (`CrrPrmtAccId`) REFERENCES `crr_permit_accounts` (`CrrPrmtAccId`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='State Registration Documents	';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `crr_permit_account_docs`
+--
+
+LOCK TABLES `crr_permit_account_docs` WRITE;
+/*!40000 ALTER TABLE `crr_permit_account_docs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `crr_permit_account_docs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `crr_permit_accounts`
+--
+
+DROP TABLE IF EXISTS `crr_permit_accounts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `crr_permit_accounts` (
+  `CrrPrmtAccId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `AccountNo` varchar(255) NOT NULL,
+  `State` char(2) NOT NULL,
+  `CarrierId` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`CrrPrmtAccId`),
+  KEY `PermCarrRef_idx` (`CarrierId`),
+  KEY `idx_crr_permit_accounts_AccountNo` (`AccountNo`),
+  KEY `idx_crr_permit_accounts_State` (`State`),
+  CONSTRAINT `PermCarrRef` FOREIGN KEY (`CarrierId`) REFERENCES `ent_carriers` (`CarrierId`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `crr_permit_accounts`
+--
+
+LOCK TABLES `crr_permit_accounts` WRITE;
+/*!40000 ALTER TABLE `crr_permit_accounts` DISABLE KEYS */;
+INSERT INTO `crr_permit_accounts` VALUES (1,'ChangeMe','CA',257);
+/*!40000 ALTER TABLE `crr_permit_accounts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `crr_permit_images`
+--
+
+DROP TABLE IF EXISTS `crr_permit_images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `crr_permit_images` (
+  `PrmtImgId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `StatePrmtId` bigint(20) unsigned NOT NULL,
+  `PermtImageId` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`PrmtImgId`),
+  UNIQUE KEY `StateUnqImage` (`StatePrmtId`,`PermtImageId`),
+  KEY `StatePermRef_idx` (`StatePrmtId`),
+  KEY `StatePermImg_idx` (`PermtImageId`),
+  CONSTRAINT `StatePermImg` FOREIGN KEY (`PermtImageId`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE,
+  CONSTRAINT `StatePermRef` FOREIGN KEY (`StatePrmtId`) REFERENCES `crr_state_permits` (`StatePrmtId`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `crr_permit_images`
+--
+
+LOCK TABLES `crr_permit_images` WRITE;
+/*!40000 ALTER TABLE `crr_permit_images` DISABLE KEYS */;
+/*!40000 ALTER TABLE `crr_permit_images` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `crr_state_permits`
+--
+
+DROP TABLE IF EXISTS `crr_state_permits`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `crr_state_permits` (
+  `StatePrmtId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `CrrPrmtAccId` bigint(20) unsigned NOT NULL,
+  `VehicleId` bigint(20) unsigned NOT NULL,
+  `ReceiptNo` varchar(255) NOT NULL,
+  `Effective` date NOT NULL,
+  `Expired` date NOT NULL,
+  `Issued` date NOT NULL,
+  PRIMARY KEY (`StatePrmtId`),
+  UNIQUE KEY `UniqVhclPermit` (`ReceiptNo`,`Effective`,`Expired`),
+  KEY `PermAccRef_idx` (`CrrPrmtAccId`),
+  KEY `PermVhclRef_idx` (`VehicleId`),
+  KEY `idx_crr_state_permits_ReceiptNo` (`ReceiptNo`),
+  KEY `idx_crr_state_permits_Effective` (`Effective`),
+  KEY `idx_crr_state_permits_Expired` (`Expired`),
+  KEY `idx_crr_state_permits_Issued` (`Issued`),
+  CONSTRAINT `PermAccRef` FOREIGN KEY (`CrrPrmtAccId`) REFERENCES `crr_permit_accounts` (`CrrPrmtAccId`) ON UPDATE CASCADE,
+  CONSTRAINT `PermVhclRef` FOREIGN KEY (`VehicleId`) REFERENCES `inv_vehicles` (`VehicleId`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `crr_state_permits`
+--
+
+LOCK TABLES `crr_state_permits` WRITE;
+/*!40000 ALTER TABLE `crr_state_permits` DISABLE KEYS */;
+/*!40000 ALTER TABLE `crr_state_permits` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1133,38 +1337,6 @@ CREATE TABLE `drv_schedules` (
 LOCK TABLES `drv_schedules` WRITE;
 /*!40000 ALTER TABLE `drv_schedules` DISABLE KEYS */;
 /*!40000 ALTER TABLE `drv_schedules` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `dsp_blacklist`
---
-
-DROP TABLE IF EXISTS `dsp_blacklist`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `dsp_blacklist` (
-  `BlackListId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `CstmrId` bigint(20) unsigned NOT NULL,
-  `DateCreated` datetime NOT NULL,
-  `Creator` bigint(20) unsigned NOT NULL,
-  `ReasonPublic` text NOT NULL,
-  `ReasonPrivate` text,
-  PRIMARY KEY (`BlackListId`),
-  KEY `DspBlacklistCreatorRef_idx` (`Creator`),
-  KEY `idx_dsp_blacklist_DateCreated` (`DateCreated`),
-  KEY `BadCstmrRef_idx` (`CstmrId`),
-  CONSTRAINT `BadCstmrRef` FOREIGN KEY (`CstmrId`) REFERENCES `ent_customers` (`CstmrId`) ON UPDATE CASCADE,
-  CONSTRAINT `DspBlacklistCreatorRef` FOREIGN KEY (`Creator`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Complaints about entities and why you should not do business with them';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `dsp_blacklist`
---
-
-LOCK TABLES `dsp_blacklist` WRITE;
-/*!40000 ALTER TABLE `dsp_blacklist` DISABLE KEYS */;
-/*!40000 ALTER TABLE `dsp_blacklist` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1540,6 +1712,39 @@ LOCK TABLES `dsp_trips_loads` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `ent_blacklist`
+--
+
+DROP TABLE IF EXISTS `ent_blacklist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ent_blacklist` (
+  `BlackListId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `EntityId` bigint(20) unsigned NOT NULL,
+  `DateCreated` datetime NOT NULL,
+  `Creator` bigint(20) unsigned NOT NULL,
+  `Reason` text NOT NULL,
+  `Type` enum('public','private') NOT NULL DEFAULT 'private',
+  PRIMARY KEY (`BlackListId`),
+  KEY `DspBlacklistCreatorRef_idx` (`Creator`),
+  KEY `idx_dsp_blacklist_DateCreated` (`DateCreated`),
+  KEY `BadCstmrRef_idx` (`EntityId`),
+  KEY `idx_ent_blacklist_Type` (`Type`),
+  CONSTRAINT `BadCstmrRef` FOREIGN KEY (`EntityId`) REFERENCES `entities` (`EntityId`) ON UPDATE CASCADE,
+  CONSTRAINT `DspBlacklistCreatorRef` FOREIGN KEY (`Creator`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Complaints about entities and why you should not do business with them';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ent_blacklist`
+--
+
+LOCK TABLES `ent_blacklist` WRITE;
+/*!40000 ALTER TABLE `ent_blacklist` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ent_blacklist` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `ent_businesses`
 --
 
@@ -1563,7 +1768,7 @@ CREATE TABLE `ent_businesses` (
 
 LOCK TABLES `ent_businesses` WRITE;
 /*!40000 ALTER TABLE `ent_businesses` DISABLE KEYS */;
-INSERT INTO `ent_businesses` VALUES (253,'Usko Express Inc','www.uskoinc.com'),(255,'Heavenly Cookies and More, LLC','www.heavenlycookiesandmore.com'),(257,'4 RINGS EXPRESS INC',NULL);
+INSERT INTO `ent_businesses` VALUES (253,'Usko Express Inc','http://uskoinc.com'),(255,'Heavenly Cookies and More, LLC','www.heavenlycookiesandmore.com'),(257,'4 RINGS EXPRESS INC',NULL);
 /*!40000 ALTER TABLE `ent_businesses` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -1598,16 +1803,7 @@ CREATE TABLE `ent_carriers` (
   `McCertificatePhoto` bigint(20) unsigned DEFAULT NULL,
   `DOT` varchar(15) DEFAULT NULL,
   `CrType` enum('Company Carrier','Brokerage Only') DEFAULT NULL,
-  `IFTA_Acc` varchar(255) DEFAULT NULL,
-  `IFTA_State` char(2) DEFAULT NULL,
   `SCAC` varchar(4) DEFAULT NULL,
-  `state_OR` varchar(255) DEFAULT NULL,
-  `state_NY` varchar(255) DEFAULT NULL,
-  `state_NC` varchar(255) DEFAULT NULL,
-  `state_SC` varchar(255) DEFAULT NULL,
-  `state_NM` varchar(255) DEFAULT NULL,
-  `state_KY` varchar(255) DEFAULT NULL,
-  `state_FL` varchar(255) DEFAULT NULL,
   `RateConfEmailAddress` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`CarrierId`),
   UNIQUE KEY `MC_UNIQUE` (`MC`),
@@ -1616,16 +1812,7 @@ CREATE TABLE `ent_carriers` (
   KEY `McCertRef_idx` (`McCertificatePhoto`),
   KEY `idx_ent_carriers_MC` (`MC`),
   KEY `idx_ent_carriers_CrType` (`CrType`),
-  KEY `idx_ent_carriers_IFTA_Acc` (`IFTA_Acc`),
   KEY `idx_ent_carriers_SCAC` (`SCAC`),
-  KEY `idx_ent_carriers_state_OR` (`state_OR`),
-  KEY `idx_ent_carriers_state_NY` (`state_NY`),
-  KEY `idx_ent_carriers_state_NC` (`state_NC`),
-  KEY `idx_ent_carriers_state_SC` (`state_SC`),
-  KEY `idx_ent_carriers_state_NM` (`state_NM`),
-  KEY `idx_ent_carriers_state_KY` (`state_KY`),
-  KEY `idx_ent_carriers_state_FL` (`state_FL`),
-  KEY `idx_ent_carriers_IFTA_State` (`IFTA_State`),
   KEY `idx_ent_carriers_RateConfEmailAddress` (`RateConfEmailAddress`),
   CONSTRAINT `CarrierBusinessRef` FOREIGN KEY (`CarrierId`) REFERENCES `ent_businesses` (`BizId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `McCertRef` FOREIGN KEY (`McCertificatePhoto`) REFERENCES `gen_files` (`FileId`) ON DELETE SET NULL ON UPDATE CASCADE
@@ -1638,6 +1825,7 @@ CREATE TABLE `ent_carriers` (
 
 LOCK TABLES `ent_carriers` WRITE;
 /*!40000 ALTER TABLE `ent_carriers` DISABLE KEYS */;
+INSERT INTO `ent_carriers` VALUES (257,NULL,NULL,'USDOT3151801','Company Carrier',NULL,NULL);
 /*!40000 ALTER TABLE `ent_carriers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1703,6 +1891,32 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Table structure for table `ent_owner_operators`
+--
+
+DROP TABLE IF EXISTS `ent_owner_operators`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ent_owner_operators` (
+  `BizId` bigint(20) unsigned NOT NULL,
+  `CarrierId` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`BizId`),
+  KEY `UnderCarrierSignesRef_idx` (`CarrierId`),
+  CONSTRAINT `OwnerOprBizRef` FOREIGN KEY (`BizId`) REFERENCES `ent_businesses` (`BizId`) ON UPDATE CASCADE,
+  CONSTRAINT `UnderCarrierSignesRef` FOREIGN KEY (`CarrierId`) REFERENCES `ent_carriers` (`CarrierId`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ent_owner_operators`
+--
+
+LOCK TABLES `ent_owner_operators` WRITE;
+/*!40000 ALTER TABLE `ent_owner_operators` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ent_owner_operators` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `ent_people`
 --
 
@@ -1729,7 +1943,7 @@ CREATE TABLE `ent_people` (
   KEY `idx_ent_people_Suffix` (`Suffix`) USING BTREE,
   KEY `idx_ent_people_BrnchId` (`BrnchId`) USING BTREE,
   CONSTRAINT `PeopleBranchRef` FOREIGN KEY (`BrnchId`) REFERENCES `biz_branches` (`BrnchId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1738,7 +1952,7 @@ CREATE TABLE `ent_people` (
 
 LOCK TABLES `ent_people` WRITE;
 /*!40000 ALTER TABLE `ent_people` DISABLE KEYS */;
-INSERT INTO `ent_people` VALUES (11,'','','Mila','','Chuk','',3803),(13,'','','Peter','','Chuk','',3801),(9,'','','Vladimir','','Skots','',3801);
+INSERT INTO `ent_people` VALUES (11,'','','Mila','','Chuk','',3803),(13,'','','Peter','','Chuk','',3801),(15,'','','Sergiy','','Podnizhnyy','',3805),(9,'','','Vladimir','','Skots','',3801),(17,'boss','','Vladimir','','Skots','',3801);
 /*!40000 ALTER TABLE `ent_people` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -1807,7 +2021,7 @@ CREATE TABLE `entities` (
   KEY `EntityBusinessRef_idx` (`BusinessId`),
   CONSTRAINT `EntityBusinessRef` FOREIGN KEY (`BusinessId`) REFERENCES `ent_businesses` (`BizId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `EntityPersonRef` FOREIGN KEY (`PersonId`) REFERENCES `ent_people` (`PrsnId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5286 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5291 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1816,7 +2030,7 @@ CREATE TABLE `entities` (
 
 LOCK TABLES `entities` WRITE;
 /*!40000 ALTER TABLE `entities` DISABLE KEYS */;
-INSERT INTO `entities` VALUES (1,1,'2019-07-03 12:46:57','This should be the company that is using the software, also for testing purposes',NULL,NULL),(3,1,'2019-07-18 16:08:43','Driver, for testing purposes',NULL,NULL),(5,1,'2019-07-18 16:08:43','Broker, for testing purposes',NULL,NULL),(7,1,'2019-07-18 16:16:46','Comdata, for testing purposes',NULL,NULL),(5275,1,'2019-11-25 09:33:07','Usko Express Inc',NULL,253),(5277,1,'2019-11-25 09:33:07','Heavenly Cookies and More, LLC',NULL,255),(5279,1,'2019-11-25 09:41:33','  Vladimir Skots ',9,NULL),(5281,1,'2019-11-25 09:50:34','  Mila Chuk ',11,NULL),(5283,1,'2019-11-26 10:19:37','  Peter Chuk ',13,NULL),(5285,1,'2019-11-26 10:24:59','4 RINGS EXPRESS INC',NULL,257);
+INSERT INTO `entities` VALUES (1,1,'2019-07-03 12:46:57','This should be the company that is using the software, also for testing purposes',NULL,NULL),(3,1,'2019-07-18 16:08:43','Driver, for testing purposes',NULL,NULL),(5,1,'2019-07-18 16:08:43','Broker, for testing purposes',NULL,NULL),(7,1,'2019-07-18 16:16:46','Comdata, for testing purposes',NULL,NULL),(5275,1,'2019-11-25 09:33:07','Usko Express Inc',NULL,253),(5277,1,'2019-11-25 09:33:07','Heavenly Cookies and More, LLC',NULL,255),(5279,1,'2019-11-25 09:41:33','  Vladimir Skots ',9,NULL),(5281,1,'2019-11-25 09:50:34','  Mila Chuk ',11,NULL),(5283,1,'2019-11-26 10:19:37','  Peter Chuk ',13,NULL),(5285,1,'2019-11-26 10:24:59','4 RINGS EXPRESS INC',NULL,257),(5287,1,'2019-12-03 17:26:29','  Sergiy Podnizhnyy ',15,NULL),(5289,1,'2019-12-06 14:44:09','boss  Vladimir Skots ',17,NULL);
 /*!40000 ALTER TABLE `entities` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -2286,6 +2500,7 @@ CREATE TABLE `fin_billing_banks` (
   `AccountType` enum('checking','savings') NOT NULL,
   `Purpose` enum('payment','billing','billing and payment','other') NOT NULL,
   `Active` tinyint(1) NOT NULL DEFAULT '1',
+  `VoidCheck` bigint(20) unsigned DEFAULT NULL,
   `Notes` text,
   PRIMARY KEY (`BankId`),
   KEY `BankOrgRef_idx` (`Institution`),
@@ -2295,8 +2510,10 @@ CREATE TABLE `fin_billing_banks` (
   KEY `idx_fin_billing_banks_AccountType` (`AccountType`),
   KEY `idx_fin_billing_banks_Purpose` (`Purpose`),
   KEY `idx_fin_billing_banks_Active` (`Active`),
+  KEY `VoidCheckRef_idx` (`VoidCheck`),
   CONSTRAINT `BankOrgRef` FOREIGN KEY (`Institution`) REFERENCES `biz_branches` (`BrnchId`) ON UPDATE CASCADE,
-  CONSTRAINT `BillingIdToBankRef` FOREIGN KEY (`BillingId`) REFERENCES `fin_billing_infos` (`BillingId`) ON UPDATE CASCADE
+  CONSTRAINT `BillingIdToBankRef` FOREIGN KEY (`BillingId`) REFERENCES `fin_billing_infos` (`BillingId`) ON UPDATE CASCADE,
+  CONSTRAINT `VoidCheckRef` FOREIGN KEY (`VoidCheck`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -2328,6 +2545,8 @@ CREATE TABLE `fin_billing_infos` (
   `BillingTagId` bigint(20) unsigned NOT NULL,
   `DateIn` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `DateOut` datetime DEFAULT NULL,
+  `CreditLimit` decimal(10,2) DEFAULT NULL,
+  `CreditHold` enum('yes','no') DEFAULT NULL,
   `Notes` text,
   PRIMARY KEY (`BillingId`),
   UNIQUE KEY `TagVsEntity` (`EntityId`,`BillingTagId`),
@@ -2341,6 +2560,8 @@ CREATE TABLE `fin_billing_infos` (
   KEY `BillingAddress_idx` (`Address`),
   KEY `idx_fin_billing_infos_ContactName` (`ContactName`),
   KEY `idx_fin_billing_infos_EMail` (`EMail`),
+  KEY `idx_fin_billing_infos_CreditLimit` (`CreditLimit`),
+  KEY `idx_fin_billing_infos_CreditHold` (`CreditHold`),
   CONSTRAINT `BillingAddress` FOREIGN KEY (`Address`) REFERENCES `cnt_addresses` (`AddrId`) ON UPDATE CASCADE,
   CONSTRAINT `BillingFax` FOREIGN KEY (`Fax`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE,
   CONSTRAINT `BillingInfoEntityRef` FOREIGN KEY (`EntityId`) REFERENCES `entities` (`EntityId`) ON UPDATE CASCADE,
@@ -2355,7 +2576,7 @@ CREATE TABLE `fin_billing_infos` (
 
 LOCK TABLES `fin_billing_infos` WRITE;
 /*!40000 ALTER TABLE `fin_billing_infos` DISABLE KEYS */;
-INSERT INTO `fin_billing_infos` VALUES (1,5285,'4 RINGS EXPRESS INC','Sergiy Podnizhnyy',4265,NULL,3943,NULL,7,'2019-11-26 10:25:00',NULL,NULL);
+INSERT INTO `fin_billing_infos` VALUES (1,5285,'4 RINGS EXPRESS INC','Sergiy Podnizhnyy',4265,NULL,3943,NULL,7,'2019-11-26 10:25:00',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `fin_billing_infos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3460,7 +3681,7 @@ CREATE TABLE `hr_associates` (
 
 LOCK TABLES `hr_associates` WRITE;
 /*!40000 ALTER TABLE `hr_associates` DISABLE KEYS */;
-INSERT INTO `hr_associates` VALUES (9,'CEO',399,'executive','2019-11-25 16:09:53',NULL,4261,4257,'vlad@uskoinc.com','Founder and CEO'),(13,'Software Engineer',401,'member','2019-11-26 10:19:37',NULL,4263,4257,'cpeter@uskoinc.com',NULL);
+INSERT INTO `hr_associates` VALUES (9,'CEO',399,'executive','2019-11-25 16:09:53',NULL,4261,4257,'vlad@uskoinc.com','Founder and CEO'),(13,'Software Engineer',401,'member','2019-11-26 10:19:37',NULL,4263,4257,'cpeter@uskoinc.com',NULL),(15,'Owner',399,'executive','2019-12-10 10:30:24',NULL,4265,4257,'hello@123.com','Owner Operator'),(17,'CEO',399,'executive','2019-12-06 14:44:10',NULL,4261,4257,'vlad@uskoinc.com','Founder and CEO');
 /*!40000 ALTER TABLE `hr_associates` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5864,4 +6085,4 @@ USE `tms`;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-02 16:58:02
+-- Dump completed on 2019-12-10 11:13:19
