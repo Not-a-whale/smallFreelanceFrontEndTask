@@ -23,6 +23,36 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
+has Parent => (is => 'rw', coerce => 1, isa => 'TidySpacesString');
+has Child  => (is => 'rw', coerce => 1, isa => 'TidySpacesString');
+
+has AllErrors => (is => 'rw', isa => 'ArrayRef',    default    => sub { [] });
+has LastError => (is => 'rw', isa => 'Undef | Str', default    => undef);
+has TableMeta => (is => 'rw', isa => 'HashRef',     lazy_build => 1);
+has DoIfError => (is => 'rw', isa => 'Str',         default    => 'confess');    # confess or ignore
+
+sub _build_TableMeta {
+    my $self = shift;
+    my $data = {
+        'Child' => {
+            'comment'  => 'Short name of the task/project',
+            'is_null'  => 0,
+            'required' => 1,
+            'apiclass' => undef,
+            'default'  => undef,
+            'db_type'  => 'varchar(255)'
+        },
+        'Parent' => {
+            'comment'  => 'Short name of the task/project',
+            'is_null'  => 0,
+            'apiclass' => undef,
+            'required' => 1,
+            'default'  => undef,
+            'db_type'  => 'varchar(255)'
+        }
+    };
+    $self->TableMeta($data);
+} ## end sub _build_TableMeta
 
 # AUTO-GENERATED HAS-A END
 

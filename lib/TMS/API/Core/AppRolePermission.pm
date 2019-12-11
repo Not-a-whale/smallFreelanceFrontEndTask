@@ -26,9 +26,45 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has RoleVsPermId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has Role         => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'AppRoleObj | Int ',);
-has Permission   => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'AppPermissionObj | Int ',);
+has RoleVsPermId => (is => 'rw', coerce => 0, isa => 'Undef | PrimaryKeyInt');
+has Role         => (is => 'rw', coerce => 1, isa => 'AppRoleObj | Int ');
+has Permission   => (is => 'rw', coerce => 1, isa => 'AppPermissionObj | Int ');
+
+has AllErrors => (is => 'rw', isa => 'ArrayRef',    default    => sub { [] });
+has LastError => (is => 'rw', isa => 'Undef | Str', default    => undef);
+has TableMeta => (is => 'rw', isa => 'HashRef',     lazy_build => 1);
+has DoIfError => (is => 'rw', isa => 'Str',         default    => 'confess');    # confess or ignore
+
+sub _build_TableMeta {
+    my $self = shift;
+    my $data = {
+        'RoleVsPermId' => {
+            'comment'  => '',
+            'is_null'  => 0,
+            'required' => 0,
+            'apiclass' => undef,
+            'default'  => undef,
+            'db_type'  => 'bigint(20) unsigned'
+        },
+        'Permission' => {
+            'comment'  => '',
+            'is_null'  => 0,
+            'apiclass' => 'TMS::API::Core::AppPermission',
+            'required' => 1,
+            'default'  => undef,
+            'db_type'  => 'bigint(20) unsigned'
+        },
+        'Role' => {
+            'is_null'  => 0,
+            'comment'  => '',
+            'required' => 1,
+            'apiclass' => 'TMS::API::Core::AppRole',
+            'default'  => undef,
+            'db_type'  => 'bigint(20) unsigned'
+        }
+    };
+    $self->TableMeta($data);
+} ## end sub _build_TableMeta
 
 # AUTO-GENERATED HAS-A END
 
