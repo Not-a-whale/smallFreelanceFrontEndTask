@@ -25,13 +25,81 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has AppAccountId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has UserId       => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj | Int ',);
-has PasswordHash => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
-has Salt         => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
-has Username     => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TidySpacesString',);
-has DateCreated  => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
-has Locked       => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'BoolInt',);
+has AppAccountId => (is => 'rw', coerce => 0, isa => 'Undef | PrimaryKeyInt');
+has UserId       => (is => 'rw', coerce => 1, isa => 'HrAssociateObj | Int ');
+has PasswordHash => (is => 'rw', coerce => 1, isa => 'TidySpacesString');
+has Salt         => (is => 'rw', coerce => 1, isa => 'TidySpacesString');
+has Username     => (is => 'rw', coerce => 1, isa => 'TidySpacesString');
+has DateCreated  => (is => 'rw', coerce => 1, isa => 'Undef | DATETIME');
+has Locked       => (is => 'rw', coerce => 1, isa => 'Undef | BoolInt');
+
+has AllErrors => (is => 'rw', isa => 'ArrayRef',    default    => sub { [] });
+has LastError => (is => 'rw', isa => 'Undef | Str', default    => undef);
+has TableMeta => (is => 'rw', isa => 'HashRef',     lazy_build => 1);
+has DoIfError => (is => 'rw', isa => 'Str',         default    => 'confess');    # confess or ignore
+
+sub _build_TableMeta {
+    my $self = shift;
+    my $data = {
+        'AppAccountId' => {
+            'is_null'  => 0,
+            'comment'  => '',
+            'required' => 0,
+            'apiclass' => undef,
+            'default'  => undef,
+            'db_type'  => 'bigint(20) unsigned'
+        },
+        'UserId' => {
+            'comment'  => '',
+            'is_null'  => 0,
+            'apiclass' => 'TMS::API::Core::HrAssociate',
+            'required' => 1,
+            'default'  => undef,
+            'db_type'  => 'bigint(20) unsigned'
+        },
+        'Salt' => {
+            'comment'  => '',
+            'is_null'  => 0,
+            'apiclass' => undef,
+            'required' => 1,
+            'default'  => undef,
+            'db_type'  => 'varchar(64)'
+        },
+        'Username' => {
+            'comment'  => '',
+            'is_null'  => 0,
+            'required' => 1,
+            'apiclass' => undef,
+            'default'  => undef,
+            'db_type'  => 'varchar(64)'
+        },
+        'PasswordHash' => {
+            'comment'  => '',
+            'is_null'  => 0,
+            'required' => 1,
+            'apiclass' => undef,
+            'default'  => undef,
+            'db_type'  => 'varchar(64)'
+        },
+        'DateCreated' => {
+            'comment'  => '',
+            'is_null'  => 0,
+            'required' => 0,
+            'apiclass' => undef,
+            'default'  => 'CURRENT_TIMESTAMP',
+            'db_type'  => 'datetime'
+        },
+        'Locked' => {
+            'comment'  => '',
+            'is_null'  => 0,
+            'apiclass' => undef,
+            'required' => 0,
+            'default'  => '0',
+            'db_type'  => 'tinyint(1) unsigned'
+        }
+    };
+    $self->TableMeta($data);
+} ## end sub _build_TableMeta
 
 # AUTO-GENERATED HAS-A END
 

@@ -294,7 +294,9 @@ sub DeleteIgnore {
 # -------------------------------------------------------------------------------------------------------------
 sub Search {
     my $self = shift;
+    $DB::single = 2;
     my @cond = scalar(@_) ? @_ : ($self->FetchWhereKeys);
+    push @cond,$self->prefetch if $self->can('prefetch');
     return $self->ResultSet->search(@cond);
 }
 

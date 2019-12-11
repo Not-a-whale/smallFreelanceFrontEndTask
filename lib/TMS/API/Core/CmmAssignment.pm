@@ -26,10 +26,54 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has AssociateId       => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj | Int ',);
-has CommissionPackage => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'CmmPackageObj | Int ',);
-has DateAdded         => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TIMESTAMP',);
-has AddedBy           => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'HrAssociateObj | Int ',);
+has AssociateId       => (is => 'rw', coerce => 1, isa => 'HrAssociateObj | Int ');
+has CommissionPackage => (is => 'rw', coerce => 1, isa => 'CmmPackageObj | Int ');
+has DateAdded         => (is => 'rw', coerce => 1, isa => 'Undef | TIMESTAMP');
+has AddedBy           => (is => 'rw', coerce => 1, isa => 'HrAssociateObj | Int ');
+
+has AllErrors => (is => 'rw', isa => 'ArrayRef',    default    => sub { [] });
+has LastError => (is => 'rw', isa => 'Undef | Str', default    => undef);
+has TableMeta => (is => 'rw', isa => 'HashRef',     lazy_build => 1);
+has DoIfError => (is => 'rw', isa => 'Str',         default    => 'confess');    # confess or ignore
+
+sub _build_TableMeta {
+    my $self = shift;
+    my $data = {
+        'CommissionPackage' => {
+            'comment'  => '',
+            'is_null'  => 0,
+            'apiclass' => 'TMS::API::Core::CmmPackage',
+            'required' => 1,
+            'default'  => undef,
+            'db_type'  => 'varchar(255)'
+        },
+        'DateAdded' => {
+            'comment'  => '',
+            'is_null'  => 0,
+            'apiclass' => undef,
+            'required' => 0,
+            'default'  => 'CURRENT_TIMESTAMP',
+            'db_type'  => 'timestamp'
+        },
+        'AssociateId' => {
+            'comment'  => '',
+            'is_null'  => 0,
+            'required' => 1,
+            'apiclass' => 'TMS::API::Core::HrAssociate',
+            'default'  => undef,
+            'db_type'  => 'bigint(20) unsigned'
+        },
+        'AddedBy' => {
+            'comment'  => '',
+            'is_null'  => 0,
+            'required' => 1,
+            'apiclass' => 'TMS::API::Core::HrAssociate',
+            'default'  => undef,
+            'db_type'  => 'bigint(20) unsigned'
+        }
+    };
+    $self->TableMeta($data);
+} ## end sub _build_TableMeta
 
 # AUTO-GENERATED HAS-A END
 

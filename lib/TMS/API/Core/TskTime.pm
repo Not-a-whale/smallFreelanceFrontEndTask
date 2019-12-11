@@ -12,8 +12,8 @@ use Try::Tiny;
 use Moose;
 
 # AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::EntPerson;
 use TMS::API::Core::TskActn;
+use TMS::API::Core::EntPerson;
 
 # AUTO-GENERATED DEPENDENCIES END
 
@@ -26,13 +26,81 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has tmeid      => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has actid      => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'TskActnObj | Int ',);
-has PrsnId     => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'EntPersonObj | Int ',);
-has started    => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
-has finished   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'DATETIME',);
-has duration   => (is => 'rw', coerce => 1, required => 0, isa => Undef | 'TIME',);
-has fulllength => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'Int',);
+has tmeid      => (is => 'rw', coerce => 0, isa => 'Undef | PrimaryKeyInt');
+has actid      => (is => 'rw', coerce => 1, isa => 'TskActnObj | Int ');
+has PrsnId     => (is => 'rw', coerce => 1, isa => 'EntPersonObj | Int ');
+has started    => (is => 'rw', coerce => 1, isa => 'Undef | DATETIME');
+has finished   => (is => 'rw', coerce => 1, isa => 'Undef | DATETIME');
+has duration   => (is => 'rw', coerce => 1, isa => 'Undef | TIME');
+has fulllength => (is => 'rw', coerce => 0, isa => 'Undef | Int');
+
+has AllErrors => (is => 'rw', isa => 'ArrayRef',    default    => sub { [] });
+has LastError => (is => 'rw', isa => 'Undef | Str', default    => undef);
+has TableMeta => (is => 'rw', isa => 'HashRef',     lazy_build => 1);
+has DoIfError => (is => 'rw', isa => 'Str',         default    => 'confess');    # confess or ignore
+
+sub _build_TableMeta {
+    my $self = shift;
+    my $data = {
+        'tmeid' => {
+            'comment'  => '',
+            'is_null'  => 0,
+            'required' => 0,
+            'apiclass' => undef,
+            'default'  => undef,
+            'db_type'  => 'bigint(20) unsigned'
+        },
+        'actid' => {
+            'comment'  => '',
+            'is_null'  => 0,
+            'required' => 1,
+            'apiclass' => 'TMS::API::Core::TskActn',
+            'default'  => undef,
+            'db_type'  => 'bigint(20) unsigned'
+        },
+        'finished' => {
+            'is_null'  => 1,
+            'comment'  => '',
+            'required' => 0,
+            'apiclass' => undef,
+            'default'  => undef,
+            'db_type'  => 'datetime'
+        },
+        'fulllength' => {
+            'comment'  => '',
+            'is_null'  => 1,
+            'apiclass' => undef,
+            'required' => 0,
+            'default'  => undef,
+            'db_type'  => 'int(11)'
+        },
+        'PrsnId' => {
+            'is_null'  => 0,
+            'comment'  => '',
+            'required' => 1,
+            'apiclass' => 'TMS::API::Core::EntPerson',
+            'default'  => undef,
+            'db_type'  => 'bigint(20) unsigned'
+        },
+        'started' => {
+            'is_null'  => 0,
+            'comment'  => '',
+            'required' => 0,
+            'apiclass' => undef,
+            'default'  => 'CURRENT_TIMESTAMP',
+            'db_type'  => 'datetime'
+        },
+        'duration' => {
+            'is_null'  => 1,
+            'comment'  => '',
+            'required' => 0,
+            'apiclass' => undef,
+            'default'  => undef,
+            'db_type'  => 'time'
+        }
+    };
+    $self->TableMeta($data);
+} ## end sub _build_TableMeta
 
 # AUTO-GENERATED HAS-A END
 

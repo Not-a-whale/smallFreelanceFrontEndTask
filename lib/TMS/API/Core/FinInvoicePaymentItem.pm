@@ -26,9 +26,45 @@ use MooseX::Types::Moose qw(Undef);
 extends 'TMS::SchemaWrapper';
 
 # AUTO-GENERATED HAS-A START
-has InvoicePaymentItemId => (is => 'rw', coerce => 0, required => 0, isa => Undef | 'PrimaryKeyInt',);
-has InvoicePaymentId     => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'FinInvoicePaymentObj | Int ',);
-has InvoiceItemId        => (is => 'rw', coerce => 1, required => 1, isa => Undef | 'FinInvoicesItemObj | Int ',);
+has InvoicePaymentItemId => (is => 'rw', coerce => 0, isa => 'Undef | PrimaryKeyInt');
+has InvoicePaymentId     => (is => 'rw', coerce => 1, isa => 'FinInvoicePaymentObj | Int ');
+has InvoiceItemId        => (is => 'rw', coerce => 1, isa => 'FinInvoicesItemObj | Int ');
+
+has AllErrors => (is => 'rw', isa => 'ArrayRef',    default    => sub { [] });
+has LastError => (is => 'rw', isa => 'Undef | Str', default    => undef);
+has TableMeta => (is => 'rw', isa => 'HashRef',     lazy_build => 1);
+has DoIfError => (is => 'rw', isa => 'Str',         default    => 'confess');    # confess or ignore
+
+sub _build_TableMeta {
+    my $self = shift;
+    my $data = {
+        'InvoicePaymentId' => {
+            'is_null'  => 0,
+            'comment'  => '',
+            'apiclass' => 'TMS::API::Core::FinInvoicePayment',
+            'required' => 1,
+            'default'  => undef,
+            'db_type'  => 'bigint(20) unsigned'
+        },
+        'InvoiceItemId' => {
+            'comment'  => '',
+            'is_null'  => 0,
+            'required' => 1,
+            'apiclass' => 'TMS::API::Core::FinInvoicesItem',
+            'default'  => undef,
+            'db_type'  => 'bigint(20) unsigned'
+        },
+        'InvoicePaymentItemId' => {
+            'is_null'  => 0,
+            'comment'  => '',
+            'apiclass' => undef,
+            'required' => 0,
+            'default'  => undef,
+            'db_type'  => 'bigint(20) unsigned'
+        }
+    };
+    $self->TableMeta($data);
+} ## end sub _build_TableMeta
 
 # AUTO-GENERATED HAS-A END
 
