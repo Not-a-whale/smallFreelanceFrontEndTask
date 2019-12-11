@@ -14,7 +14,7 @@ sub default {shift}
 sub create {
     my $post = shift;
     my $args = $$post{POST};
-    my $obj  = TMS::API::Feature::Carriers::Interface->new();
+    my $obj  = TMS::API::Feature::Carriers::EntCarrier->new();
     try {
         my $row = $obj->create($args);
         if ($row) {
@@ -29,8 +29,8 @@ sub create {
 
 sub search {
     my $post = shift;
-    my $obj  = TMS::API::Feature::Carriers::Interface->new();
-    $$post{DATA} = $obj->Show({);
+    my $obj  = TMS::API::Feature::Carriers::EntCarrier->new();
+    $$post{DATA} = $obj->Show();
     return $post;
 }
 
