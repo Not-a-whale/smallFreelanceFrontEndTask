@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::InvTrailer;
 
 # Created by DBIx::Class::Schema::Loader
@@ -133,99 +134,87 @@ In inches
 =cut
 
 __PACKAGE__->add_columns(
-  "TrailerId",
-  {
-    accessor       => "trailer_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "Type",
-  {
-    accessor => "type",
-    data_type => "varchar",
-    default_value => "Van",
-    is_foreign_key => 1,
-    is_nullable => 0,
-    size => 24,
-  },
-  "HazMat",
-  {
-    accessor      => "haz_mat",
-    data_type     => "tinyint",
-    default_value => 0,
-    extra         => { unsigned => 1 },
-    is_nullable   => 0,
-  },
-  "LoadLength",
-  {
-    accessor    => "load_length",
-    data_type   => "integer",
-    extra       => { unsigned => 1 },
-    is_nullable => 1,
-  },
-  "LoadWidth",
-  {
-    accessor    => "load_width",
-    data_type   => "integer",
-    extra       => { unsigned => 1 },
-    is_nullable => 1,
-  },
-  "LoadHeight",
-  {
-    accessor    => "load_height",
-    data_type   => "integer",
-    extra       => { unsigned => 1 },
-    is_nullable => 1,
-  },
-  "DoorWidth",
-  {
-    accessor    => "door_width",
-    data_type   => "integer",
-    extra       => { unsigned => 1 },
-    is_nullable => 1,
-  },
-  "DoorHeight",
-  {
-    accessor    => "door_height",
-    data_type   => "integer",
-    extra       => { unsigned => 1 },
-    is_nullable => 1,
-  },
-  "LoadCapactiy",
-  {
-    accessor    => "load_capactiy",
-    data_type   => "integer",
-    extra       => { unsigned => 1 },
-    is_nullable => 1,
-  },
-  "HasLiftGate",
-  {
-    accessor      => "has_lift_gate",
-    data_type     => "tinyint",
-    default_value => 0,
-    extra         => { unsigned => 1 },
-    is_nullable   => 0,
-  },
-  "HasPalletJack",
-  {
-    accessor      => "has_pallet_jack",
-    data_type     => "tinyint",
-    default_value => 0,
-    extra         => { unsigned => 1 },
-    is_nullable   => 0,
-  },
-  "HasRamps",
-  {
-    accessor      => "has_ramps",
-    data_type     => "tinyint",
-    default_value => 0,
-    extra         => { unsigned => 1 },
-    is_nullable   => 0,
-  },
-  "LoadVolume",
-  { accessor => "load_volume", data_type => "integer", is_nullable => 1 },
+    "TrailerId",
+    {   accessor       => "trailer_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "Type",
+    {   accessor       => "type",
+        data_type      => "varchar",
+        default_value  => "Van",
+        is_foreign_key => 1,
+        is_nullable    => 0,
+        size           => 24,
+    },
+    "HazMat",
+    {   accessor      => "haz_mat",
+        data_type     => "tinyint",
+        default_value => 0,
+        extra         => {unsigned => 1},
+        is_nullable   => 0,
+    },
+    "LoadLength",
+    {   accessor    => "load_length",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "LoadWidth",
+    {   accessor    => "load_width",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "LoadHeight",
+    {   accessor    => "load_height",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "DoorWidth",
+    {   accessor    => "door_width",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "DoorHeight",
+    {   accessor    => "door_height",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "LoadCapactiy",
+    {   accessor    => "load_capactiy",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "HasLiftGate",
+    {   accessor      => "has_lift_gate",
+        data_type     => "tinyint",
+        default_value => 0,
+        extra         => {unsigned => 1},
+        is_nullable   => 0,
+    },
+    "HasPalletJack",
+    {   accessor      => "has_pallet_jack",
+        data_type     => "tinyint",
+        default_value => 0,
+        extra         => {unsigned => 1},
+        is_nullable   => 0,
+    },
+    "HasRamps",
+    {   accessor      => "has_ramps",
+        data_type     => "tinyint",
+        default_value => 0,
+        extra         => {unsigned => 1},
+        is_nullable   => 0,
+    },
+    "LoadVolume",
+    {accessor => "load_volume", data_type => "integer", is_nullable => 1},
 );
 
 =head1 UNIQUE CONSTRAINTS
@@ -253,10 +242,10 @@ Related object: L<TMS::Schema::Result::InvVehicle>
 =cut
 
 __PACKAGE__->belongs_to(
-  "trailer",
-  "TMS::Schema::Result::InvVehicle",
-  { VehicleId => "TrailerId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "trailer",
+    "TMS::Schema::Result::InvVehicle",
+    {VehicleId     => "TrailerId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 type
@@ -268,18 +257,15 @@ Related object: L<TMS::Schema::Result::InvTrailerType>
 =cut
 
 __PACKAGE__->belongs_to(
-  "type",
-  "TMS::Schema::Result::InvTrailerType",
-  { Name => "Type" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "type",
+    "TMS::Schema::Result::InvTrailerType",
+    {Name          => "Type"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:fRvSlW474kB8Z5VX6ucZWw
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Mf4FLYhaE8B1XzBwL41eLQ
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::CmmAssignmentsCustomer;
 
 # Created by DBIx::Class::Schema::Loader
@@ -69,46 +70,41 @@ __PACKAGE__->table("cmm_assignments_customers");
 =cut
 
 __PACKAGE__->add_columns(
-  "AssociateId",
-  {
-    accessor       => "associate_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "CommissionPackage",
-  {
-    accessor => "commission_package",
-    data_type => "varchar",
-    is_foreign_key => 1,
-    is_nullable => 0,
-    size => 255,
-  },
-  "DateAdded",
-  {
-    accessor => "date_added",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    default_value => "CURRENT_TIMESTAMP",
-    is_nullable => 0,
-  },
-  "AddedBy",
-  {
-    accessor       => "added_by",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "CustomerId",
-  {
-    accessor       => "customer_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
+    "AssociateId",
+    {   accessor       => "associate_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "CommissionPackage",
+    {   accessor       => "commission_package",
+        data_type      => "varchar",
+        is_foreign_key => 1,
+        is_nullable    => 0,
+        size           => 255,
+    },
+    "DateAdded",
+    {   accessor                  => "date_added",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        default_value             => "CURRENT_TIMESTAMP",
+        is_nullable               => 0,
+    },
+    "AddedBy",
+    {   accessor       => "added_by",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "CustomerId",
+    {   accessor       => "customer_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
 );
 
 =head1 RELATIONS
@@ -122,10 +118,10 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "added_by",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "AddedBy" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "added_by",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId         => "AddedBy"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 associate
@@ -137,10 +133,10 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "associate",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "AssociateId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "associate",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId         => "AssociateId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 commission_package
@@ -152,10 +148,10 @@ Related object: L<TMS::Schema::Result::CmmPackage>
 =cut
 
 __PACKAGE__->belongs_to(
-  "commission_package",
-  "TMS::Schema::Result::CmmPackage",
-  { Name => "CommissionPackage" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "commission_package",
+    "TMS::Schema::Result::CmmPackage",
+    {Name          => "CommissionPackage"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 customer
@@ -167,18 +163,15 @@ Related object: L<TMS::Schema::Result::EntCustomer>
 =cut
 
 __PACKAGE__->belongs_to(
-  "customer",
-  "TMS::Schema::Result::EntCustomer",
-  { CstmrId => "CustomerId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "customer",
+    "TMS::Schema::Result::EntCustomer",
+    {CstmrId       => "CustomerId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:sVsC559umO3USW9+kbQ4WA
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:WcJ/XUxGO0vem6wWUUaeXg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

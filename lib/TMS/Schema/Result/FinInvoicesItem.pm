@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::FinInvoicesItem;
 
 # Created by DBIx::Class::Schema::Loader
@@ -120,89 +121,79 @@ __PACKAGE__->table("fin_invoices_items");
 =cut
 
 __PACKAGE__->add_columns(
-  "InvoiceItemId",
-  {
-    accessor => "invoice_item_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "InvoiceId",
-  {
-    accessor       => "invoice_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "ItemTemplateId",
-  {
-    accessor       => "item_template_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "Amount",
-  {
-    accessor => "amount",
-    data_type => "decimal",
-    is_nullable => 1,
-    size => [12, 2],
-  },
-  "Quantity",
-  {
-    accessor      => "quantity",
-    data_type     => "bigint",
-    default_value => 1,
-    extra         => { unsigned => 1 },
-    is_nullable   => 0,
-  },
-  "CreatedBy",
-  {
-    accessor       => "created_by",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "DateCreated",
-  {
-    accessor => "date_created",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    default_value => "CURRENT_TIMESTAMP",
-    is_nullable => 0,
-  },
-  "Notes",
-  { accessor => "notes", data_type => "text", is_nullable => 1 },
-  "Comments",
-  { accessor => "comments", data_type => "text", is_nullable => 1 },
-  "CreditJournalEntryId",
-  {
-    accessor       => "credit_journal_entry_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "DebitJournalEntryId",
-  {
-    accessor       => "debit_journal_entry_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "JobId",
-  {
-    accessor       => "job_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
+    "InvoiceItemId",
+    {   accessor          => "invoice_item_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "InvoiceId",
+    {   accessor       => "invoice_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "ItemTemplateId",
+    {   accessor       => "item_template_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "Amount",
+    {   accessor    => "amount",
+        data_type   => "decimal",
+        is_nullable => 1,
+        size        => [12, 2],
+    },
+    "Quantity",
+    {   accessor      => "quantity",
+        data_type     => "bigint",
+        default_value => 1,
+        extra         => {unsigned => 1},
+        is_nullable   => 0,
+    },
+    "CreatedBy",
+    {   accessor       => "created_by",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "DateCreated",
+    {   accessor                  => "date_created",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        default_value             => "CURRENT_TIMESTAMP",
+        is_nullable               => 0,
+    },
+    "Notes",
+    {accessor => "notes", data_type => "text", is_nullable => 1},
+    "Comments",
+    {accessor => "comments", data_type => "text", is_nullable => 1},
+    "CreditJournalEntryId",
+    {   accessor       => "credit_journal_entry_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "DebitJournalEntryId",
+    {   accessor       => "debit_journal_entry_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "JobId",
+    {   accessor       => "job_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -228,15 +219,14 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "created_by",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "CreatedBy" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "created_by",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId => "CreatedBy"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
 =head2 credit_journal_entry
@@ -248,15 +238,14 @@ Related object: L<TMS::Schema::Result::FinJournalEntry>
 =cut
 
 __PACKAGE__->belongs_to(
-  "credit_journal_entry",
-  "TMS::Schema::Result::FinJournalEntry",
-  { JrlEntryId => "CreditJournalEntryId" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "credit_journal_entry",
+    "TMS::Schema::Result::FinJournalEntry",
+    {JrlEntryId => "CreditJournalEntryId"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
 =head2 debit_journal_entry
@@ -268,15 +257,14 @@ Related object: L<TMS::Schema::Result::FinJournalEntry>
 =cut
 
 __PACKAGE__->belongs_to(
-  "debit_journal_entry",
-  "TMS::Schema::Result::FinJournalEntry",
-  { JrlEntryId => "DebitJournalEntryId" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "debit_journal_entry",
+    "TMS::Schema::Result::FinJournalEntry",
+    {JrlEntryId => "DebitJournalEntryId"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
 =head2 fin_invoice_payment_items
@@ -288,10 +276,8 @@ Related object: L<TMS::Schema::Result::FinInvoicePaymentItem>
 =cut
 
 __PACKAGE__->has_many(
-  "fin_invoice_payment_items",
-  "TMS::Schema::Result::FinInvoicePaymentItem",
-  { "foreign.InvoiceItemId" => "self.InvoiceItemId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "fin_invoice_payment_items", "TMS::Schema::Result::FinInvoicePaymentItem",
+    {"foreign.InvoiceItemId" => "self.InvoiceItemId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 invoice
@@ -303,15 +289,14 @@ Related object: L<TMS::Schema::Result::FinInvoice>
 =cut
 
 __PACKAGE__->belongs_to(
-  "invoice",
-  "TMS::Schema::Result::FinInvoice",
-  { InvoiceId => "InvoiceId" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "invoice",
+    "TMS::Schema::Result::FinInvoice",
+    {InvoiceId => "InvoiceId"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
 =head2 item_template
@@ -323,15 +308,14 @@ Related object: L<TMS::Schema::Result::FinItemTemplate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "item_template",
-  "TMS::Schema::Result::FinItemTemplate",
-  { ItemTemplateId => "ItemTemplateId" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "item_template",
+    "TMS::Schema::Result::FinItemTemplate",
+    {ItemTemplateId => "ItemTemplateId"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
 =head2 job
@@ -343,18 +327,14 @@ Related object: L<TMS::Schema::Result::FinJob>
 =cut
 
 __PACKAGE__->belongs_to(
-  "job",
-  "TMS::Schema::Result::FinJob",
-  { JobId => "JobId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "job", "TMS::Schema::Result::FinJob",
+    {JobId         => "JobId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:wNHziHdpjTmaRRjcbKu6CQ
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:8xwP+LmhySAD8u+bFN6P8Q
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

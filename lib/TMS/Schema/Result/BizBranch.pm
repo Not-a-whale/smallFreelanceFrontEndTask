@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::BizBranch;
 
 # Created by DBIx::Class::Schema::Loader
@@ -84,61 +85,54 @@ __PACKAGE__->table("biz_branches");
 =cut
 
 __PACKAGE__->add_columns(
-  "BrnchId",
-  {
-    accessor => "brnch_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "OfficeName",
-  {
-    accessor => "office_name",
-    data_type => "varchar",
-    default_value => "",
-    is_nullable => 0,
-    size => 255,
-  },
-  "BizId",
-  {
-    accessor       => "biz_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "BrnchAddress",
-  {
-    accessor       => "brnch_address",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "BrnchPhone",
-  {
-    accessor       => "brnch_phone",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "BrnchFax",
-  {
-    accessor       => "brnch_fax",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "BrnchEMail",
-  {
-    accessor => "brnch_email",
-    data_type => "varchar",
-    is_nullable => 1,
-    size => 255,
-  },
+    "BrnchId",
+    {   accessor          => "brnch_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "OfficeName",
+    {   accessor      => "office_name",
+        data_type     => "varchar",
+        default_value => "",
+        is_nullable   => 0,
+        size          => 255,
+    },
+    "BizId",
+    {   accessor       => "biz_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "BrnchAddress",
+    {   accessor       => "brnch_address",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "BrnchPhone",
+    {   accessor       => "brnch_phone",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "BrnchFax",
+    {   accessor       => "brnch_fax",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "BrnchEMail",
+    {   accessor    => "brnch_email",
+        data_type   => "varchar",
+        is_nullable => 1,
+        size        => 255,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -164,10 +158,10 @@ Related object: L<TMS::Schema::Result::EntBusiness>
 =cut
 
 __PACKAGE__->belongs_to(
-  "biz",
-  "TMS::Schema::Result::EntBusiness",
-  { BizId => "BizId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "biz",
+    "TMS::Schema::Result::EntBusiness",
+    {BizId         => "BizId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 brnch_address
@@ -179,10 +173,10 @@ Related object: L<TMS::Schema::Result::CntAddress>
 =cut
 
 __PACKAGE__->belongs_to(
-  "brnch_address",
-  "TMS::Schema::Result::CntAddress",
-  { AddrId => "BrnchAddress" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "brnch_address",
+    "TMS::Schema::Result::CntAddress",
+    {AddrId        => "BrnchAddress"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 brnch_fax
@@ -194,15 +188,14 @@ Related object: L<TMS::Schema::Result::CntPhonesfax>
 =cut
 
 __PACKAGE__->belongs_to(
-  "brnch_fax",
-  "TMS::Schema::Result::CntPhonesfax",
-  { PhnFaxId => "BrnchFax" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "brnch_fax",
+    "TMS::Schema::Result::CntPhonesfax",
+    {PhnFaxId => "BrnchFax"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
 =head2 brnch_phone
@@ -214,10 +207,10 @@ Related object: L<TMS::Schema::Result::CntPhonesfax>
 =cut
 
 __PACKAGE__->belongs_to(
-  "brnch_phone",
-  "TMS::Schema::Result::CntPhonesfax",
-  { PhnFaxId => "BrnchPhone" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "brnch_phone",
+    "TMS::Schema::Result::CntPhonesfax",
+    {PhnFaxId      => "BrnchPhone"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 dsp_loads_destinations
@@ -229,10 +222,8 @@ Related object: L<TMS::Schema::Result::DspLoadsDestination>
 =cut
 
 __PACKAGE__->has_many(
-  "dsp_loads_destinations",
-  "TMS::Schema::Result::DspLoadsDestination",
-  { "foreign.Branch" => "self.BrnchId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "dsp_loads_destinations", "TMS::Schema::Result::DspLoadsDestination",
+    {"foreign.Branch" => "self.BrnchId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 ent_people
@@ -244,10 +235,10 @@ Related object: L<TMS::Schema::Result::EntPerson>
 =cut
 
 __PACKAGE__->has_many(
-  "ent_people",
-  "TMS::Schema::Result::EntPerson",
-  { "foreign.BrnchId" => "self.BrnchId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "ent_people",
+    "TMS::Schema::Result::EntPerson",
+    {"foreign.BrnchId" => "self.BrnchId"},
+    {cascade_copy      => 0, cascade_delete => 0},
 );
 
 =head2 fin_billing_banks
@@ -259,10 +250,8 @@ Related object: L<TMS::Schema::Result::FinBillingBank>
 =cut
 
 __PACKAGE__->has_many(
-  "fin_billing_banks",
-  "TMS::Schema::Result::FinBillingBank",
-  { "foreign.Institution" => "self.BrnchId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "fin_billing_banks", "TMS::Schema::Result::FinBillingBank",
+    {"foreign.Institution" => "self.BrnchId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 fin_cheques
@@ -274,10 +263,10 @@ Related object: L<TMS::Schema::Result::FinCheque>
 =cut
 
 __PACKAGE__->has_many(
-  "fin_cheques",
-  "TMS::Schema::Result::FinCheque",
-  { "foreign.Bank" => "self.BrnchId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "fin_cheques",
+    "TMS::Schema::Result::FinCheque",
+    {"foreign.Bank" => "self.BrnchId"},
+    {cascade_copy   => 0, cascade_delete => 0},
 );
 
 =head2 inv_equipments
@@ -289,10 +278,10 @@ Related object: L<TMS::Schema::Result::InvEquipment>
 =cut
 
 __PACKAGE__->has_many(
-  "inv_equipments",
-  "TMS::Schema::Result::InvEquipment",
-  { "foreign.VendorId" => "self.BrnchId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "inv_equipments",
+    "TMS::Schema::Result::InvEquipment",
+    {"foreign.VendorId" => "self.BrnchId"},
+    {cascade_copy       => 0, cascade_delete => 0},
 );
 
 =head2 inv_support_vendors
@@ -304,209 +293,12 @@ Related object: L<TMS::Schema::Result::InvSupportVendor>
 =cut
 
 __PACKAGE__->has_many(
-  "inv_support_vendors",
-  "TMS::Schema::Result::InvSupportVendor",
-  { "foreign.VendorId" => "self.BrnchId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "inv_support_vendors", "TMS::Schema::Result::InvSupportVendor",
+    {"foreign.VendorId" => "self.BrnchId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-10 15:38:48
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:O3U07vW64qwzXEymsycFXg
-# These lines were loaded from '/home/cpeter/temp/lib/TMS/Schema/Result/BizBranch.pm' found in @INC.
-# They are now part of the custom portion of this file
-# for you to hand-edit.  If you do not either delete
-# this section or remove that file from @INC, this section
-# will be repeated redundantly when you re-create this
-# file again via Loader!  See skip_load_external to disable
-# this feature.
-
-use utf8;
-package TMS::Schema::Result::BizBranch;
-
-# Created by DBIx::Class::Schema::Loader
-# DO NOT MODIFY THE FIRST PART OF THIS FILE
-
-=head1 NAME
-
-TMS::Schema::Result::BizBranch - Office Branch Details
-
-=cut
-
-use strict;
-use warnings;
-
-use Moose;
-use MooseX::NonMoose;
-use MooseX::MarkAsMethods autoclean => 1;
-extends 'DBIx::Class::Core';
-
-=head1 TABLE: C<biz_branches>
-
-=cut
-
-__PACKAGE__->table("biz_branches");
-
-=head1 ACCESSORS
-
-=head2 BrnchId
-
-  accessor: 'brnch_id'
-  data_type: 'bigint'
-  extra: {unsigned => 1}
-  is_auto_increment: 1
-  is_nullable: 0
-
-=head2 OfficeName
-
-  accessor: 'office_name'
-  data_type: 'varchar'
-  default_value: (empty string)
-  is_nullable: 0
-  size: 255
-
-=head2 BizId
-
-  accessor: 'biz_id'
-  data_type: 'bigint'
-  extra: {unsigned => 1}
-  is_foreign_key: 1
-  is_nullable: 0
-
-=head2 BrnchAddress
-
-  accessor: 'brnch_address'
-  data_type: 'bigint'
-  extra: {unsigned => 1}
-  is_foreign_key: 1
-  is_nullable: 0
-
-=head2 BrnchPhone
-
-  accessor: 'brnch_phone'
-  data_type: 'bigint'
-  extra: {unsigned => 1}
-  is_foreign_key: 1
-  is_nullable: 0
-
-=head2 BrnchFax
-
-  accessor: 'brnch_fax'
-  data_type: 'bigint'
-  extra: {unsigned => 1}
-  is_foreign_key: 1
-  is_nullable: 1
-
-=head2 BrnchEMail
-
-  accessor: 'brnch_email'
-  data_type: 'varchar'
-  is_nullable: 1
-  size: 255
-
-=cut
-
-__PACKAGE__->add_columns(
-  "BrnchId",
-  {
-    accessor => "brnch_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "OfficeName",
-  {
-    accessor => "office_name",
-    data_type => "varchar",
-    default_value => "",
-    is_nullable => 0,
-    size => 255,
-  },
-  "BizId",
-  {
-    accessor       => "biz_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "BrnchAddress",
-  {
-    accessor       => "brnch_address",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "BrnchPhone",
-  {
-    accessor       => "brnch_phone",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "BrnchFax",
-  {
-    accessor       => "brnch_fax",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "BrnchEMail",
-  {
-    accessor => "brnch_email",
-    data_type => "varchar",
-    is_nullable => 1,
-    size => 255,
-  },
-);
-
-=head1 PRIMARY KEY
-
-=over 4
-
-=item * L</BrnchId>
-
-=back
-
-=cut
-
-__PACKAGE__->set_primary_key("BrnchId");
-
-=head1 RELATIONS
-
-=head2 biz
-
-Type: belongs_to
-
-Related object: L<TMS::Schema::Result::EntBusiness>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "biz",
-  "TMS::Schema::Result::EntBusiness",
-  { BizId => "BizId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
-);
-
-=head2 brnch_address
-
-Type: belongs_to
-
-Related object: L<TMS::Schema::Result::CntAddress>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "brnch_address",
-  "TMS::Schema::Result::CntAddress",
-  { AddrId => "BrnchAddress" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
-);
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:T62aHU84vpikvFkFucYsWQ
 
 __PACKAGE__->belongs_to(
   "vendor_address",
@@ -515,24 +307,11 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
-=head2 brnch_fax
-
-Type: belongs_to
-
-Related object: L<TMS::Schema::Result::CntPhonesfax>
-
-=cut
-
 __PACKAGE__->belongs_to(
-  "brnch_fax",
+  "vendor_phone",
   "TMS::Schema::Result::CntPhonesfax",
-  { PhnFaxId => "BrnchFax" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+  { PhnFaxId => "BrnchPhone" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
 );
 
 __PACKAGE__->belongs_to(
@@ -547,123 +326,6 @@ __PACKAGE__->belongs_to(
   },
 );
 
-=head2 brnch_phone
-
-Type: belongs_to
-
-Related object: L<TMS::Schema::Result::CntPhonesfax>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "brnch_phone",
-  "TMS::Schema::Result::CntPhonesfax",
-  { PhnFaxId => "BrnchPhone" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
-);
-
-__PACKAGE__->belongs_to(
-  "vendor_phone",
-  "TMS::Schema::Result::CntPhonesfax",
-  { PhnFaxId => "BrnchPhone" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
-);
-=head2 dsp_loads_destinations
-
-Type: has_many
-
-Related object: L<TMS::Schema::Result::DspLoadsDestination>
-
-=cut
-
-__PACKAGE__->has_many(
-  "dsp_loads_destinations",
-  "TMS::Schema::Result::DspLoadsDestination",
-  { "foreign.Branch" => "self.BrnchId" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 ent_people
-
-Type: has_many
-
-Related object: L<TMS::Schema::Result::EntPerson>
-
-=cut
-
-__PACKAGE__->has_many(
-  "ent_people",
-  "TMS::Schema::Result::EntPerson",
-  { "foreign.BrnchId" => "self.BrnchId" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 fin_billing_banks
-
-Type: has_many
-
-Related object: L<TMS::Schema::Result::FinBillingBank>
-
-=cut
-
-__PACKAGE__->has_many(
-  "fin_billing_banks",
-  "TMS::Schema::Result::FinBillingBank",
-  { "foreign.Institution" => "self.BrnchId" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 fin_cheques
-
-Type: has_many
-
-Related object: L<TMS::Schema::Result::FinCheque>
-
-=cut
-
-__PACKAGE__->has_many(
-  "fin_cheques",
-  "TMS::Schema::Result::FinCheque",
-  { "foreign.Bank" => "self.BrnchId" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 inv_equipments
-
-Type: has_many
-
-Related object: L<TMS::Schema::Result::InvEquipment>
-
-=cut
-
-__PACKAGE__->has_many(
-  "inv_equipments",
-  "TMS::Schema::Result::InvEquipment",
-  { "foreign.VendorId" => "self.BrnchId" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 inv_support_vendors
-
-Type: has_many
-
-Related object: L<TMS::Schema::Result::InvSupportVendor>
-
-=cut
-
-__PACKAGE__->has_many(
-  "inv_support_vendors",
-  "TMS::Schema::Result::InvSupportVendor",
-  { "foreign.VendorId" => "self.BrnchId" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-10 12:29:14
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:IJLZdowNTH4Nl/gSj9liCw
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
-
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

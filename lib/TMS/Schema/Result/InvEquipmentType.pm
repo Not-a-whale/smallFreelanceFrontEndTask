@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::InvEquipmentType;
 
 # Created by DBIx::Class::Schema::Loader
@@ -43,15 +44,14 @@ __PACKAGE__->table("inv_equipment_types");
 =cut
 
 __PACKAGE__->add_columns(
-  "EquipmentTypeId",
-  {
-    accessor    => "equipment_type_id",
-    data_type   => "bigint",
-    extra       => { unsigned => 1 },
-    is_nullable => 0,
-  },
-  "Name",
-  { accessor => "name", data_type => "varchar", is_nullable => 0, size => 64 },
+    "EquipmentTypeId",
+    {   accessor    => "equipment_type_id",
+        data_type   => "bigint",
+        extra       => {unsigned => 1},
+        is_nullable => 0,
+    },
+    "Name",
+    {accessor => "name", data_type => "varchar", is_nullable => 0, size => 64},
 );
 
 =head1 PRIMARY KEY
@@ -77,10 +77,8 @@ Related object: L<TMS::Schema::Result::DspLoadsRequiredEquipment>
 =cut
 
 __PACKAGE__->has_many(
-  "dsp_loads_required_equipments",
-  "TMS::Schema::Result::DspLoadsRequiredEquipment",
-  { "foreign.EquipmentType" => "self.EquipmentTypeId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "dsp_loads_required_equipments", "TMS::Schema::Result::DspLoadsRequiredEquipment",
+    {"foreign.EquipmentType" => "self.EquipmentTypeId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 inv_equipments
@@ -92,18 +90,15 @@ Related object: L<TMS::Schema::Result::InvEquipment>
 =cut
 
 __PACKAGE__->has_many(
-  "inv_equipments",
-  "TMS::Schema::Result::InvEquipment",
-  { "foreign.EquipmentType" => "self.EquipmentTypeId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "inv_equipments",
+    "TMS::Schema::Result::InvEquipment",
+    {"foreign.EquipmentType" => "self.EquipmentTypeId"},
+    {cascade_copy            => 0, cascade_delete => 0},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:XLmN4CLAuzfB28g3xjpS5A
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:3QxsVHNV/hasAYBRrg+9fg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

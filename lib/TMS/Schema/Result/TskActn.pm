@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::TskActn;
 
 # Created by DBIx::Class::Schema::Loader
@@ -59,30 +60,27 @@ Notes or comments if required
 =cut
 
 __PACKAGE__->add_columns(
-  "actid",
-  {
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "tskid",
-  {
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable => 0,
-  },
-  "PrsnId",
-  {
-    accessor       => "prsn_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "note",
-  { data_type => "varchar", is_nullable => 1, size => 1024 },
+    "actid",
+    {   data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "tskid",
+    {   data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "PrsnId",
+    {   accessor       => "prsn_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "note",
+    {data_type => "varchar", is_nullable => 1, size => 1024},
 );
 
 =head1 PRIMARY KEY
@@ -108,10 +106,10 @@ Related object: L<TMS::Schema::Result::EntPerson>
 =cut
 
 __PACKAGE__->belongs_to(
-  "prsn",
-  "TMS::Schema::Result::EntPerson",
-  { PrsnId => "PrsnId" },
-  { is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION" },
+    "prsn",
+    "TMS::Schema::Result::EntPerson",
+    {PrsnId        => "PrsnId"},
+    {is_deferrable => 1, on_delete => "NO ACTION", on_update => "NO ACTION"},
 );
 
 =head2 tsk_times
@@ -123,10 +121,10 @@ Related object: L<TMS::Schema::Result::TskTime>
 =cut
 
 __PACKAGE__->has_many(
-  "tsk_times",
-  "TMS::Schema::Result::TskTime",
-  { "foreign.actid" => "self.actid" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "tsk_times",
+    "TMS::Schema::Result::TskTime",
+    {"foreign.actid" => "self.actid"},
+    {cascade_copy    => 0, cascade_delete => 0},
 );
 
 =head2 tskid
@@ -138,18 +136,15 @@ Related object: L<TMS::Schema::Result::TskTask>
 =cut
 
 __PACKAGE__->belongs_to(
-  "tskid",
-  "TMS::Schema::Result::TskTask",
-  { tskid => "tskid" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+    "tskid",
+    "TMS::Schema::Result::TskTask",
+    {tskid         => "tskid"},
+    {is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0ZcDSdcHvcTdm0nmwH9lFA
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:BIUM6Duy4X2ToJXerIng2A
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

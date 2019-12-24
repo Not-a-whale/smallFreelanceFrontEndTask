@@ -1,6 +1,5 @@
 package TMS::API::Core::TskActn;
 
-# $Id: $
 use strict;
 use warnings FATAL => 'all';
 use Carp qw( confess longmess );
@@ -9,73 +8,24 @@ use Devel::Confess;
 use Data::Dumper;
 use Try::Tiny;
 
+$Data::Dumper::Terse = 1;
+
 use Moose;
-
-# AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::TskTask;
-use TMS::API::Core::EntPerson;
-
-# AUTO-GENERATED DEPENDENCIES END
-
-use TMS::SchemaWrapper;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
-use TMS::API::Types::Columns;
-use MooseX::Types::Moose qw(Undef);
+use TMS::API::Types::Complex;
 
 extends 'TMS::SchemaWrapper';
+with 'MooseX::Traits';
 
-# AUTO-GENERATED HAS-A START
-has actid  => (is => 'rw', coerce => 0, isa => 'Undef | PrimaryKeyInt');
-has tskid  => (is => 'rw', coerce => 1, isa => 'TskTaskObj | Int ');
-has PrsnId => (is => 'rw', coerce => 1, isa => 'EntPersonObj | Int ');
-has note   => (is => 'rw', coerce => 1, isa => 'Undef | TidySpacesString');
+has 'actid' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'required' => '0');
+has 'note'  => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
 
-has AllErrors => (is => 'rw', isa => 'ArrayRef',    default    => sub { [] });
-has LastError => (is => 'rw', isa => 'Undef | Str', default    => undef);
-has TableMeta => (is => 'rw', isa => 'HashRef',     lazy_build => 1);
-has DoIfError => (is => 'rw', isa => 'Str',         default    => 'confess');    # confess or ignore
+# relations
+has 'prsn'      => ('is' => 'rw', 'isa' => 'ObjEntPerson',    'required' => '0');
+has 'tsk_times' => ('is' => 'rw', 'isa' => 'ArrayObjTskTime', 'required' => '0');
+has 'tskid'     => ('is' => 'rw', 'isa' => 'ObjTskTask',      'required' => '0');
 
-sub _build_TableMeta {
-    my $self = shift;
-    my $data = {
-        'actid' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'tskid' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'required' => 1,
-            'apiclass' => 'TMS::API::Core::TskTask',
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'PrsnId' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'required' => 1,
-            'apiclass' => 'TMS::API::Core::EntPerson',
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'note' => {
-            'is_null'  => 1,
-            'comment'  => 'Notes or comments if required',
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => undef,
-            'db_type'  => 'varchar(1024)'
-        }
-    };
-    $self->TableMeta($data);
-} ## end sub _build_TableMeta
-
-# AUTO-GENERATED HAS-A END
+has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'TskActn');
 
 1;
-

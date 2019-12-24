@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::SftLogbook;
 
 # Created by DBIx::Class::Schema::Loader
@@ -58,31 +59,28 @@ __PACKAGE__->table("sft_logbooks");
 =cut
 
 __PACKAGE__->add_columns(
-  "LogbookId",
-  {
-    accessor => "logbook_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "DateStarted",
-  {
-    accessor => "date_started",
-    data_type => "date",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 0,
-  },
-  "Notes",
-  { accessor => "notes", data_type => "text", is_nullable => 1 },
-  "Trip",
-  {
-    accessor       => "trip",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
+    "LogbookId",
+    {   accessor          => "logbook_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "DateStarted",
+    {   accessor                  => "date_started",
+        data_type                 => "date",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 0,
+    },
+    "Notes",
+    {accessor => "notes", data_type => "text", is_nullable => 1},
+    "Trip",
+    {   accessor       => "trip",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -108,10 +106,10 @@ Related object: L<TMS::Schema::Result::SftLogEntry>
 =cut
 
 __PACKAGE__->has_many(
-  "sft_log_entries",
-  "TMS::Schema::Result::SftLogEntry",
-  { "foreign.LogbookId" => "self.LogbookId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "sft_log_entries",
+    "TMS::Schema::Result::SftLogEntry",
+    {"foreign.LogbookId" => "self.LogbookId"},
+    {cascade_copy        => 0, cascade_delete => 0},
 );
 
 =head2 trip
@@ -123,18 +121,15 @@ Related object: L<TMS::Schema::Result::DspTrip>
 =cut
 
 __PACKAGE__->belongs_to(
-  "trip",
-  "TMS::Schema::Result::DspTrip",
-  { TripId => "Trip" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "trip",
+    "TMS::Schema::Result::DspTrip",
+    {TripId        => "Trip"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:N/7/1rukpW8FahlwF/FYjQ
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zsnAbIxeKusRf5/tf+4mpg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

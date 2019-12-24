@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::DspTrip;
 
 # Created by DBIx::Class::Schema::Loader
@@ -119,86 +120,74 @@ For financial purposes TripNumber === JobNumber, TripId === JobId
 =cut
 
 __PACKAGE__->add_columns(
-  "TripId",
-  {
-    accessor => "trip_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "CreatedBy",
-  {
-    accessor       => "created_by",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "TripNumber",
-  {
-    accessor => "trip_number",
-    data_type => "varchar",
-    is_nullable => 0,
-    size => 12,
-  },
-  "DateCreated",
-  {
-    accessor => "date_created",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    default_value => "CURRENT_TIMESTAMP",
-    is_nullable => 0,
-  },
-  "DateStarted",
-  {
-    accessor => "date_started",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
-  },
-  "DateCompleted",
-  {
-    accessor => "date_completed",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
-  },
-  "DateBooked",
-  {
-    accessor => "date_booked",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
-  },
-  "DateDispatched",
-  {
-    accessor => "date_dispatched",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
-  },
-  "IsValid",
-  {
-    accessor      => "is_valid",
-    data_type     => "tinyint",
-    default_value => 1,
-    extra         => { unsigned => 1 },
-    is_nullable   => 0,
-  },
-  "TripStatus",
-  {
-    accessor    => "trip_status",
-    data_type   => "enum",
-    extra       => {
-                     list => ["Pending", "Dispatched", "Complete", "Other", "TONU", "Cancelled"],
-                   },
-    is_nullable => 0,
-  },
-  "Notes",
-  { accessor => "notes", data_type => "text", is_nullable => 1 },
-  "GoogleRoute",
-  { accessor => "google_route", data_type => "text", is_nullable => 1 },
+    "TripId",
+    {   accessor          => "trip_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "CreatedBy",
+    {   accessor       => "created_by",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "TripNumber",
+    {   accessor    => "trip_number",
+        data_type   => "varchar",
+        is_nullable => 0,
+        size        => 12,
+    },
+    "DateCreated",
+    {   accessor                  => "date_created",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        default_value             => "CURRENT_TIMESTAMP",
+        is_nullable               => 0,
+    },
+    "DateStarted",
+    {   accessor                  => "date_started",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 1,
+    },
+    "DateCompleted",
+    {   accessor                  => "date_completed",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 1,
+    },
+    "DateBooked",
+    {   accessor                  => "date_booked",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 1,
+    },
+    "DateDispatched",
+    {   accessor                  => "date_dispatched",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 1,
+    },
+    "IsValid",
+    {   accessor      => "is_valid",
+        data_type     => "tinyint",
+        default_value => 1,
+        extra         => {unsigned => 1},
+        is_nullable   => 0,
+    },
+    "TripStatus",
+    {   accessor    => "trip_status",
+        data_type   => "enum",
+        extra       => {list => ["Pending", "Dispatched", "Complete", "Other", "TONU", "Cancelled"],},
+        is_nullable => 0,
+    },
+    "Notes",
+    {accessor => "notes", data_type => "text", is_nullable => 1},
+    "GoogleRoute",
+    {accessor => "google_route", data_type => "text", is_nullable => 1},
 );
 
 =head1 PRIMARY KEY
@@ -238,10 +227,10 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "created_by",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "CreatedBy" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "created_by",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId         => "CreatedBy"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 dsp_trips_loads
@@ -253,10 +242,8 @@ Related object: L<TMS::Schema::Result::DspTripsLoad>
 =cut
 
 __PACKAGE__->has_many(
-  "dsp_trips_loads",
-  "TMS::Schema::Result::DspTripsLoad",
-  { "foreign.TripId" => "self.TripId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "dsp_trips_loads", "TMS::Schema::Result::DspTripsLoad",
+    {"foreign.TripId" => "self.TripId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 sft_logbooks
@@ -268,18 +255,15 @@ Related object: L<TMS::Schema::Result::SftLogbook>
 =cut
 
 __PACKAGE__->has_many(
-  "sft_logbooks",
-  "TMS::Schema::Result::SftLogbook",
-  { "foreign.Trip" => "self.TripId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "sft_logbooks",
+    "TMS::Schema::Result::SftLogbook",
+    {"foreign.Trip" => "self.TripId"},
+    {cascade_copy   => 0, cascade_delete => 0},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:qNOg167Wtnpp96aFr/I7zQ
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0CWtbDJUh2PnMKkcSmH5CA
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

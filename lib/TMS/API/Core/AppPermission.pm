@@ -1,6 +1,5 @@
 package TMS::API::Core::AppPermission;
 
-# $Id: $
 use strict;
 use warnings FATAL => 'all';
 use Carp qw( confess longmess );
@@ -9,63 +8,22 @@ use Devel::Confess;
 use Data::Dumper;
 use Try::Tiny;
 
+$Data::Dumper::Terse = 1;
+
 use Moose;
-
-# AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::AppFeature;
-
-# AUTO-GENERATED DEPENDENCIES END
-
-use TMS::SchemaWrapper;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
-use TMS::API::Types::Columns;
-use MooseX::Types::Moose qw(Undef);
+use TMS::API::Types::Complex;
 
 extends 'TMS::SchemaWrapper';
+with 'MooseX::Traits';
 
-# AUTO-GENERATED HAS-A START
-has PermissionId => (is => 'rw', coerce => 0, isa => 'Undef | PrimaryKeyInt');
-has Feature      => (is => 'rw', coerce => 1, isa => 'AppFeatureObj | Int ');
-has AccessName   => (is => 'rw', coerce => 1, isa => 'TidySpacesString');
+has 'PermissionId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'required' => '0');
 
-has AllErrors => (is => 'rw', isa => 'ArrayRef',    default    => sub { [] });
-has LastError => (is => 'rw', isa => 'Undef | Str', default    => undef);
-has TableMeta => (is => 'rw', isa => 'HashRef',     lazy_build => 1);
-has DoIfError => (is => 'rw', isa => 'Str',         default    => 'confess');    # confess or ignore
+# relations
+has 'feature'              => ('is' => 'rw', 'isa' => 'ObjAppFeature',             'required' => '0');
+has 'app_role_permissions' => ('is' => 'rw', 'isa' => 'ArrayObjAppRolePermission', 'required' => '0');
 
-sub _build_TableMeta {
-    my $self = shift;
-    my $data = {
-        'PermissionId' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'AccessName' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'required' => 1,
-            'apiclass' => undef,
-            'default'  => undef,
-            'db_type'  => 'varchar(64)'
-        },
-        'Feature' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'required' => 1,
-            'apiclass' => 'TMS::API::Core::AppFeature',
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        }
-    };
-    $self->TableMeta($data);
-} ## end sub _build_TableMeta
-
-# AUTO-GENERATED HAS-A END
+has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'AppPermission');
 
 1;
-

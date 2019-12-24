@@ -1,6 +1,5 @@
 package TMS::API::Core::CntPhonesfax;
 
-# $Id: $
 use strict;
 use warnings FATAL => 'all';
 use Carp qw( confess longmess );
@@ -9,89 +8,34 @@ use Devel::Confess;
 use Data::Dumper;
 use Try::Tiny;
 
+$Data::Dumper::Terse = 1;
+
 use Moose;
-
-# AUTO-GENERATED DEPENDENCIES START
-
-# AUTO-GENERATED DEPENDENCIES END
-
-use TMS::SchemaWrapper;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
-use TMS::API::Types::Columns;
-use MooseX::Types::Moose qw(Undef);
+use TMS::API::Types::Complex;
 
 extends 'TMS::SchemaWrapper';
+with 'MooseX::Traits';
 
-# AUTO-GENERATED HAS-A START
-has PhnFaxId  => (is => 'rw', coerce => 0, isa => 'Undef | PrimaryKeyInt');
-has Number    => (is => 'rw', coerce => 1, isa => 'PhoneNumber');
-has Extension => (is => 'rw', coerce => 1, isa => 'Undef | PhoneExt');
-has Features  => (is => 'rw', coerce => 1, isa => 'Undef | SetVoice');
-has Mobility  => (is => 'rw', coerce => 1, isa => 'Undef | EnumLandLine');
-has Notes     => (is => 'rw', coerce => 1, isa => 'Undef | TidySpacesString');
+has 'Extension' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '1', 'default' => '0');
+has 'Features'  => ('is' => 'rw', 'isa' => 'Any',              'required' => '1', 'default' => 'VOICE');
+has 'Mobility'  => ('is' => 'rw', 'isa' => 'Any',              'required' => '1', 'default' => 'LAND LINE');
+has 'Notes'     => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
+has 'PhnFaxId'  => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'required' => '0');
 
-has AllErrors => (is => 'rw', isa => 'ArrayRef',    default    => sub { [] });
-has LastError => (is => 'rw', isa => 'Undef | Str', default    => undef);
-has TableMeta => (is => 'rw', isa => 'HashRef',     lazy_build => 1);
-has DoIfError => (is => 'rw', isa => 'Str',         default    => 'confess');    # confess or ignore
+# relations
+has 'hr_references'             => ('is' => 'rw', 'isa' => 'ArrayObjHrReference',       'required' => '0');
+has 'biz_branches_brnch_phones' => ('is' => 'rw', 'isa' => 'ArrayObjBizBranch',         'required' => '0');
+has 'biz_branches_brnch_faxes'  => ('is' => 'rw', 'isa' => 'ArrayObjBizBranch',         'required' => '0');
+has 'hr_associates_biz_faxes'   => ('is' => 'rw', 'isa' => 'ArrayObjHrAssociate',       'required' => '0');
+has 'fin_billing_infos_faxes'   => ('is' => 'rw', 'isa' => 'ArrayObjFinBillingInfo',    'required' => '0');
+has 'fin_billing_infos_phones'  => ('is' => 'rw', 'isa' => 'ArrayObjFinBillingInfo',    'required' => '0');
+has 'hr_associates_biz_phones'  => ('is' => 'rw', 'isa' => 'ArrayObjHrAssociate',       'required' => '0');
+has 'hr_confidentials'          => ('is' => 'rw', 'isa' => 'ArrayObjHrConfidential',    'required' => '0');
+has 'hr_residences'             => ('is' => 'rw', 'isa' => 'ArrayObjHrResidence',       'required' => '0');
+has 'hr_emrgency_contacts'      => ('is' => 'rw', 'isa' => 'ArrayObjHrEmrgencyContact', 'required' => '0');
 
-sub _build_TableMeta {
-    my $self = shift;
-    my $data = {
-        'Number' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 1,
-            'default'  => undef,
-            'db_type'  => 'varchar(12)'
-        },
-        'Extension' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => '0',
-            'db_type'  => 'varchar(10)'
-        },
-        'Mobility' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => 'LAND LINE',
-            'db_type'  => 'enum(\'LAND LINE\',\'MOBILE\',\'SOFT PHONE\')'
-        },
-        'PhnFaxId' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'Features' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => 'VOICE',
-            'db_type'  => 'set(\'VOICE\',\'SMS\',\'MMS\',\'FAX\')'
-        },
-        'Notes' => {
-            'comment'  => '',
-            'is_null'  => 1,
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'text'
-        }
-    };
-    $self->TableMeta($data);
-} ## end sub _build_TableMeta
-
-# AUTO-GENERATED HAS-A END
+has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'CntPhonesfax');
 
 1;
-

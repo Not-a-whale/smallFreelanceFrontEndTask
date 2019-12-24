@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::DspLoad;
 
 # Created by DBIx::Class::Schema::Loader
@@ -186,146 +187,128 @@ Internal status for load, cancelled, tonu, etc.
 =cut
 
 __PACKAGE__->add_columns(
-  "LoadId",
-  {
-    accessor => "load_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "CreatedBy",
-  {
-    accessor       => "created_by",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "BrokerId",
-  {
-    accessor       => "broker_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "ShipperId",
-  {
-    accessor       => "shipper_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "BookedBy",
-  {
-    accessor       => "booked_by",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "DateCreated",
-  {
-    accessor => "date_created",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    default_value => "CURRENT_TIMESTAMP",
-    is_nullable => 0,
-  },
-  "DateBooked",
-  {
-    accessor => "date_booked",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
-  },
-  "LoadNumber",
-  {
-    accessor => "load_number",
-    data_type => "varchar",
-    is_nullable => 1,
-    size => 64,
-  },
-  "ProNumber",
-  {
-    accessor => "pro_number",
-    data_type => "varchar",
-    is_nullable => 1,
-    size => 16,
-  },
-  "LoadType",
-  {
-    accessor    => "load_type",
-    data_type   => "enum",
-    extra       => { list => ["FTL", "LTL", "Partial"] },
-    is_nullable => 1,
-  },
-  "TruckType",
-  {
-    accessor => "truck_type",
-    data_type => "varchar",
-    is_foreign_key => 1,
-    is_nullable => 1,
-    size => 24,
-  },
-  "ReeferTempLow",
-  {
-    accessor => "reefer_temp_low",
-    data_type => "decimal",
-    is_nullable => 1,
-    size => [5, 2],
-  },
-  "ReeferTempHigh",
-  {
-    accessor => "reefer_temp_high",
-    data_type => "decimal",
-    is_nullable => 1,
-    size => [5, 2],
-  },
-  "Precooling",
-  {
-    accessor => "precooling",
-    data_type => "decimal",
-    is_nullable => 1,
-    size => [5, 2],
-  },
-  "TempMode",
-  {
-    accessor    => "temp_mode",
-    data_type   => "enum",
-    extra       => { list => ["continuous", "start/stop"] },
-    is_nullable => 1,
-  },
-  "TeamRequired",
-  {
-    accessor    => "team_required",
-    data_type   => "enum",
-    extra       => { list => ["yes", "no"] },
-    is_nullable => 1,
-  },
-  "DispatchNote",
-  { accessor => "dispatch_note", data_type => "text", is_nullable => 1 },
-  "Job",
-  {
-    accessor       => "job",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "GoogleRoute",
-  { accessor => "google_route", data_type => "text", is_nullable => 1 },
-  "Status",
-  { accessor => "status", data_type => "varchar", is_nullable => 1, size => 45 },
-  "LoadRate",
-  {
-    accessor => "load_rate",
-    data_type => "decimal",
-    is_nullable => 0,
-    size => [12, 2],
-  },
+    "LoadId",
+    {   accessor          => "load_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "CreatedBy",
+    {   accessor       => "created_by",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "BrokerId",
+    {   accessor       => "broker_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "ShipperId",
+    {   accessor       => "shipper_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "BookedBy",
+    {   accessor       => "booked_by",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "DateCreated",
+    {   accessor                  => "date_created",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        default_value             => "CURRENT_TIMESTAMP",
+        is_nullable               => 0,
+    },
+    "DateBooked",
+    {   accessor                  => "date_booked",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 1,
+    },
+    "LoadNumber",
+    {   accessor    => "load_number",
+        data_type   => "varchar",
+        is_nullable => 1,
+        size        => 64,
+    },
+    "ProNumber",
+    {   accessor    => "pro_number",
+        data_type   => "varchar",
+        is_nullable => 1,
+        size        => 16,
+    },
+    "LoadType",
+    {   accessor    => "load_type",
+        data_type   => "enum",
+        extra       => {list => ["FTL", "LTL", "Partial"]},
+        is_nullable => 1,
+    },
+    "TruckType",
+    {   accessor       => "truck_type",
+        data_type      => "varchar",
+        is_foreign_key => 1,
+        is_nullable    => 1,
+        size           => 24,
+    },
+    "ReeferTempLow",
+    {   accessor    => "reefer_temp_low",
+        data_type   => "decimal",
+        is_nullable => 1,
+        size        => [5, 2],
+    },
+    "ReeferTempHigh",
+    {   accessor    => "reefer_temp_high",
+        data_type   => "decimal",
+        is_nullable => 1,
+        size        => [5, 2],
+    },
+    "Precooling",
+    {   accessor    => "precooling",
+        data_type   => "decimal",
+        is_nullable => 1,
+        size        => [5, 2],
+    },
+    "TempMode",
+    {   accessor    => "temp_mode",
+        data_type   => "enum",
+        extra       => {list => ["continuous", "start/stop"]},
+        is_nullable => 1,
+    },
+    "TeamRequired",
+    {   accessor    => "team_required",
+        data_type   => "enum",
+        extra       => {list => ["yes", "no"]},
+        is_nullable => 1,
+    },
+    "DispatchNote",
+    {accessor => "dispatch_note", data_type => "text", is_nullable => 1},
+    "Job",
+    {   accessor       => "job",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "GoogleRoute",
+    {accessor => "google_route", data_type => "text", is_nullable => 1},
+    "Status",
+    {accessor => "status", data_type => "varchar", is_nullable => 1, size => 45},
+    "LoadRate",
+    {   accessor    => "load_rate",
+        data_type   => "decimal",
+        is_nullable => 0,
+        size        => [12, 2],
+    },
 );
 
 =head1 PRIMARY KEY
@@ -351,15 +334,14 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "booked_by",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "BookedBy" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "booked_by",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId => "BookedBy"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
 =head2 broker
@@ -371,10 +353,10 @@ Related object: L<TMS::Schema::Result::EntCustomer>
 =cut
 
 __PACKAGE__->belongs_to(
-  "broker",
-  "TMS::Schema::Result::EntCustomer",
-  { CstmrId => "BrokerId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "broker",
+    "TMS::Schema::Result::EntCustomer",
+    {CstmrId       => "BrokerId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 created_by
@@ -386,10 +368,10 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "created_by",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "CreatedBy" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "created_by",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId         => "CreatedBy"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 dsp_loads_destinations
@@ -401,10 +383,8 @@ Related object: L<TMS::Schema::Result::DspLoadsDestination>
 =cut
 
 __PACKAGE__->has_many(
-  "dsp_loads_destinations",
-  "TMS::Schema::Result::DspLoadsDestination",
-  { "foreign.LoadId" => "self.LoadId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "dsp_loads_destinations", "TMS::Schema::Result::DspLoadsDestination",
+    {"foreign.LoadId" => "self.LoadId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 dsp_loads_dispatched
@@ -416,10 +396,8 @@ Related object: L<TMS::Schema::Result::DspLoadDispatched>
 =cut
 
 __PACKAGE__->has_many(
-  "dsp_loads_dispatched",
-  "TMS::Schema::Result::DspLoadDispatched",
-  { "foreign.LoadId" => "self.LoadId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "dsp_loads_dispatched", "TMS::Schema::Result::DspLoadDispatched",
+    {"foreign.LoadId" => "self.LoadId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 dsp_loads_docs
@@ -431,10 +409,10 @@ Related object: L<TMS::Schema::Result::DspLoadsDoc>
 =cut
 
 __PACKAGE__->has_many(
-  "dsp_loads_docs",
-  "TMS::Schema::Result::DspLoadsDoc",
-  { "foreign.LoadId" => "self.LoadId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "dsp_loads_docs",
+    "TMS::Schema::Result::DspLoadsDoc",
+    {"foreign.LoadId" => "self.LoadId"},
+    {cascade_copy     => 0, cascade_delete => 0},
 );
 
 =head2 dsp_loads_required_equipments
@@ -446,10 +424,8 @@ Related object: L<TMS::Schema::Result::DspLoadsRequiredEquipment>
 =cut
 
 __PACKAGE__->has_many(
-  "dsp_loads_required_equipments",
-  "TMS::Schema::Result::DspLoadsRequiredEquipment",
-  { "foreign.LoadId" => "self.LoadId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "dsp_loads_required_equipments", "TMS::Schema::Result::DspLoadsRequiredEquipment",
+    {"foreign.LoadId" => "self.LoadId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 dsp_trips_loads
@@ -461,10 +437,8 @@ Related object: L<TMS::Schema::Result::DspTripsLoad>
 =cut
 
 __PACKAGE__->has_many(
-  "dsp_trips_loads",
-  "TMS::Schema::Result::DspTripsLoad",
-  { "foreign.LoadId" => "self.LoadId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "dsp_trips_loads", "TMS::Schema::Result::DspTripsLoad",
+    {"foreign.LoadId" => "self.LoadId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 job
@@ -476,15 +450,14 @@ Related object: L<TMS::Schema::Result::FinJob>
 =cut
 
 __PACKAGE__->belongs_to(
-  "job",
-  "TMS::Schema::Result::FinJob",
-  { JobId => "Job" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "job",
+    "TMS::Schema::Result::FinJob",
+    {JobId => "Job"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
 =head2 shipper
@@ -496,15 +469,14 @@ Related object: L<TMS::Schema::Result::EntShipper>
 =cut
 
 __PACKAGE__->belongs_to(
-  "shipper",
-  "TMS::Schema::Result::EntShipper",
-  { ShipperId => "ShipperId" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "shipper",
+    "TMS::Schema::Result::EntShipper",
+    {ShipperId => "ShipperId"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
 =head2 truck_type
@@ -516,23 +488,19 @@ Related object: L<TMS::Schema::Result::InvTrailerType>
 =cut
 
 __PACKAGE__->belongs_to(
-  "truck_type",
-  "TMS::Schema::Result::InvTrailerType",
-  { Name => "TruckType" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "truck_type",
+    "TMS::Schema::Result::InvTrailerType",
+    {Name => "TruckType"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:hwE1XcCB+M4dZw3yVpgj4w
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:E7toliY7oznQJjsUVuki7Q
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::HrGovidcard;
 
 # Created by DBIx::Class::Schema::Loader
@@ -96,68 +97,60 @@ __PACKAGE__->table("hr_govidcards");
 =cut
 
 __PACKAGE__->add_columns(
-  "CardId",
-  {
-    accessor => "card_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "AstId",
-  {
-    accessor       => "ast_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "CardNumber",
-  {
-    accessor => "card_number",
-    data_type => "varchar",
-    is_nullable => 0,
-    size => 255,
-  },
-  "CardDateExpired",
-  {
-    accessor => "card_date_expired",
-    data_type => "date",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 0,
-  },
-  "CardDateValid",
-  {
-    accessor => "card_date_valid",
-    data_type => "date",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 0,
-  },
-  "CardSate",
-  { accessor => "card_sate", data_type => "char", is_nullable => 0, size => 2 },
-  "CardType",
-  {
-    accessor => "card_type",
-    data_type => "varchar",
-    is_nullable => 0,
-    size => 255,
-  },
-  "Photo",
-  {
-    accessor       => "photo",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "AddedBy",
-  {
-    accessor       => "added_by",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
+    "CardId",
+    {   accessor          => "card_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "AstId",
+    {   accessor       => "ast_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "CardNumber",
+    {   accessor    => "card_number",
+        data_type   => "varchar",
+        is_nullable => 0,
+        size        => 255,
+    },
+    "CardDateExpired",
+    {   accessor                  => "card_date_expired",
+        data_type                 => "date",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 0,
+    },
+    "CardDateValid",
+    {   accessor                  => "card_date_valid",
+        data_type                 => "date",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 0,
+    },
+    "CardSate",
+    {accessor => "card_sate", data_type => "char", is_nullable => 0, size => 2},
+    "CardType",
+    {   accessor    => "card_type",
+        data_type   => "varchar",
+        is_nullable => 0,
+        size        => 255,
+    },
+    "Photo",
+    {   accessor       => "photo",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "AddedBy",
+    {   accessor       => "added_by",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -183,10 +176,10 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "added_by",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "AddedBy" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "added_by",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId         => "AddedBy"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 ast
@@ -198,10 +191,10 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "ast",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "AstId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "ast",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId         => "AstId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 hr_hire_records
@@ -213,10 +206,10 @@ Related object: L<TMS::Schema::Result::HrHireRecord>
 =cut
 
 __PACKAGE__->has_many(
-  "hr_hire_records",
-  "TMS::Schema::Result::HrHireRecord",
-  { "foreign.EmploymentAuthorization" => "self.CardId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "hr_hire_records",
+    "TMS::Schema::Result::HrHireRecord",
+    {"foreign.EmploymentAuthorization" => "self.CardId"},
+    {cascade_copy                      => 0, cascade_delete => 0},
 );
 
 =head2 photo
@@ -228,23 +221,19 @@ Related object: L<TMS::Schema::Result::GenFile>
 =cut
 
 __PACKAGE__->belongs_to(
-  "photo",
-  "TMS::Schema::Result::GenFile",
-  { FileId => "Photo" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "photo",
+    "TMS::Schema::Result::GenFile",
+    {FileId => "Photo"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:EDnAKyhzKwMzDb52nDU+dg
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:fPXgumN21QpYPmEuvTJLjA
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

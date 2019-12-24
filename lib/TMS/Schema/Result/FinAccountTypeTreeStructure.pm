@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::FinAccountTypeTreeStructure;
 
 # Created by DBIx::Class::Schema::Loader
@@ -24,7 +25,9 @@ __PACKAGE__->table_class("DBIx::Class::ResultSource::View");
 =cut
 
 __PACKAGE__->table("fin_account_type_tree_structures");
-__PACKAGE__->result_source_instance->view_definition("select `root`.`RootId` AS `RootTypeId`,`tree`.`DescendantId` AS `AccountTypeId`,group_concat(`tree`.`AncestorId` separator ',') AS `Structure` from (`tms`.`fin_account_types_trees` `tree` join `tms`.`fin_account_types_roots` `root`) where ((`tree`.`DescendantId` = `root`.`DescendantId`) and (`root`.`RootId` in (1,3,5))) group by `root`.`RootId`,`tree`.`DescendantId` order by `Structure`");
+__PACKAGE__->result_source_instance->view_definition(
+    "select `root`.`RootId` AS `RootTypeId`,`tree`.`DescendantId` AS `AccountTypeId`,group_concat(`tree`.`AncestorId` separator ',') AS `Structure` from (`tms`.`fin_account_types_trees` `tree` join `tms`.`fin_account_types_roots` `root`) where ((`tree`.`DescendantId` = `root`.`DescendantId`) and (`root`.`RootId` in (1,3,5))) group by `root`.`RootId`,`tree`.`DescendantId` order by `Structure`"
+);
 
 =head1 ACCESSORS
 
@@ -51,30 +54,25 @@ __PACKAGE__->result_source_instance->view_definition("select `root`.`RootId` AS 
 =cut
 
 __PACKAGE__->add_columns(
-  "RootTypeId",
-  {
-    accessor    => "root_type_id",
-    data_type   => "bigint",
-    extra       => { unsigned => 1 },
-    is_nullable => 0,
-  },
-  "AccountTypeId",
-  {
-    accessor    => "account_type_id",
-    data_type   => "bigint",
-    extra       => { unsigned => 1 },
-    is_nullable => 0,
-  },
-  "Structure",
-  { accessor => "structure", data_type => "text", is_nullable => 1 },
+    "RootTypeId",
+    {   accessor    => "root_type_id",
+        data_type   => "bigint",
+        extra       => {unsigned => 1},
+        is_nullable => 0,
+    },
+    "AccountTypeId",
+    {   accessor    => "account_type_id",
+        data_type   => "bigint",
+        extra       => {unsigned => 1},
+        is_nullable => 0,
+    },
+    "Structure",
+    {accessor => "structure", data_type => "text", is_nullable => 1},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:utoF2YKpWc0bI8Nzus7dqg
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:MFZ0JQK+0n26tz7hO9ilHg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

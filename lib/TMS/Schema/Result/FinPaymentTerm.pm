@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::FinPaymentTerm;
 
 # Created by DBIx::Class::Schema::Loader
@@ -86,48 +87,43 @@ Net 7, 10, 30, 60, 90
 =cut
 
 __PACKAGE__->add_columns(
-  "PaymentTermId",
-  {
-    accessor => "payment_term_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "Name",
-  { accessor => "name", data_type => "varchar", is_nullable => 0, size => 1024 },
-  "DueNext",
-  { accessor => "due_next", data_type => "integer", is_nullable => 1 },
-  "DueInDays",
-  { accessor => "due_in_days", data_type => "integer", is_nullable => 1 },
-  "DiscountAmount",
-  {
-    accessor => "discount_amount",
-    data_type => "decimal",
-    is_nullable => 1,
-    size => [12, 2],
-  },
-  "DiscountPercent",
-  {
-    accessor => "discount_percent",
-    data_type => "decimal",
-    is_nullable => 1,
-    size => [12, 2],
-  },
-  "DiscountInDays",
-  {
-    accessor    => "discount_in_days",
-    data_type   => "integer",
-    extra       => { unsigned => 1 },
-    is_nullable => 1,
-  },
-  "Type",
-  {
-    accessor    => "type",
-    data_type   => "enum",
-    extra       => { list => ["STANDARD", "BY DATE", "CASH"] },
-    is_nullable => 0,
-  },
+    "PaymentTermId",
+    {   accessor          => "payment_term_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "Name",
+    {accessor => "name", data_type => "varchar", is_nullable => 0, size => 1024},
+    "DueNext",
+    {accessor => "due_next", data_type => "integer", is_nullable => 1},
+    "DueInDays",
+    {accessor => "due_in_days", data_type => "integer", is_nullable => 1},
+    "DiscountAmount",
+    {   accessor    => "discount_amount",
+        data_type   => "decimal",
+        is_nullable => 1,
+        size        => [12, 2],
+    },
+    "DiscountPercent",
+    {   accessor    => "discount_percent",
+        data_type   => "decimal",
+        is_nullable => 1,
+        size        => [12, 2],
+    },
+    "DiscountInDays",
+    {   accessor    => "discount_in_days",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "Type",
+    {   accessor    => "type",
+        data_type   => "enum",
+        extra       => {list => ["STANDARD", "BY DATE", "CASH"]},
+        is_nullable => 0,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -167,18 +163,15 @@ Related object: L<TMS::Schema::Result::FinInvoice>
 =cut
 
 __PACKAGE__->has_many(
-  "fin_invoices",
-  "TMS::Schema::Result::FinInvoice",
-  { "foreign.PaymentTermsId" => "self.PaymentTermId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "fin_invoices",
+    "TMS::Schema::Result::FinInvoice",
+    {"foreign.PaymentTermsId" => "self.PaymentTermId"},
+    {cascade_copy             => 0, cascade_delete => 0},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yg48ZlYsvQmscHq4GRfREQ
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:tlP6hGJ+4PX4WvGER5zuRg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

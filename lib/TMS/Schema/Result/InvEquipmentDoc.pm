@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::InvEquipmentDoc;
 
 # Created by DBIx::Class::Schema::Loader
@@ -53,30 +54,27 @@ __PACKAGE__->table("inv_equipment_docs");
 =cut
 
 __PACKAGE__->add_columns(
-  "FileVsEquipId",
-  {
-    accessor => "file_vs_equip_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "FileId",
-  {
-    accessor       => "file_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "EquipmentId",
-  {
-    accessor       => "equipment_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
+    "FileVsEquipId",
+    {   accessor          => "file_vs_equip_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "FileId",
+    {   accessor       => "file_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "EquipmentId",
+    {   accessor       => "equipment_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -118,10 +116,10 @@ Related object: L<TMS::Schema::Result::InvEquipment>
 =cut
 
 __PACKAGE__->belongs_to(
-  "equipment",
-  "TMS::Schema::Result::InvEquipment",
-  { EquipmentId => "EquipmentId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "equipment",
+    "TMS::Schema::Result::InvEquipment",
+    {EquipmentId   => "EquipmentId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 file
@@ -133,18 +131,15 @@ Related object: L<TMS::Schema::Result::GenFile>
 =cut
 
 __PACKAGE__->belongs_to(
-  "file",
-  "TMS::Schema::Result::GenFile",
-  { FileId => "FileId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "file",
+    "TMS::Schema::Result::GenFile",
+    {FileId        => "FileId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1AqeOVgmnNelb08Wpl9FnQ
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:QGX5d6fNNo16+qmqSeL8Yw
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

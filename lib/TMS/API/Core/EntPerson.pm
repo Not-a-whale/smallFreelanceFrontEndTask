@@ -1,6 +1,5 @@
 package TMS::API::Core::EntPerson;
 
-# $Id: $
 use strict;
 use warnings FATAL => 'all';
 use Carp qw( confess longmess );
@@ -9,108 +8,32 @@ use Devel::Confess;
 use Data::Dumper;
 use Try::Tiny;
 
+$Data::Dumper::Terse = 1;
+
 use Moose;
-
-# AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::BizBranch;
-
-# AUTO-GENERATED DEPENDENCIES END
-
-use TMS::SchemaWrapper;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
-use TMS::API::Types::Columns;
-use MooseX::Types::Moose qw(Undef);
+use TMS::API::Types::Complex;
 
 extends 'TMS::SchemaWrapper';
+with 'MooseX::Traits';
 
-# AUTO-GENERATED HAS-A START
-has PrsnId     => (is => 'rw', coerce => 0, isa => 'Undef | PrimaryKeyInt');
-has NickName   => (is => 'rw', coerce => 1, isa => 'Undef | TidySpacesString');
-has Prefix     => (is => 'rw', coerce => 1, isa => 'Undef | Enum');
-has FirstName  => (is => 'rw', coerce => 1, isa => 'TidySpacesString');
-has MiddleName => (is => 'rw', coerce => 1, isa => 'Undef | TidySpacesString');
-has LastName   => (is => 'rw', coerce => 1, isa => 'TidySpacesString');
-has Suffix     => (is => 'rw', coerce => 1, isa => 'Undef | EnumSr');
-has BrnchId    => (is => 'rw', coerce => 1, isa => 'BizBranchObj | Int ');
+has 'MiddleName' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '1', 'default' => '');
+has 'NickName'   => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '1', 'default' => '');
+has 'Prefix'     => ('is' => 'rw', 'isa' => 'Any',              'required' => '1', 'default' => '');
+has 'PrsnId'     => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'required' => '0');
+has 'Suffix'     => ('is' => 'rw', 'isa' => 'Any',              'required' => '1', 'default' => '');
 
-has AllErrors => (is => 'rw', isa => 'ArrayRef',    default    => sub { [] });
-has LastError => (is => 'rw', isa => 'Undef | Str', default    => undef);
-has TableMeta => (is => 'rw', isa => 'HashRef',     lazy_build => 1);
-has DoIfError => (is => 'rw', isa => 'Str',         default    => 'confess');    # confess or ignore
+# relations
+has 'tsk_actns'    => ('is' => 'rw', 'isa' => 'ArrayObjTskActn', 'required' => '0');
+has 'tsk_tasks'    => ('is' => 'rw', 'isa' => 'ArrayObjTskTask', 'required' => '0');
+has 'tsk_times'    => ('is' => 'rw', 'isa' => 'ArrayObjTskTime', 'required' => '0');
+has 'tsk_ntfis'    => ('is' => 'rw', 'isa' => 'ArrayObjTskNtfi', 'required' => '0');
+has 'hr_associate' => ('is' => 'rw', 'isa' => 'ObjHrAssociate',  'required' => '0');
+has 'entity'       => ('is' => 'rw', 'isa' => 'ObjEntity',       'required' => '0');
+has 'tsk_resps'    => ('is' => 'rw', 'isa' => 'ArrayObjTskResp', 'required' => '0');
+has 'brnch'        => ('is' => 'rw', 'isa' => 'ObjBizBranch',    'required' => '0');
 
-sub _build_TableMeta {
-    my $self = shift;
-    my $data = {
-        'FirstName' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'apiclass' => undef,
-            'required' => 1,
-            'default'  => undef,
-            'db_type'  => 'varchar(64)'
-        },
-        'NickName' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => '',
-            'db_type'  => 'varchar(512)'
-        },
-        'BrnchId' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'apiclass' => 'TMS::API::Core::BizBranch',
-            'required' => 1,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'LastName' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'required' => 1,
-            'apiclass' => undef,
-            'default'  => undef,
-            'db_type'  => 'varchar(64)'
-        },
-        'MiddleName' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => '',
-            'db_type'  => 'varchar(64)'
-        },
-        'PrsnId' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'Prefix' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => '',
-            'db_type'  => 'enum(\'\',\'Mr.\',\'Mrs.\',\'Ms.\',\'Dr.\',\'Sir\',\'Madam\')'
-        },
-        'Suffix' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => '',
-            'db_type'  => 'enum(\'\',\'Sr\',\'Jr\',\'I\',\'II\',\'III\',\'IV\')'
-        }
-    };
-    $self->TableMeta($data);
-} ## end sub _build_TableMeta
-
-# AUTO-GENERATED HAS-A END
+has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'EntPerson');
 
 1;
-

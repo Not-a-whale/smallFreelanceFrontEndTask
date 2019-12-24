@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::DrvDriverlicence;
 
 # Created by DBIx::Class::Schema::Loader
@@ -89,61 +90,54 @@ __PACKAGE__->table("drv_driverlicences");
 =cut
 
 __PACKAGE__->add_columns(
-  "DrLcId",
-  {
-    accessor => "dr_lc_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "DriverId",
-  {
-    accessor       => "driver_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "DrLicNumber",
-  {
-    accessor => "dr_lic_number",
-    data_type => "varchar",
-    is_nullable => 0,
-    size => 255,
-  },
-  "DrLcDateValid",
-  {
-    accessor => "dr_lc_date_valid",
-    data_type => "date",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 0,
-  },
-  "DrLcDateExpired",
-  {
-    accessor => "dr_lc_date_expired",
-    data_type => "date",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 0,
-  },
-  "DrLcSate",
-  { accessor => "dr_lc_sate", data_type => "char", is_nullable => 0, size => 2 },
-  "DrLcEndorsement",
-  {
-    accessor       => "dr_lc_endorsement",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "Photo",
-  {
-    accessor       => "photo",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
+    "DrLcId",
+    {   accessor          => "dr_lc_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "DriverId",
+    {   accessor       => "driver_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "DrLicNumber",
+    {   accessor    => "dr_lic_number",
+        data_type   => "varchar",
+        is_nullable => 0,
+        size        => 255,
+    },
+    "DrLcDateValid",
+    {   accessor                  => "dr_lc_date_valid",
+        data_type                 => "date",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 0,
+    },
+    "DrLcDateExpired",
+    {   accessor                  => "dr_lc_date_expired",
+        data_type                 => "date",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 0,
+    },
+    "DrLcSate",
+    {accessor => "dr_lc_sate", data_type => "char", is_nullable => 0, size => 2},
+    "DrLcEndorsement",
+    {   accessor       => "dr_lc_endorsement",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "Photo",
+    {   accessor       => "photo",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -169,15 +163,14 @@ Related object: L<TMS::Schema::Result::DrvCdlEndorsement>
 =cut
 
 __PACKAGE__->belongs_to(
-  "dr_lc_endorsement",
-  "TMS::Schema::Result::DrvCdlEndorsement",
-  { EndrsId => "DrLcEndorsement" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "dr_lc_endorsement",
+    "TMS::Schema::Result::DrvCdlEndorsement",
+    {EndrsId => "DrLcEndorsement"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
 =head2 driver
@@ -189,10 +182,10 @@ Related object: L<TMS::Schema::Result::DrvDriver>
 =cut
 
 __PACKAGE__->belongs_to(
-  "driver",
-  "TMS::Schema::Result::DrvDriver",
-  { DriverId => "DriverId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "driver",
+    "TMS::Schema::Result::DrvDriver",
+    {DriverId      => "DriverId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 photo
@@ -204,18 +197,15 @@ Related object: L<TMS::Schema::Result::GenFile>
 =cut
 
 __PACKAGE__->belongs_to(
-  "photo",
-  "TMS::Schema::Result::GenFile",
-  { FileId => "Photo" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "photo",
+    "TMS::Schema::Result::GenFile",
+    {FileId        => "Photo"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ajj4/iEnsw9iQilYK/hxmQ
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:kzU/lxrE/ALqwThOp3B8TQ
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

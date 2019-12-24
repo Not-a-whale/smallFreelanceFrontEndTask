@@ -1,6 +1,5 @@
 package TMS::API::Core::HrHireRecord;
 
-# $Id: $
 use strict;
 use warnings FATAL => 'all';
 use Carp qw( confess longmess );
@@ -9,110 +8,28 @@ use Devel::Confess;
 use Data::Dumper;
 use Try::Tiny;
 
+$Data::Dumper::Terse = 1;
+
 use Moose;
-
-# AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::HrGovidcard;
-use TMS::API::Core::GenFile;
-use TMS::API::Core::HrAssociate;
-
-# AUTO-GENERATED DEPENDENCIES END
-
-use TMS::SchemaWrapper;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
-use TMS::API::Types::Columns;
-use MooseX::Types::Moose qw(Undef);
+use TMS::API::Types::Complex;
 
 extends 'TMS::SchemaWrapper';
+with 'MooseX::Traits';
 
-# AUTO-GENERATED HAS-A START
-has HireId                  => (is => 'rw', coerce => 0, isa => 'Undef | PrimaryKeyInt');
-has AstId                   => (is => 'rw', coerce => 1, isa => 'HrAssociateObj | Int ');
-has Title                   => (is => 'rw', coerce => 1, isa => 'Undef | TidySpacesString');
-has StatusChangedDate       => (is => 'rw', coerce => 1, isa => 'Undef | DATE');
-has StatusChangedNote       => (is => 'rw', coerce => 1, isa => 'Undef | TidySpacesString');
-has Status                  => (is => 'rw', coerce => 1, isa => 'Undef | EnumActive');
-has Photo                   => (is => 'rw', coerce => 1, isa => 'Undef | GenFileObj | Int ');
-has EmploymentAuthorization => (is => 'rw', coerce => 1, isa => 'HrGovidcardObj | Int ');
+has 'HireId'            => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'required' => '0');
+has 'Photo'             => ('is' => 'rw', 'isa' => 'PositiveInt',   'required' => '0');
+has 'Status'            => ('is' => 'rw', 'isa' => 'Any',           'required' => '1', 'default' => 'active');
+has 'StatusChangedDate' => ('is' => 'rw', 'isa' => 'DATETIME',      'required' => '0');
+has 'StatusChangedNote' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
+has 'Title'             => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
 
-has AllErrors => (is => 'rw', isa => 'ArrayRef',    default    => sub { [] });
-has LastError => (is => 'rw', isa => 'Undef | Str', default    => undef);
-has TableMeta => (is => 'rw', isa => 'HashRef',     lazy_build => 1);
-has DoIfError => (is => 'rw', isa => 'Str',         default    => 'confess');    # confess or ignore
+# relations
+has 'photo'                    => ('is' => 'rw', 'isa' => 'ObjGenFile',     'required' => '0');
+has 'ast'                      => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'required' => '0');
+has 'employment_authorization' => ('is' => 'rw', 'isa' => 'ObjHrGovidcard', 'required' => '0');
 
-sub _build_TableMeta {
-    my $self = shift;
-    my $data = {
-        'EmploymentAuthorization' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => 'TMS::API::Core::HrGovidcard',
-            'required' => 1,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'Status' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => 'active',
-            'db_type'  => 'enum(\'active\',\'terminated\',\'leave of absence\',\'suspended\')'
-        },
-        'AstId' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'required' => 1,
-            'apiclass' => 'TMS::API::Core::HrAssociate',
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'HireId' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'Title' => {
-            'is_null'  => 1,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'varchar(255)'
-        },
-        'StatusChangedNote' => {
-            'comment'  => '',
-            'is_null'  => 1,
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'varchar(1024)'
-        },
-        'Photo' => {
-            'comment'  => '',
-            'is_null'  => 1,
-            'apiclass' => 'TMS::API::Core::GenFile',
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'StatusChangedDate' => {
-            'comment'  => '',
-            'is_null'  => 1,
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => undef,
-            'db_type'  => 'date'
-        }
-    };
-    $self->TableMeta($data);
-} ## end sub _build_TableMeta
-
-# AUTO-GENERATED HAS-A END
+has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'HrHireRecord');
 
 1;
-

@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::HrConfidential;
 
 # Created by DBIx::Class::Schema::Loader
@@ -75,50 +76,44 @@ mobile phone
 =cut
 
 __PACKAGE__->add_columns(
-  "AstId",
-  {
-    accessor       => "ast_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "Birthday",
-  {
-    accessor => "birthday",
-    data_type => "date",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 0,
-  },
-  "MaritalStatus",
-  {
-    accessor    => "marital_status",
-    data_type   => "enum",
-    extra       => { list => ["single", "married", "widowed", "divorsed"] },
-    is_nullable => 0,
-  },
-  "Gender",
-  {
-    accessor    => "gender",
-    data_type   => "enum",
-    extra       => { list => ["male", "female"] },
-    is_nullable => 0,
-  },
-  "PersonalPhone",
-  {
-    accessor       => "personal_phone",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "PersonalEmail",
-  {
-    accessor => "personal_email",
-    data_type => "varchar",
-    is_nullable => 1,
-    size => 255,
-  },
+    "AstId",
+    {   accessor       => "ast_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "Birthday",
+    {   accessor                  => "birthday",
+        data_type                 => "date",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 0,
+    },
+    "MaritalStatus",
+    {   accessor    => "marital_status",
+        data_type   => "enum",
+        extra       => {list => ["single", "married", "widowed", "divorsed"]},
+        is_nullable => 0,
+    },
+    "Gender",
+    {   accessor    => "gender",
+        data_type   => "enum",
+        extra       => {list => ["male", "female"]},
+        is_nullable => 0,
+    },
+    "PersonalPhone",
+    {   accessor       => "personal_phone",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "PersonalEmail",
+    {   accessor    => "personal_email",
+        data_type   => "varchar",
+        is_nullable => 1,
+        size        => 255,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -144,10 +139,10 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "ast",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "AstId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "ast",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId         => "AstId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 personal_phone
@@ -159,18 +154,15 @@ Related object: L<TMS::Schema::Result::CntPhonesfax>
 =cut
 
 __PACKAGE__->belongs_to(
-  "personal_phone",
-  "TMS::Schema::Result::CntPhonesfax",
-  { PhnFaxId => "PersonalPhone" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "personal_phone",
+    "TMS::Schema::Result::CntPhonesfax",
+    {PhnFaxId      => "PersonalPhone"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4/zpnunFOUzgKBCfChHQ1w
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ApeFb+OtnUmNjQ2OKpWBXw
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

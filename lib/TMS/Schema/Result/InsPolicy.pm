@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::InsPolicy;
 
 # Created by DBIx::Class::Schema::Loader
@@ -126,89 +127,78 @@ Paid By
 =cut
 
 __PACKAGE__->add_columns(
-  "InsId",
-  {
-    accessor => "ins_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "ProviderAgent",
-  {
-    accessor       => "provider_agent",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "ProofOfInsurance",
-  {
-    accessor       => "proof_of_insurance",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "TagName",
-  {
-    accessor => "tag_name",
-    data_type => "varchar",
-    is_nullable => 0,
-    size => 64,
-  },
-  "WhatIsInsured",
-  {
-    accessor => "what_is_insured",
-    data_type => "varchar",
-    is_nullable => 1,
-    size => 255,
-  },
-  "PolicyNumber",
-  {
-    accessor => "policy_number",
-    data_type => "varchar",
-    is_nullable => 0,
-    size => 255,
-  },
-  "EffectiveDate",
-  {
-    accessor => "effective_date",
-    data_type => "date",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 0,
-  },
-  "ExpirationDate",
-  {
-    accessor => "expiration_date",
-    data_type => "date",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 0,
-  },
-  "InsuredAmount",
-  {
-    accessor => "insured_amount",
-    data_type => "decimal",
-    extra => { unsigned => 1 },
-    is_nullable => 0,
-    size => [12, 2],
-  },
-  "DownpaymentAmount",
-  {
-    accessor => "downpayment_amount",
-    data_type => "decimal",
-    default_value => "0.00",
-    extra => { unsigned => 1 },
-    is_nullable => 0,
-    size => [12, 2],
-  },
-  "PaidBy",
-  {
-    accessor    => "paid_by",
-    data_type   => "enum",
-    extra       => { list => ["Owner", "Company"] },
-    is_nullable => 1,
-  },
+    "InsId",
+    {   accessor          => "ins_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "ProviderAgent",
+    {   accessor       => "provider_agent",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "ProofOfInsurance",
+    {   accessor       => "proof_of_insurance",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "TagName",
+    {   accessor    => "tag_name",
+        data_type   => "varchar",
+        is_nullable => 0,
+        size        => 64,
+    },
+    "WhatIsInsured",
+    {   accessor    => "what_is_insured",
+        data_type   => "varchar",
+        is_nullable => 1,
+        size        => 255,
+    },
+    "PolicyNumber",
+    {   accessor    => "policy_number",
+        data_type   => "varchar",
+        is_nullable => 0,
+        size        => 255,
+    },
+    "EffectiveDate",
+    {   accessor                  => "effective_date",
+        data_type                 => "date",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 0,
+    },
+    "ExpirationDate",
+    {   accessor                  => "expiration_date",
+        data_type                 => "date",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 0,
+    },
+    "InsuredAmount",
+    {   accessor    => "insured_amount",
+        data_type   => "decimal",
+        extra       => {unsigned => 1},
+        is_nullable => 0,
+        size        => [12, 2],
+    },
+    "DownpaymentAmount",
+    {   accessor      => "downpayment_amount",
+        data_type     => "decimal",
+        default_value => "0.00",
+        extra         => {unsigned => 1},
+        is_nullable   => 0,
+        size          => [12, 2],
+    },
+    "PaidBy",
+    {   accessor    => "paid_by",
+        data_type   => "enum",
+        extra       => {list => ["Owner", "Company"]},
+        is_nullable => 1,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -243,15 +233,8 @@ __PACKAGE__->set_primary_key("InsId");
 
 =cut
 
-__PACKAGE__->add_unique_constraint(
-  "TagPolicyIndx",
-  [
-    "TagName",
-    "PolicyNumber",
-    "EffectiveDate",
-    "ExpirationDate",
-    "InsuredAmount",
-  ],
+__PACKAGE__->add_unique_constraint("TagPolicyIndx",
+    ["TagName", "PolicyNumber", "EffectiveDate", "ExpirationDate", "InsuredAmount",],
 );
 
 =head1 RELATIONS
@@ -265,10 +248,8 @@ Related object: L<TMS::Schema::Result::InsToEntity>
 =cut
 
 __PACKAGE__->has_many(
-  "ins_to_entities",
-  "TMS::Schema::Result::InsToEntity",
-  { "foreign.InsId" => "self.InsId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "ins_to_entities", "TMS::Schema::Result::InsToEntity",
+    {"foreign.InsId" => "self.InsId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 ins_to_vehicles
@@ -280,10 +261,8 @@ Related object: L<TMS::Schema::Result::InsToVehicle>
 =cut
 
 __PACKAGE__->has_many(
-  "ins_to_vehicles",
-  "TMS::Schema::Result::InsToVehicle",
-  { "foreign.InsId" => "self.InsId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "ins_to_vehicles", "TMS::Schema::Result::InsToVehicle",
+    {"foreign.InsId" => "self.InsId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 proof_of_insurance
@@ -295,15 +274,14 @@ Related object: L<TMS::Schema::Result::GenFile>
 =cut
 
 __PACKAGE__->belongs_to(
-  "proof_of_insurance",
-  "TMS::Schema::Result::GenFile",
-  { FileId => "ProofOfInsurance" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "CASCADE",
-    on_update     => "CASCADE",
-  },
+    "proof_of_insurance",
+    "TMS::Schema::Result::GenFile",
+    {FileId => "ProofOfInsurance"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "CASCADE",
+        on_update     => "CASCADE",
+    },
 );
 
 =head2 provider_agent
@@ -315,18 +293,15 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "provider_agent",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "ProviderAgent" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "provider_agent",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId         => "ProviderAgent"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ULhzb4UaU8Dk+PgGHmbTFQ
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:F7FRjWhR1NQWf4keqAzbmQ
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

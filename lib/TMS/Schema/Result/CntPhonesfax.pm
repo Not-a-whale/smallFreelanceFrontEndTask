@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::CntPhonesfax;
 
 # Created by DBIx::Class::Schema::Loader
@@ -74,42 +75,38 @@ __PACKAGE__->table("cnt_phonesfaxes");
 =cut
 
 __PACKAGE__->add_columns(
-  "PhnFaxId",
-  {
-    accessor => "phn_fax_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "Number",
-  { accessor => "number", data_type => "varchar", is_nullable => 0, size => 12 },
-  "Extension",
-  {
-    accessor => "extension",
-    data_type => "varchar",
-    default_value => 0,
-    is_nullable => 0,
-    size => 10,
-  },
-  "Features",
-  {
-    accessor      => "features",
-    data_type     => "set",
-    default_value => "VOICE",
-    extra         => { list => ["VOICE", "SMS", "MMS", "FAX"] },
-    is_nullable   => 0,
-  },
-  "Mobility",
-  {
-    accessor      => "mobility",
-    data_type     => "enum",
-    default_value => "LAND LINE",
-    extra         => { list => ["LAND LINE", "MOBILE", "SOFT PHONE"] },
-    is_nullable   => 0,
-  },
-  "Notes",
-  { accessor => "notes", data_type => "text", is_nullable => 1 },
+    "PhnFaxId",
+    {   accessor          => "phn_fax_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "Number",
+    {accessor => "number", data_type => "varchar", is_nullable => 0, size => 12},
+    "Extension",
+    {   accessor      => "extension",
+        data_type     => "varchar",
+        default_value => 0,
+        is_nullable   => 0,
+        size          => 10,
+    },
+    "Features",
+    {   accessor      => "features",
+        data_type     => "set",
+        default_value => "VOICE",
+        extra         => {list => ["VOICE", "SMS", "MMS", "FAX"]},
+        is_nullable   => 0,
+    },
+    "Mobility",
+    {   accessor      => "mobility",
+        data_type     => "enum",
+        default_value => "LAND LINE",
+        extra         => {list => ["LAND LINE", "MOBILE", "SOFT PHONE"]},
+        is_nullable   => 0,
+    },
+    "Notes",
+    {accessor => "notes", data_type => "text", is_nullable => 1},
 );
 
 =head1 PRIMARY KEY
@@ -151,10 +148,8 @@ Related object: L<TMS::Schema::Result::BizBranch>
 =cut
 
 __PACKAGE__->has_many(
-  "biz_branches_brnch_faxes",
-  "TMS::Schema::Result::BizBranch",
-  { "foreign.BrnchFax" => "self.PhnFaxId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "biz_branches_brnch_faxes", "TMS::Schema::Result::BizBranch",
+    {"foreign.BrnchFax" => "self.PhnFaxId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 biz_branches_brnch_phones
@@ -166,10 +161,8 @@ Related object: L<TMS::Schema::Result::BizBranch>
 =cut
 
 __PACKAGE__->has_many(
-  "biz_branches_brnch_phones",
-  "TMS::Schema::Result::BizBranch",
-  { "foreign.BrnchPhone" => "self.PhnFaxId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "biz_branches_brnch_phones", "TMS::Schema::Result::BizBranch",
+    {"foreign.BrnchPhone" => "self.PhnFaxId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 fin_billing_infos_faxes
@@ -181,10 +174,8 @@ Related object: L<TMS::Schema::Result::FinBillingInfo>
 =cut
 
 __PACKAGE__->has_many(
-  "fin_billing_infos_faxes",
-  "TMS::Schema::Result::FinBillingInfo",
-  { "foreign.Fax" => "self.PhnFaxId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "fin_billing_infos_faxes", "TMS::Schema::Result::FinBillingInfo",
+    {"foreign.Fax" => "self.PhnFaxId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 fin_billing_infos_phones
@@ -196,10 +187,8 @@ Related object: L<TMS::Schema::Result::FinBillingInfo>
 =cut
 
 __PACKAGE__->has_many(
-  "fin_billing_infos_phones",
-  "TMS::Schema::Result::FinBillingInfo",
-  { "foreign.Phone" => "self.PhnFaxId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "fin_billing_infos_phones", "TMS::Schema::Result::FinBillingInfo",
+    {"foreign.Phone" => "self.PhnFaxId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 hr_associates_biz_faxes
@@ -211,10 +200,8 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->has_many(
-  "hr_associates_biz_faxes",
-  "TMS::Schema::Result::HrAssociate",
-  { "foreign.BizFax" => "self.PhnFaxId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "hr_associates_biz_faxes", "TMS::Schema::Result::HrAssociate",
+    {"foreign.BizFax" => "self.PhnFaxId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 hr_associates_biz_phones
@@ -226,10 +213,8 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->has_many(
-  "hr_associates_biz_phones",
-  "TMS::Schema::Result::HrAssociate",
-  { "foreign.BizPhone" => "self.PhnFaxId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "hr_associates_biz_phones", "TMS::Schema::Result::HrAssociate",
+    {"foreign.BizPhone" => "self.PhnFaxId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 hr_confidentials
@@ -241,10 +226,10 @@ Related object: L<TMS::Schema::Result::HrConfidential>
 =cut
 
 __PACKAGE__->has_many(
-  "hr_confidentials",
-  "TMS::Schema::Result::HrConfidential",
-  { "foreign.PersonalPhone" => "self.PhnFaxId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "hr_confidentials",
+    "TMS::Schema::Result::HrConfidential",
+    {"foreign.PersonalPhone" => "self.PhnFaxId"},
+    {cascade_copy            => 0, cascade_delete => 0},
 );
 
 =head2 hr_emrgency_contacts
@@ -256,10 +241,8 @@ Related object: L<TMS::Schema::Result::HrEmrgencyContact>
 =cut
 
 __PACKAGE__->has_many(
-  "hr_emrgency_contacts",
-  "TMS::Schema::Result::HrEmrgencyContact",
-  { "foreign.ContactPhone" => "self.PhnFaxId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "hr_emrgency_contacts", "TMS::Schema::Result::HrEmrgencyContact",
+    {"foreign.ContactPhone" => "self.PhnFaxId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 hr_references
@@ -271,10 +254,10 @@ Related object: L<TMS::Schema::Result::HrReference>
 =cut
 
 __PACKAGE__->has_many(
-  "hr_references",
-  "TMS::Schema::Result::HrReference",
-  { "foreign.ReferensorPhone" => "self.PhnFaxId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "hr_references",
+    "TMS::Schema::Result::HrReference",
+    {"foreign.ReferensorPhone" => "self.PhnFaxId"},
+    {cascade_copy              => 0, cascade_delete => 0},
 );
 
 =head2 hr_residences
@@ -286,18 +269,15 @@ Related object: L<TMS::Schema::Result::HrResidence>
 =cut
 
 __PACKAGE__->has_many(
-  "hr_residences",
-  "TMS::Schema::Result::HrResidence",
-  { "foreign.ResPhone" => "self.PhnFaxId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "hr_residences",
+    "TMS::Schema::Result::HrResidence",
+    {"foreign.ResPhone" => "self.PhnFaxId"},
+    {cascade_copy       => 0, cascade_delete => 0},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:bPR4nGMGxpP9T8GfhST8TA
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:hr3yW9werRwK40KVdyRw3g
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

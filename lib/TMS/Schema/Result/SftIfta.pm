@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::SftIfta;
 
 # Created by DBIx::Class::Schema::Loader
@@ -37,14 +38,13 @@ __PACKAGE__->table("sft_ifta");
 =cut
 
 __PACKAGE__->add_columns(
-  "IFTAId",
-  {
-    accessor => "iftaid",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
+    "IFTAId",
+    {   accessor          => "iftaid",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -59,12 +59,9 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("IFTAId");
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:V5384u9qAvDET2pM0EhbRw
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:8HY4BMAvR65N5ibTDxH7Jw
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

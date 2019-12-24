@@ -1,6 +1,5 @@
 package TMS::API::Core::InvEquipment;
 
-# $Id: $
 use strict;
 use warnings FATAL => 'all';
 use Carp qw( confess longmess );
@@ -9,128 +8,37 @@ use Devel::Confess;
 use Data::Dumper;
 use Try::Tiny;
 
+$Data::Dumper::Terse = 1;
+
 use Moose;
-
-# AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::InvEquipmentType;
-use TMS::API::Core::BizBranch;
-use TMS::API::Core::HrAssociate;
-
-# AUTO-GENERATED DEPENDENCIES END
-
-use TMS::SchemaWrapper;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
-use TMS::API::Types::Columns;
-use MooseX::Types::Moose qw(Undef);
+use TMS::API::Types::Complex;
 
 extends 'TMS::SchemaWrapper';
+with 'MooseX::Traits';
 
-# AUTO-GENERATED HAS-A START
-has EquipmentId    => (is => 'rw', coerce => 0, isa => 'Undef | PrimaryKeyInt');
-has GeneralName    => (is => 'rw', coerce => 1, isa => 'TidySpacesString');
-has OwnerId        => (is => 'rw', coerce => 1, isa => 'HrAssociateObj | Int ');
-has VendorId       => (is => 'rw', coerce => 1, isa => 'Undef | BizBranchObj | Int ');
-has DatePurchased  => (is => 'rw', coerce => 1, isa => 'Undef | DATE');
-has DateSold       => (is => 'rw', coerce => 1, isa => 'Undef | DATE');
-has PricePurchased => (is => 'rw', coerce => 1, isa => 'Undef | Float');
-has PriceSold      => (is => 'rw', coerce => 1, isa => 'Undef | Float');
-has SerialNo       => (is => 'rw', coerce => 1, isa => 'Undef | TidySpacesString');
-has EquipmentType  => (is => 'rw', coerce => 1, isa => 'Undef | InvEquipmentTypeObj | Int ');
+has 'DatePurchased'  => ('is' => 'rw', 'isa' => 'DATETIME',         'required' => '0');
+has 'DateSold'       => ('is' => 'rw', 'isa' => 'DATETIME',         'required' => '0');
+has 'EquipmentId'    => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'required' => '0');
+has 'EquipmentType'  => ('is' => 'rw', 'isa' => 'PositiveInt',      'required' => '0');
+has 'PricePurchased' => ('is' => 'rw', 'isa' => 'CurrencyValue',    'required' => '0');
+has 'PriceSold'      => ('is' => 'rw', 'isa' => 'CurrencyValue',    'required' => '0');
+has 'SerialNo'       => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
+has 'VendorId'       => ('is' => 'rw', 'isa' => 'PositiveInt',      'required' => '0');
 
-has AllErrors => (is => 'rw', isa => 'ArrayRef',    default    => sub { [] });
-has LastError => (is => 'rw', isa => 'Undef | Str', default    => undef);
-has TableMeta => (is => 'rw', isa => 'HashRef',     lazy_build => 1);
-has DoIfError => (is => 'rw', isa => 'Str',         default    => 'confess');    # confess or ignore
+# relations
+has 'inv_vehicle'               => ('is' => 'rw', 'isa' => 'ObjInvVehicle',                 'required' => '0');
+has 'vendor'                    => ('is' => 'rw', 'isa' => 'ObjBizBranch',                  'required' => '0');
+has 'inv_units_to_equipments'   => ('is' => 'rw', 'isa' => 'ArrayObjInvUnitsToEquipment',   'required' => '0');
+has 'inv_equipment_docs'        => ('is' => 'rw', 'isa' => 'ArrayObjInvEquipmentDoc',       'required' => '0');
+has 'inv_notes'                 => ('is' => 'rw', 'isa' => 'ArrayObjInvNote',               'required' => '0');
+has 'owner'                     => ('is' => 'rw', 'isa' => 'ObjHrAssociate',                'required' => '0');
+has 'sft_elog_stats'            => ('is' => 'rw', 'isa' => 'ArrayObjSftElogStat',           'required' => '0');
+has 'equipment_type'            => ('is' => 'rw', 'isa' => 'ObjInvEquipmentType',           'required' => '0');
+has 'inv_elog_device'           => ('is' => 'rw', 'isa' => 'ObjInvElogDevice',              'required' => '0');
+has 'inv_equipments_to_support' => ('is' => 'rw', 'isa' => 'ArrayObjInvEquipmentToSupport', 'required' => '0');
 
-sub _build_TableMeta {
-    my $self = shift;
-    my $data = {
-        'EquipmentId' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'PriceSold' => {
-            'is_null'  => 1,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'decimal(12,2)'
-        },
-        'EquipmentType' => {
-            'comment'  => '',
-            'is_null'  => 1,
-            'required' => 0,
-            'apiclass' => 'TMS::API::Core::InvEquipmentType',
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'DateSold' => {
-            'is_null'  => 1,
-            'comment'  => '',
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => undef,
-            'db_type'  => 'date'
-        },
-        'DatePurchased' => {
-            'is_null'  => 1,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'date'
-        },
-        'OwnerId' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => 'TMS::API::Core::HrAssociate',
-            'required' => 1,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'GeneralName' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 1,
-            'default'  => undef,
-            'db_type'  => 'varchar(1024)'
-        },
-        'SerialNo' => {
-            'comment'  => '',
-            'is_null'  => 1,
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => undef,
-            'db_type'  => 'varchar(255)'
-        },
-        'PricePurchased' => {
-            'is_null'  => 1,
-            'comment'  => '',
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => undef,
-            'db_type'  => 'decimal(12,2)'
-        },
-        'VendorId' => {
-            'is_null'  => 1,
-            'comment'  => '',
-            'required' => 0,
-            'apiclass' => 'TMS::API::Core::BizBranch',
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        }
-    };
-    $self->TableMeta($data);
-} ## end sub _build_TableMeta
-
-# AUTO-GENERATED HAS-A END
+has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'InvEquipment');
 
 1;
-

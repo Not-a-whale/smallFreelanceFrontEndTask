@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::InvUnitReservation;
 
 # Created by DBIx::Class::Schema::Loader
@@ -97,68 +98,60 @@ this should be a table called 'Roles' or 'People_Roles' that should be a foreign
 =cut
 
 __PACKAGE__->add_columns(
-  "ReservationId",
-  {
-    accessor => "reservation_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "PrsnId",
-  {
-    accessor       => "prsn_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "UnitId",
-  {
-    accessor       => "unit_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "InvRoleId",
-  {
-    accessor       => "inv_role_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "DateReserved",
-  {
-    accessor => "date_reserved",
-    data_type => "date",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 0,
-  },
-  "DateReleased",
-  {
-    accessor => "date_released",
-    data_type => "date",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
-  },
-  "CreatedBy",
-  {
-    accessor       => "created_by",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "CreatedOn",
-  {
-    accessor => "created_on",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    default_value => "CURRENT_TIMESTAMP",
-    is_nullable => 1,
-  },
+    "ReservationId",
+    {   accessor          => "reservation_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "PrsnId",
+    {   accessor       => "prsn_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "UnitId",
+    {   accessor       => "unit_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "InvRoleId",
+    {   accessor       => "inv_role_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "DateReserved",
+    {   accessor                  => "date_reserved",
+        data_type                 => "date",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 0,
+    },
+    "DateReleased",
+    {   accessor                  => "date_released",
+        data_type                 => "date",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 1,
+    },
+    "CreatedBy",
+    {   accessor       => "created_by",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "CreatedOn",
+    {   accessor                  => "created_on",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        default_value             => "CURRENT_TIMESTAMP",
+        is_nullable               => 1,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -184,15 +177,14 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "created_by",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "CreatedBy" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "created_by",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId => "CreatedBy"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
 =head2 inv_role
@@ -204,10 +196,10 @@ Related object: L<TMS::Schema::Result::InvRole>
 =cut
 
 __PACKAGE__->belongs_to(
-  "inv_role",
-  "TMS::Schema::Result::InvRole",
-  { InvRoleId => "InvRoleId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "inv_role",
+    "TMS::Schema::Result::InvRole",
+    {InvRoleId     => "InvRoleId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 prsn
@@ -219,10 +211,10 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "prsn",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "PrsnId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "prsn",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId         => "PrsnId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 unit
@@ -234,18 +226,15 @@ Related object: L<TMS::Schema::Result::InvUnit>
 =cut
 
 __PACKAGE__->belongs_to(
-  "unit",
-  "TMS::Schema::Result::InvUnit",
-  { UnitId => "UnitId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "unit",
+    "TMS::Schema::Result::InvUnit",
+    {UnitId        => "UnitId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:3TpKrh3N/MZKEPfUGyEH9w
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:I1sI0i6GxKzYUUiSxUNppg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

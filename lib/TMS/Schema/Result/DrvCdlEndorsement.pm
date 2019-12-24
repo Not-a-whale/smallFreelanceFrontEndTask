@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::DrvCdlEndorsement;
 
 # Created by DBIx::Class::Schema::Loader
@@ -58,35 +59,31 @@ __PACKAGE__->table("drv_cdl_endorsements");
 =cut
 
 __PACKAGE__->add_columns(
-  "EndrsId",
-  {
-    accessor => "endrs_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "Endorsement",
-  {
-    accessor => "endorsement",
-    data_type => "varchar",
-    is_nullable => 0,
-    size => 255,
-  },
-  "ValidFromDate",
-  {
-    accessor => "valid_from_date",
-    data_type => "date",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 0,
-  },
-  "ExpiredDate",
-  {
-    accessor => "expired_date",
-    data_type => "date",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 0,
-  },
+    "EndrsId",
+    {   accessor          => "endrs_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "Endorsement",
+    {   accessor    => "endorsement",
+        data_type   => "varchar",
+        is_nullable => 0,
+        size        => 255,
+    },
+    "ValidFromDate",
+    {   accessor                  => "valid_from_date",
+        data_type                 => "date",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 0,
+    },
+    "ExpiredDate",
+    {   accessor                  => "expired_date",
+        data_type                 => "date",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 0,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -112,18 +109,13 @@ Related object: L<TMS::Schema::Result::DrvDriverlicence>
 =cut
 
 __PACKAGE__->has_many(
-  "drv_driverlicences",
-  "TMS::Schema::Result::DrvDriverlicence",
-  { "foreign.DrLcEndorsement" => "self.EndrsId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "drv_driverlicences", "TMS::Schema::Result::DrvDriverlicence",
+    {"foreign.DrLcEndorsement" => "self.EndrsId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4FdIiWa5J01PIOoFpdFZ2Q
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:T8Jk8bgh/XCMVqo7rzJo0g
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

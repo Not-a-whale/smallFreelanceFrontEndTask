@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::InvUnitsToEquipment;
 
 # Created by DBIx::Class::Schema::Loader
@@ -94,63 +95,56 @@ __PACKAGE__->table("inv_units_to_equipment");
 =cut
 
 __PACKAGE__->add_columns(
-  "EquipUnitResId",
-  {
-    accessor => "equip_unit_res_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "UnitId",
-  {
-    accessor       => "unit_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "EquipmentId",
-  {
-    accessor       => "equipment_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "DateAdded",
-  {
-    accessor => "date_added",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    default_value => "CURRENT_TIMESTAMP",
-    is_nullable => 0,
-  },
-  "AddedBy",
-  {
-    accessor       => "added_by",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "DateRemoved",
-  {
-    accessor => "date_removed",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
-  },
-  "RemovedBy",
-  {
-    accessor       => "removed_by",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "Notes",
-  { accessor => "notes", data_type => "text", is_nullable => 1 },
+    "EquipUnitResId",
+    {   accessor          => "equip_unit_res_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "UnitId",
+    {   accessor       => "unit_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "EquipmentId",
+    {   accessor       => "equipment_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "DateAdded",
+    {   accessor                  => "date_added",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        default_value             => "CURRENT_TIMESTAMP",
+        is_nullable               => 0,
+    },
+    "AddedBy",
+    {   accessor       => "added_by",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "DateRemoved",
+    {   accessor                  => "date_removed",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 1,
+    },
+    "RemovedBy",
+    {   accessor       => "removed_by",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "Notes",
+    {accessor => "notes", data_type => "text", is_nullable => 1},
 );
 
 =head1 PRIMARY KEY
@@ -194,10 +188,10 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "added_by",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "AddedBy" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "added_by",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId         => "AddedBy"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 equipment
@@ -209,10 +203,10 @@ Related object: L<TMS::Schema::Result::InvEquipment>
 =cut
 
 __PACKAGE__->belongs_to(
-  "equipment",
-  "TMS::Schema::Result::InvEquipment",
-  { EquipmentId => "EquipmentId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "equipment",
+    "TMS::Schema::Result::InvEquipment",
+    {EquipmentId   => "EquipmentId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 removed_by
@@ -224,15 +218,14 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "removed_by",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "RemovedBy" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "removed_by",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId => "RemovedBy"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
 =head2 unit
@@ -244,18 +237,15 @@ Related object: L<TMS::Schema::Result::InvUnit>
 =cut
 
 __PACKAGE__->belongs_to(
-  "unit",
-  "TMS::Schema::Result::InvUnit",
-  { UnitId => "UnitId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "unit",
+    "TMS::Schema::Result::InvUnit",
+    {UnitId        => "UnitId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yQKpAxp8IaphHY3/VTjViQ
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:e6aRa5Vg7BHYmKb5Pjy9Uw
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

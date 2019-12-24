@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::MsgAccess;
 
 # Created by DBIx::Class::Schema::Loader
@@ -43,20 +44,18 @@ __PACKAGE__->table("msg_access");
 =cut
 
 __PACKAGE__->add_columns(
-  "macsid",
-  {
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "PermissionName",
-  {
-    accessor => "permission_name",
-    data_type => "varchar",
-    is_nullable => 0,
-    size => 255,
-  },
+    "macsid",
+    {   data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "PermissionName",
+    {   accessor    => "permission_name",
+        data_type   => "varchar",
+        is_nullable => 0,
+        size        => 255,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -96,18 +95,15 @@ Related object: L<TMS::Schema::Result::MsgNote>
 =cut
 
 __PACKAGE__->has_many(
-  "msg_notes",
-  "TMS::Schema::Result::MsgNote",
-  { "foreign.macsid" => "self.macsid" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "msg_notes",
+    "TMS::Schema::Result::MsgNote",
+    {"foreign.macsid" => "self.macsid"},
+    {cascade_copy     => 0, cascade_delete => 0},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:LoJ4m0ASKGu++asYa738Uw
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6gfn3QH0firYP+v4viNmrA
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

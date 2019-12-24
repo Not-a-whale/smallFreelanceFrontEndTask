@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::InvSemitruck;
 
 # Created by DBIx::Class::Schema::Loader
@@ -75,44 +76,39 @@ pounds
 =cut
 
 __PACKAGE__->add_columns(
-  "SemitruckId",
-  {
-    accessor       => "semitruck_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "FuelTankSize",
-  {
-    accessor => "fuel_tank_size",
-    data_type => "decimal",
-    extra => { unsigned => 1 },
-    is_nullable => 1,
-    size => [12, 2],
-  },
-  "MilesPerGallonEstimated",
-  {
-    accessor => "miles_per_gallon_estimated",
-    data_type => "decimal",
-    extra => { unsigned => 1 },
-    is_nullable => 1,
-    size => [12, 2],
-  },
-  "MilesPerGallonRated",
-  {
-    accessor    => "miles_per_gallon_rated",
-    data_type   => "integer",
-    extra       => { unsigned => 1 },
-    is_nullable => 1,
-  },
-  "TowCapacity",
-  {
-    accessor    => "tow_capacity",
-    data_type   => "integer",
-    extra       => { unsigned => 1 },
-    is_nullable => 1,
-  },
+    "SemitruckId",
+    {   accessor       => "semitruck_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "FuelTankSize",
+    {   accessor    => "fuel_tank_size",
+        data_type   => "decimal",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+        size        => [12, 2],
+    },
+    "MilesPerGallonEstimated",
+    {   accessor    => "miles_per_gallon_estimated",
+        data_type   => "decimal",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+        size        => [12, 2],
+    },
+    "MilesPerGallonRated",
+    {   accessor    => "miles_per_gallon_rated",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "TowCapacity",
+    {   accessor    => "tow_capacity",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
 );
 
 =head1 UNIQUE CONSTRAINTS
@@ -140,18 +136,15 @@ Related object: L<TMS::Schema::Result::InvVehicle>
 =cut
 
 __PACKAGE__->belongs_to(
-  "semitruck",
-  "TMS::Schema::Result::InvVehicle",
-  { VehicleId => "SemitruckId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "semitruck",
+    "TMS::Schema::Result::InvVehicle",
+    {VehicleId     => "SemitruckId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:DpNQU2hXfhH+LFelC1ICaQ
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:PKAePOAf5W5vDq6SzIBKrQ
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

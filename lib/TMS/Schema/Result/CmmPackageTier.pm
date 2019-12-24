@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::CmmPackageTier;
 
 # Created by DBIx::Class::Schema::Loader
@@ -69,39 +70,35 @@ The minimum amount required for the tier to be in effect
 =cut
 
 __PACKAGE__->add_columns(
-  "TierId",
-  {
-    accessor => "tier_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "Package",
-  {
-    accessor => "package",
-    data_type => "varchar",
-    is_foreign_key => 1,
-    is_nullable => 0,
-    size => 255,
-  },
-  "Name",
-  { accessor => "name", data_type => "varchar", is_nullable => 0, size => 255 },
-  "Percentage",
-  {
-    accessor => "percentage",
-    data_type => "decimal",
-    extra => { unsigned => 1 },
-    is_nullable => 0,
-    size => [5, 2],
-  },
-  "Threshold",
-  {
-    accessor => "threshold",
-    data_type => "decimal",
-    is_nullable => 1,
-    size => [12, 2],
-  },
+    "TierId",
+    {   accessor          => "tier_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "Package",
+    {   accessor       => "package",
+        data_type      => "varchar",
+        is_foreign_key => 1,
+        is_nullable    => 0,
+        size           => 255,
+    },
+    "Name",
+    {accessor => "name", data_type => "varchar", is_nullable => 0, size => 255},
+    "Percentage",
+    {   accessor    => "percentage",
+        data_type   => "decimal",
+        extra       => {unsigned => 1},
+        is_nullable => 0,
+        size        => [5, 2],
+    },
+    "Threshold",
+    {   accessor    => "threshold",
+        data_type   => "decimal",
+        is_nullable => 1,
+        size        => [12, 2],
+    },
 );
 
 =head1 PRIMARY KEY
@@ -143,18 +140,15 @@ Related object: L<TMS::Schema::Result::CmmPackage>
 =cut
 
 __PACKAGE__->belongs_to(
-  "package",
-  "TMS::Schema::Result::CmmPackage",
-  { Name => "Package" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "package",
+    "TMS::Schema::Result::CmmPackage",
+    {Name          => "Package"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:l58mXUjDVA7zYE2d0pWlmw
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:rDK7Hwcz/RKGJuG3JqJthg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

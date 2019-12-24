@@ -1,6 +1,5 @@
 package TMS::API::Core::DrvDriver;
 
-# $Id: $
 use strict;
 use warnings FATAL => 'all';
 use Carp qw( confess longmess );
@@ -9,81 +8,29 @@ use Devel::Confess;
 use Data::Dumper;
 use Try::Tiny;
 
+$Data::Dumper::Terse = 1;
+
 use Moose;
-
-# AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::HrAssociate;
-
-# AUTO-GENERATED DEPENDENCIES END
-
-use TMS::SchemaWrapper;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
-use TMS::API::Types::Columns;
-use MooseX::Types::Moose qw(Undef);
+use TMS::API::Types::Complex;
 
 extends 'TMS::SchemaWrapper';
+with 'MooseX::Traits';
 
-# AUTO-GENERATED HAS-A START
-has DriverId            => (is => 'rw', coerce => 1, isa => 'HrAssociateObj | Int ');
-has LocalRoutes         => (is => 'rw', coerce => 1, isa => 'Undef | BoolInt');
-has InternationalRoutes => (is => 'rw', coerce => 1, isa => 'Undef | BoolInt');
-has LastAnnualReview    => (is => 'rw', coerce => 1, isa => 'Undef | DATE');
-has PullNotice          => (is => 'rw', coerce => 1, isa => 'Undef | DATE');
+has 'InternationalRoutes' => ('is' => 'rw', 'isa' => 'BoolInt',  'required' => '1', 'default' => '0');
+has 'LastAnnualReview'    => ('is' => 'rw', 'isa' => 'DATETIME', 'required' => '0');
+has 'LocalRoutes'         => ('is' => 'rw', 'isa' => 'BoolInt',  'required' => '1', 'default' => '0');
+has 'PullNotice'          => ('is' => 'rw', 'isa' => 'DATETIME', 'required' => '0');
 
-has AllErrors => (is => 'rw', isa => 'ArrayRef',    default    => sub { [] });
-has LastError => (is => 'rw', isa => 'Undef | Str', default    => undef);
-has TableMeta => (is => 'rw', isa => 'HashRef',     lazy_build => 1);
-has DoIfError => (is => 'rw', isa => 'Str',         default    => 'confess');    # confess or ignore
+# relations
+has 'drv_driverlicences'  => ('is' => 'rw', 'isa' => 'ArrayObjDrvDriverlicence', 'required' => '0');
+has 'dsp_loads_trackings' => ('is' => 'rw', 'isa' => 'ArrayObjDspLoadsTracking', 'required' => '0');
+has 'drv_schedules'       => ('is' => 'rw', 'isa' => 'ArrayObjDrvSchedule',      'required' => '0');
+has 'sft_log_entries'     => ('is' => 'rw', 'isa' => 'ArrayObjSftLogEntry',      'required' => '0');
+has 'drv_medcards'        => ('is' => 'rw', 'isa' => 'ArrayObjDrvMedcard',       'required' => '0');
+has 'driver'              => ('is' => 'rw', 'isa' => 'ObjHrAssociate',           'required' => '0');
 
-sub _build_TableMeta {
-    my $self = shift;
-    my $data = {
-        'DriverId' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'required' => 0,
-            'apiclass' => 'TMS::API::Core::HrAssociate',
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'InternationalRoutes' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => '0',
-            'db_type'  => 'tinyint(1) unsigned'
-        },
-        'LastAnnualReview' => {
-            'comment'  => '',
-            'is_null'  => 1,
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => undef,
-            'db_type'  => 'date'
-        },
-        'LocalRoutes' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => '0',
-            'db_type'  => 'tinyint(1) unsigned'
-        },
-        'PullNotice' => {
-            'is_null'  => 1,
-            'comment'  => '',
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => undef,
-            'db_type'  => 'date'
-        }
-    };
-    $self->TableMeta($data);
-} ## end sub _build_TableMeta
-
-# AUTO-GENERATED HAS-A END
+has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'DrvDriver');
 
 1;
-

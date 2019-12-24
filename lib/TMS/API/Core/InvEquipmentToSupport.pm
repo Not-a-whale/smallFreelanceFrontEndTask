@@ -1,6 +1,5 @@
 package TMS::API::Core::InvEquipmentToSupport;
 
-# $Id: $
 use strict;
 use warnings FATAL => 'all';
 use Carp qw( confess longmess );
@@ -9,64 +8,23 @@ use Devel::Confess;
 use Data::Dumper;
 use Try::Tiny;
 
+$Data::Dumper::Terse = 1;
+
 use Moose;
-
-# AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::InvSupportVendor;
-use TMS::API::Core::InvEquipment;
-
-# AUTO-GENERATED DEPENDENCIES END
-
-use TMS::SchemaWrapper;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
-use TMS::API::Types::Columns;
-use MooseX::Types::Moose qw(Undef);
+use TMS::API::Types::Complex;
 
 extends 'TMS::SchemaWrapper';
+with 'MooseX::Traits';
 
-# AUTO-GENERATED HAS-A START
-has EquipSuppId => (is => 'rw', coerce => 0, isa => 'Undef | PrimaryKeyInt');
-has EquipmentId => (is => 'rw', coerce => 1, isa => 'InvEquipmentObj | Int ');
-has SupportId   => (is => 'rw', coerce => 1, isa => 'InvSupportVendorObj | Int ');
+has 'EquipSuppId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'required' => '0');
 
-has AllErrors => (is => 'rw', isa => 'ArrayRef',    default    => sub { [] });
-has LastError => (is => 'rw', isa => 'Undef | Str', default    => undef);
-has TableMeta => (is => 'rw', isa => 'HashRef',     lazy_build => 1);
-has DoIfError => (is => 'rw', isa => 'Str',         default    => 'confess');    # confess or ignore
+# relations
+has 'equipment' => ('is' => 'rw', 'isa' => 'ObjInvEquipment',     'required' => '0');
+has 'support'   => ('is' => 'rw', 'isa' => 'ObjInvSupportVendor', 'required' => '0');
 
-sub _build_TableMeta {
-    my $self = shift;
-    my $data = {
-        'SupportId' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => 'TMS::API::Core::InvSupportVendor',
-            'required' => 1,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'EquipmentId' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => 'TMS::API::Core::InvEquipment',
-            'required' => 1,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'EquipSuppId' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        }
-    };
-    $self->TableMeta($data);
-} ## end sub _build_TableMeta
-
-# AUTO-GENERATED HAS-A END
+has '_dbix_class' =>
+    (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'InvEquipmentToSupport');
 
 1;
-

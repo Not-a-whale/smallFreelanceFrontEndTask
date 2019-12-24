@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::InsToVehicle;
 
 # Created by DBIx::Class::Schema::Loader
@@ -103,76 +104,67 @@ __PACKAGE__->table("ins_to_vehicles");
 =cut
 
 __PACKAGE__->add_columns(
-  "VhlInsId",
-  {
-    accessor => "vhl_ins_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "InsId",
-  {
-    accessor       => "ins_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "VehicleId",
-  {
-    accessor       => "vehicle_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "AddedBy",
-  {
-    accessor       => "added_by",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "DateAdded",
-  {
-    accessor => "date_added",
-    data_type => "date",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 0,
-  },
-  "RemovedBy",
-  {
-    accessor       => "removed_by",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "DateRemoved",
-  {
-    accessor => "date_removed",
-    data_type => "date",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
-  },
-  "ActionReminder",
-  {
-    accessor => "action_reminder",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
-  },
-  "ActionNote",
-  { accessor => "action_note", data_type => "text", is_nullable => 1 },
-  "ActionEmail",
-  {
-    accessor => "action_email",
-    data_type => "varchar",
-    is_nullable => 1,
-    size => 255,
-  },
+    "VhlInsId",
+    {   accessor          => "vhl_ins_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "InsId",
+    {   accessor       => "ins_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "VehicleId",
+    {   accessor       => "vehicle_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "AddedBy",
+    {   accessor       => "added_by",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "DateAdded",
+    {   accessor                  => "date_added",
+        data_type                 => "date",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 0,
+    },
+    "RemovedBy",
+    {   accessor       => "removed_by",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "DateRemoved",
+    {   accessor                  => "date_removed",
+        data_type                 => "date",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 1,
+    },
+    "ActionReminder",
+    {   accessor                  => "action_reminder",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 1,
+    },
+    "ActionNote",
+    {accessor => "action_note", data_type => "text", is_nullable => 1},
+    "ActionEmail",
+    {   accessor    => "action_email",
+        data_type   => "varchar",
+        is_nullable => 1,
+        size        => 255,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -214,10 +206,10 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "added_by",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "AddedBy" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "added_by",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId         => "AddedBy"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 in
@@ -229,10 +221,10 @@ Related object: L<TMS::Schema::Result::InsPolicy>
 =cut
 
 __PACKAGE__->belongs_to(
-  "in",
-  "TMS::Schema::Result::InsPolicy",
-  { InsId => "InsId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "in",
+    "TMS::Schema::Result::InsPolicy",
+    {InsId         => "InsId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 removed_by
@@ -244,15 +236,14 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "removed_by",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "RemovedBy" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "removed_by",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId => "RemovedBy"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
 =head2 vehicle
@@ -264,18 +255,15 @@ Related object: L<TMS::Schema::Result::InvVehicle>
 =cut
 
 __PACKAGE__->belongs_to(
-  "vehicle",
-  "TMS::Schema::Result::InvVehicle",
-  { VehicleId => "VehicleId" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "RESTRICT" },
+    "vehicle",
+    "TMS::Schema::Result::InvVehicle",
+    {VehicleId     => "VehicleId"},
+    {is_deferrable => 1, on_delete => "CASCADE", on_update => "RESTRICT"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:DhrnA0zp2x+3F4prpBzcdw
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:8nbB4UYDgVmb9vtn50auxw
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

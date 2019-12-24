@@ -1,6 +1,5 @@
 package TMS::API::Core::FinInvoicesItem;
 
-# $Id: $
 use strict;
 use warnings FATAL => 'all';
 use Carp qw( confess longmess );
@@ -9,148 +8,37 @@ use Devel::Confess;
 use Data::Dumper;
 use Try::Tiny;
 
+$Data::Dumper::Terse = 1;
+
 use Moose;
-
-# AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::HrAssociate;
-use TMS::API::Core::FinInvoice;
-use TMS::API::Core::FinItemTemplate;
-use TMS::API::Core::FinJournalEntry;
-use TMS::API::Core::FinJob;
-
-# AUTO-GENERATED DEPENDENCIES END
-
-use TMS::SchemaWrapper;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
-use TMS::API::Types::Columns;
-use MooseX::Types::Moose qw(Undef);
+use TMS::API::Types::Complex;
 
 extends 'TMS::SchemaWrapper';
+with 'MooseX::Traits';
 
-# AUTO-GENERATED HAS-A START
-has InvoiceItemId        => (is => 'rw', coerce => 0, isa => 'Undef | PrimaryKeyInt');
-has InvoiceId            => (is => 'rw', coerce => 1, isa => 'Undef | FinInvoiceObj | Int ');
-has ItemTemplateId       => (is => 'rw', coerce => 1, isa => 'Undef | FinItemTemplateObj | Int ');
-has Amount               => (is => 'rw', coerce => 1, isa => 'Undef | Float');
-has Quantity             => (is => 'rw', coerce => 0, isa => 'Undef | Int');
-has CreatedBy            => (is => 'rw', coerce => 1, isa => 'Undef | HrAssociateObj | Int ');
-has DateCreated          => (is => 'rw', coerce => 1, isa => 'Undef | DATETIME');
-has Notes                => (is => 'rw', coerce => 1, isa => 'Undef | TidySpacesString');
-has Comments             => (is => 'rw', coerce => 1, isa => 'Undef | TidySpacesString');
-has CreditJournalEntryId => (is => 'rw', coerce => 1, isa => 'Undef | FinJournalEntryObj | Int ');
-has DebitJournalEntryId  => (is => 'rw', coerce => 1, isa => 'Undef | FinJournalEntryObj | Int ');
-has JobId                => (is => 'rw', coerce => 1, isa => 'FinJobObj | Int ');
+has 'Amount'               => ('is' => 'rw', 'isa' => 'CurrencyValue',    'required' => '0');
+has 'Comments'             => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
+has 'CreatedBy'            => ('is' => 'rw', 'isa' => 'PositiveInt',      'required' => '0');
+has 'CreditJournalEntryId' => ('is' => 'rw', 'isa' => 'PositiveInt',      'required' => '0');
+has 'DateCreated'          => ('is' => 'rw', 'isa' => 'DATETIME',         'required' => '0');
+has 'DebitJournalEntryId'  => ('is' => 'rw', 'isa' => 'PositiveInt',      'required' => '0');
+has 'InvoiceId'            => ('is' => 'rw', 'isa' => 'PositiveInt',      'required' => '0');
+has 'InvoiceItemId'        => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'required' => '0');
+has 'ItemTemplateId'       => ('is' => 'rw', 'isa' => 'PositiveInt',      'required' => '0');
+has 'Notes'                => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
+has 'Quantity'             => ('is' => 'rw', 'isa' => 'PositiveInt',      'required' => '1', 'default' => '1');
 
-has AllErrors => (is => 'rw', isa => 'ArrayRef',    default    => sub { [] });
-has LastError => (is => 'rw', isa => 'Undef | Str', default    => undef);
-has TableMeta => (is => 'rw', isa => 'HashRef',     lazy_build => 1);
-has DoIfError => (is => 'rw', isa => 'Str',         default    => 'confess');    # confess or ignore
+# relations
+has 'credit_journal_entry'      => ('is' => 'rw', 'isa' => 'ObjFinJournalEntry',            'required' => '0');
+has 'debit_journal_entry'       => ('is' => 'rw', 'isa' => 'ObjFinJournalEntry',            'required' => '0');
+has 'fin_invoice_payment_items' => ('is' => 'rw', 'isa' => 'ArrayObjFinInvoicePaymentItem', 'required' => '0');
+has 'item_template'             => ('is' => 'rw', 'isa' => 'ObjFinItemTemplate',            'required' => '0');
+has 'job'                       => ('is' => 'rw', 'isa' => 'ObjFinJob',                     'required' => '0');
+has 'invoice'                   => ('is' => 'rw', 'isa' => 'ObjFinInvoice',                 'required' => '0');
+has 'created_by'                => ('is' => 'rw', 'isa' => 'ObjHrAssociate',                'required' => '0');
 
-sub _build_TableMeta {
-    my $self = shift;
-    my $data = {
-        'CreatedBy' => {
-            'comment'  => '',
-            'is_null'  => 1,
-            'required' => 0,
-            'apiclass' => 'TMS::API::Core::HrAssociate',
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'Quantity' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => '1',
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'CreditJournalEntryId' => {
-            'is_null'  => 1,
-            'comment'  => '',
-            'apiclass' => 'TMS::API::Core::FinJournalEntry',
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'JobId' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => 'TMS::API::Core::FinJob',
-            'required' => 1,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'ItemTemplateId' => {
-            'is_null'  => 1,
-            'comment'  => '',
-            'required' => 0,
-            'apiclass' => 'TMS::API::Core::FinItemTemplate',
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'InvoiceItemId' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'Comments' => {
-            'is_null'  => 1,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'text'
-        },
-        'InvoiceId' => {
-            'is_null'  => 1,
-            'comment'  => '',
-            'apiclass' => 'TMS::API::Core::FinInvoice',
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'DebitJournalEntryId' => {
-            'comment'  => '',
-            'is_null'  => 1,
-            'apiclass' => 'TMS::API::Core::FinJournalEntry',
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'Notes' => {
-            'comment'  => '',
-            'is_null'  => 1,
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'text'
-        },
-        'DateCreated' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => 'CURRENT_TIMESTAMP',
-            'db_type'  => 'datetime'
-        },
-        'Amount' => {
-            'is_null'  => 1,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'decimal(12,2)'
-        }
-    };
-    $self->TableMeta($data);
-} ## end sub _build_TableMeta
-
-# AUTO-GENERATED HAS-A END
+has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinInvoicesItem');
 
 1;
-

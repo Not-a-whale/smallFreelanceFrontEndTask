@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::FinAccountTypesTreeStructure;
 
 # Created by DBIx::Class::Schema::Loader
@@ -24,7 +25,9 @@ __PACKAGE__->table_class("DBIx::Class::ResultSource::View");
 =cut
 
 __PACKAGE__->table("fin_account_types_tree_structures");
-__PACKAGE__->result_source_instance->view_definition("select `tree`.`DescendantId` AS `AccountId`,group_concat(`tree`.`AncestorId` separator ',') AS `Structure` from (`tms`.`fin_account_types_trees` `tree` join `tms`.`fin_account_types_roots` `root`) where ((`tree`.`DescendantId` = `root`.`DescendantId`) and (`root`.`RootId` in (1,3,5))) group by `tree`.`DescendantId` order by `Structure`");
+__PACKAGE__->result_source_instance->view_definition(
+    "select `tree`.`DescendantId` AS `AccountId`,group_concat(`tree`.`AncestorId` separator ',') AS `Structure` from (`tms`.`fin_account_types_trees` `tree` join `tms`.`fin_account_types_roots` `root`) where ((`tree`.`DescendantId` = `root`.`DescendantId`) and (`root`.`RootId` in (1,3,5))) group by `tree`.`DescendantId` order by `Structure`"
+);
 
 =head1 ACCESSORS
 
@@ -44,23 +47,19 @@ __PACKAGE__->result_source_instance->view_definition("select `tree`.`DescendantI
 =cut
 
 __PACKAGE__->add_columns(
-  "AccountId",
-  {
-    accessor    => "account_id",
-    data_type   => "bigint",
-    extra       => { unsigned => 1 },
-    is_nullable => 0,
-  },
-  "Structure",
-  { accessor => "structure", data_type => "text", is_nullable => 1 },
+    "AccountId",
+    {   accessor    => "account_id",
+        data_type   => "bigint",
+        extra       => {unsigned => 1},
+        is_nullable => 0,
+    },
+    "Structure",
+    {accessor => "structure", data_type => "text", is_nullable => 1},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:DteCrOkmhX7ZH/s5Wbzh3w
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:AvlcMLCP5zrOzxsZh/GKgQ
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;
