@@ -24,8 +24,9 @@ sub Search {
 
     my %attrs = ();
     $attrs{_prefetch} = $self->prefetch if defined $self->prefetch;
-    $attrs{_rows} = $args{rows} if exists $args{rows} && defined $args{rows};
-    $attrs{_page} = $args{page} if exists $args{page} && defined $args{page};
+    $attrs{_rows}     = $args{rows}    if exists $args{rows}    && defined $args{rows};
+    $attrs{_page}     = $args{page}    if exists $args{page}    && defined $args{page};
+    $attrs{_order_by} = $args{orderby} if exists $args{orderby} && defined $args{orderby};
 
     if (exists $args{search} && defined $args{search} && ref($args{search}) eq 'HASH') {
         $attrs{$_} = $args{search}{$_} foreach keys %{$args{search}};

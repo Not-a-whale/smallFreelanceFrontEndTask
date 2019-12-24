@@ -18,7 +18,6 @@ my $JSON = JSON->new->utf8->allow_nonref->indent->space_after->space_before;
 
 has '_rows'     => (is => 'rw', required => 0, isa     => 'Undef|Int');
 has '_page'     => (is => 'rw', required => 0, isa     => 'Undef|Int');
-has '_head'     => (is => 'rw', required => 0, isa     => 'Undef|HashRef');
 has '_order_by' => (is => 'rw', required => 0, isa     => 'Undef|ArrayRef');
 has '_prefetch' => (is => 'rw', required => 0, isa     => 'Undef|ArrayRef|HashRef');
 has Schema      => (is => 'rw', lazy     => 1, builder => '_get_dbix_hdl');
@@ -238,6 +237,21 @@ sub Show {
         $$rules{prefetch} = $self->_prefetch if defined $self->_prefetch;
         $$rules{rows}     = $self->_rows     if defined $self->_rows;
         $$rules{page}     = $self->_page     if defined $self->_page;
+
+        if( defined $self->_order_by ) {
+            my $order = [];
+            foreach( @{$self->_order_by} ) {
+                my ($col,$dir) = %$_;
+                $col = 'me.'.$col if $col !~ /\./;
+                if( $dir =~ /(asc|desc)/i ) {
+                    $dir = '-' . lc($1);
+                } else {
+                    $dir = '-asc';
+                }
+                push @$order, { $dir => $col };
+            }
+            $$rules{order_by} = $order;
+        }
 
         return $self->Search($attr, $rules)->hashref_array();
     }

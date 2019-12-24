@@ -1,5 +1,6 @@
 #!/usr/bin/env perl
 END { print "\nAll done. Press ENTER to exit. "; <STDIN>; }
+
 BEGIN {
     use Cwd 'abs_path';
     use File::Basename;
@@ -17,5 +18,12 @@ use Carp;
 
 use TMS::API::Feature::Businesses::General;
 
+my $data = {
+    POST => {
+        orderby => [{'BizName' => 'ASC'}, {'brnch_address.State' => 'desc'}],
+        rows    => 4,
+    }
+};
+
 my $inst = TMS::API::Feature::Businesses::General->new();
-print Dumper($inst->Search());
+print Dumper($inst->Search($data));

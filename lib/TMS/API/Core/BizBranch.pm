@@ -35,6 +35,10 @@ has 'biz'                    => ('is' => 'rw', 'isa' => 'ObjEntBusiness',       
 has 'ent_people'             => ('is' => 'rw', 'isa' => 'ArrayObjEntPerson',           'required' => '0');
 has 'brnch_phone'            => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax',             'required' => '0');
 
+has 'vendor_fax'              => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax',             'required' => '0');
+has 'vendor_phone'            => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax',             'required' => '0');
+has 'vendor_address'          => ('is' => 'rw', 'isa' => 'ObjCntAddress',               'required' => '0');
+
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'BizBranch');
 
 1;
