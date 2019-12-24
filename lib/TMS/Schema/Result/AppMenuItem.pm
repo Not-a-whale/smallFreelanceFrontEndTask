@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::AppMenuItem;
 
 # Created by DBIx::Class::Schema::Loader
@@ -103,56 +104,51 @@ __PACKAGE__->table("app_menu_items");
 =cut
 
 __PACKAGE__->add_columns(
-  "MenuItemId",
-  {
-    accessor => "menu_item_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "ParentId",
-  {
-    accessor       => "parent_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "Label",
-  { accessor => "label", data_type => "varchar", is_nullable => 0, size => 32 },
-  "Title",
-  { accessor => "title", data_type => "varchar", is_nullable => 1, size => 1024 },
-  "Icon",
-  { accessor => "icon", data_type => "varchar", is_nullable => 1, size => 1024 },
-  "Route",
-  {
-    accessor => "route",
-    data_type => "varchar",
-    default_value => "tms.app.error",
-    is_nullable => 0,
-    size => 1024,
-  },
-  "Help",
-  { accessor => "help", data_type => "text", is_nullable => 1 },
-  "SortIndex",
-  {
-    accessor => "sort_index",
-    data_type => "decimal",
-    default_value => "0.000",
-    is_nullable => 1,
-    size => [6, 3],
-  },
-  "Enabled",
-  {
-    accessor      => "enabled",
-    data_type     => "tinyint",
-    default_value => 1,
-    extra         => { unsigned => 1 },
-    is_nullable   => 1,
-  },
-  "Target",
-  { accessor => "target", data_type => "varchar", is_nullable => 1, size => 64 },
+    "MenuItemId",
+    {   accessor          => "menu_item_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "ParentId",
+    {   accessor       => "parent_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "Label",
+    {accessor => "label", data_type => "varchar", is_nullable => 0, size => 32},
+    "Title",
+    {accessor => "title", data_type => "varchar", is_nullable => 1, size => 1024},
+    "Icon",
+    {accessor => "icon", data_type => "varchar", is_nullable => 1, size => 1024},
+    "Route",
+    {   accessor      => "route",
+        data_type     => "varchar",
+        default_value => "tms.app.error",
+        is_nullable   => 0,
+        size          => 1024,
+    },
+    "Help",
+    {accessor => "help", data_type => "text", is_nullable => 1},
+    "SortIndex",
+    {   accessor      => "sort_index",
+        data_type     => "decimal",
+        default_value => "0.000",
+        is_nullable   => 1,
+        size          => [6, 3],
+    },
+    "Enabled",
+    {   accessor      => "enabled",
+        data_type     => "tinyint",
+        default_value => 1,
+        extra         => {unsigned => 1},
+        is_nullable   => 1,
+    },
+    "Target",
+    {accessor => "target", data_type => "varchar", is_nullable => 1, size => 64},
 );
 
 =head1 PRIMARY KEY
@@ -192,10 +188,10 @@ Related object: L<TMS::Schema::Result::AppMenuItem>
 =cut
 
 __PACKAGE__->has_many(
-  "app_menu_items",
-  "TMS::Schema::Result::AppMenuItem",
-  { "foreign.ParentId" => "self.MenuItemId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "app_menu_items",
+    "TMS::Schema::Result::AppMenuItem",
+    {"foreign.ParentId" => "self.MenuItemId"},
+    {cascade_copy       => 0, cascade_delete => 0},
 );
 
 =head2 app_menu_items_trees_ancestors
@@ -207,10 +203,8 @@ Related object: L<TMS::Schema::Result::AppMenuItemsTree>
 =cut
 
 __PACKAGE__->has_many(
-  "app_menu_items_trees_ancestors",
-  "TMS::Schema::Result::AppMenuItemsTree",
-  { "foreign.AncestorId" => "self.MenuItemId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "app_menu_items_trees_ancestors", "TMS::Schema::Result::AppMenuItemsTree",
+    {"foreign.AncestorId" => "self.MenuItemId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 app_menu_items_trees_descendants
@@ -222,10 +216,8 @@ Related object: L<TMS::Schema::Result::AppMenuItemsTree>
 =cut
 
 __PACKAGE__->has_many(
-  "app_menu_items_trees_descendants",
-  "TMS::Schema::Result::AppMenuItemsTree",
-  { "foreign.DescendantId" => "self.MenuItemId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "app_menu_items_trees_descendants", "TMS::Schema::Result::AppMenuItemsTree",
+    {"foreign.DescendantId" => "self.MenuItemId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 app_role_menuses
@@ -237,10 +229,10 @@ Related object: L<TMS::Schema::Result::AppRoleMenus>
 =cut
 
 __PACKAGE__->has_many(
-  "app_role_menuses",
-  "TMS::Schema::Result::AppRoleMenus",
-  { "foreign.MenuItemId" => "self.MenuItemId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "app_role_menuses",
+    "TMS::Schema::Result::AppRoleMenus",
+    {"foreign.MenuItemId" => "self.MenuItemId"},
+    {cascade_copy         => 0, cascade_delete => 0},
 );
 
 =head2 parent
@@ -252,23 +244,19 @@ Related object: L<TMS::Schema::Result::AppMenuItem>
 =cut
 
 __PACKAGE__->belongs_to(
-  "parent",
-  "TMS::Schema::Result::AppMenuItem",
-  { MenuItemId => "ParentId" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "parent",
+    "TMS::Schema::Result::AppMenuItem",
+    {MenuItemId => "ParentId"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-18 15:12:06
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:r7iJfH81xpzPJXRzC+jh0g
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:hmvS85pRwLAvlaOsKlqawQ
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

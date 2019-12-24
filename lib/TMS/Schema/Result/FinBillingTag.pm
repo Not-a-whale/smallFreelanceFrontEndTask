@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::FinBillingTag;
 
 # Created by DBIx::Class::Schema::Loader
@@ -72,45 +73,40 @@ __PACKAGE__->table("fin_billing_tags");
 =cut
 
 __PACKAGE__->add_columns(
-  "BillingTagId",
-  {
-    accessor => "billing_tag_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "BillingTag",
-  {
-    accessor => "billing_tag",
-    data_type => "varchar",
-    is_nullable => 0,
-    size => 45,
-  },
-  "UserDefined",
-  {
-    accessor      => "user_defined",
-    data_type     => "tinyint",
-    default_value => 1,
-    extra         => { unsigned => 1 },
-    is_nullable   => 0,
-  },
-  "CreatedBy",
-  {
-    accessor       => "created_by",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "DateCreated",
-  {
-    accessor => "date_created",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    default_value => "CURRENT_TIMESTAMP",
-    is_nullable => 0,
-  },
+    "BillingTagId",
+    {   accessor          => "billing_tag_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "BillingTag",
+    {   accessor    => "billing_tag",
+        data_type   => "varchar",
+        is_nullable => 0,
+        size        => 45,
+    },
+    "UserDefined",
+    {   accessor      => "user_defined",
+        data_type     => "tinyint",
+        default_value => 1,
+        extra         => {unsigned => 1},
+        is_nullable   => 0,
+    },
+    "CreatedBy",
+    {   accessor       => "created_by",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "DateCreated",
+    {   accessor                  => "date_created",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        default_value             => "CURRENT_TIMESTAMP",
+        is_nullable               => 0,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -150,15 +146,14 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "created_by",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "CreatedBy" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "created_by",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId => "CreatedBy"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
 =head2 fin_billing_infos
@@ -170,18 +165,15 @@ Related object: L<TMS::Schema::Result::FinBillingInfo>
 =cut
 
 __PACKAGE__->has_many(
-  "fin_billing_infos",
-  "TMS::Schema::Result::FinBillingInfo",
-  { "foreign.BillingTagId" => "self.BillingTagId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "fin_billing_infos",
+    "TMS::Schema::Result::FinBillingInfo",
+    {"foreign.BillingTagId" => "self.BillingTagId"},
+    {cascade_copy           => 0, cascade_delete => 0},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:JVDOe+JBS2n5U4tY4Bgtqw
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:H8d48rB4NhYORsy/HW3mKA
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

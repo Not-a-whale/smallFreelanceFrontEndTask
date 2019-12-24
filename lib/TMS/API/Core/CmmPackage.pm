@@ -1,6 +1,5 @@
 package TMS::API::Core::CmmPackage;
 
-# $Id: $
 use strict;
 use warnings FATAL => 'all';
 use Carp qw( confess longmess );
@@ -9,44 +8,22 @@ use Devel::Confess;
 use Data::Dumper;
 use Try::Tiny;
 
+$Data::Dumper::Terse = 1;
+
 use Moose;
-
-# AUTO-GENERATED DEPENDENCIES START
-
-# AUTO-GENERATED DEPENDENCIES END
-
-use TMS::SchemaWrapper;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
-use TMS::API::Types::Columns;
-use MooseX::Types::Moose qw(Undef);
+use TMS::API::Types::Complex;
 
 extends 'TMS::SchemaWrapper';
+with 'MooseX::Traits';
 
-# AUTO-GENERATED HAS-A START
-has Name => (is => 'rw', coerce => 0, isa => 'PrimaryKeyInt');
+# relations
+has 'cmm_assignments_customers' => ('is' => 'rw', 'isa' => 'ArrayObjCmmAssignmentsCustomer', 'required' => '0');
+has 'cmm_assignments'           => ('is' => 'rw', 'isa' => 'ArrayObjCmmAssignment',          'required' => '0');
+has 'cmm_assignments_groups'    => ('is' => 'rw', 'isa' => 'ArrayObjCmmAssignmentsGroup',    'required' => '0');
+has 'cmm_package_tiers'         => ('is' => 'rw', 'isa' => 'ArrayObjCmmPackageTier',         'required' => '0');
 
-has AllErrors => (is => 'rw', isa => 'ArrayRef',    default    => sub { [] });
-has LastError => (is => 'rw', isa => 'Undef | Str', default    => undef);
-has TableMeta => (is => 'rw', isa => 'HashRef',     lazy_build => 1);
-has DoIfError => (is => 'rw', isa => 'Str',         default    => 'confess');    # confess or ignore
-
-sub _build_TableMeta {
-    my $self = shift;
-    my $data = {
-        'Name' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'varchar(255)'
-        }
-    };
-    $self->TableMeta($data);
-} ## end sub _build_TableMeta
-
-# AUTO-GENERATED HAS-A END
+has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'CmmPackage');
 
 1;
-

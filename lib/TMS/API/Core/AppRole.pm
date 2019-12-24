@@ -1,6 +1,5 @@
 package TMS::API::Core::AppRole;
 
-# $Id: $
 use strict;
 use warnings FATAL => 'all';
 use Carp qw( confess longmess );
@@ -9,117 +8,32 @@ use Devel::Confess;
 use Data::Dumper;
 use Try::Tiny;
 
+$Data::Dumper::Terse = 1;
+
 use Moose;
-
-# AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::HrAssociate;
-
-# AUTO-GENERATED DEPENDENCIES END
-
-use TMS::SchemaWrapper;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
-use TMS::API::Types::Columns;
-use MooseX::Types::Moose qw(Undef);
+use TMS::API::Types::Complex;
 
 extends 'TMS::SchemaWrapper';
+with 'MooseX::Traits';
 
-# AUTO-GENERATED HAS-A START
-has RoleId      => (is => 'rw', coerce => 0, isa => 'Undef | PrimaryKeyInt');
-has RoleName    => (is => 'rw', coerce => 1, isa => 'TidySpacesString');
-has Description => (is => 'rw', coerce => 1, isa => 'Undef | TidySpacesString');
-has UserDefined => (is => 'rw', coerce => 1, isa => 'Undef | BoolInt');
-has Editable    => (is => 'rw', coerce => 1, isa => 'Undef | BoolInt');
-has CreatedBy   => (is => 'rw', coerce => 1, isa => 'Undef | HrAssociateObj | Int ');
-has UpdatedBy   => (is => 'rw', coerce => 1, isa => 'Undef | HrAssociateObj | Int ');
-has DateCreated => (is => 'rw', coerce => 1, isa => 'Undef | DATETIME');
-has DateUpdated => (is => 'rw', coerce => 1, isa => 'Undef | DATETIME');
+has 'CreatedBy'   => ('is' => 'rw', 'isa' => 'PositiveInt',      'required' => '0');
+has 'DateCreated' => ('is' => 'rw', 'isa' => 'DATETIME',         'required' => '0');
+has 'DateUpdated' => ('is' => 'rw', 'isa' => 'DATETIME',         'required' => '0');
+has 'Description' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
+has 'Editable'    => ('is' => 'rw', 'isa' => 'BoolInt',          'required' => '0', 'default' => '1');
+has 'RoleId'      => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'required' => '0');
+has 'UpdatedBy'   => ('is' => 'rw', 'isa' => 'PositiveInt',      'required' => '0');
+has 'UserDefined' => ('is' => 'rw', 'isa' => 'BoolInt',          'required' => '0', 'default' => '1');
 
-has AllErrors => (is => 'rw', isa => 'ArrayRef',    default    => sub { [] });
-has LastError => (is => 'rw', isa => 'Undef | Str', default    => undef);
-has TableMeta => (is => 'rw', isa => 'HashRef',     lazy_build => 1);
-has DoIfError => (is => 'rw', isa => 'Str',         default    => 'confess');    # confess or ignore
+# relations
+has 'app_role_menuses'     => ('is' => 'rw', 'isa' => 'ArrayObjAppRoleMenus',      'required' => '0');
+has 'app_roles_assigned'   => ('is' => 'rw', 'isa' => 'ArrayObjAppRoleAssigned',   'required' => '0');
+has 'updated_by'           => ('is' => 'rw', 'isa' => 'ObjHrAssociate',            'required' => '0');
+has 'app_role_permissions' => ('is' => 'rw', 'isa' => 'ArrayObjAppRolePermission', 'required' => '0');
+has 'created_by'           => ('is' => 'rw', 'isa' => 'ObjHrAssociate',            'required' => '0');
 
-sub _build_TableMeta {
-    my $self = shift;
-    my $data = {
-        'RoleName' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 1,
-            'default'  => undef,
-            'db_type'  => 'varchar(255)'
-        },
-        'UserDefined' => {
-            'comment'  => '',
-            'is_null'  => 1,
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => '1',
-            'db_type'  => 'tinyint(1) unsigned'
-        },
-        'Description' => {
-            'is_null'  => 1,
-            'comment'  => 'Brief description of the purpose of the role',
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => undef,
-            'db_type'  => 'text'
-        },
-        'CreatedBy' => {
-            'comment'  => '',
-            'is_null'  => 1,
-            'required' => 0,
-            'apiclass' => 'TMS::API::Core::HrAssociate',
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'RoleId' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'Editable' => {
-            'comment'  => '',
-            'is_null'  => 1,
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => '1',
-            'db_type'  => 'tinyint(1) unsigned'
-        },
-        'DateCreated' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => 'CURRENT_TIMESTAMP',
-            'db_type'  => 'datetime'
-        },
-        'UpdatedBy' => {
-            'comment'  => '',
-            'is_null'  => 1,
-            'apiclass' => 'TMS::API::Core::HrAssociate',
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'DateUpdated' => {
-            'comment'  => '',
-            'is_null'  => 1,
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => undef,
-            'db_type'  => 'datetime'
-        }
-    };
-    $self->TableMeta($data);
-} ## end sub _build_TableMeta
-
-# AUTO-GENERATED HAS-A END
+has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'AppRole');
 
 1;
-

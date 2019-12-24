@@ -1,6 +1,5 @@
 package TMS::API::Core::BizCompanyNode;
 
-# $Id: $
 use strict;
 use warnings FATAL => 'all';
 use Carp qw( confess longmess );
@@ -9,71 +8,27 @@ use Devel::Confess;
 use Data::Dumper;
 use Try::Tiny;
 
+$Data::Dumper::Terse = 1;
+
 use Moose;
-
-# AUTO-GENERATED DEPENDENCIES START
-
-# AUTO-GENERATED DEPENDENCIES END
-
-use TMS::SchemaWrapper;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
-use TMS::API::Types::Columns;
-use MooseX::Types::Moose qw(Undef);
+use TMS::API::Types::Complex;
 
 extends 'TMS::SchemaWrapper';
+with 'MooseX::Traits';
 
-# AUTO-GENERATED HAS-A START
-has NodeId   => (is => 'rw', coerce => 0, isa => 'Undef | PrimaryKeyInt');
-has ParentId => (is => 'rw', coerce => 0, isa => 'Undef | BizCompanyNodeObj | Int ');
-has UnitName => (is => 'rw', coerce => 1, isa => 'TidySpacesString');
-has Type     => (is => 'rw', coerce => 1, isa => 'Undef | EnumDepartment');
+has 'NodeId'   => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'required' => '0');
+has 'ParentId' => ('is' => 'rw', 'isa' => 'PositiveInt',   'required' => '0');
+has 'Type'     => ('is' => 'rw', 'isa' => 'Any',           'required' => '1', 'default' => 'Other');
 
-has AllErrors => (is => 'rw', isa => 'ArrayRef',    default    => sub { [] });
-has LastError => (is => 'rw', isa => 'Undef | Str', default    => undef);
-has TableMeta => (is => 'rw', isa => 'HashRef',     lazy_build => 1);
-has DoIfError => (is => 'rw', isa => 'Str',         default    => 'confess');    # confess or ignore
+# relations
+has 'biz_company_nodes'             => ('is' => 'rw', 'isa' => 'ArrayObjBizCompanyNode', 'required' => '0');
+has 'biz_company_trees_ancestors'   => ('is' => 'rw', 'isa' => 'ArrayObjBizCompanyTree', 'required' => '0');
+has 'parent'                        => ('is' => 'rw', 'isa' => 'ObjBizCompanyNode',      'required' => '0');
+has 'biz_company_trees_descendants' => ('is' => 'rw', 'isa' => 'ArrayObjBizCompanyTree', 'required' => '0');
+has 'hr_associates'                 => ('is' => 'rw', 'isa' => 'ArrayObjHrAssociate',    'required' => '0');
 
-sub _build_TableMeta {
-    my $self = shift;
-    my $data = {
-        'ParentId' => {
-            'comment'  => '',
-            'is_null'  => 1,
-            'apiclass' => 'TMS::API::Core::BizCompanyNode',
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'Type' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => 'Other',
-            'db_type'  => 'enum(\'Department\',\'Office\',\'Team\',\'Group\',\'Other\')'
-        },
-        'UnitName' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'apiclass' => undef,
-            'required' => 1,
-            'default'  => undef,
-            'db_type'  => 'varchar(255)'
-        },
-        'NodeId' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        }
-    };
-    $self->TableMeta($data);
-} ## end sub _build_TableMeta
-
-# AUTO-GENERATED HAS-A END
+has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'BizCompanyNode');
 
 1;
-

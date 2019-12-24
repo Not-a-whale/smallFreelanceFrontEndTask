@@ -1,6 +1,5 @@
 package TMS::API::Core::InvUnitsToEquipment;
 
-# $Id: $
 use strict;
 use warnings FATAL => 'all';
 use Carp qw( confess longmess );
@@ -9,110 +8,29 @@ use Devel::Confess;
 use Data::Dumper;
 use Try::Tiny;
 
+$Data::Dumper::Terse = 1;
+
 use Moose;
-
-# AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::InvEquipment;
-use TMS::API::Core::InvUnit;
-use TMS::API::Core::HrAssociate;
-
-# AUTO-GENERATED DEPENDENCIES END
-
-use TMS::SchemaWrapper;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
-use TMS::API::Types::Columns;
-use MooseX::Types::Moose qw(Undef);
+use TMS::API::Types::Complex;
 
 extends 'TMS::SchemaWrapper';
+with 'MooseX::Traits';
 
-# AUTO-GENERATED HAS-A START
-has EquipUnitResId => (is => 'rw', coerce => 0, isa => 'Undef | PrimaryKeyInt');
-has UnitId         => (is => 'rw', coerce => 1, isa => 'InvUnitObj | Int ');
-has EquipmentId    => (is => 'rw', coerce => 1, isa => 'InvEquipmentObj | Int ');
-has DateAdded      => (is => 'rw', coerce => 1, isa => 'Undef | DATETIME');
-has AddedBy        => (is => 'rw', coerce => 1, isa => 'HrAssociateObj | Int ');
-has DateRemoved    => (is => 'rw', coerce => 1, isa => 'Undef | DATETIME');
-has RemovedBy      => (is => 'rw', coerce => 1, isa => 'Undef | HrAssociateObj | Int ');
-has Notes          => (is => 'rw', coerce => 1, isa => 'Undef | TidySpacesString');
+has 'DateAdded'      => ('is' => 'rw', 'isa' => 'DATETIME',         'required' => '0');
+has 'DateRemoved'    => ('is' => 'rw', 'isa' => 'DATETIME',         'required' => '0');
+has 'EquipUnitResId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'required' => '0');
+has 'Notes'          => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
+has 'RemovedBy'      => ('is' => 'rw', 'isa' => 'PositiveInt',      'required' => '0');
 
-has AllErrors => (is => 'rw', isa => 'ArrayRef',    default    => sub { [] });
-has LastError => (is => 'rw', isa => 'Undef | Str', default    => undef);
-has TableMeta => (is => 'rw', isa => 'HashRef',     lazy_build => 1);
-has DoIfError => (is => 'rw', isa => 'Str',         default    => 'confess');    # confess or ignore
+# relations
+has 'unit'       => ('is' => 'rw', 'isa' => 'ObjInvUnit',      'required' => '0');
+has 'equipment'  => ('is' => 'rw', 'isa' => 'ObjInvEquipment', 'required' => '0');
+has 'removed_by' => ('is' => 'rw', 'isa' => 'ObjHrAssociate',  'required' => '0');
+has 'added_by'   => ('is' => 'rw', 'isa' => 'ObjHrAssociate',  'required' => '0');
 
-sub _build_TableMeta {
-    my $self = shift;
-    my $data = {
-        'EquipUnitResId' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'EquipmentId' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'required' => 1,
-            'apiclass' => 'TMS::API::Core::InvEquipment',
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'DateRemoved' => {
-            'is_null'  => 1,
-            'comment'  => '',
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => undef,
-            'db_type'  => 'datetime'
-        },
-        'RemovedBy' => {
-            'comment'  => '',
-            'is_null'  => 1,
-            'apiclass' => 'TMS::API::Core::HrAssociate',
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'AddedBy' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'apiclass' => 'TMS::API::Core::HrAssociate',
-            'required' => 1,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'UnitId' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'apiclass' => 'TMS::API::Core::InvUnit',
-            'required' => 1,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'DateAdded' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => 'CURRENT_TIMESTAMP',
-            'db_type'  => 'datetime'
-        },
-        'Notes' => {
-            'comment'  => '',
-            'is_null'  => 1,
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'text'
-        }
-    };
-    $self->TableMeta($data);
-} ## end sub _build_TableMeta
-
-# AUTO-GENERATED HAS-A END
+has '_dbix_class' =>
+    (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'InvUnitsToEquipment');
 
 1;
-

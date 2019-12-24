@@ -1,6 +1,5 @@
 package TMS::API::Core::GenFile;
 
-# $Id: $
 use strict;
 use warnings FATAL => 'all';
 use Carp qw( confess longmess );
@@ -9,125 +8,48 @@ use Devel::Confess;
 use Data::Dumper;
 use Try::Tiny;
 
+$Data::Dumper::Terse = 1;
+
 use Moose;
-
-# AUTO-GENERATED DEPENDENCIES START
-
-# AUTO-GENERATED DEPENDENCIES END
-
-use TMS::SchemaWrapper;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
-use TMS::API::Types::Columns;
-use MooseX::Types::Moose qw(Undef);
+use TMS::API::Types::Complex;
 
 extends 'TMS::SchemaWrapper';
+with 'MooseX::Traits';
 
-# AUTO-GENERATED HAS-A START
-has FileId        => (is => 'rw', coerce => 0, isa => 'Undef | PrimaryKeyInt');
-has DocumentTitle => (is => 'rw', coerce => 1, isa => 'Undef | TidySpacesString');
-has Keywords      => (is => 'rw', coerce => 1, isa => 'Undef | TidySpacesString');
-has FileName      => (is => 'rw', coerce => 1, isa => 'Undef | TidySpacesString');
-has FileData      => (is => 'rw', coerce => 1, isa => 'Blob');
-has SHASIG        => (is => 'rw', coerce => 1, isa => 'Sha256');
-has MIMEType      => (is => 'rw', coerce => 1, isa => 'Undef | TidySpacesString');
-has UploadDate    => (is => 'rw', coerce => 1, isa => 'Undef | DATETIME');
-has ExpiredDate   => (is => 'rw', coerce => 1, isa => 'Undef | DATETIME');
-has Notes         => (is => 'rw', coerce => 1, isa => 'Undef | TidySpacesString');
+has 'DocumentTitle' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
+has 'ExpiredDate'   => ('is' => 'rw', 'isa' => 'DATETIME',         'required' => '0');
+has 'FileId'        => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'required' => '0');
+has 'FileName'      => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
+has 'Keywords'      => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
+has 'MIMEType'      => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
+has 'Notes'         => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
+has 'UploadDate'    => ('is' => 'rw', 'isa' => 'DATETIME',         'required' => '0');
 
-has AllErrors => (is => 'rw', isa => 'ArrayRef',    default    => sub { [] });
-has LastError => (is => 'rw', isa => 'Undef | Str', default    => undef);
-has TableMeta => (is => 'rw', isa => 'HashRef',     lazy_build => 1);
-has DoIfError => (is => 'rw', isa => 'Str',         default    => 'confess');    # confess or ignore
+# relations
+has 'crr_permit_images'         => ('is' => 'rw', 'isa' => 'ArrayObjCrrPermitImage',         'required' => '0');
+has 'fin_tax_ids'               => ('is' => 'rw', 'isa' => 'ArrayObjFinTaxId',               'required' => '0');
+has 'fin_billing_banks'         => ('is' => 'rw', 'isa' => 'ArrayObjFinBillingBank',         'required' => '0');
+has 'hr_govidcards'             => ('is' => 'rw', 'isa' => 'ArrayObjHrGovidcard',            'required' => '0');
+has 'sft_vehicle_registrations' => ('is' => 'rw', 'isa' => 'ArrayObjSftVehicleRegistration', 'required' => '0');
+has 'hr_payrates'               => ('is' => 'rw', 'isa' => 'ArrayObjHrPayrate',              'required' => '0');
+has 'hr_hire_records'           => ('is' => 'rw', 'isa' => 'ArrayObjHrHireRecord',           'required' => '0');
+has 'crr_permit_account_docs'   => ('is' => 'rw', 'isa' => 'ArrayObjCrrPermitAccountDoc',    'required' => '0');
+has 'ent_carriers'              => ('is' => 'rw', 'isa' => 'ArrayObjEntCarrier',             'required' => '0');
+has 'ins_policies'              => ('is' => 'rw', 'isa' => 'ArrayObjInsPolicy',              'required' => '0');
+has 'drv_driverlicences'        => ('is' => 'rw', 'isa' => 'ArrayObjDrvDriverlicence',       'required' => '0');
+has 'dsp_loads_docs'            => ('is' => 'rw', 'isa' => 'ArrayObjDspLoadsDoc',            'required' => '0');
+has 'crr_ifta_decals'           => ('is' => 'rw', 'isa' => 'ArrayObjCrrIftaDecal',           'required' => '0');
+has 'crr_iftas'                 => ('is' => 'rw', 'isa' => 'ArrayObjCrrIfta',                'required' => '0');
+has 'inv_equipment_docs'        => ('is' => 'rw', 'isa' => 'ArrayObjInvEquipmentDoc',        'required' => '0');
+has 'sft_vehicle_inspect_proofs' =>
+    ('is' => 'rw', 'isa' => 'ArrayObjSftVehicleInspectProof', 'required' => '0');
+has 'sft_vehicle_inspections' => ('is' => 'rw', 'isa' => 'ArrayObjSftVehicleInspection', 'required' => '0');
+has 'drv_medcards'            => ('is' => 'rw', 'isa' => 'ArrayObjDrvMedcard',           'required' => '0');
+has 'dsp_loads_destinations_docs' =>
+    ('is' => 'rw', 'isa' => 'ArrayObjDspLoadsDestinationsDoc', 'required' => '0');
 
-sub _build_TableMeta {
-    my $self = shift;
-    my $data = {
-        'SHASIG' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 1,
-            'default'  => undef,
-            'db_type'  => 'char(64)'
-        },
-        'MIMEType' => {
-            'is_null'  => 1,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'varchar(1024)'
-        },
-        'FileData' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 1,
-            'default'  => undef,
-            'db_type'  => 'longblob'
-        },
-        'Keywords' => {
-            'is_null'  => 1,
-            'comment'  => '',
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => undef,
-            'db_type'  => 'varchar(1024)'
-        },
-        'FileName' => {
-            'is_null'  => 1,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'varchar(1024)'
-        },
-        'ExpiredDate' => {
-            'is_null'  => 1,
-            'comment'  => '',
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => undef,
-            'db_type'  => 'datetime'
-        },
-        'Notes' => {
-            'is_null'  => 1,
-            'comment'  => '',
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => undef,
-            'db_type'  => 'text'
-        },
-        'DocumentTitle' => {
-            'is_null'  => 1,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'varchar(255)'
-        },
-        'FileId' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'UploadDate' => {
-            'is_null'  => 1,
-            'comment'  => '',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => 'CURRENT_TIMESTAMP',
-            'db_type'  => 'datetime'
-        }
-    };
-    $self->TableMeta($data);
-} ## end sub _build_TableMeta
-
-# AUTO-GENERATED HAS-A END
+has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'GenFile');
 
 1;
-

@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::DrvSchedule;
 
 # Created by DBIx::Class::Schema::Loader
@@ -82,55 +83,49 @@ __PACKAGE__->table("drv_schedules");
 =cut
 
 __PACKAGE__->add_columns(
-  "DrvSchdId",
-  {
-    accessor => "drv_schd_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "DriverId",
-  {
-    accessor       => "driver_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "ChangeDate",
-  {
-    accessor => "change_date",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 0,
-  },
-  "DesiredDestId",
-  {
-    accessor       => "desired_dest_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "DesiredDestNote",
-  { accessor => "desired_dest_note", data_type => "text", is_nullable => 1 },
-  "PostedBy",
-  {
-    accessor       => "posted_by",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "PostedDate",
-  {
-    accessor => "posted_date",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    default_value => "CURRENT_TIMESTAMP",
-    is_nullable => 1,
-  },
+    "DrvSchdId",
+    {   accessor          => "drv_schd_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "DriverId",
+    {   accessor       => "driver_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "ChangeDate",
+    {   accessor                  => "change_date",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 0,
+    },
+    "DesiredDestId",
+    {   accessor       => "desired_dest_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "DesiredDestNote",
+    {accessor => "desired_dest_note", data_type => "text", is_nullable => 1},
+    "PostedBy",
+    {   accessor       => "posted_by",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "PostedDate",
+    {   accessor                  => "posted_date",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        default_value             => "CURRENT_TIMESTAMP",
+        is_nullable               => 1,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -156,10 +151,10 @@ Related object: L<TMS::Schema::Result::DrvDesttype>
 =cut
 
 __PACKAGE__->belongs_to(
-  "desired_dest",
-  "TMS::Schema::Result::DrvDesttype",
-  { DesiredDestId => "DesiredDestId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "desired_dest",
+    "TMS::Schema::Result::DrvDesttype",
+    {DesiredDestId => "DesiredDestId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 driver
@@ -171,10 +166,10 @@ Related object: L<TMS::Schema::Result::DrvDriver>
 =cut
 
 __PACKAGE__->belongs_to(
-  "driver",
-  "TMS::Schema::Result::DrvDriver",
-  { DriverId => "DriverId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "driver",
+    "TMS::Schema::Result::DrvDriver",
+    {DriverId      => "DriverId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 posted_by
@@ -186,18 +181,15 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "posted_by",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "PostedBy" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "posted_by",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId         => "PostedBy"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:27gRaYBxaToisTlIQug9pA
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:lTzpgxYoJcKzEaJrUxbimQ
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

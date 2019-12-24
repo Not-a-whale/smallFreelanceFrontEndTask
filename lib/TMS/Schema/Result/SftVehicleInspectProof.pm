@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::SftVehicleInspectProof;
 
 # Created by DBIx::Class::Schema::Loader
@@ -59,32 +60,29 @@ __PACKAGE__->table("sft_vehicle_inspect_proofs");
 =cut
 
 __PACKAGE__->add_columns(
-  "InspectImageId",
-  {
-    accessor => "inspect_image_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "FileRef",
-  {
-    accessor       => "file_ref",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "InspectedItemId",
-  {
-    accessor       => "inspected_item_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "Notes",
-  { accessor => "notes", data_type => "text", is_nullable => 1 },
+    "InspectImageId",
+    {   accessor          => "inspect_image_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "FileRef",
+    {   accessor       => "file_ref",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "InspectedItemId",
+    {   accessor       => "inspected_item_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "Notes",
+    {accessor => "notes", data_type => "text", is_nullable => 1},
 );
 
 =head1 PRIMARY KEY
@@ -110,10 +108,10 @@ Related object: L<TMS::Schema::Result::GenFile>
 =cut
 
 __PACKAGE__->belongs_to(
-  "file_ref",
-  "TMS::Schema::Result::GenFile",
-  { FileId => "FileRef" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "file_ref",
+    "TMS::Schema::Result::GenFile",
+    {FileId        => "FileRef"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 inspected_item
@@ -125,18 +123,15 @@ Related object: L<TMS::Schema::Result::SftVehicleInspectedItem>
 =cut
 
 __PACKAGE__->belongs_to(
-  "inspected_item",
-  "TMS::Schema::Result::SftVehicleInspectedItem",
-  { InspectedId => "InspectedItemId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "inspected_item",
+    "TMS::Schema::Result::SftVehicleInspectedItem",
+    {InspectedId   => "InspectedItemId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:34:11
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1V6pW6Mum21Yl01olEc/Hw
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7iHX9ursmgpTlRvsCFF1Iw
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

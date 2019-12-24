@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::InvNote;
 
 # Created by DBIx::Class::Schema::Loader
@@ -67,40 +68,36 @@ __PACKAGE__->table("inv_notes");
 =cut
 
 __PACKAGE__->add_columns(
-  "EqNoteId",
-  {
-    accessor => "eq_note_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "EquipmentId",
-  {
-    accessor       => "equipment_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "DateCreated",
-  {
-    accessor => "date_created",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    default_value => "CURRENT_TIMESTAMP",
-    is_nullable => 0,
-  },
-  "PostedBy",
-  {
-    accessor       => "posted_by",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "Notes",
-  { accessor => "notes", data_type => "text", is_nullable => 0 },
+    "EqNoteId",
+    {   accessor          => "eq_note_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "EquipmentId",
+    {   accessor       => "equipment_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "DateCreated",
+    {   accessor                  => "date_created",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        default_value             => "CURRENT_TIMESTAMP",
+        is_nullable               => 0,
+    },
+    "PostedBy",
+    {   accessor       => "posted_by",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "Notes",
+    {accessor => "notes", data_type => "text", is_nullable => 0},
 );
 
 =head1 PRIMARY KEY
@@ -126,10 +123,10 @@ Related object: L<TMS::Schema::Result::InvEquipment>
 =cut
 
 __PACKAGE__->belongs_to(
-  "equipment",
-  "TMS::Schema::Result::InvEquipment",
-  { EquipmentId => "EquipmentId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "equipment",
+    "TMS::Schema::Result::InvEquipment",
+    {EquipmentId   => "EquipmentId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 posted_by
@@ -141,18 +138,15 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "posted_by",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "PostedBy" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "posted_by",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId         => "PostedBy"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:bflGlUkLaiebTPo2Jnpd+A
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:RxwhDyXE9ykY7liRq5kpEw
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

@@ -1,134 +1,320 @@
 package TMS::SchemaWrapper;
+
 use strict;
 use warnings FATAL => 'all';
+use feature 'current_sub';
+
 use Carp qw( confess longmess );
 use namespace::autoclean;
 use Devel::Confess;
 use Data::Dumper;
-use Try::Tiny;
+use JSON;
 
 use Moose;
 use TMS::Schema;
 
 $Data::Dumper::Terse = 1;
+my $JSON = JSON->new->utf8->allow_nonref->indent->space_after->space_before;
 
-# -------------------------------------------------------------------------------------------------------------
-has Schema => (is => 'rw', lazy => 1, builder => '_get_dbix_hdl');
+has '_rows'     => (is => 'rw', required => 0, isa     => 'Undef|Int');
+has '_page'     => (is => 'rw', required => 0, isa     => 'Undef|Int');
+has '_head'     => (is => 'rw', required => 0, isa     => 'Undef|HashRef');
+has '_order_by' => (is => 'rw', required => 0, isa     => 'Undef|ArrayRef');
+has '_prefetch' => (is => 'rw', required => 0, isa     => 'Undef|ArrayRef|HashRef');
+has Schema      => (is => 'rw', lazy     => 1, builder => '_get_dbix_hdl');
 sub _get_dbix_hdl { shift->Schema(TMS::Schema->new()->DBIxHandle) }
 
-has PrimaryKey => (is => 'rw');
+sub BUILDARGS {
+    my $class = shift;
+    my %args  = ref $_[0] ? %{$_[0]} : @_;
+    my $data  = Sift(\%args);
+    return $data;
+}
 
-# -------------------------------------------------------------------------------------------------------------
-sub Storage { shift->Schema->storage }
-
-# -------------------------------------------------------------------------------------------------------------
-sub Connected { shift->Storage->connected }
-
-# -------------------------------------------------------------------------------------------------------------
-sub EnsureConnected { shift->Storage->ensure_connected }
-
-# -------------------------------------------------------------------------------------------------------------
-sub _meta_loop {
-    my $self   = shift;
-    my $method = (caller(1))[3];
-    my $data   = {};
-    my %list   = map { $_, 1 } $self->ColumnsList;
-    for my $attr ($self->meta->get_all_attributes) {
-        my $name = $attr->name;
-        next if !exists $list{$name};
-        my $type = ref($$self{$name});
-        if ($type =~ /TMS::/) {
-            try {
-                my $row = $self->$name->$method;
-                if (ref($row) =~ /^TMS::Schema::Result::\w+$/ && $row->can('id')) {
-                    $$data{$name} = $row->id;
-                } else {
-                    $$data{$name} = $row;
-                }
-            } catch {
-                my $error = $_;
-                if ($attr->is_required) {
-                    confess "$error";
-                } else {
-                    $$data{$name} = undef;
-                }
-            };
+sub Sift {
+    my $data = shift;
+    if (ref $data eq 'ARRAY') {
+        if (scalar(@$data)) {
+            my $valid = [];
+            foreach my $elm (@$data) {
+                $elm = __SUB__->($elm) if ref $elm;
+                push @$valid, $elm if defined $elm;
+            }
+            $data = $valid;
         } else {
-            $$data{$name} = $self->$name if defined $self->$name;
+            $data = undef;
+        }
+    } elsif (ref $data eq 'HASH') {
+        foreach (keys %$data) {
+            $$data{$_} = __SUB__->($$data{$_}) if ref $$data{$_};
+            if (!defined $$data{$_}) {
+                delete $$data{$_};
+                next;
+            }
         }
     }
     return $data;
 }
 
-# -------------------------------------------------------------------------------------------------------------
-sub DataHash { shift->_meta_loop }
-
-# -------------------------------------------------------------------------------------------------------------
-sub DataHashTell { print Dumper(shift->DataHash) }
-
-# -------------------------------------------------------------------------------------------------------------
-sub Do {    # execute raw SQL command
-    my ($self, $sql, @vals) = @_;
-    $self->Storage->dbh_do(
-        sub {
-            my ($storage, $dbh, $sql, @values) = @_;
-            print "Custom SQL: $sql\n" . Dumper(\@values) if $ENV{DBIC_TRACE};
-            return $dbh->do($sql, undef, @values);
-        },
-        $sql,
-        @vals
-    );
+sub Validate {
+    my $self = shift;
+    return @_ if scalar(@_);
+    my %args = ();
+    foreach my $clrel ($self->ColumnsList, $self->Relationships) {
+        next if !defined $self->$clrel;    # calling as method to trigger lazy build
+        if (ref $$self{$clrel}) {
+            if (ref($$self{$clrel}) =~ /(::API::|^MooseX::Traits)::/) {
+                $args{$clrel} = $$self{$clrel}->Validate;
+            } elsif (ref($$self{$clrel}) eq 'HASH') {
+                foreach (keys %{$$self{$clrel}}) {
+                    $$self{$clrel}{$_} = $$self{$clrel}{$_}->Validate
+                        if (ref($$self{$clrel}{$_}) =~ /(::API::|^MooseX::Traits)::/);
+                }
+                $args{$clrel} = $self->$clrel;
+            } elsif (ref($$self{$clrel}) eq 'ARRAY') {
+                my $arr = [];
+                foreach my $elm (@{$$self{$clrel}}) {
+                    if (ref($elm) =~ /(::API::|MooseX::Traits)::/) {
+                        push @$arr, $elm->Validate;
+                    } else {
+                        push @$arr, $elm;
+                    }
+                }
+                $args{$clrel} = $arr;
+            } else {
+                confess "Illegal type " . ref($$self{$clrel});
+            }
+        } else {
+            $args{$clrel} = $self->$clrel;
+        }
+    }
+    return scalar(%args) ? \%args : undef;
 }
 
-# -------------------------------------------------------------------------------------------------------------
+sub _inner_loop {
+    my $self   = shift;
+    my %rlns   = $self->RelationshipsInfo;
+    my $method = (caller(1))[3];
+    $method = (caller(2))[3] if $method =~ /_loop_manager$/;
+
+    foreach my $rel (grep { $rlns{$_}{attrs}{accessor} eq 'single' } keys %rlns) {
+        next unless exists $$self{$rel} && defined $$self{$rel} && ref($$self{$rel});
+        my $row = $self->$rel->$method;
+        if (defined $row && ref($row) =~ /Schema::Result::/) {
+            my %rcls = $row->get_columns();
+            foreach (keys %rcls) { delete $rcls{$_} if !defined $rcls{$_} }
+            foreach (keys %{$rlns{$rel}{'cond'}}) {
+                (my $lcol = $rlns{$rel}{'cond'}{$_}) =~ s/^self\.//;
+                (my $fcol = $_) =~ s/^foreign\.//;
+                $self->$lcol($rcls{$fcol});
+            }
+        }
+    }
+}
+
+sub _outter_loop {
+    my $self = shift;
+    my %rlns = $self->RelationshipsInfo;
+
+    my $method = (caller(1))[3];
+    $method = (caller(2))[3] if $method =~ /_loop_manager$/;
+
+    foreach my $rel (grep { $rlns{$_}{attrs}{accessor} ne 'single' } keys %rlns) {
+        next unless exists $$self{$rel} && defined $$self{$rel} && ref($$self{$rel}) eq 'ARRAY';
+        foreach my $inst (@{$$self{$rel}}) {
+            foreach (keys %{$rlns{$rel}{'cond'}}) {
+                (my $lcol = $rlns{$rel}{'cond'}{$_}) =~ s/^self\.//;
+                (my $fcol = $_) =~ s/^foreign\.//;
+                $inst->$fcol($self->$lcol) if exists $$self{$lcol};
+            }
+            $inst->$method;
+        }
+    }
+}
+
+sub _loop_manager {
+    my $self = shift;
+    my $dbix = shift;
+
+    my %rlns = $self->RelationshipsInfo;
+
+    $self->_inner_loop;
+    my $valid = $self->Validate;
+    if (defined $valid) {
+        foreach my $rel (grep { $rlns{$_}{attrs}{accessor} ne 'single' } keys %rlns) {
+            delete $$valid{$rel} if exists $$valid{$rel};
+        }
+
+        my $row = $self->ResultSet->$dbix($valid);
+        if (defined $row && ref($row) =~ /Schema::Result::/) {
+            my %data = $row->get_columns();
+            foreach (keys %data) {
+                if (defined $data{$_}) {
+                    $self->$_($data{$_});
+                }
+            }
+        }
+        $self->_outter_loop;
+        return $row;
+    }
+    return undef;
+}
+
+#{                                      #{
+#    "home_ph" => {                     #    'PhExt'           => 0,
+#        "PhNum" => "916-880-8506",     #    'PhNum'           => '415-555-1212',
+#        "PhExt" => "0",                #    'people_home_phs' => [
+#        "PhId"  => 7                   #        {   'LastName'   => 'Smith',
+#    },                                 #            'FirstName'  => 'John',
+#    "CellPhId"  => 5,                  #            'MiddleName' => ''
+#    "LastName"  => "Chuk",             #        }
+#    "FirstName" => "Peter",            #    ]
+#    "cell_ph"   => {                   #}
+#        "PhExt" => "0",
+#        "PhId"  => 5,
+#        "PhNum" => "916-718-8451"
+#    },
+#    "PrsnId"     => 3,
+#    "HomePhId"   => 7,
+#    "MiddleName" => ""
+#};
+
+sub _tree_to_flat {
+    my ($tree, $name, $flat) = @_;
+    $name = 'me' if !defined $name;
+    $flat = {}   if !defined $flat;
+
+    if (ref($tree) eq 'HASH') {
+        foreach my $cl (keys %$tree) {
+            if (ref($$tree{$cl})) {
+                __SUB__->($$tree{$cl}, $cl, $flat);
+            } else {
+                $$flat{"$name.$cl"} = $$tree{$cl};
+            }
+        }
+    } elsif (ref($tree) eq 'ARRAY') {
+        foreach my $clhs (@$tree) {    # column is HASH
+            my ($cl, $vl) = %$clhs;
+            if (ref($vl)) {
+                __SUB__->($vl, $cl, $flat);
+            } else {
+                $$flat{"$name.$cl"} = $vl;
+            }
+        }
+    }
+    return $flat;
+}
+
+sub Like  {&Show}
+sub RLike {&Show}
+sub Rlike {&Show}
+
+sub Show {
+    my $self   = shift;
+    my $acnt   = scalar @_;
+    my $method = (caller(1))[3];
+
+    if ($acnt == 1 && !defined $_[0]) {
+        return $self->Search(undef, {prefetch => $self->_prefetch})->hashref_array();
+    } elsif ($acnt > 1 && ref($_[1]) eq 'HASH') {
+        $_[1]->{prefetch} = $self->_prefetch if !exists $_[1]->{prefetch};
+        return $self->Search(@_)->hashref_array();
+    } else {
+        my $attr = _tree_to_flat($self->Validate);
+        if ($method =~ /::(R?Like)$/) {
+            my $type = uc($1);
+            foreach (keys %$attr) {
+                my $value = $$attr{$_};
+                if ($type eq 'LIKE') {
+                    $$attr{$_} = {$type => '%' . $value . '%'};
+                } else {
+                    $$attr{$_} = {$type => $value};
+                }
+            }
+        }
+
+        my $rules = {};
+
+        $$rules{prefetch} = $self->_prefetch if defined $self->_prefetch;
+        $$rules{rows}     = $self->_rows     if defined $self->_rows;
+        $$rules{page}     = $self->_page     if defined $self->_page;
+
+        return $self->Search($attr, $rules)->hashref_array();
+    }
+    confess "No idea what to do";
+}
+
+sub _update_OR_create {
+    shift->_loop_manager('update_or_create');
+}
+
+# ----------------------------------------------------------------------------
+# wrapper methods
+# ----------------------------------------------------------------------------
 sub ResultSet {    # result set for given table
     my $self = shift;
-    (my $name = ref($self)) =~ s/.*:://g;
-    return $self->Schema->resultset($name);
+    $self->EnsureConnected;
+    return $self->Schema->resultset($self->_dbix_class);
 }
 
-# -------------------------------------------------------------------------------------------------------------
-sub Transaction { shift->Schema->txn_do(@_) }    # As Is wrapper arount txn_do
+sub RelationshipsInfo {
+    my $rs = shift->ResultSource;
+    {
+        map { $_, $rs->relationship_info($_) } $rs->relationships
+    }
+}
 
-# -------------------------------------------------------------------------------------------------------------
+sub ColumnsList      { shift->ResultSource->columns }
+sub Commit           { shift->Schema->txn_commit }
+sub Connected        { shift->Storage->connected }
+sub Create           { my $self = shift; $self->ResultSet->create($self->Validate(@_)) }
+sub CreateOrUpdate   {&UpdateOrCreate}
+sub Dump             { Dumper([shift->Show(@_)]) }
+sub EnsureConnected  { shift->Storage->ensure_connected }
+sub Find             { my $self = shift; $self->ResultSet->find($self->Validate(@_)) }
+sub FindOrCreate     { shift->_loop_manager('update_or_create') }
+sub Json             { $JSON->encode([shift->Show(@_)]) }
+sub JsonTell         { print shift->Json(@_) }
+sub PrimaryColumns   { shift->ResultSource->primary_columns }
+sub Relationships    { shift->ResultSource->relationships() }
+sub ResultSource     { shift->ResultSet->result_source }
+sub Rollback         { shift->Schema->txn_rollback }
+sub Search           { my $self = shift; $self->ResultSet->search($self->Validate(@_)) }
+sub Storage          { shift->Schema->storage }
+sub Tell             { print shift->Dump(@_) }
+sub Transaction      { shift->Schema->txn_do(@_) }
 sub TransactionBegin { shift->Schema->txn_begin }
+sub Update           { shift->_loop_manager('update') }
+sub SvpBegin         { shift->Storage->svp_begin(@_) }
+sub SvpRelease       { shift->Storage->svp_release(@_) }
+sub SvpRollback      { shift->Storage->svp_rollback(@_) }
 
-# -------------------------------------------------------------------------------------------------------------
-sub Commit { shift->Schema->txn_commit }
+sub UpdateOrCreate {
+    my $self = shift;
+    $self->EnsureConnected;
+    my $trxn = $self->Schema->txn_scope_guard;
+    $self->_update_OR_create;
+    print "Hello there\n";
+    $trxn->commit;
+}
 
-# -------------------------------------------------------------------------------------------------------------
-sub Rollback { shift->Schema->txn_rollback }
-
-# -------------------------------------------------------------------------------------------------------------
-sub ResultSource { shift->ResultSet->result_source }
-
-# -------------------------------------------------------------------------------------------------------------
-sub PrimaryColumns { shift->ResultSource->primary_columns }
-
-# -------------------------------------------------------------------------------------------------------------
 sub NonPrimaryColumns {
     my $self = shift;
     my %Keys = map { $_, 1 } $self->PrimaryColumns;
     grep { !exists $Keys{$_} } $self->ColumnsList;
 }
 
-# -------------------------------------------------------------------------------------------------------------
 sub UniqueConstraints {
     my %data = shift->ResultSource->unique_constraints;
     return \%data;
 }
 
-# -------------------------------------------------------------------------------------------------------------
-sub Relationships { shift->ResultSource->relationships() }
-
-# -------------------------------------------------------------------------------------------------------------
 sub RelationshipInfo {
     my $self = shift;
     my %info = map { $_, $self->ResultSource->relationship_info($_) } $self->Relationships;
     return \%info;
 }
 
-# -------------------------------------------------------------------------------------------------------------
 sub RelationshipAttr {
     my $self = shift;
     my $attr = undef;
@@ -143,170 +329,22 @@ sub RelationshipAttr {
     return $attr;
 }
 
-# -------------------------------------------------------------------------------------------------------------
 sub ReverseRelationshipInfo {
     my $self = shift;
     my %info = map { $_, $self->ResultSource->reverse_relationship_info($_) } $self->Relationships;
     return \%info;
 }
 
-# -------------------------------------------------------------------------------------------------------------
-sub ColumnsList { shift->ResultSource->columns }
-
-# -------------------------------------------------------------------------------------------------------------
 sub ColumnsInfo {
     my $self = shift;
     my %cols = map { $_, $self->ResultSource->column_info($_) } $self->ColumnsList;
     return \%cols;
 }
 
-# -------------------------------------------------------------------------------------------------------------
-# buld WHERE hash based on primary or unique keys
-# -------------------------------------------------------------------------------------------------------------
-sub FetchWhereKeys {
-    my $self = shift;
-    my $data = $self->_meta_loop;                                         # process parameter types
-    my $uniq = $self->UniqueConstraints;
-    my $prim = exists $$uniq{primary} ? delete $$uniq{primary} : undef;
-    my $cond = undef;                                                     # hash ref of where conditions
-
-    if ($prim) {
-        my $pk_cntr = 0;                                                  # count all PKs in case we have more than one
-        my $pk_size = scalar(@$prim);                                     # find count of primary keys
-        my $pk_cond = undef;                                              # temp storage for the 'where' conditions
-        foreach (@$prim) {
-            next unless exists $$self{$_} && defined $$self{$_};
-            $$pk_cond{$_} = $self->$_;
-            $pk_cntr++;
-        }
-        $cond = $pk_cond if defined $pk_cond && $pk_size == $pk_cntr;     # promote 'where' only if all keys accounted for
-    }
-
-    if (!$cond) {
-        foreach my $ky (keys %$uniq) {                                    # loop through unique constraints
-            my $uq_cntr = 0;
-            my $uq_size = scalar(@{$$uniq{$ky}});
-            my $uq_cond = undef;
-            foreach (@{$$uniq{$ky}}) {
-                next unless exists $$self{$_} && defined $$self{$_};
-                $$uq_cond{$_} = $self->$_;
-                $uq_cntr++;
-            }
-
-            if (defined $uq_cond && $uq_cntr == $uq_size) {               # only if all the fields within constraint are present
-                $cond = $uq_cond;
-                last;
-            }
-        }
-    }
-    return $cond;
-}
-
-# -------------------------------------------------------------------------------------------------------------
-sub Create {
-    my $self = shift;
-    my @cond = scalar(@_) ? @_ : ($self->_meta_loop);
-    my $row  = $self->ResultSet->create(@cond);
-    if ($row) {
-        my %data = $row->get_columns();
-        $self->$_($data{$_}) foreach (keys %data);
-    }
-    return $row;
-}
-
-# -------------------------------------------------------------------------------------------------------------
-sub Find {
-    my $self = shift;
-    my @cond = scalar(@_) ? @_ : ($self->_meta_loop);
-    return $self->ResultSet->find(@cond);
-}
-
-# -------------------------------------------------------------------------------------------------------------
-sub FindOrCreate {
-    my $self = shift;
-    my @cond = scalar(@_) ? @_ : ($self->_meta_loop);
-    my $row  = $self->ResultSet->find_or_create(@cond);
-    if ($row) {
-        my %columns = $row->get_columns;
-        $self->$_($columns{$_}) foreach keys %columns;
-    }
-    return $row;
-}
-
-# -------------------------------------------------------------------------------------------------------------
-sub UpdateOrCreate {
-    my $self = shift;
-    my @cond = scalar(@_) ? @_ : ($self->_meta_loop);
-    my $row  = $self->ResultSet->update_or_create(@cond);
-    if ($row) {
-        my %columns = $row->get_columns;
-        $self->$_($columns{$_}) foreach keys %columns;
-    }
-    return $row;
-}
-
-# -------------------------------------------------------------------------------------------------------------
-sub Update {    # https://github.com/castaway/dbix-class-book/blob/master/chapters/04-Creating-Reading-Updating-Deleting.md
-    my $self = shift;
-    my $what = shift || $self->_meta_loop;
-    my $cond = shift || $self->FetchWhereKeys;
-    my $row  = $self->Find($cond);
-    return undef unless $row;
-    $row->update($what);
-    my %columns = $row->get_columns;
-    $self->$_($columns{$_}) foreach keys %columns;
-    return $row;
-}
-
-# -------------------------------------------------------------------------------------------------------------
 sub Delete {
-    my $self = shift;
-    my @cond = scalar(@_) ? @_ : ($self->FetchWhereKeys);
-    my $row  = $self->ResultSet->find(@cond);
+    my $row = shift->Find(@_);
     return 0 unless $row;
     return $row->delete->in_storage;
 }
-
-# -------------------------------------------------------------------------------------------------------------
-sub DeleteIgnore {
-    my $self = shift;
-    return 0 unless $self->ResultSet->find($self->_meta_loop);
-    $self->Storage->dbh_do(
-        sub {
-            my ($storage, $dbh, $class) = @_;
-            my $table     = $class->ResultSource->name();
-            my $condition = $class->FetchWhereKeys;
-            my $sql       = "DELETE IGNORE FROM \`$table\`";
-            if ($condition) {
-                my @cols = keys %$condition;
-                my @vals = map { $$condition{$_} } @cols;
-                $sql .= ' WHERE ( ' . join('and', map {"\`$_\` = ?"} @cols) . ' )';
-                print "$sql: " . join(',', qq(@vals)) . "\n" if $ENV{DBIC_TRACE};
-                return $dbh->do($sql, undef, @vals);
-            }
-            return undef;
-        },
-        $self
-    );
-    return $self->ResultSet->find($self->_meta_loop) ? 1 : 0;
-}
-
-# -------------------------------------------------------------------------------------------------------------
-sub Search {
-    my $self = shift;
-    $DB::single = 2;
-    my @cond = scalar(@_) ? @_ : ($self->FetchWhereKeys);
-    push @cond,$self->prefetch if $self->can('prefetch');
-    return $self->ResultSet->search(@cond);
-}
-
-# -------------------------------------------------------------------------------------------------------------
-sub Show { shift->Search(@_)->hashref_array() }
-
-# -------------------------------------------------------------------------------------------------------------
-sub Dump { Dumper([shift->Show(@_)]) }
-
-# -------------------------------------------------------------------------------------------------------------
-sub Tell { print shift->Dump(@_) }
 
 1;

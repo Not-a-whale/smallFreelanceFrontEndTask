@@ -2,41 +2,25 @@ package TMS::API::Feature::Addresses::CntAddress;
 
 use strict;
 use warnings FATAL => 'all';
+use Carp qw( confess longmess );
+use namespace::autoclean;
+use Devel::Confess;
+use Data::Dumper;
+use Try::Tiny;
+
+$Data::Dumper::Terse = 1;
+
 use Moose;
+use TMS::API::Core::CntAddress;
+extends 'TMS::API::Feature::Features';
 
-extends 'TMS::API::Core::CntAddress';
+has coreapi  => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'TMS::API::Core::CntAddress');
+has prefetch => (is => 'rw', required => 0, isa => 'Undef|HashRef|ArrayRef', lazy_build => 1);
 
-my $TREE = {
-    AddrId  => {required => 0},
-    Street1 => {required => 1},
-    Street2 => {required => 0},
-    Street3 => {required => 0},
-    City    => {required => 1},
-    Zip     => {required => 1},
-    State   => {required => 1},
-    Country => {required => 0},
-    GpsLng  => {required => 0},
-    GpsLat  => {required => 0},
-    Notes   => {required => 0},
-};
-
-has "+Street1" => (required => 0);
-has "+City"    => (required => 0);
-has "+Zip"     => (required => 0);
-has "+State"   => (required => 0);
-
-sub Sifter {
-    my $posts = shift;
-    my $flour = {};
-    $posts = shift if ref($posts) ne 'HASH';
-    foreach (keys %$TREE) {
-        $$flour{$_} = $$posts{$_} if exists $$posts{$_} && defined $$posts{$_};
-        delete $$flour{$_} if $$TREE{$_}{required} && exists $$flour{$_} && $$flour{$_} !~ /\S/;
-        # $$flour{$_} = undef       if !exists $$flour{$_} && $$TREE{$_}{required};
-    }
-
-    return $flour;
+sub _build_prefetch {
+    shift->prefetch(
+        [ 'biz_branches' ]
+    );
 }
 
 1;
-

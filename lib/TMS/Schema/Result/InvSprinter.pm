@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::InvSprinter;
 
 # Created by DBIx::Class::Schema::Loader
@@ -137,88 +138,77 @@ cubic inches
 =cut
 
 __PACKAGE__->add_columns(
-  "SprinterId",
-  {
-    accessor       => "sprinter_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "FuelTankCapacity",
-  {
-    accessor => "fuel_tank_capacity",
-    data_type => "decimal",
-    extra => { unsigned => 1 },
-    is_nullable => 1,
-    size => [12, 2],
-  },
-  "MilesPerGallonEstimated",
-  {
-    accessor => "miles_per_gallon_estimated",
-    data_type => "decimal",
-    extra => { unsigned => 1 },
-    is_nullable => 1,
-    size => [12, 2],
-  },
-  "MilesPerGallonRated",
-  {
-    accessor    => "miles_per_gallon_rated",
-    data_type   => "integer",
-    extra       => { unsigned => 1 },
-    is_nullable => 1,
-  },
-  "LoadLength",
-  {
-    accessor    => "load_length",
-    data_type   => "integer",
-    extra       => { unsigned => 1 },
-    is_nullable => 1,
-  },
-  "LoadWidth",
-  {
-    accessor    => "load_width",
-    data_type   => "integer",
-    extra       => { unsigned => 1 },
-    is_nullable => 1,
-  },
-  "RoofHeight",
-  {
-    accessor    => "roof_height",
-    data_type   => "integer",
-    extra       => { unsigned => 1 },
-    is_nullable => 1,
-  },
-  "DoorHeight",
-  {
-    accessor    => "door_height",
-    data_type   => "integer",
-    extra       => { unsigned => 1 },
-    is_nullable => 1,
-  },
-  "DoorWidth",
-  {
-    accessor    => "door_width",
-    data_type   => "integer",
-    extra       => { unsigned => 1 },
-    is_nullable => 1,
-  },
-  "TowCapacity",
-  {
-    accessor    => "tow_capacity",
-    data_type   => "integer",
-    extra       => { unsigned => 1 },
-    is_nullable => 1,
-  },
-  "LoadCapacity",
-  {
-    accessor    => "load_capacity",
-    data_type   => "integer",
-    extra       => { unsigned => 1 },
-    is_nullable => 1,
-  },
-  "LoadVolume",
-  { accessor => "load_volume", data_type => "integer", is_nullable => 1 },
+    "SprinterId",
+    {   accessor       => "sprinter_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "FuelTankCapacity",
+    {   accessor    => "fuel_tank_capacity",
+        data_type   => "decimal",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+        size        => [12, 2],
+    },
+    "MilesPerGallonEstimated",
+    {   accessor    => "miles_per_gallon_estimated",
+        data_type   => "decimal",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+        size        => [12, 2],
+    },
+    "MilesPerGallonRated",
+    {   accessor    => "miles_per_gallon_rated",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "LoadLength",
+    {   accessor    => "load_length",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "LoadWidth",
+    {   accessor    => "load_width",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "RoofHeight",
+    {   accessor    => "roof_height",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "DoorHeight",
+    {   accessor    => "door_height",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "DoorWidth",
+    {   accessor    => "door_width",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "TowCapacity",
+    {   accessor    => "tow_capacity",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "LoadCapacity",
+    {   accessor    => "load_capacity",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "LoadVolume",
+    {accessor => "load_volume", data_type => "integer", is_nullable => 1},
 );
 
 =head1 UNIQUE CONSTRAINTS
@@ -246,18 +236,15 @@ Related object: L<TMS::Schema::Result::InvVehicle>
 =cut
 
 __PACKAGE__->belongs_to(
-  "sprinter",
-  "TMS::Schema::Result::InvVehicle",
-  { VehicleId => "SprinterId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "sprinter",
+    "TMS::Schema::Result::InvVehicle",
+    {VehicleId     => "SprinterId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:NzWItEQh/yXtnvyOqYl59w
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:lQrnfzjbvd2mHUCJgQ3RIA
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

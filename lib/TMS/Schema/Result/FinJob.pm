@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::FinJob;
 
 # Created by DBIx::Class::Schema::Loader
@@ -59,31 +60,28 @@ __PACKAGE__->table("fin_jobs");
 =cut
 
 __PACKAGE__->add_columns(
-  "JobId",
-  {
-    accessor => "job_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "Title",
-  { accessor => "title", data_type => "varchar", is_nullable => 1, size => 255 },
-  "JobAddedBy",
-  {
-    accessor    => "job_added_by",
-    data_type   => "bigint",
-    extra       => { unsigned => 1 },
-    is_nullable => 0,
-  },
-  "JobCreated",
-  {
-    accessor => "job_created",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    default_value => "CURRENT_TIMESTAMP",
-    is_nullable => 0,
-  },
+    "JobId",
+    {   accessor          => "job_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "Title",
+    {accessor => "title", data_type => "varchar", is_nullable => 1, size => 255},
+    "JobAddedBy",
+    {   accessor    => "job_added_by",
+        data_type   => "bigint",
+        extra       => {unsigned => 1},
+        is_nullable => 0,
+    },
+    "JobCreated",
+    {   accessor                  => "job_created",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        default_value             => "CURRENT_TIMESTAMP",
+        is_nullable               => 0,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -109,10 +107,10 @@ Related object: L<TMS::Schema::Result::DspLoad>
 =cut
 
 __PACKAGE__->has_many(
-  "dsp_loads",
-  "TMS::Schema::Result::DspLoad",
-  { "foreign.Job" => "self.JobId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "dsp_loads",
+    "TMS::Schema::Result::DspLoad",
+    {"foreign.Job" => "self.JobId"},
+    {cascade_copy  => 0, cascade_delete => 0},
 );
 
 =head2 fin_invoices_items
@@ -124,10 +122,8 @@ Related object: L<TMS::Schema::Result::FinInvoicesItem>
 =cut
 
 __PACKAGE__->has_many(
-  "fin_invoices_items",
-  "TMS::Schema::Result::FinInvoicesItem",
-  { "foreign.JobId" => "self.JobId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "fin_invoices_items", "TMS::Schema::Result::FinInvoicesItem",
+    {"foreign.JobId" => "self.JobId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 fin_journal_entries
@@ -139,10 +135,8 @@ Related object: L<TMS::Schema::Result::FinJournalEntry>
 =cut
 
 __PACKAGE__->has_many(
-  "fin_journal_entries",
-  "TMS::Schema::Result::FinJournalEntry",
-  { "foreign.JobId" => "self.JobId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "fin_journal_entries", "TMS::Schema::Result::FinJournalEntry",
+    {"foreign.JobId" => "self.JobId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 fin_transactions
@@ -154,18 +148,13 @@ Related object: L<TMS::Schema::Result::FinTransaction>
 =cut
 
 __PACKAGE__->has_many(
-  "fin_transactions",
-  "TMS::Schema::Result::FinTransaction",
-  { "foreign.JobId" => "self.JobId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "fin_transactions", "TMS::Schema::Result::FinTransaction",
+    {"foreign.JobId" => "self.JobId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:34:11
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:QjCMxqmiklO23EugeJYwVw
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:dGIFvd6Mha5Ro82KVo4Ujg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

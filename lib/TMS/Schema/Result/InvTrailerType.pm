@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::InvTrailerType;
 
 # Created by DBIx::Class::Schema::Loader
@@ -39,10 +40,7 @@ __PACKAGE__->table("inv_trailer_types");
 
 =cut
 
-__PACKAGE__->add_columns(
-  "Name",
-  { accessor => "name", data_type => "varchar", is_nullable => 0, size => 24 },
-);
+__PACKAGE__->add_columns("Name", {accessor => "name", data_type => "varchar", is_nullable => 0, size => 24},);
 
 =head1 PRIMARY KEY
 
@@ -67,10 +65,10 @@ Related object: L<TMS::Schema::Result::DspLoad>
 =cut
 
 __PACKAGE__->has_many(
-  "dsp_loads",
-  "TMS::Schema::Result::DspLoad",
-  { "foreign.TruckType" => "self.Name" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "dsp_loads",
+    "TMS::Schema::Result::DspLoad",
+    {"foreign.TruckType" => "self.Name"},
+    {cascade_copy        => 0, cascade_delete => 0},
 );
 
 =head2 inv_trailers
@@ -82,18 +80,15 @@ Related object: L<TMS::Schema::Result::InvTrailer>
 =cut
 
 __PACKAGE__->has_many(
-  "inv_trailers",
-  "TMS::Schema::Result::InvTrailer",
-  { "foreign.Type" => "self.Name" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "inv_trailers",
+    "TMS::Schema::Result::InvTrailer",
+    {"foreign.Type" => "self.Name"},
+    {cascade_copy   => 0, cascade_delete => 0},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:XG7dEwKd6smdpdzLV82ImQ
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:NIcecMn4AR0i7d24/ULtsQ
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

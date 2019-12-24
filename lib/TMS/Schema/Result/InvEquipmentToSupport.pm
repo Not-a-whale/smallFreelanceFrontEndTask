@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::InvEquipmentToSupport;
 
 # Created by DBIx::Class::Schema::Loader
@@ -53,30 +54,27 @@ __PACKAGE__->table("inv_equipment_to_support");
 =cut
 
 __PACKAGE__->add_columns(
-  "EquipSuppId",
-  {
-    accessor => "equip_supp_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "EquipmentId",
-  {
-    accessor       => "equipment_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "SupportId",
-  {
-    accessor       => "support_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
+    "EquipSuppId",
+    {   accessor          => "equip_supp_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "EquipmentId",
+    {   accessor       => "equipment_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "SupportId",
+    {   accessor       => "support_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -102,10 +100,10 @@ Related object: L<TMS::Schema::Result::InvEquipment>
 =cut
 
 __PACKAGE__->belongs_to(
-  "equipment",
-  "TMS::Schema::Result::InvEquipment",
-  { EquipmentId => "EquipmentId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "equipment",
+    "TMS::Schema::Result::InvEquipment",
+    {EquipmentId   => "EquipmentId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 support
@@ -117,18 +115,15 @@ Related object: L<TMS::Schema::Result::InvSupportVendor>
 =cut
 
 __PACKAGE__->belongs_to(
-  "support",
-  "TMS::Schema::Result::InvSupportVendor",
-  { SupportId => "SupportId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "support",
+    "TMS::Schema::Result::InvSupportVendor",
+    {SupportId     => "SupportId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:YBt/MxmBh+UK1BfHmdQ5Ww
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:AnZwfCp8hWh+l1MNvZ8liA
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::InvTiresize;
 
 # Created by DBIx::Class::Schema::Loader
@@ -52,24 +53,22 @@ __PACKAGE__->table("inv_tiresizes");
 =cut
 
 __PACKAGE__->add_columns(
-  "TireId",
-  {
-    accessor => "tire_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "Name",
-  { accessor => "name", data_type => "varchar", is_nullable => 0, size => 16 },
-  "Type",
-  {
-    accessor      => "type",
-    data_type     => "set",
-    default_value => "Truck",
-    extra         => { list => ["Truck", "Trailer", "Sprinter"] },
-    is_nullable   => 0,
-  },
+    "TireId",
+    {   accessor          => "tire_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "Name",
+    {accessor => "name", data_type => "varchar", is_nullable => 0, size => 16},
+    "Type",
+    {   accessor      => "type",
+        data_type     => "set",
+        default_value => "Truck",
+        extra         => {list => ["Truck", "Trailer", "Sprinter"]},
+        is_nullable   => 0,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -109,18 +108,15 @@ Related object: L<TMS::Schema::Result::InvVehicle>
 =cut
 
 __PACKAGE__->has_many(
-  "inv_vehicles",
-  "TMS::Schema::Result::InvVehicle",
-  { "foreign.TireSize" => "self.TireId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "inv_vehicles",
+    "TMS::Schema::Result::InvVehicle",
+    {"foreign.TireSize" => "self.TireId"},
+    {cascade_copy       => 0, cascade_delete => 0},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yCKrCZ4kDsZa5Y0OH+clww
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7YE/mV8xXSqKhEDMd+w/Rg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

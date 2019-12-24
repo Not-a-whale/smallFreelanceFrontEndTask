@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::FinTransaction;
 
 # Created by DBIx::Class::Schema::Loader
@@ -105,78 +106,69 @@ __PACKAGE__->table("fin_transactions");
 =cut
 
 __PACKAGE__->add_columns(
-  "TransactionId",
-  {
-    accessor => "transaction_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "TransactionType",
-  {
-    accessor       => "transaction_type",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "RefNumber",
-  {
-    accessor => "ref_number",
-    data_type => "varchar",
-    is_nullable => 1,
-    size => 20,
-  },
-  "JobId",
-  {
-    accessor       => "job_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "CreatedBy",
-  {
-    accessor       => "created_by",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "DateCreated",
-  {
-    accessor => "date_created",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    default_value => "CURRENT_TIMESTAMP",
-    is_nullable => 0,
-  },
-  "DateTransaction",
-  {
-    accessor => "date_transaction",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    default_value => "CURRENT_TIMESTAMP",
-    is_nullable => 1,
-  },
-  "Status",
-  {
-    accessor    => "status",
-    data_type   => "enum",
-    extra       => { list => ["pending", "valid", "invalid"] },
-    is_nullable => 1,
-  },
-  "Class",
-  {
-    accessor       => "class",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "Memo",
-  { accessor => "memo", data_type => "text", is_nullable => 1 },
+    "TransactionId",
+    {   accessor          => "transaction_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "TransactionType",
+    {   accessor       => "transaction_type",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "RefNumber",
+    {   accessor    => "ref_number",
+        data_type   => "varchar",
+        is_nullable => 1,
+        size        => 20,
+    },
+    "JobId",
+    {   accessor       => "job_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "CreatedBy",
+    {   accessor       => "created_by",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "DateCreated",
+    {   accessor                  => "date_created",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        default_value             => "CURRENT_TIMESTAMP",
+        is_nullable               => 0,
+    },
+    "DateTransaction",
+    {   accessor                  => "date_transaction",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        default_value             => "CURRENT_TIMESTAMP",
+        is_nullable               => 1,
+    },
+    "Status",
+    {   accessor    => "status",
+        data_type   => "enum",
+        extra       => {list => ["pending", "valid", "invalid"]},
+        is_nullable => 1,
+    },
+    "Class",
+    {   accessor       => "class",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "Memo",
+    {accessor => "memo", data_type => "text", is_nullable => 1},
 );
 
 =head1 PRIMARY KEY
@@ -202,15 +194,14 @@ Related object: L<TMS::Schema::Result::FinClass>
 =cut
 
 __PACKAGE__->belongs_to(
-  "class",
-  "TMS::Schema::Result::FinClass",
-  { ClassId => "Class" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "class",
+    "TMS::Schema::Result::FinClass",
+    {ClassId => "Class"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
 =head2 created_by
@@ -222,15 +213,14 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "created_by",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "CreatedBy" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "created_by",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId => "CreatedBy"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
 =head2 fin_cheques
@@ -242,10 +232,10 @@ Related object: L<TMS::Schema::Result::FinCheque>
 =cut
 
 __PACKAGE__->has_many(
-  "fin_cheques",
-  "TMS::Schema::Result::FinCheque",
-  { "foreign.TransactionId" => "self.TransactionId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "fin_cheques",
+    "TMS::Schema::Result::FinCheque",
+    {"foreign.TransactionId" => "self.TransactionId"},
+    {cascade_copy            => 0, cascade_delete => 0},
 );
 
 =head2 fin_invoice_payments
@@ -257,10 +247,8 @@ Related object: L<TMS::Schema::Result::FinInvoicePayment>
 =cut
 
 __PACKAGE__->has_many(
-  "fin_invoice_payments",
-  "TMS::Schema::Result::FinInvoicePayment",
-  { "foreign.TransactionId" => "self.TransactionId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "fin_invoice_payments", "TMS::Schema::Result::FinInvoicePayment",
+    {"foreign.TransactionId" => "self.TransactionId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 fin_journal_entries
@@ -272,10 +260,10 @@ Related object: L<TMS::Schema::Result::FinJournalEntry>
 =cut
 
 __PACKAGE__->has_many(
-  "fin_journal_entries",
-  "TMS::Schema::Result::FinJournalEntry",
-  { "foreign.TransactionId" => "self.TransactionId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "fin_journal_entries",
+    "TMS::Schema::Result::FinJournalEntry",
+    {"foreign.TransactionId" => "self.TransactionId"},
+    {cascade_copy            => 0, cascade_delete => 0},
 );
 
 =head2 job
@@ -287,15 +275,14 @@ Related object: L<TMS::Schema::Result::FinJob>
 =cut
 
 __PACKAGE__->belongs_to(
-  "job",
-  "TMS::Schema::Result::FinJob",
-  { JobId => "JobId" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "job",
+    "TMS::Schema::Result::FinJob",
+    {JobId => "JobId"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
 =head2 transaction_type
@@ -307,18 +294,15 @@ Related object: L<TMS::Schema::Result::FinTransactionType>
 =cut
 
 __PACKAGE__->belongs_to(
-  "transaction_type",
-  "TMS::Schema::Result::FinTransactionType",
-  { TransTypeId => "TransactionType" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "transaction_type",
+    "TMS::Schema::Result::FinTransactionType",
+    {TransTypeId   => "TransactionType"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:UqrgNJVT/o2TOrSCuYd5fQ
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:/wCNfPg+sYWvY1oJAV8YUA
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

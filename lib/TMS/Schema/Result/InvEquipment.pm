@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::InvEquipment;
 
 # Created by DBIx::Class::Schema::Loader
@@ -103,80 +104,70 @@ __PACKAGE__->table("inv_equipment");
 =cut
 
 __PACKAGE__->add_columns(
-  "EquipmentId",
-  {
-    accessor => "equipment_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "GeneralName",
-  {
-    accessor => "general_name",
-    data_type => "varchar",
-    is_nullable => 0,
-    size => 1024,
-  },
-  "OwnerId",
-  {
-    accessor       => "owner_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "VendorId",
-  {
-    accessor       => "vendor_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "DatePurchased",
-  {
-    accessor => "date_purchased",
-    data_type => "date",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
-  },
-  "DateSold",
-  {
-    accessor => "date_sold",
-    data_type => "date",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
-  },
-  "PricePurchased",
-  {
-    accessor => "price_purchased",
-    data_type => "decimal",
-    is_nullable => 1,
-    size => [12, 2],
-  },
-  "PriceSold",
-  {
-    accessor => "price_sold",
-    data_type => "decimal",
-    is_nullable => 1,
-    size => [12, 2],
-  },
-  "SerialNo",
-  {
-    accessor => "serial_no",
-    data_type => "varchar",
-    is_nullable => 1,
-    size => 255,
-  },
-  "EquipmentType",
-  {
-    accessor       => "equipment_type",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
+    "EquipmentId",
+    {   accessor          => "equipment_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "GeneralName",
+    {   accessor    => "general_name",
+        data_type   => "varchar",
+        is_nullable => 0,
+        size        => 1024,
+    },
+    "OwnerId",
+    {   accessor       => "owner_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "VendorId",
+    {   accessor       => "vendor_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "DatePurchased",
+    {   accessor                  => "date_purchased",
+        data_type                 => "date",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 1,
+    },
+    "DateSold",
+    {   accessor                  => "date_sold",
+        data_type                 => "date",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 1,
+    },
+    "PricePurchased",
+    {   accessor    => "price_purchased",
+        data_type   => "decimal",
+        is_nullable => 1,
+        size        => [12, 2],
+    },
+    "PriceSold",
+    {   accessor    => "price_sold",
+        data_type   => "decimal",
+        is_nullable => 1,
+        size        => [12, 2],
+    },
+    "SerialNo",
+    {   accessor    => "serial_no",
+        data_type   => "varchar",
+        is_nullable => 1,
+        size        => 255,
+    },
+    "EquipmentType",
+    {   accessor       => "equipment_type",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -202,15 +193,14 @@ Related object: L<TMS::Schema::Result::InvEquipmentType>
 =cut
 
 __PACKAGE__->belongs_to(
-  "equipment_type",
-  "TMS::Schema::Result::InvEquipmentType",
-  { EquipmentTypeId => "EquipmentType" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
-  },
+    "equipment_type",
+    "TMS::Schema::Result::InvEquipmentType",
+    {EquipmentTypeId => "EquipmentType"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "NO ACTION",
+        on_update     => "NO ACTION",
+    },
 );
 
 =head2 inv_elog_device
@@ -222,10 +212,10 @@ Related object: L<TMS::Schema::Result::InvElogDevice>
 =cut
 
 __PACKAGE__->might_have(
-  "inv_elog_device",
-  "TMS::Schema::Result::InvElogDevice",
-  { "foreign.ElogDeviceId" => "self.EquipmentId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "inv_elog_device",
+    "TMS::Schema::Result::InvElogDevice",
+    {"foreign.ElogDeviceId" => "self.EquipmentId"},
+    {cascade_copy           => 0, cascade_delete => 0},
 );
 
 =head2 inv_equipment_docs
@@ -237,10 +227,10 @@ Related object: L<TMS::Schema::Result::InvEquipmentDoc>
 =cut
 
 __PACKAGE__->has_many(
-  "inv_equipment_docs",
-  "TMS::Schema::Result::InvEquipmentDoc",
-  { "foreign.EquipmentId" => "self.EquipmentId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "inv_equipment_docs",
+    "TMS::Schema::Result::InvEquipmentDoc",
+    {"foreign.EquipmentId" => "self.EquipmentId"},
+    {cascade_copy          => 0, cascade_delete => 0},
 );
 
 =head2 inv_equipments_to_support
@@ -252,10 +242,8 @@ Related object: L<TMS::Schema::Result::InvEquipmentToSupport>
 =cut
 
 __PACKAGE__->has_many(
-  "inv_equipments_to_support",
-  "TMS::Schema::Result::InvEquipmentToSupport",
-  { "foreign.EquipmentId" => "self.EquipmentId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "inv_equipments_to_support", "TMS::Schema::Result::InvEquipmentToSupport",
+    {"foreign.EquipmentId" => "self.EquipmentId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 inv_notes
@@ -267,10 +255,10 @@ Related object: L<TMS::Schema::Result::InvNote>
 =cut
 
 __PACKAGE__->has_many(
-  "inv_notes",
-  "TMS::Schema::Result::InvNote",
-  { "foreign.EquipmentId" => "self.EquipmentId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "inv_notes",
+    "TMS::Schema::Result::InvNote",
+    {"foreign.EquipmentId" => "self.EquipmentId"},
+    {cascade_copy          => 0, cascade_delete => 0},
 );
 
 =head2 inv_units_to_equipments
@@ -282,10 +270,8 @@ Related object: L<TMS::Schema::Result::InvUnitsToEquipment>
 =cut
 
 __PACKAGE__->has_many(
-  "inv_units_to_equipments",
-  "TMS::Schema::Result::InvUnitsToEquipment",
-  { "foreign.EquipmentId" => "self.EquipmentId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "inv_units_to_equipments", "TMS::Schema::Result::InvUnitsToEquipment",
+    {"foreign.EquipmentId" => "self.EquipmentId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 inv_vehicle
@@ -297,10 +283,10 @@ Related object: L<TMS::Schema::Result::InvVehicle>
 =cut
 
 __PACKAGE__->might_have(
-  "inv_vehicle",
-  "TMS::Schema::Result::InvVehicle",
-  { "foreign.VehicleId" => "self.EquipmentId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "inv_vehicle",
+    "TMS::Schema::Result::InvVehicle",
+    {"foreign.VehicleId" => "self.EquipmentId"},
+    {cascade_copy        => 0, cascade_delete => 0},
 );
 
 =head2 owner
@@ -312,10 +298,10 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "owner",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "OwnerId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "owner",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId         => "OwnerId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 sft_elog_stats
@@ -327,10 +313,10 @@ Related object: L<TMS::Schema::Result::SftElogStat>
 =cut
 
 __PACKAGE__->has_many(
-  "sft_elog_stats",
-  "TMS::Schema::Result::SftElogStat",
-  { "foreign.EquipmentId" => "self.EquipmentId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "sft_elog_stats",
+    "TMS::Schema::Result::SftElogStat",
+    {"foreign.EquipmentId" => "self.EquipmentId"},
+    {cascade_copy          => 0, cascade_delete => 0},
 );
 
 =head2 vendor
@@ -342,23 +328,19 @@ Related object: L<TMS::Schema::Result::BizBranch>
 =cut
 
 __PACKAGE__->belongs_to(
-  "vendor",
-  "TMS::Schema::Result::BizBranch",
-  { BrnchId => "VendorId" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "vendor",
+    "TMS::Schema::Result::BizBranch",
+    {BrnchId => "VendorId"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9Dx8Imu2GI3xFUxOwAEfmQ
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:H4zvocyUSYKYB9iWLECSsg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

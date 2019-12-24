@@ -1,6 +1,5 @@
 package TMS::API::Core::FinJournalEntry;
 
-# $Id: $
 use strict;
 use warnings FATAL => 'all';
 use Carp qw( confess longmess );
@@ -9,148 +8,36 @@ use Devel::Confess;
 use Data::Dumper;
 use Try::Tiny;
 
+$Data::Dumper::Terse = 1;
+
 use Moose;
-
-# AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::FinAccount;
-use TMS::API::Core::Entity;
-use TMS::API::Core::FinTransaction;
-use TMS::API::Core::FinJob;
-use TMS::API::Core::HrAssociate;
-
-# AUTO-GENERATED DEPENDENCIES END
-
-use TMS::SchemaWrapper;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
-use TMS::API::Types::Columns;
-use MooseX::Types::Moose qw(Undef);
+use TMS::API::Types::Complex;
 
 extends 'TMS::SchemaWrapper';
+with 'MooseX::Traits';
 
-# AUTO-GENERATED HAS-A START
-has JrlEntryId     => (is => 'rw', coerce => 0, isa => 'Undef | PrimaryKeyInt');
-has TransactionId  => (is => 'rw', coerce => 1, isa => 'FinTransactionObj | Int ');
-has AccountId      => (is => 'rw', coerce => 1, isa => 'FinAccountObj | Int ');
-has EntityId       => (is => 'rw', coerce => 1, isa => 'EntityObj | Int ');
-has CreatedBy      => (is => 'rw', coerce => 1, isa => 'Undef | HrAssociateObj | Int ');
-has DateCreated    => (is => 'rw', coerce => 1, isa => 'Undef | DATETIME');
-has DebitCredit    => (is => 'rw', coerce => 1, isa => 'Undef | EnumDebit');
-has Amount         => (is => 'rw', coerce => 1, isa => 'Float');
-has Classification => (is => 'rw', coerce => 1, isa => 'Undef | EnumCustomer');
-has JobId          => (is => 'rw', coerce => 1, isa => 'Undef | FinJobObj | Int ');
-has VendorAmount   => (is => 'rw', coerce => 1, isa => 'Undef | Float');
-has ReportAmount   => (is => 'rw', coerce => 1, isa => 'Undef | Float');
+has 'Classification' => ('is' => 'rw', 'isa' => 'Any',           'required' => '1', 'default' => 'customer');
+has 'CreatedBy'      => ('is' => 'rw', 'isa' => 'PositiveInt',   'required' => '0');
+has 'DateCreated'    => ('is' => 'rw', 'isa' => 'DATETIME',      'required' => '0');
+has 'DebitCredit'    => ('is' => 'rw', 'isa' => 'Any',           'required' => '1', 'default' => 'debit');
+has 'JobId'          => ('is' => 'rw', 'isa' => 'PositiveInt',   'required' => '0');
+has 'JrlEntryId'     => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'required' => '0');
+has 'ReportAmount'   => ('is' => 'rw', 'isa' => 'CurrencyValue', 'required' => '0');
+has 'VendorAmount'   => ('is' => 'rw', 'isa' => 'CurrencyValue', 'required' => '0');
 
-has AllErrors => (is => 'rw', isa => 'ArrayRef',    default    => sub { [] });
-has LastError => (is => 'rw', isa => 'Undef | Str', default    => undef);
-has TableMeta => (is => 'rw', isa => 'HashRef',     lazy_build => 1);
-has DoIfError => (is => 'rw', isa => 'Str',         default    => 'confess');    # confess or ignore
+# relations
+has 'account' => ('is' => 'rw', 'isa' => 'ObjFinAccount', 'required' => '0');
+has 'fin_invoices_items_credit_journal_entries' =>
+    ('is' => 'rw', 'isa' => 'ArrayObjFinInvoicesItem', 'required' => '0');
+has 'transaction' => ('is' => 'rw', 'isa' => 'ObjFinTransaction', 'required' => '0');
+has 'entity'      => ('is' => 'rw', 'isa' => 'ObjEntity',         'required' => '0');
+has 'fin_invoices_items_debit_journal_entries' =>
+    ('is' => 'rw', 'isa' => 'ArrayObjFinInvoicesItem', 'required' => '0');
+has 'job'        => ('is' => 'rw', 'isa' => 'ObjFinJob',      'required' => '0');
+has 'created_by' => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'required' => '0');
 
-sub _build_TableMeta {
-    my $self = shift;
-    my $data = {
-        'CreatedBy' => {
-            'is_null'  => 1,
-            'comment'  => '',
-            'apiclass' => 'TMS::API::Core::HrAssociate',
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'JobId' => {
-            'comment'  => '',
-            'is_null'  => 1,
-            'required' => 0,
-            'apiclass' => 'TMS::API::Core::FinJob',
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'Classification' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => 'customer',
-            'db_type'  => 'enum(\'customer\',\'vendor\')'
-        },
-        'AccountId' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'apiclass' => 'TMS::API::Core::FinAccount',
-            'required' => 1,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'ReportAmount' => {
-            'is_null'  => 1,
-            'comment'  => 'The amount to show on reports.',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'decimal(12,2)'
-        },
-        'TransactionId' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'apiclass' => 'TMS::API::Core::FinTransaction',
-            'required' => 1,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'DebitCredit' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => 'debit',
-            'db_type'  => 'enum(\'debit\',\'credit\')'
-        },
-        'EntityId' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'apiclass' => 'TMS::API::Core::Entity',
-            'required' => 1,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'DateCreated' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => 'CURRENT_TIMESTAMP',
-            'db_type'  => 'datetime'
-        },
-        'Amount' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'required' => 1,
-            'apiclass' => undef,
-            'default'  => undef,
-            'db_type'  => 'decimal(12,2)'
-        },
-        'JrlEntryId' => {
-            'is_null'  => 0,
-            'comment'  => '',
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'VendorAmount' => {
-            'comment'  => 'The amount to show for customer invoices',
-            'is_null'  => 1,
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => undef,
-            'db_type'  => 'decimal(12,2)'
-        }
-    };
-    $self->TableMeta($data);
-} ## end sub _build_TableMeta
-
-# AUTO-GENERATED HAS-A END
+has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinJournalEntry');
 
 1;
-

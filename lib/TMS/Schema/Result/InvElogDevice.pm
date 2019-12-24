@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::InvElogDevice;
 
 # Created by DBIx::Class::Schema::Loader
@@ -37,14 +38,13 @@ __PACKAGE__->table("inv_elog_device");
 =cut
 
 __PACKAGE__->add_columns(
-  "ElogDeviceId",
-  {
-    accessor       => "elog_device_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
+    "ElogDeviceId",
+    {   accessor       => "elog_device_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -70,18 +70,15 @@ Related object: L<TMS::Schema::Result::InvEquipment>
 =cut
 
 __PACKAGE__->belongs_to(
-  "elog_device",
-  "TMS::Schema::Result::InvEquipment",
-  { EquipmentId => "ElogDeviceId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "elog_device",
+    "TMS::Schema::Result::InvEquipment",
+    {EquipmentId   => "ElogDeviceId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:DI12tprL2pNafKSOAllVbQ
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:rqkfXzs8enoGUfbPdt4A1w
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

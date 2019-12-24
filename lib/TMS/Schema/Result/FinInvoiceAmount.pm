@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::FinInvoiceAmount;
 
 # Created by DBIx::Class::Schema::Loader
@@ -24,7 +25,9 @@ __PACKAGE__->table_class("DBIx::Class::ResultSource::View");
 =cut
 
 __PACKAGE__->table("fin_invoice_amounts");
-__PACKAGE__->result_source_instance->view_definition("select `inv`.`InvoiceId` AS `InvoiceId`,`inv`.`EntityId` AS `EntityId`,`inv`.`PaymentTermsId` AS `PaymentTermsId`,`inv`.`DateCreated` AS `DateCreated`,`inv`.`RefNumber` AS `RefNumber`,`inv`.`Notes` AS `Notes`,`inv`.`Comments` AS `Comments`,`inv`.`PONumber` AS `PONumber`,`inv`.`Status` AS `Status`,`inv`.`DateInvoiced` AS `DateInvoiced`,`inv`.`FactoredParent` AS `FactoredParent`,sum(`inv_i`.`Amount`) AS `Amount` from (`tms`.`fin_invoices` `inv` left join `tms`.`fin_invoices_items` `inv_i` on((`inv`.`InvoiceId` = `inv_i`.`InvoiceId`))) group by `inv`.`InvoiceId`");
+__PACKAGE__->result_source_instance->view_definition(
+    "select `inv`.`InvoiceId` AS `InvoiceId`,`inv`.`EntityId` AS `EntityId`,`inv`.`PaymentTermsId` AS `PaymentTermsId`,`inv`.`DateCreated` AS `DateCreated`,`inv`.`RefNumber` AS `RefNumber`,`inv`.`Notes` AS `Notes`,`inv`.`Comments` AS `Comments`,`inv`.`PONumber` AS `PONumber`,`inv`.`Status` AS `Status`,`inv`.`DateInvoiced` AS `DateInvoiced`,`inv`.`FactoredParent` AS `FactoredParent`,sum(`inv_i`.`Amount`) AS `Amount` from (`tms`.`fin_invoices` `inv` left join `tms`.`fin_invoices_items` `inv_i` on((`inv`.`InvoiceId` = `inv_i`.`InvoiceId`))) group by `inv`.`InvoiceId`"
+);
 
 =head1 ACCESSORS
 
@@ -115,90 +118,77 @@ __PACKAGE__->result_source_instance->view_definition("select `inv`.`InvoiceId` A
 =cut
 
 __PACKAGE__->add_columns(
-  "InvoiceId",
-  {
-    accessor    => "invoice_id",
-    data_type   => "bigint",
-    extra       => { unsigned => 1 },
-    is_nullable => 0,
-  },
-  "EntityId",
-  {
-    accessor    => "entity_id",
-    data_type   => "bigint",
-    extra       => { unsigned => 1 },
-    is_nullable => 0,
-  },
-  "PaymentTermsId",
-  {
-    accessor    => "payment_terms_id",
-    data_type   => "bigint",
-    extra       => { unsigned => 1 },
-    is_nullable => 0,
-  },
-  "DateCreated",
-  {
-    accessor => "date_created",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    default_value => "0000-00-00 00:00:00",
-    is_nullable => 0,
-  },
-  "RefNumber",
-  {
-    accessor => "ref_number",
-    data_type => "varchar",
-    is_nullable => 1,
-    size => 20,
-  },
-  "Notes",
-  { accessor => "notes", data_type => "text", is_nullable => 1 },
-  "Comments",
-  { accessor => "comments", data_type => "text", is_nullable => 1 },
-  "PONumber",
-  {
-    accessor => "ponumber",
-    data_type => "varchar",
-    is_nullable => 1,
-    size => 32,
-  },
-  "Status",
-  {
-    accessor      => "status",
-    data_type     => "enum",
-    default_value => "pending",
-    extra         => { list => ["invalid", "pending", "invoiced", "paid"] },
-    is_nullable   => 0,
-  },
-  "DateInvoiced",
-  {
-    accessor => "date_invoiced",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
-  },
-  "FactoredParent",
-  {
-    accessor    => "factored_parent",
-    data_type   => "bigint",
-    extra       => { unsigned => 1 },
-    is_nullable => 1,
-  },
-  "Amount",
-  {
-    accessor => "amount",
-    data_type => "decimal",
-    is_nullable => 1,
-    size => [34, 2],
-  },
+    "InvoiceId",
+    {   accessor    => "invoice_id",
+        data_type   => "bigint",
+        extra       => {unsigned => 1},
+        is_nullable => 0,
+    },
+    "EntityId",
+    {   accessor    => "entity_id",
+        data_type   => "bigint",
+        extra       => {unsigned => 1},
+        is_nullable => 0,
+    },
+    "PaymentTermsId",
+    {   accessor    => "payment_terms_id",
+        data_type   => "bigint",
+        extra       => {unsigned => 1},
+        is_nullable => 0,
+    },
+    "DateCreated",
+    {   accessor                  => "date_created",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        default_value             => "0000-00-00 00:00:00",
+        is_nullable               => 0,
+    },
+    "RefNumber",
+    {   accessor    => "ref_number",
+        data_type   => "varchar",
+        is_nullable => 1,
+        size        => 20,
+    },
+    "Notes",
+    {accessor => "notes", data_type => "text", is_nullable => 1},
+    "Comments",
+    {accessor => "comments", data_type => "text", is_nullable => 1},
+    "PONumber",
+    {   accessor    => "ponumber",
+        data_type   => "varchar",
+        is_nullable => 1,
+        size        => 32,
+    },
+    "Status",
+    {   accessor      => "status",
+        data_type     => "enum",
+        default_value => "pending",
+        extra         => {list => ["invalid", "pending", "invoiced", "paid"]},
+        is_nullable   => 0,
+    },
+    "DateInvoiced",
+    {   accessor                  => "date_invoiced",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 1,
+    },
+    "FactoredParent",
+    {   accessor    => "factored_parent",
+        data_type   => "bigint",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "Amount",
+    {   accessor    => "amount",
+        data_type   => "decimal",
+        is_nullable => 1,
+        size        => [34, 2],
+    },
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9aX6q8T7Zoddf24y1llSAA
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9S8gr0L/V6bJUG92fl2htA
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

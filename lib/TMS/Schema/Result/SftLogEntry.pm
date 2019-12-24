@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::SftLogEntry;
 
 # Created by DBIx::Class::Schema::Loader
@@ -76,53 +77,47 @@ __PACKAGE__->table("sft_log_entries");
 =cut
 
 __PACKAGE__->add_columns(
-  "LogbookEntryId",
-  {
-    accessor => "logbook_entry_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "LogbookId",
-  {
-    accessor       => "logbook_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "Location",
-  {
-    accessor       => "location",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "StartTime",
-  {
-    accessor => "start_time",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    default_value => "CURRENT_TIMESTAMP",
-    is_nullable => 0,
-  },
-  "Activity",
-  {
-    accessor    => "activity",
-    data_type   => "enum",
-    extra       => { list => ["ON DUTY", "OFF DUTY", "DRIVING", "SLEEPING"] },
-    is_nullable => 0,
-  },
-  "DriverId",
-  {
-    accessor       => "driver_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
+    "LogbookEntryId",
+    {   accessor          => "logbook_entry_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "LogbookId",
+    {   accessor       => "logbook_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "Location",
+    {   accessor       => "location",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "StartTime",
+    {   accessor                  => "start_time",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        default_value             => "CURRENT_TIMESTAMP",
+        is_nullable               => 0,
+    },
+    "Activity",
+    {   accessor    => "activity",
+        data_type   => "enum",
+        extra       => {list => ["ON DUTY", "OFF DUTY", "DRIVING", "SLEEPING"]},
+        is_nullable => 0,
+    },
+    "DriverId",
+    {   accessor       => "driver_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -148,10 +143,10 @@ Related object: L<TMS::Schema::Result::DrvDriver>
 =cut
 
 __PACKAGE__->belongs_to(
-  "driver",
-  "TMS::Schema::Result::DrvDriver",
-  { DriverId => "DriverId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "driver",
+    "TMS::Schema::Result::DrvDriver",
+    {DriverId      => "DriverId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 location
@@ -163,15 +158,14 @@ Related object: L<TMS::Schema::Result::SftElogStat>
 =cut
 
 __PACKAGE__->belongs_to(
-  "location",
-  "TMS::Schema::Result::SftElogStat",
-  { GpsReqId => "Location" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "location",
+    "TMS::Schema::Result::SftElogStat",
+    {GpsReqId => "Location"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
 =head2 logbook
@@ -183,18 +177,15 @@ Related object: L<TMS::Schema::Result::SftLogbook>
 =cut
 
 __PACKAGE__->belongs_to(
-  "logbook",
-  "TMS::Schema::Result::SftLogbook",
-  { LogbookId => "LogbookId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "logbook",
+    "TMS::Schema::Result::SftLogbook",
+    {LogbookId     => "LogbookId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:wu3ZXrqB2Cv2vt7WHGf4pg
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:J71qbDB5JQCDaHtR35peuA
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

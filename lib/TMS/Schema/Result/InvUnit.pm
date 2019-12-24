@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::InvUnit;
 
 # Created by DBIx::Class::Schema::Loader
@@ -44,21 +45,19 @@ __PACKAGE__->table("inv_units");
 =cut
 
 __PACKAGE__->add_columns(
-  "UnitId",
-  {
-    accessor => "unit_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "UnitTag",
-  {
-    accessor => "unit_tag",
-    data_type => "varchar",
-    is_nullable => 0,
-    size => 45,
-  },
+    "UnitId",
+    {   accessor          => "unit_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "UnitTag",
+    {   accessor    => "unit_tag",
+        data_type   => "varchar",
+        is_nullable => 0,
+        size        => 45,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -98,10 +97,8 @@ Related object: L<TMS::Schema::Result::DspLoadDispatched>
 =cut
 
 __PACKAGE__->has_many(
-  "dsp_loads_dispatched",
-  "TMS::Schema::Result::DspLoadDispatched",
-  { "foreign.UnitId" => "self.UnitId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "dsp_loads_dispatched", "TMS::Schema::Result::DspLoadDispatched",
+    {"foreign.UnitId" => "self.UnitId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 inv_unit_reservations
@@ -113,10 +110,8 @@ Related object: L<TMS::Schema::Result::InvUnitReservation>
 =cut
 
 __PACKAGE__->has_many(
-  "inv_unit_reservations",
-  "TMS::Schema::Result::InvUnitReservation",
-  { "foreign.UnitId" => "self.UnitId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "inv_unit_reservations", "TMS::Schema::Result::InvUnitReservation",
+    {"foreign.UnitId" => "self.UnitId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 inv_units_to_equipments
@@ -128,18 +123,13 @@ Related object: L<TMS::Schema::Result::InvUnitsToEquipment>
 =cut
 
 __PACKAGE__->has_many(
-  "inv_units_to_equipments",
-  "TMS::Schema::Result::InvUnitsToEquipment",
-  { "foreign.UnitId" => "self.UnitId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "inv_units_to_equipments", "TMS::Schema::Result::InvUnitsToEquipment",
+    {"foreign.UnitId" => "self.UnitId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:T1VpaVjyuUmnaQZwBDN7MQ
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:8ONSAqw/1j9CKNtAnQHAQQ
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

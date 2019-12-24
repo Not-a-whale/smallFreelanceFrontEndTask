@@ -102,7 +102,7 @@ my $CanadaState_Name2AbbrUC = {map { uc($$CanadaState_Abbr2Name{$_}), $_ } keys 
 
 # ............................................................................
 my %rgx = (
-    isTidy     => qr/^\S+$|^(\S+\s)+\S+$/,
+    isTidy     => qr/^\S+$|^(\S+\s)+\S+$|^$/,
     isUpper    => qr/[^a-z]/,
     isUCfirst  => qr/^(?:([A-Z][a-z\.]*)\s*)+$/,
     isLogin    => qr/^[a-z][a-z0-9_]{2,15}$/,

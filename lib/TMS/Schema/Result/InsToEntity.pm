@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::InsToEntity;
 
 # Created by DBIx::Class::Schema::Loader
@@ -108,77 +109,68 @@ __PACKAGE__->table("ins_to_entities");
 =cut
 
 __PACKAGE__->add_columns(
-  "InsEntId",
-  {
-    accessor    => "ins_ent_id",
-    data_type   => "bigint",
-    extra       => { unsigned => 1 },
-    is_nullable => 0,
-  },
-  "InsId",
-  {
-    accessor       => "ins_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "EntityId",
-  {
-    accessor       => "entity_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "AddedBy",
-  {
-    accessor       => "added_by",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "DateAdded",
-  {
-    accessor => "date_added",
-    data_type => "date",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 0,
-  },
-  "RemovedBy",
-  {
-    accessor       => "removed_by",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
-  "DateRemoved",
-  {
-    accessor => "date_removed",
-    data_type => "date",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
-  },
-  "Notes",
-  { accessor => "notes", data_type => "text", is_nullable => 1 },
-  "ActionReminder",
-  {
-    accessor => "action_reminder",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
-  },
-  "ActionNote",
-  { accessor => "action_note", data_type => "text", is_nullable => 1 },
-  "ActionEmail",
-  {
-    accessor => "action_email",
-    data_type => "varchar",
-    is_nullable => 1,
-    size => 255,
-  },
+    "InsEntId",
+    {   accessor    => "ins_ent_id",
+        data_type   => "bigint",
+        extra       => {unsigned => 1},
+        is_nullable => 0,
+    },
+    "InsId",
+    {   accessor       => "ins_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "EntityId",
+    {   accessor       => "entity_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "AddedBy",
+    {   accessor       => "added_by",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "DateAdded",
+    {   accessor                  => "date_added",
+        data_type                 => "date",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 0,
+    },
+    "RemovedBy",
+    {   accessor       => "removed_by",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "DateRemoved",
+    {   accessor                  => "date_removed",
+        data_type                 => "date",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 1,
+    },
+    "Notes",
+    {accessor => "notes", data_type => "text", is_nullable => 1},
+    "ActionReminder",
+    {   accessor                  => "action_reminder",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 1,
+    },
+    "ActionNote",
+    {accessor => "action_note", data_type => "text", is_nullable => 1},
+    "ActionEmail",
+    {   accessor    => "action_email",
+        data_type   => "varchar",
+        is_nullable => 1,
+        size        => 255,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -204,10 +196,10 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "added_by",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "AddedBy" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "added_by",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId         => "AddedBy"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 entity
@@ -219,10 +211,9 @@ Related object: L<TMS::Schema::Result::Entity>
 =cut
 
 __PACKAGE__->belongs_to(
-  "entity",
-  "TMS::Schema::Result::Entity",
-  { EntityId => "EntityId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "entity", "TMS::Schema::Result::Entity",
+    {EntityId      => "EntityId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 in
@@ -234,10 +225,10 @@ Related object: L<TMS::Schema::Result::InsPolicy>
 =cut
 
 __PACKAGE__->belongs_to(
-  "in",
-  "TMS::Schema::Result::InsPolicy",
-  { InsId => "InsId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "in",
+    "TMS::Schema::Result::InsPolicy",
+    {InsId         => "InsId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 removed_by
@@ -249,23 +240,19 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "removed_by",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "RemovedBy" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "removed_by",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId => "RemovedBy"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1PJA522kLnksNJBnENnXwA
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:LKMn64/wYLDbZkluqLxqTg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

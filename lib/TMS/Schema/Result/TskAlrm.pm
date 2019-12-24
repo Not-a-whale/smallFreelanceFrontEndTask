@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::TskAlrm;
 
 # Created by DBIx::Class::Schema::Loader
@@ -82,39 +83,35 @@ Turn off alarm at specific time and date
 =cut
 
 __PACKAGE__->add_columns(
-  "alrmid",
-  {
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "tskid",
-  {
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable => 0,
-  },
-  "message",
-  { data_type => "varchar", is_nullable => 0, size => 512 },
-  "atcrontab",
-  { data_type => "varchar", is_nullable => 0, size => 255 },
-  "periodic",
-  {
-    data_type => "enum",
-    default_value => "no",
-    extra => { list => ["yes", "no"] },
-    is_nullable => 0,
-  },
-  "repeat",
-  { data_type => "integer", default_value => 0, is_nullable => 0 },
-  "turnoff",
-  {
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
-  },
+    "alrmid",
+    {   data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "tskid",
+    {   data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "message",
+    {data_type => "varchar", is_nullable => 0, size => 512},
+    "atcrontab",
+    {data_type => "varchar", is_nullable => 0, size => 255},
+    "periodic",
+    {   data_type     => "enum",
+        default_value => "no",
+        extra         => {list => ["yes", "no"]},
+        is_nullable   => 0,
+    },
+    "repeat",
+    {data_type => "integer", default_value => 0, is_nullable => 0},
+    "turnoff",
+    {   data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 1,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -156,10 +153,10 @@ Related object: L<TMS::Schema::Result::TskNtfi>
 =cut
 
 __PACKAGE__->has_many(
-  "tsk_ntfis",
-  "TMS::Schema::Result::TskNtfi",
-  { "foreign.alrmid" => "self.alrmid" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "tsk_ntfis",
+    "TMS::Schema::Result::TskNtfi",
+    {"foreign.alrmid" => "self.alrmid"},
+    {cascade_copy     => 0, cascade_delete => 0},
 );
 
 =head2 tskid
@@ -171,18 +168,15 @@ Related object: L<TMS::Schema::Result::TskTask>
 =cut
 
 __PACKAGE__->belongs_to(
-  "tskid",
-  "TMS::Schema::Result::TskTask",
-  { tskid => "tskid" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+    "tskid",
+    "TMS::Schema::Result::TskTask",
+    {tskid         => "tskid"},
+    {is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:UKBOQbk3ud+0a9wF6rgCzQ
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:H+vNBEspcMJqgTNoRJm9YQ
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

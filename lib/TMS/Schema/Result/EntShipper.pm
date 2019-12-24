@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::EntShipper;
 
 # Created by DBIx::Class::Schema::Loader
@@ -43,16 +44,15 @@ __PACKAGE__->table("ent_shippers");
 =cut
 
 __PACKAGE__->add_columns(
-  "ShipperId",
-  {
-    accessor       => "shipper_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "Notes",
-  { accessor => "notes", data_type => "text", is_nullable => 1 },
+    "ShipperId",
+    {   accessor       => "shipper_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "Notes",
+    {accessor => "notes", data_type => "text", is_nullable => 1},
 );
 
 =head1 PRIMARY KEY
@@ -78,10 +78,10 @@ Related object: L<TMS::Schema::Result::DspLoad>
 =cut
 
 __PACKAGE__->has_many(
-  "dsp_loads",
-  "TMS::Schema::Result::DspLoad",
-  { "foreign.ShipperId" => "self.ShipperId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "dsp_loads",
+    "TMS::Schema::Result::DspLoad",
+    {"foreign.ShipperId" => "self.ShipperId"},
+    {cascade_copy        => 0, cascade_delete => 0},
 );
 
 =head2 shipper
@@ -93,18 +93,15 @@ Related object: L<TMS::Schema::Result::EntBusiness>
 =cut
 
 __PACKAGE__->belongs_to(
-  "shipper",
-  "TMS::Schema::Result::EntBusiness",
-  { BizId => "ShipperId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "shipper",
+    "TMS::Schema::Result::EntBusiness",
+    {BizId         => "ShipperId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GmQtbRC8am8v21NhYtWlgA
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:uu9aCWyMbN+Doi6I2/pyIw
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

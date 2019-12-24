@@ -1,6 +1,5 @@
 package TMS::API::Core::CmmAssignment;
 
-# $Id: $
 use strict;
 use warnings FATAL => 'all';
 use Carp qw( confess longmess );
@@ -9,73 +8,23 @@ use Devel::Confess;
 use Data::Dumper;
 use Try::Tiny;
 
+$Data::Dumper::Terse = 1;
+
 use Moose;
-
-# AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::CmmPackage;
-use TMS::API::Core::HrAssociate;
-
-# AUTO-GENERATED DEPENDENCIES END
-
-use TMS::SchemaWrapper;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
-use TMS::API::Types::Columns;
-use MooseX::Types::Moose qw(Undef);
+use TMS::API::Types::Complex;
 
 extends 'TMS::SchemaWrapper';
+with 'MooseX::Traits';
 
-# AUTO-GENERATED HAS-A START
-has AssociateId       => (is => 'rw', coerce => 1, isa => 'HrAssociateObj | Int ');
-has CommissionPackage => (is => 'rw', coerce => 1, isa => 'CmmPackageObj | Int ');
-has DateAdded         => (is => 'rw', coerce => 1, isa => 'Undef | TIMESTAMP');
-has AddedBy           => (is => 'rw', coerce => 1, isa => 'HrAssociateObj | Int ');
+has 'DateAdded' => ('is' => 'rw', 'isa' => 'Any', 'required' => '1', 'default' => 'SCALAR(0x823ceb798)');
 
-has AllErrors => (is => 'rw', isa => 'ArrayRef',    default    => sub { [] });
-has LastError => (is => 'rw', isa => 'Undef | Str', default    => undef);
-has TableMeta => (is => 'rw', isa => 'HashRef',     lazy_build => 1);
-has DoIfError => (is => 'rw', isa => 'Str',         default    => 'confess');    # confess or ignore
+# relations
+has 'commission_package' => ('is' => 'rw', 'isa' => 'ObjCmmPackage',  'required' => '0');
+has 'associate'          => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'required' => '0');
+has 'added_by'           => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'required' => '0');
 
-sub _build_TableMeta {
-    my $self = shift;
-    my $data = {
-        'CommissionPackage' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'apiclass' => 'TMS::API::Core::CmmPackage',
-            'required' => 1,
-            'default'  => undef,
-            'db_type'  => 'varchar(255)'
-        },
-        'DateAdded' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => 'CURRENT_TIMESTAMP',
-            'db_type'  => 'timestamp'
-        },
-        'AssociateId' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'required' => 1,
-            'apiclass' => 'TMS::API::Core::HrAssociate',
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'AddedBy' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'required' => 1,
-            'apiclass' => 'TMS::API::Core::HrAssociate',
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        }
-    };
-    $self->TableMeta($data);
-} ## end sub _build_TableMeta
-
-# AUTO-GENERATED HAS-A END
+has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'CmmAssignment');
 
 1;
-

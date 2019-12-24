@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::SftVehicleInspection;
 
 # Created by DBIx::Class::Schema::Loader
@@ -105,73 +106,65 @@ __PACKAGE__->table("sft_vehicle_inspections");
 =cut
 
 __PACKAGE__->add_columns(
-  "InspectionId",
-  {
-    accessor => "inspection_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "InspectionScheduleId",
-  {
-    accessor       => "inspection_schedule_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "InspectorId",
-  {
-    accessor       => "inspector_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "InspectorSignatureId",
-  {
-    accessor       => "inspector_signature_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "LocationOfRecords",
-  {
-    accessor       => "location_of_records",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "InspectionNumber",
-  {
-    accessor => "inspection_number",
-    data_type => "varchar",
-    is_nullable => 0,
-    size => 10,
-  },
-  "DateInspection",
-  {
-    accessor => "date_inspection",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    default_value => "CURRENT_TIMESTAMP",
-    is_nullable => 0,
-  },
-  "Status",
-  {
-    accessor      => "status",
-    data_type     => "enum",
-    default_value => "Other",
-    extra         => { list => ["Passed", "Failed", "Postponed", "Other"] },
-    is_nullable   => 0,
-  },
-  "Remarks",
-  { accessor => "remarks", data_type => "text", is_nullable => 1 },
-  "Mileage",
-  { accessor => "mileage", data_type => "varchar", is_nullable => 1, size => 12 },
+    "InspectionId",
+    {   accessor          => "inspection_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "InspectionScheduleId",
+    {   accessor       => "inspection_schedule_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "InspectorId",
+    {   accessor       => "inspector_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "InspectorSignatureId",
+    {   accessor       => "inspector_signature_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "LocationOfRecords",
+    {   accessor       => "location_of_records",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "InspectionNumber",
+    {   accessor    => "inspection_number",
+        data_type   => "varchar",
+        is_nullable => 0,
+        size        => 10,
+    },
+    "DateInspection",
+    {   accessor                  => "date_inspection",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        default_value             => "CURRENT_TIMESTAMP",
+        is_nullable               => 0,
+    },
+    "Status",
+    {   accessor      => "status",
+        data_type     => "enum",
+        default_value => "Other",
+        extra         => {list => ["Passed", "Failed", "Postponed", "Other"]},
+        is_nullable   => 0,
+    },
+    "Remarks",
+    {accessor => "remarks", data_type => "text", is_nullable => 1},
+    "Mileage",
+    {accessor => "mileage", data_type => "varchar", is_nullable => 1, size => 12},
 );
 
 =head1 PRIMARY KEY
@@ -197,10 +190,10 @@ Related object: L<TMS::Schema::Result::SftInspectionSchedule>
 =cut
 
 __PACKAGE__->belongs_to(
-  "inspection_schedule",
-  "TMS::Schema::Result::SftInspectionSchedule",
-  { InspectionScheduleId => "InspectionScheduleId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "inspection_schedule",
+    "TMS::Schema::Result::SftInspectionSchedule",
+    {InspectionScheduleId => "InspectionScheduleId"},
+    {is_deferrable        => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 inspector
@@ -212,10 +205,10 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "inspector",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "InspectorId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "inspector",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId         => "InspectorId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 inspector_signature
@@ -227,10 +220,10 @@ Related object: L<TMS::Schema::Result::GenFile>
 =cut
 
 __PACKAGE__->belongs_to(
-  "inspector_signature",
-  "TMS::Schema::Result::GenFile",
-  { FileId => "InspectorSignatureId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "inspector_signature",
+    "TMS::Schema::Result::GenFile",
+    {FileId        => "InspectorSignatureId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 location_of_records
@@ -242,10 +235,10 @@ Related object: L<TMS::Schema::Result::CntAddress>
 =cut
 
 __PACKAGE__->belongs_to(
-  "location_of_records",
-  "TMS::Schema::Result::CntAddress",
-  { AddrId => "LocationOfRecords" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "location_of_records",
+    "TMS::Schema::Result::CntAddress",
+    {AddrId        => "LocationOfRecords"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 sft_vehicle_inspected_items
@@ -257,18 +250,13 @@ Related object: L<TMS::Schema::Result::SftVehicleInspectedItem>
 =cut
 
 __PACKAGE__->has_many(
-  "sft_vehicle_inspected_items",
-  "TMS::Schema::Result::SftVehicleInspectedItem",
-  { "foreign.InspectionId" => "self.InspectionId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "sft_vehicle_inspected_items", "TMS::Schema::Result::SftVehicleInspectedItem",
+    {"foreign.InspectionId" => "self.InspectionId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6bUPy4NOIva6foTlBzJngg
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Ry6ArdxmfAfU/8A7oids/A
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

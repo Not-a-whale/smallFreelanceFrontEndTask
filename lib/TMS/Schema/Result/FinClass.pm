@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::FinClass;
 
 # Created by DBIx::Class::Schema::Loader
@@ -48,16 +49,15 @@ __PACKAGE__->table("fin_classes");
 =cut
 
 __PACKAGE__->add_columns(
-  "ClassId",
-  {
-    accessor => "class_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "Name",
-  { accessor => "name", data_type => "varchar", is_nullable => 0, size => 45 },
+    "ClassId",
+    {   accessor          => "class_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "Name",
+    {accessor => "name", data_type => "varchar", is_nullable => 0, size => 45},
 );
 
 =head1 PRIMARY KEY
@@ -97,18 +97,13 @@ Related object: L<TMS::Schema::Result::FinTransaction>
 =cut
 
 __PACKAGE__->has_many(
-  "fin_transactions",
-  "TMS::Schema::Result::FinTransaction",
-  { "foreign.Class" => "self.ClassId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "fin_transactions", "TMS::Schema::Result::FinTransaction",
+    {"foreign.Class" => "self.ClassId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:OKeBllL5F4cYJuzJgBf2fg
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:OaCZkgRDXW/dOosfK9NnqA
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

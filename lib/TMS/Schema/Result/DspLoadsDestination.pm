@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::DspLoadsDestination;
 
 # Created by DBIx::Class::Schema::Loader
@@ -128,82 +129,73 @@ PU#/PO# ????
 =cut
 
 __PACKAGE__->add_columns(
-  "DestinationId",
-  {
-    accessor => "destination_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "LoadId",
-  {
-    accessor       => "load_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "PU_PO",
-  { accessor => "pu_po", data_type => "varchar", is_nullable => 0, size => 255 },
-  "Commodity",
-  {
-    accessor => "commodity",
-    data_type => "varchar",
-    is_nullable => 0,
-    size => 255,
-  },
-  "Pallets",
-  { accessor => "pallets", data_type => "integer", is_nullable => 1 },
-  "Pieces",
-  { accessor => "pieces", data_type => "integer", is_nullable => 1 },
-  "Weight",
-  { accessor => "weight", data_type => "float", is_nullable => 1 },
-  "AppointmentStart",
-  {
-    accessor => "appointment_start",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 0,
-  },
-  "AppointmentEnd",
-  {
-    accessor => "appointment_end",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
-  },
-  "AppointmentType",
-  {
-    accessor    => "appointment_type",
-    data_type   => "enum",
-    extra       => { list => ["Appointment", "Time Open"] },
-    is_nullable => 0,
-  },
-  "StopOrder",
-  {
-    accessor      => "stop_order",
-    data_type     => "integer",
-    default_value => 0,
-    is_nullable   => 0,
-  },
-  "StopType",
-  {
-    accessor    => "stop_type",
-    data_type   => "enum",
-    extra       => { list => ["PickUp", "DropOff"] },
-    is_nullable => 0,
-  },
-  "Branch",
-  {
-    accessor       => "branch",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "AppointmentNotes",
-  { accessor => "appointment_notes", data_type => "text", is_nullable => 1 },
+    "DestinationId",
+    {   accessor          => "destination_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "LoadId",
+    {   accessor       => "load_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "PU_PO",
+    {accessor => "pu_po", data_type => "varchar", is_nullable => 0, size => 255},
+    "Commodity",
+    {   accessor    => "commodity",
+        data_type   => "varchar",
+        is_nullable => 0,
+        size        => 255,
+    },
+    "Pallets",
+    {accessor => "pallets", data_type => "integer", is_nullable => 1},
+    "Pieces",
+    {accessor => "pieces", data_type => "integer", is_nullable => 1},
+    "Weight",
+    {accessor => "weight", data_type => "float", is_nullable => 1},
+    "AppointmentStart",
+    {   accessor                  => "appointment_start",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 0,
+    },
+    "AppointmentEnd",
+    {   accessor                  => "appointment_end",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 1,
+    },
+    "AppointmentType",
+    {   accessor    => "appointment_type",
+        data_type   => "enum",
+        extra       => {list => ["Appointment", "Time Open"]},
+        is_nullable => 0,
+    },
+    "StopOrder",
+    {   accessor      => "stop_order",
+        data_type     => "integer",
+        default_value => 0,
+        is_nullable   => 0,
+    },
+    "StopType",
+    {   accessor    => "stop_type",
+        data_type   => "enum",
+        extra       => {list => ["PickUp", "DropOff"]},
+        is_nullable => 0,
+    },
+    "Branch",
+    {   accessor       => "branch",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "AppointmentNotes",
+    {accessor => "appointment_notes", data_type => "text", is_nullable => 1},
 );
 
 =head1 PRIMARY KEY
@@ -229,10 +221,10 @@ Related object: L<TMS::Schema::Result::BizBranch>
 =cut
 
 __PACKAGE__->belongs_to(
-  "branch",
-  "TMS::Schema::Result::BizBranch",
-  { BrnchId => "Branch" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "branch",
+    "TMS::Schema::Result::BizBranch",
+    {BrnchId       => "Branch"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 dsp_loads_destinations_docs
@@ -244,10 +236,8 @@ Related object: L<TMS::Schema::Result::DspLoadsDestinationsDoc>
 =cut
 
 __PACKAGE__->has_many(
-  "dsp_loads_destinations_docs",
-  "TMS::Schema::Result::DspLoadsDestinationsDoc",
-  { "foreign.LoadDestinationId" => "self.DestinationId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "dsp_loads_destinations_docs", "TMS::Schema::Result::DspLoadsDestinationsDoc",
+    {"foreign.LoadDestinationId" => "self.DestinationId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 dsp_loads_tracking
@@ -259,10 +249,10 @@ Related object: L<TMS::Schema::Result::DspLoadsTracking>
 =cut
 
 __PACKAGE__->might_have(
-  "dsp_loads_tracking",
-  "TMS::Schema::Result::DspLoadsTracking",
-  { "foreign.DestinationId" => "self.DestinationId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "dsp_loads_tracking",
+    "TMS::Schema::Result::DspLoadsTracking",
+    {"foreign.DestinationId" => "self.DestinationId"},
+    {cascade_copy            => 0, cascade_delete => 0},
 );
 
 =head2 load
@@ -274,18 +264,15 @@ Related object: L<TMS::Schema::Result::DspLoad>
 =cut
 
 __PACKAGE__->belongs_to(
-  "load",
-  "TMS::Schema::Result::DspLoad",
-  { LoadId => "LoadId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "load",
+    "TMS::Schema::Result::DspLoad",
+    {LoadId        => "LoadId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-13 13:28:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:noJ+5ZTwPIPyuD9m8IpNeg
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Rzw5qyN5221WHZKavCFWcg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

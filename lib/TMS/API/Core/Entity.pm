@@ -1,6 +1,5 @@
 package TMS::API::Core::Entity;
 
-# $Id: $
 use strict;
 use warnings FATAL => 'all';
 use Carp qw( confess longmess );
@@ -9,91 +8,38 @@ use Devel::Confess;
 use Data::Dumper;
 use Try::Tiny;
 
+$Data::Dumper::Terse = 1;
+
 use Moose;
-
-# AUTO-GENERATED DEPENDENCIES START
-use TMS::API::Core::EntBusiness;
-use TMS::API::Core::EntPerson;
-
-# AUTO-GENERATED DEPENDENCIES END
-
-use TMS::SchemaWrapper;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
-use TMS::API::Types::Columns;
-use MooseX::Types::Moose qw(Undef);
+use TMS::API::Types::Complex;
 
 extends 'TMS::SchemaWrapper';
+with 'MooseX::Traits';
 
-# AUTO-GENERATED HAS-A START
-has EntityId    => (is => 'rw', coerce => 0, isa => 'Undef | PrimaryKeyInt');
-has IsActive    => (is => 'rw', coerce => 1, isa => 'Undef | BoolInt');
-has DateCreated => (is => 'rw', coerce => 1, isa => 'Undef | DATETIME');
-has Notes       => (is => 'rw', coerce => 1, isa => 'Undef | TidySpacesString');
-has PersonId    => (is => 'rw', coerce => 1, isa => 'Undef | EntPersonObj | Int ');
-has BusinessId  => (is => 'rw', coerce => 1, isa => 'Undef | EntBusinessObj | Int ');
+has 'BusinessId'  => ('is' => 'rw', 'isa' => 'PositiveInt',      'required' => '0');
+has 'DateCreated' => ('is' => 'rw', 'isa' => 'DATETIME',         'required' => '0');
+has 'EntityId'    => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'required' => '0');
+has 'IsActive'    => ('is' => 'rw', 'isa' => 'BoolInt',          'required' => '1', 'default' => '1');
+has 'Notes'       => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
+has 'PersonId'    => ('is' => 'rw', 'isa' => 'PositiveInt',      'required' => '0');
 
-has AllErrors => (is => 'rw', isa => 'ArrayRef',    default    => sub { [] });
-has LastError => (is => 'rw', isa => 'Undef | Str', default    => undef);
-has TableMeta => (is => 'rw', isa => 'HashRef',     lazy_build => 1);
-has DoIfError => (is => 'rw', isa => 'Str',         default    => 'confess');    # confess or ignore
+# relations
+has 'fin_item_templates'       => ('is' => 'rw', 'isa' => 'ArrayObjFinItemTemplate',       'required' => '0');
+has 'fin_journal_entries'      => ('is' => 'rw', 'isa' => 'ArrayObjFinJournalEntry',       'required' => '0');
+has 'fin_billing_infos'        => ('is' => 'rw', 'isa' => 'ArrayObjFinBillingInfo',        'required' => '0');
+has 'fin_cheques_payers'       => ('is' => 'rw', 'isa' => 'ArrayObjFinCheque',             'required' => '0');
+has 'person'                   => ('is' => 'rw', 'isa' => 'ObjEntPerson',                  'required' => '0');
+has 'business'                 => ('is' => 'rw', 'isa' => 'ObjEntBusiness',                'required' => '0');
+has 'fin_tax_id'               => ('is' => 'rw', 'isa' => 'ObjFinTaxId',                   'required' => '0');
+has 'fin_invoices'             => ('is' => 'rw', 'isa' => 'ArrayObjFinInvoice',            'required' => '0');
+has 'ent_blacklists'           => ('is' => 'rw', 'isa' => 'ArrayObjEntBlacklist',          'required' => '0');
+has 'ins_to_entities'          => ('is' => 'rw', 'isa' => 'ArrayObjInsToEntity',           'required' => '0');
+has 'fin_cheques_payees'       => ('is' => 'rw', 'isa' => 'ArrayObjFinCheque',             'required' => '0');
+has 'fin_invoice_payments'     => ('is' => 'rw', 'isa' => 'ArrayObjFinInvoicePayment',     'required' => '0');
+has 'fin_scheduled_deductions' => ('is' => 'rw', 'isa' => 'ArrayObjFinScheduledDeduction', 'required' => '0');
 
-sub _build_TableMeta {
-    my $self = shift;
-    my $data = {
-        'IsActive' => {
-            'is_null'  => 0,
-            'comment'  => 'Boolean',
-            'apiclass' => undef,
-            'required' => 0,
-            'default'  => '1',
-            'db_type'  => 'tinyint(1) unsigned'
-        },
-        'BusinessId' => {
-            'comment'  => '',
-            'is_null'  => 1,
-            'apiclass' => 'TMS::API::Core::EntBusiness',
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'EntityId' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        },
-        'Notes' => {
-            'comment'  => '',
-            'is_null'  => 1,
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => undef,
-            'db_type'  => 'text'
-        },
-        'DateCreated' => {
-            'comment'  => '',
-            'is_null'  => 0,
-            'required' => 0,
-            'apiclass' => undef,
-            'default'  => 'CURRENT_TIMESTAMP',
-            'db_type'  => 'datetime'
-        },
-        'PersonId' => {
-            'is_null'  => 1,
-            'comment'  => '',
-            'apiclass' => 'TMS::API::Core::EntPerson',
-            'required' => 0,
-            'default'  => undef,
-            'db_type'  => 'bigint(20) unsigned'
-        }
-    };
-    $self->TableMeta($data);
-} ## end sub _build_TableMeta
-
-# AUTO-GENERATED HAS-A END
+has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'Entity');
 
 1;
-

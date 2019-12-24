@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::TskPeditree;
 
 # Created by DBIx::Class::Schema::Loader
@@ -24,7 +25,9 @@ __PACKAGE__->table_class("DBIx::Class::ResultSource::View");
 =cut
 
 __PACKAGE__->table("tsk_peditree");
-__PACKAGE__->result_source_instance->view_definition("select `t2`.`name` AS `Parent`,`t3`.`name` AS `Child` from ((`tms`.`tsk_trees` `t1` join `tms`.`tsk_tasks` `t2` on((`t1`.`ancestor` = `t2`.`tskid`))) join `tms`.`tsk_tasks` `t3` on((`t1`.`descendant` = `t3`.`tskid`))) where (`t1`.`length` = 1) order by `t1`.`ancestor`,`t1`.`descendant`");
+__PACKAGE__->result_source_instance->view_definition(
+    "select `t2`.`name` AS `Parent`,`t3`.`name` AS `Child` from ((`tms`.`tsk_trees` `t1` join `tms`.`tsk_tasks` `t2` on((`t1`.`ancestor` = `t2`.`tskid`))) join `tms`.`tsk_tasks` `t3` on((`t1`.`descendant` = `t3`.`tskid`))) where (`t1`.`length` = 1) order by `t1`.`ancestor`,`t1`.`descendant`"
+);
 
 =head1 ACCESSORS
 
@@ -49,18 +52,13 @@ Short name of the task/project
 =cut
 
 __PACKAGE__->add_columns(
-  "Parent",
-  { accessor => "parent", data_type => "varchar", is_nullable => 0, size => 255 },
-  "Child",
-  { accessor => "child", data_type => "varchar", is_nullable => 0, size => 255 },
+    "Parent", {accessor => "parent", data_type => "varchar", is_nullable => 0, size => 255},
+    "Child",  {accessor => "child",  data_type => "varchar", is_nullable => 0, size => 255},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cUijgCI8PkuE1bsuA3OtWQ
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:u040ucbOmh6y6AIu0UptZg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

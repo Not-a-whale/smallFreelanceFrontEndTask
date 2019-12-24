@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::DspLoadsDoc;
 
 # Created by DBIx::Class::Schema::Loader
@@ -77,54 +78,48 @@ __PACKAGE__->table("dsp_loads_docs");
 =cut
 
 __PACKAGE__->add_columns(
-  "DocsLoadId",
-  {
-    accessor => "docs_load_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "FileId",
-  {
-    accessor       => "file_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "LoadId",
-  {
-    accessor       => "load_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "DateAdded",
-  {
-    accessor => "date_added",
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    default_value => "CURRENT_TIMESTAMP",
-    is_nullable => 0,
-  },
-  "AddedBy",
-  {
-    accessor       => "added_by",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "FactoredDoc",
-  {
-    accessor      => "factored_doc",
-    data_type     => "tinyint",
-    default_value => 0,
-    extra         => { unsigned => 1 },
-    is_nullable   => 0,
-  },
+    "DocsLoadId",
+    {   accessor          => "docs_load_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "FileId",
+    {   accessor       => "file_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "LoadId",
+    {   accessor       => "load_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "DateAdded",
+    {   accessor                  => "date_added",
+        data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        default_value             => "CURRENT_TIMESTAMP",
+        is_nullable               => 0,
+    },
+    "AddedBy",
+    {   accessor       => "added_by",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "FactoredDoc",
+    {   accessor      => "factored_doc",
+        data_type     => "tinyint",
+        default_value => 0,
+        extra         => {unsigned => 1},
+        is_nullable   => 0,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -150,10 +145,10 @@ Related object: L<TMS::Schema::Result::HrAssociate>
 =cut
 
 __PACKAGE__->belongs_to(
-  "added_by",
-  "TMS::Schema::Result::HrAssociate",
-  { AstId => "AddedBy" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "added_by",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId         => "AddedBy"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 file
@@ -165,10 +160,10 @@ Related object: L<TMS::Schema::Result::GenFile>
 =cut
 
 __PACKAGE__->belongs_to(
-  "file",
-  "TMS::Schema::Result::GenFile",
-  { FileId => "FileId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "file",
+    "TMS::Schema::Result::GenFile",
+    {FileId        => "FileId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 load
@@ -180,18 +175,15 @@ Related object: L<TMS::Schema::Result::DspLoad>
 =cut
 
 __PACKAGE__->belongs_to(
-  "load",
-  "TMS::Schema::Result::DspLoad",
-  { LoadId => "LoadId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "load",
+    "TMS::Schema::Result::DspLoad",
+    {LoadId        => "LoadId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-11-21 08:33:44
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:dHu3ppSi4LS9KIEnFNrEGg
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:MM0rMytQvD3TzvJ2apd6mA
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

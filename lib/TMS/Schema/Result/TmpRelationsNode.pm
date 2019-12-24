@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::TmpRelationsNode;
 
 # Created by DBIx::Class::Schema::Loader
@@ -56,24 +57,22 @@ __PACKAGE__->table("tmp_relations_nodes");
 =cut
 
 __PACKAGE__->add_columns(
-  "RelNodeId",
-  {
-    accessor => "rel_node_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "Name",
-  { accessor => "name", data_type => "varchar", is_nullable => 1, size => 45 },
-  "ParentId",
-  {
-    accessor       => "parent_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 1,
-  },
+    "RelNodeId",
+    {   accessor          => "rel_node_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "Name",
+    {accessor => "name", data_type => "varchar", is_nullable => 1, size => 45},
+    "ParentId",
+    {   accessor       => "parent_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -99,15 +98,14 @@ Related object: L<TMS::Schema::Result::TmpRelationsNode>
 =cut
 
 __PACKAGE__->belongs_to(
-  "parent",
-  "TMS::Schema::Result::TmpRelationsNode",
-  { RelNodeId => "ParentId" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
-  },
+    "parent",
+    "TMS::Schema::Result::TmpRelationsNode",
+    {RelNodeId => "ParentId"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "NO ACTION",
+        on_update     => "NO ACTION",
+    },
 );
 
 =head2 tmp_relations_clsr_ancestors
@@ -119,10 +117,8 @@ Related object: L<TMS::Schema::Result::TmpRelationsClsr>
 =cut
 
 __PACKAGE__->has_many(
-  "tmp_relations_clsr_ancestors",
-  "TMS::Schema::Result::TmpRelationsClsr",
-  { "foreign.AncestorId" => "self.RelNodeId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "tmp_relations_clsr_ancestors", "TMS::Schema::Result::TmpRelationsClsr",
+    {"foreign.AncestorId" => "self.RelNodeId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 tmp_relations_clsr_descendants
@@ -134,10 +130,8 @@ Related object: L<TMS::Schema::Result::TmpRelationsClsr>
 =cut
 
 __PACKAGE__->has_many(
-  "tmp_relations_clsr_descendants",
-  "TMS::Schema::Result::TmpRelationsClsr",
-  { "foreign.DescendantId" => "self.RelNodeId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "tmp_relations_clsr_descendants", "TMS::Schema::Result::TmpRelationsClsr",
+    {"foreign.DescendantId" => "self.RelNodeId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 tmp_relations_nodes
@@ -149,18 +143,13 @@ Related object: L<TMS::Schema::Result::TmpRelationsNode>
 =cut
 
 __PACKAGE__->has_many(
-  "tmp_relations_nodes",
-  "TMS::Schema::Result::TmpRelationsNode",
-  { "foreign.ParentId" => "self.RelNodeId" },
-  { cascade_copy => 0, cascade_delete => 0 },
+    "tmp_relations_nodes", "TMS::Schema::Result::TmpRelationsNode",
+    {"foreign.ParentId" => "self.RelNodeId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-08-05 15:51:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:r5A/M37sl3aa1J4M1wSj5g
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9upOszoJ7gOpWmxZy321Og
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;

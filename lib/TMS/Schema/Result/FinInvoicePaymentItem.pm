@@ -1,4 +1,5 @@
 use utf8;
+
 package TMS::Schema::Result::FinInvoicePaymentItem;
 
 # Created by DBIx::Class::Schema::Loader
@@ -53,30 +54,27 @@ __PACKAGE__->table("fin_invoice_payment_items");
 =cut
 
 __PACKAGE__->add_columns(
-  "InvoicePaymentItemId",
-  {
-    accessor => "invoice_payment_item_id",
-    data_type => "bigint",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "InvoicePaymentId",
-  {
-    accessor       => "invoice_payment_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
-  "InvoiceItemId",
-  {
-    accessor       => "invoice_item_id",
-    data_type      => "bigint",
-    extra          => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
+    "InvoicePaymentItemId",
+    {   accessor          => "invoice_payment_item_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "InvoicePaymentId",
+    {   accessor       => "invoice_payment_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "InvoiceItemId",
+    {   accessor       => "invoice_item_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -102,10 +100,10 @@ Related object: L<TMS::Schema::Result::FinInvoicesItem>
 =cut
 
 __PACKAGE__->belongs_to(
-  "invoice_item",
-  "TMS::Schema::Result::FinInvoicesItem",
-  { InvoiceItemId => "InvoiceItemId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "invoice_item",
+    "TMS::Schema::Result::FinInvoicesItem",
+    {InvoiceItemId => "InvoiceItemId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 =head2 invoice_payment
@@ -117,18 +115,15 @@ Related object: L<TMS::Schema::Result::FinInvoicePayment>
 =cut
 
 __PACKAGE__->belongs_to(
-  "invoice_payment",
-  "TMS::Schema::Result::FinInvoicePayment",
-  { InvoicePaymentId => "InvoicePaymentId" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "invoice_payment",
+    "TMS::Schema::Result::FinInvoicePayment",
+    {InvoicePaymentId => "InvoicePaymentId"},
+    {is_deferrable    => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-09-17 16:23:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:l76u2ezkdptn6LTEXWA+bg
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:w2gDMyxBcS2IpemywltpMw
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
+
 1;
