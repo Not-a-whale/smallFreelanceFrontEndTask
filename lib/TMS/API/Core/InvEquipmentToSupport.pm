@@ -18,13 +18,12 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'EquipSuppId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'required' => '0');
+has 'EquipSuppId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
 
 # relations
-has 'equipment' => ('is' => 'rw', 'isa' => 'ObjInvEquipment',     'required' => '0');
-has 'support'   => ('is' => 'rw', 'isa' => 'ObjInvSupportVendor', 'required' => '0');
+has 'support'   => ('is' => 'rw', 'isa' => 'ObjInvSupportVendor', 'coerce' => '1', 'required' => '0');
+has 'equipment' => ('is' => 'rw', 'isa' => 'ObjInvEquipment',     'coerce' => '1', 'required' => '0');
 
-has '_dbix_class' =>
-    (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'InvEquipmentToSupport');
+has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'InvEquipmentToSupport');
 
 1;

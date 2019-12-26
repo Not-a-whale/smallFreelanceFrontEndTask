@@ -18,14 +18,14 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'Entered'  => ('is' => 'rw', 'isa' => 'DATETIME',         'required' => '0');
-has 'Need1099' => ('is' => 'rw', 'isa' => 'BoolInt',          'required' => '1', 'default' => '0');
-has 'Notes'    => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
-has 'Photo'    => ('is' => 'rw', 'isa' => 'PositiveInt',      'required' => '0');
+has 'Entered'  => ('is' => 'rw', 'isa' => 'DATETIME',         'coerce' => '1', 'required' => '0');
+has 'Need1099' => ('is' => 'rw', 'isa' => 'BoolInt',          'coerce' => '1', 'required' => '1', 'default' => '0');
+has 'Notes'    => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
+has 'Photo'    => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
 
 # relations
-has 'entity' => ('is' => 'rw', 'isa' => 'ObjEntity',  'required' => '0');
-has 'photo'  => ('is' => 'rw', 'isa' => 'ObjGenFile', 'required' => '0');
+has 'entity' => ('is' => 'rw', 'isa' => 'ObjEntity',  'coerce' => '1', 'required' => '0');
+has 'photo'  => ('is' => 'rw', 'isa' => 'ObjGenFile', 'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinTaxId');
 

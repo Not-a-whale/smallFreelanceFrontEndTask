@@ -18,14 +18,14 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'BillingTagId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'required' => '0');
-has 'CreatedBy'    => ('is' => 'rw', 'isa' => 'PositiveInt',   'required' => '0');
-has 'DateCreated'  => ('is' => 'rw', 'isa' => 'DATETIME',      'required' => '0');
-has 'UserDefined'  => ('is' => 'rw', 'isa' => 'BoolInt',       'required' => '1', 'default' => '1');
+has 'BillingTagId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
+has 'CreatedBy'    => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
+has 'DateCreated'  => ('is' => 'rw', 'isa' => 'DATETIME',      'coerce' => '1', 'required' => '0');
+has 'UserDefined'  => ('is' => 'rw', 'isa' => 'BoolInt',       'coerce' => '1', 'required' => '1', 'default' => '1');
 
 # relations
-has 'fin_billing_infos' => ('is' => 'rw', 'isa' => 'ArrayObjFinBillingInfo', 'required' => '0');
-has 'created_by'        => ('is' => 'rw', 'isa' => 'ObjHrAssociate',         'required' => '0');
+has 'created_by'        => ('is' => 'rw', 'isa' => 'ObjHrAssociate',         'coerce' => '1', 'required' => '0');
+has 'fin_billing_infos' => ('is' => 'rw', 'isa' => 'ArrayObjFinBillingInfo', 'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinBillingTag');
 

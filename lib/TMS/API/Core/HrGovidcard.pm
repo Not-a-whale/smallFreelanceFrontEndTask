@@ -18,14 +18,14 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'CardId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'required' => '0');
-has 'Photo'  => ('is' => 'rw', 'isa' => 'PositiveInt',   'required' => '0');
+has 'CardId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
+has 'Photo'  => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
 
 # relations
-has 'photo'           => ('is' => 'rw', 'isa' => 'ObjGenFile',           'required' => '0');
-has 'ast'             => ('is' => 'rw', 'isa' => 'ObjHrAssociate',       'required' => '0');
-has 'added_by'        => ('is' => 'rw', 'isa' => 'ObjHrAssociate',       'required' => '0');
-has 'hr_hire_records' => ('is' => 'rw', 'isa' => 'ArrayObjHrHireRecord', 'required' => '0');
+has 'hr_hire_records' => ('is' => 'rw', 'isa' => 'ArrayObjHrHireRecord', 'coerce' => '1', 'required' => '0');
+has 'ast'             => ('is' => 'rw', 'isa' => 'ObjHrAssociate',       'coerce' => '1', 'required' => '0');
+has 'photo'           => ('is' => 'rw', 'isa' => 'ObjGenFile',           'coerce' => '1', 'required' => '0');
+has 'added_by'        => ('is' => 'rw', 'isa' => 'ObjHrAssociate',       'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'HrGovidcard');
 

@@ -18,14 +18,13 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'CrrPrmtAccId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'required' => '0');
+has 'CrrPrmtAccId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
 
 # relations
-has 'crr_permit_account_docs' => ('is' => 'rw', 'isa' => 'ArrayObjCrrPermitAccountDoc', 'required' => '0');
-has 'crr_state_permits'       => ('is' => 'rw', 'isa' => 'ArrayObjCrrStatePermit',      'required' => '0');
-has 'carrier'                 => ('is' => 'rw', 'isa' => 'ObjEntCarrier',               'required' => '0');
+has 'crr_state_permits'       => ('is' => 'rw', 'isa' => 'ArrayObjCrrStatePermit',      'coerce' => '1', 'required' => '0');
+has 'crr_permit_account_docs' => ('is' => 'rw', 'isa' => 'ArrayObjCrrPermitAccountDoc', 'coerce' => '1', 'required' => '0');
+has 'carrier'                 => ('is' => 'rw', 'isa' => 'ObjEntCarrier',               'coerce' => '1', 'required' => '0');
 
-has '_dbix_class' =>
-    (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'CrrPermitAccount');
+has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'CrrPermitAccount');
 
 1;

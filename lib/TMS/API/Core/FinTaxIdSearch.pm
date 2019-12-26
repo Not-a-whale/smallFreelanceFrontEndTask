@@ -1,8 +1,8 @@
 package TMS::API::Core::FinTaxIdSearch;
 use Moose::Role;
 
-has 'EntityId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'required' => '0');
-has 'ID_Type'  => ('is' => 'rw', 'isa' => 'Any',              'required' => '0');
-has 'Tax_ID'   => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
+has 'EntityId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 'required' => '0');
+has 'ID_Type'  => ('is' => 'rw', 'isa' => 'Any',              'coerce' => '0', 'required' => '0');
+has 'Tax_ID'   => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 
 1;

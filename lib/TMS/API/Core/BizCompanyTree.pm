@@ -18,11 +18,11 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'Ans_Des_Id' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'required' => '0');
+has 'Ans_Des_Id' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
 
 # relations
-has 'descendant' => ('is' => 'rw', 'isa' => 'ObjBizCompanyNode', 'required' => '0');
-has 'ancestor'   => ('is' => 'rw', 'isa' => 'ObjBizCompanyNode', 'required' => '0');
+has 'descendant' => ('is' => 'rw', 'isa' => 'ObjBizCompanyNode', 'coerce' => '1', 'required' => '0');
+has 'ancestor'   => ('is' => 'rw', 'isa' => 'ObjBizCompanyNode', 'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'BizCompanyTree');
 

@@ -18,14 +18,13 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'EmrgncyId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'required' => '0');
-has 'Notes'     => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
+has 'EmrgncyId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 'required' => '0');
+has 'Notes'     => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 
 # relations
-has 'ast'           => ('is' => 'rw', 'isa' => 'ObjHrAssociate',  'required' => '0');
-has 'contact_phone' => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax', 'required' => '0');
+has 'contact_phone' => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax', 'coerce' => '1', 'required' => '0');
+has 'ast'           => ('is' => 'rw', 'isa' => 'ObjHrAssociate',  'coerce' => '1', 'required' => '0');
 
-has '_dbix_class' =>
-    (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'HrEmrgencyContact');
+has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'HrEmrgencyContact');
 
 1;

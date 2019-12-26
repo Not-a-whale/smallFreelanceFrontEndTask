@@ -15,7 +15,7 @@ use TMS::API::Types::Tools;
 
 sub _build_type {
     my ($class,$input) = @_;
-    my $trait = $class . TMS::Types::Tools::Chained();
+    my $trait = $class . TMS::API::Types::Tools::Chained();
     return $class->with_traits($trait)->new(%$input);
 }
 

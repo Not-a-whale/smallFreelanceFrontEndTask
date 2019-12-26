@@ -18,11 +18,11 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'DatePrinted' => ('is' => 'rw', 'isa' => 'DATETIME', 'required' => '0');
+has 'DatePrinted' => ('is' => 'rw', 'isa' => 'DATETIME', 'coerce' => '1', 'required' => '0');
 
 # relations
-has 'printed_by' => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'required' => '0');
-has 'cheque'     => ('is' => 'rw', 'isa' => 'ObjFinCheque',   'required' => '0');
+has 'printed_by' => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'coerce' => '1', 'required' => '0');
+has 'cheque'     => ('is' => 'rw', 'isa' => 'ObjFinCheque',   'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinChequesPrint');
 

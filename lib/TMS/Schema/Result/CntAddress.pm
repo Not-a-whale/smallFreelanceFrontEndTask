@@ -198,9 +198,7 @@ __PACKAGE__->set_primary_key("AddrId");
 
 =cut
 
-__PACKAGE__->add_unique_constraint("UnqAddr",
-    ["Country", "State", "Zip", "City", "Street1", "Street2", "Street3"],
-);
+__PACKAGE__->add_unique_constraint("UnqAddr", ["Country", "State", "Zip", "City", "Street1", "Street2", "Street3"],);
 
 =head1 RELATIONS
 
@@ -260,8 +258,8 @@ __PACKAGE__->has_many(
     {"foreign.LocationOfRecords" => "self.AddrId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6NnRy1eZTa8unha+4/rNdQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-25 21:12:39
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yPB54LzhyQS8V2hWlTP5cg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

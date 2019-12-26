@@ -18,7 +18,7 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'length' => ('is' => 'rw', 'isa' => 'Int', 'required' => '1', 'default' => '0');
+has 'length' => ('is' => 'rw', 'isa' => 'Int', 'coerce' => '0', 'required' => '1', 'default' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'TskPedigree');
 

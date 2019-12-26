@@ -18,7 +18,6 @@ my $JSON = JSON->new->utf8->allow_nonref->indent->space_after->space_before;
 
 has '_rows'     => (is => 'rw', required => 0, isa     => 'Undef|Int');
 has '_page'     => (is => 'rw', required => 0, isa     => 'Undef|Int');
-has '_head'     => (is => 'rw', required => 0, isa     => 'Undef|HashRef');
 has '_order_by' => (is => 'rw', required => 0, isa     => 'Undef|ArrayRef');
 has '_prefetch' => (is => 'rw', required => 0, isa     => 'Undef|ArrayRef|HashRef');
 has Schema      => (is => 'rw', lazy     => 1, builder => '_get_dbix_hdl');
@@ -217,6 +216,8 @@ sub Show {
     if ($acnt == 1 && !defined $_[0]) {
         return $self->Search(undef, {prefetch => $self->_prefetch})->hashref_array();
     } elsif ($acnt > 1 && ref($_[1]) eq 'HASH') {
+        my $attr = _tree_to_flat($_[0]);
+        $_[0] = $attr;
         $_[1]->{prefetch} = $self->_prefetch if !exists $_[1]->{prefetch};
         return $self->Search(@_)->hashref_array();
     } else {
@@ -238,6 +239,21 @@ sub Show {
         $$rules{prefetch} = $self->_prefetch if defined $self->_prefetch;
         $$rules{rows}     = $self->_rows     if defined $self->_rows;
         $$rules{page}     = $self->_page     if defined $self->_page;
+
+        if( defined $self->_order_by ) {
+            my $order = [];
+            foreach( @{$self->_order_by} ) {
+                my ($col,$dir) = %$_;
+                $col = 'me.'.$col if $col !~ /\./;
+                if( $dir =~ /(asc|desc)/i ) {
+                    $dir = '-' . lc($1);
+                } else {
+                    $dir = '-asc';
+                }
+                push @$order, { $dir => $col };
+            }
+            $$rules{order_by} = $order;
+        }
 
         return $self->Search($attr, $rules)->hashref_array();
     }
@@ -284,7 +300,7 @@ sub Storage          { shift->Schema->storage }
 sub Tell             { print shift->Dump(@_) }
 sub Transaction      { shift->Schema->txn_do(@_) }
 sub TransactionBegin { shift->Schema->txn_begin }
-sub Update           { shift->_loop_manager('update') }
+sub UpdateOrNew      { shift->_loop_manager('update_or_new') }
 sub SvpBegin         { shift->Storage->svp_begin(@_) }
 sub SvpRelease       { shift->Storage->svp_release(@_) }
 sub SvpRollback      { shift->Storage->svp_rollback(@_) }
@@ -294,7 +310,6 @@ sub UpdateOrCreate {
     $self->EnsureConnected;
     my $trxn = $self->Schema->txn_scope_guard;
     $self->_update_OR_create;
-    print "Hello there\n";
     $trxn->commit;
 }
 

@@ -18,7 +18,6 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has '_dbix_class' =>
-    (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinAccountTypesRoot');
+has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinAccountTypesRoot');
 
 1;

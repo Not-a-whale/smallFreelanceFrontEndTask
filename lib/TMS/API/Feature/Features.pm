@@ -24,8 +24,9 @@ sub Search {
 
     my %attrs = ();
     $attrs{_prefetch} = $self->prefetch if defined $self->prefetch;
-    $attrs{_rows} = $args{rows} if exists $args{rows} && defined $args{rows};
-    $attrs{_page} = $args{page} if exists $args{page} && defined $args{page};
+    $attrs{_rows}     = $args{rows}    if exists $args{rows}    && defined $args{rows};
+    $attrs{_page}     = $args{page}    if exists $args{page}    && defined $args{page};
+    $attrs{_order_by} = $args{orderby} if exists $args{orderby} && defined $args{orderby};
 
     if (exists $args{search} && defined $args{search} && ref($args{search}) eq 'HASH') {
         $attrs{$_} = $args{search}{$_} foreach keys %{$args{search}};
@@ -41,6 +42,25 @@ sub Search {
     return $post;
 }
 
+sub Update {
+    my ($self, $post) = @_;
+    my $data     = $$post{POST};
+    my $core     = $self->coreapi;
+    my $trait    = $core . 'Strict';
+    my $prefetch = $self->prefetch;
+
+    $DB::single = 2;
+
+    my $inst = $core->with_traits($trait)->new($data);
+    my $row  = $inst->UpdateOrNew;
+    print "-" x 60 . "\n";
+    if ($row) {
+        my $record = undef;
+        $$record{$_} = $inst->$_ foreach $inst->ColumnsList;
+        return $inst->Show($record, {prefetch => $self->prefetch});
+    }
+}
+
 sub Create {
     my ($self, $post) = @_;
     my $data     = $$post{POST};
@@ -49,16 +69,11 @@ sub Create {
     my $prefetch = $self->prefetch;
 
     my $inst = $core->with_traits($trait)->new($data);
-    my $row  = $inst->Find;
+    my $row  =  $inst->FindOrCreate();
     if ($row) {
-        my $update = undef;
-        foreach ($inst->ColumnsList) {
-            $$update{$_} = $inst->$_;
-        }
-        print STDERR "--------------------------------------------------\n";
-        $row->update($update);
-
-        return $inst->Show($update, {prefetch => $inst->_prefetch});
+        my $record = undef;
+        $$record{$_} = $inst->$_ foreach $inst->ColumnsList;
+        return $inst->Show($record, {prefetch => $self->prefetch});
     }
 }
 

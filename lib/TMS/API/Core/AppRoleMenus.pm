@@ -18,11 +18,11 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'RoleMenuBranchId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'required' => '0');
+has 'RoleMenuBranchId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
 
 # relations
-has 'menu_item' => ('is' => 'rw', 'isa' => 'ObjAppMenuItem', 'required' => '0');
-has 'role'      => ('is' => 'rw', 'isa' => 'ObjAppRole',     'required' => '0');
+has 'role'      => ('is' => 'rw', 'isa' => 'ObjAppRole',     'coerce' => '1', 'required' => '0');
+has 'menu_item' => ('is' => 'rw', 'isa' => 'ObjAppMenuItem', 'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'AppRoleMenus');
 

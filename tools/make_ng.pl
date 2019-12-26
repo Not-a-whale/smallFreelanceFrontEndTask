@@ -190,6 +190,17 @@ sub BuildAPI {
         'year'      => 'Any',
     );
 
+    my %coerce = (
+        'TidySpacesString' => 1,
+        'PositiveInt'      => 1,
+        'Float'            => 1,
+        'TidySpacesString' => 1,
+        'DATETIME'         => 1,
+        'CurrencyValue'    => 1,
+        'Int'              => 0,
+        'BoolInt'          => 1,
+    );
+
     foreach my $cl (
         grep {defined}
         map {
@@ -214,6 +225,7 @@ sub BuildAPI {
             (
             is       => 'rw',
             isa      => $isa,
+            coerce   => exists $coerce{$isa} ? $coerce{$isa} : 0,
             required => 1,
             );
 
@@ -240,6 +252,7 @@ sub BuildAPI {
             (
             is       => 'rw',
             isa      => $isa,
+            coerce   => exists $coerce{$isa} ? $coerce{$isa} : 0,
             required => $required,
             );
 
@@ -273,6 +286,7 @@ sub BuildAPI {
             (
             is       => 'rw',
             isa      => $MooseType,
+            coerce   => 1,
             required => 0
             );
 

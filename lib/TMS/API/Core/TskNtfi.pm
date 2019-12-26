@@ -18,11 +18,11 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'alrtid' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'required' => '0');
+has 'alrtid' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
 
 # relations
-has 'prsn'   => ('is' => 'rw', 'isa' => 'ObjEntPerson', 'required' => '0');
-has 'alrmid' => ('is' => 'rw', 'isa' => 'ObjTskAlrm',   'required' => '0');
+has 'prsn'   => ('is' => 'rw', 'isa' => 'ObjEntPerson', 'coerce' => '1', 'required' => '0');
+has 'alrmid' => ('is' => 'rw', 'isa' => 'ObjTskAlrm',   'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'TskNtfi');
 

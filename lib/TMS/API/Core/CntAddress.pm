@@ -18,19 +18,19 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'AddrId'  => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'required' => '0');
-has 'Country' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '1', 'default' => 'USA');
-has 'GpsLat'  => ('is' => 'rw', 'isa' => 'Float',            'required' => '0');
-has 'GpsLng'  => ('is' => 'rw', 'isa' => 'Float',            'required' => '0');
-has 'Notes'   => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
-has 'Street2' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '1', 'default' => '');
-has 'Street3' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '1', 'default' => '');
+has 'AddrId'  => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 'required' => '0');
+has 'Country' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '1', 'default' => 'USA');
+has 'GpsLat'  => ('is' => 'rw', 'isa' => 'Float',            'coerce' => '1', 'required' => '0');
+has 'GpsLng'  => ('is' => 'rw', 'isa' => 'Float',            'coerce' => '1', 'required' => '0');
+has 'Notes'   => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
+has 'Street2' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '1', 'default' => '');
+has 'Street3' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '1', 'default' => '');
 
 # relations
-has 'biz_branches'            => ('is' => 'rw', 'isa' => 'ArrayObjBizBranch',            'required' => '0');
-has 'fin_billing_infos'       => ('is' => 'rw', 'isa' => 'ArrayObjFinBillingInfo',       'required' => '0');
-has 'hr_residences'           => ('is' => 'rw', 'isa' => 'ArrayObjHrResidence',          'required' => '0');
-has 'sft_vehicle_inspections' => ('is' => 'rw', 'isa' => 'ArrayObjSftVehicleInspection', 'required' => '0');
+has 'hr_residences'           => ('is' => 'rw', 'isa' => 'ArrayObjHrResidence',          'coerce' => '1', 'required' => '0');
+has 'sft_vehicle_inspections' => ('is' => 'rw', 'isa' => 'ArrayObjSftVehicleInspection', 'coerce' => '1', 'required' => '0');
+has 'biz_branches'            => ('is' => 'rw', 'isa' => 'ArrayObjBizBranch',            'coerce' => '1', 'required' => '0');
+has 'fin_billing_infos'       => ('is' => 'rw', 'isa' => 'ArrayObjFinBillingInfo',       'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'CntAddress');
 

@@ -18,22 +18,23 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'Bond'             => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
-has 'CreditLimit'      => ('is' => 'rw', 'isa' => 'CurrencyValue',    'required' => '0');
-has 'DOT'              => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
-has 'DUNS'             => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
-has 'DontUse'          => ('is' => 'rw', 'isa' => 'Any',              'required' => '0');
-has 'Factoring'        => ('is' => 'rw', 'isa' => 'Any',              'required' => '0');
-has 'MC'               => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
-has 'RequireOriginals' => ('is' => 'rw', 'isa' => 'BoolInt',          'required' => '1', 'default' => '0');
-has 'SCAC'             => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
-has 'Terms'            => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
-has 'WhyDontUse'       => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
+has 'Bond'             => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
+has 'CreditLimit'      => ('is' => 'rw', 'isa' => 'CurrencyValue',    'coerce' => '1', 'required' => '0');
+has 'DOT'              => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
+has 'DUNS'             => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
+has 'DontUse'          => ('is' => 'rw', 'isa' => 'Any',              'coerce' => '0', 'required' => '0');
+has 'Factoring'        => ('is' => 'rw', 'isa' => 'Any',              'coerce' => '0', 'required' => '0');
+has 'MC'               => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
+has 'RequireOriginals' => ('is' => 'rw', 'isa' => 'BoolInt',          'coerce' => '1', 'required' => '1', 'default' => '0');
+has 'SCAC'             => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
+has 'Terms'            => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
+has 'WhyDontUse'       => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 
 # relations
-has 'cmm_assignments_customers' => ('is' => 'rw', 'isa' => 'ArrayObjCmmAssignmentsCustomer', 'required' => '0');
-has 'cstmr'                     => ('is' => 'rw', 'isa' => 'ObjEntBusiness',                 'required' => '0');
-has 'dsp_loads'                 => ('is' => 'rw', 'isa' => 'ArrayObjDspLoad',                'required' => '0');
+has 'cstmr' => ('is' => 'rw', 'isa' => 'ObjEntBusiness', 'coerce' => '1', 'required' => '0');
+has 'cmm_assignments_customers' =>
+    ('is' => 'rw', 'isa' => 'ArrayObjCmmAssignmentsCustomer', 'coerce' => '1', 'required' => '0');
+has 'dsp_loads' => ('is' => 'rw', 'isa' => 'ArrayObjDspLoad', 'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'EntCustomer');
 

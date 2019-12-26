@@ -18,11 +18,11 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'PrmtImgId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'required' => '0');
+has 'PrmtImgId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
 
 # relations
-has 'permt_image' => ('is' => 'rw', 'isa' => 'ObjGenFile',        'required' => '0');
-has 'state_prmt'  => ('is' => 'rw', 'isa' => 'ObjCrrStatePermit', 'required' => '0');
+has 'state_prmt'  => ('is' => 'rw', 'isa' => 'ObjCrrStatePermit', 'coerce' => '1', 'required' => '0');
+has 'permt_image' => ('is' => 'rw', 'isa' => 'ObjGenFile',        'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'CrrPermitImage');
 

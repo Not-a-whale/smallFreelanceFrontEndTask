@@ -18,10 +18,10 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'macsid' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'required' => '0');
+has 'macsid' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
 
 # relations
-has 'msg_notes' => ('is' => 'rw', 'isa' => 'ArrayObjMsgNote', 'required' => '0');
+has 'msg_notes' => ('is' => 'rw', 'isa' => 'ArrayObjMsgNote', 'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'MsgAccess');
 
