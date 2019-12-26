@@ -28,7 +28,7 @@ sub BUILDARGS {
     my %args  = ref $_[0] ? %{$_[0]} : @_;
     my $data  = Sift(\%args);
     return $data;
-} ## end sub BUILDARGS
+}
 
 sub Sift {
     my $data = shift;
@@ -53,7 +53,7 @@ sub Sift {
         }
     }
     return $data;
-} ## end sub Sift
+}
 
 sub Validate {
     my $self = shift;
@@ -88,7 +88,7 @@ sub Validate {
         }
     }
     return scalar(%args) ? \%args : undef;
-} ## end sub Validate
+}
 
 sub _inner_loop {
     my $self   = shift;
@@ -109,7 +109,7 @@ sub _inner_loop {
             }
         }
     }
-} ## end sub _inner_loop
+}
 
 sub _outter_loop {
     my $self = shift;
@@ -129,7 +129,7 @@ sub _outter_loop {
             $inst->$method;
         }
     }
-} ## end sub _outter_loop
+}
 
 sub _loop_manager {
     my $self = shift;
@@ -157,7 +157,7 @@ sub _loop_manager {
         return $row;
     }
     return undef;
-} ## end sub _loop_manager
+}
 
 #{                                      #{
 #    "home_ph" => {                     #    'PhExt'           => 0,
@@ -202,7 +202,7 @@ sub _tree_to_flat {
         }
     }
     return $flat;
-} ## end sub _tree_to_flat
+}
 
 sub Like  {&Show}
 sub RLike {&Show}
@@ -258,7 +258,7 @@ sub Show {
         return $self->Search($attr, $rules)->hashref_array();
     }
     confess "No idea what to do";
-} ## end sub Show
+}
 
 # ----------------------------------------------------------------------------
 # wrapper methods
@@ -274,7 +274,7 @@ sub RelationshipsInfo {
     {
         map { $_, $rs->relationship_info($_) } $rs->relationships
     }
-} ## end sub RelationshipsInfo
+}
 
 sub ColumnsList      { shift->ResultSource->columns }
 sub Commit           { shift->Schema->txn_commit }
@@ -307,13 +307,34 @@ sub _strict_create {
     $self->ResultSet->create($self->Validate(@_));
 }
 
+sub _basic_delete {
+    my $self = shift;
+    my $row  = $self->Find(@_);
+    if ($row) {
+        $self->_outter_loop;
+        $row->delete;
+        $self->_inner_loop;
+        return $row->in_storage;
+    } else {
+        return undef;
+    }
+}
+
+sub Delete {
+    my $self = shift;
+    my $trxn = $self->Schema->txn_scope_guard;
+    my $rslt = $self->_basic_delete(@_);
+    $trxn->commit;
+    return $rslt;
+}
+
 sub Create {
     my $self = shift;
     my $trxn = $self->Schema->txn_scope_guard;
     my $rslt = $self->_strict_create(@_);
     $trxn->commit;
     return $rslt;
-} ## end sub Create
+}
 
 sub FindOrCreate {
     my $self = shift;
@@ -321,7 +342,7 @@ sub FindOrCreate {
     my $rslt = $self->_find_or_create;
     $trxn->commit;
     return $rslt;
-} ## end sub FindOrCreate
+}
 
 sub UpdateOrNew {
     my $self = shift;
@@ -329,7 +350,7 @@ sub UpdateOrNew {
     my $rslt = $self->_update_or_new;
     $trxn->commit;
     return $rslt;
-} ## end sub UpdateOrNew
+}
 
 sub UpdateOrCreate {
     my $self = shift;                            # $self->EnsureConnected;
@@ -337,7 +358,7 @@ sub UpdateOrCreate {
     my $rslt = $self->_update_or_create;
     $trxn->commit;
     return $rslt;
-} ## end sub UpdateOrCreate
+}
 
 sub NonPrimaryColumns {
     my $self = shift;
@@ -368,7 +389,7 @@ sub RelationshipAttr {
         $$attr{$col}{name} = $name;
     }
     return $attr;
-} ## end sub RelationshipAttr
+}
 
 sub ReverseRelationshipInfo {
     my $self = shift;
@@ -380,12 +401,6 @@ sub ColumnsInfo {
     my $self = shift;
     my %cols = map { $_, $self->ResultSource->column_info($_) } $self->ColumnsList;
     return \%cols;
-}
-
-sub Delete {
-    my $row = shift->Find(@_);
-    return 0 unless $row;
-    return $row->delete->in_storage;
 }
 
 1;
