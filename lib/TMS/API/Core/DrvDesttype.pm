@@ -18,11 +18,11 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'DesiredDestId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'required' => '0');
-has 'Notes'         => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
+has 'DesiredDestId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 'required' => '0');
+has 'Notes'         => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 
 # relations
-has 'drv_schedules' => ('is' => 'rw', 'isa' => 'ArrayObjDrvSchedule', 'required' => '0');
+has 'drv_schedules' => ('is' => 'rw', 'isa' => 'ArrayObjDrvSchedule', 'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'DrvDesttype');
 

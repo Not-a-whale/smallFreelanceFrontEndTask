@@ -18,14 +18,13 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'InspectionScheduleId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'required' => '0');
-has 'InspectionType'       => ('is' => 'rw', 'isa' => 'Any',           'required' => '0');
+has 'InspectionScheduleId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
+has 'InspectionType'       => ('is' => 'rw', 'isa' => 'Any',           'coerce' => '0', 'required' => '0');
 
 # relations
-has 'vehicle' => ('is' => 'rw', 'isa' => 'ObjInvVehicle', 'required' => '0');
-has 'sft_vehicle_inspections' => ('is' => 'rw', 'isa' => 'ArrayObjSftVehicleInspection', 'required' => '0');
+has 'vehicle' => ('is' => 'rw', 'isa' => 'ObjInvVehicle', 'coerce' => '1', 'required' => '0');
+has 'sft_vehicle_inspections' => ('is' => 'rw', 'isa' => 'ArrayObjSftVehicleInspection', 'coerce' => '1', 'required' => '0');
 
-has '_dbix_class' =>
-    (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'SftInspectionSchedule');
+has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'SftInspectionSchedule');
 
 1;

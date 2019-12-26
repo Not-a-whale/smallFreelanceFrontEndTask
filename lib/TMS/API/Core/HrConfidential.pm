@@ -18,11 +18,11 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'PersonalEmail' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
+has 'PersonalEmail' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 
 # relations
-has 'ast'            => ('is' => 'rw', 'isa' => 'ObjHrAssociate',  'required' => '0');
-has 'personal_phone' => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax', 'required' => '0');
+has 'ast'            => ('is' => 'rw', 'isa' => 'ObjHrAssociate',  'coerce' => '1', 'required' => '0');
+has 'personal_phone' => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax', 'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'HrConfidential');
 

@@ -18,14 +18,13 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'InspectImageId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'required' => '0');
-has 'Notes'          => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
+has 'InspectImageId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 'required' => '0');
+has 'Notes'          => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 
 # relations
-has 'file_ref' => ('is' => 'rw', 'isa' => 'ObjGenFile', 'required' => '0');
-has 'inspected_item' => ('is' => 'rw', 'isa' => 'ObjSftVehicleInspectedItem', 'required' => '0');
+has 'file_ref' => ('is' => 'rw', 'isa' => 'ObjGenFile', 'coerce' => '1', 'required' => '0');
+has 'inspected_item' => ('is' => 'rw', 'isa' => 'ObjSftVehicleInspectedItem', 'coerce' => '1', 'required' => '0');
 
-has '_dbix_class' =>
-    (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'SftVehicleInspectProof');
+has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'SftVehicleInspectProof');
 
 1;

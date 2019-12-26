@@ -18,12 +18,12 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'ExpirationDate' => ('is' => 'rw', 'isa' => 'DATETIME',      'required' => '0');
-has 'MedCardId'      => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'required' => '0');
+has 'ExpirationDate' => ('is' => 'rw', 'isa' => 'DATETIME',      'coerce' => '1', 'required' => '0');
+has 'MedCardId'      => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
 
 # relations
-has 'photo'  => ('is' => 'rw', 'isa' => 'ObjGenFile',   'required' => '0');
-has 'driver' => ('is' => 'rw', 'isa' => 'ObjDrvDriver', 'required' => '0');
+has 'driver' => ('is' => 'rw', 'isa' => 'ObjDrvDriver', 'coerce' => '1', 'required' => '0');
+has 'photo'  => ('is' => 'rw', 'isa' => 'ObjGenFile',   'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'DrvMedcard');
 

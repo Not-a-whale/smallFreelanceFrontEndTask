@@ -18,12 +18,12 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'ans_des_id' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'required' => '0');
-has 'length'     => ('is' => 'rw', 'isa' => 'Int',           'required' => '1', 'default' => '0');
+has 'ans_des_id' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
+has 'length'     => ('is' => 'rw', 'isa' => 'Int',           'coerce' => '0', 'required' => '1', 'default' => '0');
 
 # relations
-has 'descendant' => ('is' => 'rw', 'isa' => 'ObjTskTask', 'required' => '0');
-has 'ancestor'   => ('is' => 'rw', 'isa' => 'ObjTskTask', 'required' => '0');
+has 'ancestor'   => ('is' => 'rw', 'isa' => 'ObjTskTask', 'coerce' => '1', 'required' => '0');
+has 'descendant' => ('is' => 'rw', 'isa' => 'ObjTskTask', 'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'TskTree');
 

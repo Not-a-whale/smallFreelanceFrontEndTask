@@ -18,11 +18,11 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'TireId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'required' => '0');
-has 'Type'   => ('is' => 'rw', 'isa' => 'Any',           'required' => '1', 'default' => 'Truck');
+has 'TireId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
+has 'Type'   => ('is' => 'rw', 'isa' => 'Any',           'coerce' => '0', 'required' => '1', 'default' => 'Truck');
 
 # relations
-has 'inv_vehicles' => ('is' => 'rw', 'isa' => 'ArrayObjInvVehicle', 'required' => '0');
+has 'inv_vehicles' => ('is' => 'rw', 'isa' => 'ArrayObjInvVehicle', 'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'InvTiresize');
 

@@ -18,15 +18,14 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'Description'    => ('is' => 'rw', 'isa' => 'TidySpacesString', 'required' => '0');
-has 'PrimaryContact' => ('is' => 'rw', 'isa' => 'PositiveInt',      'required' => '0');
+has 'Description'    => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
+has 'PrimaryContact' => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
 
 # relations
-has 'primary_contact'           => ('is' => 'rw', 'isa' => 'ObjHrAssociate',                'required' => '0');
-has 'vendor'                    => ('is' => 'rw', 'isa' => 'ObjBizBranch',                  'required' => '0');
-has 'inv_equipments_to_support' => ('is' => 'rw', 'isa' => 'ArrayObjInvEquipmentToSupport', 'required' => '0');
+has 'inv_equipments_to_support' => ('is' => 'rw', 'isa' => 'ArrayObjInvEquipmentToSupport', 'coerce' => '1', 'required' => '0');
+has 'primary_contact'           => ('is' => 'rw', 'isa' => 'ObjHrAssociate',                'coerce' => '1', 'required' => '0');
+has 'vendor'                    => ('is' => 'rw', 'isa' => 'ObjBizBranch',                  'coerce' => '1', 'required' => '0');
 
-has '_dbix_class' =>
-    (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'InvSupportVendor');
+has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'InvSupportVendor');
 
 1;

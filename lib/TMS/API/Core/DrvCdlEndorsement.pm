@@ -18,12 +18,11 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'EndrsId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'required' => '0');
+has 'EndrsId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
 
 # relations
-has 'drv_driverlicences' => ('is' => 'rw', 'isa' => 'ArrayObjDrvDriverlicence', 'required' => '0');
+has 'drv_driverlicences' => ('is' => 'rw', 'isa' => 'ArrayObjDrvDriverlicence', 'coerce' => '1', 'required' => '0');
 
-has '_dbix_class' =>
-    (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'DrvCdlEndorsement');
+has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'DrvCdlEndorsement');
 
 1;
