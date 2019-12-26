@@ -59,8 +59,8 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("IFTAId");
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-25 21:12:39
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:z9jDo+ElhugvI0U4YcXD/w
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-26 15:33:21
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:D+UmyMxUSGBrI+f+rjyYJQ
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

@@ -29,8 +29,8 @@ has 'Speed'        => ('is' => 'rw', 'isa' => 'Float',            'coerce' => '1
 has 'VehicleState' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 
 # relations
-has 'sft_log_entries' => ('is' => 'rw', 'isa' => 'ArrayObjSftLogEntry', 'coerce' => '1', 'required' => '0');
 has 'equipment'       => ('is' => 'rw', 'isa' => 'ObjInvEquipment',     'coerce' => '1', 'required' => '0');
+has 'sft_log_entries' => ('is' => 'rw', 'isa' => 'ArrayObjSftLogEntry', 'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'SftElogStat');
 

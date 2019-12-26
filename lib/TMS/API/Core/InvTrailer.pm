@@ -18,22 +18,17 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'DoorHeight'    => ('is' => 'rw', 'isa' => 'Int',              'coerce' => '0', 'required' => '0');
-has 'DoorWidth'     => ('is' => 'rw', 'isa' => 'Int',              'coerce' => '0', 'required' => '0');
-has 'HasLiftGate'   => ('is' => 'rw', 'isa' => 'BoolInt',          'coerce' => '1', 'required' => '1', 'default' => '0');
-has 'HasPalletJack' => ('is' => 'rw', 'isa' => 'BoolInt',          'coerce' => '1', 'required' => '1', 'default' => '0');
-has 'HasRamps'      => ('is' => 'rw', 'isa' => 'BoolInt',          'coerce' => '1', 'required' => '1', 'default' => '0');
-has 'HazMat'        => ('is' => 'rw', 'isa' => 'BoolInt',          'coerce' => '1', 'required' => '1', 'default' => '0');
-has 'LoadCapactiy'  => ('is' => 'rw', 'isa' => 'Int',              'coerce' => '0', 'required' => '0');
-has 'LoadHeight'    => ('is' => 'rw', 'isa' => 'Int',              'coerce' => '0', 'required' => '0');
-has 'LoadLength'    => ('is' => 'rw', 'isa' => 'Int',              'coerce' => '0', 'required' => '0');
-has 'LoadVolume'    => ('is' => 'rw', 'isa' => 'Int',              'coerce' => '0', 'required' => '0');
-has 'LoadWidth'     => ('is' => 'rw', 'isa' => 'Int',              'coerce' => '0', 'required' => '0');
-has 'Type'          => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '1', 'default' => 'Van');
+has 'DoorHeight'   => ('is' => 'rw', 'isa' => 'Int', 'coerce' => '0', 'required' => '0');
+has 'DoorWidth'    => ('is' => 'rw', 'isa' => 'Int', 'coerce' => '0', 'required' => '0');
+has 'LoadCapactiy' => ('is' => 'rw', 'isa' => 'Int', 'coerce' => '0', 'required' => '0');
+has 'LoadHeight'   => ('is' => 'rw', 'isa' => 'Int', 'coerce' => '0', 'required' => '0');
+has 'LoadLength'   => ('is' => 'rw', 'isa' => 'Int', 'coerce' => '0', 'required' => '0');
+has 'LoadVolume'   => ('is' => 'rw', 'isa' => 'Int', 'coerce' => '0', 'required' => '0');
+has 'LoadWidth'    => ('is' => 'rw', 'isa' => 'Int', 'coerce' => '0', 'required' => '0');
 
 # relations
-has 'trailer' => ('is' => 'rw', 'isa' => 'ObjInvVehicle',     'coerce' => '1', 'required' => '0');
 has 'type'    => ('is' => 'rw', 'isa' => 'ObjInvTrailerType', 'coerce' => '1', 'required' => '0');
+has 'trailer' => ('is' => 'rw', 'isa' => 'ObjInvVehicle',     'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'InvTrailer');
 

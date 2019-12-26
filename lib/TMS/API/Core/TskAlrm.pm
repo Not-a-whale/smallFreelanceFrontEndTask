@@ -18,14 +18,12 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'alrmid'   => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
-has 'periodic' => ('is' => 'rw', 'isa' => 'Any',           'coerce' => '0', 'required' => '1', 'default' => 'no');
-has 'repeat'   => ('is' => 'rw', 'isa' => 'Int',           'coerce' => '0', 'required' => '1', 'default' => '0');
-has 'turnoff'  => ('is' => 'rw', 'isa' => 'DATETIME',      'coerce' => '1', 'required' => '0');
+has 'alrmid'  => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
+has 'turnoff' => ('is' => 'rw', 'isa' => 'DATETIME',      'coerce' => '1', 'required' => '0');
 
 # relations
-has 'tskid'     => ('is' => 'rw', 'isa' => 'ObjTskTask',      'coerce' => '1', 'required' => '0');
 has 'tsk_ntfis' => ('is' => 'rw', 'isa' => 'ArrayObjTskNtfi', 'coerce' => '1', 'required' => '0');
+has 'tskid'     => ('is' => 'rw', 'isa' => 'ObjTskTask',      'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'TskAlrm');
 

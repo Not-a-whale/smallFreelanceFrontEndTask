@@ -20,14 +20,13 @@ with 'MooseX::Traits';
 
 has 'NodeId'   => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
 has 'ParentId' => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
-has 'Type'     => ('is' => 'rw', 'isa' => 'Any',           'coerce' => '0', 'required' => '1', 'default' => 'Other');
 
 # relations
-has 'biz_company_trees_ancestors'   => ('is' => 'rw', 'isa' => 'ArrayObjBizCompanyTree', 'coerce' => '1', 'required' => '0');
-has 'biz_company_trees_descendants' => ('is' => 'rw', 'isa' => 'ArrayObjBizCompanyTree', 'coerce' => '1', 'required' => '0');
 has 'hr_associates'                 => ('is' => 'rw', 'isa' => 'ArrayObjHrAssociate',    'coerce' => '1', 'required' => '0');
 has 'parent'                        => ('is' => 'rw', 'isa' => 'ObjBizCompanyNode',      'coerce' => '1', 'required' => '0');
+has 'biz_company_trees_ancestors'   => ('is' => 'rw', 'isa' => 'ArrayObjBizCompanyTree', 'coerce' => '1', 'required' => '0');
 has 'biz_company_nodes'             => ('is' => 'rw', 'isa' => 'ArrayObjBizCompanyNode', 'coerce' => '1', 'required' => '0');
+has 'biz_company_trees_descendants' => ('is' => 'rw', 'isa' => 'ArrayObjBizCompanyTree', 'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'BizCompanyNode');
 

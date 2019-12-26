@@ -562,8 +562,8 @@ __PACKAGE__->belongs_to(
     },
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-25 21:12:39
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Cb/U0lCsrtK+U+IpRKpL4Q
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-26 15:33:21
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:f/2ZgqQ93ogTc6qtL8gCHg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

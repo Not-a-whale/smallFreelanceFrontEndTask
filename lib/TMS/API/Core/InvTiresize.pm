@@ -19,7 +19,6 @@ extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
 has 'TireId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
-has 'Type'   => ('is' => 'rw', 'isa' => 'Any',           'coerce' => '0', 'required' => '1', 'default' => 'Truck');
 
 # relations
 has 'inv_vehicles' => ('is' => 'rw', 'isa' => 'ArrayObjInvVehicle', 'coerce' => '1', 'required' => '0');

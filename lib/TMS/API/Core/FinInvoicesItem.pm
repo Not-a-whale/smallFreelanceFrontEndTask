@@ -28,16 +28,15 @@ has 'InvoiceId'            => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerc
 has 'InvoiceItemId'        => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 'required' => '0');
 has 'ItemTemplateId'       => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
 has 'Notes'                => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
-has 'Quantity'             => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '1', 'default' => '1');
 
 # relations
-has 'invoice'                   => ('is' => 'rw', 'isa' => 'ObjFinInvoice',                 'coerce' => '1', 'required' => '0');
-has 'debit_journal_entry'       => ('is' => 'rw', 'isa' => 'ObjFinJournalEntry',            'coerce' => '1', 'required' => '0');
-has 'fin_invoice_payment_items' => ('is' => 'rw', 'isa' => 'ArrayObjFinInvoicePaymentItem', 'coerce' => '1', 'required' => '0');
-has 'credit_journal_entry'      => ('is' => 'rw', 'isa' => 'ObjFinJournalEntry',            'coerce' => '1', 'required' => '0');
-has 'created_by'                => ('is' => 'rw', 'isa' => 'ObjHrAssociate',                'coerce' => '1', 'required' => '0');
 has 'item_template'             => ('is' => 'rw', 'isa' => 'ObjFinItemTemplate',            'coerce' => '1', 'required' => '0');
+has 'fin_invoice_payment_items' => ('is' => 'rw', 'isa' => 'ArrayObjFinInvoicePaymentItem', 'coerce' => '1', 'required' => '0');
+has 'debit_journal_entry'       => ('is' => 'rw', 'isa' => 'ObjFinJournalEntry',            'coerce' => '1', 'required' => '0');
 has 'job'                       => ('is' => 'rw', 'isa' => 'ObjFinJob',                     'coerce' => '1', 'required' => '0');
+has 'created_by'                => ('is' => 'rw', 'isa' => 'ObjHrAssociate',                'coerce' => '1', 'required' => '0');
+has 'invoice'                   => ('is' => 'rw', 'isa' => 'ObjFinInvoice',                 'coerce' => '1', 'required' => '0');
+has 'credit_journal_entry'      => ('is' => 'rw', 'isa' => 'ObjFinJournalEntry',            'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinInvoicesItem');
 

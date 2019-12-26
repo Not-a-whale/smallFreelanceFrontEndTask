@@ -101,8 +101,8 @@ __PACKAGE__->has_many(
     {"foreign.Class" => "self.ClassId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-25 21:12:39
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:katYuiGMgbfi6p+nXkav9A
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-26 15:33:21
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Rg7xv7OqlHNuLjr6gJFCZg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

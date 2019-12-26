@@ -38,18 +38,18 @@ has 'TempMode'       => ('is' => 'rw', 'isa' => 'Any',              'coerce' => 
 has 'TruckType'      => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 
 # relations
-has 'dsp_loads_dispatched' => ('is' => 'rw', 'isa' => 'ArrayObjDspLoadDispatched', 'coerce' => '1', 'required' => '0');
-has 'dsp_loads_docs'       => ('is' => 'rw', 'isa' => 'ArrayObjDspLoadsDoc',       'coerce' => '1', 'required' => '0');
-has 'dsp_trips_loads'      => ('is' => 'rw', 'isa' => 'ArrayObjDspTripsLoad',      'coerce' => '1', 'required' => '0');
-has 'truck_type'           => ('is' => 'rw', 'isa' => 'ObjInvTrailerType',         'coerce' => '1', 'required' => '0');
-has 'dsp_loads_required_equipments' =>
-    ('is' => 'rw', 'isa' => 'ArrayObjDspLoadsRequiredEquipment', 'coerce' => '1', 'required' => '0');
 has 'shipper'                => ('is' => 'rw', 'isa' => 'ObjEntShipper',               'coerce' => '1', 'required' => '0');
 has 'dsp_loads_destinations' => ('is' => 'rw', 'isa' => 'ArrayObjDspLoadsDestination', 'coerce' => '1', 'required' => '0');
 has 'booked_by'              => ('is' => 'rw', 'isa' => 'ObjHrAssociate',              'coerce' => '1', 'required' => '0');
-has 'created_by'             => ('is' => 'rw', 'isa' => 'ObjHrAssociate',              'coerce' => '1', 'required' => '0');
 has 'broker'                 => ('is' => 'rw', 'isa' => 'ObjEntCustomer',              'coerce' => '1', 'required' => '0');
 has 'job'                    => ('is' => 'rw', 'isa' => 'ObjFinJob',                   'coerce' => '1', 'required' => '0');
+has 'created_by'             => ('is' => 'rw', 'isa' => 'ObjHrAssociate',              'coerce' => '1', 'required' => '0');
+has 'dsp_loads_required_equipments' =>
+    ('is' => 'rw', 'isa' => 'ArrayObjDspLoadsRequiredEquipment', 'coerce' => '1', 'required' => '0');
+has 'dsp_trips_loads'      => ('is' => 'rw', 'isa' => 'ArrayObjDspTripsLoad',      'coerce' => '1', 'required' => '0');
+has 'dsp_loads_dispatched' => ('is' => 'rw', 'isa' => 'ArrayObjDspLoadDispatched', 'coerce' => '1', 'required' => '0');
+has 'dsp_loads_docs'       => ('is' => 'rw', 'isa' => 'ArrayObjDspLoadsDoc',       'coerce' => '1', 'required' => '0');
+has 'truck_type'           => ('is' => 'rw', 'isa' => 'ObjInvTrailerType',         'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'DspLoad');
 

@@ -25,8 +25,8 @@ has 'Notes'          => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => 
 has 'RemovedBy'      => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
 
 # relations
-has 'removed_by' => ('is' => 'rw', 'isa' => 'ObjHrAssociate',  'coerce' => '1', 'required' => '0');
 has 'equipment'  => ('is' => 'rw', 'isa' => 'ObjInvEquipment', 'coerce' => '1', 'required' => '0');
+has 'removed_by' => ('is' => 'rw', 'isa' => 'ObjHrAssociate',  'coerce' => '1', 'required' => '0');
 has 'added_by'   => ('is' => 'rw', 'isa' => 'ObjHrAssociate',  'coerce' => '1', 'required' => '0');
 has 'unit'       => ('is' => 'rw', 'isa' => 'ObjInvUnit',      'coerce' => '1', 'required' => '0');
 

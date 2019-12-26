@@ -40,13 +40,13 @@ has 'PayerStreetAddress' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce'
 has 'VoidedBy'           => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
 
 # relations
-has 'payer'              => ('is' => 'rw', 'isa' => 'ObjEntity',               'coerce' => '1', 'required' => '0');
-has 'transaction'        => ('is' => 'rw', 'isa' => 'ObjFinTransaction',       'coerce' => '1', 'required' => '0');
-has 'voided_by'          => ('is' => 'rw', 'isa' => 'ObjHrAssociate',          'coerce' => '1', 'required' => '0');
 has 'fin_cheques_prints' => ('is' => 'rw', 'isa' => 'ArrayObjFinChequesPrint', 'coerce' => '1', 'required' => '0');
-has 'payee'              => ('is' => 'rw', 'isa' => 'ObjEntity',               'coerce' => '1', 'required' => '0');
-has 'created_by'         => ('is' => 'rw', 'isa' => 'ObjHrAssociate',          'coerce' => '1', 'required' => '0');
+has 'payer'              => ('is' => 'rw', 'isa' => 'ObjEntity',               'coerce' => '1', 'required' => '0');
 has 'authorized_by'      => ('is' => 'rw', 'isa' => 'ObjHrAssociate',          'coerce' => '1', 'required' => '0');
+has 'transaction'        => ('is' => 'rw', 'isa' => 'ObjFinTransaction',       'coerce' => '1', 'required' => '0');
+has 'created_by'         => ('is' => 'rw', 'isa' => 'ObjHrAssociate',          'coerce' => '1', 'required' => '0');
+has 'payee'              => ('is' => 'rw', 'isa' => 'ObjEntity',               'coerce' => '1', 'required' => '0');
+has 'voided_by'          => ('is' => 'rw', 'isa' => 'ObjHrAssociate',          'coerce' => '1', 'required' => '0');
 has 'bank'               => ('is' => 'rw', 'isa' => 'ObjBizBranch',            'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinCheque');

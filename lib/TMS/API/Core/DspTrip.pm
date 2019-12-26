@@ -24,14 +24,13 @@ has 'DateCreated'    => ('is' => 'rw', 'isa' => 'DATETIME',         'coerce' => 
 has 'DateDispatched' => ('is' => 'rw', 'isa' => 'DATETIME',         'coerce' => '1', 'required' => '0');
 has 'DateStarted'    => ('is' => 'rw', 'isa' => 'DATETIME',         'coerce' => '1', 'required' => '0');
 has 'GoogleRoute'    => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
-has 'IsValid'        => ('is' => 'rw', 'isa' => 'BoolInt',          'coerce' => '1', 'required' => '1', 'default' => '1');
 has 'Notes'          => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 has 'TripId'         => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 'required' => '0');
 
 # relations
-has 'sft_logbooks'    => ('is' => 'rw', 'isa' => 'ArrayObjSftLogbook',   'coerce' => '1', 'required' => '0');
-has 'dsp_trips_loads' => ('is' => 'rw', 'isa' => 'ArrayObjDspTripsLoad', 'coerce' => '1', 'required' => '0');
 has 'created_by'      => ('is' => 'rw', 'isa' => 'ObjHrAssociate',       'coerce' => '1', 'required' => '0');
+has 'dsp_trips_loads' => ('is' => 'rw', 'isa' => 'ArrayObjDspTripsLoad', 'coerce' => '1', 'required' => '0');
+has 'sft_logbooks'    => ('is' => 'rw', 'isa' => 'ArrayObjSftLogbook',   'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'DspTrip');
 

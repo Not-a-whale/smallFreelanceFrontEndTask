@@ -165,8 +165,8 @@ __PACKAGE__->add_columns(
     },
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-25 21:12:39
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:MxjPzmpjH1t2I5S4jkRZHw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-26 15:33:20
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:lSRV6U5f6ngUPaHp0fc17A
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

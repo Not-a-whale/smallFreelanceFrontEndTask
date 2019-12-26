@@ -8,5 +8,6 @@ has 'RegistrationDate' => ('is' => 'rw', 'isa' => 'DATETIME',         'coerce' =
 has 'RegistrationId'   => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 'required' => '0');
 has 'State'            => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 has 'VehicleId'        => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
+has 'ProRate'          => ('is' => 'rw', 'isa' => 'BoolInt',          'coerce' => '1', 'required' => '0');
 
 1;
