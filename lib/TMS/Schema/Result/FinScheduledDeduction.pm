@@ -215,10 +215,7 @@ __PACKAGE__->add_columns(
         data_type     => "enum",
         default_value => "null",
         extra         => {
-            list => [
-                "null",   "annually",  "bi-annually", "quarterly", "monthly", "bi-monthly",
-                "weekly", "bi-weekly", "daily",
-            ],
+            list => ["null", "annually", "bi-annually", "quarterly", "monthly", "bi-monthly", "weekly", "bi-weekly", "daily",],
         },
         is_nullable => 1,
     },
@@ -309,8 +306,8 @@ __PACKAGE__->belongs_to(
     {is_deferrable  => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:iSWtEIO4iFDB8UUD5dNC0A
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-25 21:12:39
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cYU6v8q/AWoHmqjl1KreMg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

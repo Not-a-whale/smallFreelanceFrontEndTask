@@ -15,7 +15,7 @@ use TMS::API::Types::Tools;
 
 sub _build_type {
     my ($class, $input) = @_;
-    my $trait = $class . TMS::Types::Tools::Chained();
+    my $trait = $class . TMS::API::Types::Tools::Chained();
     return $class->with_traits($trait)->new(%$input);
 }
 
@@ -134,8 +134,7 @@ subtype 'ObjFinItemTemplate', as class_type('TMS::API::Core::FinItemTemplate');
 coerce 'ObjFinItemTemplate', from 'HashRef', via { _build_type('TMS::API::Core::FinItemTemplate', $_) };
 
 subtype 'ObjFinItemTemplatesType', as class_type('TMS::API::Core::FinItemTemplatesType');
-coerce 'ObjFinItemTemplatesType',  from 'HashRef',
-    via { _build_type('TMS::API::Core::FinItemTemplatesType', $_) };
+coerce 'ObjFinItemTemplatesType', from 'HashRef', via { _build_type('TMS::API::Core::FinItemTemplatesType', $_) };
 
 subtype 'ObjFinJob', as class_type('TMS::API::Core::FinJob');
 coerce 'ObjFinJob', from 'HashRef', via { _build_type('TMS::API::Core::FinJob', $_) };
@@ -216,23 +215,19 @@ subtype 'ObjSftElogStat', as class_type('TMS::API::Core::SftElogStat');
 coerce 'ObjSftElogStat', from 'HashRef', via { _build_type('TMS::API::Core::SftElogStat', $_) };
 
 subtype 'ObjSftInspectionSchedule', as class_type('TMS::API::Core::SftInspectionSchedule');
-coerce 'ObjSftInspectionSchedule',  from 'HashRef',
-    via { _build_type('TMS::API::Core::SftInspectionSchedule', $_) };
+coerce 'ObjSftInspectionSchedule', from 'HashRef', via { _build_type('TMS::API::Core::SftInspectionSchedule', $_) };
 
 subtype 'ObjSftLogbook', as class_type('TMS::API::Core::SftLogbook');
 coerce 'ObjSftLogbook', from 'HashRef', via { _build_type('TMS::API::Core::SftLogbook', $_) };
 
 subtype 'ObjSftVehicleInspectItem', as class_type('TMS::API::Core::SftVehicleInspectItem');
-coerce 'ObjSftVehicleInspectItem',  from 'HashRef',
-    via { _build_type('TMS::API::Core::SftVehicleInspectItem', $_) };
+coerce 'ObjSftVehicleInspectItem', from 'HashRef', via { _build_type('TMS::API::Core::SftVehicleInspectItem', $_) };
 
 subtype 'ObjSftVehicleInspectedItem', as class_type('TMS::API::Core::SftVehicleInspectedItem');
-coerce 'ObjSftVehicleInspectedItem',  from 'HashRef',
-    via { _build_type('TMS::API::Core::SftVehicleInspectedItem', $_) };
+coerce 'ObjSftVehicleInspectedItem', from 'HashRef', via { _build_type('TMS::API::Core::SftVehicleInspectedItem', $_) };
 
 subtype 'ObjSftVehicleInspection', as class_type('TMS::API::Core::SftVehicleInspection');
-coerce 'ObjSftVehicleInspection',  from 'HashRef',
-    via { _build_type('TMS::API::Core::SftVehicleInspection', $_) };
+coerce 'ObjSftVehicleInspection', from 'HashRef', via { _build_type('TMS::API::Core::SftVehicleInspection', $_) };
 
 subtype 'ObjTmpRelationsNode', as class_type('TMS::API::Core::TmpRelationsNode');
 coerce 'ObjTmpRelationsNode', from 'HashRef', via { _build_type('TMS::API::Core::TmpRelationsNode', $_) };

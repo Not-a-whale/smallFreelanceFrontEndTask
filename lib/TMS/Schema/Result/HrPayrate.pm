@@ -101,12 +101,7 @@ __PACKAGE__->add_columns(
     {   accessor      => "rate_type",
         data_type     => "enum",
         default_value => "hourly",
-        extra         => {
-            list => [
-                "hourly",  "salary",  "weekly",          "biweekly",
-                "monthly", "mileage", "load percentage", "flat rate",
-            ],
-        },
+        extra => {list => ["hourly", "salary", "weekly", "biweekly", "monthly", "mileage", "load percentage", "flat rate",],},
         is_nullable => 0,
     },
     "RateAmount",
@@ -180,8 +175,8 @@ __PACKAGE__->belongs_to(
     {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-24 07:43:32
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:AUcB5HnHko6mMgwYM4MgSQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-25 21:12:39
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1qt972mg/goZvgqJLjDD3Q
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 
