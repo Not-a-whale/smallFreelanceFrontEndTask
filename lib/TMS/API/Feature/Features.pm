@@ -14,8 +14,9 @@ use Moose;
 
 sub Search {
     my ($self, $post) = @_;
-    my $core  = $self->coreapi;
-    my $trait = $core . 'Search';
+    my $core   = $self->coreapi;
+    my $trait  = $core . 'Search';
+    my $caller = (caller(1))[3];
     my %args
         = defined $post
         && ref($post) eq 'HASH'
@@ -33,14 +34,17 @@ sub Search {
     }
 
     try {
-        my $inst = $core->with_traits($trait)->new(%attrs);
-        $$post{DATA} = $inst->Like();
+        my $inst   = $core->with_traits($trait)->new(%attrs);
+        my $method = defined $caller && $caller eq 'TMS::API::Feature::Features::Fetch' ? 'Show' : 'Like';
+        $$post{DATA} = $inst->$method;
     } catch {
         $$post{ERROR} = $_;
     };
 
     return $post;
 }
+
+sub Fetch {&Search}
 
 sub Update {
     my ($self, $post) = @_;
@@ -69,7 +73,7 @@ sub Create {
     my $prefetch = $self->prefetch;
 
     my $inst = $core->with_traits($trait)->new($data);
-    my $row  =  $inst->FindOrCreate();
+    my $row  = $inst->FindOrCreate();
     if ($row) {
         my $record = undef;
         $$record{$_} = $inst->$_ foreach $inst->ColumnsList;
