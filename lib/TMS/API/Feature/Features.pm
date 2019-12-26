@@ -42,7 +42,7 @@ sub Search {
     };
 
     return $post;
-}
+} ## end sub Search
 
 sub Fetch {&Search}
 
@@ -53,14 +53,19 @@ sub Update {
     my $trait    = $core . 'Strict';
     my $prefetch = $self->prefetch;
 
-    my $inst = $core->with_traits($trait)->new($data);
-    my $row  = $inst->UpdateOrNew;
-    if ($row) {
-        my $record = undef;
-        $$record{$_} = $inst->$_ foreach $inst->ColumnsList;
-        return $inst->Show($record, {prefetch => $self->prefetch});
-    }
-}
+    try {
+        my $inst = $core->with_traits($trait)->new($data);
+        my $row  = $inst->UpdateOrNew;
+        if ($row) {
+            my $record = undef;
+            $$record{$_} = $inst->$_ foreach $inst->ColumnsList;
+            $$post{DATA} = $inst->Show($record, {prefetch => $self->prefetch});
+        }
+    } catch {
+        $$post{ERROR} = $_;
+    };
+    return $post;
+} ## end sub Update
 
 sub Create {
     my ($self, $post) = @_;
@@ -69,13 +74,35 @@ sub Create {
     my $trait    = $core . 'Strict';
     my $prefetch = $self->prefetch;
 
-    my $inst = $core->with_traits($trait)->new($data);
-    my $row  = $inst->FindOrCreate();
-    if ($row) {
-        my $record = undef;
-        $$record{$_} = $inst->$_ foreach $inst->ColumnsList;
-        return $inst->Show($record, {prefetch => $self->prefetch});
-    }
-}
+    try {
+        my $inst = $core->with_traits($trait)->new($data);
+        my $row  = $inst->FindOrCreate();
+        if ($row) {
+            my $record = undef;
+            $$record{$_} = $inst->$_ foreach $inst->ColumnsList;
+            $$post{DATA} = $inst->Show($record, {prefetch => $self->prefetch});
+        }
+    } catch {
+        $$post{ERROR} = $_;
+    };
+    return $post;
+} ## end sub Create
+
+sub Delete {
+    my ($self, $post) = @_;
+    my $data     = $$post{POST};
+    my $core     = $self->coreapi;
+    my $trait    = $core . 'Strict';
+    my $prefetch = $self->prefetch;
+
+    try {
+        my $inst = $core->with_traits($trait)->new($data);
+        $$post{DATA} = {"records_removed" => $inst->Delete};
+    } catch {
+        $$post{ERROR} = $_;
+    };
+
+    return $post;
+} ## end sub Delete
 
 1;
