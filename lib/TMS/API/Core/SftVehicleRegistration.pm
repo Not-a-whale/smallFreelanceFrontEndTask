@@ -18,8 +18,6 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'ProRate' => ('is' => 'rw', 'isa' => 'BoolInt', 'coerce' => '1', 'required' => '1', 'default' => '0');
-
 # relations
 has 'vehicle'           => ('is' => 'rw', 'isa' => 'ObjInvVehicle', 'coerce' => '1', 'required' => '0');
 has 'registration_card' => ('is' => 'rw', 'isa' => 'ObjGenFile',    'coerce' => '1', 'required' => '0');

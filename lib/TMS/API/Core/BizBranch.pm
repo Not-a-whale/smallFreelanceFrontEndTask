@@ -21,19 +21,18 @@ with 'MooseX::Traits';
 has 'BrnchEMail' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 has 'BrnchFax'   => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
 has 'BrnchId'    => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 'required' => '0');
-has 'OfficeName' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '1', 'default' => '');
 
 # relations
-has 'brnch_fax'              => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax',             'coerce' => '1', 'required' => '0');
-has 'fin_billing_banks'      => ('is' => 'rw', 'isa' => 'ArrayObjFinBillingBank',      'coerce' => '1', 'required' => '0');
-has 'inv_support_vendors'    => ('is' => 'rw', 'isa' => 'ArrayObjInvSupportVendor',    'coerce' => '1', 'required' => '0');
-has 'brnch_phone'            => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax',             'coerce' => '1', 'required' => '0');
-has 'biz'                    => ('is' => 'rw', 'isa' => 'ObjEntBusiness',              'coerce' => '1', 'required' => '0');
-has 'dsp_loads_destinations' => ('is' => 'rw', 'isa' => 'ArrayObjDspLoadsDestination', 'coerce' => '1', 'required' => '0');
 has 'ent_people'             => ('is' => 'rw', 'isa' => 'ArrayObjEntPerson',           'coerce' => '1', 'required' => '0');
-has 'fin_cheques'            => ('is' => 'rw', 'isa' => 'ArrayObjFinCheque',           'coerce' => '1', 'required' => '0');
-has 'inv_equipments'         => ('is' => 'rw', 'isa' => 'ArrayObjInvEquipment',        'coerce' => '1', 'required' => '0');
 has 'brnch_address'          => ('is' => 'rw', 'isa' => 'ObjCntAddress',               'coerce' => '1', 'required' => '0');
+has 'brnch_fax'              => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax',             'coerce' => '1', 'required' => '0');
+has 'inv_equipments'         => ('is' => 'rw', 'isa' => 'ArrayObjInvEquipment',        'coerce' => '1', 'required' => '0');
+has 'brnch_phone'            => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax',             'coerce' => '1', 'required' => '0');
+has 'dsp_loads_destinations' => ('is' => 'rw', 'isa' => 'ArrayObjDspLoadsDestination', 'coerce' => '1', 'required' => '0');
+has 'inv_support_vendors'    => ('is' => 'rw', 'isa' => 'ArrayObjInvSupportVendor',    'coerce' => '1', 'required' => '0');
+has 'fin_cheques'            => ('is' => 'rw', 'isa' => 'ArrayObjFinCheque',           'coerce' => '1', 'required' => '0');
+has 'fin_billing_banks'      => ('is' => 'rw', 'isa' => 'ArrayObjFinBillingBank',      'coerce' => '1', 'required' => '0');
+has 'biz'                    => ('is' => 'rw', 'isa' => 'ObjEntBusiness',              'coerce' => '1', 'required' => '0');
 
 has 'vendor_fax'     => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax', 'coerce' => '1', 'required' => '0');
 has 'vendor_phone'   => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax', 'coerce' => '1', 'required' => '0');

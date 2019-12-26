@@ -20,7 +20,6 @@ with 'MooseX::Traits';
 
 has 'AccLoginId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
 has 'DateLogin'  => ('is' => 'rw', 'isa' => 'DATETIME',      'coerce' => '1', 'required' => '0');
-has 'Type'       => ('is' => 'rw', 'isa' => 'Any',           'coerce' => '0', 'required' => '1', 'default' => 'Login');
 
 # relations
 has 'app_account' => ('is' => 'rw', 'isa' => 'ObjAppAccount', 'coerce' => '1', 'required' => '0');

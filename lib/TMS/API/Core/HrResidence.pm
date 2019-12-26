@@ -22,9 +22,9 @@ has 'DateMovedOut' => ('is' => 'rw', 'isa' => 'DATETIME',      'coerce' => '1', 
 has 'ResdenceId'   => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
 
 # relations
+has 'ast'         => ('is' => 'rw', 'isa' => 'ObjHrAssociate',  'coerce' => '1', 'required' => '0');
 has 'res_address' => ('is' => 'rw', 'isa' => 'ObjCntAddress',   'coerce' => '1', 'required' => '0');
 has 'res_phone'   => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax', 'coerce' => '1', 'required' => '0');
-has 'ast'         => ('is' => 'rw', 'isa' => 'ObjHrAssociate',  'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'HrResidence');
 

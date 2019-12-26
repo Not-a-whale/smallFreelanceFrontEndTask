@@ -22,9 +22,9 @@ has 'actid' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 'req
 has 'note'  => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 
 # relations
+has 'tsk_times' => ('is' => 'rw', 'isa' => 'ArrayObjTskTime', 'coerce' => '1', 'required' => '0');
 has 'prsn'      => ('is' => 'rw', 'isa' => 'ObjEntPerson',    'coerce' => '1', 'required' => '0');
 has 'tskid'     => ('is' => 'rw', 'isa' => 'ObjTskTask',      'coerce' => '1', 'required' => '0');
-has 'tsk_times' => ('is' => 'rw', 'isa' => 'ArrayObjTskTime', 'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'TskActn');
 

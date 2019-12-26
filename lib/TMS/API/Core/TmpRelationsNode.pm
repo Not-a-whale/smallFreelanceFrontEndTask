@@ -23,10 +23,10 @@ has 'ParentId'  => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 
 has 'RelNodeId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 'required' => '0');
 
 # relations
-has 'tmp_relations_clsr_descendants' => ('is' => 'rw', 'isa' => 'ArrayObjTmpRelationsClsr', 'coerce' => '1', 'required' => '0');
 has 'tmp_relations_clsr_ancestors'   => ('is' => 'rw', 'isa' => 'ArrayObjTmpRelationsClsr', 'coerce' => '1', 'required' => '0');
 has 'tmp_relations_nodes'            => ('is' => 'rw', 'isa' => 'ArrayObjTmpRelationsNode', 'coerce' => '1', 'required' => '0');
 has 'parent'                         => ('is' => 'rw', 'isa' => 'ObjTmpRelationsNode',      'coerce' => '1', 'required' => '0');
+has 'tmp_relations_clsr_descendants' => ('is' => 'rw', 'isa' => 'ArrayObjTmpRelationsClsr', 'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'TmpRelationsNode');
 

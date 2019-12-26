@@ -21,7 +21,6 @@ with 'MooseX::Traits';
 has 'BillingTagId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
 has 'CreatedBy'    => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
 has 'DateCreated'  => ('is' => 'rw', 'isa' => 'DATETIME',      'coerce' => '1', 'required' => '0');
-has 'UserDefined'  => ('is' => 'rw', 'isa' => 'BoolInt',       'coerce' => '1', 'required' => '1', 'default' => '1');
 
 # relations
 has 'created_by'        => ('is' => 'rw', 'isa' => 'ObjHrAssociate',         'coerce' => '1', 'required' => '0');

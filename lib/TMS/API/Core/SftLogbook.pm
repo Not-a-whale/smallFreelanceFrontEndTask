@@ -22,8 +22,8 @@ has 'LogbookId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 
 has 'Notes'     => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 
 # relations
-has 'sft_log_entries' => ('is' => 'rw', 'isa' => 'ArrayObjSftLogEntry', 'coerce' => '1', 'required' => '0');
 has 'trip'            => ('is' => 'rw', 'isa' => 'ObjDspTrip',          'coerce' => '1', 'required' => '0');
+has 'sft_log_entries' => ('is' => 'rw', 'isa' => 'ArrayObjSftLogEntry', 'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'SftLogbook');
 

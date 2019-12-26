@@ -102,6 +102,13 @@ __PACKAGE__->table("hr_associates");
   data_type: 'text'
   is_nullable: 1
 
+=head2 PrimaryContact
+
+  accessor: 'primary_contact'
+  data_type: 'tinyint'
+  default_value: 0
+  is_nullable: 0
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -167,6 +174,12 @@ __PACKAGE__->add_columns(
     },
     "Notes",
     {accessor => "notes", data_type => "text", is_nullable => 1},
+    "PrimaryContact",
+    {   accessor      => "primary_contact",
+        data_type     => "tinyint",
+        default_value => 0,
+        is_nullable   => 0,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -1036,8 +1049,8 @@ __PACKAGE__->has_many(
     {"foreign.InspectorId" => "self.AstId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-25 21:12:39
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:15RAF0TzSUo4vVjj9Lo1Qw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-26 15:33:21
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9TzplqfF2joFrU7kPqcW5g
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

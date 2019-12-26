@@ -39,13 +39,13 @@ my $total_start = time();
 my $CLI = ParseCLI(
     isfatal => 1,
     rules   => {
-        dbuser => {isa => 'Str', required => 1, default => 'root',       comment => 'Database User'},
-        dbpass => {isa => 'Str', required => 1, default => 'Nlvae4asd!', comment => 'Database Password'},
-        dbhost => {isa => 'Str', required => 1, default => 'balancer',   comment => 'Database Host or IP'},
-        dbname => {isa => 'Str', required => 1, default => 'tms',        comment => 'Database Name'},
-        class  => {isa => 'Str', required => 1, default => 'TMS',        comment => 'Name of the perl class'},
-        dest   => {isa => 'Str', required => 1, default => 'lib',        comment => 'Library destination'},
-        prove  => {isa => 'Str', required => 1, default => 't',          comment => 'Path to tests'},
+        dbuser => {isa => 'Str', required => 1, default => 'root',            comment => 'Database User'},
+        dbpass => {isa => 'Str', required => 1, default => 'Nlvae4asd!',      comment => 'Database Password'},
+        dbhost => {isa => 'Str', required => 1, default => 'balancer',        comment => 'Database Host or IP'},
+        dbname => {isa => 'Str', required => 1, default => 'tms',             comment => 'Database Name'},
+        class  => {isa => 'Str', required => 1, default => 'TMS',             comment => 'Name of the perl class'},
+        dest   => {isa => 'Str', required => 1, default => 'lib',             comment => 'Library destination'},
+        prove  => {isa => 'Str', required => 1, default => 't',               comment => 'Path to tests'},
         templt => {isa => 'Str', required => 1, default => 'tools/templates', comment => 'Template\'s folder'},
 
         types => {
@@ -260,7 +260,14 @@ sub BuildAPI {
             if exists $ColumnsInfo{$cl}{'default_value'}
             && $ColumnsInfo{$cl}{'default_value'} ne 'CURRENT_TIMESTAMP';
 
-        push @$has_commons, "has '$cl' => (" . join(',', map {"'$_' => '$attr{$_}'"} keys %attr) . ');';
+        if (exists $attr{default}) {
+            push @$has_required, "has '$cl' => (" . join(',', map {"'$_' => '$attr{$_}'"} keys %attr) . ');';
+            $attr{required} = 0;
+            delete $attr{default};
+            push @$has_optional, "has '$cl' => (" . join(',', map {"'$_' => '$attr{$_}'"} keys %attr) . ');';
+        } else {
+            push @$has_commons, "has '$cl' => (" . join(',', map {"'$_' => '$attr{$_}'"} keys %attr) . ');';
+        }
     }
 
     foreach my $cl (keys %RelateInfo) {

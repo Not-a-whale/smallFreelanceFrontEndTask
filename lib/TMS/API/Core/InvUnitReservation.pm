@@ -24,9 +24,9 @@ has 'DateReleased'  => ('is' => 'rw', 'isa' => 'DATETIME',      'coerce' => '1',
 has 'ReservationId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
 
 # relations
-has 'prsn'       => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'coerce' => '1', 'required' => '0');
 has 'created_by' => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'coerce' => '1', 'required' => '0');
 has 'inv_role'   => ('is' => 'rw', 'isa' => 'ObjInvRole',     'coerce' => '1', 'required' => '0');
+has 'prsn'       => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'coerce' => '1', 'required' => '0');
 has 'unit'       => ('is' => 'rw', 'isa' => 'ObjInvUnit',     'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'InvUnitReservation');

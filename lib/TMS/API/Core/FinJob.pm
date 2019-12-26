@@ -23,9 +23,9 @@ has 'JobId'      => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0',
 has 'Title'      => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 
 # relations
+has 'fin_transactions'    => ('is' => 'rw', 'isa' => 'ArrayObjFinTransaction',  'coerce' => '1', 'required' => '0');
 has 'fin_invoices_items'  => ('is' => 'rw', 'isa' => 'ArrayObjFinInvoicesItem', 'coerce' => '1', 'required' => '0');
 has 'dsp_loads'           => ('is' => 'rw', 'isa' => 'ArrayObjDspLoad',         'coerce' => '1', 'required' => '0');
-has 'fin_transactions'    => ('is' => 'rw', 'isa' => 'ArrayObjFinTransaction',  'coerce' => '1', 'required' => '0');
 has 'fin_journal_entries' => ('is' => 'rw', 'isa' => 'ArrayObjFinJournalEntry', 'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinJob');
