@@ -53,11 +53,8 @@ sub Update {
     my $trait    = $core . 'Strict';
     my $prefetch = $self->prefetch;
 
-    $DB::single = 2;
-
     my $inst = $core->with_traits($trait)->new($data);
     my $row  = $inst->UpdateOrNew;
-    print "-" x 60 . "\n";
     if ($row) {
         my $record = undef;
         $$record{$_} = $inst->$_ foreach $inst->ColumnsList;

@@ -28,7 +28,7 @@ sub BUILDARGS {
     my %args  = ref $_[0] ? %{$_[0]} : @_;
     my $data  = Sift(\%args);
     return $data;
-}
+} ## end sub BUILDARGS
 
 sub Sift {
     my $data = shift;
@@ -53,7 +53,7 @@ sub Sift {
         }
     }
     return $data;
-}
+} ## end sub Sift
 
 sub Validate {
     my $self = shift;
@@ -88,7 +88,7 @@ sub Validate {
         }
     }
     return scalar(%args) ? \%args : undef;
-}
+} ## end sub Validate
 
 sub _inner_loop {
     my $self   = shift;
@@ -109,7 +109,7 @@ sub _inner_loop {
             }
         }
     }
-}
+} ## end sub _inner_loop
 
 sub _outter_loop {
     my $self = shift;
@@ -129,7 +129,7 @@ sub _outter_loop {
             $inst->$method;
         }
     }
-}
+} ## end sub _outter_loop
 
 sub _loop_manager {
     my $self = shift;
@@ -157,7 +157,7 @@ sub _loop_manager {
         return $row;
     }
     return undef;
-}
+} ## end sub _loop_manager
 
 #{                                      #{
 #    "home_ph" => {                     #    'PhExt'           => 0,
@@ -202,7 +202,7 @@ sub _tree_to_flat {
         }
     }
     return $flat;
-}
+} ## end sub _tree_to_flat
 
 sub Like  {&Show}
 sub RLike {&Show}
@@ -210,15 +210,15 @@ sub Rlike {&Show}
 
 sub Show {
     my $self   = shift;
-    my $acnt   = scalar @_;
-    my $method = (caller(1))[3];
+    my $acnt   = scalar @_;         # attributes count
+    my $method = (caller(1))[3];    # who called us, maybe nobody, maybe LIKE or RLIKE
 
     if ($acnt == 1 && !defined $_[0]) {
         return $self->Search(undef, {prefetch => $self->_prefetch})->hashref_array();
     } elsif ($acnt > 1 && ref($_[1]) eq 'HASH') {
         my $attr = _tree_to_flat($_[0]);
         $_[0] = $attr;
-        $_[1]->{prefetch} = $self->_prefetch if !exists $_[1]->{prefetch};
+        $_[1]->{prefetch} = $self->_prefetch if !exists $_[1]->{prefetch} && defined $self->_prefetch;
         return $self->Search(@_)->hashref_array();
     } else {
         my $attr = _tree_to_flat($self->Validate);
@@ -240,17 +240,17 @@ sub Show {
         $$rules{rows}     = $self->_rows     if defined $self->_rows;
         $$rules{page}     = $self->_page     if defined $self->_page;
 
-        if( defined $self->_order_by ) {
+        if (defined $self->_order_by) {
             my $order = [];
-            foreach( @{$self->_order_by} ) {
-                my ($col,$dir) = %$_;
-                $col = 'me.'.$col if $col !~ /\./;
-                if( $dir =~ /(asc|desc)/i ) {
+            foreach (@{$self->_order_by}) {
+                my ($col, $dir) = %$_;
+                $col = 'me.' . $col if $col !~ /\./;
+                if ($dir =~ /(asc|desc)/i) {
                     $dir = '-' . lc($1);
                 } else {
                     $dir = '-asc';
                 }
-                push @$order, { $dir => $col };
+                push @$order, {$dir => $col};
             }
             $$rules{order_by} = $order;
         }
@@ -258,11 +258,7 @@ sub Show {
         return $self->Search($attr, $rules)->hashref_array();
     }
     confess "No idea what to do";
-}
-
-sub _update_OR_create {
-    shift->_loop_manager('update_or_create');
-}
+} ## end sub Show
 
 # ----------------------------------------------------------------------------
 # wrapper methods
@@ -278,17 +274,15 @@ sub RelationshipsInfo {
     {
         map { $_, $rs->relationship_info($_) } $rs->relationships
     }
-}
+} ## end sub RelationshipsInfo
 
 sub ColumnsList      { shift->ResultSource->columns }
 sub Commit           { shift->Schema->txn_commit }
 sub Connected        { shift->Storage->connected }
-sub Create           { my $self = shift; $self->ResultSet->create($self->Validate(@_)) }
 sub CreateOrUpdate   {&UpdateOrCreate}
 sub Dump             { Dumper([shift->Show(@_)]) }
 sub EnsureConnected  { shift->Storage->ensure_connected }
 sub Find             { my $self = shift; $self->ResultSet->find($self->Validate(@_)) }
-sub FindOrCreate     { shift->_loop_manager('update_or_create') }
 sub Json             { $JSON->encode([shift->Show(@_)]) }
 sub JsonTell         { print shift->Json(@_) }
 sub PrimaryColumns   { shift->ResultSource->primary_columns }
@@ -300,18 +294,50 @@ sub Storage          { shift->Schema->storage }
 sub Tell             { print shift->Dump(@_) }
 sub Transaction      { shift->Schema->txn_do(@_) }
 sub TransactionBegin { shift->Schema->txn_begin }
-sub UpdateOrNew      { shift->_loop_manager('update_or_new') }
 sub SvpBegin         { shift->Storage->svp_begin(@_) }
 sub SvpRelease       { shift->Storage->svp_release(@_) }
 sub SvpRollback      { shift->Storage->svp_rollback(@_) }
 
-sub UpdateOrCreate {
+sub _find_or_create   { shift->_loop_manager('update_or_create') }
+sub _update_or_new    { shift->_loop_manager('update_or_new') }
+sub _update_or_create { shift->_loop_manager('update_or_create') }
+
+sub _strict_create {
     my $self = shift;
-    $self->EnsureConnected;
-    my $trxn = $self->Schema->txn_scope_guard;
-    $self->_update_OR_create;
-    $trxn->commit;
+    $self->ResultSet->create($self->Validate(@_));
 }
+
+sub Create {
+    my $self = shift;
+    my $trxn = $self->Schema->txn_scope_guard;
+    my $rslt = $self->_strict_create(@_);
+    $trxn->commit;
+    return $rslt;
+} ## end sub Create
+
+sub FindOrCreate {
+    my $self = shift;
+    my $trxn = $self->Schema->txn_scope_guard;
+    my $rslt = $self->_find_or_create;
+    $trxn->commit;
+    return $rslt;
+} ## end sub FindOrCreate
+
+sub UpdateOrNew {
+    my $self = shift;
+    my $trxn = $self->Schema->txn_scope_guard;
+    my $rslt = $self->_update_or_new;
+    $trxn->commit;
+    return $rslt;
+} ## end sub UpdateOrNew
+
+sub UpdateOrCreate {
+    my $self = shift;                            # $self->EnsureConnected;
+    my $trxn = $self->Schema->txn_scope_guard;
+    my $rslt = $self->_update_or_create;
+    $trxn->commit;
+    return $rslt;
+} ## end sub UpdateOrCreate
 
 sub NonPrimaryColumns {
     my $self = shift;
@@ -342,7 +368,7 @@ sub RelationshipAttr {
         $$attr{$col}{name} = $name;
     }
     return $attr;
-}
+} ## end sub RelationshipAttr
 
 sub ReverseRelationshipInfo {
     my $self = shift;
