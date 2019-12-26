@@ -324,9 +324,8 @@ __PACKAGE__->belongs_to(
     on_delete     => "RESTRICT",
     on_update     => "CASCADE",
   },
+);
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
-
-);
 
 1;
