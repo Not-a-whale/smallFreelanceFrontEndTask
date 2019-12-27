@@ -56,11 +56,11 @@ sub BuildRoutes {
     my ($class, $prefix) = @_;
     prefix($prefix);
 
-    get '/search'  => http_basic_auth required => sub { $class->new()->Search(body_parameters->mixed), http_basic_auth_login() };
-    post '/search' => http_basic_auth required => sub { $class->new()->Search(body_parameters->mixed), http_basic_auth_login() };
-    post '/create' => http_basic_auth required => sub { $class->new()->Create(body_parameters->mixed), http_basic_auth_login() };
-    post '/update' => http_basic_auth required => sub { $class->new()->Update(body_parameters->mixed), http_basic_auth_login() };
-    post '/delete' => http_basic_auth required => sub { $class->new()->Delete(body_parameters->mixed), http_basic_auth_login() };
-}
+    get '/search'  => http_basic_auth required => sub { $class->new()->Search(http_basic_auth_login(), body_parameters->mixed) };
+    post '/search' => http_basic_auth required => sub { $class->new()->Search(http_basic_auth_login(), body_parameters->mixed) };
+    post '/create' => http_basic_auth required => sub { $class->new()->Create(http_basic_auth_login(), body_parameters->mixed) };
+    post '/update' => http_basic_auth required => sub { $class->new()->Update(http_basic_auth_login(), body_parameters->mixed) };
+    post '/delete' => http_basic_auth required => sub { $class->new()->Delete(http_basic_auth_login(), body_parameters->mixed) };
+} ## end sub BuildRoutes
 
 1;
