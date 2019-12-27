@@ -100,7 +100,7 @@ sub Delete {
 
     try {
         my $inst = $core->with_traits($trait)->new($data);
-        $$post{DATA} = {"records_removed" => $inst->Delete};
+        $$post{DATA} = {"records_removed" => defined $inst->Delete ? 'yes' : 'no' };
     } catch {
         $$post{ERROR} = $_;
     };
