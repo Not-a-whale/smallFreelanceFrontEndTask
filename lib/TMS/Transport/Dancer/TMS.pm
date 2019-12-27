@@ -5,6 +5,8 @@ use warnings;
 
 use Dancer2;
 use Dancer2::Logger::File;
+use Dancer2::Plugin::Auth::HTTP::Basic::DWIW;
+use Data::Dumper;
 use File::Find;
 use FindBin;
 use Cwd 'abs_path';
@@ -26,6 +28,17 @@ set content_type => 'application/json';
 
 our $VERSION = '3.1';
 
+http_basic_auth_handler check_login => sub {
+    my ($user, $pass) = @_;
+    my $route  = request->route->spec_route;
+    my $method = request->route->method;
+    return $user eq 'test' && $pass eq 'test';
+};
+
+http_basic_auth_handler no_auth => sub {
+    send_as 'html' => send_file '/unauthorized.html';
+};
+
 get '/' => sub {
     send_as 'html' => send_file '/index.html';
 };
@@ -39,4 +52,15 @@ find(
     abs_path("$FindBin::Bin/../lib") . '/TMS/Transport/Dancer/Routes'
 );
 
-true;
+sub BuildRoutes {
+    my ($class, $prefix) = @_;
+    prefix($prefix);
+
+    get '/search'  => http_basic_auth required => sub { $class->new()->Search(body_parameters->mixed), http_basic_auth_login() };
+    post '/search' => http_basic_auth required => sub { $class->new()->Search(body_parameters->mixed), http_basic_auth_login() };
+    post '/create' => http_basic_auth required => sub { $class->new()->Create(body_parameters->mixed), http_basic_auth_login() };
+    post '/update' => http_basic_auth required => sub { $class->new()->Update(body_parameters->mixed), http_basic_auth_login() };
+    post '/delete' => http_basic_auth required => sub { $class->new()->Delete(body_parameters->mixed), http_basic_auth_login() };
+}
+
+1;

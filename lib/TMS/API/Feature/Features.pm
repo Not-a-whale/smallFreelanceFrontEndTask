@@ -13,7 +13,7 @@ $Data::Dumper::Terse = 1;
 use Moose;
 
 sub Search {
-    my ($self, $post) = @_;
+    my ($self, $post, $user, $pass) = @_;
     my $core   = $self->coreapi;
     my $trait  = $core . 'Search';
     my $caller = (caller(1))[3];
@@ -42,12 +42,12 @@ sub Search {
     };
 
     return $post;
-} ## end sub Search
+}
 
 sub Fetch {&Search}
 
 sub Update {
-    my ($self, $post) = @_;
+    my ($self, $post, $user, $pass) = @_;
     my $data     = $$post{POST};
     my $core     = $self->coreapi;
     my $trait    = $core . 'Strict';
@@ -65,10 +65,10 @@ sub Update {
         $$post{ERROR} = $_;
     };
     return $post;
-} ## end sub Update
+}
 
 sub Create {
-    my ($self, $post) = @_;
+    my ($self, $post, $user, $pass) = @_;
     my $data     = $$post{POST};
     my $core     = $self->coreapi;
     my $trait    = $core . 'Strict';
@@ -86,10 +86,10 @@ sub Create {
         $$post{ERROR} = $_;
     };
     return $post;
-} ## end sub Create
+}
 
 sub Delete {
-    my ($self, $post) = @_;
+    my ($self, $post, $user, $pass) = @_;
     my $data     = $$post{POST};
     my $core     = $self->coreapi;
     my $trait    = $core . 'Strict';
@@ -103,6 +103,6 @@ sub Delete {
     };
 
     return $post;
-} ## end sub Delete
+}
 
 1;
