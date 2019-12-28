@@ -1,0 +1,516 @@
+
+----------------------------------------------------------
+https://localhost:8443/api/telecom/search
+----------------------------------------------------------
+{
+   "DATA" : [
+      {
+         "Mobility" : "MOBILE",
+         "Notes" : "Necessitatibus dolor deserunt tempore eaque.",
+         "Extension" : "98607*0509",
+         "Number" : "762-824-2352",
+         "Features" : "SMS",
+         "PhnFaxId" : 3974
+      },
+      {
+         "Mobility" : "SOFT PHONE",
+         "Notes" : "Illum enim quo iure aut fuga minus. Non sed sit nihil incidunt ut nisi asperiores maxime. Cum est eligendi cumque occaecati dolores sapiente vitae est.",
+         "Extension" : "#84,**#363",
+         "Features" : "SMS",
+         "PhnFaxId" : 3976,
+         "Number" : "918-378-0840"
+      },
+      {
+         "Mobility" : "LAND LINE",
+         "Number" : "382-030-4839",
+         "Features" : "SMS,MMS",
+         "PhnFaxId" : 3982,
+         "Extension" : "**21#*,##4",
+         "Notes" : "Voluptatem nemo modi optio amet. Ipsum adipisci exercitationem quasi quasi consequuntur."
+      },
+      {
+         "Features" : "MMS,FAX",
+         "Number" : "418-388-4783",
+         "PhnFaxId" : 3984,
+         "Extension" : "0*64#43470",
+         "Notes" : "Eius ipsam voluptate aut.",
+         "Mobility" : "SOFT PHONE"
+      },
+      {
+         "Mobility" : "LAND LINE",
+         "Notes" : "Qui debitis ducimus corrupti beatae placeat.",
+         "Extension" : "018,8*5*15",
+         "Features" : "VOICE,SMS,MMS,FAX",
+         "PhnFaxId" : 3990,
+         "Number" : "969-357-7270"
+      },
+      {
+         "Mobility" : "SOFT PHONE",
+         "PhnFaxId" : 3992,
+         "Features" : "SMS,MMS",
+         "Number" : "298-082-6481",
+         "Extension" : "26#05#5439",
+         "Notes" : "Optio blanditiis aut provident repellat tempore dolorem."
+      },
+      {
+         "Features" : "SMS,FAX",
+         "PhnFaxId" : 4028,
+         "Number" : "116-274-6116",
+         "Notes" : "Sit sit voluptatem delectus. Et fugit quisquam perferendis. Et commodi reprehenderit assumenda quia a.",
+         "Extension" : "40#5#68282",
+         "Mobility" : "MOBILE"
+      },
+      {
+         "Mobility" : "MOBILE",
+         "Features" : "VOICE,SMS,MMS,FAX",
+         "Number" : "935-236-2187",
+         "PhnFaxId" : 4030,
+         "Extension" : "6#220#8#84",
+         "Notes" : "Veritatis velit et dolorem aut ratione."
+      },
+      {
+         "Mobility" : "MOBILE",
+         "Extension" : "2500*#*,,9",
+         "Notes" : "Magni magni voluptatum quasi et cum. Et velit impedit vero nihil tempore ipsam qui est. Neque hic sequi excepturi dolor.",
+         "PhnFaxId" : 4036,
+         "Features" : "SMS,MMS,FAX",
+         "Number" : "264-230-3059"
+      },
+      {
+         "Notes" : "Iste laboriosam optio exercitationem doloremque eaque voluptatem. Suscipit ex doloribus odit. Recusandae quis omnis aliquam fugiat dolores.",
+         "Extension" : "512786*2#7",
+         "Features" : "VOICE,SMS,MMS,FAX",
+         "PhnFaxId" : 4038,
+         "Number" : "419-061-3999",
+         "Mobility" : "MOBILE"
+      },
+      {
+         "Features" : "SMS",
+         "PhnFaxId" : 4086,
+         "Number" : "319-310-7211",
+         "Extension" : "1613143862",
+         "Notes" : "Vel laborum rerum facere iusto.",
+         "Mobility" : "LAND LINE"
+      },
+      {
+         "Notes" : "Pariatur debitis dolores cum ad maiores.",
+         "Extension" : "64#3327660",
+         "Number" : "301-264-8672",
+         "Features" : "VOICE,FAX",
+         "PhnFaxId" : 4088,
+         "Mobility" : "SOFT PHONE"
+      },
+      {
+         "Number" : "587-582-0072",
+         "Features" : "FAX",
+         "PhnFaxId" : 4094,
+         "Notes" : "Hic perferendis nihil quaerat quisquam. In dolores possimus magnam. Eius provident quidem repellat veniam voluptatem aut blanditiis.",
+         "Extension" : "56#3*#7936",
+         "Mobility" : "LAND LINE"
+      },
+      {
+         "Mobility" : "SOFT PHONE",
+         "Extension" : "4995341145",
+         "Notes" : "Neque ea sunt et repellat voluptas nihil sequi. Dolorem quod quos sunt laudantium natus suscipit eaque. Saepe vero dolores odit quae sint quaerat nulla.",
+         "Features" : "FAX",
+         "PhnFaxId" : 4096,
+         "Number" : "616-622-8955"
+      },
+      {
+         "Number" : "398-845-5037",
+         "Features" : "VOICE,SMS,FAX",
+         "PhnFaxId" : 4102,
+         "Extension" : "9933,18,*6",
+         "Notes" : "Provident earum expedita sint. Doloribus esse porro dolorem totam.",
+         "Mobility" : "MOBILE"
+      },
+      {
+         "Mobility" : "LAND LINE",
+         "PhnFaxId" : 4104,
+         "Features" : "VOICE",
+         "Number" : "128-924-7809",
+         "Extension" : "7,866*9654",
+         "Notes" : "Vero est beatae quaerat similique atque laborum rem. Debitis aut hic atque rerum."
+      },
+      {
+         "Mobility" : "LAND LINE",
+         "Notes" : "In provident dolorem itaque voluptatem voluptas.",
+         "Extension" : "8#617958#4",
+         "Features" : "SMS,MMS,FAX",
+         "PhnFaxId" : 4110,
+         "Number" : "248-315-1753"
+      },
+      {
+         "Mobility" : "SOFT PHONE",
+         "Features" : "VOICE,FAX",
+         "PhnFaxId" : 4112,
+         "Number" : "608-633-3721",
+         "Notes" : "Debitis provident excepturi sed odio. Est ex dolore qui impedit. Atque recusandae et non in minus enim ab quo.",
+         "Extension" : "3646,03354"
+      },
+      {
+         "Mobility" : "LAND LINE",
+         "Extension" : "649194#7#0",
+         "Notes" : "Corporis atque ullam fuga quos enim.",
+         "Features" : "VOICE,MMS,FAX",
+         "PhnFaxId" : 4118,
+         "Number" : "343-693-3697"
+      },
+      {
+         "Extension" : "388*955446",
+         "Notes" : "Porro dolorem sed facilis aliquid cumque.",
+         "Features" : "MMS",
+         "PhnFaxId" : 4120,
+         "Number" : "394-819-9334",
+         "Mobility" : "MOBILE"
+      },
+      {
+         "Features" : "VOICE",
+         "Number" : "613-678-3141",
+         "PhnFaxId" : 4126,
+         "Notes" : "Rerum possimus unde sed optio natus. Voluptas voluptate aut eligendi fuga in ut.",
+         "Extension" : "5493363574",
+         "Mobility" : "SOFT PHONE"
+      },
+      {
+         "Number" : "788-991-2169",
+         "Features" : "VOICE",
+         "PhnFaxId" : 4128,
+         "Extension" : "11*09,8*#8",
+         "Notes" : "Harum sequi molestiae est voluptatem quos. Similique quibusdam ut voluptas exercitationem.",
+         "Mobility" : "SOFT PHONE"
+      },
+      {
+         "Mobility" : "LAND LINE",
+         "Features" : "VOICE,MMS,FAX",
+         "PhnFaxId" : 4138,
+         "Number" : "597-155-5654",
+         "Notes" : "Eos iure velit a ut dolor ex quibusdam qui. Dolorum doloribus cum odit ipsa. Sequi reiciendis error voluptatibus vero autem quas.",
+         "Extension" : "63,6#,,338"
+      },
+      {
+         "Mobility" : "LAND LINE",
+         "Extension" : "0791119494",
+         "Notes" : "Maiores reiciendis nemo harum quisquam. Eos est consequatur dolores nihil hic.",
+         "Features" : "VOICE,SMS,MMS,FAX",
+         "Number" : "868-083-5572",
+         "PhnFaxId" : 4140
+      },
+      {
+         "Notes" : "Odit quia autem eligendi harum nobis totam assumenda optio. Quia error molestias est nostrum. Corrupti ratione voluptatibus et reprehenderit qui voluptatibus numquam.",
+         "Extension" : "85906#*8,6",
+         "Features" : "VOICE,SMS,MMS,FAX",
+         "PhnFaxId" : 4198,
+         "Number" : "787-983-5692",
+         "Mobility" : "MOBILE"
+      },
+      {
+         "Features" : "SMS,MMS",
+         "Number" : "668-891-4055",
+         "PhnFaxId" : 4200,
+         "Extension" : "2047293753",
+         "Notes" : "Neque velit perspiciatis similique voluptas non iure.",
+         "Mobility" : "MOBILE"
+      },
+      {
+         "Mobility" : "MOBILE",
+         "Extension" : "*92,235543",
+         "Notes" : "Voluptas asperiores impedit voluptas delectus et aut et perspiciatis.",
+         "Features" : "VOICE,SMS,FAX",
+         "Number" : "180-900-2566",
+         "PhnFaxId" : 4202
+      },
+      {
+         "Mobility" : "MOBILE",
+         "Extension" : "69570,7051",
+         "Notes" : "Et illum est officiis aut. Ad nesciunt distinctio voluptatum impedit explicabo sunt.",
+         "Features" : "SMS,MMS,FAX",
+         "Number" : "344-280-2437",
+         "PhnFaxId" : 4204
+      },
+      {
+         "PhnFaxId" : 4206,
+         "Features" : "VOICE,MMS,FAX",
+         "Number" : "796-133-9327",
+         "Notes" : "Exercitationem nihil recusandae nemo quis doloribus. Itaque incidunt itaque et quis facere ut dolor sit.",
+         "Extension" : "2738005242",
+         "Mobility" : "MOBILE"
+      },
+      {
+         "Features" : "SMS",
+         "Number" : "744-981-1054",
+         "PhnFaxId" : 4208,
+         "Extension" : "1,,#40*362",
+         "Notes" : "Ducimus labore odio quam quas.",
+         "Mobility" : "LAND LINE"
+      },
+      {
+         "Mobility" : "SOFT PHONE",
+         "Number" : "464-059-6382",
+         "Features" : "MMS,FAX",
+         "PhnFaxId" : 4210,
+         "Notes" : "Et impedit tempora sint hic cupiditate placeat nam autem. Sequi sapiente fugit ad tempora id. Sed et adipisci a dolor qui sint.",
+         "Extension" : "4869,6#749"
+      },
+      {
+         "Extension" : "*54,74*#76",
+         "Notes" : "Dolorum culpa ab placeat quo. Ea quasi quo sit nemo magni ea aut.",
+         "PhnFaxId" : 4212,
+         "Features" : "SMS,FAX",
+         "Number" : "768-853-8546",
+         "Mobility" : "MOBILE"
+      },
+      {
+         "Mobility" : "SOFT PHONE",
+         "Number" : "786-491-3038",
+         "Features" : "SMS,MMS",
+         "PhnFaxId" : 4214,
+         "Notes" : "Quia dicta ea inventore illo ducimus ut dignissimos et. Et excepturi est eveniet aliquam.",
+         "Extension" : "0214*,9852"
+      },
+      {
+         "Extension" : "*4##607#82",
+         "Notes" : "Eum dolorum molestias fugit. Sit harum illum libero omnis. Aut dolorum nisi quis inventore adipisci.",
+         "Features" : "VOICE,MMS",
+         "PhnFaxId" : 4216,
+         "Number" : "421-567-1640",
+         "Mobility" : "SOFT PHONE"
+      },
+      {
+         "Mobility" : "MOBILE",
+         "Number" : "428-252-2894",
+         "Features" : "VOICE,SMS,MMS,FAX",
+         "PhnFaxId" : 4218,
+         "Extension" : "**27080481",
+         "Notes" : "Dolores illum ea culpa facere aut sapiente enim. Optio enim fugit veniam animi dolorem perferendis. Reprehenderit quisquam necessitatibus hic ipsum dolores quis harum amet."
+      },
+      {
+         "Features" : "VOICE,SMS,MMS,FAX",
+         "Number" : "601-539-9318",
+         "PhnFaxId" : 4220,
+         "Extension" : "#85688,919",
+         "Notes" : "Quas ut ad ut ea deserunt corrupti. Iure velit ullam odio.",
+         "Mobility" : "LAND LINE"
+      },
+      {
+         "Mobility" : "LAND LINE",
+         "Notes" : null,
+         "Extension" : "0",
+         "Features" : "VOICE",
+         "PhnFaxId" : 4221,
+         "Number" : "916-718-8451"
+      },
+      {
+         "Mobility" : "LAND LINE",
+         "PhnFaxId" : 4223,
+         "Features" : "VOICE",
+         "Number" : "619-555-1212",
+         "Notes" : null,
+         "Extension" : "0"
+      },
+      {
+         "Features" : "VOICE",
+         "PhnFaxId" : 4255,
+         "Number" : "916-515-8065",
+         "Notes" : null,
+         "Extension" : "0",
+         "Mobility" : "LAND LINE"
+      },
+      {
+         "Mobility" : "LAND LINE",
+         "Notes" : null,
+         "Extension" : "0",
+         "Features" : "VOICE",
+         "Number" : "916-515-8066",
+         "PhnFaxId" : 4257
+      },
+      {
+         "Mobility" : "LAND LINE",
+         "PhnFaxId" : 4259,
+         "Features" : "VOICE",
+         "Number" : "916-880-8506",
+         "Notes" : null,
+         "Extension" : "0"
+      },
+      {
+         "Mobility" : "LAND LINE",
+         "Features" : "VOICE",
+         "PhnFaxId" : 4261,
+         "Number" : "916-515-8065",
+         "Notes" : null,
+         "Extension" : "1001"
+      },
+      {
+         "Features" : "VOICE",
+         "PhnFaxId" : 4263,
+         "Number" : "916-515-8065",
+         "Extension" : "1009",
+         "Notes" : null,
+         "Mobility" : "LAND LINE"
+      },
+      {
+         "Mobility" : "LAND LINE",
+         "Number" : "916-389-4508",
+         "Features" : "VOICE",
+         "PhnFaxId" : 4265,
+         "Extension" : "0",
+         "Notes" : null
+      },
+      {
+         "Mobility" : "LAND LINE",
+         "Extension" : "0",
+         "Notes" : null,
+         "Number" : "916-850-6884",
+         "Features" : "VOICE",
+         "PhnFaxId" : 4269
+      },
+      {
+         "Mobility" : "LAND LINE",
+         "Notes" : null,
+         "Extension" : "0",
+         "Features" : "VOICE",
+         "PhnFaxId" : 4273,
+         "Number" : "214-250-1011"
+      },
+      {
+         "Mobility" : "LAND LINE",
+         "Extension" : "0",
+         "Notes" : null,
+         "Number" : "300 802 3628",
+         "Features" : "VOICE",
+         "PhnFaxId" : 4275
+      },
+      {
+         "Mobility" : "LAND LINE",
+         "Extension" : "0",
+         "Notes" : null,
+         "PhnFaxId" : 4277,
+         "Features" : "VOICE",
+         "Number" : "4008023608"
+      },
+      {
+         "Extension" : "0",
+         "Notes" : null,
+         "Features" : "VOICE",
+         "PhnFaxId" : 4279,
+         "Number" : "5080236760",
+         "Mobility" : "LAND LINE"
+      },
+      {
+         "Mobility" : "LAND LINE",
+         "Extension" : "0",
+         "Notes" : null,
+         "Features" : "VOICE",
+         "PhnFaxId" : 4281,
+         "Number" : "5080407240"
+      },
+      {
+         "Mobility" : "LAND LINE",
+         "Notes" : null,
+         "Extension" : "0",
+         "Features" : "VOICE",
+         "PhnFaxId" : 4283,
+         "Number" : "777-888-8888"
+      },
+      {
+         "Mobility" : "LAND LINE",
+         "Notes" : null,
+         "Extension" : "0",
+         "Features" : "FAX",
+         "PhnFaxId" : 4287,
+         "Number" : "818-989-0208"
+      },
+      {
+         "Features" : "VOICE",
+         "Number" : "818-989-0206",
+         "PhnFaxId" : 4289,
+         "Extension" : "0",
+         "Notes" : null,
+         "Mobility" : "LAND LINE"
+      },
+      {
+         "Number" : "916-880-8507",
+         "Features" : "VOICE",
+         "PhnFaxId" : 4291,
+         "Notes" : null,
+         "Extension" : "0",
+         "Mobility" : "LAND LINE"
+      }
+   ],
+   "POST" : {
+      "sortby" : [
+         {
+            "Number" : "asc",
+            "Extension" : "desc"
+         }
+      ]
+   }
+}
+
+----------------------------------------------------------
+https://localhost:8443/api/telecom/search
+----------------------------------------------------------
+{
+   "POST" : {
+      "search" : {
+         "Number" : "100-200-300"
+      }
+   },
+   "DATA" : []
+}
+
+----------------------------------------------------------
+https://localhost:8443/api/telecom/create
+----------------------------------------------------------
+{
+   "DATA" : [
+      {
+         "Notes" : null,
+         "Extension" : "0",
+         "Features" : "VOICE",
+         "Number" : "100-200-3000",
+         "PhnFaxId" : 4295,
+         "Mobility" : "LAND LINE"
+      }
+   ],
+   "POST" : {
+      "Number" : "100-200-3000",
+      "PhnFaxId" : 4295
+   }
+}
+
+----------------------------------------------------------
+https://localhost:8443/api/telecom/update
+----------------------------------------------------------
+{
+   "DATA" : [
+      {
+         "Mobility" : "LAND LINE",
+         "Extension" : "0",
+         "Notes" : null,
+         "Features" : "VOICE",
+         "Number" : "100-200-3001",
+         "PhnFaxId" : 4295
+      }
+   ],
+   "POST" : {
+      "Number" : "100-200-3001",
+      "PhnFaxId" : 4295
+   }
+}
+
+----------------------------------------------------------
+https://localhost:8443/api/telecom/delete
+----------------------------------------------------------
+{
+   "POST" : {
+      "Number" : "100-200-3001"
+   },
+   "DATA" : {
+      "records_removed" : "yes"
+   }
+}
+
+----------------------------------------------------------
+https://localhost:8443/api/telecom/search
+----------------------------------------------------------
