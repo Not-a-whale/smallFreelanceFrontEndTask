@@ -12,6 +12,9 @@ $Data::Dumper::Terse = 1;
 
 use Moose;
 
+has coreapi => (is => 'rw', required => 1, isa => 'Str', init_arg => undef, lazy_build => 1);
+has prefetch => (is => 'rw', required => 0, isa => 'Undef|HashRef|ArrayRef', lazy_build => 1);
+
 sub Search {
     my ($self, $user, $pass, $post) = @_;
     my $core   = $self->coreapi;
@@ -42,7 +45,7 @@ sub Search {
     };
 
     return $post;
-}
+} ## end sub Search
 
 sub Fetch {&Search}
 
@@ -65,7 +68,7 @@ sub Update {
         $$post{ERROR} = $_;
     };
     return $post;
-}
+} ## end sub Update
 
 sub Create {
     my ($self, $user, $pass, $post) = @_;
@@ -86,7 +89,7 @@ sub Create {
         $$post{ERROR} = $_;
     };
     return $post;
-}
+} ## end sub Create
 
 sub Delete {
     my ($self, $user, $pass, $post) = @_;
@@ -97,12 +100,12 @@ sub Delete {
 
     try {
         my $inst = $core->with_traits($trait)->new($data);
-        $$post{DATA} = {"records_removed" => $inst->Delete};
+        $$post{DATA} = {"records_removed" => defined $inst->Delete ? 'yes' : 'no' };
     } catch {
         $$post{ERROR} = $_;
     };
 
     return $post;
-}
+} ## end sub Delete
 
 1;
