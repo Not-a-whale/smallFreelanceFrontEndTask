@@ -301,6 +301,13 @@ __PACKAGE__->has_many(
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:illOVJK/9uF625o8Ljs3ww
 
 __PACKAGE__->belongs_to(
+    "vendor_biz",
+    "TMS::Schema::Result::EntBusiness",
+    {BizId         => "BizId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+);
+
+__PACKAGE__->belongs_to(
   "vendor_address",
   "TMS::Schema::Result::CntAddress",
   { AddrId => "BrnchAddress" },

@@ -14,12 +14,12 @@ sub Chained {
     my ($pkg, $sub);
     do {
         ($pkg, $sub) = (CORE::caller($lvl))[0, 3];
-        #    printf STDERR "      %3d: %s -> %s\n", $lvl, $pkg, $sub;
-        $rle = 'Search' if $pkg eq 'TMS' && $sub =~ /^TMS::API::Feature::.*?Search$/;
+        # printf STDERR "      %3d: %s -> %s\n", $lvl, $pkg, $sub;
+        $rle = 'Search' if $sub =~ /^TMS::API::Feature::.*?Search$/;
         $lvl++;
     } while (!($pkg eq 'Dancer2::Core::Route' || $pkg eq 'main'));
     #printf STDERR "   TRAIT: $rle\n";
     return $rle;
-}
+} ## end sub Chained
 
 1;

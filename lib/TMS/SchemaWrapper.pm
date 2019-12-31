@@ -20,6 +20,7 @@ has '_rows'     => (is => 'rw', required => 0, isa     => 'Undef|Int');
 has '_page'     => (is => 'rw', required => 0, isa     => 'Undef|Int');
 has '_order_by' => (is => 'rw', required => 0, isa     => 'Undef|ArrayRef');
 has '_prefetch' => (is => 'rw', required => 0, isa     => 'Undef|ArrayRef|HashRef');
+has '_flatten'  => (is => 'rw', required => 1, isa     => 'Bool', default => 1);
 has Schema      => (is => 'rw', lazy     => 1, builder => '_get_dbix_hdl');
 sub _get_dbix_hdl { shift->Schema(TMS::Schema->new()->DBIxHandle) }
 
@@ -28,7 +29,7 @@ sub BUILDARGS {
     my %args  = ref $_[0] ? %{$_[0]} : @_;
     my $data  = Sift(\%args);
     return $data;
-}
+} ## end sub BUILDARGS
 
 sub Sift {
     my $data = shift;
@@ -53,7 +54,7 @@ sub Sift {
         }
     }
     return $data;
-}
+} ## end sub Sift
 
 sub Validate {
     my $self = shift;
@@ -88,7 +89,7 @@ sub Validate {
         }
     }
     return scalar(%args) ? \%args : undef;
-}
+} ## end sub Validate
 
 sub _inner_loop {
     my $self   = shift;
@@ -109,7 +110,7 @@ sub _inner_loop {
             }
         }
     }
-}
+} ## end sub _inner_loop
 
 sub _outter_loop {
     my $self = shift;
@@ -129,7 +130,7 @@ sub _outter_loop {
             $inst->$method;
         }
     }
-}
+} ## end sub _outter_loop
 
 sub _loop_manager {
     my $self = shift;
@@ -157,7 +158,7 @@ sub _loop_manager {
         return $row;
     }
     return undef;
-}
+} ## end sub _loop_manager
 
 #{                                      #{
 #    "home_ph" => {                     #    'PhExt'           => 0,
@@ -202,27 +203,55 @@ sub _tree_to_flat {
         }
     }
     return $flat;
-}
+} ## end sub _tree_to_flat
 
 sub Like  {&Show}
 sub RLike {&Show}
 sub Rlike {&Show}
 
 sub Show {
+    $DB::single = 2;
     my $self   = shift;
     my $acnt   = scalar @_;         # attributes count
     my $method = (caller(1))[3];    # who called us, maybe nobody, maybe LIKE or RLIKE
+    my $rules  = {};
 
-    if ($acnt == 1 && !defined $_[0]) {
-        return $self->Search(undef, {prefetch => $self->_prefetch})->hashref_array();
-    } elsif ($acnt > 1 && ref($_[1]) eq 'HASH') {
-        my $attr = _tree_to_flat($_[0]);
-        $_[0] = $attr;
-        $_[1]->{prefetch} = $self->_prefetch if !exists $_[1]->{prefetch} && defined $self->_prefetch;
+    $$rules{prefetch} = $self->_prefetch if defined $self->_prefetch;
+    $$rules{rows}     = $self->_rows     if defined $self->_rows;
+    $$rules{page}     = $self->_page     if defined $self->_page;
+
+    if (defined $self->_order_by) {
+        my $order = [];
+        foreach (@{$self->_order_by}) {
+            my ($col, $dir) = %$_;
+            $col = 'me.' . $col if $col !~ /\./;
+            if ($dir =~ /(asc|desc)/i) {
+                $dir = '-' . lc($1);
+            } else {
+                $dir = '-asc';
+            }
+            push @$order, {$dir => $col};
+        }
+        $$rules{order_by} = $order;
+    }
+
+    if ($acnt == 1 && !defined $_[0]) {    ### when we have nothing at all, full builk search
+        return $self->Search(undef, $rules)->hashref_array();
+    } elsif ($acnt > 1 && ref($_[1]) eq 'HASH') {    ### if passed more than 2 elements, then you know what you are doing
+        foreach (keys %$rules) {
+            $_[1]->{$_} = $$rules{$_} if !exists $_[1]->{$_};
+        }
+
+        if ($self->_flatten) {
+            my $attr = _tree_to_flat($_[0]);
+            $_[0] = $attr;
+        }
+
         return $self->Search(@_)->hashref_array();
-    } else {
-        my $attr = _tree_to_flat($self->Validate);
-        if ($method =~ /::(R?Like)$/) {
+    } else {                                         ### no parameters what so ever, build everything internally.
+        my ($attr) = $self->_flatten ? _tree_to_flat($self->Validate(@_)) : $self->Validate(@_);
+
+        if ($self->_flatten && $method =~ /::(R?Like)$/) {
             my $type = uc($1);
             foreach (keys %$attr) {
                 my $value = $$attr{$_};
@@ -233,32 +262,10 @@ sub Show {
                 }
             }
         }
-
-        my $rules = {};
-
-        $$rules{prefetch} = $self->_prefetch if defined $self->_prefetch;
-        $$rules{rows}     = $self->_rows     if defined $self->_rows;
-        $$rules{page}     = $self->_page     if defined $self->_page;
-
-        if (defined $self->_order_by) {
-            my $order = [];
-            foreach (@{$self->_order_by}) {
-                my ($col, $dir) = %$_;
-                $col = 'me.' . $col if $col !~ /\./;
-                if ($dir =~ /(asc|desc)/i) {
-                    $dir = '-' . lc($1);
-                } else {
-                    $dir = '-asc';
-                }
-                push @$order, {$dir => $col};
-            }
-            $$rules{order_by} = $order;
-        }
-
         return $self->Search($attr, $rules)->hashref_array();
     }
     confess "No idea what to do";
-}
+} ## end sub Show
 
 # ----------------------------------------------------------------------------
 # wrapper methods
@@ -274,7 +281,7 @@ sub RelationshipsInfo {
     {
         map { $_, $rs->relationship_info($_) } $rs->relationships
     }
-}
+} ## end sub RelationshipsInfo
 
 sub ColumnsList      { shift->ResultSource->columns }
 sub Commit           { shift->Schema->txn_commit }
@@ -318,7 +325,7 @@ sub _basic_delete {
     } else {
         return undef;
     }
-}
+} ## end sub _basic_delete
 
 sub Delete {
     my $self = shift;
@@ -326,7 +333,7 @@ sub Delete {
     my $rslt = $self->_basic_delete(@_);
     $trxn->commit;
     return $rslt;
-}
+} ## end sub Delete
 
 sub Create {
     my $self = shift;
@@ -334,7 +341,7 @@ sub Create {
     my $rslt = $self->_strict_create(@_);
     $trxn->commit;
     return $rslt;
-}
+} ## end sub Create
 
 sub FindOrCreate {
     my $self = shift;
@@ -342,7 +349,7 @@ sub FindOrCreate {
     my $rslt = $self->_find_or_create;
     $trxn->commit;
     return $rslt;
-}
+} ## end sub FindOrCreate
 
 sub UpdateOrNew {
     my $self = shift;
@@ -350,7 +357,7 @@ sub UpdateOrNew {
     my $rslt = $self->_update_or_new;
     $trxn->commit;
     return $rslt;
-}
+} ## end sub UpdateOrNew
 
 sub UpdateOrCreate {
     my $self = shift;                            # $self->EnsureConnected;
@@ -358,7 +365,7 @@ sub UpdateOrCreate {
     my $rslt = $self->_update_or_create;
     $trxn->commit;
     return $rslt;
-}
+} ## end sub UpdateOrCreate
 
 sub NonPrimaryColumns {
     my $self = shift;
@@ -389,7 +396,7 @@ sub RelationshipAttr {
         $$attr{$col}{name} = $name;
     }
     return $attr;
-}
+} ## end sub RelationshipAttr
 
 sub ReverseRelationshipInfo {
     my $self = shift;

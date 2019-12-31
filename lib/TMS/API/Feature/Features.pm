@@ -20,6 +20,8 @@ sub Search {
     my $core   = $self->coreapi;
     my $trait  = $core . 'Search';
     my $caller = (caller(1))[3];
+    my $method = defined $caller && $caller eq 'TMS::API::Feature::Features::Fetch' ? 'Show' : 'Like';
+    my $cond   = undef;
     my %args
         = defined $post
         && ref($post) eq 'HASH'
@@ -32,14 +34,37 @@ sub Search {
     $attrs{_page}     = $args{page}    if exists $args{page}    && defined $args{page};
     $attrs{_order_by} = $args{orderby} if exists $args{orderby} && defined $args{orderby};
 
-    if (exists $args{search} && defined $args{search} && ref($args{search}) eq 'HASH') {
-        $attrs{$_} = $args{search}{$_} foreach keys %{$args{search}};
+    if (exists $args{search} && defined $args{search} && ref($args{search})) {
+        if (ref($args{search}) eq 'HASH') {
+            $attrs{$_} = $args{search}{$_} foreach keys %{$args{search}};
+        } elsif (ref($args{search}) eq 'ARRAY') {
+            my @and    = ();
+            foreach my $grp (@{$args{search}}) {
+                if (ref($grp) eq 'HASH') {
+                    my @or = ();
+                    foreach my $cl (keys %$grp) {
+                        if ($method eq 'Show') {
+                            push @or, $cl => $$grp{$cl};
+                        } else {
+                            push @or, $cl => {'like' => "\%$$grp{$cl}\%"};
+                        }
+                    }
+                    push @and, '-or' => \@or;
+                } else {
+                    confess "Found non-hash elemenent in search" . Dumper($grp);
+                }
+            }
+            $cond = {'-and' => \@and};
+            $attrs{_flatten} = 0;
+        } else {
+            $$post{ERROR} = "Search must be either HashRef or an Array of Hashes";
+            $$post{DATA}  = undef;
+        }
     }
 
     try {
-        my $inst   = $core->with_traits($trait)->new(%attrs);
-        my $method = defined $caller && $caller eq 'TMS::API::Feature::Features::Fetch' ? 'Show' : 'Like';
-        $$post{DATA} = $inst->$method;
+        my $inst = $core->with_traits($trait)->new(%attrs);
+        $$post{DATA} = $inst->$method($cond);
     } catch {
         $$post{ERROR} = $_;
     };
@@ -100,7 +125,7 @@ sub Delete {
 
     try {
         my $inst = $core->with_traits($trait)->new($data);
-        $$post{DATA} = {"records_removed" => defined $inst->Delete ? 'yes' : 'no' };
+        $$post{DATA} = {"records_removed" => defined $inst->Delete ? 'yes' : 'no'};
     } catch {
         $$post{ERROR} = $_;
     };
