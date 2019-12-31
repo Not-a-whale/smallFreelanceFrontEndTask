@@ -32,20 +32,49 @@ sub Search {
     $attrs{_page}     = $args{page}    if exists $args{page}    && defined $args{page};
     $attrs{_order_by} = $args{orderby} if exists $args{orderby} && defined $args{orderby};
 
-    if (exists $args{search} && defined $args{search} && ref($args{search}) eq 'HASH') {
-        $attrs{$_} = $args{search}{$_} foreach keys %{$args{search}};
+    if (exists $args{search} && defined $args{search} && ref($args{search})) {
+        if (ref($args{search}) eq 'HASH') {
+            $attrs{$_} = $args{search}{$_} foreach keys %{$args{search}};
+            try {
+                my $inst   = $core->with_traits($trait)->new(%attrs);
+                my $method = defined $caller && $caller eq 'TMS::API::Feature::Features::Fetch' ? 'Show' : 'Like';
+                $$post{DATA} = $inst->$method;
+            } catch {
+                $$post{ERROR} = $_;
+            };
+        } elsif (ref($args{search}) eq 'ARRAY') {
+            my $method = defined $caller && $caller eq 'TMS::API::Feature::Features::Fetch' ? 'Show' : 'Like';
+            my @and    = ();
+            foreach my $grp (@{$args{search}}) {
+                if (ref($grp) eq 'HASH') {
+                    my @or = ();
+                    foreach my $cl (keys %$grp) {
+                        if ($method eq 'Show') {
+                            push @or, $cl => $$grp{$cl};
+                        } else {
+                            push @or, $cl => {'like' => "\%$$grp{$cl}\%"};
+                        }
+                    }
+                    push @and, '-or' => \@or;
+                } else {
+                    confess "Found non-hash elemenent in search" . Dumper($grp);
+                }
+            }
+
+            try {
+                my $cond = {'-and' => \@and};
+                my $inst = $core->with_traits($trait)->new(%attrs, _flatten => 0);
+                $$post{DATA} = $inst->$method($cond);
+            } catch {
+                $$post{ERROR} = $_;
+            };
+        } else {
+            $$post{ERROR} = "Search must be either HashRef or an Array of Hashes";
+            $$post{DATA}  = undef;
+        }
     }
-
-    try {
-        my $inst   = $core->with_traits($trait)->new(%attrs);
-        my $method = defined $caller && $caller eq 'TMS::API::Feature::Features::Fetch' ? 'Show' : 'Like';
-        $$post{DATA} = $inst->$method;
-    } catch {
-        $$post{ERROR} = $_;
-    };
-
     return $post;
-} ## end sub Search
+}
 
 sub Fetch {&Search}
 
@@ -68,7 +97,7 @@ sub Update {
         $$post{ERROR} = $_;
     };
     return $post;
-} ## end sub Update
+}
 
 sub Create {
     my ($self, $user, $pass, $post) = @_;
@@ -89,7 +118,7 @@ sub Create {
         $$post{ERROR} = $_;
     };
     return $post;
-} ## end sub Create
+}
 
 sub Delete {
     my ($self, $user, $pass, $post) = @_;
@@ -100,12 +129,12 @@ sub Delete {
 
     try {
         my $inst = $core->with_traits($trait)->new($data);
-        $$post{DATA} = {"records_removed" => defined $inst->Delete ? 'yes' : 'no' };
+        $$post{DATA} = {"records_removed" => defined $inst->Delete ? 'yes' : 'no'};
     } catch {
         $$post{ERROR} = $_;
     };
 
     return $post;
-} ## end sub Delete
+}
 
 1;
