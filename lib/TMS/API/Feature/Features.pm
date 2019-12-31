@@ -20,6 +20,8 @@ sub Search {
     my $core   = $self->coreapi;
     my $trait  = $core . 'Search';
     my $caller = (caller(1))[3];
+    my $method = defined $caller && $caller eq 'TMS::API::Feature::Features::Fetch' ? 'Show' : 'Like';
+    my $cond   = undef;
     my %args
         = defined $post
         && ref($post) eq 'HASH'
@@ -35,15 +37,7 @@ sub Search {
     if (exists $args{search} && defined $args{search} && ref($args{search})) {
         if (ref($args{search}) eq 'HASH') {
             $attrs{$_} = $args{search}{$_} foreach keys %{$args{search}};
-            try {
-                my $inst   = $core->with_traits($trait)->new(%attrs);
-                my $method = defined $caller && $caller eq 'TMS::API::Feature::Features::Fetch' ? 'Show' : 'Like';
-                $$post{DATA} = $inst->$method;
-            } catch {
-                $$post{ERROR} = $_;
-            };
         } elsif (ref($args{search}) eq 'ARRAY') {
-            my $method = defined $caller && $caller eq 'TMS::API::Feature::Features::Fetch' ? 'Show' : 'Like';
             my @and    = ();
             foreach my $grp (@{$args{search}}) {
                 if (ref($grp) eq 'HASH') {
@@ -60,21 +54,23 @@ sub Search {
                     confess "Found non-hash elemenent in search" . Dumper($grp);
                 }
             }
-
-            try {
-                my $cond = {'-and' => \@and};
-                my $inst = $core->with_traits($trait)->new(%attrs, _flatten => 0);
-                $$post{DATA} = $inst->$method($cond);
-            } catch {
-                $$post{ERROR} = $_;
-            };
+            $cond = {'-and' => \@and};
+            $attrs{_flatten} = 0;
         } else {
             $$post{ERROR} = "Search must be either HashRef or an Array of Hashes";
             $$post{DATA}  = undef;
         }
     }
+
+    try {
+        my $inst = $core->with_traits($trait)->new(%attrs);
+        $$post{DATA} = $inst->$method($cond);
+    } catch {
+        $$post{ERROR} = $_;
+    };
+
     return $post;
-}
+} ## end sub Search
 
 sub Fetch {&Search}
 
@@ -97,7 +93,7 @@ sub Update {
         $$post{ERROR} = $_;
     };
     return $post;
-}
+} ## end sub Update
 
 sub Create {
     my ($self, $user, $pass, $post) = @_;
@@ -118,7 +114,7 @@ sub Create {
         $$post{ERROR} = $_;
     };
     return $post;
-}
+} ## end sub Create
 
 sub Delete {
     my ($self, $user, $pass, $post) = @_;
@@ -135,6 +131,6 @@ sub Delete {
     };
 
     return $post;
-}
+} ## end sub Delete
 
 1;

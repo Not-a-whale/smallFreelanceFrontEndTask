@@ -236,9 +236,11 @@ sub Show {
     }
 
     if ($acnt == 1 && !defined $_[0]) {    ### when we have nothing at all, full builk search
-        return $self->Search(undef, {prefetch => $self->_prefetch})->hashref_array();
+        return $self->Search(undef, $rules)->hashref_array();
     } elsif ($acnt > 1 && ref($_[1]) eq 'HASH') {    ### if passed more than 2 elements, then you know what you are doing
-        $_[1]->{prefetch} = $self->_prefetch if !exists $_[1]->{prefetch} && defined $self->_prefetch;
+        foreach (keys %$rules) {
+            $_[1]->{$_} = $$rules{$_} if !exists $_[1]->{$_};
+        }
 
         if ($self->_flatten) {
             my $attr = _tree_to_flat($_[0]);
