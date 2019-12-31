@@ -1,0 +1,4 @@
+has 'vendor_biz'     => ('is' => 'rw', 'isa' => 'ObjEntBusiness',  'coerce' => '1', 'required' => '0');
+has 'vendor_phone'   => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax', 'coerce' => '1', 'required' => '0');
+has 'vendor_fax'     => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax', 'coerce' => '1', 'required' => '0');
+has 'vendor_address' => ('is' => 'rw', 'isa' => 'ObjCntAddress',   'coerce' => '1', 'required' => '0');
