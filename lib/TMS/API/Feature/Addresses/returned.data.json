@@ -1,0 +1,216 @@
+==========================================================
+/home/cpeter/ng/tools/crudtest.sh -p 8443 -r /api/addresses
+==========================================================
+
+----------------------------------------------------------
+https://localhost:8443/api/addresses/search
+----------------------------------------------------------
+{
+   "POST" : {
+      "rows" : 5,
+      "orderby" : [
+         {
+            "State" : "asc"
+         },
+         {
+            "City" : "asc"
+         }
+      ]
+   },
+   "DATA" : [
+      {
+         "GpsLng" : null,
+         "Street3" : "",
+         "Street2" : "",
+         "GpsLat" : null,
+         "State" : "",
+         "AddrId" : 1,
+         "Country" : "USA",
+         "Zip" : "55555",
+         "Street1" : "12344 Fake Street",
+         "Notes" : null,
+         "City" : "Antelope"
+      },
+      {
+         "GpsLat" : null,
+         "Street2" : "",
+         "GpsLng" : null,
+         "Street3" : "",
+         "Country" : "USA",
+         "AddrId" : 3943,
+         "State" : "CA",
+         "Street1" : "8130 LEYDEN ST",
+         "Zip" : "95626",
+         "City" : "ELVERTA",
+         "Notes" : null
+      },
+      {
+         "State" : "CA",
+         "Country" : "USA",
+         "AddrId" : 3923,
+         "GpsLng" : null,
+         "Street3" : "",
+         "Street2" : "HELLO",
+         "GpsLat" : null,
+         "Notes" : null,
+         "City" : "HJKWHJ",
+         "Zip" : "67629",
+         "Street1" : "ABC"
+      },
+      {
+         "Notes" : null,
+         "City" : "RANCHO CORDOVA",
+         "Zip" : "95742",
+         "Street1" : "11290 POINT EAST DRIVE",
+         "State" : "CA",
+         "AddrId" : 3935,
+         "Country" : "USA",
+         "GpsLng" : null,
+         "Street3" : "",
+         "Street2" : "STE 200",
+         "GpsLat" : null
+      },
+      {
+         "Notes" : null,
+         "City" : "Rancho Cordova",
+         "Zip" : "95742",
+         "Street1" : "4026 Sunrise Blvd",
+         "State" : "CA",
+         "AddrId" : 3949,
+         "Country" : "USA",
+         "GpsLng" : null,
+         "Street3" : "",
+         "Street2" : "",
+         "GpsLat" : null
+      }
+   ]
+}
+
+----------------------------------------------------------
+https://localhost:8443/api/addresses/search
+----------------------------------------------------------
+{
+   "DATA" : [],
+   "POST" : {
+      "orderby" : [
+         {
+            "State" : "asc"
+         },
+         {
+            "City" : "asc"
+         }
+      ],
+      "search" : [
+         {
+            "Street1" : "123 Main Street"
+         },
+         {
+            "City" : "Portland"
+         },
+         {
+            "AddrId" : 3956
+         }
+      ]
+   }
+}
+
+----------------------------------------------------------
+https://localhost:8443/api/addresses/create
+----------------------------------------------------------
+{
+   "DATA" : [
+      {
+         "Street1" : "123 Main Street",
+         "Zip" : "32541",
+         "City" : "Portland",
+         "Notes" : "Qui et voluptatem quia facilis quibusdam cum ea. Rerum et consequuntur repudiandae molestiae alias.",
+         "Street2" : "",
+         "Street3" : "",
+         "GpsLng" : null,
+         "GpsLat" : null,
+         "State" : "OR",
+         "Country" : "USA",
+         "AddrId" : 3956
+      }
+   ],
+   "POST" : {
+      "Zip" : "32541",
+      "Street1" : "123 Main Street",
+      "Notes" : "Qui et voluptatem quia facilis quibusdam cum ea. Rerum et consequuntur repudiandae molestiae alias.",
+      "AddrId" : 3956,
+      "City" : "Portland",
+      "State" : "OR"
+   }
+}
+
+----------------------------------------------------------
+https://localhost:8443/api/addresses/update
+----------------------------------------------------------
+{
+   "POST" : {
+      "State" : "OR",
+      "Notes" : "Qui et as.",
+      "City" : "Portland",
+      "AddrId" : 3956,
+      "Zip" : "32541",
+      "Street1" : "1212313 Main Street"
+   },
+   "DATA" : [
+      {
+         "State" : "OR",
+         "AddrId" : 3956,
+         "Country" : "USA",
+         "Street3" : "",
+         "GpsLng" : null,
+         "Street2" : "",
+         "GpsLat" : null,
+         "Notes" : "Qui et as.",
+         "City" : "Portland",
+         "Zip" : "32541",
+         "Street1" : "1212313 Main Street"
+      }
+   ]
+}
+
+----------------------------------------------------------
+https://localhost:8443/api/addresses/delete
+----------------------------------------------------------
+{
+   "POST" : {
+      "AddrId" : 3956,
+      "City" : "Portland",
+      "Street1" : "123 Main Street",
+      "Zip" : "32541"
+   },
+   "DATA" : {
+      "records_removed" : "yes"
+   }
+}
+
+----------------------------------------------------------
+https://localhost:8443/api/addresses/search
+----------------------------------------------------------
+{
+   "DATA" : [],
+   "POST" : {
+      "search" : [
+         {
+            "Street1" : "123 Main Street"
+         },
+         {
+            "City" : "Portland"
+         },
+         {
+            "AddrId" : 3956
+         }
+      ],
+      "orderby" : [
+         {
+            "State" : "asc"
+         },
+         {
+            "City" : "asc"
+         }
+      ]
+   }
+}
