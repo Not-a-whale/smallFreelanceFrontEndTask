@@ -15,7 +15,7 @@ RunCrudLoop()
     echo "=========================================================="
     echo "$0 $execargs"
     echo "=========================================================="
-    for command in sorted search create update delete search
+    for command in sorted search create search update delete search
     do
         if [ -f "${command}.posted.json" ]; then
             jsonfile="${command}.posted.json"
