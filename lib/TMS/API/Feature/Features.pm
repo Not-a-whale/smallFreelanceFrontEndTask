@@ -38,7 +38,7 @@ sub Search {
         if (ref($args{search}) eq 'HASH') {
             $attrs{$_} = $args{search}{$_} foreach keys %{$args{search}};
         } elsif (ref($args{search}) eq 'ARRAY') {
-            my @and    = ();
+            my @and = ();
             foreach my $grp (@{$args{search}}) {
                 if (ref($grp) eq 'HASH') {
                     my @or = ();
@@ -66,11 +66,11 @@ sub Search {
         my $inst = $core->with_traits($trait)->new(%attrs);
         $$post{DATA} = $inst->$method($cond);
     } catch {
-        $$post{ERROR} = $_;
+        $$post{ERROR} = "$_";
     };
 
     return $post;
-} ## end sub Search
+}
 
 sub Fetch {&Search}
 
@@ -78,7 +78,7 @@ sub Update {
     my ($self, $user, $pass, $post) = @_;
     my $data     = $$post{POST};
     my $core     = $self->coreapi;
-    my $trait    = $core . 'Strict';
+    my $trait    = $core . 'Search';
     my $prefetch = $self->prefetch;
 
     try {
@@ -90,10 +90,10 @@ sub Update {
             $$post{DATA} = $inst->Show($record, {prefetch => $self->prefetch});
         }
     } catch {
-        $$post{ERROR} = $_;
+        $$post{ERROR} = "$_";
     };
     return $post;
-} ## end sub Update
+}
 
 sub Create {
     my ($self, $user, $pass, $post) = @_;
@@ -111,26 +111,26 @@ sub Create {
             $$post{DATA} = $inst->Show($record, {prefetch => $self->prefetch});
         }
     } catch {
-        $$post{ERROR} = $_;
+        $$post{ERROR} = "$_";
     };
     return $post;
-} ## end sub Create
+}
 
 sub Delete {
     my ($self, $user, $pass, $post) = @_;
     my $data     = $$post{POST};
     my $core     = $self->coreapi;
-    my $trait    = $core . 'Strict';
+    my $trait    = $core . 'Search';
     my $prefetch = $self->prefetch;
 
     try {
         my $inst = $core->with_traits($trait)->new($data);
         $$post{DATA} = {"records_removed" => defined $inst->Delete ? 'yes' : 'no'};
     } catch {
-        $$post{ERROR} = $_;
+        $$post{ERROR} = "$_";
     };
 
     return $post;
-} ## end sub Delete
+}
 
 1;
