@@ -1,0 +1,39 @@
+{
+   "POST" : 
+        {
+         "BrnchId" : 3825,
+         "BizId" : 281,
+         "BrnchAddress" : 3961,
+         "brnch_phone" : {
+            "Mobility" : "LAND LINE",
+            "Extension" : "0",
+            "Features" : "VOICE",
+            "PhnFaxId" : 4301,
+            "Number" : "279-555-1212",
+            "Notes" : null
+         },
+         "brnch_address" : {
+            "Zip" : "95828",
+            "Street2" : "",
+            "AddrId" : 3961,
+            "Country" : "USA",
+            "State" : "CA",
+            "Street3" : "",
+            "GpsLng" : null,
+            "City" : "Sacramento",
+            "GpsLat" : null,
+            "Street1" : "1 Snake Oil Lane"
+         },
+         "BrnchPhone" : 4301,
+         "brnch_fax" : null,
+         "OfficeName" : "Snake Oil, CA",
+         "BrnchFax" : null,
+         "biz" : {
+            "BizURL" : null,
+            "BizName" : "Snake Oil Corporation",
+            "BizId" : 281
+         },
+         "BrnchEMail" : "info@snakeoil.fake"
+      }
+
+}
