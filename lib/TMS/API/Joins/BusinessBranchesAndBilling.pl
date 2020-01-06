@@ -18,4 +18,3 @@ use Carp;
 use TMS::API::Joins::BusinessBranchesAndBilling;
 my $obj = TMS::API::Joins::BusinessBranchesAndBilling->new;
 print Dumper($obj->prefetch);
-
