@@ -553,7 +553,7 @@ CREATE TABLE `biz_branches` (
   CONSTRAINT `BrnchBizNameRef` FOREIGN KEY (`BizId`) REFERENCES `ent_businesses` (`BizId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchFaxRef` FOREIGN KEY (`BrnchFax`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchPhoneRef` FOREIGN KEY (`BrnchPhone`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3821 DEFAULT CHARSET=utf8 COMMENT='Office Branch Details';
+) ENGINE=InnoDB AUTO_INCREMENT=3827 DEFAULT CHARSET=utf8 COMMENT='Office Branch Details';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -895,7 +895,7 @@ CREATE TABLE `cnt_addresses` (
   KEY `idx_cnt_addresses_State` (`State`),
   KEY `idx_cnt_addresses_Country` (`Country`),
   KEY `idx_cnt_addresses_Street1` (`Street1`)
-) ENGINE=InnoDB AUTO_INCREMENT=3956 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3963 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -928,7 +928,7 @@ CREATE TABLE `cnt_phonesfaxes` (
   KEY `idx_cnt_phonesfaxes_Extension` (`Extension`) USING BTREE,
   KEY `idx_cnt_phonesfaxes_Features` (`Features`) USING BTREE,
   KEY `idx_cnt_phonesfaxes_Mobility` (`Mobility`)
-) ENGINE=InnoDB AUTO_INCREMENT=4293 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4305 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -937,7 +937,7 @@ CREATE TABLE `cnt_phonesfaxes` (
 
 LOCK TABLES `cnt_phonesfaxes` WRITE;
 /*!40000 ALTER TABLE `cnt_phonesfaxes` DISABLE KEYS */;
-INSERT INTO `cnt_phonesfaxes` VALUES (3974,'762-824-2352','98607*0509','SMS','MOBILE','Necessitatibus dolor deserunt tempore eaque.'),(3976,'918-378-0840','#84,**#363','SMS','SOFT PHONE','Illum enim quo iure aut fuga minus. Non sed sit nihil incidunt ut nisi asperiores maxime. Cum est eligendi cumque occaecati dolores sapiente vitae est.'),(3982,'382-030-4839','**21#*,##4','SMS,MMS','LAND LINE','Voluptatem nemo modi optio amet. Ipsum adipisci exercitationem quasi quasi consequuntur.'),(3984,'418-388-4783','0*64#43470','MMS,FAX','SOFT PHONE','Eius ipsam voluptate aut.'),(3990,'969-357-7270','018,8*5*15','VOICE,SMS,MMS,FAX','LAND LINE','Qui debitis ducimus corrupti beatae placeat.'),(3992,'298-082-6481','26#05#5439','SMS,MMS','SOFT PHONE','Optio blanditiis aut provident repellat tempore dolorem.'),(4028,'116-274-6116','40#5#68282','SMS,FAX','MOBILE','Sit sit voluptatem delectus. Et fugit quisquam perferendis. Et commodi reprehenderit assumenda quia a.'),(4030,'935-236-2187','6#220#8#84','VOICE,SMS,MMS,FAX','MOBILE','Veritatis velit et dolorem aut ratione.'),(4036,'264-230-3059','2500*#*,,9','SMS,MMS,FAX','MOBILE','Magni magni voluptatum quasi et cum. Et velit impedit vero nihil tempore ipsam qui est. Neque hic sequi excepturi dolor.'),(4038,'419-061-3999','512786*2#7','VOICE,SMS,MMS,FAX','MOBILE','Iste laboriosam optio exercitationem doloremque eaque voluptatem. Suscipit ex doloribus odit. Recusandae quis omnis aliquam fugiat dolores.'),(4086,'319-310-7211','1613143862','SMS','LAND LINE','Vel laborum rerum facere iusto.'),(4088,'301-264-8672','64#3327660','VOICE,FAX','SOFT PHONE','Pariatur debitis dolores cum ad maiores.'),(4094,'587-582-0072','56#3*#7936','FAX','LAND LINE','Hic perferendis nihil quaerat quisquam. In dolores possimus magnam. Eius provident quidem repellat veniam voluptatem aut blanditiis.'),(4096,'616-622-8955','4995341145','FAX','SOFT PHONE','Neque ea sunt et repellat voluptas nihil sequi. Dolorem quod quos sunt laudantium natus suscipit eaque. Saepe vero dolores odit quae sint quaerat nulla.'),(4102,'398-845-5037','9933,18,*6','VOICE,SMS,FAX','MOBILE','Provident earum expedita sint. Doloribus esse porro dolorem totam.'),(4104,'128-924-7809','7,866*9654','VOICE','LAND LINE','Vero est beatae quaerat similique atque laborum rem. Debitis aut hic atque rerum.'),(4110,'248-315-1753','8#617958#4','SMS,MMS,FAX','LAND LINE','In provident dolorem itaque voluptatem voluptas.'),(4112,'608-633-3721','3646,03354','VOICE,FAX','SOFT PHONE','Debitis provident excepturi sed odio. Est ex dolore qui impedit. Atque recusandae et non in minus enim ab quo.'),(4118,'343-693-3697','649194#7#0','VOICE,MMS,FAX','LAND LINE','Corporis atque ullam fuga quos enim.'),(4120,'394-819-9334','388*955446','MMS','MOBILE','Porro dolorem sed facilis aliquid cumque.'),(4126,'613-678-3141','5493363574','VOICE','SOFT PHONE','Rerum possimus unde sed optio natus. Voluptas voluptate aut eligendi fuga in ut.'),(4128,'788-991-2169','11*09,8*#8','VOICE','SOFT PHONE','Harum sequi molestiae est voluptatem quos. Similique quibusdam ut voluptas exercitationem.'),(4138,'597-155-5654','63,6#,,338','VOICE,MMS,FAX','LAND LINE','Eos iure velit a ut dolor ex quibusdam qui. Dolorum doloribus cum odit ipsa. Sequi reiciendis error voluptatibus vero autem quas.'),(4140,'868-083-5572','0791119494','VOICE,SMS,MMS,FAX','LAND LINE','Maiores reiciendis nemo harum quisquam. Eos est consequatur dolores nihil hic.'),(4198,'787-983-5692','85906#*8,6','VOICE,SMS,MMS,FAX','MOBILE','Odit quia autem eligendi harum nobis totam assumenda optio. Quia error molestias est nostrum. Corrupti ratione voluptatibus et reprehenderit qui voluptatibus numquam.'),(4200,'668-891-4055','2047293753','SMS,MMS','MOBILE','Neque velit perspiciatis similique voluptas non iure.'),(4202,'180-900-2566','*92,235543','VOICE,SMS,FAX','MOBILE','Voluptas asperiores impedit voluptas delectus et aut et perspiciatis.'),(4204,'344-280-2437','69570,7051','SMS,MMS,FAX','MOBILE','Et illum est officiis aut. Ad nesciunt distinctio voluptatum impedit explicabo sunt.'),(4206,'796-133-9327','2738005242','VOICE,MMS,FAX','MOBILE','Exercitationem nihil recusandae nemo quis doloribus. Itaque incidunt itaque et quis facere ut dolor sit.'),(4208,'744-981-1054','1,,#40*362','SMS','LAND LINE','Ducimus labore odio quam quas.'),(4210,'464-059-6382','4869,6#749','MMS,FAX','SOFT PHONE','Et impedit tempora sint hic cupiditate placeat nam autem. Sequi sapiente fugit ad tempora id. Sed et adipisci a dolor qui sint.'),(4212,'768-853-8546','*54,74*#76','SMS,FAX','MOBILE','Dolorum culpa ab placeat quo. Ea quasi quo sit nemo magni ea aut.'),(4214,'786-491-3038','0214*,9852','SMS,MMS','SOFT PHONE','Quia dicta ea inventore illo ducimus ut dignissimos et. Et excepturi est eveniet aliquam.'),(4216,'421-567-1640','*4##607#82','VOICE,MMS','SOFT PHONE','Eum dolorum molestias fugit. Sit harum illum libero omnis. Aut dolorum nisi quis inventore adipisci.'),(4218,'428-252-2894','**27080481','VOICE,SMS,MMS,FAX','MOBILE','Dolores illum ea culpa facere aut sapiente enim. Optio enim fugit veniam animi dolorem perferendis. Reprehenderit quisquam necessitatibus hic ipsum dolores quis harum amet.'),(4220,'601-539-9318','#85688,919','VOICE,SMS,MMS,FAX','LAND LINE','Quas ut ad ut ea deserunt corrupti. Iure velit ullam odio.'),(4221,'916-718-8451','0','VOICE','LAND LINE',NULL),(4223,'619-555-1212','0','VOICE','LAND LINE',NULL),(4255,'916-515-8065','0','VOICE','LAND LINE',NULL),(4257,'916-515-8066','0','VOICE','LAND LINE',NULL),(4259,'916-880-8506','0','VOICE','LAND LINE',NULL),(4261,'916-515-8065','1001','VOICE','LAND LINE',NULL),(4263,'916-515-8065','1009','VOICE','LAND LINE',NULL),(4265,'916-389-4508','0','VOICE','LAND LINE',NULL),(4269,'916-850-6884','0','VOICE','LAND LINE',NULL),(4273,'214-250-1011','0','VOICE','LAND LINE',NULL),(4275,'08023628','0','VOICE','LAND LINE',NULL),(4277,'08023608','0','VOICE','LAND LINE',NULL),(4279,'080236760','0','VOICE','LAND LINE',NULL),(4281,'080407240','0','VOICE','LAND LINE',NULL),(4283,'777-888-8888','0','VOICE','LAND LINE',NULL),(4287,'818-989-0208','0','FAX','LAND LINE',NULL),(4289,'818-989-0206','0','VOICE','LAND LINE',NULL),(4291,'916-880-8507','0','VOICE','LAND LINE',NULL);
+INSERT INTO `cnt_phonesfaxes` VALUES (3974,'762-824-2352','98607*0509','SMS','MOBILE','Necessitatibus dolor deserunt tempore eaque.'),(3976,'918-378-0840','#84,**#363','SMS','SOFT PHONE','Illum enim quo iure aut fuga minus. Non sed sit nihil incidunt ut nisi asperiores maxime. Cum est eligendi cumque occaecati dolores sapiente vitae est.'),(3982,'382-030-4839','**21#*,##4','SMS,MMS','LAND LINE','Voluptatem nemo modi optio amet. Ipsum adipisci exercitationem quasi quasi consequuntur.'),(3984,'418-388-4783','0*64#43470','MMS,FAX','SOFT PHONE','Eius ipsam voluptate aut.'),(3990,'969-357-7270','018,8*5*15','VOICE,SMS,MMS,FAX','LAND LINE','Qui debitis ducimus corrupti beatae placeat.'),(3992,'298-082-6481','26#05#5439','SMS,MMS','SOFT PHONE','Optio blanditiis aut provident repellat tempore dolorem.'),(4028,'116-274-6116','40#5#68282','SMS,FAX','MOBILE','Sit sit voluptatem delectus. Et fugit quisquam perferendis. Et commodi reprehenderit assumenda quia a.'),(4030,'935-236-2187','6#220#8#84','VOICE,SMS,MMS,FAX','MOBILE','Veritatis velit et dolorem aut ratione.'),(4036,'264-230-3059','2500*#*,,9','SMS,MMS,FAX','MOBILE','Magni magni voluptatum quasi et cum. Et velit impedit vero nihil tempore ipsam qui est. Neque hic sequi excepturi dolor.'),(4038,'419-061-3999','512786*2#7','VOICE,SMS,MMS,FAX','MOBILE','Iste laboriosam optio exercitationem doloremque eaque voluptatem. Suscipit ex doloribus odit. Recusandae quis omnis aliquam fugiat dolores.'),(4086,'319-310-7211','1613143862','SMS','LAND LINE','Vel laborum rerum facere iusto.'),(4088,'301-264-8672','64#3327660','VOICE,FAX','SOFT PHONE','Pariatur debitis dolores cum ad maiores.'),(4094,'587-582-0072','56#3*#7936','FAX','LAND LINE','Hic perferendis nihil quaerat quisquam. In dolores possimus magnam. Eius provident quidem repellat veniam voluptatem aut blanditiis.'),(4096,'616-622-8955','4995341145','FAX','SOFT PHONE','Neque ea sunt et repellat voluptas nihil sequi. Dolorem quod quos sunt laudantium natus suscipit eaque. Saepe vero dolores odit quae sint quaerat nulla.'),(4102,'398-845-5037','9933,18,*6','VOICE,SMS,FAX','MOBILE','Provident earum expedita sint. Doloribus esse porro dolorem totam.'),(4104,'128-924-7809','7,866*9654','VOICE','LAND LINE','Vero est beatae quaerat similique atque laborum rem. Debitis aut hic atque rerum.'),(4110,'248-315-1753','8#617958#4','SMS,MMS,FAX','LAND LINE','In provident dolorem itaque voluptatem voluptas.'),(4112,'608-633-3721','3646,03354','VOICE,FAX','SOFT PHONE','Debitis provident excepturi sed odio. Est ex dolore qui impedit. Atque recusandae et non in minus enim ab quo.'),(4118,'343-693-3697','649194#7#0','VOICE,MMS,FAX','LAND LINE','Corporis atque ullam fuga quos enim.'),(4120,'394-819-9334','388*955446','MMS','MOBILE','Porro dolorem sed facilis aliquid cumque.'),(4126,'613-678-3141','5493363574','VOICE','SOFT PHONE','Rerum possimus unde sed optio natus. Voluptas voluptate aut eligendi fuga in ut.'),(4128,'788-991-2169','11*09,8*#8','VOICE','SOFT PHONE','Harum sequi molestiae est voluptatem quos. Similique quibusdam ut voluptas exercitationem.'),(4138,'597-155-5654','63,6#,,338','VOICE,MMS,FAX','LAND LINE','Eos iure velit a ut dolor ex quibusdam qui. Dolorum doloribus cum odit ipsa. Sequi reiciendis error voluptatibus vero autem quas.'),(4140,'868-083-5572','0791119494','VOICE,SMS,MMS,FAX','LAND LINE','Maiores reiciendis nemo harum quisquam. Eos est consequatur dolores nihil hic.'),(4198,'787-983-5692','85906#*8,6','VOICE,SMS,MMS,FAX','MOBILE','Odit quia autem eligendi harum nobis totam assumenda optio. Quia error molestias est nostrum. Corrupti ratione voluptatibus et reprehenderit qui voluptatibus numquam.'),(4200,'668-891-4055','2047293753','SMS,MMS','MOBILE','Neque velit perspiciatis similique voluptas non iure.'),(4202,'180-900-2566','*92,235543','VOICE,SMS,FAX','MOBILE','Voluptas asperiores impedit voluptas delectus et aut et perspiciatis.'),(4204,'344-280-2437','69570,7051','SMS,MMS,FAX','MOBILE','Et illum est officiis aut. Ad nesciunt distinctio voluptatum impedit explicabo sunt.'),(4206,'796-133-9327','2738005242','VOICE,MMS,FAX','MOBILE','Exercitationem nihil recusandae nemo quis doloribus. Itaque incidunt itaque et quis facere ut dolor sit.'),(4208,'744-981-1054','1,,#40*362','SMS','LAND LINE','Ducimus labore odio quam quas.'),(4210,'464-059-6382','4869,6#749','MMS,FAX','SOFT PHONE','Et impedit tempora sint hic cupiditate placeat nam autem. Sequi sapiente fugit ad tempora id. Sed et adipisci a dolor qui sint.'),(4212,'768-853-8546','*54,74*#76','SMS,FAX','MOBILE','Dolorum culpa ab placeat quo. Ea quasi quo sit nemo magni ea aut.'),(4214,'786-491-3038','0214*,9852','SMS,MMS','SOFT PHONE','Quia dicta ea inventore illo ducimus ut dignissimos et. Et excepturi est eveniet aliquam.'),(4216,'421-567-1640','*4##607#82','VOICE,MMS','SOFT PHONE','Eum dolorum molestias fugit. Sit harum illum libero omnis. Aut dolorum nisi quis inventore adipisci.'),(4218,'428-252-2894','**27080481','VOICE,SMS,MMS,FAX','MOBILE','Dolores illum ea culpa facere aut sapiente enim. Optio enim fugit veniam animi dolorem perferendis. Reprehenderit quisquam necessitatibus hic ipsum dolores quis harum amet.'),(4220,'601-539-9318','#85688,919','VOICE,SMS,MMS,FAX','LAND LINE','Quas ut ad ut ea deserunt corrupti. Iure velit ullam odio.'),(4221,'916-718-8451','0','VOICE','LAND LINE',NULL),(4223,'619-555-1212','0','VOICE','LAND LINE',NULL),(4255,'916-515-8065','0','VOICE','LAND LINE',NULL),(4257,'916-515-8066','0','VOICE','LAND LINE',NULL),(4259,'916-880-8506','0','VOICE','LAND LINE',NULL),(4261,'916-515-8065','1001','VOICE','LAND LINE',NULL),(4263,'916-515-8065','1009','VOICE','LAND LINE',NULL),(4265,'916-389-4508','0','VOICE','LAND LINE',NULL),(4269,'916-850-6884','0','VOICE','LAND LINE',NULL),(4273,'214-250-1011','0','VOICE','LAND LINE',NULL),(4275,'300 802 3628','0','VOICE','LAND LINE',NULL),(4277,'4008023608','0','VOICE','LAND LINE',NULL),(4279,'5080236760','0','VOICE','LAND LINE',NULL),(4281,'5080407240','0','VOICE','LAND LINE',NULL),(4283,'777-888-8888','0','VOICE','LAND LINE',NULL),(4287,'818-989-0208','0','FAX','LAND LINE',NULL),(4289,'818-989-0206','0','VOICE','LAND LINE',NULL),(4291,'916-880-8507','0','VOICE','LAND LINE',NULL),(4295,'100-200-3000','0','VOICE','LAND LINE',NULL),(4303,'818-989-8999','0','VOICE','LAND LINE',NULL);
 /*!40000 ALTER TABLE `cnt_phonesfaxes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1758,7 +1758,7 @@ CREATE TABLE `ent_businesses` (
   UNIQUE KEY `BizName_UNIQUE` (`BizName`),
   KEY `idx_ent_businesses_BizName` (`BizName`) USING BTREE,
   KEY `idx_ent_businesses_BizURL` (`BizURL`)
-) ENGINE=InnoDB AUTO_INCREMENT=276 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=283 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1925,7 +1925,7 @@ CREATE TABLE `ent_people` (
   KEY `idx_ent_people_Suffix` (`Suffix`) USING BTREE,
   KEY `idx_ent_people_BrnchId` (`BrnchId`) USING BTREE,
   CONSTRAINT `PeopleBranchRef` FOREIGN KEY (`BrnchId`) REFERENCES `biz_branches` (`BrnchId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1934,7 +1934,7 @@ CREATE TABLE `ent_people` (
 
 LOCK TABLES `ent_people` WRITE;
 /*!40000 ALTER TABLE `ent_people` DISABLE KEYS */;
-INSERT INTO `ent_people` VALUES (11,'','','Mila','','Chuk','',3803),(13,'','','Peter','','Chuk','',3801),(15,'','','Sergiy','','Podnizhnyy','',3805),(9,'','','Vladimir','','Skots','',3801),(17,'boss','','Vladimir','','Skots','',3801);
+INSERT INTO `ent_people` VALUES (11,'','','Mila','','Chuk','',3803),(13,'','','Peter','','Chuk','',3801),(15,'','','Sergiy','','Podnizhnyy','',3805),(21,'','','Usko','','Ensurer','',3815),(9,'','','Vladimir','','Skots','',3801),(17,'boss','','Vladimir','','Skots','',3801);
 /*!40000 ALTER TABLE `ent_people` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3651,7 +3651,7 @@ CREATE TABLE `hr_associates` (
 
 LOCK TABLES `hr_associates` WRITE;
 /*!40000 ALTER TABLE `hr_associates` DISABLE KEYS */;
-INSERT INTO `hr_associates` VALUES (9,'CEO',399,'executive','2019-11-25 16:09:53',NULL,4261,4257,'vlad@uskoinc.com','Founder and CEO',1),(13,'Software Engineer',401,'member','2019-11-26 10:19:37',NULL,4263,4257,'cpeter@uskoinc.com',NULL,0),(15,'Owner',399,'executive','2019-12-10 10:30:24',NULL,4265,4257,'hello@123.com','Owner Operator',0),(17,'CEO',399,'executive','2019-12-06 14:44:10',NULL,4261,4257,'vlad@uskoinc.com','Founder and CEO',1);
+INSERT INTO `hr_associates` VALUES (9,'CEO',399,'executive','2019-11-25 16:09:53',NULL,4261,4257,'vlad@uskoinc.com','Founder and CEO',1),(13,'Software Engineer',401,'member','2019-11-26 10:19:37',NULL,4263,4257,'cpeter@uskoinc.com',NULL,0),(15,'Owner',399,'executive','2019-12-10 10:30:24',NULL,4265,4257,'hello@123.com','Owner Operator',0),(17,'CEO',399,'executive','2019-12-06 14:44:10',NULL,4261,4257,'vlad@uskoinc.com','Founder and CEO',1),(21,NULL,NULL,'member','2020-01-06 15:17:13',NULL,4303,NULL,NULL,NULL,0);
 /*!40000 ALTER TABLE `hr_associates` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3945,7 +3945,7 @@ CREATE TABLE `ins_policies` (
   KEY `idx_ins_policies_PaidBy` (`PaidBy`),
   CONSTRAINT `ProofDocument` FOREIGN KEY (`ProofOfInsurance`) REFERENCES `gen_files` (`FileId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `ProviderAgentRef` FOREIGN KEY (`ProviderAgent`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3954,6 +3954,7 @@ CREATE TABLE `ins_policies` (
 
 LOCK TABLES `ins_policies` WRITE;
 /*!40000 ALTER TABLE `ins_policies` DISABLE KEYS */;
+INSERT INTO `ins_policies` VALUES (1,21,NULL,'cargo',NULL,'TP 9880788 01','2020-01-01','2020-12-31',1000000.00,0.00,'Company');
 /*!40000 ALTER TABLE `ins_policies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3965,11 +3966,11 @@ DROP TABLE IF EXISTS `ins_to_entities`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ins_to_entities` (
-  `InsEntId` bigint(20) unsigned NOT NULL,
+  `InsEntId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `InsId` bigint(20) unsigned NOT NULL,
   `EntityId` bigint(20) unsigned NOT NULL,
   `AddedBy` bigint(20) unsigned NOT NULL,
-  `DateAdded` date NOT NULL,
+  `DateAdded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `RemovedBy` bigint(20) unsigned DEFAULT NULL,
   `DateRemoved` date DEFAULT NULL,
   `Notes` text,
@@ -3989,7 +3990,7 @@ CREATE TABLE `ins_to_entities` (
   CONSTRAINT `EntInsAddedInsRef` FOREIGN KEY (`AddedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
   CONSTRAINT `EntInsRemovedInsRef` FOREIGN KEY (`RemovedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
   CONSTRAINT `InsIdRef` FOREIGN KEY (`InsId`) REFERENCES `ins_policies` (`InsId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3998,6 +3999,7 @@ CREATE TABLE `ins_to_entities` (
 
 LOCK TABLES `ins_to_entities` WRITE;
 /*!40000 ALTER TABLE `ins_to_entities` DISABLE KEYS */;
+INSERT INTO `ins_to_entities` VALUES (1,1,5275,13,'2020-01-06 15:58:08',NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `ins_to_entities` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -6055,4 +6057,4 @@ USE `tms`;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-26 15:43:44
+-- Dump completed on 2020-01-06 15:59:09
