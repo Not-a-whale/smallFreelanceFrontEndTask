@@ -56,6 +56,8 @@ sub BuildRoutes {
     my ($class, $prefix) = @_;
     prefix($prefix);
 
+    get ''        => http_basic_auth required => sub { $class->new()->Search(http_basic_auth_login(), body_parameters->mixed) };
+    post ''       => http_basic_auth required => sub { $class->new()->Search(http_basic_auth_login(), body_parameters->mixed) };
     get '/search'  => http_basic_auth required => sub { $class->new()->Search(http_basic_auth_login(), body_parameters->mixed) };
     post '/search' => http_basic_auth required => sub { $class->new()->Search(http_basic_auth_login(), body_parameters->mixed) };
     post '/create' => http_basic_auth required => sub { $class->new()->Create(http_basic_auth_login(), body_parameters->mixed) };
