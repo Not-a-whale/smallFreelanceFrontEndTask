@@ -1,0 +1,1542 @@
+==========================================================
+/home/cpeter/ng/tools/crudtest.sh -p 8443 -r /api/business
+==========================================================
+
+----------------------------------------------------------
+https://localhost:8443/api/business/search
+----------------------------------------------------------
+{
+   "POST" : {
+      "search" : {
+         "BizName" : "enly Cookies"
+      }
+   },
+   "DATA" : [
+      {
+         "BizName" : "4 RINGS EXPRESS INC",
+         "BizURL" : null,
+         "BizId" : 257,
+         "biz_branches" : [
+            {
+               "brnch_phone" : {
+                  "Number" : "916-389-4508",
+                  "Features" : "VOICE",
+                  "Mobility" : "LAND LINE",
+                  "Extension" : "0",
+                  "PhnFaxId" : 4265,
+                  "Notes" : null
+               },
+               "BrnchEMail" : null,
+               "BrnchId" : 3805,
+               "BizId" : 257,
+               "BrnchPhone" : 4265,
+               "brnch_fax" : null,
+               "brnch_address" : {
+                  "Notes" : null,
+                  "City" : "ELVERTA",
+                  "State" : "CA",
+                  "Country" : "USA",
+                  "GpsLat" : null,
+                  "Street2" : "",
+                  "AddrId" : 3943,
+                  "Zip" : "95626",
+                  "Street1" : "8130 LEYDEN ST",
+                  "GpsLng" : null,
+                  "Street3" : ""
+               },
+               "BrnchAddress" : 3943,
+               "BrnchFax" : null,
+               "biz" : {
+                  "BizId" : 257,
+                  "BizURL" : null,
+                  "BizName" : "4 RINGS EXPRESS INC"
+               },
+               "OfficeName" : ""
+            }
+         ],
+         "entity" : {
+            "fin_billing_infos" : [
+               {
+                  "EntityId" : 5285,
+                  "BillingTagId" : 7,
+                  "address" : {
+                     "AddrId" : 3943,
+                     "Zip" : "95626",
+                     "Street3" : "",
+                     "Street1" : "8130 LEYDEN ST",
+                     "GpsLng" : null,
+                     "Notes" : null,
+                     "State" : "CA",
+                     "City" : "ELVERTA",
+                     "Street2" : "",
+                     "GpsLat" : null,
+                     "Country" : "USA"
+                  },
+                  "CreditLimit" : null,
+                  "EMail" : null,
+                  "billing_tag" : {
+                     "DateCreated" : "2019-11-26 09:47:08",
+                     "UserDefined" : 0,
+                     "BillingTag" : "Billing and Payment",
+                     "CreatedBy" : null,
+                     "BillingTagId" : 7
+                  },
+                  "fax" : null,
+                  "fin_billing_banks" : [
+                     {
+                        "BankId" : 1,
+                        "RoutingNumber" : "987654321",
+                        "AccountNumber" : "1234567890",
+                        "Active" : 1,
+                        "Purpose" : "billing and payment",
+                        "fin_billing_rules" : [
+                           {
+                              "BankAccount" : 1,
+                              "Amount" : "100.00",
+                              "Active" : 1,
+                              "Notes" : null,
+                              "Rule" : "percentage",
+                              "BillRuleId" : 1
+                           }
+                        ],
+                        "Institution" : 3809,
+                        "AccountType" : "checking",
+                        "VoidCheck" : 37,
+                        "institution" : {
+                           "BizId" : 265,
+                           "BrnchPhone" : 4269,
+                           "vendor_phone" : {
+                              "Extension" : "0",
+                              "PhnFaxId" : 4269,
+                              "Notes" : null,
+                              "Number" : "916-850-6884",
+                              "Features" : "VOICE",
+                              "Mobility" : "LAND LINE"
+                           },
+                           "vendor_address" : {
+                              "Zip" : "95742",
+                              "AddrId" : 3949,
+                              "Street3" : "",
+                              "GpsLng" : null,
+                              "Street1" : "4026 Sunrise Blvd",
+                              "State" : "CA",
+                              "City" : "Rancho Cordova",
+                              "Notes" : null,
+                              "Street2" : "",
+                              "Country" : "USA",
+                              "GpsLat" : null
+                           },
+                           "BrnchId" : 3809,
+                           "BrnchEMail" : null,
+                           "vendor_fax" : null,
+                           "vendor_biz" : {
+                              "BizName" : "JPMorgan Chase & Co",
+                              "BizId" : 265,
+                              "BizURL" : "http://chase.com"
+                           },
+                           "BrnchAddress" : 3949,
+                           "BrnchFax" : null,
+                           "OfficeName" : "Sunrise Blvd and Douglas Rd"
+                        },
+                        "Notes" : null,
+                        "AccountNickname" : "Tin Can",
+                        "void_check" : {
+                           "DocumentTitle" : "Fake Check",
+                           "FileName" : "unimportant.jpeg",
+                           "MIMEType" : "text/plain",
+                           "UploadDate" : "2019-12-10 12:39:10",
+                           "FileId" : 37,
+                           "ExpiredDate" : null,
+                           "FileData" : "Hi, I am the void check",
+                           "Keywords" : "VoidCheck",
+                           "Notes" : null,
+                           "SHASIG" : "fake data"
+                        },
+                        "BillingId" : 1
+                     }
+                  ],
+                  "Notes" : null,
+                  "PayToTheOrderOf" : "4 RINGS EXPRESS INC",
+                  "Fax" : null,
+                  "BillingId" : 1,
+                  "Address" : 3943,
+                  "ContactName" : "Sergiy Podnizhnyy",
+                  "DateIn" : "2019-11-26 10:25:00",
+                  "DateOut" : null,
+                  "Phone" : 4265,
+                  "phone" : {
+                     "Notes" : null,
+                     "PhnFaxId" : 4265,
+                     "Extension" : "0",
+                     "Mobility" : "LAND LINE",
+                     "Features" : "VOICE",
+                     "Number" : "916-389-4508"
+                  },
+                  "CreditHold" : null
+               }
+            ],
+            "IsActive" : 1,
+            "EntityId" : 5285,
+            "DateCreated" : "2019-11-26 10:24:59",
+            "Notes" : "4 RINGS EXPRESS INC",
+            "BusinessId" : 257,
+            "PersonId" : null,
+            "fin_tax_id" : {
+               "Entered" : "2019-12-10 11:21:18",
+               "ID_Type" : "SSN",
+               "Photo" : null,
+               "Tax_ID" : "123-45-6789",
+               "EntityId" : 5285,
+               "Notes" : null,
+               "Need1099" : 1
+            }
+         }
+      },
+      {
+         "entity" : {
+            "fin_tax_id" : null,
+            "DateCreated" : "2019-11-25 09:33:07",
+            "Notes" : "Usko Express Inc",
+            "PersonId" : null,
+            "BusinessId" : 253,
+            "EntityId" : 5275,
+            "fin_billing_infos" : [],
+            "IsActive" : 1
+         },
+         "biz_branches" : [
+            {
+               "brnch_phone" : {
+                  "Number" : "916-515-8065",
+                  "Features" : "VOICE",
+                  "Mobility" : "LAND LINE",
+                  "Extension" : "0",
+                  "PhnFaxId" : 4255,
+                  "Notes" : null
+               },
+               "BrnchId" : 3801,
+               "BrnchEMail" : "info@uskoinc.com",
+               "brnch_fax" : {
+                  "Mobility" : "LAND LINE",
+                  "Number" : "916-515-8066",
+                  "Features" : "VOICE",
+                  "Notes" : null,
+                  "Extension" : "0",
+                  "PhnFaxId" : 4257
+               },
+               "BrnchPhone" : 4255,
+               "BizId" : 253,
+               "brnch_address" : {
+                  "GpsLat" : null,
+                  "Country" : "USA",
+                  "Street2" : "STE 200",
+                  "State" : "CA",
+                  "City" : "RANCHO CORDOVA",
+                  "Notes" : null,
+                  "Street1" : "11290 POINT EAST DRIVE",
+                  "GpsLng" : null,
+                  "Street3" : "",
+                  "Zip" : "95742",
+                  "AddrId" : 3935
+               },
+               "BrnchAddress" : 3935,
+               "OfficeName" : "California Head Quarters",
+               "biz" : {
+                  "BizName" : "Usko Express Inc",
+                  "BizId" : 253,
+                  "BizURL" : "http://uskoinc.com"
+               },
+               "BrnchFax" : 4257
+            },
+            {
+               "BrnchAddress" : 3840,
+               "BrnchFax" : 4257,
+               "OfficeName" : "Texas Head Quarters",
+               "biz" : {
+                  "BizId" : 253,
+                  "BizURL" : "http://uskoinc.com",
+                  "BizName" : "Usko Express Inc"
+               },
+               "BizId" : 253,
+               "BrnchPhone" : 4255,
+               "brnch_fax" : {
+                  "PhnFaxId" : 4257,
+                  "Extension" : "0",
+                  "Notes" : null,
+                  "Features" : "VOICE",
+                  "Number" : "916-515-8066",
+                  "Mobility" : "LAND LINE"
+               },
+               "brnch_address" : {
+                  "Street3" : "Reiciendis Omnis Est Qui Eius Quibusdam Minus Sit.",
+                  "Street1" : "Consequuntur Voluptatum Placeat Assumenda Consequatur Reiciendis",
+                  "GpsLng" : 1924.54,
+                  "Zip" : "48237-2874",
+                  "AddrId" : 3840,
+                  "Street2" : "Qui Tenetur Doloremque Enim Debitis Adipisci Voluptatem. Molesti",
+                  "GpsLat" : 5654.7,
+                  "Country" : "Canada",
+                  "State" : "WY",
+                  "City" : "Et Cupiditate Veniam Et Vel Omnis.",
+                  "Notes" : "Voluptatibus et pariatur aut."
+               },
+               "brnch_phone" : {
+                  "Mobility" : "LAND LINE",
+                  "Number" : "916-515-8065",
+                  "Features" : "VOICE",
+                  "Notes" : null,
+                  "Extension" : "0",
+                  "PhnFaxId" : 4255
+               },
+               "BrnchId" : 3819,
+               "BrnchEMail" : "sdfsd@sadfsad.com"
+            }
+         ],
+         "BizURL" : "http://uskoinc.com",
+         "BizId" : 253,
+         "BizName" : "Usko Express Inc"
+      },
+      {
+         "BizName" : "Heavenly Cookies and More, LLC",
+         "entity" : {
+            "fin_tax_id" : null,
+            "PersonId" : null,
+            "BusinessId" : 255,
+            "Notes" : "Heavenly Cookies and More, LLC",
+            "DateCreated" : "2019-11-25 09:33:07",
+            "EntityId" : 5277,
+            "fin_billing_infos" : [],
+            "IsActive" : 1
+         },
+         "biz_branches" : [
+            {
+               "BrnchAddress" : 3941,
+               "OfficeName" : "",
+               "biz" : {
+                  "BizURL" : "www.heavenlycookiesandmore.com",
+                  "BizId" : 255,
+                  "BizName" : "Heavenly Cookies and More, LLC"
+               },
+               "BrnchFax" : 4291,
+               "brnch_fax" : {
+                  "Extension" : "0",
+                  "PhnFaxId" : 4291,
+                  "Notes" : null,
+                  "Number" : "916-880-8507",
+                  "Features" : "VOICE",
+                  "Mobility" : "LAND LINE"
+               },
+               "BrnchPhone" : 4259,
+               "BizId" : 255,
+               "brnch_address" : {
+                  "AddrId" : 3941,
+                  "Zip" : "95827",
+                  "Street1" : "3558 MADDIEWOOD CIR",
+                  "GpsLng" : null,
+                  "Street3" : "",
+                  "Notes" : null,
+                  "State" : "CA",
+                  "City" : "SACRAMENTO",
+                  "Country" : "United States",
+                  "GpsLat" : null,
+                  "Street2" : ""
+               },
+               "brnch_phone" : {
+                  "PhnFaxId" : 4259,
+                  "Extension" : "0",
+                  "Notes" : null,
+                  "Features" : "VOICE",
+                  "Number" : "916-880-8506",
+                  "Mobility" : "LAND LINE"
+               },
+               "BrnchEMail" : null,
+               "BrnchId" : 3803
+            }
+         ],
+         "BizId" : 255,
+         "BizURL" : "www.heavenlycookiesandmore.com"
+      },
+      {
+         "BizName" : "JPMorgan Chase & Co",
+         "entity" : {
+            "fin_tax_id" : null,
+            "BusinessId" : 265,
+            "PersonId" : null,
+            "DateCreated" : "2019-12-10 11:58:34",
+            "Notes" : "JPMorgan Chase & Co",
+            "EntityId" : 5301,
+            "IsActive" : 1,
+            "fin_billing_infos" : []
+         },
+         "biz_branches" : [
+            {
+               "brnch_fax" : null,
+               "BrnchPhone" : 4269,
+               "BizId" : 265,
+               "brnch_address" : {
+                  "City" : "Rancho Cordova",
+                  "State" : "CA",
+                  "Notes" : null,
+                  "Country" : "USA",
+                  "GpsLat" : null,
+                  "Street2" : "",
+                  "Zip" : "95742",
+                  "AddrId" : 3949,
+                  "GpsLng" : null,
+                  "Street1" : "4026 Sunrise Blvd",
+                  "Street3" : ""
+               },
+               "brnch_phone" : {
+                  "PhnFaxId" : 4269,
+                  "Extension" : "0",
+                  "Notes" : null,
+                  "Features" : "VOICE",
+                  "Number" : "916-850-6884",
+                  "Mobility" : "LAND LINE"
+               },
+               "BrnchEMail" : null,
+               "BrnchId" : 3809,
+               "BrnchAddress" : 3949,
+               "biz" : {
+                  "BizURL" : "http://chase.com",
+                  "BizId" : 265,
+                  "BizName" : "JPMorgan Chase & Co"
+               },
+               "OfficeName" : "Sunrise Blvd and Douglas Rd",
+               "BrnchFax" : null
+            }
+         ],
+         "BizURL" : "http://chase.com",
+         "BizId" : 265
+      },
+      {
+         "BizName" : "USKO LOGISTICS INC",
+         "entity" : {
+            "IsActive" : 1,
+            "fin_billing_infos" : [],
+            "EntityId" : 5311,
+            "Notes" : "USKO LOGISTICS INC",
+            "DateCreated" : "2019-12-10 13:45:10",
+            "PersonId" : null,
+            "BusinessId" : 271,
+            "fin_tax_id" : null
+         },
+         "biz_branches" : [
+            {
+               "brnch_address" : {
+                  "AddrId" : 3953,
+                  "Zip" : "75287",
+                  "Street1" : "17480 DALLAS PKWY",
+                  "GpsLng" : null,
+                  "Street3" : "",
+                  "Notes" : null,
+                  "State" : "TX",
+                  "City" : "Dallas",
+                  "GpsLat" : null,
+                  "Country" : "USA",
+                  "Street2" : "STE 124"
+               },
+               "BrnchPhone" : 4273,
+               "BizId" : 271,
+               "brnch_fax" : null,
+               "BrnchId" : 3813,
+               "BrnchEMail" : null,
+               "brnch_phone" : {
+                  "Number" : "214-250-1011",
+                  "Features" : "VOICE",
+                  "Mobility" : "LAND LINE",
+                  "Extension" : "0",
+                  "PhnFaxId" : 4273,
+                  "Notes" : null
+               },
+               "BrnchFax" : null,
+               "biz" : {
+                  "BizURL" : null,
+                  "BizId" : 271,
+                  "BizName" : "USKO LOGISTICS INC"
+               },
+               "OfficeName" : "Texas Office",
+               "BrnchAddress" : 3953
+            }
+         ],
+         "BizId" : 271,
+         "BizURL" : null
+      },
+      {
+         "BizURL" : null,
+         "BizId" : 275,
+         "biz_branches" : [
+            {
+               "BrnchEMail" : "info@uskoinc.com",
+               "BrnchId" : 3815,
+               "brnch_phone" : {
+                  "Mobility" : "LAND LINE",
+                  "Features" : "VOICE",
+                  "Number" : "818-989-0206",
+                  "Notes" : null,
+                  "PhnFaxId" : 4289,
+                  "Extension" : "0"
+               },
+               "brnch_address" : {
+                  "Street2" : "",
+                  "GpsLat" : null,
+                  "Country" : "USA",
+                  "State" : "CA",
+                  "City" : "Van Nuys",
+                  "Notes" : null,
+                  "Street3" : "",
+                  "GpsLng" : null,
+                  "Street1" : "14345 Victory Blvd",
+                  "Zip" : "91411",
+                  "AddrId" : 3955
+               },
+               "BrnchPhone" : 4289,
+               "BizId" : 275,
+               "brnch_fax" : {
+                  "Number" : "818-989-0208",
+                  "Features" : "FAX",
+                  "Mobility" : "LAND LINE",
+                  "Extension" : "0",
+                  "PhnFaxId" : 4287,
+                  "Notes" : null
+               },
+               "BrnchFax" : 4287,
+               "biz" : {
+                  "BizId" : 275,
+                  "BizURL" : null,
+                  "BizName" : "Royalty Financial"
+               },
+               "OfficeName" : "Royalty Financial",
+               "BrnchAddress" : 3955
+            }
+         ],
+         "entity" : null,
+         "BizName" : "Royalty Financial"
+      }
+   ]
+}
+
+----------------------------------------------------------
+https://localhost:8443/api/business/search
+----------------------------------------------------------
+{
+   "DATA" : [
+      {
+         "biz_branches" : [
+            {
+               "BrnchId" : 3805,
+               "BrnchEMail" : null,
+               "brnch_phone" : {
+                  "PhnFaxId" : 4265,
+                  "Extension" : "0",
+                  "Notes" : null,
+                  "Features" : "VOICE",
+                  "Number" : "916-389-4508",
+                  "Mobility" : "LAND LINE"
+               },
+               "brnch_address" : {
+                  "GpsLat" : null,
+                  "Country" : "USA",
+                  "Street2" : "",
+                  "City" : "ELVERTA",
+                  "State" : "CA",
+                  "Notes" : null,
+                  "GpsLng" : null,
+                  "Street1" : "8130 LEYDEN ST",
+                  "Street3" : "",
+                  "Zip" : "95626",
+                  "AddrId" : 3943
+               },
+               "BrnchPhone" : 4265,
+               "BizId" : 257,
+               "brnch_fax" : null,
+               "BrnchFax" : null,
+               "biz" : {
+                  "BizName" : "4 RINGS EXPRESS INC",
+                  "BizURL" : null,
+                  "BizId" : 257
+               },
+               "OfficeName" : "",
+               "BrnchAddress" : 3943
+            }
+         ],
+         "entity" : {
+            "fin_tax_id" : {
+               "EntityId" : 5285,
+               "Tax_ID" : "123-45-6789",
+               "ID_Type" : "SSN",
+               "Photo" : null,
+               "Entered" : "2019-12-10 11:21:18",
+               "Need1099" : 1,
+               "Notes" : null
+            },
+            "Notes" : "4 RINGS EXPRESS INC",
+            "DateCreated" : "2019-11-26 10:24:59",
+            "BusinessId" : 257,
+            "PersonId" : null,
+            "EntityId" : 5285,
+            "fin_billing_infos" : [
+               {
+                  "Fax" : null,
+                  "PayToTheOrderOf" : "4 RINGS EXPRESS INC",
+                  "BillingId" : 1,
+                  "Address" : 3943,
+                  "ContactName" : "Sergiy Podnizhnyy",
+                  "Phone" : 4265,
+                  "phone" : {
+                     "Extension" : "0",
+                     "PhnFaxId" : 4265,
+                     "Notes" : null,
+                     "Number" : "916-389-4508",
+                     "Features" : "VOICE",
+                     "Mobility" : "LAND LINE"
+                  },
+                  "CreditHold" : null,
+                  "DateIn" : "2019-11-26 10:25:00",
+                  "DateOut" : null,
+                  "CreditLimit" : null,
+                  "billing_tag" : {
+                     "CreatedBy" : null,
+                     "BillingTagId" : 7,
+                     "DateCreated" : "2019-11-26 09:47:08",
+                     "UserDefined" : 0,
+                     "BillingTag" : "Billing and Payment"
+                  },
+                  "EMail" : null,
+                  "EntityId" : 5285,
+                  "BillingTagId" : 7,
+                  "address" : {
+                     "Zip" : "95626",
+                     "AddrId" : 3943,
+                     "Street3" : "",
+                     "Street1" : "8130 LEYDEN ST",
+                     "GpsLng" : null,
+                     "City" : "ELVERTA",
+                     "State" : "CA",
+                     "Notes" : null,
+                     "Street2" : "",
+                     "Country" : "USA",
+                     "GpsLat" : null
+                  },
+                  "fax" : null,
+                  "fin_billing_banks" : [
+                     {
+                        "BillingId" : 1,
+                        "Purpose" : "billing and payment",
+                        "fin_billing_rules" : [
+                           {
+                              "Active" : 1,
+                              "Amount" : "100.00",
+                              "BankAccount" : 1,
+                              "Rule" : "percentage",
+                              "BillRuleId" : 1,
+                              "Notes" : null
+                           }
+                        ],
+                        "BankId" : 1,
+                        "RoutingNumber" : "987654321",
+                        "Active" : 1,
+                        "AccountNumber" : "1234567890",
+                        "VoidCheck" : 37,
+                        "institution" : {
+                           "BrnchId" : 3809,
+                           "BrnchEMail" : null,
+                           "vendor_address" : {
+                              "GpsLng" : null,
+                              "Street1" : "4026 Sunrise Blvd",
+                              "Street3" : "",
+                              "Zip" : "95742",
+                              "AddrId" : 3949,
+                              "GpsLat" : null,
+                              "Country" : "USA",
+                              "Street2" : "",
+                              "City" : "Rancho Cordova",
+                              "State" : "CA",
+                              "Notes" : null
+                           },
+                           "vendor_phone" : {
+                              "Mobility" : "LAND LINE",
+                              "Number" : "916-850-6884",
+                              "Features" : "VOICE",
+                              "Notes" : null,
+                              "Extension" : "0",
+                              "PhnFaxId" : 4269
+                           },
+                           "BizId" : 265,
+                           "BrnchPhone" : 4269,
+                           "OfficeName" : "Sunrise Blvd and Douglas Rd",
+                           "BrnchFax" : null,
+                           "BrnchAddress" : 3949,
+                           "vendor_biz" : {
+                              "BizId" : 265,
+                              "BizURL" : "http://chase.com",
+                              "BizName" : "JPMorgan Chase & Co"
+                           },
+                           "vendor_fax" : null
+                        },
+                        "Notes" : null,
+                        "AccountNickname" : "Tin Can",
+                        "void_check" : {
+                           "Notes" : null,
+                           "SHASIG" : "fake data",
+                           "Keywords" : "VoidCheck",
+                           "FileData" : "Hi, I am the void check",
+                           "FileName" : "unimportant.jpeg",
+                           "MIMEType" : "text/plain",
+                           "UploadDate" : "2019-12-10 12:39:10",
+                           "ExpiredDate" : null,
+                           "FileId" : 37,
+                           "DocumentTitle" : "Fake Check"
+                        },
+                        "Institution" : 3809,
+                        "AccountType" : "checking"
+                     }
+                  ],
+                  "Notes" : null
+               }
+            ],
+            "IsActive" : 1
+         },
+         "BizId" : 257,
+         "BizURL" : null,
+         "BizName" : "4 RINGS EXPRESS INC"
+      },
+      {
+         "BizId" : 253,
+         "BizURL" : "http://uskoinc.com",
+         "biz_branches" : [
+            {
+               "BrnchAddress" : 3935,
+               "BrnchFax" : 4257,
+               "biz" : {
+                  "BizName" : "Usko Express Inc",
+                  "BizId" : 253,
+                  "BizURL" : "http://uskoinc.com"
+               },
+               "OfficeName" : "California Head Quarters",
+               "brnch_phone" : {
+                  "Mobility" : "LAND LINE",
+                  "Features" : "VOICE",
+                  "Number" : "916-515-8065",
+                  "Notes" : null,
+                  "PhnFaxId" : 4255,
+                  "Extension" : "0"
+               },
+               "BrnchId" : 3801,
+               "BrnchEMail" : "info@uskoinc.com",
+               "BrnchPhone" : 4255,
+               "BizId" : 253,
+               "brnch_fax" : {
+                  "PhnFaxId" : 4257,
+                  "Extension" : "0",
+                  "Notes" : null,
+                  "Features" : "VOICE",
+                  "Number" : "916-515-8066",
+                  "Mobility" : "LAND LINE"
+               },
+               "brnch_address" : {
+                  "AddrId" : 3935,
+                  "Zip" : "95742",
+                  "Street3" : "",
+                  "Street1" : "11290 POINT EAST DRIVE",
+                  "GpsLng" : null,
+                  "Notes" : null,
+                  "State" : "CA",
+                  "City" : "RANCHO CORDOVA",
+                  "Street2" : "STE 200",
+                  "Country" : "USA",
+                  "GpsLat" : null
+               }
+            },
+            {
+               "BizId" : 253,
+               "BrnchPhone" : 4255,
+               "brnch_fax" : {
+                  "Notes" : null,
+                  "Extension" : "0",
+                  "PhnFaxId" : 4257,
+                  "Mobility" : "LAND LINE",
+                  "Number" : "916-515-8066",
+                  "Features" : "VOICE"
+               },
+               "brnch_address" : {
+                  "Country" : "Canada",
+                  "GpsLat" : 5654.7,
+                  "Street2" : "Qui Tenetur Doloremque Enim Debitis Adipisci Voluptatem. Molesti",
+                  "State" : "WY",
+                  "City" : "Et Cupiditate Veniam Et Vel Omnis.",
+                  "Notes" : "Voluptatibus et pariatur aut.",
+                  "GpsLng" : 1924.54,
+                  "Street1" : "Consequuntur Voluptatum Placeat Assumenda Consequatur Reiciendis",
+                  "Street3" : "Reiciendis Omnis Est Qui Eius Quibusdam Minus Sit.",
+                  "Zip" : "48237-2874",
+                  "AddrId" : 3840
+               },
+               "brnch_phone" : {
+                  "Notes" : null,
+                  "Extension" : "0",
+                  "PhnFaxId" : 4255,
+                  "Mobility" : "LAND LINE",
+                  "Number" : "916-515-8065",
+                  "Features" : "VOICE"
+               },
+               "BrnchEMail" : "sdfsd@sadfsad.com",
+               "BrnchId" : 3819,
+               "BrnchAddress" : 3840,
+               "BrnchFax" : 4257,
+               "OfficeName" : "Texas Head Quarters",
+               "biz" : {
+                  "BizName" : "Usko Express Inc",
+                  "BizURL" : "http://uskoinc.com",
+                  "BizId" : 253
+               }
+            }
+         ],
+         "entity" : {
+            "fin_tax_id" : null,
+            "DateCreated" : "2019-11-25 09:33:07",
+            "Notes" : "Usko Express Inc",
+            "BusinessId" : 253,
+            "PersonId" : null,
+            "EntityId" : 5275,
+            "fin_billing_infos" : [],
+            "IsActive" : 1
+         },
+         "BizName" : "Usko Express Inc"
+      },
+      {
+         "BizName" : "Heavenly Cookies and More, LLC",
+         "entity" : {
+            "fin_tax_id" : null,
+            "Notes" : "Heavenly Cookies and More, LLC",
+            "DateCreated" : "2019-11-25 09:33:07",
+            "BusinessId" : 255,
+            "PersonId" : null,
+            "EntityId" : 5277,
+            "fin_billing_infos" : [],
+            "IsActive" : 1
+         },
+         "biz_branches" : [
+            {
+               "BrnchAddress" : 3941,
+               "OfficeName" : "",
+               "biz" : {
+                  "BizURL" : "www.heavenlycookiesandmore.com",
+                  "BizId" : 255,
+                  "BizName" : "Heavenly Cookies and More, LLC"
+               },
+               "BrnchFax" : 4291,
+               "brnch_phone" : {
+                  "Mobility" : "LAND LINE",
+                  "Features" : "VOICE",
+                  "Number" : "916-880-8506",
+                  "Notes" : null,
+                  "PhnFaxId" : 4259,
+                  "Extension" : "0"
+               },
+               "BrnchEMail" : null,
+               "BrnchId" : 3803,
+               "brnch_fax" : {
+                  "Features" : "VOICE",
+                  "Number" : "916-880-8507",
+                  "Mobility" : "LAND LINE",
+                  "PhnFaxId" : 4291,
+                  "Extension" : "0",
+                  "Notes" : null
+               },
+               "BrnchPhone" : 4259,
+               "BizId" : 255,
+               "brnch_address" : {
+                  "AddrId" : 3941,
+                  "Zip" : "95827",
+                  "Street3" : "",
+                  "GpsLng" : null,
+                  "Street1" : "3558 MADDIEWOOD CIR",
+                  "Notes" : null,
+                  "State" : "CA",
+                  "City" : "SACRAMENTO",
+                  "Street2" : "",
+                  "GpsLat" : null,
+                  "Country" : "United States"
+               }
+            }
+         ],
+         "BizId" : 255,
+         "BizURL" : "www.heavenlycookiesandmore.com"
+      },
+      {
+         "BizName" : "JPMorgan Chase & Co",
+         "entity" : {
+            "fin_tax_id" : null,
+            "DateCreated" : "2019-12-10 11:58:34",
+            "Notes" : "JPMorgan Chase & Co",
+            "PersonId" : null,
+            "BusinessId" : 265,
+            "EntityId" : 5301,
+            "fin_billing_infos" : [],
+            "IsActive" : 1
+         },
+         "biz_branches" : [
+            {
+               "brnch_address" : {
+                  "Street3" : "",
+                  "Street1" : "4026 Sunrise Blvd",
+                  "GpsLng" : null,
+                  "Zip" : "95742",
+                  "AddrId" : 3949,
+                  "Street2" : "",
+                  "GpsLat" : null,
+                  "Country" : "USA",
+                  "State" : "CA",
+                  "City" : "Rancho Cordova",
+                  "Notes" : null
+               },
+               "BrnchPhone" : 4269,
+               "BizId" : 265,
+               "brnch_fax" : null,
+               "BrnchId" : 3809,
+               "BrnchEMail" : null,
+               "brnch_phone" : {
+                  "Number" : "916-850-6884",
+                  "Features" : "VOICE",
+                  "Mobility" : "LAND LINE",
+                  "Extension" : "0",
+                  "PhnFaxId" : 4269,
+                  "Notes" : null
+               },
+               "BrnchFax" : null,
+               "biz" : {
+                  "BizURL" : "http://chase.com",
+                  "BizId" : 265,
+                  "BizName" : "JPMorgan Chase & Co"
+               },
+               "OfficeName" : "Sunrise Blvd and Douglas Rd",
+               "BrnchAddress" : 3949
+            }
+         ],
+         "BizURL" : "http://chase.com",
+         "BizId" : 265
+      },
+      {
+         "BizName" : "USKO LOGISTICS INC",
+         "BizURL" : null,
+         "BizId" : 271,
+         "biz_branches" : [
+            {
+               "brnch_phone" : {
+                  "Mobility" : "LAND LINE",
+                  "Features" : "VOICE",
+                  "Number" : "214-250-1011",
+                  "Notes" : null,
+                  "PhnFaxId" : 4273,
+                  "Extension" : "0"
+               },
+               "BrnchId" : 3813,
+               "BrnchEMail" : null,
+               "brnch_fax" : null,
+               "BrnchPhone" : 4273,
+               "BizId" : 271,
+               "brnch_address" : {
+                  "GpsLat" : null,
+                  "Country" : "USA",
+                  "Street2" : "STE 124",
+                  "State" : "TX",
+                  "City" : "Dallas",
+                  "Notes" : null,
+                  "GpsLng" : null,
+                  "Street1" : "17480 DALLAS PKWY",
+                  "Street3" : "",
+                  "Zip" : "75287",
+                  "AddrId" : 3953
+               },
+               "BrnchAddress" : 3953,
+               "biz" : {
+                  "BizName" : "USKO LOGISTICS INC",
+                  "BizId" : 271,
+                  "BizURL" : null
+               },
+               "OfficeName" : "Texas Office",
+               "BrnchFax" : null
+            }
+         ],
+         "entity" : {
+            "EntityId" : 5311,
+            "IsActive" : 1,
+            "fin_billing_infos" : [],
+            "fin_tax_id" : null,
+            "BusinessId" : 271,
+            "PersonId" : null,
+            "DateCreated" : "2019-12-10 13:45:10",
+            "Notes" : "USKO LOGISTICS INC"
+         }
+      },
+      {
+         "BizName" : "Royalty Financial",
+         "BizURL" : null,
+         "BizId" : 275,
+         "entity" : null,
+         "biz_branches" : [
+            {
+               "BrnchAddress" : 3955,
+               "OfficeName" : "Royalty Financial",
+               "biz" : {
+                  "BizName" : "Royalty Financial",
+                  "BizURL" : null,
+                  "BizId" : 275
+               },
+               "BrnchFax" : 4287,
+               "brnch_phone" : {
+                  "Notes" : null,
+                  "PhnFaxId" : 4289,
+                  "Extension" : "0",
+                  "Mobility" : "LAND LINE",
+                  "Features" : "VOICE",
+                  "Number" : "818-989-0206"
+               },
+               "BrnchEMail" : "info@uskoinc.com",
+               "BrnchId" : 3815,
+               "brnch_fax" : {
+                  "Mobility" : "LAND LINE",
+                  "Features" : "FAX",
+                  "Number" : "818-989-0208",
+                  "Notes" : null,
+                  "PhnFaxId" : 4287,
+                  "Extension" : "0"
+               },
+               "BizId" : 275,
+               "BrnchPhone" : 4289,
+               "brnch_address" : {
+                  "AddrId" : 3955,
+                  "Zip" : "91411",
+                  "Street3" : "",
+                  "Street1" : "14345 Victory Blvd",
+                  "GpsLng" : null,
+                  "Notes" : null,
+                  "State" : "CA",
+                  "City" : "Van Nuys",
+                  "Street2" : "",
+                  "Country" : "USA",
+                  "GpsLat" : null
+               }
+            }
+         ]
+      }
+   ],
+   "POST" : {
+      "search" : {
+         "BizName" : "enly Cookies"
+      }
+   }
+}
+
+----------------------------------------------------------
+https://localhost:8443/api/business/search
+----------------------------------------------------------
+{
+   "DATA" : [
+      {
+         "BizId" : 257,
+         "BizURL" : null,
+         "entity" : {
+            "fin_tax_id" : {
+               "Photo" : null,
+               "ID_Type" : "SSN",
+               "Entered" : "2019-12-10 11:21:18",
+               "EntityId" : 5285,
+               "Tax_ID" : "123-45-6789",
+               "Need1099" : 1,
+               "Notes" : null
+            },
+            "Notes" : "4 RINGS EXPRESS INC",
+            "DateCreated" : "2019-11-26 10:24:59",
+            "BusinessId" : 257,
+            "PersonId" : null,
+            "EntityId" : 5285,
+            "fin_billing_infos" : [
+               {
+                  "fin_billing_banks" : [
+                     {
+                        "BillingId" : 1,
+                        "fin_billing_rules" : [
+                           {
+                              "Active" : 1,
+                              "Amount" : "100.00",
+                              "BankAccount" : 1,
+                              "BillRuleId" : 1,
+                              "Rule" : "percentage",
+                              "Notes" : null
+                           }
+                        ],
+                        "Purpose" : "billing and payment",
+                        "Active" : 1,
+                        "AccountNumber" : "1234567890",
+                        "BankId" : 1,
+                        "RoutingNumber" : "987654321",
+                        "AccountNickname" : "Tin Can",
+                        "void_check" : {
+                           "Notes" : null,
+                           "SHASIG" : "fake data",
+                           "Keywords" : "VoidCheck",
+                           "FileData" : "Hi, I am the void check",
+                           "MIMEType" : "text/plain",
+                           "FileName" : "unimportant.jpeg",
+                           "ExpiredDate" : null,
+                           "UploadDate" : "2019-12-10 12:39:10",
+                           "FileId" : 37,
+                           "DocumentTitle" : "Fake Check"
+                        },
+                        "VoidCheck" : 37,
+                        "institution" : {
+                           "vendor_address" : {
+                              "AddrId" : 3949,
+                              "Zip" : "95742",
+                              "Street3" : "",
+                              "Street1" : "4026 Sunrise Blvd",
+                              "GpsLng" : null,
+                              "Notes" : null,
+                              "City" : "Rancho Cordova",
+                              "State" : "CA",
+                              "Street2" : "",
+                              "GpsLat" : null,
+                              "Country" : "USA"
+                           },
+                           "BrnchId" : 3809,
+                           "BrnchEMail" : null,
+                           "vendor_phone" : {
+                              "Number" : "916-850-6884",
+                              "Features" : "VOICE",
+                              "Mobility" : "LAND LINE",
+                              "Extension" : "0",
+                              "PhnFaxId" : 4269,
+                              "Notes" : null
+                           },
+                           "BrnchPhone" : 4269,
+                           "BizId" : 265,
+                           "OfficeName" : "Sunrise Blvd and Douglas Rd",
+                           "BrnchFax" : null,
+                           "vendor_biz" : {
+                              "BizName" : "JPMorgan Chase & Co",
+                              "BizURL" : "http://chase.com",
+                              "BizId" : 265
+                           },
+                           "BrnchAddress" : 3949,
+                           "vendor_fax" : null
+                        },
+                        "Notes" : null,
+                        "AccountType" : "checking",
+                        "Institution" : 3809
+                     }
+                  ],
+                  "fax" : null,
+                  "Notes" : null,
+                  "BillingTagId" : 7,
+                  "EntityId" : 5285,
+                  "address" : {
+                     "Street3" : "",
+                     "GpsLng" : null,
+                     "Street1" : "8130 LEYDEN ST",
+                     "AddrId" : 3943,
+                     "Zip" : "95626",
+                     "Street2" : "",
+                     "Country" : "USA",
+                     "GpsLat" : null,
+                     "Notes" : null,
+                     "State" : "CA",
+                     "City" : "ELVERTA"
+                  },
+                  "CreditLimit" : null,
+                  "billing_tag" : {
+                     "BillingTagId" : 7,
+                     "CreatedBy" : null,
+                     "BillingTag" : "Billing and Payment",
+                     "UserDefined" : 0,
+                     "DateCreated" : "2019-11-26 09:47:08"
+                  },
+                  "EMail" : null,
+                  "DateOut" : null,
+                  "DateIn" : "2019-11-26 10:25:00",
+                  "CreditHold" : null,
+                  "phone" : {
+                     "Notes" : null,
+                     "PhnFaxId" : 4265,
+                     "Extension" : "0",
+                     "Mobility" : "LAND LINE",
+                     "Features" : "VOICE",
+                     "Number" : "916-389-4508"
+                  },
+                  "Phone" : 4265,
+                  "BillingId" : 1,
+                  "Fax" : null,
+                  "PayToTheOrderOf" : "4 RINGS EXPRESS INC",
+                  "ContactName" : "Sergiy Podnizhnyy",
+                  "Address" : 3943
+               }
+            ],
+            "IsActive" : 1
+         },
+         "biz_branches" : [
+            {
+               "brnch_address" : {
+                  "State" : "CA",
+                  "City" : "ELVERTA",
+                  "Notes" : null,
+                  "GpsLat" : null,
+                  "Country" : "USA",
+                  "Street2" : "",
+                  "Zip" : "95626",
+                  "AddrId" : 3943,
+                  "Street1" : "8130 LEYDEN ST",
+                  "GpsLng" : null,
+                  "Street3" : ""
+               },
+               "BrnchPhone" : 4265,
+               "BizId" : 257,
+               "brnch_fax" : null,
+               "BrnchId" : 3805,
+               "BrnchEMail" : null,
+               "brnch_phone" : {
+                  "Features" : "VOICE",
+                  "Number" : "916-389-4508",
+                  "Mobility" : "LAND LINE",
+                  "PhnFaxId" : 4265,
+                  "Extension" : "0",
+                  "Notes" : null
+               },
+               "BrnchFax" : null,
+               "OfficeName" : "",
+               "biz" : {
+                  "BizName" : "4 RINGS EXPRESS INC",
+                  "BizURL" : null,
+                  "BizId" : 257
+               },
+               "BrnchAddress" : 3943
+            }
+         ],
+         "BizName" : "4 RINGS EXPRESS INC"
+      },
+      {
+         "entity" : {
+            "fin_tax_id" : null,
+            "DateCreated" : "2019-11-25 09:33:07",
+            "Notes" : "Usko Express Inc",
+            "PersonId" : null,
+            "BusinessId" : 253,
+            "EntityId" : 5275,
+            "fin_billing_infos" : [],
+            "IsActive" : 1
+         },
+         "biz_branches" : [
+            {
+               "BrnchAddress" : 3935,
+               "BrnchFax" : 4257,
+               "OfficeName" : "California Head Quarters",
+               "biz" : {
+                  "BizName" : "Usko Express Inc",
+                  "BizURL" : "http://uskoinc.com",
+                  "BizId" : 253
+               },
+               "brnch_phone" : {
+                  "PhnFaxId" : 4255,
+                  "Extension" : "0",
+                  "Notes" : null,
+                  "Features" : "VOICE",
+                  "Number" : "916-515-8065",
+                  "Mobility" : "LAND LINE"
+               },
+               "BrnchEMail" : "info@uskoinc.com",
+               "BrnchId" : 3801,
+               "BrnchPhone" : 4255,
+               "BizId" : 253,
+               "brnch_fax" : {
+                  "PhnFaxId" : 4257,
+                  "Extension" : "0",
+                  "Notes" : null,
+                  "Features" : "VOICE",
+                  "Number" : "916-515-8066",
+                  "Mobility" : "LAND LINE"
+               },
+               "brnch_address" : {
+                  "Street3" : "",
+                  "GpsLng" : null,
+                  "Street1" : "11290 POINT EAST DRIVE",
+                  "AddrId" : 3935,
+                  "Zip" : "95742",
+                  "Street2" : "STE 200",
+                  "Country" : "USA",
+                  "GpsLat" : null,
+                  "Notes" : null,
+                  "City" : "RANCHO CORDOVA",
+                  "State" : "CA"
+               }
+            },
+            {
+               "BrnchAddress" : 3840,
+               "OfficeName" : "Texas Head Quarters",
+               "biz" : {
+                  "BizName" : "Usko Express Inc",
+                  "BizURL" : "http://uskoinc.com",
+                  "BizId" : 253
+               },
+               "BrnchFax" : 4257,
+               "brnch_fax" : {
+                  "Mobility" : "LAND LINE",
+                  "Number" : "916-515-8066",
+                  "Features" : "VOICE",
+                  "Notes" : null,
+                  "Extension" : "0",
+                  "PhnFaxId" : 4257
+               },
+               "BrnchPhone" : 4255,
+               "BizId" : 253,
+               "brnch_address" : {
+                  "Zip" : "48237-2874",
+                  "AddrId" : 3840,
+                  "GpsLng" : 1924.54,
+                  "Street1" : "Consequuntur Voluptatum Placeat Assumenda Consequatur Reiciendis",
+                  "Street3" : "Reiciendis Omnis Est Qui Eius Quibusdam Minus Sit.",
+                  "City" : "Et Cupiditate Veniam Et Vel Omnis.",
+                  "State" : "WY",
+                  "Notes" : "Voluptatibus et pariatur aut.",
+                  "GpsLat" : 5654.7,
+                  "Country" : "Canada",
+                  "Street2" : "Qui Tenetur Doloremque Enim Debitis Adipisci Voluptatem. Molesti"
+               },
+               "brnch_phone" : {
+                  "Mobility" : "LAND LINE",
+                  "Features" : "VOICE",
+                  "Number" : "916-515-8065",
+                  "Notes" : null,
+                  "PhnFaxId" : 4255,
+                  "Extension" : "0"
+               },
+               "BrnchId" : 3819,
+               "BrnchEMail" : "sdfsd@sadfsad.com"
+            }
+         ],
+         "BizId" : 253,
+         "BizURL" : "http://uskoinc.com",
+         "BizName" : "Usko Express Inc"
+      },
+      {
+         "BizName" : "Heavenly Cookies and More, LLC",
+         "BizId" : 255,
+         "BizURL" : "www.heavenlycookiesandmore.com",
+         "entity" : {
+            "Notes" : "Heavenly Cookies and More, LLC",
+            "DateCreated" : "2019-11-25 09:33:07",
+            "PersonId" : null,
+            "BusinessId" : 255,
+            "fin_tax_id" : null,
+            "fin_billing_infos" : [],
+            "IsActive" : 1,
+            "EntityId" : 5277
+         },
+         "biz_branches" : [
+            {
+               "BrnchAddress" : 3941,
+               "BrnchFax" : 4291,
+               "OfficeName" : "",
+               "biz" : {
+                  "BizURL" : "www.heavenlycookiesandmore.com",
+                  "BizId" : 255,
+                  "BizName" : "Heavenly Cookies and More, LLC"
+               },
+               "BrnchPhone" : 4259,
+               "BizId" : 255,
+               "brnch_fax" : {
+                  "PhnFaxId" : 4291,
+                  "Extension" : "0",
+                  "Notes" : null,
+                  "Features" : "VOICE",
+                  "Number" : "916-880-8507",
+                  "Mobility" : "LAND LINE"
+               },
+               "brnch_address" : {
+                  "Street2" : "",
+                  "GpsLat" : null,
+                  "Country" : "United States",
+                  "Notes" : null,
+                  "City" : "SACRAMENTO",
+                  "State" : "CA",
+                  "Street3" : "",
+                  "GpsLng" : null,
+                  "Street1" : "3558 MADDIEWOOD CIR",
+                  "AddrId" : 3941,
+                  "Zip" : "95827"
+               },
+               "brnch_phone" : {
+                  "Extension" : "0",
+                  "PhnFaxId" : 4259,
+                  "Notes" : null,
+                  "Number" : "916-880-8506",
+                  "Features" : "VOICE",
+                  "Mobility" : "LAND LINE"
+               },
+               "BrnchId" : 3803,
+               "BrnchEMail" : null
+            }
+         ]
+      },
+      {
+         "BizName" : "JPMorgan Chase & Co",
+         "entity" : {
+            "fin_tax_id" : null,
+            "BusinessId" : 265,
+            "PersonId" : null,
+            "Notes" : "JPMorgan Chase & Co",
+            "DateCreated" : "2019-12-10 11:58:34",
+            "EntityId" : 5301,
+            "fin_billing_infos" : [],
+            "IsActive" : 1
+         },
+         "biz_branches" : [
+            {
+               "brnch_phone" : {
+                  "Extension" : "0",
+                  "PhnFaxId" : 4269,
+                  "Notes" : null,
+                  "Number" : "916-850-6884",
+                  "Features" : "VOICE",
+                  "Mobility" : "LAND LINE"
+               },
+               "BrnchId" : 3809,
+               "BrnchEMail" : null,
+               "brnch_fax" : null,
+               "BrnchPhone" : 4269,
+               "BizId" : 265,
+               "brnch_address" : {
+                  "Zip" : "95742",
+                  "AddrId" : 3949,
+                  "Street3" : "",
+                  "Street1" : "4026 Sunrise Blvd",
+                  "GpsLng" : null,
+                  "State" : "CA",
+                  "City" : "Rancho Cordova",
+                  "Notes" : null,
+                  "Street2" : "",
+                  "GpsLat" : null,
+                  "Country" : "USA"
+               },
+               "BrnchAddress" : 3949,
+               "biz" : {
+                  "BizId" : 265,
+                  "BizURL" : "http://chase.com",
+                  "BizName" : "JPMorgan Chase & Co"
+               },
+               "OfficeName" : "Sunrise Blvd and Douglas Rd",
+               "BrnchFax" : null
+            }
+         ],
+         "BizURL" : "http://chase.com",
+         "BizId" : 265
+      },
+      {
+         "BizName" : "USKO LOGISTICS INC",
+         "BizId" : 271,
+         "BizURL" : null,
+         "entity" : {
+            "fin_billing_infos" : [],
+            "IsActive" : 1,
+            "EntityId" : 5311,
+            "PersonId" : null,
+            "BusinessId" : 271,
+            "DateCreated" : "2019-12-10 13:45:10",
+            "Notes" : "USKO LOGISTICS INC",
+            "fin_tax_id" : null
+         },
+         "biz_branches" : [
+            {
+               "BrnchAddress" : 3953,
+               "BrnchFax" : null,
+               "biz" : {
+                  "BizName" : "USKO LOGISTICS INC",
+                  "BizId" : 271,
+                  "BizURL" : null
+               },
+               "OfficeName" : "Texas Office",
+               "BizId" : 271,
+               "BrnchPhone" : 4273,
+               "brnch_fax" : null,
+               "brnch_address" : {
+                  "AddrId" : 3953,
+                  "Zip" : "75287",
+                  "Street3" : "",
+                  "GpsLng" : null,
+                  "Street1" : "17480 DALLAS PKWY",
+                  "Notes" : null,
+                  "State" : "TX",
+                  "City" : "Dallas",
+                  "Street2" : "STE 124",
+                  "Country" : "USA",
+                  "GpsLat" : null
+               },
+               "brnch_phone" : {
+                  "Notes" : null,
+                  "PhnFaxId" : 4273,
+                  "Extension" : "0",
+                  "Mobility" : "LAND LINE",
+                  "Features" : "VOICE",
+                  "Number" : "214-250-1011"
+               },
+               "BrnchEMail" : null,
+               "BrnchId" : 3813
+            }
+         ]
+      },
+      {
+         "BizName" : "Royalty Financial",
+         "entity" : null,
+         "biz_branches" : [
+            {
+               "brnch_phone" : {
+                  "Number" : "818-989-0206",
+                  "Features" : "VOICE",
+                  "Mobility" : "LAND LINE",
+                  "Extension" : "0",
+                  "PhnFaxId" : 4289,
+                  "Notes" : null
+               },
+               "BrnchEMail" : "info@uskoinc.com",
+               "BrnchId" : 3815,
+               "BizId" : 275,
+               "BrnchPhone" : 4289,
+               "brnch_fax" : {
+                  "Mobility" : "LAND LINE",
+                  "Features" : "FAX",
+                  "Number" : "818-989-0208",
+                  "Notes" : null,
+                  "PhnFaxId" : 4287,
+                  "Extension" : "0"
+               },
+               "brnch_address" : {
+                  "State" : "CA",
+                  "City" : "Van Nuys",
+                  "Notes" : null,
+                  "Country" : "USA",
+                  "GpsLat" : null,
+                  "Street2" : "",
+                  "Zip" : "91411",
+                  "AddrId" : 3955,
+                  "Street1" : "14345 Victory Blvd",
+                  "GpsLng" : null,
+                  "Street3" : ""
+               },
+               "BrnchAddress" : 3955,
+               "BrnchFax" : 4287,
+               "OfficeName" : "Royalty Financial",
+               "biz" : {
+                  "BizId" : 275,
+                  "BizURL" : null,
+                  "BizName" : "Royalty Financial"
+               }
+            }
+         ],
+         "BizId" : 275,
+         "BizURL" : null
+      }
+   ],
+   "POST" : {
+      "search" : {
+         "BizName" : "enly Cookies"
+      }
+   }
+}
