@@ -352,7 +352,7 @@ sub UpdateFromTemplate {
     my %args    = @_;
     my $tempate = ReadFile($args{template});
     my $target  = ReadFile($args{target});
-    my $addon   = undef;
+    my $addon   = '';
     if (-f "$args{target}.addon") {
         $addon = ReadFile("$args{target}.addon");
     }
