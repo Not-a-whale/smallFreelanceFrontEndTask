@@ -32,6 +32,7 @@ __PACKAGE__->table("ins_to_entities");
   accessor: 'ins_ent_id'
   data_type: 'bigint'
   extra: {unsigned => 1}
+  is_auto_increment: 1
   is_nullable: 0
 
 =head2 InsId
@@ -61,8 +62,9 @@ __PACKAGE__->table("ins_to_entities");
 =head2 DateAdded
 
   accessor: 'date_added'
-  data_type: 'date'
+  data_type: 'datetime'
   datetime_undef_if_invalid: 1
+  default_value: 'CURRENT_TIMESTAMP'
   is_nullable: 0
 
 =head2 RemovedBy
@@ -110,10 +112,11 @@ __PACKAGE__->table("ins_to_entities");
 
 __PACKAGE__->add_columns(
     "InsEntId",
-    {   accessor    => "ins_ent_id",
-        data_type   => "bigint",
-        extra       => {unsigned => 1},
-        is_nullable => 0,
+    {   accessor          => "ins_ent_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
     },
     "InsId",
     {   accessor       => "ins_id",
@@ -138,8 +141,9 @@ __PACKAGE__->add_columns(
     },
     "DateAdded",
     {   accessor                  => "date_added",
-        data_type                 => "date",
+        data_type                 => "datetime",
         datetime_undef_if_invalid => 1,
+        default_value             => "CURRENT_TIMESTAMP",
         is_nullable               => 0,
     },
     "RemovedBy",
@@ -250,8 +254,15 @@ __PACKAGE__->belongs_to(
     },
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-26 15:33:21
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:2rai5j+5b7tvDlioc301uA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-07 08:47:06
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:MxA0AWTkDaNBb512Gz/tWg
+
+__PACKAGE__->belongs_to(
+    "ins",
+    "TMS::Schema::Result::InsPolicy",
+    {InsId         => "InsId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+);
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

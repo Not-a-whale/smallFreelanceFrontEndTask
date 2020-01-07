@@ -24,8 +24,8 @@ has 'PostedDate'      => ('is' => 'rw', 'isa' => 'DATETIME',         'coerce' =>
 
 # relations
 has 'desired_dest' => ('is' => 'rw', 'isa' => 'ObjDrvDesttype', 'coerce' => '1', 'required' => '0');
-has 'posted_by'    => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'coerce' => '1', 'required' => '0');
 has 'driver'       => ('is' => 'rw', 'isa' => 'ObjDrvDriver',   'coerce' => '1', 'required' => '0');
+has 'posted_by'    => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'DrvSchedule');
 

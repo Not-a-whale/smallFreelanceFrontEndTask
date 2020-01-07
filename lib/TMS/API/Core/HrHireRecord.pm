@@ -25,9 +25,9 @@ has 'StatusChangedNote' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' 
 has 'Title'             => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 
 # relations
-has 'photo'                    => ('is' => 'rw', 'isa' => 'ObjGenFile',     'coerce' => '1', 'required' => '0');
 has 'ast'                      => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'coerce' => '1', 'required' => '0');
 has 'employment_authorization' => ('is' => 'rw', 'isa' => 'ObjHrGovidcard', 'coerce' => '1', 'required' => '0');
+has 'photo'                    => ('is' => 'rw', 'isa' => 'ObjGenFile',     'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'HrHireRecord');
 

@@ -19,8 +19,8 @@ extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
 # relations
-has 'carrier' => ('is' => 'rw', 'isa' => 'ObjEntCarrier',  'coerce' => '1', 'required' => '0');
 has 'biz'     => ('is' => 'rw', 'isa' => 'ObjEntBusiness', 'coerce' => '1', 'required' => '0');
+has 'carrier' => ('is' => 'rw', 'isa' => 'ObjEntCarrier',  'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'EntOwnerOperator');
 

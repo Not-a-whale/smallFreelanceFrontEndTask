@@ -23,9 +23,9 @@ has 'LogbookEntryId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0'
 has 'StartTime'      => ('is' => 'rw', 'isa' => 'DATETIME',      'coerce' => '1', 'required' => '0');
 
 # relations
+has 'driver'   => ('is' => 'rw', 'isa' => 'ObjDrvDriver',   'coerce' => '1', 'required' => '0');
 has 'location' => ('is' => 'rw', 'isa' => 'ObjSftElogStat', 'coerce' => '1', 'required' => '0');
 has 'logbook'  => ('is' => 'rw', 'isa' => 'ObjSftLogbook',  'coerce' => '1', 'required' => '0');
-has 'driver'   => ('is' => 'rw', 'isa' => 'ObjDrvDriver',   'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'SftLogEntry');
 

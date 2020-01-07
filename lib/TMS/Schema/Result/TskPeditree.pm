@@ -56,8 +56,8 @@ __PACKAGE__->add_columns(
     "Child",  {accessor => "child",  data_type => "varchar", is_nullable => 0, size => 255},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-26 15:33:21
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:+IUzGRK0TFsI+A4P8CU7Yw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-07 08:47:06
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cYUDE+p2VR0T+1DthM5M+A
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

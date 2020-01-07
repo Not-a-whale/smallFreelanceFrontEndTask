@@ -22,9 +22,9 @@ has 'DrLcEndorsement' => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1
 has 'DrLcId'          => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
 
 # relations
-has 'photo'             => ('is' => 'rw', 'isa' => 'ObjGenFile',           'coerce' => '1', 'required' => '0');
 has 'dr_lc_endorsement' => ('is' => 'rw', 'isa' => 'ObjDrvCdlEndorsement', 'coerce' => '1', 'required' => '0');
 has 'driver'            => ('is' => 'rw', 'isa' => 'ObjDrvDriver',         'coerce' => '1', 'required' => '0');
+has 'photo'             => ('is' => 'rw', 'isa' => 'ObjGenFile',           'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'DrvDriverlicence');
 

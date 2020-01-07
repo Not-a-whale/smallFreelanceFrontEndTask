@@ -19,8 +19,8 @@ extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
 # relations
-has 'load'           => ('is' => 'rw', 'isa' => 'ObjDspLoad',          'coerce' => '1', 'required' => '0');
 has 'equipment_type' => ('is' => 'rw', 'isa' => 'ObjInvEquipmentType', 'coerce' => '1', 'required' => '0');
+has 'load'           => ('is' => 'rw', 'isa' => 'ObjDspLoad',          'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'DspLoadsRequiredEquipment');
 

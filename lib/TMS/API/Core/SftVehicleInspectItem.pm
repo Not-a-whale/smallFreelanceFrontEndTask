@@ -22,8 +22,7 @@ has 'InspItmId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 
 has 'Notes'     => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 
 # relations
-has 'sft_vehicle_inspected_items' =>
-    ('is' => 'rw', 'isa' => 'ArrayObjSftVehicleInspectedItem', 'coerce' => '1', 'required' => '0');
+has 'sft_vehicle_inspected_items' => ('is' => 'rw', 'isa' => 'ArrayObjSftVehicleInspectedItem', 'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'SftVehicleInspectItem');
 

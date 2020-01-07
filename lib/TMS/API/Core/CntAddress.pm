@@ -25,9 +25,9 @@ has 'Notes'  => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 're
 
 # relations
 has 'biz_branches'            => ('is' => 'rw', 'isa' => 'ArrayObjBizBranch',            'coerce' => '1', 'required' => '0');
+has 'fin_billing_infos'       => ('is' => 'rw', 'isa' => 'ArrayObjFinBillingInfo',       'coerce' => '1', 'required' => '0');
 has 'hr_residences'           => ('is' => 'rw', 'isa' => 'ArrayObjHrResidence',          'coerce' => '1', 'required' => '0');
 has 'sft_vehicle_inspections' => ('is' => 'rw', 'isa' => 'ArrayObjSftVehicleInspection', 'coerce' => '1', 'required' => '0');
-has 'fin_billing_infos'       => ('is' => 'rw', 'isa' => 'ArrayObjFinBillingInfo',       'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'CntAddress');
 
