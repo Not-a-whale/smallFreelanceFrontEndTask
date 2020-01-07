@@ -1,6 +1,9 @@
 {
    "POST" : 
       {
-        "search" : {}
+        "search" : [
+          { "ast.FirstName" : "TestDriver" },
+          { "ast.LastName" : "DriverTest" }
+        ]
       }
 }
