@@ -1,0 +1,21 @@
+@img-small: 30px;
+
+img,
+svg {
+  &.round {
+    border-radius: 50%;
+  }
+
+  &.sm,
+  &.small {
+    max-height: @img-small;
+    max-width: @img-small;
+  }
+}
+
+.img-round() {}
+
+.img-sm() {
+  max-height: @img-small;
+  max-width: @img-small;
+}

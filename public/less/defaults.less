@@ -1,0 +1,29 @@
+body, html {
+  height: 100vh;
+  width: 100vw;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  box-sizing: border-box;
+  font-family: @font-family-primary;
+  font-size: @font-norm;
+  font-weight: normal;
+  color: @font-color-primary;
+}
+
+svg, use {
+  box-sizing: unset;
+}
+
+.scrollable {
+  overflow-x: visible;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
