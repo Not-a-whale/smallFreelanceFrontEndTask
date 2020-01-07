@@ -1,0 +1,114 @@
+==========================================================
+/home/cpeter/ng/tools/crudtest.sh -p 8443 -r /api/associates
+==========================================================
+
+----------------------------------------------------------
+https://localhost:8443/api/associates/search
+----------------------------------------------------------
+{
+   "POST" : {
+      "search" : [
+         {
+            "ast.FirstName" : "TestDriver"
+         },
+         {
+            "ast.LastName" : "DriverTest"
+         }
+      ]
+   },
+   "DATA" : [
+      {
+         "AuthorityLevel" : "executive",
+         "BizEmail" : "hello@123.com",
+         "DateRemoved" : null,
+         "ast" : {
+            "NickName" : "",
+            "MiddleName" : "",
+            "BrnchId" : 3805,
+            "FirstName" : "TestDriver",
+            "brnch" : {
+               "BizId" : 257,
+               "BrnchPhone" : 4265,
+               "BrnchAddress" : 3943,
+               "BrnchFax" : null,
+               "brnch_fax" : null,
+               "brnch_address" : {
+                  "Street3" : "",
+                  "GpsLng" : null,
+                  "AddrId" : 3943,
+                  "GpsLat" : null,
+                  "Notes" : null,
+                  "State" : "CA",
+                  "Country" : "USA",
+                  "Street2" : "",
+                  "Street1" : "8130 LEYDEN ST",
+                  "Zip" : "95626",
+                  "City" : "ELVERTA"
+               },
+               "BrnchId" : 3805,
+               "OfficeName" : "",
+               "BrnchEMail" : null,
+               "biz" : {
+                  "BizName" : "4 RINGS EXPRESS INC",
+                  "BizURL" : null,
+                  "BizId" : 257
+               },
+               "brnch_phone" : {
+                  "Features" : "VOICE",
+                  "PhnFaxId" : 4265,
+                  "Mobility" : "LAND LINE",
+                  "Number" : "916-389-4508",
+                  "Notes" : null,
+                  "Extension" : "0"
+               }
+            },
+            "Prefix" : "",
+            "LastName" : "DriverTest",
+            "Suffix" : "",
+            "PrsnId" : 23
+         },
+         "PrimaryContact" : 0,
+         "biz_fax" : {
+            "Features" : "VOICE",
+            "Mobility" : "LAND LINE",
+            "PhnFaxId" : 4257,
+            "Number" : "916-515-8066",
+            "Notes" : null,
+            "Extension" : "0"
+         },
+         "CurrentTitle" : "Owner",
+         "BizPhone" : 4265,
+         "biz_phone" : {
+            "PhnFaxId" : 4265,
+            "Mobility" : "LAND LINE",
+            "Features" : "VOICE",
+            "Extension" : "0",
+            "Notes" : null,
+            "Number" : "916-389-4508"
+         },
+         "AstId" : 23,
+         "DateCreated" : "2019-12-10 10:30:24",
+         "NodeId" : 399,
+         "node" : {
+            "UnitName" : "Executive Office",
+            "NodeId" : 399,
+            "ParentId" : null,
+            "Type" : "Other"
+         },
+         "Notes" : "Owner Operator",
+         "BizFax" : 4257
+      }
+   ]
+}
+
+----------------------------------------------------------
+https://localhost:8443/api/associates/create
+----------------------------------------------------------
+
+----------------------------------------------------------
+https://localhost:8443/api/associates/search
+----------------------------------------------------------
+
+----------------------------------------------------------
+https://localhost:8443/api/associates/search
+----------------------------------------------------------
