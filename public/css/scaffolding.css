@@ -14,7 +14,6 @@ main-layout {
   --navbar-width: 196px;
   --navbar-width-min: 64px;
 
-
   --topnav-menu-height: 95px;
   --topnav-breadbar-height: 32px;
   --topnav-height: calc(var(--topnav-menu-height) + var(--topnav-breadbar-height));
@@ -39,9 +38,10 @@ main-layout {
   --navbar-collapse-left: 200px;
   --navbar-collapse-left-min: 16px;
 
-  --navbar-bg-color: var(--cp-grey-heavy);
+  --navbar-bg-color: var(--cp-default);
   --navbar-fancy-bg-color: var(--cp-highlight);
-  --navbar-font-nav-color: var(--cp-grey-light);
+  --navbar-font-nav-cat-color: var(--cp-grey-light);
+  --navbar-font-nav-color: var(--cp-grey-mid);
   --navbar-font-nav-color-active: var(--cp-highlight);
   --navbar-font-nav-color-hover: var(--cp-grey-mid);
 
@@ -55,14 +55,15 @@ main-layout {
 #main-navbar-container {
   display: flex;
   flex-direction: column;
+  width: var(--navbar-width-min);
 }
 
 #main-navbar-container::-webkit-scrollbar {
   display: none;
 }
 
-#main-navbar-container.collapsed {
-  width: var(--navbar-width-min);
+#main-navbar-container.expanded {
+  width: var(--navbar-width);
 }
 
 
@@ -70,7 +71,12 @@ main-layout {
   display: flex;
   flex-direction: column;
   flex: 1;
-  max-width: calc(100vw - var(--navbar-width-min));
+  width: calc(100vw - var(--navbar-width));
+  overflow-x: hidden;
+}
+
+#main-display-container.expanded {
+  width: calc(100vw - var(--navbar-width-min));
 }
 
 #main-topnav-container {
@@ -97,4 +103,15 @@ main-layout {
 
 #main-content-container::-webkit-scrollbar {
   display: none;
+}
+
+#main-chat-dock {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  z-index: var(--layer-max);
+  bottom: 0px;
+  height: 0px;
+  width: 100vw;
 }

@@ -1,4 +1,4 @@
-nav-layout {
+/* nav-layout {
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -134,8 +134,6 @@ main-menu .nav-icon {
 }
 
 
-/* ------------------ This is when the navbar is collapsed ----------------- */
-
 #main-navbar.collapsed {
     width: var(--navbar-width-min);
 }
@@ -184,4 +182,4 @@ main-menu .nav-icon {
 #main-navbar.collapsed .nav-icon {
 
     margin-bottom: 20px;
-}
+} */
