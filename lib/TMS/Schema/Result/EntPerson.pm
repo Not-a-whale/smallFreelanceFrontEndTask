@@ -312,6 +312,19 @@ __PACKAGE__->has_many(
 # Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-07 08:47:05
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:oD9DW7jhVbmKb1WMaiXNpg
 
+__PACKAGE__->belongs_to(
+    "hr_primary",
+    "TMS::Schema::Result::HrAssociate",
+    sub {
+        my $args = shift;
+        return {
+            "$args->{foreign_alias}.AstId"          => {-ident => "$args->{self_alias}.PrsnId"},
+            "$args->{foreign_alias}.PrimaryContact" => {'>', "0"},
+        };
+    },
+    {cascade_copy => 0, cascade_delete => 0},
+);
+
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 
 1;
