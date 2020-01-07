@@ -269,7 +269,7 @@ sub BuildAPI {
         }
     }
 
-    foreach my $cl (keys %RelateInfo) {
+    foreach my $cl (sort keys %RelateInfo) {
         my $MooseClass = $RelateInfo{$cl}{class};
         my $MooseType  = $RelateInfo{$cl}{'attrs'}{'accessor'} eq 'multi' ? 'ArrayObj' : 'Obj';
         $MooseClass =~ s/.*:://g;
