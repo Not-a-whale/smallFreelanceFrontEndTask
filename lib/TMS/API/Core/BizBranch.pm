@@ -29,6 +29,7 @@ has 'brnch_fax'              => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax',      
 has 'brnch_phone'            => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax',             'coerce' => '1', 'required' => '0');
 has 'dsp_loads_destinations' => ('is' => 'rw', 'isa' => 'ArrayObjDspLoadsDestination', 'coerce' => '1', 'required' => '0');
 has 'ent_people'             => ('is' => 'rw', 'isa' => 'ArrayObjEntPerson',           'coerce' => '1', 'required' => '0');
+has 'primary_contact'             => ('is' => 'rw', 'isa' => 'ArrayObjEntPerson',           'coerce' => '1', 'required' => '0');
 has 'fin_billing_banks'      => ('is' => 'rw', 'isa' => 'ArrayObjFinBillingBank',      'coerce' => '1', 'required' => '0');
 has 'fin_cheques'            => ('is' => 'rw', 'isa' => 'ArrayObjFinCheque',           'coerce' => '1', 'required' => '0');
 has 'inv_equipments'         => ('is' => 'rw', 'isa' => 'ArrayObjInvEquipment',        'coerce' => '1', 'required' => '0');

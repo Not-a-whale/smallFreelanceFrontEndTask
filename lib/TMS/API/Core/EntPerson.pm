@@ -24,6 +24,7 @@ has 'PrsnId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'requi
 has 'brnch'        => ('is' => 'rw', 'isa' => 'ObjBizBranch',    'coerce' => '1', 'required' => '0');
 has 'entity'       => ('is' => 'rw', 'isa' => 'ObjEntity',       'coerce' => '1', 'required' => '0');
 has 'hr_associate' => ('is' => 'rw', 'isa' => 'ObjHrAssociate',  'coerce' => '1', 'required' => '0');
+has 'hr_primary'   => ('is' => 'rw', 'isa' => 'ObjHrAssociate',  'coerce' => '1', 'required' => '0');
 has 'tsk_actns'    => ('is' => 'rw', 'isa' => 'ArrayObjTskActn', 'coerce' => '1', 'required' => '0');
 has 'tsk_ntfis'    => ('is' => 'rw', 'isa' => 'ArrayObjTskNtfi', 'coerce' => '1', 'required' => '0');
 has 'tsk_resps'    => ('is' => 'rw', 'isa' => 'ArrayObjTskResp', 'coerce' => '1', 'required' => '0');

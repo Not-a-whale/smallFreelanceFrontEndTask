@@ -299,6 +299,14 @@ __PACKAGE__->has_many(
 
 # Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-07 08:47:05
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:InJXzh52jvru6Gqy7eOSSg
+
+__PACKAGE__->has_many(
+    "primary_contact",
+    "TMS::Schema::Result::EntPerson",
+    {"foreign.BrnchId" => "self.BrnchId"},
+    {cascade_copy      => 0, cascade_delete => 0},
+);
+
 __PACKAGE__->belongs_to(
     "vendor_biz",
     "TMS::Schema::Result::EntBusiness",

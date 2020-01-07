@@ -1,4 +1,11 @@
 
+__PACKAGE__->has_many(
+    "primary_contact",
+    "TMS::Schema::Result::EntPerson",
+    {"foreign.BrnchId" => "self.BrnchId"},
+    {cascade_copy      => 0, cascade_delete => 0},
+);
+
 __PACKAGE__->belongs_to(
     "vendor_biz",
     "TMS::Schema::Result::EntBusiness",
@@ -7,27 +14,26 @@ __PACKAGE__->belongs_to(
 );
 
 __PACKAGE__->belongs_to(
-  "vendor_address",
-  "TMS::Schema::Result::CntAddress",
-  { AddrId => "BrnchAddress" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "vendor_address",
+    "TMS::Schema::Result::CntAddress",
+    {AddrId        => "BrnchAddress"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 __PACKAGE__->belongs_to(
-  "vendor_phone",
-  "TMS::Schema::Result::CntPhonesfax",
-  { PhnFaxId => "BrnchPhone" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "vendor_phone",
+    "TMS::Schema::Result::CntPhonesfax",
+    {PhnFaxId      => "BrnchPhone"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 __PACKAGE__->belongs_to(
-  "vendor_fax",
-  "TMS::Schema::Result::CntPhonesfax",
-  { PhnFaxId => "BrnchFax" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "vendor_fax",
+    "TMS::Schema::Result::CntPhonesfax",
+    {PhnFaxId => "BrnchFax"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
