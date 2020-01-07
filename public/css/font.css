@@ -156,16 +156,6 @@
   font-size: var(--font-small),
 }
 
-/* btn font is explicitly only for buttons therefore you shall look inside of the buttons.css for the font
-
-/*used for the labels of buttons with no borders*/
-
-.btn- {
-  color: var(--color-primary-new);
-  font-weight: var(--font-weight-medium);
-  font-size: var(--font-small),
-}
-
 .font-crumbs-current {
   color: var(--color-tone-firm);
   font-weight: var(--font-weight-medium);
@@ -203,9 +193,10 @@
 /* used in primary side navbar */
 .font-nav-cat {
   font-size: var(--font-small);
-  color: var(--navbar-font-nav-color);
+  color: var(--navbar-font-nav-cat-color);
   text-transform: uppercase;
   font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-medium);
 }
 
 .font-nav {
@@ -214,7 +205,7 @@
   text-transform: uppercase;
   color: var(--navbar-font-nav-color);
   font-family: var(--font-family-second);
-
+  text-decoration: none;
 }
 
 .font-nav2 {
@@ -277,7 +268,7 @@
   /* used for text that needs to appear as a link */
   color: var(--color-blue-link);
   text-decoration: underline;
-  text-decoration-color: var(--color-blue-link);
+  text-decoration-color: var(--cp-primary);
 }
 
 
@@ -285,7 +276,7 @@
   /* used for text that needs to appear as a link but smaller font */
   color: var(--color-blue-link);
   text-decoration: underline;
-  text-decoration-color: var(--color-blue-link);
+  text-decoration-color: var(--cp-primary);
   font-size: var(--font-less);
 }
 
@@ -341,16 +332,15 @@
 /* used for links */
 
 .font-link {
-  font-size: var(--font-small);
-  color: var(--color-primary);
+  color: var(--cp-primary);
   text-decoration: underline;
-  text-decoration-color: var(--color-primary);
+  text-decoration-color: var(--cp-primary);
+  cursor: pointer;
 }
 
 .font-link:hover {
-
-  color: var(--color-primary-hover);
-  text-decoration-color: var(--color-primary-hover);
+  color: var(--cp-primary-mid);
+  text-decoration-color: var(--cp-primary-mid);
 }
 
 .font-sect-head {
