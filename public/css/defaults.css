@@ -18,8 +18,6 @@ body {
   color: var(--font-color-primary);
 }
 
-
-
 .as-col {
   /* force container to display content in columns */
   display: flex !important;
@@ -51,4 +49,18 @@ body {
 .icon-sm {
   max-width: var(--icon-size-sm);
   max-height: var(--icon-size-sm);
+}
+
+.icon-tiny {
+  max-width: var(--icon-size-tiny);
+  max-height: var(--icon-size-tiny);
+}
+
+.img-round {
+  border-radius: 50%;
+}
+
+.img-sm {
+  max-height: 30px;
+  max-width: 30px;
 }
