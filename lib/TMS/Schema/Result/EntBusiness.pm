@@ -206,6 +206,13 @@ __PACKAGE__->might_have(
 # Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-07 08:47:05
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Y4cfXPiWOBGEmuB6lxzAAg
 
+__PACKAGE__->belongs_to(
+    "has_carrier",
+    "TMS::Schema::Result::EntCarrier",
+    {"foreign.CarrierId" => "self.BizId"},
+    {cascade_copy        => 0, cascade_delete => 0},
+);
+
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 
 1;
