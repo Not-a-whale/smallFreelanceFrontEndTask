@@ -57,8 +57,8 @@ __PACKAGE__->add_columns(
     {accessor => "structure", data_type => "text", is_nullable => 1},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-07 08:47:05
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:KTYrQXRQDnpexKxaOTZUoA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-08 08:23:14
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:n+f1k/NZ8yWcx2tqkVBZ3w
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

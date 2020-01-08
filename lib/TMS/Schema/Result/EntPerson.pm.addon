@@ -1,4 +1,13 @@
 
+foreach (qw( vendor dispatcher owner driver customer shipper )) {
+    __PACKAGE__->belongs_to(
+        "brnch_$_",
+        "TMS::Schema::Result::BizBranch",
+        {BrnchId       => "BrnchId"},
+        {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+    );
+}
+
 __PACKAGE__->belongs_to(
     "hr_primary",
     "TMS::Schema::Result::HrAssociate",

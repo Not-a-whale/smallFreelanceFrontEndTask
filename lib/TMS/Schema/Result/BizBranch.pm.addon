@@ -6,34 +6,36 @@ __PACKAGE__->has_many(
     {cascade_copy      => 0, cascade_delete => 0},
 );
 
-__PACKAGE__->belongs_to(
-    "vendor_biz",
-    "TMS::Schema::Result::EntBusiness",
-    {BizId         => "BizId"},
-    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
-);
+foreach (qw( vendor dispatcher owner driver customer shipper )) {
+    __PACKAGE__->belongs_to(
+        "$_\_biz",
+        "TMS::Schema::Result::EntBusiness",
+        {BizId         => "BizId"},
+        {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+    );
 
-__PACKAGE__->belongs_to(
-    "vendor_address",
-    "TMS::Schema::Result::CntAddress",
-    {AddrId        => "BrnchAddress"},
-    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
-);
+    __PACKAGE__->belongs_to(
+        "$_\_address",
+        "TMS::Schema::Result::CntAddress",
+        {AddrId        => "BrnchAddress"},
+        {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+    );
 
-__PACKAGE__->belongs_to(
-    "vendor_phone",
-    "TMS::Schema::Result::CntPhonesfax",
-    {PhnFaxId      => "BrnchPhone"},
-    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
-);
+    __PACKAGE__->belongs_to(
+        "$_\_phone",
+        "TMS::Schema::Result::CntPhonesfax",
+        {PhnFaxId      => "BrnchPhone"},
+        {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+    );
 
-__PACKAGE__->belongs_to(
-    "vendor_fax",
-    "TMS::Schema::Result::CntPhonesfax",
-    {PhnFaxId => "BrnchFax"},
-    {   is_deferrable => 1,
-        join_type     => "LEFT",
-        on_delete     => "RESTRICT",
-        on_update     => "CASCADE",
-    },
-);
+    __PACKAGE__->belongs_to(
+        "$_\_fax",
+        "TMS::Schema::Result::CntPhonesfax",
+        {PhnFaxId => "BrnchFax"},
+        {   is_deferrable => 1,
+            join_type     => "LEFT",
+            on_delete     => "RESTRICT",
+            on_update     => "CASCADE",
+        },
+    );
+}

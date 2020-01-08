@@ -1049,15 +1049,37 @@ __PACKAGE__->has_many(
     {"foreign.InspectorId" => "self.AstId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-07 08:47:06
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:bRD3lH9fnlGW7TAsMk7W9Q
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-08 08:23:14
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:/McSqjIjOPr820tntsgUAg
 
-foreach (qw( vendor_cnt dispatcher_cnt owner_cnt )) {
+foreach (qw( vendor dispatcher owner driver customer shipper )) {
     __PACKAGE__->belongs_to(
-        "$_",
+        "ast_$_",
         "TMS::Schema::Result::EntPerson",
         {PrsnId        => "AstId"},
         {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+    );
+
+    __PACKAGE__->belongs_to(
+        "biz_fax_$_",
+        "TMS::Schema::Result::CntPhonesfax",
+        {PhnFaxId => "BizFax"},
+        {   is_deferrable => 1,
+            join_type     => "LEFT",
+            on_delete     => "RESTRICT",
+            on_update     => "CASCADE",
+        },
+    );
+
+    __PACKAGE__->belongs_to(
+        "biz_phone_$_",
+        "TMS::Schema::Result::CntPhonesfax",
+        {PhnFaxId => "BizPhone"},
+        {   is_deferrable => 1,
+            join_type     => "LEFT",
+            on_delete     => "RESTRICT",
+            on_update     => "CASCADE",
+        },
     );
 }
 

@@ -1,9 +1,31 @@
 
-foreach (qw( vendor_cnt dispatcher_cnt owner_cnt )) {
+foreach (qw( vendor dispatcher owner driver customer shipper )) {
     __PACKAGE__->belongs_to(
-        "$_",
+        "ast_$_",
         "TMS::Schema::Result::EntPerson",
         {PrsnId        => "AstId"},
         {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+    );
+
+    __PACKAGE__->belongs_to(
+        "biz_fax_$_",
+        "TMS::Schema::Result::CntPhonesfax",
+        {PhnFaxId => "BizFax"},
+        {   is_deferrable => 1,
+            join_type     => "LEFT",
+            on_delete     => "RESTRICT",
+            on_update     => "CASCADE",
+        },
+    );
+
+    __PACKAGE__->belongs_to(
+        "biz_phone_$_",
+        "TMS::Schema::Result::CntPhonesfax",
+        {PhnFaxId => "BizPhone"},
+        {   is_deferrable => 1,
+            join_type     => "LEFT",
+            on_delete     => "RESTRICT",
+            on_update     => "CASCADE",
+        },
     );
 }
