@@ -14,7 +14,7 @@
 -- Position to start replication or point-in-time recovery from
 --
 
-CHANGE MASTER TO MASTER_LOG_FILE='mysql-bin.000090', MASTER_LOG_POS=383433;
+CHANGE MASTER TO MASTER_LOG_FILE='mysql-bin.000090', MASTER_LOG_POS=757863;
 
 --
 -- Table structure for table `app_account_locks`
@@ -891,7 +891,7 @@ CREATE TABLE `cnt_addresses` (
   KEY `idx_cnt_addresses_State` (`State`),
   KEY `idx_cnt_addresses_Country` (`Country`),
   KEY `idx_cnt_addresses_Street1` (`Street1`)
-) ENGINE=InnoDB AUTO_INCREMENT=3963 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3969 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1265,6 +1265,7 @@ CREATE TABLE `drv_drivers` (
 
 LOCK TABLES `drv_drivers` WRITE;
 /*!40000 ALTER TABLE `drv_drivers` DISABLE KEYS */;
+INSERT INTO `drv_drivers` VALUES (23,0,0,NULL,NULL);
 /*!40000 ALTER TABLE `drv_drivers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1921,7 +1922,7 @@ CREATE TABLE `ent_people` (
   KEY `idx_ent_people_Suffix` (`Suffix`) USING BTREE,
   KEY `idx_ent_people_BrnchId` (`BrnchId`) USING BTREE,
   CONSTRAINT `PeopleBranchRef` FOREIGN KEY (`BrnchId`) REFERENCES `biz_branches` (`BrnchId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1930,7 +1931,7 @@ CREATE TABLE `ent_people` (
 
 LOCK TABLES `ent_people` WRITE;
 /*!40000 ALTER TABLE `ent_people` DISABLE KEYS */;
-INSERT INTO `ent_people` VALUES (11,'','','Mila','','Chuk','',3803),(13,'','','Peter','','Chuk','',3801),(15,'','','Sergiy','','Podnizhnyy','',3805),(21,'','','Usko','','Ensurer','',3815),(9,'','','Vladimir','','Skots','',3801),(17,'boss','','Vladimir','','Skots','',3801);
+INSERT INTO `ent_people` VALUES (11,'','','Mila','','Chuk','',3803),(13,'','','Peter','','Chuk','',3801),(15,'','','Sergiy','','Podnizhnyy','',3805),(23,'','','TestDriver','','DriverTest','',3805),(21,'','','Usko','','Ensurer','',3815),(9,'','','Vladimir','','Skots','',3801),(17,'boss','','Vladimir','','Skots','',3801);
 /*!40000 ALTER TABLE `ent_people` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3647,7 +3648,7 @@ CREATE TABLE `hr_associates` (
 
 LOCK TABLES `hr_associates` WRITE;
 /*!40000 ALTER TABLE `hr_associates` DISABLE KEYS */;
-INSERT INTO `hr_associates` VALUES (9,'CEO',399,'executive','2019-11-25 16:09:53',NULL,4261,4257,'vlad@uskoinc.com','Founder and CEO',1),(13,'Software Engineer',401,'member','2019-11-26 10:19:37',NULL,4263,4257,'cpeter@uskoinc.com',NULL,0),(15,'Owner',399,'executive','2019-12-10 10:30:24',NULL,4265,4257,'hello@123.com','Owner Operator',0),(17,'CEO',399,'executive','2019-12-06 14:44:10',NULL,4261,4257,'vlad@uskoinc.com','Founder and CEO',1),(21,NULL,NULL,'member','2020-01-06 15:17:13',NULL,4303,NULL,NULL,NULL,0);
+INSERT INTO `hr_associates` VALUES (9,'CEO',399,'executive','2019-11-25 16:09:53',NULL,4261,4257,'vlad@uskoinc.com','Founder and CEO',1),(13,'Software Engineer',401,'member','2019-11-26 10:19:37',NULL,4263,4257,'cpeter@uskoinc.com',NULL,0),(15,'Owner',399,'executive','2019-12-10 10:30:24',NULL,4265,4257,'hello@123.com','Owner Operator',1),(17,'CEO',399,'executive','2019-12-06 14:44:10',NULL,4261,4257,'vlad@uskoinc.com','Founder and CEO',1),(21,NULL,NULL,'member','2020-01-06 15:17:13',NULL,4303,NULL,NULL,NULL,0),(23,'Owner',399,'executive','2019-12-10 10:30:24',NULL,4265,4257,'hello@123.com','Owner Operator',0);
 /*!40000 ALTER TABLE `hr_associates` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4097,7 +4098,7 @@ CREATE TABLE `inv_equipment` (
   CONSTRAINT `EquipVendorRef` FOREIGN KEY (`VendorId`) REFERENCES `biz_branches` (`BrnchId`) ON UPDATE CASCADE,
   CONSTRAINT `EquipmentOwnerRef` FOREIGN KEY (`OwnerId`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
   CONSTRAINT `EquipmentTypeRef` FOREIGN KEY (`EquipmentType`) REFERENCES `inv_equipment_types` (`EquipmentTypeId`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Connects all equipment tables with unique primary keys';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Connects all equipment tables with unique primary keys';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4106,6 +4107,7 @@ CREATE TABLE `inv_equipment` (
 
 LOCK TABLES `inv_equipment` WRITE;
 /*!40000 ALTER TABLE `inv_equipment` DISABLE KEYS */;
+INSERT INTO `inv_equipment` VALUES (1,'Coffee Machine',9,3815,NULL,NULL,NULL,NULL,NULL,1);
 /*!40000 ALTER TABLE `inv_equipment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4173,11 +4175,11 @@ DROP TABLE IF EXISTS `inv_equipment_types`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `inv_equipment_types` (
-  `EquipmentTypeId` bigint(64) unsigned NOT NULL,
+  `EquipmentTypeId` bigint(64) unsigned NOT NULL AUTO_INCREMENT,
   `Name` varchar(64) NOT NULL,
   PRIMARY KEY (`EquipmentTypeId`),
   KEY `idx_inv_equipment_types_Name` (`Name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Types of equipment used for load requirement contraints';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Types of equipment used for load requirement contraints';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4186,6 +4188,7 @@ CREATE TABLE `inv_equipment_types` (
 
 LOCK TABLES `inv_equipment_types` WRITE;
 /*!40000 ALTER TABLE `inv_equipment_types` DISABLE KEYS */;
+INSERT INTO `inv_equipment_types` VALUES (1,'Kitchen Appliance');
 /*!40000 ALTER TABLE `inv_equipment_types` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -6047,4 +6050,4 @@ DELIMITER ;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-01-06 15:59:09
+-- Dump completed on 2020-01-08  9:39:39

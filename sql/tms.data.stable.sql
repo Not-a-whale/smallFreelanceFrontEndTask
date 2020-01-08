@@ -509,6 +509,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `drv_drivers` WRITE;
 /*!40000 ALTER TABLE `drv_drivers` DISABLE KEYS */;
+INSERT INTO `drv_drivers` VALUES (23,0,0,NULL,NULL);
 /*!40000 ALTER TABLE `drv_drivers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -665,7 +666,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `ent_people` WRITE;
 /*!40000 ALTER TABLE `ent_people` DISABLE KEYS */;
-INSERT INTO `ent_people` VALUES (11,'','','Mila','','Chuk','',3803),(13,'','','Peter','','Chuk','',3801),(15,'','','Sergiy','','Podnizhnyy','',3805),(21,'','','Usko','','Ensurer','',3815),(9,'','','Vladimir','','Skots','',3801),(17,'boss','','Vladimir','','Skots','',3801);
+INSERT INTO `ent_people` VALUES (11,'','','Mila','','Chuk','',3803),(13,'','','Peter','','Chuk','',3801),(15,'','','Sergiy','','Podnizhnyy','',3805),(23,'','','TestDriver','','DriverTest','',3805),(21,'','','Usko','','Ensurer','',3815),(9,'','','Vladimir','','Skots','',3801),(17,'boss','','Vladimir','','Skots','',3801);
 /*!40000 ALTER TABLE `ent_people` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1406,7 +1407,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `hr_associates` WRITE;
 /*!40000 ALTER TABLE `hr_associates` DISABLE KEYS */;
-INSERT INTO `hr_associates` VALUES (9,'CEO',399,'executive','2019-11-25 16:09:53',NULL,4261,4257,'vlad@uskoinc.com','Founder and CEO',1),(13,'Software Engineer',401,'member','2019-11-26 10:19:37',NULL,4263,4257,'cpeter@uskoinc.com',NULL,0),(15,'Owner',399,'executive','2019-12-10 10:30:24',NULL,4265,4257,'hello@123.com','Owner Operator',0),(17,'CEO',399,'executive','2019-12-06 14:44:10',NULL,4261,4257,'vlad@uskoinc.com','Founder and CEO',1),(21,NULL,NULL,'member','2020-01-06 15:17:13',NULL,4303,NULL,NULL,NULL,0);
+INSERT INTO `hr_associates` VALUES (9,'CEO',399,'executive','2019-11-25 16:09:53',NULL,4261,4257,'vlad@uskoinc.com','Founder and CEO',1),(13,'Software Engineer',401,'member','2019-11-26 10:19:37',NULL,4263,4257,'cpeter@uskoinc.com',NULL,0),(15,'Owner',399,'executive','2019-12-10 10:30:24',NULL,4265,4257,'hello@123.com','Owner Operator',1),(17,'CEO',399,'executive','2019-12-06 14:44:10',NULL,4261,4257,'vlad@uskoinc.com','Founder and CEO',1),(21,NULL,NULL,'member','2020-01-06 15:17:13',NULL,4303,NULL,NULL,NULL,0),(23,'Owner',399,'executive','2019-12-10 10:30:24',NULL,4265,4257,'hello@123.com','Owner Operator',0);
 /*!40000 ALTER TABLE `hr_associates` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1517,6 +1518,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `inv_equipment` WRITE;
 /*!40000 ALTER TABLE `inv_equipment` DISABLE KEYS */;
+INSERT INTO `inv_equipment` VALUES (1,'Coffee Machine',9,3815,NULL,NULL,NULL,NULL,NULL,1);
 /*!40000 ALTER TABLE `inv_equipment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1544,6 +1546,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `inv_equipment_types` WRITE;
 /*!40000 ALTER TABLE `inv_equipment_types` DISABLE KEYS */;
+INSERT INTO `inv_equipment_types` VALUES (1,'Kitchen Appliance');
 /*!40000 ALTER TABLE `inv_equipment_types` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2086,4 +2089,4 @@ UNLOCK TABLES;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-01-06 15:59:06
+-- Dump completed on 2020-01-08  9:39:36
