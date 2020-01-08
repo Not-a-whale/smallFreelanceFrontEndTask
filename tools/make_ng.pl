@@ -102,7 +102,7 @@ unless (exists $$CLI{tables} && defined $$CLI{tables}) {
 
 print '-' x 80 . "\n";
 my $total_end = time();
-printf "DBIxDumpe: %d\nAPI Build: %d\nTotal: %d", $after_dump - $before_dump, $after_api - $before_api, $total_end - $total_start;
+printf "DBIxDumpe: %d\nAPI Build: %d\nTotal: %d\n", $after_dump - $before_dump, $after_api - $before_api, $total_end - $total_start;
 
 sub BuildComplexTypes {
     my $target       = "$$CLI{dest}/$$CLI{class}/API/Types/Complex.pm";
