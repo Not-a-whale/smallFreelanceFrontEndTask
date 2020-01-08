@@ -229,8 +229,15 @@ __PACKAGE__->belongs_to(
     },
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-08 09:43:54
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:UFWuxRqUpB+7NKjdiu+Atw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-08 10:28:18
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cmzvIAtVYLWtc5WFAplXpA
+
+__PACKAGE__->belongs_to(
+    "biz_ifta",
+    "TMS::Schema::Result::EntBusiness",
+    {BizId         => "BizId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+);
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

@@ -23,6 +23,7 @@ has 'ProofDoc'   => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'r
 
 # relations
 has 'biz'             => ('is' => 'rw', 'isa' => 'ObjEntBusiness',       'coerce' => '1', 'required' => '0');
+has 'biz_ifta'        => ('is' => 'rw', 'isa' => 'ObjEntBusiness',       'coerce' => '1', 'required' => '0');
 has 'crr_ifta_decals' => ('is' => 'rw', 'isa' => 'ArrayObjCrrIftaDecal', 'coerce' => '1', 'required' => '0');
 has 'proof_doc'       => ('is' => 'rw', 'isa' => 'ObjGenFile',           'coerce' => '1', 'required' => '0');
 

@@ -309,8 +309,8 @@ __PACKAGE__->has_many(
     {cascade_copy     => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-08 09:43:54
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:KTugdKU8kSGOnkjpS9FdBw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-08 10:28:18
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cr9xLolziSyHWJQLoL0Ccg
 
 foreach (qw( vendor dispatcher owner driver customer shipper )) {
     __PACKAGE__->belongs_to(

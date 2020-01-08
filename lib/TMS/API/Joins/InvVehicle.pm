@@ -1,6 +1,7 @@
 package TMS::API::Joins::InvVehicle;
 use Moose;
 use TMS::API::Joins::InvEquipment;
+use TMS::API::Joins::CrrIftaDecal;
 extends 'TMS::API::Joins::Prefetch';
 
 sub _build_prefetch {
@@ -8,7 +9,7 @@ sub _build_prefetch {
         [
             'carrier',
             TMS::API::Joins::InvEquipment->new->joins('vehicle'),
-            'crr_ifta_decals',
+            TMS::API::Joins::CrrIftaDecal->new->joins('crr_ifta_decals'),
             'crr_state_permits',
             'tire_size',
         ]
