@@ -21,6 +21,7 @@ with 'MooseX::Traits';
 has 'FuelTankSize'            => ('is' => 'rw', 'isa' => 'CurrencyValue', 'coerce' => '1', 'required' => '0');
 has 'MilesPerGallonEstimated' => ('is' => 'rw', 'isa' => 'CurrencyValue', 'coerce' => '1', 'required' => '0');
 has 'MilesPerGallonRated'     => ('is' => 'rw', 'isa' => 'Int',           'coerce' => '0', 'required' => '0');
+has 'SemitruckId'             => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
 has 'TowCapacity'             => ('is' => 'rw', 'isa' => 'Int',           'coerce' => '0', 'required' => '0');
 
 # relations

@@ -1,6 +1,7 @@
 package TMS::API::Feature::Carriers::IftaAccount;
 use Moose;
 use TMS::API::Core::CrrIfta;
+use TMS::API::Core::EntBusiness;
 use TMS::API::Joins::CrrIfta;
 extends 'TMS::API::Feature::Features';
 

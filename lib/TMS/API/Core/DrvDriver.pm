@@ -18,8 +18,9 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'LastAnnualReview' => ('is' => 'rw', 'isa' => 'DATETIME', 'coerce' => '1', 'required' => '0');
-has 'PullNotice'       => ('is' => 'rw', 'isa' => 'DATETIME', 'coerce' => '1', 'required' => '0');
+has 'DriverId'         => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
+has 'LastAnnualReview' => ('is' => 'rw', 'isa' => 'DATETIME',      'coerce' => '1', 'required' => '0');
+has 'PullNotice'       => ('is' => 'rw', 'isa' => 'DATETIME',      'coerce' => '1', 'required' => '0');
 
 # relations
 has 'driver'              => ('is' => 'rw', 'isa' => 'ObjHrAssociate',           'coerce' => '1', 'required' => '0');

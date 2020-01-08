@@ -20,6 +20,7 @@ with 'MooseX::Traits';
 
 has 'AppAccountId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
 has 'DateCreated'  => ('is' => 'rw', 'isa' => 'DATETIME',      'coerce' => '1', 'required' => '0');
+has 'UserId'       => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
 
 # relations
 has 'app_account_locks'  => ('is' => 'rw', 'isa' => 'ArrayObjAppAccountLock',  'coerce' => '1', 'required' => '0');

@@ -18,6 +18,9 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
+has 'RegistrationCard' => ('is' => 'rw', 'isa' => 'PositiveInt', 'coerce' => '1', 'required' => '0');
+has 'VehicleId'        => ('is' => 'rw', 'isa' => 'PositiveInt', 'coerce' => '1', 'required' => '0');
+
 # relations
 has 'registration_card' => ('is' => 'rw', 'isa' => 'ObjGenFile',    'coerce' => '1', 'required' => '0');
 has 'vehicle'           => ('is' => 'rw', 'isa' => 'ObjInvVehicle', 'coerce' => '1', 'required' => '0');

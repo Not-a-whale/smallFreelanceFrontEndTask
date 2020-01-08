@@ -19,6 +19,7 @@ extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
 has 'alrmid'  => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
+has 'tskid'   => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
 has 'turnoff' => ('is' => 'rw', 'isa' => 'DATETIME',      'coerce' => '1', 'required' => '0');
 
 # relations

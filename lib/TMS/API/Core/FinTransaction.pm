@@ -27,6 +27,7 @@ has 'Memo'            => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' =>
 has 'RefNumber'       => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 has 'Status'          => ('is' => 'rw', 'isa' => 'Any',              'coerce' => '0', 'required' => '0');
 has 'TransactionId'   => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 'required' => '0');
+has 'TransactionType' => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
 
 # relations
 has 'class'                => ('is' => 'rw', 'isa' => 'ObjFinClass',               'coerce' => '1', 'required' => '0');

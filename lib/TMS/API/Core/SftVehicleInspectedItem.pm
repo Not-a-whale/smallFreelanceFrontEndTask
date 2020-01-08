@@ -20,6 +20,8 @@ with 'MooseX::Traits';
 
 has 'InspectedDate' => ('is' => 'rw', 'isa' => 'DATETIME',      'coerce' => '1', 'required' => '0');
 has 'InspectedId'   => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
+has 'InspectedItem' => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
+has 'InspectionId'  => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
 
 # relations
 has 'inspected_item'             => ('is' => 'rw', 'isa' => 'ObjSftVehicleInspectItem',       'coerce' => '1', 'required' => '0');

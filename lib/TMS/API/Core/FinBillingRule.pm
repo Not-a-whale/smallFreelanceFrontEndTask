@@ -18,9 +18,10 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'Active'     => ('is' => 'rw', 'isa' => 'BoolInt',          'coerce' => '1', 'required' => '0');
-has 'BillRuleId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 'required' => '0');
-has 'Notes'      => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
+has 'Active'      => ('is' => 'rw', 'isa' => 'BoolInt',          'coerce' => '1', 'required' => '0');
+has 'BankAccount' => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
+has 'BillRuleId'  => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 'required' => '0');
+has 'Notes'       => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 
 # relations
 has 'bank_account' => ('is' => 'rw', 'isa' => 'ObjFinBillingBank', 'coerce' => '1', 'required' => '0');

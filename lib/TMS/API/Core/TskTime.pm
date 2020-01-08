@@ -18,6 +18,8 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
+has 'PrsnId'     => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
+has 'actid'      => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
 has 'duration'   => ('is' => 'rw', 'isa' => 'Any',           'coerce' => '0', 'required' => '0');
 has 'finished'   => ('is' => 'rw', 'isa' => 'DATETIME',      'coerce' => '1', 'required' => '0');
 has 'fulllength' => ('is' => 'rw', 'isa' => 'Int',           'coerce' => '0', 'required' => '0');

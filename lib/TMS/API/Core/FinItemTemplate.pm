@@ -31,6 +31,7 @@ has 'ItemTemplateId'  => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' =>
 has 'ParentId'        => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
 has 'Price'           => ('is' => 'rw', 'isa' => 'CurrencyValue',    'coerce' => '1', 'required' => '0');
 has 'PriceType'       => ('is' => 'rw', 'isa' => 'Any',              'coerce' => '0', 'required' => '0');
+has 'TemplateTypeId'  => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
 has 'TransactionType' => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
 has 'UpdatedBy'       => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
 

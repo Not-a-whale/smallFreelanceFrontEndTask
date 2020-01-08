@@ -18,7 +18,9 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'DatePrinted' => ('is' => 'rw', 'isa' => 'DATETIME', 'coerce' => '1', 'required' => '0');
+has 'ChequeId'    => ('is' => 'rw', 'isa' => 'PositiveInt', 'coerce' => '1', 'required' => '0');
+has 'DatePrinted' => ('is' => 'rw', 'isa' => 'DATETIME',    'coerce' => '1', 'required' => '0');
+has 'PrintedBy'   => ('is' => 'rw', 'isa' => 'PositiveInt', 'coerce' => '1', 'required' => '0');
 
 # relations
 has 'cheque'     => ('is' => 'rw', 'isa' => 'ObjFinCheque',   'coerce' => '1', 'required' => '0');

@@ -20,6 +20,8 @@ with 'MooseX::Traits';
 
 has 'DrLcEndorsement' => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
 has 'DrLcId'          => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
+has 'DriverId'        => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
+has 'Photo'           => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
 
 # relations
 has 'dr_lc_endorsement' => ('is' => 'rw', 'isa' => 'ObjDrvCdlEndorsement', 'coerce' => '1', 'required' => '0');
