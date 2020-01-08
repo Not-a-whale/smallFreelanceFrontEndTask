@@ -1052,6 +1052,15 @@ __PACKAGE__->has_many(
 # Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-07 08:47:06
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:bRD3lH9fnlGW7TAsMk7W9Q
 
+foreach (qw( vendor_cnt dispatcher_cnt owner_cnt )) {
+    __PACKAGE__->belongs_to(
+        "$_",
+        "TMS::Schema::Result::EntPerson",
+        {PrsnId        => "AstId"},
+        {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+    );
+}
+
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 
 1;

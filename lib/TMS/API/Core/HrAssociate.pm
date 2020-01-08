@@ -33,6 +33,9 @@ has 'app_roles_assigned'        => ('is' => 'rw', 'isa' => 'ArrayObjAppRoleAssig
 has 'app_roles_created_by'      => ('is' => 'rw', 'isa' => 'ArrayObjAppRole',                'coerce' => '1', 'required' => '0');
 has 'app_roles_updated_by'      => ('is' => 'rw', 'isa' => 'ArrayObjAppRole',                'coerce' => '1', 'required' => '0');
 has 'ast'                       => ('is' => 'rw', 'isa' => 'ObjEntPerson',                   'coerce' => '1', 'required' => '0');
+has 'vendor_cnt'                => ('is' => 'rw', 'isa' => 'ObjEntPerson',                   'coerce' => '1', 'required' => '0');
+has 'dispatcher_cnt'            => ('is' => 'rw', 'isa' => 'ObjEntPerson',                   'coerce' => '1', 'required' => '0');
+has 'owner_cnt'                 => ('is' => 'rw', 'isa' => 'ObjEntPerson',                   'coerce' => '1', 'required' => '0');
 has 'biz_fax'                   => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax',                'coerce' => '1', 'required' => '0');
 has 'biz_phone'                 => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax',                'coerce' => '1', 'required' => '0');
 has 'cmm_assignments'           => ('is' => 'rw', 'isa' => 'ArrayObjCmmAssignment',          'coerce' => '1', 'required' => '0');

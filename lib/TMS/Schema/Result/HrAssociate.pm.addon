@@ -1,0 +1,9 @@
+
+foreach (qw( vendor_cnt dispatcher_cnt owner_cnt )) {
+    __PACKAGE__->belongs_to(
+        "$_",
+        "TMS::Schema::Result::EntPerson",
+        {PrsnId        => "AstId"},
+        {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+    );
+}
