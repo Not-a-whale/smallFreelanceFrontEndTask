@@ -8,6 +8,7 @@ httphost='localhost'            # -h
 datafile='returned.data.json'   # -f
 webroute=''                     # -r
 usestdio='no'                   # -s
+flprefix=''                     # -P
 execargs="$*"
 
 RunCrudLoop()
@@ -17,8 +18,8 @@ RunCrudLoop()
     echo "=========================================================="
     for command in sorted search create search update delete search
     do
-        if [ -f "${command}.posted.json" ]; then
-            jsonfile="${command}.posted.json"
+        if [ -f "${flprefix}${command}.posted.json" ]; then
+            jsonfile="${flprefix}${command}.posted.json"
 
             if [ "$command" == "sorted" ]; then command='search'; fi
 
@@ -68,9 +69,10 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
-while getopts "w:u:p:r:h:s" opt
+while getopts "w:u:p:P:r:h:s" opt
 do
   case $opt in
+    P ) flprefix=$OPTARG ;;
     w ) password=$OPTARG ;;
     u ) username=$OPTARG ;;
     p ) httpport=$OPTARG ;;
@@ -88,7 +90,7 @@ if [ -z "$webroute" ]; then
 fi
 
 if [ "$usestdio" == 'no' ]; then
-    RunCrudLoop | tee $datafile
+    RunCrudLoop | tee $flprefix$datafile
 else
     RunCrudLoop
 fi
