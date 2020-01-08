@@ -26,16 +26,14 @@ has 'ExternalName' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1
 has 'ParentId'     => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
 
 # relations
-has 'fin_accounts' => ('is' => 'rw', 'isa' => 'ArrayObjFinAccount', 'coerce' => '1', 'required' => '0');
-has 'fin_item_template_debit_accounts' =>
-    ('is' => 'rw', 'isa' => 'ArrayObjFinItemTemplate', 'coerce' => '1', 'required' => '0');
-has 'account_type'                   => ('is' => 'rw', 'isa' => 'ObjFinAccountType',       'coerce' => '1', 'required' => '0');
-has 'fin_journal_entries'            => ('is' => 'rw', 'isa' => 'ArrayObjFinJournalEntry', 'coerce' => '1', 'required' => '0');
-has 'fin_accounts_trees_descendants' => ('is' => 'rw', 'isa' => 'ArrayObjFinAccountsTree', 'coerce' => '1', 'required' => '0');
-has 'fin_accounts_trees_ancestors'   => ('is' => 'rw', 'isa' => 'ArrayObjFinAccountsTree', 'coerce' => '1', 'required' => '0');
-has 'fin_item_template_credit_accounts' =>
-    ('is' => 'rw', 'isa' => 'ArrayObjFinItemTemplate', 'coerce' => '1', 'required' => '0');
-has 'parent' => ('is' => 'rw', 'isa' => 'ObjFinAccount', 'coerce' => '1', 'required' => '0');
+has 'account_type'                      => ('is' => 'rw', 'isa' => 'ObjFinAccountType',       'coerce' => '1', 'required' => '0');
+has 'fin_accounts'                      => ('is' => 'rw', 'isa' => 'ArrayObjFinAccount',      'coerce' => '1', 'required' => '0');
+has 'fin_accounts_trees_ancestors'      => ('is' => 'rw', 'isa' => 'ArrayObjFinAccountsTree', 'coerce' => '1', 'required' => '0');
+has 'fin_accounts_trees_descendants'    => ('is' => 'rw', 'isa' => 'ArrayObjFinAccountsTree', 'coerce' => '1', 'required' => '0');
+has 'fin_item_template_credit_accounts' => ('is' => 'rw', 'isa' => 'ArrayObjFinItemTemplate', 'coerce' => '1', 'required' => '0');
+has 'fin_item_template_debit_accounts'  => ('is' => 'rw', 'isa' => 'ArrayObjFinItemTemplate', 'coerce' => '1', 'required' => '0');
+has 'fin_journal_entries'               => ('is' => 'rw', 'isa' => 'ArrayObjFinJournalEntry', 'coerce' => '1', 'required' => '0');
+has 'parent'                            => ('is' => 'rw', 'isa' => 'ObjFinAccount',           'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinAccount');
 

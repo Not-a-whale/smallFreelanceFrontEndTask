@@ -102,8 +102,7 @@ unless (exists $$CLI{tables} && defined $$CLI{tables}) {
 
 print '-' x 80 . "\n";
 my $total_end = time();
-printf "DBIxDumpe: %d\nAPI Build: %d\nTotal: %d", $after_dump - $before_dump, $after_api - $before_api,
-    $total_end - $total_start;
+printf "DBIxDumpe: %d\nAPI Build: %d\nTotal: %d", $after_dump - $before_dump, $after_api - $before_api, $total_end - $total_start;
 
 sub BuildComplexTypes {
     my $target       = "$$CLI{dest}/$$CLI{class}/API/Types/Complex.pm";
@@ -127,7 +126,7 @@ sub BuildComplexTypes {
     SaveFile($target, $CoreTemplate);
     `/usr/local/bin/perltidy "$target"`;
     `mv "$target.tdy" "$target"`;
-} ## end sub BuildComplexTypes
+}
 
 sub BuildObjectTypes {
     my $target       = "$$CLI{dest}/$$CLI{class}/API/Types/Objects.pm";
@@ -147,7 +146,7 @@ sub BuildObjectTypes {
     SaveFile($target, $CoreTemplate);
     `/usr/local/bin/perltidy "$target"`;
     `mv "$target.tdy" "$target"`;
-} ## end sub BuildObjectTypes
+}
 
 sub BuildAPI {
     my %args = @_;
@@ -270,7 +269,7 @@ sub BuildAPI {
         }
     }
 
-    foreach my $cl (keys %RelateInfo) {
+    foreach my $cl (sort keys %RelateInfo) {
         my $MooseClass = $RelateInfo{$cl}{class};
         my $MooseType  = $RelateInfo{$cl}{'attrs'}{'accessor'} eq 'multi' ? 'ArrayObj' : 'Obj';
         $MooseClass =~ s/.*:://g;
@@ -333,7 +332,7 @@ sub BuildAPI {
         hasattr  => $has_required,
         prefetch => $prefetch,
     );
-} ## end sub BuildAPI
+}
 
 sub BuildCore {
     my %args     = @_;
@@ -347,18 +346,23 @@ sub BuildCore {
     SaveFile($args{target}, $template);
     `/usr/local/bin/perltidy "$args{target}"`;
     `mv "$args{target}.tdy" "$args{target}"`;
-} ## end sub BuildCore
+}
 
 sub UpdateFromTemplate {
     my %args    = @_;
     my $tempate = ReadFile($args{template});
     my $target  = ReadFile($args{target});
+    my $addon   = '';
+    if (-f "$args{target}.addon") {
+        $addon = ReadFile("$args{target}.addon");
+    }
+
     print "... Updating $args{target}\n";
-    $target =~ s/(# DO NOT MODIFY THIS OR ANYTHING[^\n]+).*/$1\n$tempate/s;
+    $target =~ s/(# DO NOT MODIFY THIS OR ANYTHING[^\n]+).*/$1\n$addon\n$tempate/s;
     SaveFile($args{target}, $target);
     `/usr/local/bin/perltidy "$args{target}"`;
     `mv "$args{target}.tdy" "$args{target}"`;
-} ## end sub UpdateFromTemplate
+}
 
 sub RunDbicDump {
     $DB::single = 2;
@@ -419,7 +423,7 @@ sub RunDbicDump {
     close(CMD_OUT);
     close(CMD_ERR);
     return $processed;
-} ## end sub RunDbicDump
+}
 
 sub ReadFile {
     my $filename = shift;
@@ -428,7 +432,7 @@ sub ReadFile {
     my $filedata = <FI>;
     close(FI);
     return $filedata;
-} ## end sub ReadFile
+}
 
 sub SaveFile {
     my ($filename, $filedata) = @_;
@@ -437,7 +441,7 @@ sub SaveFile {
     open(FO, ">", $filename) || confess "Unable to open file, \"$filename\", $!";
     print FO $filedata;
     close(FO);
-} ## end sub SaveFile
+}
 
 sub ReadTemplate {
     my $template_name = shift;
@@ -451,4 +455,4 @@ sub ReadTemplate {
     return $tmplt_path =~ /\w+/
         ? ReadFile($tmplt_path)
         : confess "Template '$template_name' not found";
-} ## end sub ReadTemplate
+}

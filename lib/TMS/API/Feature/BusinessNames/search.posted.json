@@ -1,0 +1,11 @@
+{
+   "POST" :
+      {
+        "search" : [
+          { "BizName" : "Google" },
+          { "BizId" : 277 }
+        ],
+        "rows" : 10
+      }
+}
+

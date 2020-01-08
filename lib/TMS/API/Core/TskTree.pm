@@ -21,8 +21,8 @@ with 'MooseX::Traits';
 has 'ans_des_id' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
 
 # relations
-has 'descendant' => ('is' => 'rw', 'isa' => 'ObjTskTask', 'coerce' => '1', 'required' => '0');
 has 'ancestor'   => ('is' => 'rw', 'isa' => 'ObjTskTask', 'coerce' => '1', 'required' => '0');
+has 'descendant' => ('is' => 'rw', 'isa' => 'ObjTskTask', 'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'TskTree');
 

@@ -124,8 +124,7 @@ subtype 'ArrayObjDspLoadsDoc', as 'ArrayRef[ObjDspLoadsDoc]';
 coerce 'ArrayObjDspLoadsDoc', from 'ArrayRef', via { _build_types('TMS::API::Core::DspLoadsDoc', $_) };
 
 subtype 'ArrayObjDspLoadsRequiredEquipment', as 'ArrayRef[ObjDspLoadsRequiredEquipment]';
-coerce 'ArrayObjDspLoadsRequiredEquipment',  from 'ArrayRef',
-    via { _build_types('TMS::API::Core::DspLoadsRequiredEquipment', $_) };
+coerce 'ArrayObjDspLoadsRequiredEquipment', from 'ArrayRef', via { _build_types('TMS::API::Core::DspLoadsRequiredEquipment', $_) };
 
 subtype 'ArrayObjDspLoadsTracking', as 'ArrayRef[ObjDspLoadsTracking]';
 coerce 'ArrayObjDspLoadsTracking', from 'ArrayRef', via { _build_types('TMS::API::Core::DspLoadsTracking', $_) };

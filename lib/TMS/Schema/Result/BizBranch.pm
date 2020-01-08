@@ -297,9 +297,8 @@ __PACKAGE__->has_many(
     {"foreign.VendorId" => "self.BrnchId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-12-26 15:33:20
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:illOVJK/9uF625o8Ljs3ww
-
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-07 08:47:05
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:InJXzh52jvru6Gqy7eOSSg
 __PACKAGE__->belongs_to(
     "vendor_biz",
     "TMS::Schema::Result::EntBusiness",
@@ -308,29 +307,28 @@ __PACKAGE__->belongs_to(
 );
 
 __PACKAGE__->belongs_to(
-  "vendor_address",
-  "TMS::Schema::Result::CntAddress",
-  { AddrId => "BrnchAddress" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "vendor_address",
+    "TMS::Schema::Result::CntAddress",
+    {AddrId        => "BrnchAddress"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 __PACKAGE__->belongs_to(
-  "vendor_phone",
-  "TMS::Schema::Result::CntPhonesfax",
-  { PhnFaxId => "BrnchPhone" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE" },
+    "vendor_phone",
+    "TMS::Schema::Result::CntPhonesfax",
+    {PhnFaxId      => "BrnchPhone"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
 __PACKAGE__->belongs_to(
-  "vendor_fax",
-  "TMS::Schema::Result::CntPhonesfax",
-  { PhnFaxId => "BrnchFax" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "RESTRICT",
-    on_update     => "CASCADE",
-  },
+    "vendor_fax",
+    "TMS::Schema::Result::CntPhonesfax",
+    {PhnFaxId => "BrnchFax"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');

@@ -21,9 +21,9 @@ with 'MooseX::Traits';
 has 'DateAdded' => ('is' => 'rw', 'isa' => 'DATETIME', 'coerce' => '1', 'required' => '0');
 
 # relations
+has 'added_by'           => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'coerce' => '1', 'required' => '0');
 has 'associate'          => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'coerce' => '1', 'required' => '0');
 has 'commission_package' => ('is' => 'rw', 'isa' => 'ObjCmmPackage',  'coerce' => '1', 'required' => '0');
-has 'added_by'           => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'CmmAssignmentsGroup');
 

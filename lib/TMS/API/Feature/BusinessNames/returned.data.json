@@ -1,0 +1,157 @@
+==========================================================
+/home/cpeter/ng/tools/crudtest.sh -p 8443 -r /api/biznames
+==========================================================
+
+----------------------------------------------------------
+https://localhost:8443/api/biznames/search
+----------------------------------------------------------
+{
+   "POST" : {
+      "orderby" : [
+         {
+            "BizName" : "asc"
+         }
+      ],
+      "rows" : 10
+   },
+   "DATA" : [
+      {
+         "BizId" : 257,
+         "BizName" : "4 RINGS EXPRESS INC",
+         "BizURL" : null
+      },
+      {
+         "BizURL" : "www.heavenlycookiesandmore.com",
+         "BizName" : "Heavenly Cookies and More, LLC",
+         "BizId" : 255
+      },
+      {
+         "BizName" : "JPMorgan Chase & Co",
+         "BizURL" : "http://chase.com",
+         "BizId" : 265
+      },
+      {
+         "BizURL" : null,
+         "BizName" : "Royalty Financial",
+         "BizId" : 275
+      },
+      {
+         "BizURL" : "http://uskoinc.com",
+         "BizName" : "Usko Express Inc",
+         "BizId" : 253
+      },
+      {
+         "BizName" : "USKO LOGISTICS INC",
+         "BizURL" : null,
+         "BizId" : 271
+      }
+   ]
+}
+
+----------------------------------------------------------
+https://localhost:8443/api/biznames/search
+----------------------------------------------------------
+{
+   "DATA" : [],
+   "POST" : {
+      "search" : [
+         {
+            "BizName" : "Google"
+         },
+         {
+            "BizId" : 277
+         }
+      ],
+      "rows" : 10
+   }
+}
+
+----------------------------------------------------------
+https://localhost:8443/api/biznames/create
+----------------------------------------------------------
+{
+   "DATA" : [
+      {
+         "BizId" : 277,
+         "BizName" : "Google LLC",
+         "BizURL" : "https://google.com"
+      }
+   ],
+   "POST" : {
+      "BizName" : "Google LLC",
+      "BizURL" : "https://google.com",
+      "BizId" : 277
+   }
+}
+
+----------------------------------------------------------
+https://localhost:8443/api/biznames/search
+----------------------------------------------------------
+{
+   "DATA" : [
+      {
+         "BizId" : 277,
+         "BizName" : "Google LLC",
+         "BizURL" : "https://google.com"
+      }
+   ],
+   "POST" : {
+      "search" : [
+         {
+            "BizName" : "Google"
+         },
+         {
+            "BizId" : 277
+         }
+      ],
+      "rows" : 10
+   }
+}
+
+----------------------------------------------------------
+https://localhost:8443/api/biznames/update
+----------------------------------------------------------
+{
+   "POST" : {
+      "BizId" : 277,
+      "BizName" : "Google LLC."
+   },
+   "DATA" : [
+      {
+         "BizId" : 277,
+         "BizName" : "Google LLC.",
+         "BizURL" : "https://google.com"
+      }
+   ]
+}
+
+----------------------------------------------------------
+https://localhost:8443/api/biznames/delete
+----------------------------------------------------------
+{
+   "DATA" : {
+      "records_removed" : "yes"
+   },
+   "POST" : {
+      "BizId" : 277,
+      "BizURL" : "https://google.com"
+   }
+}
+
+----------------------------------------------------------
+https://localhost:8443/api/biznames/search
+----------------------------------------------------------
+{
+   "POST" : {
+      "rows" : 10,
+      "search" : [
+         {
+            "BizName" : "Google"
+         },
+         {
+            "BizId" : 277
+         }
+      ]
+   },
+   "DATA" : []
+}

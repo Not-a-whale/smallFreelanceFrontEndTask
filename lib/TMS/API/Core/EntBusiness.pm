@@ -22,13 +22,14 @@ has 'BizId'  => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 're
 has 'BizURL' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 
 # relations
-has 'entity'             => ('is' => 'rw', 'isa' => 'ObjEntity',           'coerce' => '1', 'required' => '0');
 has 'biz_branches'       => ('is' => 'rw', 'isa' => 'ArrayObjBizBranch',   'coerce' => '1', 'required' => '0');
-has 'ent_shipper'        => ('is' => 'rw', 'isa' => 'ObjEntShipper',       'coerce' => '1', 'required' => '0');
-has 'ent_customer'       => ('is' => 'rw', 'isa' => 'ObjEntCustomer',      'coerce' => '1', 'required' => '0');
-has 'ent_owner_operator' => ('is' => 'rw', 'isa' => 'ObjEntOwnerOperator', 'coerce' => '1', 'required' => '0');
 has 'crr_iftas'          => ('is' => 'rw', 'isa' => 'ArrayObjCrrIfta',     'coerce' => '1', 'required' => '0');
 has 'ent_carrier'        => ('is' => 'rw', 'isa' => 'ObjEntCarrier',       'coerce' => '1', 'required' => '0');
+has 'has_carrier'        => ('is' => 'rw', 'isa' => 'ObjEntCarrier',       'coerce' => '1', 'required' => '0');
+has 'ent_customer'       => ('is' => 'rw', 'isa' => 'ObjEntCustomer',      'coerce' => '1', 'required' => '0');
+has 'ent_owner_operator' => ('is' => 'rw', 'isa' => 'ObjEntOwnerOperator', 'coerce' => '1', 'required' => '0');
+has 'ent_shipper'        => ('is' => 'rw', 'isa' => 'ObjEntShipper',       'coerce' => '1', 'required' => '0');
+has 'entity'             => ('is' => 'rw', 'isa' => 'ObjEntity',           'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'EntBusiness');
 

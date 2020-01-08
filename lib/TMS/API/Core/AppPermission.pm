@@ -21,8 +21,8 @@ with 'MooseX::Traits';
 has 'PermissionId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
 
 # relations
-has 'feature'              => ('is' => 'rw', 'isa' => 'ObjAppFeature',             'coerce' => '1', 'required' => '0');
 has 'app_role_permissions' => ('is' => 'rw', 'isa' => 'ArrayObjAppRolePermission', 'coerce' => '1', 'required' => '0');
+has 'feature'              => ('is' => 'rw', 'isa' => 'ObjAppFeature',             'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'AppPermission');
 

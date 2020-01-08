@@ -1,6 +1,5 @@
 #!/usr/bin/env perl
 END { print "\nAll done. Press ENTER to exit. "; <STDIN>; }
-
 BEGIN {
     use Cwd 'abs_path';
     use File::Basename;
@@ -16,14 +15,7 @@ use Data::Dumper;
 use Try::Tiny;
 use Carp;
 
-use TMS::API::Feature::Businesses::General;
+use TMS::API::Joins::FinBillingTags;
+my $obj = TMS::API::Joins::FinBillingTags->new();
+print Dumper($obj->prefetch);
 
-my $data = {
-    POST => {
-        orderby => [{'BizName' => 'ASC'}, {'brnch_address.State' => 'desc'}],
-        rows    => 4,
-    }
-};
-
-my $inst = TMS::API::Feature::Businesses::General->new();
-print Dumper($inst->Search($data));

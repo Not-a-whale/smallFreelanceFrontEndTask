@@ -26,11 +26,10 @@ has 'Pieces'           => ('is' => 'rw', 'isa' => 'Int',              'coerce' =
 has 'Weight'           => ('is' => 'rw', 'isa' => 'Float',            'coerce' => '1', 'required' => '0');
 
 # relations
-has 'load'               => ('is' => 'rw', 'isa' => 'ObjDspLoad',          'coerce' => '1', 'required' => '0');
-has 'branch'             => ('is' => 'rw', 'isa' => 'ObjBizBranch',        'coerce' => '1', 'required' => '0');
-has 'dsp_loads_tracking' => ('is' => 'rw', 'isa' => 'ObjDspLoadsTracking', 'coerce' => '1', 'required' => '0');
-has 'dsp_loads_destinations_docs' =>
-    ('is' => 'rw', 'isa' => 'ArrayObjDspLoadsDestinationsDoc', 'coerce' => '1', 'required' => '0');
+has 'branch'                      => ('is' => 'rw', 'isa' => 'ObjBizBranch',                    'coerce' => '1', 'required' => '0');
+has 'dsp_loads_destinations_docs' => ('is' => 'rw', 'isa' => 'ArrayObjDspLoadsDestinationsDoc', 'coerce' => '1', 'required' => '0');
+has 'dsp_loads_tracking'          => ('is' => 'rw', 'isa' => 'ObjDspLoadsTracking',             'coerce' => '1', 'required' => '0');
+has 'load'                        => ('is' => 'rw', 'isa' => 'ObjDspLoad',                      'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'DspLoadsDestination');
 

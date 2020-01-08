@@ -27,8 +27,8 @@ has 'LoadVolume'   => ('is' => 'rw', 'isa' => 'Int', 'coerce' => '0', 'required'
 has 'LoadWidth'    => ('is' => 'rw', 'isa' => 'Int', 'coerce' => '0', 'required' => '0');
 
 # relations
-has 'type'    => ('is' => 'rw', 'isa' => 'ObjInvTrailerType', 'coerce' => '1', 'required' => '0');
 has 'trailer' => ('is' => 'rw', 'isa' => 'ObjInvVehicle',     'coerce' => '1', 'required' => '0');
+has 'type'    => ('is' => 'rw', 'isa' => 'ObjInvTrailerType', 'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'InvTrailer');
 

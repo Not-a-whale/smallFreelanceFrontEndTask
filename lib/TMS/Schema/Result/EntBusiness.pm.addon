@@ -1,0 +1,7 @@
+
+__PACKAGE__->belongs_to(
+    "has_carrier",
+    "TMS::Schema::Result::EntCarrier",
+    {"foreign.CarrierId" => "self.BizId"},
+    {cascade_copy        => 0, cascade_delete => 0},
+);

@@ -24,10 +24,10 @@ has 'ProofOfInsurance' => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' =
 has 'WhatIsInsured'    => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 
 # relations
-has 'proof_of_insurance' => ('is' => 'rw', 'isa' => 'ObjGenFile',           'coerce' => '1', 'required' => '0');
-has 'provider_agent'     => ('is' => 'rw', 'isa' => 'ObjHrAssociate',       'coerce' => '1', 'required' => '0');
 has 'ins_to_entities'    => ('is' => 'rw', 'isa' => 'ArrayObjInsToEntity',  'coerce' => '1', 'required' => '0');
 has 'ins_to_vehicles'    => ('is' => 'rw', 'isa' => 'ArrayObjInsToVehicle', 'coerce' => '1', 'required' => '0');
+has 'proof_of_insurance' => ('is' => 'rw', 'isa' => 'ObjGenFile',           'coerce' => '1', 'required' => '0');
+has 'provider_agent'     => ('is' => 'rw', 'isa' => 'ObjHrAssociate',       'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'InsPolicy');
 

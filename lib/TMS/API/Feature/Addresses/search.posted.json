@@ -1,0 +1,15 @@
+{
+   "POST" :
+      {
+        "search" : [
+          { "Street1" : "123 Main Street" },
+          { "City" : "Portland" },
+          { "AddrId" : 3956 }
+        ],
+        "orderby" : [
+          { "State" : "asc" },
+          { "City" : "asc" }
+        ]
+      }
+}
+

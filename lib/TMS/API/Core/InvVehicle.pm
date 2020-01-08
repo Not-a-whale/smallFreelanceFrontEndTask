@@ -30,18 +30,17 @@ has 'Width'         => ('is' => 'rw', 'isa' => 'Int',              'coerce' => '
 has 'Year'          => ('is' => 'rw', 'isa' => 'Any',              'coerce' => '0', 'required' => '0');
 
 # relations
-has 'sft_vehicle_registrations' =>
-    ('is' => 'rw', 'isa' => 'ArrayObjSftVehicleRegistration', 'coerce' => '1', 'required' => '0');
-has 'vehicle'                  => ('is' => 'rw', 'isa' => 'ObjInvEquipment',               'coerce' => '1', 'required' => '0');
-has 'inv_sprinter'             => ('is' => 'rw', 'isa' => 'ObjInvSprinter',                'coerce' => '1', 'required' => '0');
-has 'crr_state_permits'        => ('is' => 'rw', 'isa' => 'ArrayObjCrrStatePermit',        'coerce' => '1', 'required' => '0');
-has 'carrier'                  => ('is' => 'rw', 'isa' => 'ObjEntCarrier',                 'coerce' => '1', 'required' => '0');
-has 'inv_trailer'              => ('is' => 'rw', 'isa' => 'ObjInvTrailer',                 'coerce' => '1', 'required' => '0');
-has 'tire_size'                => ('is' => 'rw', 'isa' => 'ObjInvTiresize',                'coerce' => '1', 'required' => '0');
-has 'ins_to_vehicles'          => ('is' => 'rw', 'isa' => 'ArrayObjInsToVehicle',          'coerce' => '1', 'required' => '0');
-has 'sft_inspection_schedules' => ('is' => 'rw', 'isa' => 'ArrayObjSftInspectionSchedule', 'coerce' => '1', 'required' => '0');
-has 'inv_semitruck'            => ('is' => 'rw', 'isa' => 'ObjInvSemitruck',               'coerce' => '1', 'required' => '0');
-has 'crr_ifta_decals'          => ('is' => 'rw', 'isa' => 'ArrayObjCrrIftaDecal',          'coerce' => '1', 'required' => '0');
+has 'carrier'                   => ('is' => 'rw', 'isa' => 'ObjEntCarrier',                  'coerce' => '1', 'required' => '0');
+has 'crr_ifta_decals'           => ('is' => 'rw', 'isa' => 'ArrayObjCrrIftaDecal',           'coerce' => '1', 'required' => '0');
+has 'crr_state_permits'         => ('is' => 'rw', 'isa' => 'ArrayObjCrrStatePermit',         'coerce' => '1', 'required' => '0');
+has 'ins_to_vehicles'           => ('is' => 'rw', 'isa' => 'ArrayObjInsToVehicle',           'coerce' => '1', 'required' => '0');
+has 'inv_semitruck'             => ('is' => 'rw', 'isa' => 'ObjInvSemitruck',                'coerce' => '1', 'required' => '0');
+has 'inv_sprinter'              => ('is' => 'rw', 'isa' => 'ObjInvSprinter',                 'coerce' => '1', 'required' => '0');
+has 'inv_trailer'               => ('is' => 'rw', 'isa' => 'ObjInvTrailer',                  'coerce' => '1', 'required' => '0');
+has 'sft_inspection_schedules'  => ('is' => 'rw', 'isa' => 'ArrayObjSftInspectionSchedule',  'coerce' => '1', 'required' => '0');
+has 'sft_vehicle_registrations' => ('is' => 'rw', 'isa' => 'ArrayObjSftVehicleRegistration', 'coerce' => '1', 'required' => '0');
+has 'tire_size'                 => ('is' => 'rw', 'isa' => 'ObjInvTiresize',                 'coerce' => '1', 'required' => '0');
+has 'vehicle'                   => ('is' => 'rw', 'isa' => 'ObjInvEquipment',                'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'InvVehicle');
 

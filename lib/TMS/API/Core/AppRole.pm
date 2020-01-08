@@ -26,11 +26,11 @@ has 'RoleId'      => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0'
 has 'UpdatedBy'   => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
 
 # relations
-has 'created_by'           => ('is' => 'rw', 'isa' => 'ObjHrAssociate',            'coerce' => '1', 'required' => '0');
-has 'app_roles_assigned'   => ('is' => 'rw', 'isa' => 'ArrayObjAppRoleAssigned',   'coerce' => '1', 'required' => '0');
-has 'updated_by'           => ('is' => 'rw', 'isa' => 'ObjHrAssociate',            'coerce' => '1', 'required' => '0');
 has 'app_role_menuses'     => ('is' => 'rw', 'isa' => 'ArrayObjAppRoleMenus',      'coerce' => '1', 'required' => '0');
 has 'app_role_permissions' => ('is' => 'rw', 'isa' => 'ArrayObjAppRolePermission', 'coerce' => '1', 'required' => '0');
+has 'app_roles_assigned'   => ('is' => 'rw', 'isa' => 'ArrayObjAppRoleAssigned',   'coerce' => '1', 'required' => '0');
+has 'created_by'           => ('is' => 'rw', 'isa' => 'ObjHrAssociate',            'coerce' => '1', 'required' => '0');
+has 'updated_by'           => ('is' => 'rw', 'isa' => 'ObjHrAssociate',            'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'AppRole');
 

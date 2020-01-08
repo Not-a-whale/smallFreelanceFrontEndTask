@@ -24,10 +24,10 @@ has 'Notes'           => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' =>
 has 'VoidCheck'       => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
 
 # relations
-has 'void_check'        => ('is' => 'rw', 'isa' => 'ObjGenFile',             'coerce' => '1', 'required' => '0');
-has 'institution'       => ('is' => 'rw', 'isa' => 'ObjBizBranch',           'coerce' => '1', 'required' => '0');
-has 'fin_billing_rules' => ('is' => 'rw', 'isa' => 'ArrayObjFinBillingRule', 'coerce' => '1', 'required' => '0');
 has 'billing'           => ('is' => 'rw', 'isa' => 'ObjFinBillingInfo',      'coerce' => '1', 'required' => '0');
+has 'fin_billing_rules' => ('is' => 'rw', 'isa' => 'ArrayObjFinBillingRule', 'coerce' => '1', 'required' => '0');
+has 'institution'       => ('is' => 'rw', 'isa' => 'ObjBizBranch',           'coerce' => '1', 'required' => '0');
+has 'void_check'        => ('is' => 'rw', 'isa' => 'ObjGenFile',             'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinBillingBank');
 

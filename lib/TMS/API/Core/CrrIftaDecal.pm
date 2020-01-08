@@ -23,10 +23,10 @@ has 'DateIssued' => ('is' => 'rw', 'isa' => 'DATETIME',      'coerce' => '1', 'r
 has 'DecalId'    => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
 
 # relations
-has 'vehicle'    => ('is' => 'rw', 'isa' => 'ObjInvVehicle',  'coerce' => '1', 'required' => '0');
 has 'created_by' => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'coerce' => '1', 'required' => '0');
 has 'decal_img'  => ('is' => 'rw', 'isa' => 'ObjGenFile',     'coerce' => '1', 'required' => '0');
 has 'ifta_acct'  => ('is' => 'rw', 'isa' => 'ObjCrrIfta',     'coerce' => '1', 'required' => '0');
+has 'vehicle'    => ('is' => 'rw', 'isa' => 'ObjInvVehicle',  'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'CrrIftaDecal');
 

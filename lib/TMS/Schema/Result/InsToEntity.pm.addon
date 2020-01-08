@@ -1,0 +1,7 @@
+
+__PACKAGE__->belongs_to(
+    "ins",
+    "TMS::Schema::Result::InsPolicy",
+    {InsId         => "InsId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+);

@@ -29,13 +29,13 @@ has 'Status'          => ('is' => 'rw', 'isa' => 'Any',              'coerce' =>
 has 'TransactionId'   => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 'required' => '0');
 
 # relations
-has 'transaction_type'     => ('is' => 'rw', 'isa' => 'ObjFinTransactionType',     'coerce' => '1', 'required' => '0');
-has 'fin_journal_entries'  => ('is' => 'rw', 'isa' => 'ArrayObjFinJournalEntry',   'coerce' => '1', 'required' => '0');
-has 'job'                  => ('is' => 'rw', 'isa' => 'ObjFinJob',                 'coerce' => '1', 'required' => '0');
-has 'created_by'           => ('is' => 'rw', 'isa' => 'ObjHrAssociate',            'coerce' => '1', 'required' => '0');
 has 'class'                => ('is' => 'rw', 'isa' => 'ObjFinClass',               'coerce' => '1', 'required' => '0');
+has 'created_by'           => ('is' => 'rw', 'isa' => 'ObjHrAssociate',            'coerce' => '1', 'required' => '0');
 has 'fin_cheques'          => ('is' => 'rw', 'isa' => 'ArrayObjFinCheque',         'coerce' => '1', 'required' => '0');
 has 'fin_invoice_payments' => ('is' => 'rw', 'isa' => 'ArrayObjFinInvoicePayment', 'coerce' => '1', 'required' => '0');
+has 'fin_journal_entries'  => ('is' => 'rw', 'isa' => 'ArrayObjFinJournalEntry',   'coerce' => '1', 'required' => '0');
+has 'job'                  => ('is' => 'rw', 'isa' => 'ObjFinJob',                 'coerce' => '1', 'required' => '0');
+has 'transaction_type'     => ('is' => 'rw', 'isa' => 'ObjFinTransactionType',     'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinTransaction');
 

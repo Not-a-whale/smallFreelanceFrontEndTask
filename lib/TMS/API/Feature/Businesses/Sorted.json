@@ -1,9 +1,0 @@
-{
-  "POST" : {
-    "orderby" : [
-      { "BizName" : "desc" },
-      { "brnch_address.State" : "asc" }
-    ]
-  }
-}
-

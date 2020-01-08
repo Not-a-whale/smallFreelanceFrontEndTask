@@ -30,11 +30,11 @@ has 'Notes'       => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1'
 
 # relations
 has 'address'           => ('is' => 'rw', 'isa' => 'ObjCntAddress',          'coerce' => '1', 'required' => '0');
-has 'entity'            => ('is' => 'rw', 'isa' => 'ObjEntity',              'coerce' => '1', 'required' => '0');
-has 'phone'             => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax',        'coerce' => '1', 'required' => '0');
 has 'billing_tag'       => ('is' => 'rw', 'isa' => 'ObjFinBillingTag',       'coerce' => '1', 'required' => '0');
-has 'fin_billing_banks' => ('is' => 'rw', 'isa' => 'ArrayObjFinBillingBank', 'coerce' => '1', 'required' => '0');
+has 'entity'            => ('is' => 'rw', 'isa' => 'ObjEntity',              'coerce' => '1', 'required' => '0');
 has 'fax'               => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax',        'coerce' => '1', 'required' => '0');
+has 'fin_billing_banks' => ('is' => 'rw', 'isa' => 'ArrayObjFinBillingBank', 'coerce' => '1', 'required' => '0');
+has 'phone'             => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax',        'coerce' => '1', 'required' => '0');
 
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinBillingInfo');
 
