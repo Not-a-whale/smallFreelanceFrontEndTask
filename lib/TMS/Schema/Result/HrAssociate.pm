@@ -1049,8 +1049,8 @@ __PACKAGE__->has_many(
     {"foreign.InspectorId" => "self.AstId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-08 08:23:14
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:/McSqjIjOPr820tntsgUAg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-08 09:43:54
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:834R66A8SehEogeA9P/zRQ
 
 foreach (qw( vendor dispatcher owner driver customer shipper )) {
     __PACKAGE__->belongs_to(

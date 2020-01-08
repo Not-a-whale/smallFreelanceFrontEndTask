@@ -11,8 +11,8 @@ extends 'DBIx::Class::Schema';
 
 __PACKAGE__->load_namespaces;
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-08 08:23:14
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4+/4mwvCej8jSY7y26e7TQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-08 09:43:54
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0J7Wh/WChp41go48y/Ubcw
 
 has dbhost => (is => 'ro', isa => 'Str', required => 1, default => '192.168.11.7');
 has dbport => (is => 'ro', isa => 'Int', required => 1, default => 3306);

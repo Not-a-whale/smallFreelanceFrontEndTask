@@ -32,6 +32,7 @@ __PACKAGE__->table("inv_equipment_types");
   accessor: 'equipment_type_id'
   data_type: 'bigint'
   extra: {unsigned => 1}
+  is_auto_increment: 1
   is_nullable: 0
 
 =head2 Name
@@ -45,10 +46,11 @@ __PACKAGE__->table("inv_equipment_types");
 
 __PACKAGE__->add_columns(
     "EquipmentTypeId",
-    {   accessor    => "equipment_type_id",
-        data_type   => "bigint",
-        extra       => {unsigned => 1},
-        is_nullable => 0,
+    {   accessor          => "equipment_type_id",
+        data_type         => "bigint",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
     },
     "Name",
     {accessor => "name", data_type => "varchar", is_nullable => 0, size => 64},
@@ -96,8 +98,8 @@ __PACKAGE__->has_many(
     {cascade_copy            => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-08 08:23:14
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:J9JTMUkkGx7NWrOCmnhqCg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-08 09:43:54
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:8UPiRR1Md8pqSFGOhvMiFw
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 
