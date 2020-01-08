@@ -7,7 +7,6 @@ extends 'TMS::API::Joins::Prefetch';
 sub _build_prefetch {
     [
         'crr_permit_accounts',
-        'inv_vehicles',
         { 'carrier' => [
                 'crr_iftas',
                 {
