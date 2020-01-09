@@ -97,7 +97,8 @@ sub _inner_loop {
     my $method = (caller(1))[3];
     $method = (caller(2))[3] if $method =~ /_loop_manager$/;
 
-    foreach my $rel (grep { $rlns{$_}{attrs}{accessor} eq 'single' } keys %rlns) {
+    #foreach my $rel (grep { $rlns{$_}{attrs}{accessor} eq 'single' } keys %rlns) {
+    foreach my $rel (grep { $rlns{$_}{attrs}{is_depends_on} eq 'single' } keys %rlns) {
         next unless exists $$self{$rel} && defined $$self{$rel} && ref($$self{$rel});
         my $row = $self->$rel->$method;
         if (defined $row && ref($row) =~ /Schema::Result::/) {
@@ -119,7 +120,8 @@ sub _outter_loop {
     my $method = (caller(1))[3];
     $method = (caller(2))[3] if $method =~ /_loop_manager$/;
 
-    foreach my $rel (grep { $rlns{$_}{attrs}{accessor} ne 'single' } keys %rlns) {
+    #foreach my $rel (grep { $rlns{$_}{attrs}{accessor} ne 'single' } keys %rlns) {
+    foreach my $rel (grep { !$rlns{$_}{attrs}{is_depends_on} } keys %rlns) {
         next unless exists $$self{$rel} && defined $$self{$rel} && ref($$self{$rel}) eq 'ARRAY';
         foreach my $inst (@{$$self{$rel}}) {
             foreach (keys %{$rlns{$rel}{'cond'}}) {
@@ -141,7 +143,9 @@ sub _loop_manager {
     $self->_inner_loop;
     my $valid = $self->Validate;
     if (defined $valid) {
-        foreach my $rel (grep { $rlns{$_}{attrs}{accessor} ne 'single' } keys %rlns) {
+
+        # foreach my $rel (grep { $rlns{$_}{attrs}{accessor} ne 'single' } keys %rlns) {
+        foreach my $rel (grep { !$rlns{$_}{attrs}{is_depends_on} } keys %rlns) {
             delete $$valid{$rel} if exists $$valid{$rel};
         }
 
@@ -345,8 +349,10 @@ sub _basic_delete {
 sub Delete {
     my $self = shift;
     confess "No fields representing unique sequence found" unless $self->_has_uniq(@_);
+
     #my $trxn = $self->Schema->txn_scope_guard;
     my $rslt = $self->_basic_delete(@_);
+
     #$trxn->commit;
     return $rslt;
 }
@@ -401,6 +407,12 @@ sub RelationshipInfo {
     return \%info;
 }
 
+sub ReverseRelationshipInfo {
+    my $self = shift;
+    my %info = map { $_, $self->ResultSource->reverse_relationship_info($_) } $self->Relationships;
+    return \%info;
+}
+
 sub RelationshipAttr {
     my $self = shift;
     my $attr = undef;
@@ -413,12 +425,6 @@ sub RelationshipAttr {
         $$attr{$col}{name} = $name;
     }
     return $attr;
-}
-
-sub ReverseRelationshipInfo {
-    my $self = shift;
-    my %info = map { $_, $self->ResultSource->reverse_relationship_info($_) } $self->Relationships;
-    return \%info;
 }
 
 sub ColumnsInfo {
