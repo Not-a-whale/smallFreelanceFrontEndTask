@@ -50,7 +50,7 @@ sub _connect_to_db {
         $DBIxSingleton = $self->connect($dsnx, $self->dbuser, $self->dbpass, $extras);
     }
     $self->DBIxHandle($DBIxSingleton);
-} ## end sub _connect_to_db
+}
 
 __PACKAGE__->meta->make_immutable(inline_constructor => 1);
 
