@@ -14,6 +14,7 @@ use Moose;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
 use TMS::API::Types::Complex;
+use TMS::API::Types::Columns;
 
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';

@@ -18,9 +18,10 @@ use threads::shared;
 use Carp qw( confess longmess);
 use Devel::Confess;    # give a stacktrace on any error
 use Data::Dumper;
+use Tie::IxHash;
 use Try::Tiny;
-
 use PHQ::CLI;          # this is homebrew CLI processor
+use JSON;
 
 use Cwd 'abs_path';    # for finding of the relative location of
 use File::Basename;    # the templates folder
@@ -28,12 +29,16 @@ use File::Basename;    # the templates folder
 use IPC::Open3;        # for the asynchronous
 use IO::Select;        # execution of dbicdump
 
-use Tie::IxHash;
+my $total_start = time();
 
 my %ObjClassTypes : shared;
 my %ArrClassTypes : shared;
 
-my $total_start = time();
+my %EnumSetTypesSign : shared;
+my %EnumSetTypesType : shared;
+
+my $SMPLTYPE = undef;    # hash TYPENAME=>COERCE found in CLASS/API/Types/Simple.pl, COERCE is boolean
+my $TYPEDATA = undef;
 
 # ------------------------------------------------------------------------------------------------------------
 my $CLI = ParseCLI(
@@ -59,6 +64,18 @@ my $CLI = ParseCLI(
     }
 );
 
+# ----------------------------------------------------------------------------------------------------------------------
+my $DESTROOT = "$$CLI{dest}/$$CLI{class}";
+my $BASEAPI  = "$DESTROOT/API";
+my $COREAPI  = "$BASEAPI/Core";
+my $TYPESDIR = "$BASEAPI/Types";
+
+my $TESTLIBS = "$DESTROOT/Test";
+my $TESTCORE = "$TESTLIBS/Core";
+my $PROVEDIR = $$CLI{prove} || "$$CLI{dest}/../t";
+
+# ----------------------------------------------------------------------------------------------------------------------
+
 unshift @INC, $$CLI{dest};
 
 my $before_dump = time();
@@ -80,6 +97,7 @@ foreach (values %$dbixpm) {
         target   => $_
         );
 }
+ReadStaticTypes();
 $_->join() foreach @ResultThreads;
 
 print '-' x 80 . "\n";
@@ -100,9 +118,67 @@ unless (exists $$CLI{tables} && defined $$CLI{tables}) {
     print "\nWARNING: types are not generated due to explicit list of tables!\n\n";
 }
 
+BuildEnumSetTypes();
+
 print '-' x 80 . "\n";
 my $total_end = time();
 printf "DBIxDumpe: %d\nAPI Build: %d\nTotal: %d\n", $after_dump - $before_dump, $after_api - $before_api, $total_end - $total_start;
+
+sub BuildEnumSetTypes {
+    my $target = "$$CLI{dest}/$$CLI{class}/API/Types/Columns.pm";
+    my $output = ReadTemplate('Columns.pm');
+    my $tmplt  = {
+        enum => ReadTemplate('Columns.enum.pm'),
+        set  => ReadTemplate('Columns.set.pm'),
+    };
+
+    foreach my $sig (keys %EnumSetTypesSign) {
+        my $name = $EnumSetTypesSign{$sig};
+        my $type = $EnumSetTypesType{$sig};
+        my @data = map { defined $_ ? $_ : '' } split(':', $sig);
+        my $text = $$tmplt{$type};
+        my $opts = join(',', map {"'$_' => 1"} @data);
+        my $list = join(',', map {"'$_'"} @data);
+        $text =~ s/TYPENAME/$name/gs;
+        $text =~ s/OPTIONS/$opts/gs;
+        $text =~ s/LISTS/$list/gs;
+
+        $output .= $text;
+    }
+    $output .= "\n1;\n";
+    SaveFile($target, $output);
+    `/usr/local/bin/perltidy "$target"`;
+    `mv "$target.tdy" "$target"`;
+}
+
+sub ReadStaticTypes {
+    if (defined $$CLI{types}) {
+        confess "Types file error: $!" unless -f "$$CLI{types}";
+        if (open(FT, "<$$CLI{types}")) {
+            local $/ = undef;
+            my $jsontext = <FT>;
+            close(FT);
+            $TYPEDATA = JSON->new->decode($jsontext);
+        } else {
+            confess "Unable to read \"$$CLI{types}\", $!";
+        }
+
+        my $types_file = "$TYPESDIR/Simple.pm";
+        if (open(FI, "<$types_file")) {
+            local $/ = undef;
+            my $types_text = <FI>;
+            close(FI);
+
+            my @subtypes = ($types_text =~ /^subtype\s+['"]([^'"]+)['"]/gm);
+            my %coerce   = map { $_, 1 } ($types_text =~ /^coerce\s+['"]([^'"]+)['"]/gm);
+            foreach (@subtypes) {
+                $$SMPLTYPE{$_} = exists $coerce{$_} ? 1 : 0;
+            }
+        } else {
+            confess "Unable to read \"$types_file\", $!";
+        }
+    }
+}
 
 sub BuildComplexTypes {
     my $target       = "$$CLI{dest}/$$CLI{class}/API/Types/Complex.pm";
@@ -126,7 +202,7 @@ sub BuildComplexTypes {
     SaveFile($target, $CoreTemplate);
     `/usr/local/bin/perltidy "$target"`;
     `mv "$target.tdy" "$target"`;
-} ## end sub BuildComplexTypes
+}
 
 sub BuildObjectTypes {
     my $target       = "$$CLI{dest}/$$CLI{class}/API/Types/Objects.pm";
@@ -146,7 +222,7 @@ sub BuildObjectTypes {
     SaveFile($target, $CoreTemplate);
     `/usr/local/bin/perltidy "$target"`;
     `mv "$target.tdy" "$target"`;
-} ## end sub BuildObjectTypes
+}
 
 sub BuildAPI {
     my %args = @_;
@@ -156,6 +232,7 @@ sub BuildAPI {
     my $Schema       = $DBIxClass->new();
     my $ResultSet    = $Schema->resultset($args{class});
     my $ResultSource = $ResultSet->result_source;
+    my $TableName    = $ResultSource->name;
     my @ColumnsList  = sort $ResultSource->columns;
     my %ColumnsInfo  = map { $_, $ResultSource->column_info($_) } @ColumnsList;
     my %RelateInfo   = map { $_, $ResultSource->relationship_info($_) } $ResultSource->relationships;
@@ -182,9 +259,7 @@ sub BuildAPI {
         'integer'          => 'Int',
         'tinyint'          => 'BoolInt',
 
-        'enum'      => 'Any',
         'longblob'  => 'Any',
-        'set'       => 'Any',
         'time'      => 'Any',
         'timestamp' => 'Any',
         'year'      => 'Any',
@@ -200,6 +275,37 @@ sub BuildAPI {
         'Int'              => 0,
         'BoolInt'          => 1,
     );
+
+    my sub RefineIsa {
+        my $cl  = shift;
+        my $isa = $ColumnsInfo{$cl}{data_type};
+        if (exists $$TYPEDATA{$TableName} && exists $$TYPEDATA{$TableName}{$cl}) {
+            $isa = $$TYPEDATA{$TableName}{$cl};
+            $coerce{$isa} = $$SMPLTYPE{$cl} if exists $$SMPLTYPE{$cl};
+        } else {
+            if ($isa eq 'enum' || $isa eq 'set') {
+                my $list = $ColumnsInfo{$cl}{extra}{list};
+                my $sign = join(':', map { lc($_) } sort @$list);
+                my $name = $isa . '_' . $cl;
+
+                if (!exists $EnumSetTypesSign{$sign}) {
+                    { lock(%EnumSetTypesSign); $EnumSetTypesSign{$sign} = $name; }
+                    { lock(%EnumSetTypesType); $EnumSetTypesType{$sign} = $isa; }
+                }
+                $isa = $EnumSetTypesSign{$sign};
+                $coerce{$isa} = 1;
+            } elsif (exists $PrimaryKeys{$cl}) {
+                $isa = 'PrimaryKeyInt';
+                $coerce{$isa} = 1;
+            } else {
+                $isa
+                    = exists $type_map{$ColumnsInfo{$cl}{data_type}}
+                    ? $type_map{$ColumnsInfo{$cl}{data_type}}
+                    : $ColumnsInfo{$cl}{data_type};
+            }
+        }
+        return $isa;
+    }
 
     # process FKs
     foreach my $cl (sort keys %RelateInfo) {
@@ -253,13 +359,7 @@ sub BuildAPI {
     ) {
         $required{$cl}++;
 
-        my $isa
-            = exists $type_map{$ColumnsInfo{$cl}{data_type}}
-            ? $type_map{$ColumnsInfo{$cl}{data_type}}
-            : $ColumnsInfo{$cl}{data_type};
-
-        $isa = 'PrimaryKeyInt' if exists $PrimaryKeys{$cl};
-
+        my $isa = RefineIsa($cl);
         tie my %attr, 'Tie::IxHash',
             (
             is       => 'rw',
@@ -275,13 +375,7 @@ sub BuildAPI {
 
     # use non required fields
     foreach my $cl (grep { !exists $required{$_} } @ColumnsList) {
-        my $isa
-            = exists $type_map{$ColumnsInfo{$cl}{data_type}}
-            ? $type_map{$ColumnsInfo{$cl}{data_type}}
-            : $ColumnsInfo{$cl}{data_type};
-
-        $isa = 'PrimaryKeyInt' if exists $PrimaryKeys{$cl};
-
+        my $isa      = RefineIsa($cl);
         my $required = $ColumnsInfo{$cl}{'is_nullable'} ? 0 : 1;
         $required = 0 if exists $ColumnsInfo{$cl}{'is_auto_increment'};
         $required = 0
@@ -344,7 +438,7 @@ sub BuildAPI {
         hasattr  => $has_required,
         prefetch => $prefetch,
     );
-} ## end sub BuildAPI
+}
 
 sub BuildCore {
     my %args     = @_;
@@ -358,7 +452,7 @@ sub BuildCore {
     SaveFile($args{target}, $template);
     `/usr/local/bin/perltidy "$args{target}"`;
     `mv "$args{target}.tdy" "$args{target}"`;
-} ## end sub BuildCore
+}
 
 sub UpdateFromTemplate {
     my %args    = @_;
@@ -374,7 +468,7 @@ sub UpdateFromTemplate {
     SaveFile($args{target}, $target);
     `/usr/local/bin/perltidy "$args{target}"`;
     `mv "$args{target}.tdy" "$args{target}"`;
-} ## end sub UpdateFromTemplate
+}
 
 sub RunDbicDump {
     $DB::single = 2;
@@ -435,7 +529,7 @@ sub RunDbicDump {
     close(CMD_OUT);
     close(CMD_ERR);
     return $processed;
-} ## end sub RunDbicDump
+}
 
 sub ReadFile {
     my $filename = shift;
@@ -444,7 +538,7 @@ sub ReadFile {
     my $filedata = <FI>;
     close(FI);
     return $filedata;
-} ## end sub ReadFile
+}
 
 sub SaveFile {
     my ($filename, $filedata) = @_;
@@ -453,18 +547,17 @@ sub SaveFile {
     open(FO, ">", $filename) || confess "Unable to open file, \"$filename\", $!";
     print FO $filedata;
     close(FO);
-} ## end sub SaveFile
+}
 
 sub ReadTemplate {
     my $template_name = shift;
     my $toolpath      = abs_path(dirname(abs_path($0)));
     my $tmplt_path    = undef;
 
-    $tmplt_path = "$$CLI{templt}/$template_name"
-        if -f "$$CLI{templt}/$template_name";
-    $tmplt_path = "$toolpath/$$CLI{templt}/$template_name"
-        if -f "$toolpath/$$CLI{templt}/$template_name";
+    $tmplt_path = "$$CLI{templt}/$template_name"           if -f "$$CLI{templt}/$template_name";
+    $tmplt_path = "$toolpath/$$CLI{templt}/$template_name" if -f "$toolpath/$$CLI{templt}/$template_name";
+
     return $tmplt_path =~ /\w+/
         ? ReadFile($tmplt_path)
         : confess "Template '$template_name' not found";
-} ## end sub ReadTemplate
+}
