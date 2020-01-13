@@ -1,6 +1,7 @@
 package TMS::API::Feature::Businesses::General;
 use Moose;
 use TMS::API::Core::EntBusiness;
+use TMS::API::Core::FinBillingTag;
 use TMS::API::Joins::BusinessBranchesAndBilling;
 
 extends 'TMS::API::Feature::Features';
