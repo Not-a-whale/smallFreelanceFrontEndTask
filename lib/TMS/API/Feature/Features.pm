@@ -15,6 +15,14 @@ use Moose;
 has coreapi => (is => 'rw', required => 1, isa => 'Str', init_arg => undef, lazy_build => 1);
 has prefetch => (is => 'rw', required => 0, isa => 'Undef|HashRef|ArrayRef', lazy_build => 1);
 
+sub Core {
+    my $self = shift;
+    my $core   = $self->coreapi;
+    my $trait  = $core . 'Search';
+    my $inst = $core->with_traits($trait)->new();
+    return $inst;
+}
+
 sub Search {
     my ($self, $user, $pass, $post) = @_;
     my $core   = $self->coreapi;
