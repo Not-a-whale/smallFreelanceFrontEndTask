@@ -165,7 +165,7 @@ subtype 'DbDuration', as 'Int', where {/$rgx{isPosInt}/};
 coerce 'DbDuration', from 'Str', via { tryDbDuration($_) };
 
 subtype 'CurrencyValue', as 'Str', where {/$rgx{isCurrency}/};
-coerce 'CurrencyValue', from 'Str', via { tryCurrencyValue($_) };
+coerce 'CurrencyValue', from 'Str', via { tryFloat($_) };
 
 subtype 'PhoneExt', as 'Str', where {/$rgx{isPhoneExt}/};
 coerce 'PhoneExt', from 'Str', via { tryPhoneExt($_) };
