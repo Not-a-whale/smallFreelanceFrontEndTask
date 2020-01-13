@@ -12,6 +12,9 @@ BEGIN {
 
 use strict;
 use warnings FATAL => 'all';
+use feature 'current_sub';
+use v5.28.1;
+
 use threads;
 use threads::shared;
 
@@ -28,6 +31,8 @@ use File::Basename;    # the templates folder
 
 use IPC::Open3;        # for the asynchronous
 use IO::Select;        # execution of dbicdump
+
+$Data::Dumper::Terse = 1;
 
 my $total_start = time();
 
@@ -52,6 +57,7 @@ my $CLI = ParseCLI(
         dest   => {isa => 'Str', required => 1, default => 'lib',             comment => 'Library destination'},
         prove  => {isa => 'Str', required => 1, default => 't',               comment => 'Path to tests'},
         templt => {isa => 'Str', required => 1, default => 'tools/templates', comment => 'Template\'s folder'},
+        single => {isa => 'Int', required => 1, default => 0,                 comment => 'Force single threaded'},
 
         types => {
             isa     => 'Str',
@@ -90,30 +96,66 @@ print '-' x 80 . "\n";
 
 my @ResultThreads = ();
 foreach (values %$dbixpm) {
-    push @ResultThreads,
-        threads->create(
-        'UpdateFromTemplate',
-        template => "$$CLI{templt}/Result.pm",
-        target   => $_
+    if ($$CLI{single}) {
+        UpdateFromTemplate(
+            template => "$$CLI{templt}/Result.pm",
+            target   => $_
         );
+    } else {
+        push @ResultThreads,
+            threads->create(
+            'UpdateFromTemplate',
+            template => "$$CLI{templt}/Result.pm",
+            target   => $_
+            );
+    }
 }
 ReadStaticTypes();
 $_->join() foreach @ResultThreads;
 
+# ----------------------------------------------------------------------------------------------------------------------
+my $GLOB = undef;
 print '-' x 80 . "\n";
 require "$$CLI{class}/Schema.pm";
+{
+    my $DBIxClass = $$CLI{class} . '::Schema';
+    my $Schema    = $DBIxClass->new();
+    foreach my $class (sort keys %$dbixpm) {
+        my $ResultSet    = $Schema->resultset($class);
+        my $ResultSource = $ResultSet->result_source;
+
+        $$GLOB{$class}{ColumnsList} = [sort $ResultSource->columns];
+        $$GLOB{$class}{ColumnsInfo} = {map { $_, $ResultSource->column_info($_) } @{$$GLOB{$class}{ColumnsList}}};
+        $$GLOB{$class}{RelateInfo}  = {map { $_, $ResultSource->relationship_info($_) } $ResultSource->relationships};
+        $$GLOB{$class}{PrimaryKeys} = {map { $_, 1 } $ResultSource->primary_columns};
+        $$GLOB{$class}{UniqueKeys}  = {$ResultSource->unique_constraints};
+        $$GLOB{$class}{TableName}   = $ResultSource->name;
+    }
+    print "=" x 120 . "\n";
+    print Dumper($GLOB);
+    print "=" x 120 . "\n";
+}
 
 my @ApiThreads = ();
 my $before_api = time();
-push @ApiThreads, threads->create('BuildAPI', class => $_) foreach sort keys %$dbixpm;
+if ($$CLI{single}) {
+    BuildAPI(class => $_) foreach sort keys %$dbixpm;
+} else {
+    push @ApiThreads, threads->create('BuildAPI', class => $_) foreach sort keys %$dbixpm;
+}
 $_->join() foreach @ApiThreads;
 my $after_api = time();
 
 unless (exists $$CLI{tables} && defined $$CLI{tables}) {
     print '-' x 80 . "\n";
-    my $ObjTypesThread = threads->create('BuildObjectTypes');
+    my $ObjTypesThread = undef;
+    if ($$CLI{single}) {
+        BuildObjectTypes();
+    } else {
+        $ObjTypesThread = threads->create('BuildObjectTypes');
+    }
     BuildComplexTypes();
-    $ObjTypesThread->join;
+    $ObjTypesThread->join if $ObjTypesThread;
 } else {
     print "\nWARNING: types are not generated due to explicit list of tables!\n\n";
 }
@@ -132,6 +174,7 @@ sub BuildEnumSetTypes {
         set  => ReadTemplate('Columns.set.pm'),
     };
 
+    $DB::single = 2;
     foreach my $sig (keys %EnumSetTypesSign) {
         my $name = $EnumSetTypesSign{$sig};
         my $type = $EnumSetTypesType{$sig};
@@ -228,16 +271,14 @@ sub BuildAPI {
     my %args = @_;
     print "... building $args{class}\n";
 
-    my $DBIxClass    = $$CLI{class} . '::Schema';
-    my $Schema       = $DBIxClass->new();
-    my $ResultSet    = $Schema->resultset($args{class});
-    my $ResultSource = $ResultSet->result_source;
-    my $TableName    = $ResultSource->name;
-    my @ColumnsList  = sort $ResultSource->columns;
-    my %ColumnsInfo  = map { $_, $ResultSource->column_info($_) } @ColumnsList;
-    my %RelateInfo   = map { $_, $ResultSource->relationship_info($_) } $ResultSource->relationships;
-    my %PrimaryKeys  = map { $_, 1 } $ResultSource->primary_columns;
-    my %UniqueKeys   = $ResultSource->unique_constraints;
+    my @ColumnsList = @{$$GLOB{$args{class}}{ColumnsList}};
+    my %ColumnsInfo = %{$$GLOB{$args{class}}{ColumnsInfo}};
+
+    my %RelateInfo  = %{$$GLOB{$args{class}}{RelateInfo}};
+    my %PrimaryKeys = %{$$GLOB{$args{class}}{PrimaryKeys}};
+    my %UniqueKeys  = %{$$GLOB{$args{class}}{UniqueKeys}};
+    my $TableName   = $$GLOB{$args{class}}{TableName};
+
     my %required     = ();
     my %fk_ties_cols = ();
 
@@ -245,6 +286,7 @@ sub BuildAPI {
     my $has_optional = undef;
     my $has_commons  = undef;
     my $has_related  = undef;
+    my $has_depended = undef;
 
     my %type_map = (
         'varchar'          => 'TidySpacesString',
@@ -281,7 +323,7 @@ sub BuildAPI {
         my $isa = $ColumnsInfo{$cl}{data_type};
         if (exists $$TYPEDATA{$TableName} && exists $$TYPEDATA{$TableName}{$cl}) {
             $isa = $$TYPEDATA{$TableName}{$cl};
-            $coerce{$isa} = $$SMPLTYPE{$cl} if exists $$SMPLTYPE{$cl};
+            $coerce{$isa} = $$SMPLTYPE{$isa} if exists $$SMPLTYPE{$isa};
         } else {
             if ($isa eq 'enum' || $isa eq 'set') {
                 my $list = $ColumnsInfo{$cl}{extra}{list};
@@ -341,7 +383,13 @@ sub BuildAPI {
             required => 0
             );
 
-        push @$has_related, "has '$cl' => (" . join(',', map {"'$_' => '$attr{$_}'"} keys %attr) . ');';
+        my $fk_code = "has '$cl' => (" . join(',', map {"'$_' => '$attr{$_}'"} keys %attr) . ');';
+
+        if ($RelateInfo{$cl}{'attrs'}{'is_depends_on'} > 0) {
+            push @$has_depended, $fk_code;
+        } else {
+            push @$has_related, $fk_code;
+        }
     }
 
     # process reqiered fields
@@ -392,8 +440,7 @@ sub BuildAPI {
             );
 
         $attr{default} = $ColumnsInfo{$cl}{'default_value'}
-            if exists $ColumnsInfo{$cl}{'default_value'}
-            && $ColumnsInfo{$cl}{'default_value'} ne 'CURRENT_TIMESTAMP';
+            if exists $ColumnsInfo{$cl}{'default_value'} && $ColumnsInfo{$cl}{'default_value'} ne 'CURRENT_TIMESTAMP';
 
         if (exists $attr{default}) {
             push @$has_required, "has '$cl' => (" . join(',', map {"'$_' => '$attr{$_}'"} keys %attr) . ');';
@@ -410,7 +457,8 @@ sub BuildAPI {
     my $basehas = [];
 
     push @$basehas, @$has_commons if defined $has_commons;
-    push @$basehas, ('# relations', @$has_related) if defined $has_related;
+    push @$basehas, ('# relations depends on',  @$has_depended) if defined $has_depended;
+    push @$basehas, ('# relations point to us', @$has_related)  if defined $has_related;
 
     BuildCore(
         template => "$$CLI{templt}/CoreBase.pm",
@@ -438,6 +486,62 @@ sub BuildAPI {
         hasattr  => $has_required,
         prefetch => $prefetch,
     );
+
+    #BuildTest
+    {
+
+        my $TestHash = AttributesHash(class => $args{class});
+        my $Attrs    = Dumper($$TestHash{attr});
+        my $Target   = "$$CLI{dest}/$$CLI{class}/Test/Core/$args{class}";
+        my $TheUSE   = scalar(%{$$TestHash{uses}}) ? join("\n", map {"use $_;"} keys %{$$TestHash{uses}}) : '';
+
+        foreach my $tag (qw(pm pl)) {
+            my $data = ReadTemplate("TestCore.$tag");
+            $data =~ s/DBIXCLASS/$args{class}/gs;
+            $data =~ s/ATTRIBUTES/$Attrs/gs;
+            $data =~ s/DEPENDENCYCLASSES/$TheUSE/g;
+
+            SaveFile("$Target.$tag", $data);
+            `/usr/local/bin/perltidy "$Target.$tag"`;
+            `mv "$Target.$tag.tdy" "$Target.$tag"`;
+        }
+    }
+}
+
+sub AttributesHash {
+    my %args = @_;
+    my $idnt = exists $args{ident} ? $args{ident} : 0;
+    my $tree = exists $args{tree} ? $args{tree} : {};
+    my $uses = exists $args{uses} ? $args{uses} : {};
+    my $glob = $$GLOB{$args{class}};
+    my $info = $$glob{RelateInfo};
+    my $tble = $$glob{TableName};
+
+    tie %{$tree}, 'Tie::IxHash';
+
+    print '.' x $idnt . "$args{class}\n";
+    my %columns = map{ $_, 1} @{$$glob{ColumnsList}};
+    delete $columns{$_} foreach keys %{$$glob{PrimaryKeys}};
+
+    foreach my $fk (grep { $$info{$_}{'attrs'}{'is_depends_on'} > 0 } sort keys %$info) {
+        next if $fk eq 'has_carrier';    # Corner case
+        foreach( values %{$$info{$fk}{'cond'}} ) {
+            s/self\.//;
+            delete $columns{$_} if exists $columns{$_};
+        }
+
+        my $fkclass = $$info{$fk}{class};
+        $fkclass =~ s/.*:://g;
+        next if $args{class} eq $fkclass;
+
+        my $moose = join('::', ($$CLI{class}, 'API', 'Core', $fkclass));
+        $$uses{$moose} = 1;
+        $$tree{$fk}    = {};
+        __SUB__->(tree => $$tree{$fk}, class => $fkclass, uses => $uses, ident => $idnt + 1);
+    }
+    $$tree{$_} = ' ' foreach keys %columns;
+
+    return ({attr => $tree, uses => $uses});
 }
 
 sub BuildCore {
@@ -557,7 +661,7 @@ sub ReadTemplate {
     $tmplt_path = "$$CLI{templt}/$template_name"           if -f "$$CLI{templt}/$template_name";
     $tmplt_path = "$toolpath/$$CLI{templt}/$template_name" if -f "$toolpath/$$CLI{templt}/$template_name";
 
-    return $tmplt_path =~ /\w+/
+    return defined $tmplt_path && $tmplt_path =~ /\w+/
         ? ReadFile($tmplt_path)
         : confess "Template '$template_name' not found";
 }
