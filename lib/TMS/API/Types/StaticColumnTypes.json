@@ -38,5 +38,12 @@
   "biz_branches" : {
     "BrnchEMail" : "Email",
     "OfficeName" : "UpperCaseStr"
+  },
+
+  "ent_people" : {
+    "NickName"   : "Person",
+    "FirstName"  : "Person",
+    "MiddleName" : "Person",
+    "LastName"   : "Person"
   }
 }
