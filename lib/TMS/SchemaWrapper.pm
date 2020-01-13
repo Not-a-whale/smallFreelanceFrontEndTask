@@ -270,7 +270,7 @@ sub Show {
     } else {                                         ### no parameters what so ever, build everything internally.
         my ($attr) = $self->_flatten ? _tree_to_flat($self->Validate(@_)) : $self->Validate(@_);
 
-        if ($self->_flatten && $method =~ /::(R?Like)$/) {
+        if ($self->_flatten && defined $method && $method =~ /::(R?Like)$/) {
             my $type = uc($1);
             foreach (keys %$attr) {
                 my $value = $$attr{$_};
