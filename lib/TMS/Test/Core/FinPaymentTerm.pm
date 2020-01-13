@@ -4,13 +4,13 @@ use Moose;
 use TMS::Test::BuildAttributes;
 
 my $attr = {
-    'Type'            => ' ',
+    'DueNext'         => ' ',
+    'DueInDays'       => ' ',
+    'DiscountAmount'  => ' ',
     'DiscountPercent' => ' ',
     'DiscountInDays'  => ' ',
-    'DueInDays'       => ' ',
     'Name'            => ' ',
-    'DiscountAmount'  => ' ',
-    'DueNext'         => ' '
+    'Type'            => ' '
 };
 
 with 'MooseX::Traits';

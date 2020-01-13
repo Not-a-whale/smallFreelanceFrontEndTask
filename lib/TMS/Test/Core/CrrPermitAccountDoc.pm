@@ -2,48 +2,48 @@ package TMS::Test::Core::CrrPermitAccountDoc;
 
 use Moose;
 use TMS::Test::BuildAttributes;
-use TMS::API::Core::GenFile;
-use TMS::API::Core::CrrPermitAccount;
-use TMS::API::Core::EntCarrier;
 use TMS::API::Core::EntBusiness;
+use TMS::API::Core::EntCarrier;
+use TMS::API::Core::CrrPermitAccount;
+use TMS::API::Core::GenFile;
 
 my $attr = {
     'crr_prmt_acc' => {
         'carrier' => {
             'carrier' => {
-                'BizName' => ' ',
-                'BizURL'  => ' '
+                'BizURL'  => ' ',
+                'BizName' => ' '
             },
             'mc_certificate_photo' => {
                 'FileName'      => ' ',
-                'SHASIG'        => ' ',
-                'DocumentTitle' => ' ',
-                'UploadDate'    => ' ',
-                'Notes'         => ' ',
-                'Keywords'      => ' ',
-                'MIMEType'      => ' ',
                 'ExpiredDate'   => ' ',
-                'FileData'      => ' '
+                'DocumentTitle' => ' ',
+                'SHASIG'        => ' ',
+                'Notes'         => ' ',
+                'UploadDate'    => ' ',
+                'Keywords'      => ' ',
+                'FileData'      => ' ',
+                'MIMEType'      => ' '
             },
             'CrType'               => ' ',
-            'MC'                   => ' ',
             'DOT'                  => ' ',
             'RateConfEmailAddress' => ' ',
-            'SCAC'                 => ' '
+            'SCAC'                 => ' ',
+            'MC'                   => ' '
         },
         'State'     => ' ',
         'AccountNo' => ' '
     },
     'crr_prmt_acc_doc' => {
         'FileName'      => ' ',
-        'SHASIG'        => ' ',
-        'DocumentTitle' => ' ',
-        'UploadDate'    => ' ',
-        'Notes'         => ' ',
-        'Keywords'      => ' ',
-        'MIMEType'      => ' ',
         'ExpiredDate'   => ' ',
-        'FileData'      => ' '
+        'DocumentTitle' => ' ',
+        'SHASIG'        => ' ',
+        'Notes'         => ' ',
+        'UploadDate'    => ' ',
+        'Keywords'      => ' ',
+        'FileData'      => ' ',
+        'MIMEType'      => ' '
     }
 };
 

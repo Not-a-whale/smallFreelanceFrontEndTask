@@ -4,14 +4,14 @@ use Moose;
 use TMS::Test::BuildAttributes;
 
 my $attr = {
-    'Title'     => ' ',
-    'Label'     => ' ',
-    'Help'      => ' ',
     'Target'    => ' ',
     'SortIndex' => ' ',
     'Route'     => ' ',
+    'Title'     => ' ',
     'Enabled'   => ' ',
-    'Icon'      => ' '
+    'Help'      => ' ',
+    'Icon'      => ' ',
+    'Label'     => ' '
 };
 
 with 'MooseX::Traits';

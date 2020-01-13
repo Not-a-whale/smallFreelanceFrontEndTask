@@ -4,16 +4,16 @@ use Moose;
 use TMS::Test::BuildAttributes;
 
 my $attr = {
-    'Street3' => ' ',
     'State'   => ' ',
     'Street2' => ' ',
     'Notes'   => ' ',
-    'GpsLng'  => ' ',
-    'City'    => ' ',
-    'GpsLat'  => ' ',
+    'Zip'     => ' ',
+    'Street3' => ' ',
     'Street1' => ' ',
+    'GpsLng'  => ' ',
     'Country' => ' ',
-    'Zip'     => ' '
+    'GpsLat'  => ' ',
+    'City'    => ' '
 };
 
 with 'MooseX::Traits';

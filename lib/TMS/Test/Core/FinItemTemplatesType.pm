@@ -4,8 +4,8 @@ use Moose;
 use TMS::Test::BuildAttributes;
 
 my $attr = {
-    'Description'   => ' ',
     'DisplayToUser' => ' ',
+    'Description'   => ' ',
     'UserDefined'   => ' ',
     'Name'          => ' '
 };

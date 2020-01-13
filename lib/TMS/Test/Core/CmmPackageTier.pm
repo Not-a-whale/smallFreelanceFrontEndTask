@@ -6,8 +6,8 @@ use TMS::API::Core::CmmPackage;
 
 my $attr = {
     'package'    => {},
-    'Percentage' => ' ',
     'Threshold'  => ' ',
+    'Percentage' => ' ',
     'Name'       => ' '
 };
 

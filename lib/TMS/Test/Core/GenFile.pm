@@ -5,14 +5,14 @@ use TMS::Test::BuildAttributes;
 
 my $attr = {
     'FileName'      => ' ',
-    'SHASIG'        => ' ',
-    'DocumentTitle' => ' ',
-    'UploadDate'    => ' ',
-    'Notes'         => ' ',
-    'Keywords'      => ' ',
-    'MIMEType'      => ' ',
     'ExpiredDate'   => ' ',
-    'FileData'      => ' '
+    'DocumentTitle' => ' ',
+    'SHASIG'        => ' ',
+    'Notes'         => ' ',
+    'UploadDate'    => ' ',
+    'Keywords'      => ' ',
+    'FileData'      => ' ',
+    'MIMEType'      => ' '
 };
 
 with 'MooseX::Traits';

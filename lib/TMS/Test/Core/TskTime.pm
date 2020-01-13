@@ -2,109 +2,109 @@ package TMS::Test::Core::TskTime;
 
 use Moose;
 use TMS::Test::BuildAttributes;
-use TMS::API::Core::BizBranch;
-use TMS::API::Core::CntPhonesfax;
-use TMS::API::Core::TskTask;
-use TMS::API::Core::TskActn;
-use TMS::API::Core::EntPerson;
-use TMS::API::Core::CntAddress;
 use TMS::API::Core::EntBusiness;
+use TMS::API::Core::CntPhonesfax;
+use TMS::API::Core::EntPerson;
+use TMS::API::Core::TskActn;
+use TMS::API::Core::TskTask;
+use TMS::API::Core::CntAddress;
+use TMS::API::Core::BizBranch;
 
 my $attr = {
     'actid' => {
         'prsn' => {
             'brnch' => {
                 'biz' => {
-                    'BizName' => ' ',
-                    'BizURL'  => ' '
+                    'BizURL'  => ' ',
+                    'BizName' => ' '
                 },
                 'brnch_address' => {
-                    'Street3' => ' ',
                     'State'   => ' ',
                     'Street2' => ' ',
                     'Notes'   => ' ',
-                    'GpsLng'  => ' ',
-                    'City'    => ' ',
-                    'GpsLat'  => ' ',
+                    'Zip'     => ' ',
+                    'Street3' => ' ',
                     'Street1' => ' ',
+                    'GpsLng'  => ' ',
                     'Country' => ' ',
-                    'Zip'     => ' '
+                    'GpsLat'  => ' ',
+                    'City'    => ' '
                 },
                 'brnch_fax' => {
+                    'Mobility'  => ' ',
+                    'Notes'     => ' ',
                     'Extension' => ' ',
                     'Features'  => ' ',
-                    'Notes'     => ' ',
-                    'Mobility'  => ' ',
                     'Number'    => ' '
                 },
                 'brnch_phone' => {
+                    'Mobility'  => ' ',
+                    'Notes'     => ' ',
                     'Extension' => ' ',
                     'Features'  => ' ',
-                    'Notes'     => ' ',
-                    'Mobility'  => ' ',
                     'Number'    => ' '
                 },
                 'OfficeName' => ' ',
                 'BrnchEMail' => ' '
             },
+            'LastName'   => ' ',
             'MiddleName' => ' ',
             'NickName'   => ' ',
             'FirstName'  => ' ',
             'Prefix'     => ' ',
-            'LastName'   => ' ',
             'Suffix'     => ' '
         },
         'tskid' => {
             'prsn' => {
                 'brnch' => {
                     'biz' => {
-                        'BizName' => ' ',
-                        'BizURL'  => ' '
+                        'BizURL'  => ' ',
+                        'BizName' => ' '
                     },
                     'brnch_address' => {
-                        'Street3' => ' ',
                         'State'   => ' ',
                         'Street2' => ' ',
                         'Notes'   => ' ',
-                        'GpsLng'  => ' ',
-                        'City'    => ' ',
-                        'GpsLat'  => ' ',
+                        'Zip'     => ' ',
+                        'Street3' => ' ',
                         'Street1' => ' ',
+                        'GpsLng'  => ' ',
                         'Country' => ' ',
-                        'Zip'     => ' '
+                        'GpsLat'  => ' ',
+                        'City'    => ' '
                     },
                     'brnch_fax' => {
+                        'Mobility'  => ' ',
+                        'Notes'     => ' ',
                         'Extension' => ' ',
                         'Features'  => ' ',
-                        'Notes'     => ' ',
-                        'Mobility'  => ' ',
                         'Number'    => ' '
                     },
                     'brnch_phone' => {
+                        'Mobility'  => ' ',
+                        'Notes'     => ' ',
                         'Extension' => ' ',
                         'Features'  => ' ',
-                        'Notes'     => ' ',
-                        'Mobility'  => ' ',
                         'Number'    => ' '
                     },
                     'OfficeName' => ' ',
                     'BrnchEMail' => ' '
                 },
+                'LastName'   => ' ',
                 'MiddleName' => ' ',
                 'NickName'   => ' ',
                 'FirstName'  => ' ',
                 'Prefix'     => ' ',
-                'LastName'   => ' ',
                 'Suffix'     => ' '
             },
             'completed' => ' ',
+            'severity'  => ' ',
+            'name'      => ' ',
+            'estimated' => ' ',
             'priority'  => ' ',
             'created'   => ' ',
-            'estimated' => ' ',
             'duedate'   => ' ',
-            'startdate' => ' ',
-            'name'      => ' ',
-            'severity'  => ' '
+            'startdate' => ' '
         },
         'note' => ' '
     },
@@ -115,45 +115,45 @@ my $attr = {
                 'BizURL'  => ' '
             },
             'brnch_address' => {
-                'Street3' => ' ',
                 'State'   => ' ',
                 'Street2' => ' ',
                 'Notes'   => ' ',
-                'GpsLng'  => ' ',
-                'GpsLat'  => ' ',
-                'City'    => ' ',
+                'Zip'     => ' ',
+                'Street3' => ' ',
                 'Street1' => ' ',
+                'GpsLng'  => ' ',
                 'Country' => ' ',
-                'Zip'     => ' '
+                'GpsLat'  => ' ',
+                'City'    => ' '
             },
             'brnch_fax' => {
+                'Mobility'  => ' ',
+                'Notes'     => ' ',
                 'Extension' => ' ',
                 'Features'  => ' ',
-                'Notes'     => ' ',
-                'Mobility'  => ' ',
                 'Number'    => ' '
             },
             'brnch_phone' => {
+                'Mobility'  => ' ',
+                'Notes'     => ' ',
                 'Extension' => ' ',
                 'Features'  => ' ',
-                'Notes'     => ' ',
-                'Mobility'  => ' ',
                 'Number'    => ' '
             },
             'OfficeName' => ' ',
             'BrnchEMail' => ' '
         },
+        'LastName'   => ' ',
         'MiddleName' => ' ',
         'NickName'   => ' ',
         'FirstName'  => ' ',
         'Prefix'     => ' ',
-        'LastName'   => ' ',
         'Suffix'     => ' '
     },
     'duration'   => ' ',
-    'fulllength' => ' ',
     'finished'   => ' ',
-    'started'    => ' '
+    'started'    => ' ',
+    'fulllength' => ' '
 };
 
 with 'MooseX::Traits';

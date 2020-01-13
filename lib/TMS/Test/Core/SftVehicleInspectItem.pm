@@ -4,8 +4,8 @@ use Moose;
 use TMS::Test::BuildAttributes;
 
 my $attr = {
-    'Notes'        => ' ',
-    'ItemAreaName' => ' '
+    'ItemAreaName' => ' ',
+    'Notes'        => ' '
 };
 
 with 'MooseX::Traits';

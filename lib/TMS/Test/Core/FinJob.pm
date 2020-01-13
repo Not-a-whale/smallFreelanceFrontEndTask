@@ -4,9 +4,9 @@ use Moose;
 use TMS::Test::BuildAttributes;
 
 my $attr = {
-    'Title'      => ' ',
+    'JobCreated' => ' ',
     'JobAddedBy' => ' ',
-    'JobCreated' => ' '
+    'Title'      => ' '
 };
 
 with 'MooseX::Traits';

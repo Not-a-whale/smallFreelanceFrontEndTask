@@ -2,39 +2,39 @@ package TMS::Test::Core::BizBranch;
 
 use Moose;
 use TMS::Test::BuildAttributes;
+use TMS::API::Core::EntBusiness;
 use TMS::API::Core::CntPhonesfax;
 use TMS::API::Core::CntAddress;
-use TMS::API::Core::EntBusiness;
 
 my $attr = {
     'biz' => {
-        'BizName' => ' ',
-        'BizURL'  => ' '
+        'BizURL'  => ' ',
+        'BizName' => ' '
     },
     'brnch_address' => {
-        'Street3' => ' ',
         'State'   => ' ',
         'Street2' => ' ',
         'Notes'   => ' ',
-        'GpsLng'  => ' ',
-        'City'    => ' ',
-        'GpsLat'  => ' ',
+        'Zip'     => ' ',
+        'Street3' => ' ',
         'Street1' => ' ',
+        'GpsLng'  => ' ',
         'Country' => ' ',
-        'Zip'     => ' '
+        'GpsLat'  => ' ',
+        'City'    => ' '
     },
     'brnch_fax' => {
+        'Mobility'  => ' ',
+        'Notes'     => ' ',
         'Extension' => ' ',
         'Features'  => ' ',
-        'Notes'     => ' ',
-        'Mobility'  => ' ',
         'Number'    => ' '
     },
     'brnch_phone' => {
+        'Mobility'  => ' ',
+        'Notes'     => ' ',
         'Extension' => ' ',
         'Features'  => ' ',
-        'Notes'     => ' ',
-        'Mobility'  => ' ',
         'Number'    => ' '
     },
     'OfficeName' => ' ',

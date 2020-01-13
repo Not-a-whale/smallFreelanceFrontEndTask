@@ -2,30 +2,30 @@ package TMS::Test::Core::EntCarrier;
 
 use Moose;
 use TMS::Test::BuildAttributes;
-use TMS::API::Core::GenFile;
 use TMS::API::Core::EntBusiness;
+use TMS::API::Core::GenFile;
 
 my $attr = {
     'carrier' => {
-        'BizName' => ' ',
-        'BizURL'  => ' '
+        'BizURL'  => ' ',
+        'BizName' => ' '
     },
     'mc_certificate_photo' => {
         'FileName'      => ' ',
-        'SHASIG'        => ' ',
-        'DocumentTitle' => ' ',
-        'UploadDate'    => ' ',
-        'Notes'         => ' ',
-        'Keywords'      => ' ',
-        'MIMEType'      => ' ',
         'ExpiredDate'   => ' ',
-        'FileData'      => ' '
+        'DocumentTitle' => ' ',
+        'SHASIG'        => ' ',
+        'Notes'         => ' ',
+        'UploadDate'    => ' ',
+        'Keywords'      => ' ',
+        'FileData'      => ' ',
+        'MIMEType'      => ' '
     },
     'CrType'               => ' ',
-    'MC'                   => ' ',
     'DOT'                  => ' ',
     'RateConfEmailAddress' => ' ',
-    'SCAC'                 => ' '
+    'SCAC'                 => ' ',
+    'MC'                   => ' '
 };
 
 with 'MooseX::Traits';

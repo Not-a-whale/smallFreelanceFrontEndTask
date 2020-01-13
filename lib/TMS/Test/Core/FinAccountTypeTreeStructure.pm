@@ -4,9 +4,9 @@ use Moose;
 use TMS::Test::BuildAttributes;
 
 my $attr = {
-    'AccountTypeId' => ' ',
+    'RootTypeId'    => ' ',
     'Structure'     => ' ',
-    'RootTypeId'    => ' '
+    'AccountTypeId' => ' '
 };
 
 with 'MooseX::Traits';

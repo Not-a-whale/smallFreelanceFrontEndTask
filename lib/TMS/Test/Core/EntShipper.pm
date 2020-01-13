@@ -6,8 +6,8 @@ use TMS::API::Core::EntBusiness;
 
 my $attr = {
     'shipper' => {
-        'BizName' => ' ',
-        'BizURL'  => ' '
+        'BizURL'  => ' ',
+        'BizName' => ' '
     },
     'Notes' => ' '
 };

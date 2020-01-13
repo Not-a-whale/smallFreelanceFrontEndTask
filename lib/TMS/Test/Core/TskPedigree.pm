@@ -4,11 +4,11 @@ use Moose;
 use TMS::Test::BuildAttributes;
 
 my $attr = {
-    'descendant' => ' ',
-    'Child'      => ' ',
-    'ancestor'   => ' ',
     'length'     => ' ',
-    'Parent'     => ' '
+    'Child'      => ' ',
+    'Parent'     => ' ',
+    'descendant' => ' ',
+    'ancestor'   => ' '
 };
 
 with 'MooseX::Traits';

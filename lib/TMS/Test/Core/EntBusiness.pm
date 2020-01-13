@@ -4,8 +4,8 @@ use Moose;
 use TMS::Test::BuildAttributes;
 
 my $attr = {
-    'BizName' => ' ',
-    'BizURL'  => ' '
+    'BizURL'  => ' ',
+    'BizName' => ' '
 };
 
 with 'MooseX::Traits';

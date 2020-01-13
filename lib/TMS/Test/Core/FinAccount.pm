@@ -6,26 +6,26 @@ use TMS::API::Core::FinAccountType;
 
 my $attr = {
     'account_type' => {
-        'IncomeSheet'  => ' ',
-        'Temp'         => ' ',
-        'Valid'        => ' ',
-        'Credit'       => ' ',
-        'UserDefined'  => ' ',
-        'Name'         => ' ',
         'BalanceSheet' => ' ',
-        'Editable'     => ' ',
+        'IncomeSheet'  => ' ',
+        'Credit'       => ' ',
+        'Name'         => ' ',
+        'Debit'        => ' ',
         'DisplayOrder' => ' ',
-        'Debit'        => ' '
+        'Temp'         => ' ',
+        'UserDefined'  => ' ',
+        'Valid'        => ' ',
+        'Editable'     => ' '
     },
-    'Balance'      => ' ',
-    'Valid'        => ' ',
-    'Code'         => ' ',
+    'Active'       => ' ',
     'UserDefined'  => ' ',
-    'Name'         => ' ',
+    'Code'         => ' ',
+    'Balance'      => ' ',
     'ExternalName' => ' ',
     'Description'  => ' ',
-    'Active'       => ' ',
-    'DateCreated'  => ' '
+    'Valid'        => ' ',
+    'DateCreated'  => ' ',
+    'Name'         => ' '
 };
 
 with 'MooseX::Traits';

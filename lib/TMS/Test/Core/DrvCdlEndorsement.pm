@@ -4,9 +4,9 @@ use Moose;
 use TMS::Test::BuildAttributes;
 
 my $attr = {
-    'Endorsement'   => ' ',
     'ValidFromDate' => ' ',
-    'ExpiredDate'   => ' '
+    'ExpiredDate'   => ' ',
+    'Endorsement'   => ' '
 };
 
 with 'MooseX::Traits';
