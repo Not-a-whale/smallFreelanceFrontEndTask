@@ -1,7 +1,6 @@
 package TMS::API::Core::SftLogbookStrict;
 use Moose::Role;
 
-has 'DateStarted' => ('is' => 'rw', 'isa' => 'DATETIME',    'coerce' => '1', 'required' => '1');
-has 'Trip'        => ('is' => 'rw', 'isa' => 'PositiveInt', 'coerce' => '1', 'required' => '1');
+has 'DateStarted' => ('is' => 'rw', 'isa' => 'DATETIME', 'coerce' => '1', 'required' => '1');
 
 1;

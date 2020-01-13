@@ -18,8 +18,10 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'CardId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
-has 'Photo'  => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
+has 'AddedBy' => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
+has 'AstId'   => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
+has 'CardId'  => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
+has 'Photo'   => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
 
 # relations
 has 'added_by'        => ('is' => 'rw', 'isa' => 'ObjHrAssociate',       'coerce' => '1', 'required' => '0');

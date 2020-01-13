@@ -297,39 +297,49 @@ __PACKAGE__->has_many(
     {"foreign.VendorId" => "self.BrnchId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-07 08:47:05
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:InJXzh52jvru6Gqy7eOSSg
-__PACKAGE__->belongs_to(
-    "vendor_biz",
-    "TMS::Schema::Result::EntBusiness",
-    {BizId         => "BizId"},
-    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-08 15:30:12
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GsGsobXjlGJvgUMjc9dVQA
+
+__PACKAGE__->has_many(
+    "primary_contact",
+    "TMS::Schema::Result::EntPerson",
+    {"foreign.BrnchId" => "self.BrnchId"},
+    {cascade_copy      => 0, cascade_delete => 0},
 );
 
-__PACKAGE__->belongs_to(
-    "vendor_address",
-    "TMS::Schema::Result::CntAddress",
-    {AddrId        => "BrnchAddress"},
-    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
-);
+foreach (qw( vendor dispatcher owner driver customer shipper )) {
+    __PACKAGE__->belongs_to(
+        "$_\_biz",
+        "TMS::Schema::Result::EntBusiness",
+        {BizId         => "BizId"},
+        {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+    );
 
-__PACKAGE__->belongs_to(
-    "vendor_phone",
-    "TMS::Schema::Result::CntPhonesfax",
-    {PhnFaxId      => "BrnchPhone"},
-    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
-);
+    __PACKAGE__->belongs_to(
+        "$_\_address",
+        "TMS::Schema::Result::CntAddress",
+        {AddrId        => "BrnchAddress"},
+        {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+    );
 
-__PACKAGE__->belongs_to(
-    "vendor_fax",
-    "TMS::Schema::Result::CntPhonesfax",
-    {PhnFaxId => "BrnchFax"},
-    {   is_deferrable => 1,
-        join_type     => "LEFT",
-        on_delete     => "RESTRICT",
-        on_update     => "CASCADE",
-    },
-);
+    __PACKAGE__->belongs_to(
+        "$_\_phone",
+        "TMS::Schema::Result::CntPhonesfax",
+        {PhnFaxId      => "BrnchPhone"},
+        {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+    );
+
+    __PACKAGE__->belongs_to(
+        "$_\_fax",
+        "TMS::Schema::Result::CntPhonesfax",
+        {PhnFaxId => "BrnchFax"},
+        {   is_deferrable => 1,
+            join_type     => "LEFT",
+            on_delete     => "RESTRICT",
+            on_update     => "CASCADE",
+        },
+    );
+}
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

@@ -18,9 +18,10 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'Entered' => ('is' => 'rw', 'isa' => 'DATETIME',         'coerce' => '1', 'required' => '0');
-has 'Notes'   => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
-has 'Photo'   => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
+has 'Entered'  => ('is' => 'rw', 'isa' => 'DATETIME',         'coerce' => '1', 'required' => '0');
+has 'EntityId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 'required' => '0');
+has 'Notes'    => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
+has 'Photo'    => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
 
 # relations
 has 'entity' => ('is' => 'rw', 'isa' => 'ObjEntity',  'coerce' => '1', 'required' => '0');

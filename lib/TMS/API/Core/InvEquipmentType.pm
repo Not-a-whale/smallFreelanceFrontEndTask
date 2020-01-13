@@ -18,6 +18,8 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
+has 'EquipmentTypeId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
+
 # relations
 has 'dsp_loads_required_equipments' =>
     ('is' => 'rw', 'isa' => 'ArrayObjDspLoadsRequiredEquipment', 'coerce' => '1', 'required' => '0');

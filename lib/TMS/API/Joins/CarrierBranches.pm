@@ -1,7 +1,6 @@
 package TMS::API::Joins::CarrierBranches;
 
 use Moose;
-use TMS::API::Joins::FinBillingInfos;
 extends 'TMS::API::Joins::Prefetch';
 
 sub _build_prefetch {

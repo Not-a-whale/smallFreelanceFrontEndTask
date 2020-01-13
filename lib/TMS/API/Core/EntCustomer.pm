@@ -20,6 +20,7 @@ with 'MooseX::Traits';
 
 has 'Bond'        => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 has 'CreditLimit' => ('is' => 'rw', 'isa' => 'CurrencyValue',    'coerce' => '1', 'required' => '0');
+has 'CstmrId'     => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 'required' => '0');
 has 'DOT'         => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 has 'DUNS'        => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 has 'DontUse'     => ('is' => 'rw', 'isa' => 'Any',              'coerce' => '0', 'required' => '0');

@@ -102,7 +102,7 @@ unless (exists $$CLI{tables} && defined $$CLI{tables}) {
 
 print '-' x 80 . "\n";
 my $total_end = time();
-printf "DBIxDumpe: %d\nAPI Build: %d\nTotal: %d", $after_dump - $before_dump, $after_api - $before_api, $total_end - $total_start;
+printf "DBIxDumpe: %d\nAPI Build: %d\nTotal: %d\n", $after_dump - $before_dump, $after_api - $before_api, $total_end - $total_start;
 
 sub BuildComplexTypes {
     my $target       = "$$CLI{dest}/$$CLI{class}/API/Types/Complex.pm";
@@ -126,7 +126,7 @@ sub BuildComplexTypes {
     SaveFile($target, $CoreTemplate);
     `/usr/local/bin/perltidy "$target"`;
     `mv "$target.tdy" "$target"`;
-}
+} ## end sub BuildComplexTypes
 
 sub BuildObjectTypes {
     my $target       = "$$CLI{dest}/$$CLI{class}/API/Types/Objects.pm";
@@ -146,7 +146,7 @@ sub BuildObjectTypes {
     SaveFile($target, $CoreTemplate);
     `/usr/local/bin/perltidy "$target"`;
     `mv "$target.tdy" "$target"`;
-}
+} ## end sub BuildObjectTypes
 
 sub BuildAPI {
     my %args = @_;
@@ -162,6 +162,7 @@ sub BuildAPI {
     my %PrimaryKeys  = map { $_, 1 } $ResultSource->primary_columns;
     my %UniqueKeys   = $ResultSource->unique_constraints;
     my %required     = ();
+    my %fk_ties_cols = ();
 
     my $has_required = undef;
     my $has_optional = undef;
@@ -200,76 +201,14 @@ sub BuildAPI {
         'BoolInt'          => 1,
     );
 
-    foreach my $cl (
-        grep {defined}
-        map {
-            (          $ColumnsInfo{$_}{'is_nullable'}
-                    || exists $ColumnsInfo{$_}{'is_auto_increment'}
-                    || exists $ColumnsInfo{$_}{'default_value'})
-                ? undef
-                : $_
-        }
-        sort keys %ColumnsInfo
-    ) {
-        $required{$cl}++;
-
-        my $isa
-            = exists $type_map{$ColumnsInfo{$cl}{data_type}}
-            ? $type_map{$ColumnsInfo{$cl}{data_type}}
-            : $ColumnsInfo{$cl}{data_type};
-
-        $isa = 'PrimaryKeyInt' if exists $PrimaryKeys{$cl};
-
-        tie my %attr, 'Tie::IxHash',
-            (
-            is       => 'rw',
-            isa      => $isa,
-            coerce   => exists $coerce{$isa} ? $coerce{$isa} : 0,
-            required => 1,
-            );
-
-        push @$has_required, "has '$cl' => (" . join(',', map {"'$_' => '$attr{$_}'"} keys %attr) . ');';
-        $attr{required} = 0;
-        push @$has_optional, "has '$cl' => (" . join(',', map {"'$_' => '$attr{$_}'"} keys %attr) . ');';
-    }
-
-    foreach my $cl (grep { !exists $required{$_} } @ColumnsList) {
-        my $isa
-            = exists $type_map{$ColumnsInfo{$cl}{data_type}}
-            ? $type_map{$ColumnsInfo{$cl}{data_type}}
-            : $ColumnsInfo{$cl}{data_type};
-
-        $isa = 'PrimaryKeyInt' if exists $PrimaryKeys{$cl};
-
-        my $required = $ColumnsInfo{$cl}{'is_nullable'} ? 0 : 1;
-        $required = 0 if exists $ColumnsInfo{$cl}{'is_auto_increment'};
-        $required = 0
-            if exists $ColumnsInfo{$cl}{'default_value'}
-            && $ColumnsInfo{$cl}{'default_value'} eq 'CURRENT_TIMESTAMP';
-
-        tie my %attr, 'Tie::IxHash',
-            (
-            is       => 'rw',
-            isa      => $isa,
-            coerce   => exists $coerce{$isa} ? $coerce{$isa} : 0,
-            required => $required,
-            );
-
-        $attr{default} = $ColumnsInfo{$cl}{'default_value'}
-            if exists $ColumnsInfo{$cl}{'default_value'}
-            && $ColumnsInfo{$cl}{'default_value'} ne 'CURRENT_TIMESTAMP';
-
-        if (exists $attr{default}) {
-            push @$has_required, "has '$cl' => (" . join(',', map {"'$_' => '$attr{$_}'"} keys %attr) . ');';
-            $attr{required} = 0;
-            delete $attr{default};
-            push @$has_optional, "has '$cl' => (" . join(',', map {"'$_' => '$attr{$_}'"} keys %attr) . ');';
-        } else {
-            push @$has_commons, "has '$cl' => (" . join(',', map {"'$_' => '$attr{$_}'"} keys %attr) . ');';
-        }
-    }
-
+    # process FKs
     foreach my $cl (sort keys %RelateInfo) {
+        next if ref($RelateInfo{$cl}->{'cond'}) ne 'HASH';
+        foreach (values %{$RelateInfo{$cl}->{'cond'}}) {
+            s/^self.//;
+            $fk_ties_cols{$_}++;
+        }
+
         my $MooseClass = $RelateInfo{$cl}{class};
         my $MooseType  = $RelateInfo{$cl}{'attrs'}{'accessor'} eq 'multi' ? 'ArrayObj' : 'Obj';
         $MooseClass =~ s/.*:://g;
@@ -297,6 +236,79 @@ sub BuildAPI {
             );
 
         push @$has_related, "has '$cl' => (" . join(',', map {"'$_' => '$attr{$_}'"} keys %attr) . ');';
+    }
+
+    # process reqiered fields
+    foreach my $cl (
+        grep {defined}
+        map {
+            (          $ColumnsInfo{$_}{'is_nullable'}
+                    || exists $ColumnsInfo{$_}{'is_auto_increment'}
+                    || exists $ColumnsInfo{$_}{'default_value'}
+                    || exists $fk_ties_cols{$_})
+                ? undef
+                : $_
+        }
+        sort keys %ColumnsInfo
+    ) {
+        $required{$cl}++;
+
+        my $isa
+            = exists $type_map{$ColumnsInfo{$cl}{data_type}}
+            ? $type_map{$ColumnsInfo{$cl}{data_type}}
+            : $ColumnsInfo{$cl}{data_type};
+
+        $isa = 'PrimaryKeyInt' if exists $PrimaryKeys{$cl};
+
+        tie my %attr, 'Tie::IxHash',
+            (
+            is       => 'rw',
+            isa      => $isa,
+            coerce   => exists $coerce{$isa} ? $coerce{$isa} : 0,
+            required => 1,
+            );
+
+        push @$has_required, "has '$cl' => (" . join(',', map {"'$_' => '$attr{$_}'"} keys %attr) . ');';
+        $attr{required} = 0;
+        push @$has_optional, "has '$cl' => (" . join(',', map {"'$_' => '$attr{$_}'"} keys %attr) . ');';
+    }
+
+    # use non required fields
+    foreach my $cl (grep { !exists $required{$_} } @ColumnsList) {
+        my $isa
+            = exists $type_map{$ColumnsInfo{$cl}{data_type}}
+            ? $type_map{$ColumnsInfo{$cl}{data_type}}
+            : $ColumnsInfo{$cl}{data_type};
+
+        $isa = 'PrimaryKeyInt' if exists $PrimaryKeys{$cl};
+
+        my $required = $ColumnsInfo{$cl}{'is_nullable'} ? 0 : 1;
+        $required = 0 if exists $ColumnsInfo{$cl}{'is_auto_increment'};
+        $required = 0
+            if exists $ColumnsInfo{$cl}{'default_value'}
+            && $ColumnsInfo{$cl}{'default_value'} eq 'CURRENT_TIMESTAMP';
+        $required = 0 if exists $fk_ties_cols{$cl};
+
+        tie my %attr, 'Tie::IxHash',
+            (
+            is       => 'rw',
+            isa      => $isa,
+            coerce   => exists $coerce{$isa} ? $coerce{$isa} : 0,
+            required => $required,
+            );
+
+        $attr{default} = $ColumnsInfo{$cl}{'default_value'}
+            if exists $ColumnsInfo{$cl}{'default_value'}
+            && $ColumnsInfo{$cl}{'default_value'} ne 'CURRENT_TIMESTAMP';
+
+        if (exists $attr{default}) {
+            push @$has_required, "has '$cl' => (" . join(',', map {"'$_' => '$attr{$_}'"} keys %attr) . ');';
+            $attr{required} = 0;
+            delete $attr{default};
+            push @$has_optional, "has '$cl' => (" . join(',', map {"'$_' => '$attr{$_}'"} keys %attr) . ');';
+        } else {
+            push @$has_commons, "has '$cl' => (" . join(',', map {"'$_' => '$attr{$_}'"} keys %attr) . ');';
+        }
     }
 
     my $prefetch = join(' ', sort keys %RelateInfo);
@@ -332,7 +344,7 @@ sub BuildAPI {
         hasattr  => $has_required,
         prefetch => $prefetch,
     );
-}
+} ## end sub BuildAPI
 
 sub BuildCore {
     my %args     = @_;
@@ -346,7 +358,7 @@ sub BuildCore {
     SaveFile($args{target}, $template);
     `/usr/local/bin/perltidy "$args{target}"`;
     `mv "$args{target}.tdy" "$args{target}"`;
-}
+} ## end sub BuildCore
 
 sub UpdateFromTemplate {
     my %args    = @_;
@@ -362,7 +374,7 @@ sub UpdateFromTemplate {
     SaveFile($args{target}, $target);
     `/usr/local/bin/perltidy "$args{target}"`;
     `mv "$args{target}.tdy" "$args{target}"`;
-}
+} ## end sub UpdateFromTemplate
 
 sub RunDbicDump {
     $DB::single = 2;
@@ -423,7 +435,7 @@ sub RunDbicDump {
     close(CMD_OUT);
     close(CMD_ERR);
     return $processed;
-}
+} ## end sub RunDbicDump
 
 sub ReadFile {
     my $filename = shift;
@@ -432,7 +444,7 @@ sub ReadFile {
     my $filedata = <FI>;
     close(FI);
     return $filedata;
-}
+} ## end sub ReadFile
 
 sub SaveFile {
     my ($filename, $filedata) = @_;
@@ -441,7 +453,7 @@ sub SaveFile {
     open(FO, ">", $filename) || confess "Unable to open file, \"$filename\", $!";
     print FO $filedata;
     close(FO);
-}
+} ## end sub SaveFile
 
 sub ReadTemplate {
     my $template_name = shift;
@@ -455,4 +467,4 @@ sub ReadTemplate {
     return $tmplt_path =~ /\w+/
         ? ReadFile($tmplt_path)
         : confess "Template '$template_name' not found";
-}
+} ## end sub ReadTemplate

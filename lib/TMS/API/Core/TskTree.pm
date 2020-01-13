@@ -18,7 +18,9 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
+has 'ancestor'   => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
 has 'ans_des_id' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
+has 'descendant' => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
 
 # relations
 has 'ancestor'   => ('is' => 'rw', 'isa' => 'ObjTskTask', 'coerce' => '1', 'required' => '0');

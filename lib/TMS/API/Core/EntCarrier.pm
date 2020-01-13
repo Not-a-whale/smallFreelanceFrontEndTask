@@ -18,6 +18,7 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
+has 'CarrierId'            => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 'required' => '0');
 has 'CrType'               => ('is' => 'rw', 'isa' => 'Any',              'coerce' => '0', 'required' => '0');
 has 'DOT'                  => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 has 'MC'                   => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');

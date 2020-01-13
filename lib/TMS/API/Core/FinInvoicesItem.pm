@@ -27,6 +27,7 @@ has 'DebitJournalEntryId'  => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerc
 has 'InvoiceId'            => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
 has 'InvoiceItemId'        => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 'required' => '0');
 has 'ItemTemplateId'       => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
+has 'JobId'                => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
 has 'Notes'                => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 
 # relations

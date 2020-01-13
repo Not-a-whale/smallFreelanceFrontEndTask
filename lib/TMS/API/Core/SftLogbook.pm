@@ -20,6 +20,7 @@ with 'MooseX::Traits';
 
 has 'LogbookId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 'required' => '0');
 has 'Notes'     => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
+has 'Trip'      => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
 
 # relations
 has 'sft_log_entries' => ('is' => 'rw', 'isa' => 'ArrayObjSftLogEntry', 'coerce' => '1', 'required' => '0');

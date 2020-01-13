@@ -21,6 +21,7 @@ with 'MooseX::Traits';
 has 'InsId'            => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 'required' => '0');
 has 'PaidBy'           => ('is' => 'rw', 'isa' => 'Any',              'coerce' => '0', 'required' => '0');
 has 'ProofOfInsurance' => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
+has 'ProviderAgent'    => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
 has 'WhatIsInsured'    => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 
 # relations

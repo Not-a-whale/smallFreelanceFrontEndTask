@@ -18,7 +18,9 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'PrmtRegDocId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
+has 'CrrPrmtAccDoc' => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
+has 'CrrPrmtAccId'  => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
+has 'PrmtRegDocId'  => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
 
 # relations
 has 'crr_prmt_acc'     => ('is' => 'rw', 'isa' => 'ObjCrrPermitAccount', 'coerce' => '1', 'required' => '0');

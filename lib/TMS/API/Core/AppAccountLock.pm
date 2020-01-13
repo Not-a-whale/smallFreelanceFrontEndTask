@@ -18,7 +18,8 @@ use TMS::API::Types::Complex;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'DateLastAttempt' => ('is' => 'rw', 'isa' => 'DATETIME', 'coerce' => '1', 'required' => '0');
+has 'AppAccountId'    => ('is' => 'rw', 'isa' => 'PositiveInt', 'coerce' => '1', 'required' => '0');
+has 'DateLastAttempt' => ('is' => 'rw', 'isa' => 'DATETIME',    'coerce' => '1', 'required' => '0');
 
 # relations
 has 'app_account' => ('is' => 'rw', 'isa' => 'ObjAppAccount', 'coerce' => '1', 'required' => '0');

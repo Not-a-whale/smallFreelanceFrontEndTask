@@ -102,7 +102,7 @@ sub Create {
     my $trait    = $core . 'Strict';
     my $prefetch = $self->prefetch;
 
-    try {
+    #try {
         my $inst = $core->with_traits($trait)->new($data);
         my $row  = $inst->FindOrCreate();
         if ($row) {
@@ -110,9 +110,9 @@ sub Create {
             $$record{$_} = $inst->$_ foreach $inst->ColumnsList;
             $$post{DATA} = $inst->Show($record, {prefetch => $self->prefetch});
         }
-    } catch {
-        $$post{ERROR} = "$_";
-    };
+#    } catch {
+#        $$post{ERROR} = "$_";
+#    };
     return $post;
 }
 

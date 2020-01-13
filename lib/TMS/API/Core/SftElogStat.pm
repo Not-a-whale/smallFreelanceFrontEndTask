@@ -21,6 +21,7 @@ with 'MooseX::Traits';
 has 'Acquired'     => ('is' => 'rw', 'isa' => 'DATETIME',         'coerce' => '1', 'required' => '0');
 has 'Bearings'     => ('is' => 'rw', 'isa' => 'Float',            'coerce' => '1', 'required' => '0');
 has 'EngineHours'  => ('is' => 'rw', 'isa' => 'Float',            'coerce' => '1', 'required' => '0');
+has 'EquipmentId'  => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
 has 'Fuel'         => ('is' => 'rw', 'isa' => 'Float',            'coerce' => '1', 'required' => '0');
 has 'GpsReqId'     => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 'required' => '0');
 has 'Odometer'     => ('is' => 'rw', 'isa' => 'Float',            'coerce' => '1', 'required' => '0');

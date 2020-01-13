@@ -20,7 +20,9 @@ with 'MooseX::Traits';
 
 has 'AppointmentEnd'   => ('is' => 'rw', 'isa' => 'DATETIME',         'coerce' => '1', 'required' => '0');
 has 'AppointmentNotes' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
+has 'Branch'           => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
 has 'DestinationId'    => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '0', 'required' => '0');
+has 'LoadId'           => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
 has 'Pallets'          => ('is' => 'rw', 'isa' => 'Int',              'coerce' => '0', 'required' => '0');
 has 'Pieces'           => ('is' => 'rw', 'isa' => 'Int',              'coerce' => '0', 'required' => '0');
 has 'Weight'           => ('is' => 'rw', 'isa' => 'Float',            'coerce' => '1', 'required' => '0');
