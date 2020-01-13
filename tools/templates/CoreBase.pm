@@ -21,6 +21,7 @@ with 'MooseX::Traits';
 
 BUILD_THE_HAS_A
 
+# core class for threits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'DBIXCLASS');
 
 1;
