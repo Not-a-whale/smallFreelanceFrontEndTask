@@ -59,6 +59,8 @@ my $CLI = ParseCLI(
         templt => {isa => 'Str', required => 1, default => 'tools/templates', comment => 'Template\'s folder'},
         single => {isa => 'Int', required => 1, default => 0,                 comment => 'Force single threaded'},
 
+        build_tests => {isa => 'Int', required => 1, default => 0, comment => 'Build test as well'},
+
         types => {
             isa     => 'Str',
             comment => 'Use predefined types for "HAS" from the JSON file. Run -help for info'
@@ -488,8 +490,7 @@ sub BuildAPI {
     );
 
     #BuildTest
-    {
-
+    if ($$CLI{build_tests}) {
         my $TestHash = AttributesHash(class => $args{class});
         my $Attrs    = Dumper($$TestHash{attr});
         my $Target   = "$$CLI{dest}/$$CLI{class}/Test/Core/$args{class}";
@@ -520,12 +521,13 @@ sub AttributesHash {
     tie %{$tree}, 'Tie::IxHash';
 
     print '.' x $idnt . "$args{class}\n";
-    my %columns = map{ $_, 1} @{$$glob{ColumnsList}};
+    my %columns = map { $_, 1 } @{$$glob{ColumnsList}};
     delete $columns{$_} foreach keys %{$$glob{PrimaryKeys}};
 
     foreach my $fk (grep { $$info{$_}{'attrs'}{'is_depends_on'} > 0 } sort keys %$info) {
-        next if $fk eq 'has_carrier';    # Corner case
-        foreach( values %{$$info{$fk}{'cond'}} ) {
+        next if $fk eq 'has_carrier';                     # Corner case
+        next if $$info{$fk}{class} =~ /BizCompanyNode/;
+        foreach (values %{$$info{$fk}{'cond'}}) {
             s/self\.//;
             delete $columns{$_} if exists $columns{$_};
         }
