@@ -525,11 +525,17 @@ sub AttributesHash {
     delete $columns{$_} foreach keys %{$$glob{PrimaryKeys}};
 
     foreach my $fk (grep { $$info{$_}{'attrs'}{'is_depends_on'} > 0 } sort keys %$info) {
-        next if $fk eq 'has_carrier';                     # Corner case
-        next if $$info{$fk}{class} =~ /BizCompanyNode/;
-        foreach (values %{$$info{$fk}{'cond'}}) {
-            s/self\.//;
-            delete $columns{$_} if exists $columns{$_};
+
+        # hack around BizCompanyNode biz_company_nodes table
+        if( $$info{$fk}{class} =~ /BizCompanyNode/ ) {
+            delete $columns{NodeId} if exists $columns{NodeId};
+        }
+
+        if (ref($$info{$fk}{'cond'}) eq 'HASH') {
+            foreach (values %{$$info{$fk}{'cond'}}) {
+                s/self\.//;
+                delete $columns{$_} if exists $columns{$_};
+            }
         }
 
         my $fkclass = $$info{$fk}{class};
