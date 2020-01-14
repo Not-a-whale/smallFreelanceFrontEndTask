@@ -300,7 +300,7 @@ sub BuildAPI {
         'datetime'         => 'DATETIME',
         'decimal'          => 'CurrencyValue',
         'float'            => 'Float',
-        'integer'          => 'Int',
+        'integer'          => 'PositiveInt',
         'tinyint'          => 'BoolInt',
 
         'longblob'  => 'Any',
