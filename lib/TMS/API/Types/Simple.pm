@@ -229,6 +229,9 @@ coerce 'Email', from 'Str', via { tryEmail($_) };
 subtype 'Person', as 'Str', where {/$rgx{isPerson}/};
 coerce 'Person', from 'Str', via { tryPerson($_) };
 
+subtype 'Year', as 'Int',  where { $_ > 1900 && $_ < 2050 };
+coerce 'Year', from 'Str', via { tryYear($_) };
+
 # ............................................................................
 subtype 'VarChar10', as 'Str', where {/^.{1,10}$/};
 coerce 'VarChar10', from 'Str', via { tryVarChar($_, 10) };
@@ -678,5 +681,15 @@ sub tryPerson {
     return undef if !defined $text;
     return uc($text);
 } ## end sub tryPerson
+
+sub tryYear {
+    my $text = shift;
+    if (_auto_ok($text)) {
+        my $data = 0;
+        $data = int(rand(2050)) while $data < 1900;
+        return $data;
+    }
+    return int(abs($text));
+}
 
 1;
