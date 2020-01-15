@@ -514,6 +514,9 @@ sub BuildAPI {
 
 sub AttributesHash {
     my %args = @_;
+    if( $args{class} eq 'HrAssociate' ) {
+        $DB::single = 2;
+    }
     my $idnt = exists $args{ident} ? $args{ident} : 0;
     my $tree = exists $args{tree} ? $args{tree} : {};
     my $uses = exists $args{uses} ? $args{uses} : {};
@@ -532,6 +535,7 @@ sub AttributesHash {
         # hack around BizCompanyNode biz_company_nodes table
         if ($$info{$fk}{class} =~ /BizCompanyNode/) {
             delete $columns{NodeId} if exists $columns{NodeId};
+            next;
         }
 
         if (ref($$info{$fk}{'cond'}) eq 'HASH') {
