@@ -33,8 +33,11 @@ sub _connect_to_db {
         $self->extras($extras);    # make it visible from outside.
         $ENV{DBIC_UNSAFE_AUTOCOMMIT_OK} = 1 unless $$extras{AutoCommit};
         $DBIxSingleton = $self->connect($dsnx, $self->dbuser, $self->dbpass, $extras);
+    } else {
+        my $st = $DBIxSingleton->storage;
+        $st->ensure_connected if !$st->connected;
+        $self->DBIxHandle($DBIxSingleton);
     }
-    $self->DBIxHandle($DBIxSingleton);
 }
 
 __PACKAGE__->meta->make_immutable(inline_constructor => 1);
