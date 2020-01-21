@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+  <head>
+
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="data:image/x-icon;," rel="shortcut icon" type="image/x-icon">
+
+    <script src="/js/angular.min.js"></script>
+
+    <link href="/prefetch/css/defaults.css" rel="stylesheet">
+
+    <script src="/prefetch/prefetch.js"></script>
+    <script src="/prefetch/modules/sources/component.js"></script>
+
+    <link href="/prefetch/modules/builder/style.css" rel="stylesheet">
+    <script src="/prefetch/modules/builder/component.js"></script>
+  </head>
+
+  <body ng-app="prefetch" ng-controller="MainCtrl">
+
+    <div class="testbox flexible" id="global-container">
+
+
+      <div class="testbox flexible" id="menu-container">
+        <div class="flexible selections" id="selected-item">
+          <center>{{selection}}</center>
+        </div>
+
+        <div class="flexible" id="menu-items">
+          <src-list></src-list>
+        </div>
+
+        <div class="testbox " id="submit-me">
+          <input
+            type="text"
+            placeholder="Feature API"
+            title="Feature API name in format: FOLDER/NAME, will be created in TMS/API/Feature"
+            ng-model="feature"
+          />
+
+          <input
+            type="text"
+            placeholder="Base Route Name"
+            title="Route is relative to /api/ without create/update/search/delete suffix"
+            ng-model="route"
+          />
+
+          <button ng-click="FinishUp()">Build API</button>
+        </div>
+      </div>
+
+      <div class="testbox flexible" id="main-container">
+        <prefetch-builder></prefetch-builder>
+      </div>
+
+    </div>
+  </body>
+
+</html>

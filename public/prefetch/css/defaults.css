@@ -1,0 +1,67 @@
+html, body { /* need this one first so the height of everything else will be 100% if needed */
+  width:        100%;
+  height:       100%;
+  margin:       0px;
+  padding:      0px;
+  font-family:  Arial, Helvetica, sans-serif;
+  font-size:    small;
+}
+
+body::-webkit-scrollbar {display: none;}
+
+.testbox {
+  margin:             1px;
+  padding:            1px;
+  border:             1px solid threedface;
+
+  vertical-align:     middle;
+
+  width:              calc(100% - 2px);
+  height:             calc(100% - 2px);
+
+  box-sizing:         border-box;
+  display:            inline-block;
+}
+
+.flexible {
+  display:            flex;
+  justify-content:    space-between;
+}
+
+#selected-item {
+  color: navy;
+  text-align: right;
+  height: 40px;
+  padding: 4px;
+  border-bottom: 2px solid threedface;
+}
+
+#menu-container {
+  width:              250px;
+  flex-direction:     column;
+}
+
+#menu-items {
+  overflow-y:         scroll;
+}
+#menu-items::-webkit-scrollbar {
+  display: none;
+}
+
+#submit-me {
+  display:            flex;
+  box-sizing:         border-box;
+  flex-direction:     column;
+  border:             none;
+  height:             100px;
+  background:         #e6ecff;
+}
+
+#submit-me>input #submit-me>button {
+  box-sizing:         border-box;
+  width:              calc(100% - 2px);
+}
+
+#main-container {
+  overflow-y:         scroll;
+}
