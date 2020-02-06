@@ -1,0 +1,56 @@
+operator-driver-card {
+  @flex-row();
+  position: relative;
+  height: 60px;
+  width: 100%;
+  min-width: 480px;
+
+  .ui-card();
+
+  .holds {
+    color: var(--cp-danger);
+    text-transform: capitalize;
+    font-size: var(--font-small);
+    font-family: var(--font-family-second);
+
+  }
+
+  .name {
+    @flex-row();
+
+    &>img {
+      margin-right: 10px;
+    }
+
+    .name-text {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .name-container {
+      @flex-col();
+      overflow: hidden;
+    }
+  }
+
+  .user {
+    display: flex;
+    justify-content: center;
+  }
+
+  .extras {
+    position: absolute;
+    right: 8px;
+    bottom: 6px;
+    display: flex;
+
+    &>* {
+      margin-left: 16px;
+    }
+
+    svg {
+      fill: var(--cp-primary);
+    }
+  }
+}

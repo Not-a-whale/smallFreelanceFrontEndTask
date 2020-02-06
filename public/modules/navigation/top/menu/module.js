@@ -1,14 +1,21 @@
 class TopNavMenuCtrl {
-  constructor(scope) {
+  constructor(scope, pagesrv) {
     this.scope = scope;
     this.activeitem = undefined;
+    this.Page = pagesrv;
   }
 }
 
 app.component("topNavMenu", {
-  controller: ["$scope", TopNavMenuCtrl],
+  controller: ["$scope", 'PageService', TopNavMenuCtrl],
   templateUrl: 'modules/navigation/top/menu/default.html',
   bindings: {
     activeitem: '<'
   }
+});
+
+
+app.component("topNavMenu2", {
+  controller: ['$scope', 'PageService', TopNavMenuCtrl],
+  templateUrl: 'modules/navigation/top/menu/template.html'
 });

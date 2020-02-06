@@ -1,0 +1,21 @@
+<div class="fsct-col c8">
+  <div class="fsct-row c12">
+    <div class="fsct-col c6">
+      <div ng-include="'modules/personnel/name/form/default.html'"></div>
+      <input-phone-ext required="1"></input-phone-ext>
+      <bound-input label="email"
+                   type="email"></bound-input>
+    </div>
+    <div class="fsct-col c6">
+      <div ng-include="'modules/driverlicense/form/default.html'"></div>
+    </div>
+  </div>
+  <div class="submit">
+    <button-icon class="btn btn-sm btn-primary"
+                 label="create record"
+                 icon="imgs/icons.svg#arrow"></button-icon>
+  </div>
+</div>
+<div class="drivers-container">
+  <drivers-display></drivers-display>
+</div>

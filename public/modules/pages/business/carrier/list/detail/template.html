@@ -1,0 +1,180 @@
+<div ng-show="$ctrl.HasDetail()">
+  <ui-list-detail name="'No company name listed'"
+                  data-phone="1"
+                  data-email="1"
+                  data-message="1"
+                  data-role="'carrier company'">
+    <detail-body>
+      <div class="panel-top">
+        <div class="panel-inner">
+          <div class="panel-col">
+            <ui-container-labelled label="mailing"
+                                   class="panel-group">
+              <ui-address-plain address="$ctrl.detail.brnch_address"></ui-address-plain>
+            </ui-container-labelled>
+
+            <ui-container-labelled label="billing"
+                                   class="panel-group">
+              <ui-address-plain address="$ctrl.detail.biz.entity.fin_billing_infos[0].address"></ui-address-plain>
+            </ui-container-labelled>
+
+          </div>
+          <div class="panel-col">
+            <ui-container-labelled label="phone">
+              <ui-phone-ext class="text link"
+                            phone="$ctrl.detail.brnch_phone"></ui-phone-ext>
+            </ui-container-labelled>
+
+            <ui-container-labelled label="fax">
+              <ui-phone-ext class="text link"
+                            phone="$ctrl.detail.brnch_fax"
+                            type="fax"></ui-phone-ext>
+            </ui-container-labelled>
+
+            <ui-container-labelled label="email">
+              <div>
+                <div class="text"
+                     ng-hide="$ctrl.detail.BrnchEMail">no email listed</div>
+                <div class="text link"
+                     ng-show="$ctrl.detail.BrnchEMail">{{ $ctrl.detail.BrnchEMail }}</div>
+              </div>
+            </ui-container-labelled>
+
+          </div>
+
+          <div class="panel-col">
+            <ui-container-labelled label="primary contact">
+              <ui-contact-info contact="$ctrl.detail.primary_contact"></ui-contact-info>
+            </ui-container-labelled>
+          </div>
+
+          <div class="panel-col"
+               ng-if="$ctrl.detail.biz.ent_owner_operator != undefined">
+            <ui-container-labelled label="carrier/authority">
+              <div class="text caps">
+                {{ $ctrl.detail.biz.ent_owner_operator.carrier.carrier.BizName }}</div>
+            </ui-container-labelled>
+          </div>
+        </div>
+      </div>
+      <div class="panel-bottom scrollable">
+        <div class="panel-inner">
+          <div class="panel-left">
+            <div class="group">
+              <div class="title font-med-label1 font-c-accent">management</div>
+              <ui-holds-accordion style="margin-bottom: 6px;"></ui-holds-accordion>
+              <ui-notes-accordion></ui-notes-accordion>
+            </div>
+            <div class="group">
+              <div class="title font-med-label1 font-c-accent">assets</div>
+              <ui-agents-accordion></ui-agents-accordion>
+              <ui-drivers-accordion></ui-drivers-accordion>
+              <ui-vehicles-accordion></ui-vehicles-accordion>
+            </div>
+          </div>
+          <div class="panel-right">
+            <div class="group">
+              <div class="title font-med-label1 font-c-accent">files</div>
+              <ui-documents-accordion></ui-documents-accordion>
+              <ui-ifta-accordion></ui-ifta-accordion>
+              <ui-insurances-accordion></ui-insurances-accordion>
+              <ui-permits-accordion></ui-permits-accordion>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </detail-body>
+  </ui-list-detail>
+</div>
+
+<div ng-hide="$ctrl.HasDetail()">No Details Listed</div>
+
+<!-- <div class="header">
+  <div class="banner">
+    <div class="title">transportation company corporation name</div>
+    <svg class="icon-primary icon-tiny">
+      <use xlink:href="imgs/icons.svg#envelope"></use>
+    </svg>
+    <svg class="icon-primary icon-tiny">
+      <use xlink:href="imgs/icons.svg#phone"></use>
+    </svg>
+    <div class="editor">
+      <svg class="icon-primary icon-tiny">
+        <use xlink:href="imgs/icons.svg#pencil"></use>
+      </svg>
+      <div>edit informaton</div>
+    </div>
+  </div>
+  <div class="banner">
+    <div class="role caps">carrier company</div>
+    <div class="activity"><span>active: </span>11/08/15 - Today</div>
+  </div>
+</div>
+<div class="body">
+  <div class="panel-top">
+    <div class="panel-col">
+      <div class="heading">phone</div>
+      <div class="text link">(000) 000-0000 ext 00000</div>
+
+      <div class="heading">fax</div>
+      <div class="text link">(000) 000-0000 ext 00000</div>
+
+      <div class="heading">email</div>
+      <div class="text link">example@example.com</div>
+    </div>
+
+    <div class="panel-col">
+      <div class="heading">primary contact</div>
+      <div class="text caps">petya papuygai</div>
+      <div class="text link">(000) 000-0000 ext 00000</div>
+      <div class="text link">papuygai@example.com</div>
+    </div>
+
+    <div class="panel-col">
+      <div class="heading">mailing</div>
+      <div class="text caps">00000 street name drive</div>
+      <div class="text caps">cityname, ST 00000-0000</div>
+      <div class="text caps">country name</div>
+    </div>
+
+    <div class="panel-col">
+      <div class="heading">billing</div>
+      <div class="text caps">00000 street name drive</div>
+      <div class="text caps">cityname, ST 00000-0000</div>
+      <div class="text caps">country name</div>
+    </div>
+
+    <div class="panel-col profile-btn">
+      <input class="btn btn-sm btn-primary">view full profile
+    </div>
+  </div>
+  <div class="panel-bottom scrollable">
+    <div class="panel-left">
+      <inputccordion-cards viewname="'crrvehicles'"
+                       data-title="'owned vehicles'"
+                       items="[{},{},{},{},{},{},{},{},{},{}]"
+                       open="1"></accordion-cards>
+      <inputccordion-cards viewname="'carrdrivers'"
+                       data-title="'employed drivers'"
+                       items="[{},{},{},{},{},{},{}]"></accordion-cards>
+      <inputccordion-cards viewname="'crrifta'"
+                       data-title="'IFTA account'"
+                       items="[{},{},{},{},{},{},{},{},{},{},{},{},{}]"></accordion-cards>
+    </div>
+    <div class="panel-right">
+      <inputccordion-cards viewname="'crrholds'"
+                       data-title="'holds'"
+                       items="[{},{},{},{},{},{},{},{},{}]"
+                       showcount="1"></accordion-cards>
+      <inputccordion-cards viewname="'crrinsurances'"
+                       data-title="'insurances'"
+                       items="[{},{},{}]"
+                       showcount="1"></accordion-cards>
+      <inputccordion-cards viewname="'crrpermits'"
+                       data-title="'permit accounts'"
+                       items="[{},{},{},{},{},{},{}]"></accordion-cards>
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,11 @@
+<div ng-show="$ctrl.contact != undefined">
+  <ui-name class="text caps"
+           person="$ctrl.contact"></ui-name>
+  <phone-extension class="text link"
+                   phone="$ctrl.contact.hr_associate.biz_phone"></phone-extension>
+  <ui-email email="$ctrl.contact.hr_associate.BizEmail"></ui-email>
+  <a class="btn btn-sm btn-primary-bsc">view contact</a>
+</div>
+<div ng-hide="$ctrl.contact != undefined">
+  no primary contact listed
+</div>

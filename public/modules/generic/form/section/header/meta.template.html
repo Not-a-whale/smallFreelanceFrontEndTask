@@ -1,0 +1,10 @@
+<div id="{{$ctrl.form.viewname }}"
+     class="font-form-head">{{ $ctrl.form.title }}</div>
+<div class="remove"
+     ng-if="$ctrl.form.optional"
+     ng-click="$ctrl.onDisable({form: $ctrl.form})">
+     <svg class="trash">
+          <use xlink:href="imgs/icons.svg#trash"></use>
+     </svg>
+     <a>remove this section</a>
+</div>

@@ -154,3 +154,90 @@ class MenuService extends GenericService {
 }
 
 app.service("MenuService", ["$http", MenuService]);
+
+class PageService {
+  constructor(http) {
+    this.http = http;
+    this.pages = undefined;
+    this.activepage = undefined;
+  }
+
+  SetPage(pagename) {
+    if (this.pages == undefined) {
+      this.GetPages();
+    }
+    if (pagename in this.pages) {
+      this.activepage = this.pages[pagename];
+    } else {
+      console.error('Requested page ' + pagename + ' not found.');
+    }
+  }
+
+  Navs() {
+    let retval = undefined;
+    if (this.activepage !== undefined) {
+      retval = this.activepage.navs;
+    }
+    return retval;
+  }
+
+  Title() {
+    let retval = undefined;
+    if (this.activepage !== undefined) {
+      retval = this.activepage.label;
+    }
+    return retval;
+  }
+
+  GetPages() {
+    let self = this;
+    return this.http.get('pages.json').then(function (res) {
+      self.pages = res.data;
+      //console.log(self.pages);
+      return res.data;
+    });
+  }
+}
+
+app.service('PageService', ['$http', PageService]);
+
+class MainNavService {
+  constructor(http) {
+    this.http = http;
+    this.menu = undefined; // stores the current menu that a user can use to navigate with
+  }
+
+  GetMainNavMenu() {
+    if (this.menu == undefined) {
+      var self = this;
+      return this.http.get('navmenu.json').then(function (res) {
+        self.menu = res.data;
+        return self.menu;
+        //console.log(res.data);
+      }, function (res) {
+        console.error('didnt fetch navigation menu');
+      });
+    } else {
+      return this.menu;
+    }
+  }
+
+  PostToDB() {
+    // this is to push data to the database
+  }
+
+  GetFromDB() {
+    // this is to get the data from the database
+  }
+
+  RemapFromDB() {
+    // maps data from the database to frontend
+  }
+
+  RemapToDB() {
+    //maps data structure from frontend to push to the database
+  }
+}
+
+
+app.service('MainNavService', ['$http', MainNavService]);

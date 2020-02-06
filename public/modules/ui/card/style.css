@@ -1,0 +1,30 @@
+*.ui-card {
+  display: flex;
+  background-color: var(--cp-highlight);
+  padding: 8px !important;
+  width: 100%;
+}
+
+*.ui-card:hover {
+  background-color: var(--cp-card);
+}
+
+*.ui-card .card-text {
+  font-family: var(--font-family-second);
+  font-size: var(--font-small);
+  font-weight: var(--font-weight-norm);
+  color: var(--cp-default);
+}
+
+*.ui-card .card-link {
+  color: var(--cp-primary);
+}
+
+*.ui-card .card-link:hover {
+  color: var(--cp-primary-mid);
+}
+
+*.ui-card .user {
+  display: flex;
+  justify-content: center;
+}

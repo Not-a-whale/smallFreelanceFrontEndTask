@@ -1,0 +1,27 @@
+<div class="banner-container">
+  <div class="content" ng-transclude="header"></div>
+  <ui-table-search-toggle is-toggled="$ctrl.SearchVisible()" on-toggle="$ctrl.SearchToggle()"></ui-table-search-toggle>
+</div>
+<div class="basic search-container" ng-show="$ctrl.SearchBasicVisible()">
+  <div class="content" ng-transclude="basic"></div>
+  <svg class="advanced icon-sm"
+       ng-click="$ctrl.SearchAdvOpen()">
+    <use xlink:href="imgs/icons.svg#filter"></use>
+  </svg>
+</div>
+<div class="advanced search-container" ng-show="$ctrl.SearchAdvVisible()">
+  <div class="title">
+    <div class="font-sm-label1 font-c-grey">advanced search</div>
+    <div class="font-sm-label1 font-c-grey"
+         ng-click="$ctrl.SearchAdvClose()">
+      hide advanced search
+    </div>
+    <svg class="advanced icon-sm"
+         ng-click="$ctrl.SearchAdvClose()">
+      <use xlink:href="imgs/icons.svg#filter"></use>
+    </svg>
+  </div>
+  <div class="content" ng-transclude="advanced">
+  </div>
+</div>
+<ui-table-search-chipbar></ui-table-search-chipbar>

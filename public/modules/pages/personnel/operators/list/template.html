@@ -1,0 +1,30 @@
+<style>
+  operators-list-page {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    padding-top: 10px !important;
+    width: 100%;
+  }
+
+  operators-list-page > div.detail {
+    display: flex;
+    flex-grow: 1;
+    margin-right: 0px !important;
+    margin-left: 20px;
+  }
+  operators-list-page > div.panel-list {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+
+<div class="panel-list">
+  <button class="btn btn-sm btn-primary">+ add new</button>
+  <meta-table-flowout style="height: 100%; width: 686px; display: flex;"
+  gate="$ctrl.gate"
+  on-select="$ctrl.ShowDetail(item)"
+  meta="$ctrl.meta"></meta-table-flowout>
+</div>
+
+<div class="detail" ui-view="detail"></div>

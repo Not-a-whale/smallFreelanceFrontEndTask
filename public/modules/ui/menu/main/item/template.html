@@ -1,0 +1,16 @@
+<div class="label-container">
+  <svg class="icon">
+    <use xlink:href="{{$ctrl.icon}}"></use>
+  </svg>
+  <div class="label">{{$ctrl.label}}</div>
+  <svg ng-if="$ctrl.CanExpand()"
+       class="expand"
+       ng-class="{flip: $ctrl.IsExpanded()}">
+    <use xlink:href="imgs/icons.svg#triangle"></use>
+  </svg>
+</div>
+<div ng-show="$ctrl.IsExpanded()" class="children-container">
+  <main-nav-menu-child ng-repeat="child in $ctrl.children"
+                       data-label="child.label"
+                       data-goto="child.goto"></main-nav-menu-child>
+</div>

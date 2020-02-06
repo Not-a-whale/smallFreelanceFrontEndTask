@@ -1,0 +1,16 @@
+{
+   "tmsapp.main":{
+      "url":"/main",
+      "views":{
+         "main@":{
+            "templateUrl":"/views/tmsapp/main/main.html"
+         },
+         "navbar@tmsapp.main":{
+            "templateUrl":"/views/tmsapp/main/navbar.html"
+         },
+         "topnav@tmsapp.main":{
+            "templateUrl":"/views/tmsapp/main/topnav.html"
+         }
+      }
+   }
+}

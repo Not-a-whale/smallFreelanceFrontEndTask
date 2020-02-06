@@ -1,4 +1,4 @@
-<button ng-blur="$ctrl.CloseMenu()" ng-click="$ctrl.OpenMenu()" class="btn btn-info">+ NEW</button>
+<a ng-blur="$ctrl.CloseMenu()" ng-click="$ctrl.OpenMenu()" class="btn btn-sharp btn-tall btn-accent">+ NEW</a>
 <ul ng-show="$ctrl.expanded">
-  <li ng-repeat="item in $ctrl.options" ui-sref="{{ item.state }}">+ {{ item.label }}</li>
+  <li ng-repeat="item in $ctrl.options" ng-click="$ctrl.Console()" ui-sref="{{ item.state }}">+ {{ item.label }}</li>
 </ul>

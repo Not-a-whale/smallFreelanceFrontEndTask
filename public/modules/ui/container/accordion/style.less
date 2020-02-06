@@ -1,0 +1,61 @@
+ui-container-accordion {
+  @padding: 8px;
+  @flex-col();
+  width: 100%;
+  background-color:@cp-grey-light;
+
+  &>.header {
+    @flex-row();
+    align-items: center;
+    height: 32px;
+    width: calc(100% - (@padding * 2));
+    padding-left: @padding;
+    padding-right: @padding;
+    box-sizing: content-box;
+    cursor: pointer;
+
+    &>svg {
+      fill:@cp-default;
+    }
+    &.expanded {
+      &>svg {
+        transform: scaleY(-1);
+      }
+    }
+  }
+  &>.body{
+    display: flex;
+    width: 100%;
+    padding-left: @padding;
+    padding-right: @padding;
+    padding-bottom: @padding;
+    &>content{
+      @flex-col();
+      width: 100%;
+      &.row {
+        @flex-row();
+      }
+      &.wrap{
+        @flex-wrap();
+      }
+      &.spacing>*:not(:last-child){
+        margin-bottom: 2px;
+      }
+      &>.header {
+        @flex-row();
+        width: 100%;
+        padding: 0px @padding 0px @padding;
+
+        &>.heading{
+          font-size: @font-tiny;
+          color: @cp-grey;
+          text-transform: uppercase;
+          display: flex;
+          &.center {
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+}

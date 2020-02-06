@@ -1,0 +1,43 @@
+ui-table-search-toggle {
+  @arrow-size: 10px;
+  @magnify-size: 18px;
+
+  @fill-def: @cp-usko-red-light;
+  @fill-hover: @cp-usko-red-pale;
+  @flex-row();
+  align-items: center;
+  cursor: pointer;
+  &>div {
+    @flex-row();
+    align-items: center;
+  }
+
+  &:hover {
+    .magnify {
+      fill: @fill-hover;
+    }
+
+    .arrow {
+      fill: @fill-hover;
+    }
+  }
+
+  .magnify {
+    fill: @fill-def;
+    max-height: @magnify-size;
+    max-width: @magnify-size;
+    margin-right: 4px;
+  }
+
+  .arrow {
+    fill: @fill-def;
+    max-height: @arrow-size;
+    max-width: @arrow-size;
+
+    transform: scaleY(-1);
+
+    &.flip {
+      transform: scaleY(1);
+    }
+  }
+}

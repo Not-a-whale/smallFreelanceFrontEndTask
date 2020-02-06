@@ -1,0 +1,108 @@
+<div class="fsct">
+    <meta-form-section-header form="$ctrl.form"
+                              on-disable="$ctrl.onDisable(form)"></meta-form-section-header>
+    <div class="fsct-row">
+      <div class="fsct-col">
+        <simple-input label="VIN #"
+                      required="1"></simple-input>
+        <simple-input label="make"></simple-input>
+      </div>
+      <div class="fsct-col">
+        <simple-input label="plate #"
+                      required="1"></simple-input>
+        <simple-input label="model"></simple-input>
+      </div>
+      <div class="fsct-col c1">
+        <simple-input label="state"
+                      required="1"></simple-input>
+        <simple-input label="year"
+                      type="number"></simple-input>
+      </div>
+      <div class="fsct-col">
+        <simple-input label="unladen weight"
+                      required="1"></simple-input>
+
+      </div>
+      <div class="fsct-col">
+        <simple-input label="weight capactiy"
+                      required="1"></simple-input>
+      </div>
+    </div>
+    <div class="fsct-row">
+      <div class="fsct-col c3">
+        <div>inspections</div>
+        <div>provide the most recent date for the inspections listed below:</div>
+        <div class="frow f-spacer">
+          <simple-input class="c5"
+                        label="annual"
+                        type="date"></simple-input>
+          <simple-input class="c5"
+                        label="90 day"
+                        type="date"></simple-input>
+        </div>
+        <div>registration</div>
+        <div class="frow f-spacer">
+          <simple-input class="c5"
+                        label="effective date"
+                        type="date"></simple-input>
+          <simple-input class="c5"
+                        label="expiration date"
+                        type="date"></simple-input>
+        </div>
+        <generic-file-upload class="c12"></generic-file-upload>
+      </div>
+      <div class="fsct-col c6">
+        <div>permits</div>
+        <div class="frow c12 fcol-spacer">
+          <div class="fstack c6">
+            <simple-input label="new mexico"></simple-input>
+            <simple-input label="kentucky"></simple-input>
+            <simple-input label="oregon"></simple-input>
+            <simple-input label="florida"></simple-input>
+          </div>
+          <div class="fstack c6">
+            <simple-input label="south carolina"></simple-input>
+            <simple-input label="north caroline"></simple-input>
+            <simple-input label="new york"></simple-input>
+          </div>
+        </div>
+
+      </div>
+      <div class="fsct-col c3">
+        <div>additional details</div>
+        <div class="frow f-spacer">
+          <simple-input class="c6"
+                        label="color"></simple-input>
+          <simple-input class="c6"
+                        label="fuel type"></simple-input>
+        </div>
+        <div class="frow f-spacer">
+          <simple-input class="c6"
+                        label="tire size"></simple-input>
+          <simple-input class="c6"
+                        label="amount of axels"></simple-input>
+        </div>
+        <div class="frow f-spacer">
+          <simple-input class="c6"
+                        label="length"
+                        type="number"></simple-input>
+          <simple-input class="c6"
+                        label="width"
+                        type="number"></simple-input>
+        </div>
+        <div class="frow f-spacer">
+          <simple-input class="c6"
+                        label="height"></simple-input>
+          <div class="c6"></div>
+        </div>
+        <div class="frow f-spacer">
+          <simple-input class="c6"
+                        label="door height"
+                        type="number"></simple-input>
+          <simple-input class="c6"
+                        label="door width"
+                        type="number"></simple-input>
+        </div>
+      </div>
+    </div>
+  </div>

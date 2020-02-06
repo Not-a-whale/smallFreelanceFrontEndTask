@@ -1,0 +1,10 @@
+{
+   "tmsapp.main.dashboard":{
+      "url":"/dashboard",
+      "views":{
+         "content@tmsapp.main":{
+            "templateUrl":"/views/tmsapp/main/dashboard/content.html"
+         }
+      }
+   }
+}

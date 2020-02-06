@@ -1,0 +1,232 @@
+// styles for buttons
+.button-defaults() {
+  @small-width-min: 64;
+  @padding: @size / 2;
+  @line-height: 21px;
+  @font-color: var(--btn-font-color);
+  @icon-color: var(--btn-icon-color);
+  @size: 30px;
+
+  --btn-color: @cp-default;
+  --btn-color-hover: @cp-default-mid;
+  --btn-color-active: @cp-grey;
+  --btn-color-font: @cp-highlight;
+  --btn-color-icon: @cp-usko-red;
+  --btn-height: @size;
+  --btn-width: @size;
+  --btn-padding: @padding;
+
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--btn-color-font);
+  background-color: var(--btn-color);
+
+  line-height: @line-height;
+
+  border-radius: 4px;
+
+  display: flex;
+  width: fit-content;
+  justify-content: center;
+  align-items: center;
+
+  flex-basis: auto;
+
+  vertical-align: middle;
+  text-align: center;
+  box-sizing: border-box;
+
+  .font-med-label2();
+
+  min-width: var(--btn-width);
+  min-height: var(--btn-height);
+  height: var(--btn-height);
+  padding-left: var(--btn-padding);
+  padding-right: var(--btn-padding);
+
+
+  &:hover {
+    background-color: var(--btn-color-hover);
+  }
+
+  &.active {
+    background-color: var(--btn-color-active);
+  }
+
+  * {
+    color: var(--btn-font-color);
+    .font-med-label2();
+  }
+}
+
+.button-properties() {
+  .button-defaults();
+
+  &-sm,
+  &-small {
+    @size: 24px;
+    @padding: @size / 2;
+
+    --btn-height: @size;
+    --btn-width: @size;
+    --btn-padding: @padding;
+    .font-med-label2();
+
+    * {
+      .font-med-label2();
+    }
+  }
+
+  &-lg,
+  &-large {
+    @size: 40px;
+    @padding: @size / 3 * 2;
+
+    --btn-height: @size;
+    --btn-width: @size;
+    --btn-padding: @padding;
+    .font-lrg-label2();
+
+    * {
+      .font-lrg-label2();
+    }
+
+  }
+
+  &-primary {
+    --btn-color: @cp-primary;
+    --btn-color-hover: @cp-primary-mid;
+    --btn-color-active: @cp-primary-light;
+    --btn-color-font: @cp-highlight;
+  }
+
+  &-success {
+    --btn-color: @cp-success;
+    --btn-color-hover: @cp-success-mid;
+    --btn-color-active: @cp-success-light;
+    --btn-color-font: @cp-highlight;
+  }
+
+  &-accent {
+    --btn-color: @cp-usko-red;
+    --btn-color-hover: @cp-usko-red-mid;
+    --btn-color-active: @cp-usko-red-light;
+    --btn-color-font: @cp-highlight;
+  }
+
+  &-warn {
+    --btn-color: @cp-warn;
+    --btn-color-hover: @cp-warn-mid;
+    --btn-color-active: @cp-warn-light;
+    --btn-color-font: @cp-highlight;
+  }
+
+  &-danger {
+    --btn-color: @cp-danger;
+    --btn-color-hover: @cp-danger-mid;
+    --btn-color-active: @cp-danger-light;
+    --btn-color-font: @cp-highlight;
+  }
+
+
+  &-flex {
+    @flex-row();
+    width: 100%;
+  }
+
+  &-tall {
+    height: 100%;
+  }
+
+  &-sharp {
+    border-radius: 0px;
+  }
+
+  &-simple,
+  &-smp {
+    --btn-color: transparent;
+    --btn-color-hover: @cp-grey-pale;
+    --btn-color-active: @cp-grey-light;
+    --btn-color-font: @cp-grey;
+
+    &:hover {
+      --btn-color-font: @cp-default-mid;
+    }
+
+    &.active {
+      --btn-color-font: @cp-default;
+    }
+
+    &.btn-primary {
+      --btn-color: transparent;
+      --btn-color-hover: @cp-primary-pale;
+      --btn-color-active: @cp-primary-pale2;
+      --btn-color-font: @cp-primary;
+    }
+  }
+}
+
+.btn-icon {
+  max-height: 20px;
+  max-width: 20px;
+  fill: var(--btn-color-font);
+
+  &-sm {
+
+    max-height: 14px;
+    max-width: 14px;
+    fill: var(--btn-color-font);
+  }
+}
+
+a,
+input {
+  &:extend(button all);
+}
+
+button-icon {
+  .button-defaults();
+
+  &.btn {
+    .button-properties();
+  }
+
+  &.left {
+    .btn-text {
+      order: 2;
+    }
+
+    .btn-icon,
+    .btn-icon-sm {
+      order: 1;
+      margin-right: 6px;
+    }
+  }
+
+  &.right {
+    .btn-text {
+      order: 1;
+    }
+
+    .btn-icon,
+    .btn-icon-sm {
+      order: 2;
+      margin-left: 6px;
+    }
+  }
+}
+
+
+button {
+  &.btn {
+    .button-properties();
+  }
+}
+
+a.btn {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-drag: none;
+}

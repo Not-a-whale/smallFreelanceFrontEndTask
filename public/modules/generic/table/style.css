@@ -78,6 +78,11 @@
   flex-basis: 33.33%;
 }
 
+.c5 {
+  width: 41.667%;
+  flex-basis: 41.667%;
+}
+
 .c6 {
   width: 50%;
   flex-basis: 50%;

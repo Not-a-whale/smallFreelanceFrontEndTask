@@ -63,9 +63,20 @@ generic-file-upload {
 .filelist .status .progressbar {
   position: absolute;
   height: 10px;
-  background-color: var(--cp-grey-light);
+  background-color: var(--cp-primary);
   bottom: 10px;
 }
+
+.filelist .status .totalbar.complete {
+  background-color: var(--cp-success);
+
+}
+
+.filelist .status .totalbar.failed {
+  background-color: var(--cp-danger);
+
+}
+
 
 .filelist .status .totalbar {
   position: absolute;

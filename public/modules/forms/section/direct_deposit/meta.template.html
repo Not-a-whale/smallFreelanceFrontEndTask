@@ -1,0 +1,18 @@
+<div class="fsct">
+  <meta-form-section-header form="$ctrl.form"
+                            on-disable="$ctrl.onDisable({form: form})"></meta-form-section-header>
+  <div class="fsct-row">
+    <div class="fgrid">
+      <div class="fgrid fgcs1 fgce17" ng-repeat="bank in $ctrl.gate.banks" >
+        <simple-input label="bank name" class="fgcs1 fgce4" value="bank.name"></simple-input>
+        <simple-input label="routing #" class="fgcs4 fgce7" value="bank.account.routing"></simple-input>
+        <simple-input label="account #" class="fgcs7 fgce10" value="bank.account.number"></simple-input>
+        <simple-input label="account type" class="fgcs10 fgce12" value="bank.account.type"></simple-input>
+        <simple-input label="fraction amount" class="fgcs12 fgce14" value="bank.deposit.amount"></simple-input>
+        <simple-input label="nickname" class="fgcs14 fgce16" value="bank.nickname"></simple-input>
+        <div class="fgcs16" ng-click="$ctrl.RemoveBank($index)">X</div>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-second btn-sm" ng-click="$ctrl.AddBank()">+ add another bank</button>
+</div>

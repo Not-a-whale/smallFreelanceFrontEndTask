@@ -28,14 +28,13 @@
 }
 
 /* these are for the rows inside of the sectional form's cells */
-.frow,
+/* .frow,
 .form .frow {
   display: flex;
   flex-direction: row;
   box-sizing: border-box;
 }
 
-/* spacing between the input fields */
 .frow>*:not(:first-child),
 .form .frow>*:not(:first-child) {
   padding-left: 10px;
@@ -72,4 +71,275 @@
 .form .fsct-col:not(:last-child),
 .fsct-col:not(:last-child) {
   margin-right: var(--form-row-gutter);
+} */
+
+/* the sections should be a minimum height so that you can properly scroll to them*/
+.form>*{
+  min-height: 500px;
+  width: 100%;
+}
+
+/* to create columns anywhere in the form */
+.form .fcol {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* to create rows anywhere in the form */
+.form .frow {
+  display: flex;
+  flex-direction: row;
+}
+
+/* to add spacing between input fields horizontally */
+.form .f-spacer>*:not(:first-child),
+.form .fcol-spacer>*:not(:first-child) {
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+
+.form .fsct-row,
+.fsct-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.form .fsct-row:not(:last-child),
+.fsct-row:not(:last-child) {
+  border-bottom: 1px;
+  border-style: solid;
+  border-color: var(--cp-grey-light);
+}
+
+.form .fsct-col,
+.fsct-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.form .fsct-col:not(:last-child),
+.fsct-col:not(:last-child) {
+  margin-right: var(--form-row-gutter);
+}
+
+.form .fgrid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-column-gap: 20px;
+}
+
+.form .fgrid4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-column-gap: 20px;
+}
+
+.form .fgrid5 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-column-gap: 20px;
+}
+
+
+.form .fgrid6 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-column-gap: 20px;
+}
+
+.form .fgrid10 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-column-gap: 20px;
+}
+
+/* how many rows the grid has */
+.form .fgr1 {
+  grid-template-rows: 17px 17px 17px 17px;
+}
+
+.form .fgr2 {
+  grid-template-rows: 1fr 1fr;
+}
+
+.form .fgr3 {
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+.form .fgr4 {
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+.form .fgr5 {
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.form .fgr6 {
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.form .fgr7 {
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.form .fgcs1 {
+  grid-column-start: 1;
+}
+.form .fgcs2 {
+  grid-column-start: 2;
+}
+.form .fgcs3 {
+  grid-column-start: 3;
+}
+.form .fgcs4 {
+  grid-column-start: 4;
+}
+.form .fgcs5 {
+  grid-column-start: 5;
+}
+.form .fgcs6 {
+  grid-column-start: 6;
+}
+.form .fgcs7 {
+  grid-column-start: 7;
+}
+.form .fgcs8 {
+  grid-column-start: 8;
+}
+.form .fgcs9 {
+  grid-column-start: 9;
+}
+.form .fgcs10 {
+  grid-column-start: 10;
+}
+.form .fgcs11 {
+  grid-column-start: 11;
+}
+.form .fgcs12 {
+  grid-column-start: 12;
+}
+.form .fgcs13 {
+  grid-column-start: 13;
+}
+.form .fgcs14 {
+  grid-column-start: 14;
+}
+.form .fgcs15 {
+  grid-column-start: 15;
+}
+.form .fgcs16 {
+  grid-column-start: 16;
+}
+
+.form .fgce17 {
+  grid-column-end: 17;
+}
+
+.form .fgce1 {
+  grid-column-end: 1;
+}
+.form .fgce3 {
+  grid-column-end: 2;
+}
+.form .fgce3 {
+  grid-column-end: 3;
+}
+.form .fgce4 {
+  grid-column-end: 4;
+}
+.form .fgce5 {
+  grid-column-end: 5;
+}
+.form .fgce6 {
+  grid-column-end: 6;
+}
+.form .fgce7 {
+  grid-column-end: 7;
+}
+.form .fgce8 {
+  grid-column-end: 8;
+}
+.form .fgce9 {
+  grid-column-end: 9;
+}
+.form .fgce10 {
+  grid-column-end: 10;
+}
+
+.form .fgce11 {
+  grid-column-end: 11;
+}
+.form .fgce12 {
+  grid-column-end: 12;
+}
+.form .fgce13 {
+  grid-column-end: 13;
+}
+.form .fgce14 {
+  grid-column-end: 14;
+}
+.form .fgce15 {
+  grid-column-end: 15;
+}
+.form .fgce16 {
+  grid-column-end: 16;
+}
+
+
+.form .fgrs1 {
+  grid-row-start: 1
+}
+
+.form .fgrs2 {
+  grid-row-start: 2
+}
+
+.form .fgrs3 {
+  grid-row-start: 3
+}
+
+.form .fgrs4 {
+  grid-row-start: 4
+}
+
+.form .fgrs5 {
+  grid-row-start: 5
+}
+
+.form .fgrs6 {
+  grid-row-start: 6
+}
+
+.form .fgrs7 {
+  grid-row-start: 7
+}
+
+.form .fgre1 {
+  grid-row-end: 1
+}
+
+.form .fgre2 {
+  grid-row-end: 2
+}
+
+.form .fgre3 {
+  grid-row-end: 3
+}
+
+.form .fgre4 {
+  grid-row-end: 4
+}
+
+.form .fgre5 {
+  grid-row-end: 5
+}
+
+.form .fgre6 {
+  grid-row-end: 6
+}
+
+.form .fgre7 {
+  grid-row-end: 7
 }

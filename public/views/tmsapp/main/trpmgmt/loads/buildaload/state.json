@@ -1,0 +1,10 @@
+{
+   "tmsapp.main.trpmgmt.loads.buildaload":{
+      "url":"/buildaload",
+      "views":{
+         "content@tmsapp.main":{
+            "templateUrl":"/views/tmsapp/main/trpmgmt/loads/buildaload/content.html"
+         }
+      }
+   }
+}

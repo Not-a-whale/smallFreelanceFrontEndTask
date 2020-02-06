@@ -1,0 +1,54 @@
+meta-business-detail {
+  @flex-col();
+  width: 100%;
+
+  ui-list-detail {
+    detail-body {
+      .scrollable();
+    }
+  }
+
+
+  .panel-top {
+    @flex-row();
+    width: 100%;
+    border: 1px solid @cp-card;
+    padding: 10px 10px 10px 10px;
+
+    .panel-col {
+      @flex-col();
+
+      &:not(:last-child) {
+        margin-right: 20px;
+      }
+
+      .panel-group {
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  .panel-bottom {
+    @flex-row();
+    width: 100%;
+    padding: 10px 10px 10px 10px;
+
+
+    ui-container-accordion {
+      margin-bottom:6px;
+    }
+
+    .panel-left {
+      @flex-col();
+      min-width: 387px;
+      max-width: 40%;
+      margin-right: 20px;
+    }
+
+    .panel-right {
+      @flex-col();
+      flex-grow: 1;
+    }
+  }
+
+}

@@ -1,0 +1,6 @@
+<div class="message">{{$ctrl.message}}</div>
+<svg class="close"
+     ng-if="$ctrl.CanClose()"
+     ng-click="$ctrl.Close()">
+  <use xlink:href="imgs/icons.svg#x"></use>
+</svg>

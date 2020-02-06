@@ -1,0 +1,10 @@
+{
+   "tmsapp.main.fin.settlments":{
+      "url":"/settlments",
+      "views":{
+         "content@tmsapp.main":{
+            "templateUrl":"/views/tmsapp/main/fin/settlments/content.html"
+         }
+      }
+   }
+}

@@ -1,0 +1,22 @@
+<div class="as-row">
+  <button class="btn btn-primary btn-sm"
+          ui-sref="tmsapp.main.fin.chargeitems.detail.edit">Edit</button>
+  <button class="btn btn-primary btn-sm"
+          ui-sref="tmsapp.main.fin.chargeitems.detail.edit2">Edit2</button>
+  <button class="btn btn-danger btn-sm"
+          ui-sref="tmsapp.main.fin.chargeitems">X</button>
+
+</div>
+
+<table-selector data-list="$ctrl.children"
+                data-headers="$ctrl.headers"
+                data-colsize="['c1', 'c2' , 'c2', 'c2', 'c3', 'c3', 'c2', 'c2']"
+                on-search="$ctrl.Search(data)">
+</table-selector>
+
+<table-selector data-list="$ctrl.children"
+                data-headers="[ 'PICK UP', 'PRO #', 'CUSTOMER/REF#', 'VEHICLE', 'ORIGIN', 'DESTINATION','WEIGHT','MILES','RATE/MILE' ]"
+                data-colsize="['c1', 'c1' , 'c2', 'c1', 'c2', 'c2', 'c1', 'c1', 'c1']"
+                content-view="custom_row">
+
+</table-selector>

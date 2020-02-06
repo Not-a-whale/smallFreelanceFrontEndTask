@@ -1,5 +1,7 @@
 class MessageDrawerCtrl {
-  constructor(timeout) {
+  constructor(scope, timeout) {
+    //console.error(scope);
+    this.scope = scope;
     this.timeout = timeout;
     this.searchcall = undefined;
     this.activetab = 1;
@@ -245,13 +247,19 @@ class MessageDrawerCtrl {
 
   Close() {
     if (this.onClose instanceof Function) {
+      //console.log(this.scope.$parent.open);
+      this.scope.$parent.open = !this.scope.$parent.open || false;
       this.onClose();
     }
+  }
+
+  $onInit(){
+    this.scope.open = false;
   }
 }
 
 app.component("messageDrawer", {
-  controller: ['$timeout', MessageDrawerCtrl],
+  controller: ['$scope', '$timeout', MessageDrawerCtrl],
   templateUrl: "modules/messages/drawer/default.html",
   bindings: {
     onClose: '&'

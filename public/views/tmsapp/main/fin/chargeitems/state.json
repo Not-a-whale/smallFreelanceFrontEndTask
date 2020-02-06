@@ -1,0 +1,16 @@
+{
+   "tmsapp.main.fin.chargeitems":{
+      "url":"/chargeitems",
+      "views":{
+         "content@tmsapp.main":{
+            "templateUrl":"/views/tmsapp/main/fin/chargeitems/content.html"
+         },
+         "editor@tmsapp.main.fin.chargeitems":{
+            "templateUrl":"/views/tmsapp/main/fin/chargeitems/editor.html"
+         },
+         "form@tmsapp.main.fin.chargeitems":{
+            "templateUrl":"/views/tmsapp/main/fin/chargeitems/form.html"
+         }
+      }
+   }
+}

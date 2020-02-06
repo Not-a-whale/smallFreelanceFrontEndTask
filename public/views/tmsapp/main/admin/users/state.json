@@ -1,0 +1,10 @@
+{
+   "tmsapp.main.admin.users":{
+      "url":"/users",
+      "views":{
+         "content@tmsapp.main":{
+            "templateUrl":"/views/tmsapp/main/admin/users/content.html"
+         }
+      }
+   }
+}

@@ -1,0 +1,45 @@
+profile-settings {
+
+  --background-color: transparent;
+  --font-color: @cp-grey;
+
+  width: 232px;
+  height: 100%;
+  @flex-row();
+  align-items: center;
+  background-color: var(--background-color);
+  padding-left: 20px;
+  padding-right: 20px;
+  cursor: pointer;
+
+  &:hover {
+    --background-color: @cp-grey-pale;
+    --font-color: @cp-grey-mid;
+
+  }
+
+  #name {
+    color: var(--font-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 136px;
+  }
+
+  #profile_avatar {
+    margin-right: 6px;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    object-fit: cover;
+  }
+
+  #dropdown {
+    margin-right: 0px;
+    margin-left: auto;
+    width: 13px;
+    height: 8px;
+    fill: var(--font-color);
+    transform: scaleY(-1);
+  }
+}

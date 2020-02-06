@@ -19,6 +19,12 @@ top-layout>.top {
   padding-right: var(--layout-page-content-margin);
 }
 
+#topnavmenu-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
 top-nav-menu {
   display: flex;
   /* do not put flex=1 in here ! */
@@ -84,56 +90,6 @@ top-nav-menu .tab {
 top-nav-menu>ul {
   display: flex;
   flex-direction: row;
-  list-style: none;
-}
-
-new-form {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-new-form button {
-  min-width: 100px !important;
-  height: var(--btn-height-min);
-  max-height: var(--btn-height-min) !important;
-  line-height: var(--btn-height-min) !important;
-  font-family: var(--font-family-primary) !important;
-  font-size: var(--font-norm);
-}
-
-new-form ul {
-  position: absolute;
-  background-color: var(--topnav-new-btn-bg-color);
-  box-shadow: var(--shadow);
-  z-index: 99;
-  width: 166px;
-  flex-direction: column;
-  align-items: flex-start;
-  top: 42px;
-}
-
-new-form li {
-  cursor: pointer;
-  padding: 0px 12px 0px 12px;
-  height: 32px;
-  vertical-align: center;
-  line-height: 32px;
-  font-size: var(--font-norm);
-  font-family: var(--font-family-primary);
-}
-
-new-form li:hover {
-  background-color: var( --topnav-new-btn-bg-color-hover);
-}
-/*
-new-form li:not(:last-child) {
-  margin-bottom:  15px;
-} */
-
-new-form ul,
-new-form li {
   list-style: none;
 }
 

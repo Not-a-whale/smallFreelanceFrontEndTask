@@ -1,0 +1,10 @@
+{
+   "tmsapp.main.trpmgmt.loads.available":{
+      "url":"/available",
+      "views":{
+         "content@tmsapp.main":{
+            "templateUrl":"/views/tmsapp/main/trpmgmt/loads/available/content.html"
+         }
+      }
+   }
+}

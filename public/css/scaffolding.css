@@ -14,8 +14,8 @@ main-layout {
   --navbar-width: 196px;
   --navbar-width-min: 64px;
 
-  --topnav-menu-height: 95px;
-  --topnav-breadbar-height: 32px;
+  --topnav-menu-height: 50px;
+  --topnav-breadbar-height: 0px;
   --topnav-height: calc(var(--topnav-menu-height) + var(--topnav-breadbar-height));
   --topnav-menu-title-width: 225px;
 

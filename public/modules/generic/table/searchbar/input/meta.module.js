@@ -17,6 +17,7 @@ class MetaTableSearchInputCtrl extends MetaInputCtrl {
     this.timeout.cancel(this.searchcall);
     this.searchcall = this.timeout(
       function () {
+        console.log("emit search event");
         self.scope.$emit('TableSearch');
       }, this.timeoutdelay);
   }

@@ -1,0 +1,21 @@
+<style>
+  chat-system {
+    position: absolute;
+    display: flex;
+    align-items: flex-end;
+
+    bottom: 0px;
+    height: 10px;
+    margin-left: auto !important;
+    margin-right: 0px !important;
+
+  }
+
+  chat-system chat-box {
+    margin-left: 10px;
+    margin-right: 0px;
+    bottom: 0px;
+  };
+</style>
+
+<chat-box msg-data="chat" ng-repeat="chat in $ctrl.activeChats"></chat-box>

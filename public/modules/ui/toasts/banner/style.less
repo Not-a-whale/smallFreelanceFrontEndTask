@@ -1,0 +1,55 @@
+ui-toast-banner {
+  --color: @cp-danger-pale;
+  --font-color: @cp-danger;
+  --font-color-hover: @cp-danger-mid;
+  @padding: 12px;
+
+  position: relative;
+  @flex-row();
+  width: 100%;
+  background-color: var(--color);
+  color: var(--font-color);
+  height: 36px;
+  align-items: center;
+  padding-left: @padding;
+  padding-right: @padding;
+
+  .message {
+    color: var(--font-color);
+  }
+
+  .close {
+    margin-left: auto;
+    margin-right: 0px;
+    fill: var(--font-color);
+    max-height: 16px;
+    max-width: 16px;
+    cursor: pointer;
+
+    &:hover {
+      fill: var(--font-color-hover);
+    }
+  }
+  // &:not(:last-child) {
+  //   border-bottom: 1px solid var(--font-color);
+  // }
+
+  &.error {
+    --color: @cp-danger-pale;
+    --font-color: @cp-danger;
+    --font-color-hover: @cp-danger-mid;
+  }
+
+  &.warn {
+    --color: @cp-warn-pale;
+    --font-color: @cp-warn;
+    --font-color-hover: @cp-warn-mid;
+  }
+
+  &.success {
+    --color: @cp-success-pale;
+    --font-color: @cp-success;
+    --font-color-hover: @cp-success-mid;
+  }
+
+}

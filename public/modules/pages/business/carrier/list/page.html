@@ -1,0 +1,23 @@
+<style>
+  carrier-list-page {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    padding-top: 10px !important;
+    width: 100%;
+  }
+
+  carrier-list-page>div.detail {
+    display: flex;
+    margin-right: 0px !important;
+    margin-left: auto !important;
+  }
+</style>
+
+<div>
+  <button class="btn btn-sm btn-primary">+ new carrier</button>
+  <carrier-table carrier-list="$ctrl.carriers"></carrier-table>
+</div>
+<div class="detail"
+     ui-view="detail"
+     style="width: 968px; min-width: 968px;"></div>

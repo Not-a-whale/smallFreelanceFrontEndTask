@@ -1,0 +1,46 @@
+<div class="header">
+  <div class="heading-banner">
+    <div class="avatar-container">
+      <svg class="avatar">
+        <use xlink:href="imgs/icons.svg#buildings"></use>
+      </svg>
+    </div>
+
+    <div class="info">
+      <div class="font-heading1 font-c-card caps">{{$ctrl.name}}</div>
+      <div class="font-subheading font-c-card caps">{{ $ctrl.role}}</div>
+    </div>
+    <div class="activity">
+      <div class="font-heading2 font-c-card caps">active: {{ $ctrl.StartDate()}} - {{ $ctrl.EndDate() }}</div>
+    </div>
+  </div>
+  <div class="banner">
+    <div class="contact-container font-med-label2 font-c-grey">
+      <svg ng-if="$ctrl.CanEmail()">
+        <use xlink:href="imgs/icons.svg#envelope"></use>
+      </svg>
+      email
+    </div>
+    <div class="contact-container font-med-label2 font-c-grey">
+      <svg ng-if="$ctrl.CanText()">
+        <use xlink:href="imgs/icons.svg#chat"></use>
+      </svg>
+      message
+    </div>
+    <div class="contact-container font-med-label2 font-c-grey">
+      <svg ng-if="$ctrl.CanCall()">
+        <use xlink:href="imgs/icons.svg#phone"></use>
+      </svg>
+      call
+    </div>
+    <div class="editor">
+      <button-icon data-icon="imgs/icons.svg#pencil"
+                   data-position="left"
+                   data-label="edit information"
+                   class="left btn-flex btn-primary"></button-icon>
+    </div>
+  </div>
+</div>
+<div class="body"
+     ng-transclude="body">
+</div>

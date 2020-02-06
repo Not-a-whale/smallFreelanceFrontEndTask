@@ -1,0 +1,171 @@
+main-menu {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+main-menu>.category {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+main-menu>.category>.label {
+  margin-left: 15px;
+
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-small);
+  text-transform: uppercase;
+  color: var(--navbar-font-nav-cat-color);
+}
+
+main-menu>.category>.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+
+main-menu>.category>.content>.item-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+main-menu>.category>.content>.item-container.active {
+  background-color: var(--cp-default-mid);
+}
+
+main-menu>.category>.content>.item-container>.item {
+  display: flex;
+  height: 35px;
+  align-items: center;
+  cursor: pointer;
+}
+
+main-menu>.category>.content>.item-container>.item:hover,
+main-menu>.category>.content>.item-container.active>.item {
+  background-color: var(--cp-default-mid);
+}
+
+main-menu>.category>.content>.item-container>.item:hover>.icon-nav,
+main-menu>.category>.content>.item-container.active>.item>.icon-nav {
+  fill: var(--cp-highlight);
+}
+
+main-menu>.category>.content>.item-container>.item:hover>.label,
+main-menu>.category>.content>.item-container.active>.item>.label {
+  color: var(--cp-highlight);
+}
+
+
+main-menu>.category>.content>.item-container>.item>.icon-nav {
+  fill: var(--cp-grey-mid);
+  max-width: var(--icon-size-20);
+  max-height: var(--icon-size-20);
+  padding-left: 15px;
+  margin-right: 10px;
+}
+
+main-menu>.category>.content>.item-container>.item>.label {
+  font-family: var(--font-family-second);
+  font-size: var(--font-large);
+  font-weight: normal;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--navbar-font-nav-color);
+}
+
+main-menu>.category>.content>.item-container>.content {
+  display: none;
+  visibility: hidden;
+}
+
+main-menu>.category>.content>.item-container>.content.show {
+  display: flex;
+  visibility: visible;
+  flex-direction: column;
+  width: 100%;
+}
+
+
+main-menu>.category>.content>.item-container>.content>.subitem {
+  height: 25px;
+  display: flex;
+  align-items: center;
+}
+
+main-menu>.category>.content>.item-container>.content>.subitem>.label {
+  font-family: var(--font-family-second);
+  font-size: var(--font-norm);
+  font-weight: normal;
+  text-transform: capitalize;
+  text-decoration: none;
+  color: var(--navbar-font-nav-color);
+  padding-left: 45px;
+}
+
+main-menu>.category>.content>.item-container>.content>.subitem:hover>.label,
+main-menu>.category>.content>.item-container>.content>.subitem.active>.label {
+  color: var(--cp-highlight);
+}
+
+/* main-menu>.category>.content>.item-container>.content>.subitem:hover,
+main-menu>.category>.content>.item-container>.content>.subitem.active {
+  background-color: var(--cp-default-mid);
+} */
+
+/* collapsed menu */
+#main-navbar-container.collapsed main-menu>.category {
+  margin-bottom: 0px;
+}
+#main-navbar-container.collapsed main-menu>.category>.label {
+  display: none;
+  visibility: hidden;
+}
+
+#main-navbar-container.collapsed main-menu>.category>.content>.item-container {
+  position: relative;
+  justify-content: center;
+}
+
+#main-navbar-container.collapsed main-menu>.category>.content>.item-container>.item>.icon-nav{
+  padding-left: 0px;
+  margin: auto;
+}
+
+#main-navbar-container.collapsed main-menu>.category>.content>.item-container>.item>.label {
+  display: none;
+  visibility: hidden;
+}
+
+#main-navbar-container.collapsed main-menu>.category>.content>.item-container>.content {
+  display: none;
+  visibility: hidden;
+}
+
+
+#main-navbar-container.collapsed main-menu>.category>.content>.item-container>.content:hover,
+#main-navbar-container.collapsed main-menu>.category>.content>.item-container:hover>.content {
+  position: absolute;
+  z-index: var(--layer-menu-subitem);
+  display: flex;
+  flex-direction: column;
+  visibility: visible;
+  left: var(--navbar-width-min);
+  top: 0px;
+  background-color: var(--cp-default-mid);
+  width: calc(var(--navbar-width) - var(--navbar-width-min) + 16px);
+}
+
+#main-navbar-container.collapsed main-menu>.category>.content>.item-container>.content>.subitem {
+  display: flex;
+  align-items: center;
+  height: 35px;
+}
+
+#main-navbar-container.collapsed main-menu>.category>.content>.item-container>.content a{
+  padding-left: 8px;
+}

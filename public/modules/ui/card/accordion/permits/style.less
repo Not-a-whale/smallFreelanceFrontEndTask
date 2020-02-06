@@ -1,0 +1,30 @@
+permit-account-card {
+  @margin-between: 2px;
+  @margin-half: @margin-between / 2;
+  @flex-row();
+  min-height: 48px;
+  height: 48px;
+  min-width: 150px;
+  max-width: 50%;
+  width: calc(50% - @margin-half);
+
+  .ui-card();
+  &>.panel {
+    @flex-col();
+    flex-grow: 1;
+  }
+
+  &>.info-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 30px;
+  }
+  .state {
+    font-weight: var(--font-weight-bold);
+  }
+
+  &:not(:nth-child(2n+0)){
+    margin-right: @margin-between;
+  }
+}

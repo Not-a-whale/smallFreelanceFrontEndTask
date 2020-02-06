@@ -1,11 +1,15 @@
 <div id="main-navbar-container"
-     menulist="$ctrl.menulist"
-     on-activate-item="$ctrl.ActivateItem(item)"
+     menulist="mainctrl.menulist"
+     on-activate-item="mainctrl.ActivateItem(item)"
+     toggle-menu="mainctrl.Toggle()"
+     ng-class="{expanded: mainctrl.Expanded(), collapsed: mainctrl.Collapsed()}"
      ui-view="navbar"></div>
-<div id="main-display-container">
+<div id="main-display-container" ng-class="{expanded: mainctrl.Collapsed(), collapsed: mainctrl.Expanded()}">
      <div id="main-topnav-container"
           ui-view="topnav"
-          activeitem="$ctrl.activeitem"></div>
+          activeitem="mainctrl.activeitem"></div>
      <div id="main-content-container"
           ui-view="content"></div>
+</div>
+<div id="main-chat-dock" ui-view="chat-dock">
 </div>

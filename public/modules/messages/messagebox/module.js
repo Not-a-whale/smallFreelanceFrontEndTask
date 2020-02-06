@@ -1,10 +1,15 @@
 class MessageBoxCtrl {
-  constructor() {
+  constructor(chatsrv) {
+    this.chatsrv = chatsrv;
     this.maxlength = 108;
     this.message = "";
     this.display = "";
-
   }
+
+  OpenChatbox(){
+    this.chatsrv.NewChatbox(this.message.name);
+  }
+
 
   DisplayMessage() {
     let msg = this.message.msg.slice(0, this.maxlength);
@@ -27,7 +32,7 @@ class MessageBoxCtrl {
 }
 
 app.component("messageBox", {
-  controller: MessageBoxCtrl,
+  controller: ['ChatSystemService', MessageBoxCtrl],
   templateUrl: "modules/messages/messagebox/default.html",
   bindings: {
     message: '<',

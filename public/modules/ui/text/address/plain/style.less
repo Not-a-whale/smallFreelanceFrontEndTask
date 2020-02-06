@@ -1,0 +1,17 @@
+ui-address-plain {
+  @flex-col();
+  width: 100%;
+
+  &>div {
+    @flex-col();
+    width: 100%;
+
+    .street1,
+    .street2,
+    .street3,
+    .city,
+    .country {
+      text-transform: capitalize;
+    }
+  }
+}

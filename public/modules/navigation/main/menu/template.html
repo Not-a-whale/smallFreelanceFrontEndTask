@@ -1,0 +1,32 @@
+<div class="category"
+     ng-repeat="cat in $ctrl.menu">
+  <div class="label">{{ cat.label }}</div>
+  <div class="content">
+    <div class="item-container"
+         ng-repeat="item in cat.items"
+         ui-sref-active="active">
+      <div class="item"
+           ui-sref="{{item.goto}}"
+           ui-sref-opts="{reload: false}"
+           title="{{ cat.label }} / {{ item.label }}">
+           <!-- reloading the state machine causes the menu to be recreated -->
+        <svg class="icon-nav">
+          <use xlink:href="{{ item.icon }}"></use>
+        </svg>
+        <a class="label"
+           ui-sref="{{item.goto}}">{{ item.label }}</a>
+      </div>
+      <div class="content"
+           ng-class="{show: $ctrl.state.includes(item.goto)}">
+        <div class="subitem"
+             ng-repeat="subitem in item.children"
+             ui-sref-active="active">
+          <a class="label"
+             ui-sref="{{ subitem.goto }}"
+             ui-sref-opts="{reload: false}">{{ subitem.label }}</a>
+             <!-- reloading the state machine causes the menu to be recreated , this is unwanted behavior -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+{
+   "tmsapp.main.error":{
+      "url":"/error",
+      "views":{
+         "content@tmsapp.main":{
+            "templateUrl":"/views/tmsapp/main/error/content.html"
+         }
+      }
+   }
+}

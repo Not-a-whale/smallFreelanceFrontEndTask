@@ -1,0 +1,10 @@
+{
+   "tmsapp.main.webadmin.testpage.forms":{
+      "url":"/forms",
+      "views":{
+         "content@tmsapp.main":{
+            "templateUrl":"/views/tmsapp/main/webadmin/testpage/forms/content.html"
+         }
+      }
+   }
+}

@@ -1,0 +1,98 @@
+ui-list-detail {
+  --header-height: 64px;
+  @flex-col();
+  width: 100%;
+  height: 100%;
+
+
+  .padded() {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .rounded-corners() {
+    & {
+      border-radius: 4px 4px 0px 0px;
+    }
+  }
+
+  &>.header {
+    @flex-col();
+    width: 100%;
+    .rounded-corners();
+
+    &>.heading-banner {
+      @flex-row();
+      height: 64px;
+      min-height: 64px;
+      width: 100%;
+      background-color: @cp-default;
+      align-items: center;
+      .rounded-corners();
+
+      &>.avatar-container {
+        @avatar-margins: 32px;
+        @avatar-max-size: 36px;
+        width: (@avatar-margins*2) + @avatar-max-size;
+        @flex-row();
+        align-items: center;
+        justify-content: center;
+
+        &>.avatar {
+          max-height: @avatar-max-size;
+          max-width: @avatar-max-size;
+          fill: @cp-grey-mid;
+        }
+      }
+
+      &>.activity {
+        font-family: @font-family-primary;
+        font-size: @font-tiny;
+        color: @cp-default;
+        text-transform: capitalize;
+
+        margin-left: auto;
+        margin-right: 32px;
+      }
+
+    }
+
+
+    &>.banner {
+      @flex-row();
+      align-items: center;
+      height: 40px;
+      min-height: 40px;
+      background-color: @cp-card;
+      .padded();
+
+      &>.contact-container {
+        @flex-row();
+        align-items: center;
+        cursor: pointer;
+        margin-right: 16px;
+
+        &>svg {
+          fill: @cp-usko-red;
+          max-height: 14px;
+          max-width: 18px;
+          padding-right: 8px;
+        }
+      }
+
+      &>.editor {
+        display: flex;
+        margin-right: 0px;
+        margin-left: auto;
+        width: 190px;
+      }
+    }
+  }
+
+  &>.body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-height: calc(100% - var(--header-height));
+  }
+}

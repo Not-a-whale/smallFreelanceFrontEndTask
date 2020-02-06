@@ -1,0 +1,34 @@
+<div class="fsct">
+  <meta-form-section-header form="$ctrl.form"
+                            on-disable="$ctrl.onDisable({form: form})"></meta-form-section-header>
+  <div class="fsct-row">
+    <div class="fgrid">
+        <div class="fgrid10 fgr3 fgcs1 fgce11">
+            <simple-input label="company name" class="fgcs1 fgce4 fgrs1" value="$ctrl.gate.carrier.name"></simple-input>
+            <simple-input label="MC/FF/MX#" class="fgcs4 fgce6 fgrs1" value="$ctrl.gate.carrier.mc"></simple-input>
+            <simple-input label="US DOT #" class="fgcs6 fgce8 fgrs1" value="$ctrl.gate.carrier.usdot"></simple-input>
+            <simple-input label="SCAC" class="fgcs8 fgce10 fgrs1" value="$ctrl.gate.carrier.scac"></simple-input>
+            <simple-input label="street address/P.O. BOX" class="fgcs1 fgce4 fgrs2" value="$ctrl.gate.carrier.address.street"></simple-input>
+            <simple-input label="city" class="fgcs4 fgce6 fgrs2" value="$ctrl.gate.carrier.address.city"></simple-input>
+            <simple-input label="state" class="fgcs6 fgrs2" value="$ctrl.gate.carrier.address.state"></simple-input>
+            <simple-input label="zip" class="fgcs7 fgrs2" value="$ctrl.gate.carrier.address.zip"></simple-input>
+            <simple-input label="country" class=" fgcs8 fgce10 fgrs2" value="$ctrl.gate.carrier.address.country"></simple-input>
+            <simple-input label="company phone" class="fgcs1 fgce4 fgrs3" value="$ctrl.gate.carrier.contact.phone"></simple-input>
+            <simple-input label="company email" class="fgcs4 fgce7 fgrs3" value="$ctrl.gate.carrier.contact.email"></simple-input>
+            <simple-input label="company fax" class="fgcs7 fgce10 fgrs3" value="$ctrl.gate.carrier.contact.fax"></simple-input>
+          </div>
+          <div class="fgrid6 fgcs11 fgce17">
+            <div class="fgcs1 fgce7 fgrs1">permits</div>
+            <div class="fgrid6 fgcs1 fgce7" ng-repeat="permit in $ctrl.gate.permits">
+                <simple-input label="state" class="fgcs1 fgce2" value="permit.state"></simple-input>
+                <simple-input label="account number" class="fgcs2 fgce5" value="permit.account"></simple-input>
+                <div class="fgcs5" ng-click="$ctrl.RemovePermit($index)" >X</div>
+            </div>
+            <button class="fgcs1 fgce7 btn btn-second btn-sm" ng-click="$ctrl.AddPermit()">+ add another permit</button>
+          </div>
+    </div>
+  </div>
+  <div class="fsct-row">
+    <meta-agent-form gate="$ctrl.gate"></meta-agent-form>
+  </div>
+</div>

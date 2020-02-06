@@ -1,0 +1,55 @@
+ui-table-search-chipbar {
+  @flex-row();
+  width: 100%;
+
+  ui-chips-container {
+    @flex-row();
+    flex-wrap: wrap;
+    width: 100%;
+    min-height: 45px;
+    align-items: center;
+    background-color: @cp-card;
+    padding: 6px;
+    border-top: 1px solid @cp-grey-light;
+  }
+
+  ui-chip {
+    @max-wdith: 236px;
+    @x-btn-spacing: 24px;
+    @flex-row();
+    align-items: center;
+    min-width: 96px;
+    max-width: 236px;
+    height: 30px;
+    background-color: @cp-grey-light;
+    border-radius: 2px;
+
+    margin-right: 5px;
+    margin-bottom: 5px;
+    padding-left: 6px;
+    padding-right: 6px;
+
+    .label {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: @max-wdith - @x-btn-spacing;
+      margin-right: 6px;
+    }
+
+    .x {
+      max-height: 12px;
+      max-width: 12px;
+      fill: @cp-grey;
+      cursor: pointer;
+      margin-left: auto;
+      margin-right: 0px;
+
+      &:hover {
+        fill: @cp-grey-mid;
+      }
+    }
+  }
+
+
+}

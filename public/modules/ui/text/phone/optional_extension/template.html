@@ -1,0 +1,8 @@
+<div ng-show="$ctrl.phone">
+  <div class="number">{{ $ctrl.phone.Number }}</div>
+  <div class="extension"
+       ng-if="$ctrl.phone.Extension > 0">ext {{ $ctrl.phone.Extension }}</div>
+</div>
+<div ng-hide="$ctrl.phone">
+  no {{$ctrl.type}} listed
+</div>

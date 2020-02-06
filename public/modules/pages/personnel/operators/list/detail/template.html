@@ -1,0 +1,141 @@
+<ui-list-detail>
+  <detail-body>
+    <div class="panel-left">
+      <ui-card-detail-section title="">
+        <content class="row">
+          <img style="min-width: 227px; min-height: 149px; height:auto; width: atuo; display: block;" src="imgs/temp/driverlicense.png" />
+          <div class="panel-right">
+            <ui-card-simple title="driver license exp.">
+              <content class="text">99/99/9999</content>
+            </ui-card-simple>
+            <ui-card-simple title="endorsements">
+              <content class="text">
+                <div>burritos</div>
+                <div>french fries</div>
+                <div>tamales</div>
+                <div>jalepenos</div>
+                <div>borsche</div>
+              </content>
+            </ui-card-simple>
+          </div>
+        </content>
+      </ui-card-detail-section>
+      <ui-card-detail-section title="personal information">
+        <content class="row">
+          <div class="panel-left">
+            <ui-card-simple title="contact">
+              <content>
+                <div class="text">(000) 000-0000</div>
+                <div class="text">example@example.com</div>
+              </content>
+            </ui-card-simple>
+
+            <ui-card-simple class="residence">
+              <content>
+                <div class="text caps">123456 sample drive apt 25</div>
+                <div class="text caps">beaverton, OR 97008</div>
+              </content>
+            </ui-card-simple>
+          </div>
+          <div class="panel-right">
+            <ui-card-simple title="birthdate">
+              <content class="text">
+                01/05/1999
+              </content>
+            </ui-card-simple>
+            <ui-card-simple title="medical card exp.">
+              <content class="text">99/99/9999</content>
+            </ui-card-simple>
+            <ui-card-simple title="next annual review">
+              <content class="text">99/99/9999</content>
+            </ui-card-simple>
+            <ui-card-simple title="last pull notice">
+              <content class="text">99/99/9999</content>
+            </ui-card-simple>
+          </div>
+        </content>
+      </ui-card-detail-section>
+      <ui-card-detail-section title="business information">
+        <content>
+          <ui-card-simple-button label="view carrier">
+            <content>
+              <ui-card-simple title="carrier/authority">
+                <content class="text caps">USKO express INC.</content>
+              </ui-card-simple>
+            </content>
+          </ui-card-simple-button>
+          <ui-card-simple-button label="view business">
+            <content>
+              <ui-card-simple title="business name">
+                <content class="text caps">constantine smithinovichenko</content>
+              </ui-card-simple>
+            </content>
+          </ui-card-simple-button>
+          <ui-card-simple-button label="view business">
+            <content>
+              <ui-card-simple title="drives for">
+                <content class="text caps">constantine smithinovichenko</content>
+              </ui-card-simple>
+            </content>
+          </ui-card-simple-button>
+        </content>
+      </ui-card-detail-section>
+    </div>
+    <div class="panel-right padding">
+      <ui-card-accordion data-title="'trip status'"
+                         data-count="$ctrl.status.length"
+                         open="1">
+        <content class="spacing">
+          <div class="header">
+            <div class="heading c2">load#</div>
+            <div class="heading c3">status</div>
+            <div class="heading c5">notes</div>
+            <div class="heading c1 center">user</div>
+            <div class="heading c1"></div>
+          </div>
+          <trip-status-card ng-repeat="item in $ctrl.status"></trip-status-card>
+        </content>
+      </ui-card-accordion>
+      <ui-card-accordion data-title="'holds'"
+                         data-count="$ctrl.holds.length">
+        <content class="spacing">
+          <div class="header">
+            <div class="heading c2">type</div>
+            <div class="heading c2">item</div>
+            <div class="heading c6">description</div>
+            <div class="heading c1 center">user</div>
+            <div class="heading c1"></div>
+          </div>
+          <item-holds-card ng-repeat="item in $ctrl.holds"></item-holds-card>
+        </content>
+      </ui-card-accordion>
+      <ui-card-accordion data-title="'vehicles'"
+                         data-count="$ctrl.vehicles.length">
+        <content>
+          <div class="header">
+            <div class="heading c2">vehicle</div>
+            <div class="heading c4">type</div>
+            <div class="heading c4">weight cap.</div>
+            <div class="heading c2"></div>
+            <div class="heading c1"></div>
+          </div>
+          <owned-vehicle-card ng-repeat="item in $ctrl.vehicles"></owned-vehicle-card>
+        </content>
+      </ui-card-accordion>
+      <ui-card-accordion data-title="'drivers'"
+                         data-count="$ctrl.drivers.length">
+        <content class="spacing">
+          <div class="header">
+            <div class="heading c4">name</div>
+            <div class="heading c3">contact</div>
+            <div class="heading c3">holds</div>
+            <div class="heading c2">status</div>
+          </div>
+          <operator-driver-card ng-repeat="item in $ctrl.drivers"></operator-driver-card>
+        </content>
+
+      </ui-card-accordion>
+    </div>
+
+  </detail-body>
+</ui-list-detail>

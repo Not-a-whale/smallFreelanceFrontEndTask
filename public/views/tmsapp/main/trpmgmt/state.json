@@ -1,0 +1,10 @@
+{
+   "tmsapp.main.trpmgmt":{
+      "url":"/trpmgmt",
+      "views":{
+         "content@tmsapp.main":{
+            "templateUrl":"/views/tmsapp/main/trpmgmt/content.html"
+         }
+      }
+   }
+}

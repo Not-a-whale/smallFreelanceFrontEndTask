@@ -1,9 +1,5 @@
-<svg ng-if="$ctrl.position=='left'"
-     ng-class="{'btn-icon': $ctrl.iconSize == '' || $ctrl.iconSize == undefined , 'btn-icon-sm': $ctrl.iconSize == 'small'}">
-  <use xlink:href="{{$ctrl.icon}}"></use>
-</svg>
-<a ui-sref="{{$ctrl.uisref}}">{{$ctrl.label}}</a>
-<svg ng-if="$ctrl.position !='left'"
-     ng-class="{'btn-icon': $ctrl.iconSize == '' || $ctrl.iconSize == undefined , 'btn-icon-sm': $ctrl.iconSize == 'small'}">
+<a class="btn-text font-med-label2"
+   ui-sref="{{$ctrl.uisref}}">{{$ctrl.label}}</a>
+<svg class="btn-icon-sm">
   <use xlink:href="{{$ctrl.icon}}"></use>
 </svg>

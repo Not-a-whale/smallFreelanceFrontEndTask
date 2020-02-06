@@ -4,10 +4,25 @@ class GenericService {
   }
 
   Success(res) {
-    alert(res.statusText);
+    if (IsObj(res.data)){
+      if ('ERROR' in res.data){
+        let error = res.data.ERROR;
+        if (error != undefined && error != ""){
+          return new ErrorObj(error);
+        }
+      }
+
+      if ('DATA' in res.data){
+        return res.data.DATA;
+      }
+    }
+
+    return [];
   }
 
   // Default verbose alert
+  // this is only for when there is a server error
+  // application errors are handled in the success function
   Failure(res) {
     let messagestr = res.data.status + "\n";
     if (res.data.title != undefined) {
@@ -44,6 +59,8 @@ class GenericService {
   // Builds the object to send to the server in request body
   BuildObject(object) {
     // default behavior is to clean out undefined and empty strings
+    // this will only clean out toplevel attrs, all other attrs will not be cleaned
+    // because you can have infinite loop with obj refs
     if (object !== undefined) {
       let newobj = CloneObj(object);
       for (let attr in newobj) {
@@ -98,6 +115,12 @@ class GenericService {
     let funSuccess = success || this.Success;
     let funFailure = failure || this.Failure;
 
-    return this.http[method](url, data).then(funSuccess, funFailure);
+    let config = {
+      headers: {
+        'Accept': 'application/json'
+      }
+    };
+
+    return this.http[method](url, data, config).then(funSuccess, funFailure);
   }
 }

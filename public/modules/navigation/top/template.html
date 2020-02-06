@@ -1,19 +1,34 @@
-<div class="top">
-     <top-nav-menu activeitem="$ctrl.activeitem"></top-nav-menu>
-     <div class="tools">
-          <new-form></new-form>
-          <notifications></notifications>
-          <chat-notifications></chat-notifications>
-          <profile-settings></profile-settings>
+<a class="btn btn-smp btn-tall btn-sharp back-button">
+     <svg>
+          <use xlink:href="imgs/icons.svg#circle-arrow-left"></use>
+     </svg>
+     <div class="text font-med-label2">go back</div>
+</a>
+<div class="breadcrumbs">
+     <a class="btn btn-smp btn-tall btn-sharp btn-accent">
+          <svg class="btn-icon">
+               <use xlink:href="imgs/icons.svg#exclamation-triangle"></use>
+          </svg>
+     </a>
+     <div class="stack"
+          ng-repeat="btn in ['pagetitle1', 'pagetitle2','pagetitle3','pagetitle4']">
+          <div class="delimiter">></div>
+          <a class="btn btn-smp btn-tall btn-sharp">{{btn}}</a>
+     </div>
 
-     </div>
 </div>
-<div id="breadbar">
-     <div id="breadcrumbs">Crumbs Crumbs Crumbs</div>
-     <div id="breadbuttons">
-          <a class="btn-mn btn btn-primary">BUTTON 1</a>
-          <a class="btn-mn btn btn-primary">BUTTON 1</a>
-          <a class="btn-mn btn btn-primary">BUTTON 1</a>
-          <a class="btn-mn btn btn-primary">BUTTON 1</a>
-     </div>
+
+<div class="search"
+     title="Feature not available yet">
+     <svg class="btn-icon-sm">
+          <use xlink:href="imgs/icons.svg#magnifying-glass"></use>
+     </svg>
 </div>
+
+
+<new-form></new-form>
+<notify-system-icon></notify-system-icon>
+<notify-chat-icon></notify-chat-icon>
+<div class="vbar"></div>
+<profile-settings></profile-settings>
+<app-settings-kebab></app-settings-kebab>

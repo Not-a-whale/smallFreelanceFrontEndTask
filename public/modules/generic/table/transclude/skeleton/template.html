@@ -1,0 +1,17 @@
+<div class="head">
+     <div class="header"
+          ng-transclude="header">
+     </div>
+     <div class="search"
+          ng-transclude="fields">
+     </div>
+     <div style="position: relative; height: 0px;">
+          <ui-toast-banner fade="1" on-close="$ctrl.RemoveError(error);" class="warn"
+                           ng-repeat="error in $ctrl.errors"
+                           data-error="error"></ui-toast-banner>
+     </div>
+
+</div>
+<div class="body scrollable"
+     ng-transclude="body">
+</div>

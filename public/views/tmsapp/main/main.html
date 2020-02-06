@@ -1,0 +1,11 @@
+<div id="main-layout-container"
+     ng-controller="mainLayoutCtrl">
+     <div id="main-navbar-container"
+          ui-view="navbar"></div>
+     <div id="main-display-container">
+          <div ui-view="topnav"
+               id="main-topnav-container"></div>
+          <div ui-view="content"
+               id="main-content-container"></div>
+     </div>
+</div>

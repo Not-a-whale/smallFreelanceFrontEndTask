@@ -1,0 +1,13 @@
+<ui-container-accordion data-title="'owned vehicles'"
+                   data-count="$ctrl.vehicles.length">
+  <content>
+    <div class="header">
+      <div class="heading c2">vehicle</div>
+      <div class="heading c4">type</div>
+      <div class="heading c4">weight cap.</div>
+      <div class="heading c2"></div>
+      <div class="heading c1"></div>
+    </div>
+    <owned-vehicle-card ng-repeat="item in $ctrl.vehicles"></owned-vehicle-card>
+  </content>
+</ui-container-accordion>

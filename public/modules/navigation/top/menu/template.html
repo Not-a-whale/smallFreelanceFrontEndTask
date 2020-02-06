@@ -1,0 +1,8 @@
+<div class="title font-page-title">{{ $ctrl.Page.Title() }}</div>
+<ul class="tab-container">
+  <li class="tab" ng-repeat="item in $ctrl.Page.Navs()">
+    <a ui-sref="{{ item.goto }}"
+       ui-sref-active="active"
+       class="font-tab">{{ item.label }}</a>
+  </li>
+</ul>

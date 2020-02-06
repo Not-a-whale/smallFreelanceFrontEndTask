@@ -1,0 +1,9 @@
+<typeselect ng-attr-id="{{$ctrl.id}}">
+  <select ng-model="$ctrl.value"
+          ng-required="{{$ctrl.required}}"
+          ng-disabled="{{$ctrl.disabled}}"
+          ng-options="item as item[$ctrl.keyname] group by item[$ctrl.groupname] disable when item[$ctrl.disablename] for item in $ctrl.options track by item[$ctrl.valname]">
+  </select>
+  <label ng-if="$ctrl.label != undefined">{{ $ctrl.label }}</label>
+  <div class="error-msg">{{ $ctrl.errmsg || 'This field is required' }}</div>
+</typeselect>

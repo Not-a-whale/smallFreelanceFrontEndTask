@@ -1,3 +1,4 @@
+// Styles used Globally
 @import "vars";
 @import "flex-mixin";
 @import "defaults";
@@ -5,53 +6,84 @@
 @import "img";
 @import "fonts";
 
-//specific styles
+// Layouts
+// --- Main Layout 2
+@import "../modules/layout/main/style.less";
+
+
+// Navigation
+// ------ Top Nav Bar
+@import "../modules/navigation/top/style.less";
+@import "../modules/navigation/top/newform/style.less";
+@import "../modules/navigation/top/notification/style.less";
+@import "../modules/navigation/top/chat/style.less";
+@import "../modules/navigation/top/profile/style.less";
+@import "../modules/navigation/top/settings/style.less";
+
 // UI Elements
 // ------ containers
-@import "../modules/ui/container/accordion/style";
-@import "../modules/ui/container/labelled/style";
-@import "../modules/ui/container/listdetail/style";
+@import "../modules/ui/container/accordion/style.less";
+@import "../modules/ui/container/labelled/style.less";
+@import "../modules/ui/container/listdetail/style.less";
 
-// ------ cards
-@import "../modules/ui/card/style";
-@import "../modules/ui/card/detail/section/style";
-@import "../modules/ui/card/simple/style";
-@import "../modules/ui/card/simple/button/style";
+// ------ Cards
+@import "../modules/ui/card/style.less";
+@import "../modules/ui/card/detail/section/style.less";
+@import "../modules/ui/card/simple/style.less";
+@import "../modules/ui/card/simple/button/style.less";
 
-// ------ text based
-@import "../modules/ui/text/phone/optional_extension/style";
-@import "../modules/ui/text/address/plain/style";
-@import "../modules/ui/text/address/basic/style";
-// ------ inputs
+// ------ Toasts
+@import "../modules/ui/toasts/banner/style.less";
+
+// ------ Text Based
+@import "../modules/ui/text/phone/optional_extension/style.less";
+@import "../modules/ui/text/address/plain/style.less";
+@import "../modules/ui/text/address/basic/style.less";
+
+// ------ Inputs
 @import "../modules/generic/input/style.less";
 @import "../modules/generic/table/transclude/search/input/style.less";
 
-// cards that go inside of accordion containers
-@import "../modules/ui/card/accordion/drivers/style";
-@import "../modules/ui/card/accordion/ifta/style";
-@import "../modules/ui/card/accordion/insurances/style";
-@import "../modules/ui/card/accordion/permits/style";
-@import "../modules/ui/card/accordion/holds/style";
-@import "../modules/ui/card/accordion/vehicles/style";
+// ------ Buttons
+@import "../modules/generic/button/style.less";
+@import "../modules/ui/button/notify/style.less";
 
-// Page Elements
-@import "../modules/pages/personnel/operators/list/detail/style";
+// ------ Detail Cards
+@import "../modules/ui/card/accordion/drivers/style.less";
+@import "../modules/ui/card/accordion/ifta/style.less";
+@import "../modules/ui/card/accordion/insurances/style.less";
+@import "../modules/ui/card/accordion/permits/style.less";
+@import "../modules/ui/card/accordion/holds/style.less";
+@import "../modules/ui/card/accordion/vehicles/style.less";
 
+// --- Menus
+// ------ Main Nav
+@import "../modules/ui/menu/main/style.less";
 
-@import "../modules/pages/businesses/other/list/detail/style";
 
 // Transclude Tables
-@import "../modules/generic/table/transclude/skeleton/style";
+@import "../modules/generic/table/transclude/skeleton/style.less";
 @import "../modules/generic/table/transclude/banner/style.less";
 @import "../modules/generic/table/transclude/row/style.less";
 @import "../modules/generic/table/transclude/search/style.less";
 @import "../modules/generic/table/transclude/search/sort/arrows/horiz/style.less";
 @import "../modules/generic/table/transclude/search/sort/arrows/vert/style.less";
+@import "../modules/generic/table/transclude/search/chipbar/style.less";
+@import "../modules/generic/table/transclude/search/magnify/style.less";
 
 
-// Table Content
-@import "../modules/pages/personnel/operators/table/content/style";
-@import "../modules/pages/businesses/other/table/content/style";
+// Tables
+// --- Business Registry
+// ------ Carrier
+@import "../modules/tables/business/carrier/style.less";
 
-// Table Components
-@import "../modules/tables/carrier/style.less";
+
+// Pages
+// --- Business Registry
+// ------ Carrier
+@import "../modules/pages/business/carrier/list/detail/style.less";
+// ------ Other
+@import "../modules/pages/business/other/list/detail/style.less";
+// --- Personnel Registry
+// ------ Operator
+@import "../modules/pages/personnel/operators/list/detail/style.less";

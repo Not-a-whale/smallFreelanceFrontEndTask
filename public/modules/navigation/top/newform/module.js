@@ -6,10 +6,11 @@ class NewFormCtrl {
       { label: 'trip', state: ''},
       { label: 'driver', state: ''},
       { label: 'equipment', state: ''},
-      { label: 'carrier', state: ''},
+      { label: 'carrier', state: 'tmsapp.main.hr.biz.carrier.form'},
       { label: 'business', state: ''},
       { label: 'user', state: ''},
       { label: 'employee', state: ''},
+      { label: 'driver', state: 'tmsapp.main.hr.prsnl.ops.driver.form'},
     ];
   }
 
@@ -19,6 +20,10 @@ class NewFormCtrl {
 
   CloseMenu() {
     this.expanded = false;
+  }
+
+  Console(){
+    console.log("hello");
   }
 }
 

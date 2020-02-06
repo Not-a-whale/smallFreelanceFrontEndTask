@@ -1,0 +1,244 @@
+<style>
+  .content {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-items: stretch;
+  }
+
+
+  table {
+    margin-right: 24px;
+    background-color: var(--color-highlight-bright);
+    border-spacing: 0px;
+    min-width: 30%;
+    width: 100%;
+  }
+
+  thead tr {
+    background-color: var(--color-accent-default);
+  }
+
+  th {
+    color: var(--color-highlight-bright);
+  }
+
+  tr {
+    border-bottom: 1px solid #ddd;
+  }
+
+  td {
+    padding-bottom: 8px;
+    padding-top: 8px;
+  }
+
+  th:first-child,
+  td:first-child {
+    width: 25%;
+    padding-left: 8px;
+  }
+
+  th:last-child,
+  td:last-child {
+    width: 75%;
+    padding-right: 8px;
+  }
+
+  td>div>* {
+    margin-right: 16px;
+  }
+</style>
+
+
+<div class="content">
+  <table>
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Visual</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Default Input</td>
+        <td>
+          <generic-input type="text"
+                         value="'sample text'" />
+        </td>
+      </tr>
+      <tr>
+        <td>Disabled Input</td>
+        <td>
+          <generic-input disabled="1"
+                         name="disable_test"
+                         type="text"
+                         value="'this should be disabled'"
+                         label="Disabled" />
+        </td>
+      </tr>
+      <tr>
+        <td>Default Input with Label</td>
+        <td>
+          <generic-input type="text"
+                         value="'sample text'"
+                         label="Default" />
+        </td>
+      </tr>
+      <tr>
+        <td>Required Input with Label </td>
+        <td>
+          <generic-input label="Label"
+                         required="1"
+                         type="text"
+                         errmsg="This field is required" />
+        </td>
+      </tr>
+      <tr>
+        <td>Input Error</td>
+        <td>
+          <generic-input label="Input Error"
+                         value="'this text produces an error'"
+                         errmsg="Entry must be 3 digits long"
+                         pattern="^\d{3}$" />
+        </td>
+      </tr>
+      <tr>
+        <td>Input Error Required</td>
+        <td>
+          <generic-input type="text"
+                         value="'this text produces an error'"
+                         errmsg="Entry must be 1 digit long"
+                         pattern="^\d$"
+                         required="1"
+                         label="Input Error Required" />
+        </td>
+      </tr>
+
+      <tr>
+        <td>Generic "Custom" Phone Input</td>
+        <td>
+          <generic-phone value="'916-361-6164'"
+                         label="Phone number" />
+        </td>
+      </tr>
+      <tr>
+        <td>Select </td>
+        <td>
+          <generic-select sample="1" />
+        </td>
+      </tr>
+      <tr>
+        <td>Select Disabled </td>
+        <td>
+          <generic-select sample="1"
+                          label="Disabled"
+                          data-disabled="1"></generic-select>
+        </td>
+      </tr>
+      <tr>
+        <td>Select Disabled</td>
+        <td>
+          <generic-select sample="1"
+                          disabled="1"></generic-select>
+        </td>
+      </tr>
+      <tr>
+        <td>Select with Label</td>
+        <td>
+          <generic-select label="select a field"
+                          sample="1" />
+        </td>
+      </tr>
+
+      <tr>
+        <td>Select Required </td>
+        <td>
+          <generic-select label="select a field"
+                          required="1"
+                          errmsg="This is not correct"
+                          sample="1"></generic-select>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Datalist (Optional)</td>
+        <td>
+          <generic-datalist url="/api/navigation/menu_item/search"
+                            label="Select a Menu Item"
+                            optionsname="app_menu_items"
+                            keyname="Label"
+                            valname="MenuItemId"
+                            errmsg="Values only from list are accepted."></generic-datalist>
+        </td>
+      </tr>
+      <tr>
+        <td>Datalist Disabled</td>
+        <td>
+          <generic-datalist url="/api/navigation/menu_item/search"
+                            label="Disabled"
+                            disabled="1"></generic-datalist>
+        </td>
+      </tr>
+      <tr>
+        <td>Datalist Required</td>
+        <td>
+          <generic-datalist url="/api/navigation/menu_item/search"
+                            label="Select a Menu Item"
+                            required="1"></generic-datalist>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Visual</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Checkbox </td>
+        <td>
+          <div class="as-row"
+               ng-controller="testCheckBoxExample as chkbox">
+            <generic-checkbox autoupdate="1"
+                              label="check me"
+                              required="1"
+                              value="chkbox.checkbox[0]"
+                              on-update="chkbox.Update(0, value)"></generic-checkbox>
+            <generic-checkbox autoupdate="1"
+                              label="Disabled"
+                              disabled="1"
+                              value="chkbox.checkbox[1]"
+                              on-update="chkbox.Update(1, value)"></generic-checkbox>
+            <generic-checkbox autoupdate="1"
+                              label="I have a label"
+                              value="chkbox.checkbox[2]"
+                              on-update="chkbox.Update(2, value)"></generic-checkbox>
+            <generic-checkbox autoupdate="1"
+                              value="chkbox.checkbox[3]"
+                              on-update="chkbox.Update(3, value)"></generic-checkbox>
+            <ternary-checkbox autoupdate="1"
+                              label="ternary box"
+                              value="chkbox.selectCount"
+                              on-value="chkbox.checkbox.length"
+                              off-value="0"
+                              ng-click="chkbox.ToggleSelect()">
+              </generic-checkbox>
+
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,9 @@
+<div ng-click="$ctrl.onToggle()">
+  <svg class="magnify">
+    <use xlink:href="imgs/icons.svg#magnifying-glass"></use>
+  </svg>
+  <svg class="arrow"
+       ng-class="{flip: $ctrl.isToggled()}">
+    <use xlink:href="imgs/icons.svg#triangle"></use>
+  </svg>
+</div>
