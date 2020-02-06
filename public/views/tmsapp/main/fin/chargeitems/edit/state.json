@@ -1,0 +1,10 @@
+{
+   "tmsapp.main.fin.chargeitems.edit":{
+      "url":"/edit",
+      "views":{
+         "form@tmsapp.main.fin.chargeitems":{
+            "templateUrl":"/views/tmsapp/main/fin/chargeitems/edit/form.html"
+         }
+      }
+   }
+}

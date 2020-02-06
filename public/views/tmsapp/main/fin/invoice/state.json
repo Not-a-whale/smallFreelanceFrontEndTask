@@ -1,0 +1,10 @@
+{
+   "tmsapp.main.fin.invoice":{
+      "url":"/invoice",
+      "views":{
+         "content@tmsapp.main":{
+            "templateUrl":"/views/tmsapp/main/fin/invoice/content.html"
+         }
+      }
+   }
+}

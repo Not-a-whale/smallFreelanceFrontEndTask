@@ -1,0 +1,60 @@
+<!-- <div nv-file-drop=""
+     uploader="$ctrl.uploader">
+  <div>This is file upload</div>
+  <div>Files: {{ $ctrl.uploader.queue.length}}</div>
+  <input type="file"
+         nv-file-select=""
+         uploader="$ctrl.uploader"
+         multiple />
+  <div nv-file-over=""
+       uploader="$ctrl.uploader"
+       style="width:100px; height:100px; background-color: pink;"></div>
+  <div ng-repeat="item in $ctrl.uploader.queue">
+    <a class="btn btn-sm btn-primary"
+       ng-click="item.upload()">upload</a>
+    <a class="btn btn-sm btn-danger"
+       ng-click="item.remove()">remove</a>
+  </div>
+</div> -->
+
+
+
+<div nv-file-drop=""
+     uploader="$ctrl.uploader"
+     class="filelist">
+  <div class="file-disp font-no-file"
+       ng-if="$ctrl.uploader.queue.length == 0">no file</div>
+  <div class="file-disp"
+       ng-repeat="item in $ctrl.uploader.queue">
+    <div ng-hide="item.isUploading || item.isUploaded"
+         class="status">
+      <div class="font-file-list filename">{{item.file.name}} ( {{ item.file.size/1024/1024 | number: 2 }}Mb )</div>
+      <div ng-click="item.upload()"
+           class="btn btn-sm btn-info">upload</div>
+      <!-- <svg class="fileicon">
+            <use xlink:href="imgs/icons.svg#document"></use>
+          </svg> -->
+      <svg class="close"
+           ng-click="item.remove()">
+        <use xlink:href="imgs/icons.svg#x"></use>
+      </svg>
+    </div>
+    <div ng-show="item.isUploading || item.isUploaded"
+         class="status">
+      <div class="totalbar"
+           ng-class="{'failed': item.isError, 'complete': item.isSuccess}"></div>
+      <div class="progressbar"
+           ng-style="{width: item.progress + '%'}"></div>
+
+    </div>
+
+  </div><label ng-hide="$ctrl.uploader.queue.length >= $ctrl.maxfiles"
+         for="{{ $ctrl.id }}"
+         class="btn-file btn btn-small btn-def-bsc">choose file</label>
+  <input id="{{ $ctrl.id }}"
+         class="hide-me"
+         uploader="$ctrl.uploader"
+         nv-file-select=""
+         type="file"
+         multiple>
+</div>

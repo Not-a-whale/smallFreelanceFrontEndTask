@@ -1,0 +1,32 @@
+<div class="fsct">
+    <meta-form-section-header form="$ctrl.form"
+                              on-disable="$ctrl.onDisable(form)"></meta-form-section-header>
+    <div class="fsct-row">
+      <div class="fstack c12">
+        <div><span class="bold upper">note:</span> Only fill out this section if this vehicle has been leaded to someone
+          other than the owner mentioned above.</div>
+        <div class="frow c8">
+          <div class="fsct-col c6">
+            <div class="frow c12">
+              <simple-input class="c8"
+                            label="lessee/renter"></simple-input>
+              <a class="btn btn-sm btn-second">+ new</a>
+            </div>
+          </div>
+          <div class="fsct-col c6">
+            <div>lease agreement</div>
+            <div class="frow f-spacer c8">
+              <simple-input class="c6"
+                            label="effective date"
+                            type="date"></simple-input>
+              <simple-input class="c6"
+                            label="expiration date"
+                            type="date"></simple-input>
+            </div>
+            <generic-file-upload class="c12"></generic-file-upload>
+          </div>
+        </div>
+      </div>
+      <div class="fsct-col c4"></div>
+    </div>
+  </div>

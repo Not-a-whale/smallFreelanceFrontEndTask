@@ -1,0 +1,59 @@
+<div class="as-row centered spread">
+  <generic-input value="$ctrl.item.Label"
+                 label="label"
+                 required="1"
+                 on-update="$ctrl.UpdateField('Label', value)"></generic-input>
+  <generic-checkbox value="$ctrl.item.Enabled"
+                    label="Enabled"
+                    on-update="$ctrl.UpdateField('Enabled', value)"
+                    on-value="1"
+                    off-value="0"></generic-checkbox>
+  <generic-datalist label="Parent"
+                    typed="$ctrl.item.parent.Label"
+                    url="/api/navigation/menu_item/search"
+                    optionsname="options"
+                    keyname="Label"
+                    valname="MenuItemId"
+                    on-update="$ctrl.UpdateField('parent', value); $ctrl.UpdateField('ParentId', id)">
+  </generic-datalist>
+</div>
+
+<generic-input value="$ctrl.item.Title"
+               label="title"
+               on-update="$ctrl.UpdateField('Title',value)"></generic-input>
+<generic-input value="$ctrl.item.Route"
+               label="Route / State / URL"
+               on-update="$ctrl.UpdateField('Route', value)"></generic-input>
+<div>Parent Route / State / URL : {{ $ctrl.item.parent.Route }}</div>
+<generic-select value="$ctrl.item.Target"
+                label="Target"
+                on-update="$ctrl.UpdateField('Target', id)"
+                options="[{ 'key':'mainnav'}, { 'key':'topnav'}]"
+                valname="key"></generic-select>
+<generic-input value="$ctrl.item.SortIndex"
+               label="Sort Index"
+               on-update="$ctrl.UpdateField('SortIndex', value)"></generic-input>
+<generic-input value="$ctrl.item.Icon"
+               label="Icon Path"
+               on-update="$ctrl.UpdateField('Icon', value)"></generic-input>
+<div>
+  <svg ng-repeat="icon in $ctrl.iconList"
+       height="20"
+       width="32"
+       ng-click="$ctrl.SetIcon(icon)">
+    <use xlink:href="{{icon}}"></use>
+  </svg>
+</div>
+<generic-input value="$ctrl.item.Help"
+               label="Displayed help to user"
+               on-update="$ctrl.UpdateField('Help', value)"></generic-input>
+
+<button ui-sref="tmsapp.main.admin.webadmin.navmenueditor.new"
+        class="btn btn-primary"
+        title="Clear is used to wipe out the entries inside of the form">Clear</button>
+<button ng-click="$ctrl.Reset()"
+        class="btn btn-primary"
+        title="Reset is used to put the default values after modifying the form">Reset</button>
+<button ng-click="$ctrl.Create()"
+        class="btn btn-primary"
+        title="Create the new item in the form, will be used if the form has a particular way to create the form that is different from the standard">Create</button>

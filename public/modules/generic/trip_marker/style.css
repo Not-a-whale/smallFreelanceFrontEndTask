@@ -1,0 +1,43 @@
+trip-status-marker {
+  display: flex;
+  align-items: center;
+  height: fit-content;
+
+}
+trip-status-marker svg {
+  fill: var(--cp-primary);
+  margin-right: 6px;
+  max-height: 15px;
+  max-width: 15px;
+}
+
+trip-status-marker svg.warn {
+  fill: var(--cp-warn);
+}
+
+trip-status-marker svg.success {
+  fill: var(--cp-success);
+}
+
+trip-status-marker svg.empty {
+  fill: var(--cp-grey-light);
+}
+
+trip-status-marker .status-text {
+  font-size: var(--font-small);
+  font-family: var(--font-family-primary);
+  text-transform: uppercase;
+  color: var(--cp-primary);
+}
+
+trip-status-marker .status-text.warn {
+  color: var(--cp-warn);
+}
+
+trip-status-marker .status-text.success {
+  color: var(--cp-success);
+}
+
+trip-status-marker .status-text.empty {
+  color: var(--cp-grey-light);
+}

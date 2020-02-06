@@ -1,85 +1,122 @@
-[{
-  "component": "image-billboard",
-  "atomic": true
-}, {
+[ {
   "component": "generic-file-upload",
-  "atomic": true
+  "atomic": true,
+  "type": "component"
 }, {
   "component": "phone-icon",
-  "atomic": true
+  "atomic": true,
+  "type": "component"
 }, {
   "component": "meta-input",
-  "atomic": true
+  "atomic": true,
+  "type": "component"
 }, {
   "component": "meta-checkbox",
-  "atomic": true
+  "atomic": true,
+  "type": "component"
 }, {
   "component": "meta-address-form",
-  "atomic": true
+  "atomic": true,
+  "type": "component"
 }, {
   "component": "meta-name-form",
-  "atomic": true
+  "atomic": true,
+  "type": "component"
 }, {
   "component": "meta-phone-form",
-  "atomic": true
+  "atomic": true,
+  "type": "component"
 }, {
   "component": "meta-phone-features-form",
-  "atomic": true
+  "atomic": true,
+  "type": "component"
 }, {
   "component": "meta-contact-form",
-  "atomic": false
+  "atomic": false,
+  "type": "component"
 }, {
   "component": "meta-business-form",
-  "atomic": false
+  "atomic": false,
+  "type": "component"
 }, {
   "component": "meta-biz-form",
-  "atomic": true
+  "atomic": true,
+  "type": "component"
 }, {
   "component": "meta-business-customer-form",
-  "atomic": false
+  "atomic": false,
+  "type": "component"
 }, {
   "component": "meta-business-mc-form",
-  "atomic": false
+  "atomic": false,
+  "type": "component"
 }, {
   "component": "meta-person-form",
-  "atomic": true
+  "atomic": true,
+  "type": "component"
 }, {
   "component": "meta-associate-form",
-  "atomic": false
+  "atomic": false,
+  "type": "component"
 }, {
   "component": "meta-associate-part-form",
-  "atomic": true
+  "atomic": true,
+  "type": "component"
 }, {
   "component": "meta-driver-part-form",
-  "atomic": true
+  "atomic": true,
+  "type": "component"
 }, {
   "component": "meta-table-accordion",
   "atomic": false,
+  "type": "table",
   "state": "tms.test.table"
 
 }, {
   "component": "meta-table-selector",
   "atomic": false,
-  "state": "tms.test.table"
+  "state": "tms.test.table",
+  "type": "table"
 
 }, {
   "component": "meta-table-focused",
   "atomic": false,
-  "state": "tms.test.table"
-
-
+  "state": "tms.test.table",
+  "type": "table"
 }, {
   "component": "meta-table-flowout",
   "atomic": false,
-  "state": "tms.test.table"
+  "state": "tms.test.table",
+  "type": "table"
 
 }, {
-  "component": "meta-template-form",
+  "component": "meta-new-truck-form",
   "atomic": false,
-  "state": "tms.test.form"
+  "state": "tms.test.form",
+  "type": "form"
 }, {
-  "component": "meta-template-form",
-  "category": "form",
-  "title": "New Customer",
-  "state": "tms.test.form"
+  "component": "meta-new-trailer-form",
+  "atomic": false,
+  "state": "tms.test.form",
+  "type": "form"
+}, {
+  "component": "meta-new-truck-form",
+  "atomic": false,
+  "state": "tms.test.form",
+  "type": "form"
+}, {
+  "component": "meta-new-load-form",
+  "atomic": false,
+  "state": "tms.test.form",
+  "type": "form"
+}, {
+  "component": "meta-new-driver-form",
+  "atomic": false,
+  "state": "tms.test.form",
+  "type": "form"
+}, {
+  "component": "meta-new-carrier-form",
+  "atomic": false,
+  "state": "tms.test.form",
+  "type": "form"
 }]

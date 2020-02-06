@@ -1,0 +1,21 @@
+top-nav-menu2 {
+  display: flex;
+  /* do not put flex=1 in here ! */
+  flex-direction: row;
+  align-items: flex-end;
+  height: 100px;
+}
+
+top-nav-menu2 .title {
+  min-width: var(--topnav-menu-title-width);
+}
+
+top-nav-menu2 .tab {
+  margin-right: 68px;
+}
+
+top-nav-menu2>ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+}

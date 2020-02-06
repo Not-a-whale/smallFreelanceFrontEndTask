@@ -1,0 +1,10 @@
+{
+   "tmsapp.main.trpmgmt.loads.archives":{
+      "url":"/archives",
+      "views":{
+         "content@tmsapp.main":{
+            "templateUrl":"/views/tmsapp/main/trpmgmt/loads/archives/content.html"
+         }
+      }
+   }
+}

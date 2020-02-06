@@ -1,0 +1,15 @@
+<div class="header"
+     ng-class="{expanded: $ctrl.exp.IsOpen()}"
+     ng-click="$ctrl.exp.Toggle()">
+  <div class="title caps bold">{{ $ctrl.title }} <span class="caps bold"
+          ng-if="$ctrl.showcount">({{ $ctrl.items.length}})</span></div>
+  <svg class="icon-tiny"
+       style="margin-left: auto; margin-right: 0px;">
+    <use xlink:href="imgs/icons.svg#arrow-incomplete"></use>
+  </svg>
+</div>
+<div class="body"
+     ng-if="$ctrl.exp.IsOpen()"
+     ui-view="{{ $ctrl.viewname }}"
+     items="$ctrl.items">
+</div>

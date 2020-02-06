@@ -1,0 +1,202 @@
+main-navbar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: var(--navbar-width-min);
+  height: 100vh;
+  background-color: var(--navbar-bg-color);
+}
+
+main-navbar #main-menu-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  position: absolute;
+  top: var(--navbar-menu-top);
+  width: 100%;
+  height: calc(100vh - var(--navbar-menu-top) - 50px);
+}
+
+
+main-navbar #logo-container {
+  position: relative;
+  width: 100%;
+  height: var(--navbar-menu-top);
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+main-navbar #logo-container .logo-img {
+  position: relative;
+  width: 143px;
+  margin-top: 35px;
+  z-index: 1;
+}
+
+main-navbar #logo-container .logo-fancy {
+  position: absolute;
+  z-index: 0;
+  top: 0px;
+  left: -45px;
+  width: 250%;
+  height: 145px;
+  background: var(--navbar-fancy-bg-color);
+  transform-origin: 0 0;
+  transform: rotate(-7deg);
+  box-shadow: 0px 5px 0px var(--navbar-bg-color), 0px 7px 0px var(--navbar-fancy-bg-color);
+}
+
+main-navbar #tool-container {
+  cursor: pointer;
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+}
+
+main-navbar #tool-container:hover {
+  background-color: var(--cp-default-mid);
+}
+main-navbar #tool-container:hover svg {
+  fill: var(--cp-highlight);
+
+}
+
+main-navbar #tool-container .toggle-handle {
+  max-height: 20px;
+  max-width: 20px;
+  fill: var(--cp-grey-mid);
+  transform: rotate(-90deg);
+}
+
+#main-navbar-container.expanded main-navbar #main-menu-container {
+  overflow-x: visible;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#main-navbar-container.expanded main-navbar #main-menu-container::-webkit-scrollbar{
+  display: none;
+}
+
+#main-navbar-container.expanded main-navbar #tool-container .toggle-handle {
+  transform: rotate(90deg);
+}
+
+
+
+/* main-menu > div {
+  margin-bottom: 6px;
+}
+
+main-menu .font-nav-cat {
+  position: relative;
+  padding-left: 14px;
+  margin-bottom: 8px;
+}
+
+main-menu .main-menu-item:hover .font-nav {
+  color: var(--navbar-font-nav-color-hover);
+}
+
+main-menu .font-nav {
+  position: relative;
+  text-decoration: none;
+}
+
+main-menu .font-nav2 {
+  padding-left: 56px;
+  margin-bottom: 10px;
+  text-decoration: none;
+}
+
+main-menu .nav-icon {
+  position: relative;
+  max-width: 20px;
+  max-height: 20px;
+  min-width: 10px;
+  padding-left: 14px;
+  padding-right: 12px;
+}
+
+.main-menu-item {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+
+.top-item:not(:first-child) {
+  margin-top: 8px;
+}
+
+.nav-icon {
+  cursor: pointer;
+  fill: var(--navbar-font-nav-color);
+}
+
+.main-menu-item:hover .nav-icon,
+.nav-icon:hover {
+
+  fill: var(--navbar-font-nav-color-hover);
+}
+
+.main-menu-item.active .nav-icon {
+  fill: var(--navbar-font-nav-color-active);
+} */
+
+
+/* ------------------ This is when the navbar is collapsed ----------------- */
+
+#main-navbar-container.collapsed {
+  width: var(--navbar-width-min);
+}
+
+#main-navbar-container.collapsed #logo-container .logo-img {
+  width: var(--logo-width-min);
+  z-index: 1;
+}
+
+#main-navbar-container.expanded #logo-container .logo-fancy {
+  transition: width 0.25s ease-out;
+  transition: height 0.25s ease-out;
+}
+
+#main-navbar-container.collapsed #logo-container .logo-fancy {
+  transition: width 0.25s ease-in;
+  transition: height 0.25s ease-in;
+}
+
+#main-navbar-container.collapsed #logo-container .logo-fancy {
+  left: -20px;
+  height: 80px;
+}
+
+#main-navbar-container.collapsed main-menu .font-nav-cat,
+#main-navbar-container.collapsed main-menu .font-nav,
+#main-navbar-container.collapsed main-menu .font-nav2 {
+  display: none;
+}
+
+#main-navbar-container.collapsed #logo-container .logo-img,
+#main-navbar-container.collapsed {
+  transition: width 0.25s ease-in;
+}
+
+#main-navbar-container.expanded #logo-container .logo-img,
+#main-navbar-container.expanded {
+  transition: width 0.25s ease-out;
+}
+
+#main-navbar-container.collapsed .nav-icon {
+
+  margin-bottom: 20px;
+}
+
+#main-display-container.expanded {
+  transition: width 0.25s ease-in;
+}
+#main-display-container.collapsed {
+  transition: width 0.25s ease-out;
+}

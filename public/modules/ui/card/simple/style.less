@@ -1,0 +1,17 @@
+ui-card-simple {
+  @flex-col();
+  &>.title {
+    .detail-card-subheading();
+    display: flex;
+    width: 100%;
+  }
+  &>.body {
+    @flex-col();
+    .detail-card-text();
+
+    .text *,
+    .text{
+      .detail-card-text();
+    }
+  }
+}

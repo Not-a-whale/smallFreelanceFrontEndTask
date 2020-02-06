@@ -1,0 +1,35 @@
+<table>
+  <thead>
+    <tr>
+      <th>Object</th>
+      <th>Visual</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Template Stamping</td>
+      <td>
+        <div style="width: 1400px; height: 50vh;"
+             ng-controller="testTableCtrlExample as ctrl">
+          <generic-table headers="ctrl.headers"
+                         colsize="ctrl.colsize"
+                         list="ctrl.displaylist"
+                         search="ctrl.search"
+                         on-search="ctrl.Search(data)"
+                         row-height="100px">
+          </generic-table>
+        </div>
+      </td>
+      <td>
+        <ul>
+          <li>The views for the table must be resolved inside of the config state.</li>
+          <li>The view names are bound to the controller. Check GenericTableCtrl for default values.</li>
+          <li>The options view must have custom CSS to position, and must always be position absolute to not mess up the
+            column alignment.</li>
+        </ul>
+
+      </td>
+    </tr>
+  </tbody>
+</table>

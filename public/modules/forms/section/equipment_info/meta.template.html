@@ -1,0 +1,67 @@
+<div class="fsct">
+  <meta-form-section-header form="$ctrl.form"
+                            on-disable="$ctrl.onDisable(form)"></meta-form-section-header>
+  <div class="fsct-row c12">
+    <div class="fsct-col c4">
+      <simple-input class="c12"
+                    label="name this item"
+                    required="1"></simple-input>
+      <simple-input class="c8"
+                    label="assign user"
+                    required="1"></simple-input>
+    </div>
+    <div class="fsct-col c4">
+      <simple-input class="c12"
+                    label="description"></simple-input>
+    </div>
+    <div class="fsct-col c4">
+      <simple-input label="do not use"></simple-input>
+      <simple-input class="c12"
+                    label="provide a reason"></simple-input>
+    </div>
+  </div>
+  <div class="fsct-row c12">
+    <div class="fstack c12">
+      <div class="frow c12">
+        <div class="font-subhead fsubhead">ownership*</div>
+      </div>
+      <div class="frow c12">
+        <div class="fsct-col c4">
+
+          <div class="frow c12">
+            <simple-input class="c8"
+                          label="company"
+                          required="1"></simple-input>
+            <a class="btn btn-sm btn-second c3">+ new</a>
+          </div>
+          <div class="frow c12">
+            <simple-input class="c8"
+                          label="agent"
+                          required="1"></simple-input>
+            <a class="btn btn-sm btn-second c3">+ new</a>
+          </div>
+
+        </div>
+        <div class="fsct-col c4">
+          <div class="frow c12 f-spacer">
+            <simple-input class="c6"
+                          label="date acquired"
+                          type="date"></simple-input>
+            <simple-input class="c6"
+                          label="value"
+                          type="currency"></simple-input>
+          </div>
+          <div class="frow c12 f-spacer">
+            <simple-input class="c6"
+                          label="date sold"
+                          type="date"></simple-input>
+            <simple-input class="c6"
+                          label="value"
+                          type="currency"></simple-input>
+          </div>
+        </div>
+        <div class="fsct-col c4"></div>
+      </div>
+    </div>
+  </div>
+</div>

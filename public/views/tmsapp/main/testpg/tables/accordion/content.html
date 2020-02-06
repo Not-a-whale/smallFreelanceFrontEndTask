@@ -1,0 +1,16 @@
+<div class="as-row">
+  Sizes:
+  <button class="btn btn-primary btn-sm" ng-click="ctrl.size='table-huge'">Huge</button>
+  <button class="btn btn-primary btn-sm" ng-click="ctrl.size='table-large'">Large</button>
+  <button class="btn btn-primary btn-sm" ng-click="ctrl.size='table-medium'">Medium</button>
+  <button class="btn btn-primary btn-sm" ng-click="ctrl.size='table-half'">Half</button>
+  <button class="btn btn-primary btn-sm" ng-click="ctrl.size='table-small'">Small</button>
+</div>
+
+<table-accordion class="{{ctrl.size}}"
+                 headers="ctrl.headers"
+                 colsize="ctrl.colsize"
+                 list="ctrl.displaylist"
+                 search="ctrl.search"
+                 on-search="ctrl.Search(data)"
+                 row-height="100"></table-accordion>

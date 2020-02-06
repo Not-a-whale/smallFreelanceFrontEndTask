@@ -1,0 +1,121 @@
+.input-default-behavior() {
+  min-width: 10px;
+  flex-basis: auto;
+  min-height: @input-height-min;
+  height: @input-height-min;
+  width: 100%;
+  padding-left: 5px;
+  border-radius: 2px;
+  border: 1px solid @cp-grey-mid;
+  box-sizing: border-box;
+
+  &:hover {
+    border: 1px solid @cp-grey-mid;
+  }
+
+  &:focus {
+    outline-color: @cp-primary-light;
+  }
+
+  &:valid, &.ng-valid,&:disabled {
+      &~.error-msg {
+        display: none;
+      }
+    }
+}
+
+ui-input-clear,
+generic-input,
+bound-input,
+simple-input {
+  @display-order-label: 1;
+  @display-order-input: 2;
+  @display-order-error: 3;
+
+  .label-required() {
+    &:required {
+      &+label {
+        &:after {
+          content: '*'
+        }
+      }
+    }
+  }
+
+  .label-error() {
+    &:not(:valid) {
+      &:not(:disabled) {
+        &+label {
+          color: @input-color-error;
+        }
+      }
+    }
+    &:invalid{
+
+      &:not(:disabled) {
+        &:extend(+label);
+      }
+      &+label{
+        color: @input-color-error;
+      }
+    }
+  }
+
+  .label-disabled() {
+    &:disabled {
+      &+label {
+        color: @cp-background;
+      }
+    }
+  }
+
+  .label-styles() {
+    .label-required();
+    .label-error();
+    .label-disabled();
+  }
+
+
+
+  @flex-col();
+  position: relative;
+
+  margin-bottom: 20px;
+  width: 100%;
+
+  select {
+    width: 100%;
+    order: @display-order-input;
+    .label-styles();
+  }
+
+  input {
+    order: @display-order-input;
+    .input-default-behavior();
+    .label-styles();
+
+    &:disabled {
+      &+label {
+        color: @cp-background;
+      }
+    }
+  }
+
+  label {
+    .font-sm-label1();
+    order: @display-order-label;
+  }
+
+  .error-msg {
+    order: @display-order-error;
+    position: absolute;
+    top: 50px;
+  }
+}
+
+ui-table-search-input {
+  input {
+    .input-default-behavior();
+  }
+
+}

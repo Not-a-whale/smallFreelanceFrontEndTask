@@ -1,0 +1,164 @@
+ui-table-header {
+  @flex-col();
+  width: 100%;
+
+  // advanced filter icon, located in two elements
+  svg {
+    &.advanced {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      fill: @cp-grey;
+      cursor: pointer;
+
+      &:hover {
+        fill: @cp-grey-mid;
+      }
+    }
+  }
+  .banner-container {
+    @banner-height: 34px;
+    @flex-row();
+    width: 100%;
+    align-items: center;
+    height: @banner-height;
+    max-height: @banner-height;
+    background-color: @cp-usko-red;
+    position: relative;
+
+    &>.content {
+      @flex-row();
+      width: 100%;
+      height: 100%;
+
+    }
+
+    &>ui-table-search-toggle {
+      position: absolute;
+      right: 6px;
+    }
+
+    ui-table-banner {
+      @flex-row();
+      height: 100%;
+      width: 100%;
+      align-items: center;
+    }
+
+    .ui-table-padded();
+
+    .colhead {
+      @flex-row();
+      align-items: center;
+      height: 100%;
+
+      .colname {
+        margin-right: 6px;
+        cursor: pointer;
+        font-family: @font-family-primary;
+        font-size: @font-small;
+        font-weight: @font-weight-medium;
+      }
+
+      ui-table-sort-arrow-vert {
+        --arrow-size: 16px;
+        --fill-def: @cp-usko-red-mid;
+        --fill-hover: @cp-usko-red-pale;
+        --fill-active: @cp-usko-red-pale;
+      }
+    }
+  }
+
+  &>.search-container {
+    width: 100%;
+    background-color: @cp-card;
+    position: relative;
+
+    &.basic {
+      .ui-table-padded();
+
+      &>.content {
+        @flex-row();
+        width: 100%;
+        height: 100%;
+
+        ui-table-search-basic {
+          @flex-row();
+          height: 45px;
+          max-height: 45px;
+          width: 100%;
+          align-items: center;
+
+          &>* {
+            &:not(:last-child) {
+              padding-right: 10px;
+            }
+
+            &:last-child {
+              padding-right: 20px;
+            }
+          }
+        }
+      }
+    }
+
+    &.advanced {
+      @flex-col();
+      width: 100%;
+
+      &>.title {
+        //title is padded instead of container because of border
+        .ui-table-padded();
+        @flex-row();
+        width: 100%;
+        align-items: center;
+        height: 45px;
+        max-height: 45px;
+        border-bottom: 1px solid @cp-grey-light;
+
+        div {
+          &:first-child {
+            text-transform: uppercase;
+          }
+
+          // last-child doesnt work here
+          &:not(:first-child) {
+            margin-right: 16px;
+            margin-left: auto;
+            cursor: pointer;
+          }
+        }
+      }
+
+      &>.content {
+        .ui-table-padded();
+        ui-table-search-advanced {
+          @flex-col();
+        }
+        .col {
+          @flex-col();
+        }
+        .row {
+          @flex-row();
+          width: 100%;
+          align-items: center;
+
+          .label {
+            text-align: right;
+            min-width: 120px;
+            max-width: 25%;
+            padding-right: 10px;
+          }
+          .fields {
+            @flex-row();
+
+            &>*:not(:last-child) {
+              margin-right: 6px
+            }
+          }
+        }
+      }
+    }
+  }
+
+}

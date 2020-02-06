@@ -1,0 +1,10 @@
+{
+   "tmsapp.main.trpmgmt.loads.enroute":{
+      "url":"/enroute",
+      "views":{
+         "content@tmsapp.main":{
+            "templateUrl":"/views/tmsapp/main/trpmgmt/loads/enroute/content.html"
+         }
+      }
+   }
+}

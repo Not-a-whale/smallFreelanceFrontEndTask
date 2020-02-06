@@ -1,0 +1,19 @@
+@size-normal: 32px;
+@size-medium: 22px;
+@size-small: 20px;
+@size-tiny: 17px;
+
+.icon {
+  max-width: @size-normal;
+  max-height: @size-normal;
+
+  &-sm, &-small {
+    max-width: @size-small;
+    max-height: @size-small;
+  }
+
+   &-ty, &-tiny {
+    max-width: @size-tiny;
+    max-height: @size-tiny;
+   }
+}

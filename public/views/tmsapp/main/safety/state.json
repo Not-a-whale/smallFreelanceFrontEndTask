@@ -1,0 +1,10 @@
+{
+   "tmsapp.main.safety":{
+      "url":"/safety",
+      "views":{
+         "content@tmsapp.main":{
+            "templateUrl":"/views/tmsapp/main/safety/content.html"
+         }
+      }
+   }
+}

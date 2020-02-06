@@ -5,7 +5,7 @@ input {
 
 /* ----------- LABEL FOR ALL INPUT TYPES -------------- */
 label {
-  font-size: var(--font-small) !important;
+  font-size: var(--font-tiny) !important;
   font-weight: bold !important;
   text-transform: capitalize !important;
   line-height: var(--font-line-large) !important;

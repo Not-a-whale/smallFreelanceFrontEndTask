@@ -112,8 +112,9 @@ class MetaTableCtrl extends MetaGateCtrl {
   /* Function that puts the search query and order together */
 
   Search() {
-
     if (this.onSearch instanceof Function) {
+      console.log("table onsearch function: ");
+      console.log(this.onSearch);
       this.timeout.cancel(this.timeoutCall['search']);
       var self = this;
       this.timeoutCall['search'] = this.timeout(
@@ -124,15 +125,13 @@ class MetaTableCtrl extends MetaGateCtrl {
 
           self.onSearch({
             query: {
-              search: {
-                fields: fields,
-                orderby: order,
-                page: self.page,
-                rows: self.rows
-              }
+              search: fields,
+              orderby: order,
+              page: self.page,
+              rows: self.rows
             }
           });
-        }, 500);
+        }, 300);
     } else {
       console.error("table onSearch is not bound");
     }
@@ -181,9 +180,13 @@ class MetaTableCtrl extends MetaGateCtrl {
     super.$onInit();
     this.SelectCount();
     let self = this;
-    this.scope.$on('TableSearch', function (event, data) {
+    let handle = this.scope.$on('TableSearch', function (event, data) {
+      event.stopPropagation();
+      console.log("table caught search emit");
       self.Search();
     });
+
+    this.scope.$on('$destroy', handle);
   }
 }
 

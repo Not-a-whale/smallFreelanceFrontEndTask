@@ -1,0 +1,34 @@
+<div class="as-row">
+  Sizes:
+  <button class="btn btn-primary btn-sm"
+          ng-click="ctrl.size='table-huge'">Huge</button>
+  <button class="btn btn-primary btn-sm"
+          ng-click="ctrl.size='table-large'">Large</button>
+  <button class="btn btn-primary btn-sm"
+          ng-click="ctrl.size='table-medium'">Medium</button>
+  <button class="btn btn-primary btn-sm"
+          ng-click="ctrl.size='table-half'">Half</button>
+  <button class="btn btn-primary btn-sm"
+          ng-click="ctrl.size='table-small'">Small</button>
+</div>
+
+<div class="as-row">
+  <table-flowout class="{{ctrl.size}}"
+                 headers="ctrl.headers"
+                 colsize="ctrl.colsize"
+                 list="ctrl.displaylist"
+                 search="ctrl.search"
+                 on-search="ctrl.Search(data)"
+                 row-height="100px"
+                 on-select="ctrl.selected = item"></table-flowout>
+  <style>
+    div.display {
+      border: 1px solid black;
+      display: flex;
+      flex: 1;
+      margin-left: 26px;
+
+    }
+  </style>
+  <div class="display">{{ ctrl.selected }}</div>
+</div>

@@ -1,4 +1,4 @@
-var app = angular.module("tms", ["ui.router", "duScroll"]);
+var app = angular.module("tms", ["ui.router", "duScroll", "angularFileUpload"]);
 
 app.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("tms/dev");
@@ -10,6 +10,7 @@ app.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $u
 
 app.value('duScrollSpyWait', 500);
 app.value('duScrollBottomSpy', true);
+app.value('duScrollGreedy', true);
 
 app.run(['$transitions', function (trans) {
 
@@ -116,4 +117,8 @@ app.filter('disabled', function () {
 
 function CloneObj(x) {
   return JSON.parse(JSON.stringify(x));
+}
+
+function IsObj(x){
+  return typeof x === 'object' && x != null;
 }

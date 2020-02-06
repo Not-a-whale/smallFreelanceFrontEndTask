@@ -1,0 +1,40 @@
+<!-- cannot use angular inside of href due to potential xss attack -->
+<svg class="{{ $ctrl.class }}"
+     ng-if="$ctrl.status == 'en route'">
+  <use xlink:href="imgs/icons.svg#circle-arrow-left"></use>
+</svg>
+<svg class="{{ $ctrl.class }}"
+     ng-if="$ctrl.status == 'pick: check in'">
+  <use xlink:href="imgs/icons.svg#pick-outline"></use>
+</svg>
+<svg class="{{ $ctrl.class }}"
+     ng-if="$ctrl.status == 'pick: check out'">
+  <use xlink:href="imgs/icons.svg#pick-solid"></use>
+</svg>
+<svg class="{{ $ctrl.class }}"
+     ng-if="$ctrl.status == 'drop: check in'">
+  <use xlink:href="imgs/icons.svg#drop-outline"></use>
+</svg>
+<svg class="{{ $ctrl.class }}"
+     ng-if="$ctrl.status == 'drop: check out'">
+  <use xlink:href="imgs/icons.svg#drop-solid"></use>
+</svg>
+<svg class="{{ $ctrl.class }}"
+     ng-if="$ctrl.status == 'delayed'">
+  <use xlink:href="imgs/icons.svg#circle-exclamation"></use>
+</svg>
+<svg class="{{ $ctrl.class }}"
+     ng-if="$ctrl.status == 'delivered'">
+  <use xlink:href="imgs/icons.svg#circle-checkmark"></use>
+</svg>
+<svg class="{{ $ctrl.class }}"
+     ng-if="$ctrl.status == 'empty'">
+  <use xlink:href="imgs/icons.svg#circle-solid"></use>
+</svg>
+<svg class="{{ $ctrl.class }}"
+     ng-if="$ctrl.status == 'unknown'">
+  <use xlink:href="imgs/icons.svg#circle-question"></use>
+</svg>
+<div class="status-text {{ $ctrl.class }}">
+  {{ $ctrl.statusText }}
+</div>

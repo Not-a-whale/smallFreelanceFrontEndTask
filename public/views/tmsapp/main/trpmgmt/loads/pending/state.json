@@ -1,0 +1,10 @@
+{
+   "tmsapp.main.trpmgmt.loads.pending":{
+      "url":"/pending",
+      "views":{
+         "content@tmsapp.main":{
+            "templateUrl":"/views/tmsapp/main/trpmgmt/loads/pending/content.html"
+         }
+      }
+   }
+}

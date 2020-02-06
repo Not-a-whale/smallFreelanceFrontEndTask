@@ -1,0 +1,17 @@
+<div class="nav-editor as-row">
+  <div>
+    <div>Tree Goes Here</div>
+    <div ui-view="view"
+         tree="$ctrl.navlist">
+    </div>
+  </div>
+  <div>
+    <div>Form Goes Here</div>
+    <div ui-view="form">
+    </div>
+  </div>
+  <div>
+    <button class="btn btn-info"
+            ng-click="$ctrl.Regenerate()">Regenerate StateConfig</button>
+  </div>
+</div>

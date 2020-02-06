@@ -1,0 +1,22 @@
+<div class="menu-container"
+     ng-class="{collapsed: $ctrl.IsCollapsed()}">
+  <div class="category-container">
+    {{$ctrl.items}}
+    <main-nav-menu-category ng-repeat="cat in $ctrl.items"
+                            data-label="cat.label"
+                            data-items="cat.items"></main-nav-menu-category>
+  </div>
+  <div class="expand-container"
+       ng-click="$ctrl.Toggle()">
+    <svg class="icon"
+         ng-show="$ctrl.IsCollapsed()">
+      <use xlink:href="imgs/icons.svg#right"></use>
+    </svg>
+    <svg class="icon"
+         ng-hide="$ctrl.IsCollapsed()">
+      <use xlink:href="imgs/icons.svg#left"></use>
+    </svg>
+    <div class="font-med-label2 font-c-grey-mid"
+         ng-if="$ctrl.IsExpanded()">collapse</div>
+  </div>
+</div>

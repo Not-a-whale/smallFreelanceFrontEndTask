@@ -1,0 +1,234 @@
+<style>
+  chat-box {
+    z-index: var(--layer-chatbox);
+    display: flex;
+    flex-direction: column;
+    min-height: 432px;
+    height: 432px;
+    max-height: 432px;
+    width: 314px;
+    background-color: var(--cp-card);
+  }
+
+  chat-box .header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  chat-box .header .banner {
+    display: flex;
+    width: 100%;
+    height: 32px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    background-color: var(--cp-default);
+  }
+
+  chat-box .header .banner .title {
+    cursor: pointer;
+    display: flex;
+    color: var(--cp-background);
+    text-transform: uppercase;
+    font-family: var(--font-family-primary);
+    font-size: var(--font-small);
+    font-weight: var(--font-weight-medium);
+    margin-left: 6px;
+  }
+
+  chat-box .header .banner .minimize,
+  chat-box .header .banner .close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    cursor: pointer;
+  }
+
+  chat-box .header .banner .minimize {
+    margin-left: auto;
+    margin-right: 6px;
+  }
+
+  chat-box .header .banner .close {
+    margin-right: 0px;
+  }
+
+
+  chat-box .header .banner .minimize svg {
+    width: 16px;
+    fill: var(--cp-grey-light);
+  }
+
+  chat-box .header .banner .close svg {
+    height: 12px;
+    width: 12px;
+    fill: var(--cp-grey-light);
+  }
+
+  chat-box .header .banner .minimize:hover svg,
+  chat-box .header .banner .close:hover svg {
+    fill: var(--cp-card);
+  }
+
+  chat-box .header .heading {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    height: 64px;
+    background-color: var(--cp-default);
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-bottom: 6px;
+    border-top: 1px solid var(--cp-grey-heavy);
+  }
+
+  chat-box .header .heading .contact {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-end;
+  }
+
+  chat-box .header .heading .contact .name {
+    font-family: var(--font-family-second);
+    font-size: var(--font-norm);
+    color: var(--cp-card);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+  }
+
+  chat-box .header .heading .contact .title {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-small);
+    color: var(--cp-card);
+    font-weight: var(--font-weight-norm);
+  }
+
+  chat-box .header .heading svg.phone {
+    position: absolute;
+    right: 6px;
+    bottom: 10px;
+    height: 20px;
+    width: 20px;
+    fill: var(--cp-primary);
+  }
+
+  chat-box .footer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0px;
+    margin-top: auto;
+    width: 100%;
+    height: 120px;
+    background-color: var(--cp-default);
+    padding: 10px 6px 10px 6px;
+  }
+
+  chat-box .footer .footing {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  chat-box .footer .footing svg {
+    max-height: 20px;
+    max-width: 20px;
+    margin-left: 10px;
+    fill: var(--cp-grey-light);
+    cursor: pointer;
+  }
+
+  chat-box .footer .typefield {
+    padding-left: 4px;
+    padding-right: 4px;
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    resize: none;
+    min-height: 38px;
+    max-height: 258px;
+  }
+
+  chat-box .footer .footing>.btn {
+    margin-right: 0px;
+    margin-left: auto;
+  }
+
+  chat-box>.body {
+    padding: 8px !important;
+  }
+
+  chat-box>.body chat-box-bubble:not(:last-child) {
+    margin-bottom: 4px;
+  }
+
+  chat-box>.body chat-box-bubble.mine {
+    margin-right: 0px;
+    margin-left: auto;
+  }
+</style>
+
+<div class="header">
+  <div class="banner">
+    <div class="title"
+         ng-click="$ctrl.Toggle()">3 new messages</div>
+    <div class="minimize"
+         ng-click="$ctrl.Toggle()">
+      <svg>
+        <use xlink:href="imgs/icons.svg#bar"></use>
+      </svg>
+    </div>
+    <div class="close"
+         ng-click="$ctrl.Close()">
+      <svg>
+        <use xlink:href="imgs/icons.svg#x"></use>
+      </svg>
+    </div>
+
+  </div>
+  <div ng-show="$ctrl.IsExpanded()"
+       class="heading">
+    <div class="contact">
+      <div class="name">vlad golov</div>
+      <div class="title">Driver for Igor Kalamachik</div>
+    </div>
+    <svg class="phone">
+      <use xlink:href="imgs/icons.svg#phone"></use>
+    </svg>
+
+  </div>
+</div>
+
+<div ng-show="$ctrl.IsExpanded()"
+     class="body scrollable"
+     scroll-bottom="$ctrl.msgData.messages">
+  <chat-box-bubble ng-class="{mine: m.who == 'me'}"
+                   message="m"
+                   ng-repeat="m in $ctrl.msgData.messages | orderBy: 'timestamp' "></chat-box-bubble>
+</div>
+
+<div ng-show="$ctrl.IsExpanded()"
+     class="footer"
+     ng-keyup="$ctrl.CheckKey($event)">
+  <form>
+    <textarea ng-model="$ctrl.newmessage"
+              class="typefield"></textarea>
+    <div class="footing">
+      <!-- <svg>
+        <use xlink:href="imgs/icons.svg#camera"></use>
+      </svg>
+      <svg>
+        <use xlink:href="imgs/icons.svg#film"></use>
+      </svg> -->
+      <svg title="Attach a file upto 20MB in size.">
+        <use xlink:href="imgs/icons.svg#paperclip"></use>
+      </svg>
+      <a class="btn btn-sm btn-primary"
+              ng-click="$ctrl.SendMessage()"
+              style="height: 30px; width: 218px;">send message</a>
+    </div>
+  </form>
+
+</div>

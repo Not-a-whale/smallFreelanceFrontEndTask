@@ -107,9 +107,11 @@ class GenericTableCtrl {
       this.timeoutCall['search'] = this.timeout(
         function () {
           self.onSearch({
-            data: self.searchVal
+            query: self.searchVal
           });
         }, 500);
+    } else {
+      console.error("table onSearch is not bound");
     }
   }
 
@@ -161,7 +163,6 @@ class GenericTableSearchCtrl {
 }
 
 app.controller("GenericTableSearchCtrl", ['getid', GenericTableSearchCtrl]);
-
 app.controller("GenericTableCtrl", ['getid', '$scope', '$element', '$timeout', GenericTableCtrl]);
 
 var table_bindings = {

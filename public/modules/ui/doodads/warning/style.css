@@ -1,0 +1,26 @@
+warn-button {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+warn-button>div {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  color: var(--cp-danger);
+}
+
+warn-button>div>svg {
+  max-width: 14px;
+  max-height: 14px;
+  fill: var(--cp-danger);
+  margin-left: 6px;
+}
+
+warn-button:hover {
+  background-color: var(--cp-danger-pale);
+  cursor: pointer;
+}

@@ -1,0 +1,42 @@
+accordion-cards {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+accordion-cards>.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 32px;
+  width: calc(100% - 16px);
+  background-color: var(--cp-card);
+  padding-left: 8px;
+  padding-right: 8px;
+
+  box-sizing: content-box;
+  cursor: pointer;
+}
+
+accordion-cards>.header.expanded {
+  border-style: solid;
+  border-color: var(--cp-grey-light);
+  border-bottom-width: 1px;
+}
+
+accordion-cards>.body {
+  background-color: var(--cp-card);
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-bottom: 8px;
+}
+
+accordion-cards>.body .row {
+  display: flex;
+  margin-top: 2px;
+  width: 100%;
+}
+
+accordion-cards>.header.expanded>svg {
+  transform: scaleY(-1);
+}

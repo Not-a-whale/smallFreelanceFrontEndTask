@@ -1,0 +1,13 @@
+<ui-container-accordion data-title="'drivers'"
+                   data-count="$ctrl.drivers.length">
+  <content class="spacing">
+    <div class="header">
+      <div class="heading c4">name</div>
+      <div class="heading c3">contact</div>
+      <div class="heading c3">holds</div>
+      <div class="heading c2">status</div>
+    </div>
+    <operator-driver-card ng-repeat="item in $ctrl.drivers"></operator-driver-card>
+  </content>
+
+</ui-container-accordion>

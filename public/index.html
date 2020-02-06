@@ -9,23 +9,36 @@
       <!-- base href="https://tms.uskoinc.com" -->
       <link href="https://fonts.googleapis.com/css?family=Arimo:400,400i,700|Poppins:400i,500,700&display=swap"
             rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,600,700|Poppins:500,600&display=swap"
+            rel="stylesheet">
+
+      <style>
+            @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,600,700|Poppins:500,600&display=swap');
+      </style>
+
+      <link href="css/compiled.css"
+            rel="stylesheet">
+
       <link href="css/variable.css"
             rel="stylesheet">
       <link href="css/font.css"
             rel="stylesheet">
-      <link href="css/defaults.css"
-            rel="stylesheet">
-      <link href="css/input.css"
-            rel="stylesheet">
+
+      <!-- <link href="css/defaults.css"
+            rel="stylesheet"> -->
+      <!-- <link href="css/input.css"
+            rel="stylesheet"> -->
       <link href="modules/generic/checkbox/style.css"
             rel="stylesheet">
-      <link href="css/buttons.css"
-            rel="stylesheet">
+      <!-- <link href="css/buttons.css"
+            rel="stylesheet"> -->
       <link href="css/scaffolding.css"
             rel="stylesheet">
       <link href="css/navbar.css"
             rel="stylesheet">
-      <link href="modules/navigation/top/style.css"
+      <!-- <link href="modules/navigation/top/style.css"
+            rel="stylesheet"> -->
+      <link href="modules/navigation/top/menu/style.css"
             rel="stylesheet">
       <link href="modules/generic/table/style.css"
             rel="stylesheet">
@@ -34,6 +47,8 @@
       <link href="modules/generic/form/template/style.css"
             rel="stylesheet">
       <link href="modules/generic/form/section/style.css"
+            rel="stylesheet">
+      <link href="modules/generic/form/section/header/style.css"
             rel="stylesheet">
       <link href="modules/generic/table/accordion/style.css"
             rel="stylesheet">
@@ -56,6 +71,7 @@
       <link href="modules/test/form/style.css"
             rel="stylesheet">
 
+
       <link href="modules/generic/table/selector/meta.style.css"
             rel="stylesheet">
       <link href="modules/generic/table/accordion/meta.style.css"
@@ -64,15 +80,33 @@
             rel="stylesheet">
       <link href="modules/generic/table/focused/meta.style.css"
             rel="stylesheet">
+      <link href="modules/generic/form/template/meta.style.css"
+            rel="stylesheet">
+      <link href="modules/generic/trip_marker/style.css"
+            rel="stylesheet">
+      <!-- <link href="modules/generic/accordion_cards/meta.style.css"
+            rel="stylesheet"> -->
+      <link href="modules/navigation/main/style.css"
+            rel="stylesheet">
+      <link href="modules/navigation/main/menu/style.css"
+            rel="stylesheet">
+      <link href="modules/navigation/main/menu/style2.css"
+            rel="stylesheet">
+      <link href="modules/generic/button/info/style.css"
+            rel="stylesheet">
+
+      <link href="modules/ui/doodads/warning/style.css"
+            rel="stylesheet">
 
 
       <script src="js/configstates.js"></script>
-      <script src="js/angular.min.js"></script>
+      <!-- <script src="js/angular.min.js"></script> -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
 
 
       <script src="js/angular.ui_router.min.js"></script>
       <script src="js/statehelper.min.js"></script>
-
+      <script src="js/angular.fileupload.js"></script>
       <script src="js/angular.scroll.js"></script>
 
       <script src="js/main.js"></script>
@@ -80,6 +114,9 @@
       <script src="modules/generic/meta/module.js"></script>
       <script src="modules/generic/service/fetch.service.js"></script>
       <script src="modules/generic/phone/service.js"></script>
+      <script src="services/chip.js"></script>
+      <script src="services/tablechips.service.js"></script>
+      <script src="services/application/error.service.js"></script>
 
       <script src="modules/generic/input/meta.module.js"></script>
       <script src="modules/generic/checkbox/meta.module.js"></script>
@@ -91,7 +128,6 @@
       <script src="modules/personnel/associate/atomic/form/meta.module.js"></script>
       <script src="modules/personnel/associate/form/meta.module.js"></script>
       <script src="modules/personnel/driver/atomic/form/meta.module.js"></script>
-      <script src="modules/personnel/driver/form/meta.module.js"></script>
       <script src="modules/business/form/meta.module.js"></script>
       <script src="modules/business/biz/form/meta.module.js"></script>
       <script src="modules/business/customer/form/meta.module.js"></script>
@@ -102,14 +138,26 @@
 
 
 
-      <script src="modules/navigation/service.js"></script>
+      <!-- Services -->
+      <script src="services/business/business.service.js"></script>
 
+      <script src="modules/navigation/service.js"></script>
+      <!-- random directives that dont fit anywhere else -->
+      <script src="modules/ui/other/expand.directive.js"></script>
+
+      <!-- generic UI-components -->
       <script src="modules/generic/button/module.js"></script>
       <script src="modules/generic/input/module.js"></script>
       <script src="modules/generic/checkbox/module.js"></script>
       <script src="modules/generic/phone/module.js"></script>
       <script src="modules/generic/select/module.js"></script>
       <script src="modules/generic/datalist/module.js"></script>
+      <script src="modules/generic/button/info/module.js"></script>
+      <script src="modules/generic/input/simple/smp.module.js"></script>
+      <script src="modules/generic/input/clear/module.js"></script>
+
+
+      <script src="modules/generic/trip_marker/meta.module.js"></script>
 
       <script src="modules/generic/table/module.js"></script>
       <script src="modules/generic/form/template/module.js"></script>
@@ -121,17 +169,59 @@
       <script src="modules/generic/table/selector/meta.module.js"></script>
       <script src="modules/generic/table/flowout/meta.module.js"></script>
       <script src="modules/generic/table/focused/meta.module.js"></script>
+      <script src="modules/generic/table/transclude/skeleton/component.js"></script>
+      <script src="modules/generic/table/transclude/row/controller.js"></script>
+      <script src="modules/generic/table/transclude/banner/component.js"></script>
+      <script src="modules/generic/table/transclude/search/input/component.js"></script>
+      <script src="modules/generic/table/transclude/search/component.js"></script>
+      <script src="modules/generic/table/transclude/search/sort/arrows/controller.js"></script>
+      <script src="modules/generic/table/transclude/search/sort/arrows/horiz/component.js"></script>
+      <script src="modules/generic/table/transclude/search/sort/arrows/vert/component.js"></script>
+      <script src="modules/generic/table/transclude/search/chipbar/module.js"></script>
+      <script src="modules/generic/table/transclude/search/magnify/component.js"></script>
+      <script src="modules/generic/form/template/meta.module.js"></script>
 
-      <script src="modules/navigation/module.js"></script>
+      <script src="modules/ui/card/detail/section/module.js"></script>
+      <script src="modules/ui/card/simple/module.js"></script>
+      <script src="modules/ui/card/simple/button/module.js"></script>
+
+      <script src="modules/ui/container/listdetail/module.js"></script>
+      <script src="modules/ui/container/accordion/module.js"></script>
+      <script src="modules/ui/container/labelled/component.js"></script>
+
+      <script src="modules/ui/doodads/warning/module.js"></script>
+      <script src="modules/ui/text/phone/optional_extension/component.js"></script>
+      <script src="modules/ui/text/address/plain/component.js"></script>
+      <script src="modules/ui/text/address/basic/component.js"></script>
+      <script src="modules/ui/text/primary_contact/component.js"></script>
+      <script src="modules/ui/text/email/component.js"></script>
+      <script src="modules/ui/text/name/component.js"></script>
+
+      <script src="modules/ui/toasts/banner/component.js"></script>
+      <script src="modules/ui/button/notify/component.js"></script>
+
+            <!-- trying out new layout see what happens -->
+      <script src="modules/layout/main/component.js"></script>
+      <script src="modules/ui/menu/main/category/component.js"></script>
+      <script src="modules/ui/menu/main/item/component.js"></script>
+      <script src="modules/ui/menu/main/child/component.js"></script>
+      <script src="modules/ui/menu/main/component.js"></script>
+
+
+      <script src="modules/navigation/component.js"></script>
       <script src="modules/navigation/main/module.js"></script>
       <script src="modules/navigation/main/menu/module.js"></script>
       <script src="modules/navigation/top/module.js"></script>
       <script src="modules/navigation/top/menu/module.js"></script>
       <script src="modules/navigation/top/newform/module.js"></script>
-      <script src="modules/navigation/top/chat/module.js"></script>
-      <script src="modules/navigation/top/notifications/module.js"></script>
-      <script src="modules/navigation/top/profile/module.js"></script>
+      <script src="modules/navigation/top/chat/component.js"></script>
+      <script src="modules/navigation/top/notification/component.js"></script>
+      <script src="modules/navigation/top/profile/component.js"></script>
+      <script src="modules/navigation/top/settings/component.js"></script>
 
+      <script src="modules/messages/chat/box/module.js"></script>
+      <script src="modules/messages/chat/system/module.js"></script>
+      <script src="modules/messages/chat/bubble/module.js"></script>
       <script src="modules/messages/contacts/module.js"></script>
       <script src="modules/messages/messagebox/module.js"></script>
       <script src="modules/messages/drawer/module.js"></script>
@@ -147,7 +237,76 @@
       <script src="modules/test/table/content/meta.module.js"></script>
       <script src="modules/test/meta.service.js"></script>
 
+      <script src="modules/forms/meta.service.js"></script>
+      <script src="modules/forms/modular/carrier/meta.service.js"></script>
 
+      <!-- sample service to get sample data to fill forms and what not -->
+      <script src="modules/temp/sample_data.service.js"></script>
+
+      <!-- the following modules are for testing the new type of forms -->
+
+
+      <script src="modules/generic/checkbox/simple/smp.module.js"></script>
+      <script src="modules/generic/select/simple/smp.module.js"></script>
+
+      <script src="modules/generic/form/section/header/meta.module.js"></script>
+      <script src="modules/forms/section/meta.module.js"></script>
+      <script src="modules/forms/modular/meta.module.js"></script>
+
+      <script src="modules/forms/modular/truck/meta.module.js"></script>
+      <script src="modules/forms/modular/trailer/meta.module.js"></script>
+      <script src="modules/forms/modular/driver/meta.module.js"></script>
+      <script src="modules/forms/modular/carrier/meta.module.js"></script>
+      <script src="modules/forms/partial/agent/meta.module.js"></script>
+
+      <script src="modules/forms/section/equipment_info/meta.module.js"></script>
+      <script src="modules/forms/section/review/meta.module.js"></script>
+      <script src="modules/forms/section/truck_details/meta.module.js"></script>
+      <script src="modules/forms/section/trailer_details/meta.module.js"></script>
+      <script src="modules/forms/section/individual_ifta/meta.module.js"></script>
+      <script src="modules/forms/section/equipment_insurance/meta.module.js"></script>
+      <script src="modules/forms/section/lease_agreement/meta.module.js"></script>
+      <script src="modules/forms/section/additional_docs/meta.module.js"></script>
+      <script src="modules/forms/section/additional_notes/meta.module.js"></script>
+      <script src="modules/forms/section/associate_info/meta.module.js"></script>
+      <script src="modules/forms/section/driver_info/meta.module.js"></script>
+      <script src="modules/forms/section/emergency_contact/meta.module.js"></script>
+      <script src="modules/forms/section/billing_payment/meta.module.js"></script>
+      <script src="modules/forms/section/direct_deposit/meta.module.js"></script>
+      <script src="modules/forms/section/user_account/meta.module.js"></script>
+      <script src="modules/forms/section/carrier_info/meta.module.js"></script>
+      <script src="modules/forms/section/ifta/meta.module.js"></script>
+
+      <!-- pages modules -->
+      <script src="modules/pages/business/controller.js"></script>
+      <script src="modules/ui/container/accordion/vehicles/component.js"></script>
+      <script src="modules/ui/container/accordion/ifta/component.js"></script>
+      <script src="modules/ui/container/accordion/holds/component.js"></script>
+      <script src="modules/ui/container/accordion/drivers/component.js"></script>
+      <script src="modules/ui/container/accordion/insurances/component.js"></script>
+      <script src="modules/ui/container/accordion/permits/component.js"></script>
+
+      <script src="modules/ui/card/accordion/drivers/component.js"></script>
+      <script src="modules/ui/card/accordion/ifta/component.js"></script>
+      <script src="modules/ui/card/accordion/insurances/component.js"></script>
+      <script src="modules/ui/card/accordion/permits/component.js"></script>
+      <script src="modules/ui/card/accordion/vehicles/component.js"></script>
+      <script src="modules/ui/card/accordion/holds/component.js"></script>
+      <!-- personnel -->
+      <!-- operators -->
+
+      <script src="modules/pages/personnel/operators/table/content/meta.module.js"></script>
+      <script src="modules/pages/personnel/operators/list/module.js"></script>
+      <script src="modules/pages/personnel/operators/list/detail/module.js"></script>
+      <!-- business -->
+      <!-- carriers -->
+      <script src="modules/tables/business/carrier/component.js"></script>
+      <script src="modules/pages/business/carrier/list/module.js"></script>
+      <script src="modules/pages/business/carrier/list/detail/module.js"></script>
+      <!-- other -->
+      <script src="modules/pages/business/other/table/content/meta.module.js"></script>
+      <script src="modules/pages/business/other/list/meta.module.js"></script>
+      <script src="modules/pages/business/other/list/detail/component.js"></script>
 </head>
 
 <body ng-app="tms">

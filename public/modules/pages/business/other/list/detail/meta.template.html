@@ -1,0 +1,69 @@
+<ui-list-detail name="$ctrl.detail.biz.BizName"
+                role="'business'">
+  <detail-body>
+    <div class="panel-top">
+      <div class="panel-col">
+        <ui-container-labelled label="mailing"
+                               class="panel-group">
+          <ui-address-plain address="$ctrl.detail.brnch_address"></ui-address-plain>
+        </ui-container-labelled>
+
+        <ui-container-labelled label="billing"
+                               class="panel-group">
+          <ui-address-plain address="$ctrl.detail.biz.entity.fin_billing_infos[0].address"></ui-address-plain>
+        </ui-container-labelled>
+
+      </div>
+      <div class="panel-col">
+        <ui-container-labelled label="phone">
+          <ui-phone-ext class="text link"
+                        phone="$ctrl.detail.brnch_phone"></ui-phone-ext>
+        </ui-container-labelled>
+
+        <ui-container-labelled label="fax">
+          <ui-phone-ext class="text link"
+                        phone="$ctrl.detail.brnch_fax"
+                        type="fax"></ui-phone-ext>
+        </ui-container-labelled>
+
+        <ui-container-labelled label="email">
+          <div>
+            <div class="text"
+                 ng-hide="$ctrl.detail.BrnchEMail">no email listed</div>
+            <div class="text link"
+                 ng-show="$ctrl.detail.BrnchEMail">{{ $ctrl.detail.BrnchEMail }}</div>
+          </div>
+        </ui-container-labelled>
+
+      </div>
+
+      <div class="panel-col">
+        <ui-container-labelled label="primary contact">
+          <ui-contact-info contact="$ctrl.detail.primary_contact"></ui-contact-info>
+        </ui-container-labelled>
+      </div>
+
+      <div class="panel-col"
+           ng-if="$ctrl.detail.biz.ent_owner_operator != undefined">
+        <ui-container-labelled label="carrier/authority">
+          <div class="text caps">
+            {{ $ctrl.detail.biz.ent_owner_operator.carrier.carrier.BizName }}</div>
+        </ui-container-labelled>
+      </div>
+
+    </div>
+    <div class="panel-bottom">
+      <div class="panel-left">
+
+        <ui-vehicles-accordion vehicles="[1,2,3,4,5,6]"></ui-vehicles-accordion>
+        <ui-ifta-accordion permits="[1,2,3,4]"></ui-ifta-accordion>
+        <ui-permit-accordion permits="[1,23,4,6,7]"></ui-permit-accordion>
+      </div>
+      <div class="panel-right">
+        <ui-holds-accordion holds="[1,2,3,4]"></ui-holds-accordion>
+        <ui-drivers-accordion drivers="[1,2,3,4,5,6,7,8,9]"></ui-drivers-accordion>
+        <ui-insurances-accordion items="[1,2,3,4,5,6]"></ui-insurances-accordion>
+      </div>
+    </div>
+  </detail-body>
+</ui-list-detail>

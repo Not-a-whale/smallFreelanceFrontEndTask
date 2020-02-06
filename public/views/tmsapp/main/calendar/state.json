@@ -1,0 +1,10 @@
+{
+   "tmsapp.main.calendar":{
+      "url":"/calendar",
+      "views":{
+         "content@tmsapp.main":{
+            "templateUrl":"/views/tmsapp/main/calendar/content.html"
+         }
+      }
+   }
+}

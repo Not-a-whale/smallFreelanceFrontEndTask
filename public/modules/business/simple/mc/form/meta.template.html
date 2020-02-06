@@ -1,5 +1,12 @@
 <div class="fsct-row c12">
-  <meta-business-customer-form class="fsct-col c4" ></meta-business-customer-form>
+  <div class="fsct-col c4">
+      <meta-biz-form class="c12" ng-if="$ctrl.meta.BrnchId !== undefined" gate="$ctrl.gate" meta="$ctrl.meta"></meta-biz-form>
+      <div class="frow c12">
+          <meta-input class="c6" ng-if="$ctrl.meta.MC !== undefined" gate="$ctrl.gate.MC" meta="$ctrl.meta.MC"></meta-input>
+          <meta-input ng-if="$ctrl.meta.DOT !== undefined" gate="$ctrl.gate.DOT" meta="$ctrl.meta.DOT"></meta-input>
+          <meta-input ng-if="$ctrl.meta.SCAC !== undefined" gate="$ctrl.gate.SCAC" meta="$ctrl.meta.SCAC"></meta-input>
+      </div>
+  </div>
   <meta-address-form class="fsct-col c4"></meta-address-form>
   <meta-phone-form class="fsct-col c4"></meta-phone-form>
 </div>

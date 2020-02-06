@@ -1,0 +1,59 @@
+carrier-detail {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: var(--cp-paper);
+
+  .panel-top {
+    @flex-row();
+    width: 100%;
+    border: 2px solid @cp-card;
+
+    .panel-col {
+      &:not(:last-child) {
+        margin-right: 12px;
+      }
+    }
+  }
+
+  .panel-col {
+    @flex-col();
+    height: 100%;
+
+    &:not(:last-child) {
+      margin-right: 12px;
+    }
+  }
+
+  .panel-inner {
+    @flex-row();
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+
+    .group {
+      margin-bottom: 24px;
+      ui-container-accordion{
+        margin-bottom: 6px;
+      }
+    }
+  }
+
+  .panel-bottom {
+    @flex-row();
+    width: 100%;
+    .panel-inner {
+      justify-content: space-between;
+      .panel-left {
+        margin-right: 12px;
+      }
+    }
+  }
+
+  .panel-left, .panel-right {
+    @flex-col();
+    width: 50%;
+  }
+
+}

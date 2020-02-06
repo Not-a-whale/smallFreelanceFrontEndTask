@@ -1,11 +1,15 @@
 <div class="cmpt-list-container scrollable c1">
-  <div class="cmpt-title">Atomic</div>
+  <div class="cmpt-title">Components</div>
   <div class="cmpt-list"
-       ng-repeat="t in $ctrl.components | filter: {atomic: true}"
+       ng-repeat="t in $ctrl.components | filter: {type: 'component'}"
        ng-click="$ctrl.SelectMe(t)">{{ t.component }}</div>
-  <div class="cmpt-title">Combined</div>
+  <div class="cmpt-title">Forms</div>
   <div class="cmpt-list"
-       ng-repeat="t in $ctrl.components | filter: {atomic: false}"
+       ng-repeat="t in $ctrl.components | filter: {type: 'form'}"
+       ng-click="$ctrl.SelectMe(t)">{{ t.component }}</div>
+  <div class="cmpt-title">Tables</div>
+  <div class="cmpt-list"
+       ng-repeat="t in $ctrl.components | filter: {type: 'table'}"
        ng-click="$ctrl.SelectMe(t)">{{ t.component }}</div>
 </div>
 <div class="cmpt-res-container scrollable">

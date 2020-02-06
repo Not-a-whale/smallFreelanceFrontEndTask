@@ -1,4 +1,4 @@
-app.component("topLayout", {
+app.component("topNavbar", {
   bindings: {
     activeitem: '<'
   },

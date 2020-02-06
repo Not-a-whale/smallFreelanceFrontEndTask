@@ -1,0 +1,10 @@
+{
+   "tmsapp.main.hr.prsnl":{
+      "url":"/prsnl",
+      "views":{
+         "content@tmsapp.main":{
+            "templateUrl":"/views/tmsapp/main/hr/prsnl/content.html"
+         }
+      }
+   }
+}

@@ -1,0 +1,30 @@
+<style>
+  .nav-editor ul {
+    list-style-type: none;
+  }
+
+  .nav-editor li {
+    list-style-type: none;
+    padding-left: 20px;
+  }
+</style>
+
+
+<script type="text/ng-template"
+        id="navigationItem">
+  <a class="font-nav2 clickable"
+     ui-sref="tmsapp.main.admin.webadmin.navmenueditor.detail({tid: item.MenuItemId})">{{ item.Label }}[{{ item.MenuItemId }}]</a>
+  <ul ng-if="item.app_menu_items" >
+    <li ng-repeat="item in item.app_menu_items"
+        ng-include="'navigationItem'">
+    </li>
+  </ul>
+</script>
+
+<div class="nav-editor">
+  <ul>
+    <li ng-repeat="item in $ctrl.tree"
+        ng-include="'navigationItem'"></li>
+        <div>{{ item }}</div>
+  </ul>
+</div>

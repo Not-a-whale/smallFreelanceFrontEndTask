@@ -1,4 +1,4 @@
-class NavLayoutCtrl {
+class MainNavbarCtrl {
   constructor(scope){
     this.scope = scope;
     this.menulist = undefined;
@@ -9,11 +9,12 @@ class NavLayoutCtrl {
   }
 }
 
-app.component("navLayout", {
-  controller: ["$scope", NavLayoutCtrl],
+app.component("mainNavbar", {
+  controller: ["$scope", MainNavbarCtrl],
   bindings: {
     menulist: '<',
-    onActivateItem: '&'
+    onActivateItem: '&',
+    toggleMenu: '&'
   },
   templateUrl: "modules/navigation/main/template.html"
 });

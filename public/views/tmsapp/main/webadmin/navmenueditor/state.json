@@ -1,0 +1,10 @@
+{
+   "tmsapp.main.webadmin.navmenueditor":{
+      "url":"/navmenueditor",
+      "views":{
+         "content@tmsapp.main":{
+            "templateUrl":"/views/tmsapp/main/webadmin/navmenueditor/content.html"
+         }
+      }
+   }
+}

@@ -1,0 +1,35 @@
+.ui-card() {
+  @padding: 8px;
+
+  display: flex;
+  background-color: @cp-highlight;
+  padding: @padding;
+
+  &:not(:last-child){
+    margin-bottom: 2px;
+  }
+
+  &:hover {
+    background-color: @cp-card;
+  }
+
+  .card-text {
+    font-family: @font-family-second;
+    font-size: @font-small;
+    font-weight: @font-weight-norm;
+    color: @cp-default;
+  }
+
+  .card-link {
+    color: @cp-primary;
+
+    &:hover {
+      color: @cp-primary-mid;
+    }
+  }
+
+  .user {
+    @flex-row();
+    @flex-center();
+  }
+}

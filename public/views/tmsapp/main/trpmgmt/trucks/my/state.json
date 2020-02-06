@@ -1,0 +1,10 @@
+{
+   "tmsapp.main.trpmgmt.trucks.my":{
+      "url":"/my",
+      "views":{
+         "content@tmsapp.main":{
+            "templateUrl":"/views/tmsapp/main/trpmgmt/trucks/my/content.html"
+         }
+      }
+   }
+}

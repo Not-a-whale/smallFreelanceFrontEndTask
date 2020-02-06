@@ -1,0 +1,8 @@
+<checkbox ng-click="$ctrl.Toggle()">
+  <input type="checkbox" ng-model="$ctrl.checked"
+         ng-required="{{$ctrl.required}}"
+         ng-disabled="{{$ctrl.disabled}}"
+         ng-attr-title="{{$ctrl.title}}" />
+  <label ng-if="$ctrl.label != undefined">{{ $ctrl.label }}</label>
+  <div class="error-msg font-error-msg">{{ $ctrl.errmsg || 'This field is required' }}</div>
+</checkbox>

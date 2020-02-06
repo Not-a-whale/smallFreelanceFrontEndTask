@@ -1,0 +1,13 @@
+<ui-container-accordion data-title="'insurances'"
+                   data-count="$ctrl.items.length">
+  <content class="spacing">
+    <div class="header">
+      <div class="heading c3">company</div>
+      <div class="heading c3">type</div>
+      <div class="heading c3">amount</div>
+      <div class="heading c2">expiration</div>
+      <div class="heading c1"></div>
+    </div>
+    <list-insurance-card ng-repeat="item in $ctrl.items"></list-insurance-card>
+  </content>
+</ui-container-accordion>

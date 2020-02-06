@@ -1,0 +1,6 @@
+<ui-button-notify ng-click="$ctrl.DrawerToggle()"
+                  data-icon="'imgs/icons.svg#chat'"
+                  data-notify="'1'"></ui-button-notify>
+<message-drawer out-of-focus-close
+                ng-class="{open: $ctrl.drawer, close: !$ctrl.drawer}"
+                on-close="$ctrl.DrawerClose()"></message-drawer>

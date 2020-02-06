@@ -1,0 +1,42 @@
+ui-button-notify {
+  --circle-color: @cp-usko-red-mid;
+  --icon-color: @cp-grey;
+  --background-color: transparent;
+
+  @flex-row();
+  position: relative;
+  height: 100%;
+  width: 100%;
+  min-height: 32px;
+  min-width: 32px;
+
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background-color);
+  cursor: pointer;
+
+  &:hover {
+    --background-color: @cp-grey-pale;
+    --icon-color: @cp-grey-mid;
+    --circle-color: @cp-usko-red;
+  }
+
+
+  svg {
+    &.icon {
+      fill: var(--icon-color);
+    }
+  }
+
+  div {
+    &.circle{
+      position: absolute;
+      height: 8px;
+      width: 8px;
+      border-radius: 50%;
+      background-color: var(--circle-color);
+      right: calc(50% - 12px);
+      top: calc(50% - 12px);
+    }
+  }
+}

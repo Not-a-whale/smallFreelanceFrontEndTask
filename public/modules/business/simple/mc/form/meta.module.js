@@ -1,6 +1,6 @@
-class MetaBusinessMCSimpleFormCtrl {
+class MetaBusinessMCSimpleFormCtrl extends MetaGateCtrl{
   constructor() {
-
+    super();
     let bizmeta = {
       "attr": {
         "label": "BizId",
@@ -19,7 +19,7 @@ class MetaBusinessMCSimpleFormCtrl {
       }
     };
 
-    this.meta = {
+    this.imeta = {
       "BrnchPhone": {
         "tree": {
           "Notes": {

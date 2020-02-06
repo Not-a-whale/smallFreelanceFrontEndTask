@@ -1,0 +1,10 @@
+{
+   "tmsapp.main.webadmin":{
+      "url":"/webadmin",
+      "views":{
+         "content@tmsapp.main":{
+            "templateUrl":"/views/tmsapp/main/webadmin/content.html"
+         }
+      }
+   }
+}

@@ -1,0 +1,16 @@
+ui-table-row {
+  @flex-row();
+  width: 100%;
+  min-height: 50px;
+
+  background-color: @cp-highlight;
+
+  .ui-table-padded();
+  &:not(:last-child){
+    margin-bottom: 2px;
+  }
+
+  &:hover,&.selected{
+    background-color: @cp-card;
+  }
+}

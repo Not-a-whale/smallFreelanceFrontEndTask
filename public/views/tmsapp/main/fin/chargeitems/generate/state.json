@@ -1,0 +1,10 @@
+{
+   "tmsapp.main.fin.chargeitems.generate":{
+      "url":"/generate",
+      "views":{
+         "content@tmsapp.main":{
+            "templateUrl":"/views/tmsapp/main/fin/chargeitems/generate/content.html"
+         }
+      }
+   }
+}

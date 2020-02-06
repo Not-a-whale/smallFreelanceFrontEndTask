@@ -1,0 +1,61 @@
+<div class="form-nav"
+     du-scroll-container="scrollContainer">
+  <div class="form-nav-title font-form-list-title">{{$ctrl.formtitle}}</div>
+  <div class="form-nav-body">
+    <div class="enabled-forms">
+      <div class="form-nav-item "
+           ng-repeat="f in $ctrl.forms | enabled"
+           du-scrollspy="{{f.viewname }}">
+        <svg class="toggle"
+             ng-if="f.optional"
+             ng-click="$ctrl.DisableForm(f)">
+          <use xlink:href="imgs/icons.svg#bar"></use>
+        </svg>
+        <div class="font-form-list"
+             ng-click="$ctrl.ScrollToForm(f)">{{ f.title }}</div>
+        <div class="status">{{ $ctrl.Status(f) }} </div>
+        <div ng-if="f.optional"
+             class="removable font-form-list-removable">removable</div>
+      </div>
+    </div>
+    <div class="disabled-forms">
+      <div class="form-nav-item font-form-list optional"
+           ng-repeat="f in $ctrl.forms | disabled | filter: {optional: true}"
+           ng-click="$ctrl.EnableForm(f)">
+        <svg class="toggle">
+          <use xlink:href="imgs/icons.svg#plus"></use>
+        </svg>{{ f.title }}
+      </div>
+    </div>
+  </div>
+</div>
+<div id="scrollContainer"
+     du-scroll-container
+     class="form-holder scrollable">
+  <div class="section-holder">
+    <!-- <div id="{{ f.viewname }}"
+         class="section"
+         ng-repeat="f in $ctrl.forms | enabled">
+         <div class="form" ui-view="form"></div>
+      <div class="section-body"
+           ui-view="{{ f.viewname }}"
+           form="f"
+           on-update="$ctrl.Update(f, data)"
+           on-remove="$ctrl.DisableForm(f)">
+      </div>
+    </div> -->
+    <div ui-view="form"
+         get-form="$ctrl.GetForm(form)"
+         on-disable="$ctrl.DisableForm(form)"></div>
+  </div>
+  <div class="scroll-btn-container">
+    <scroll-btn ng-show="$ctrl.prevf"
+                direction="up"
+                ng-click="$ctrl.ScrollToPrev()"
+                title="{{$ctrl.prevf.title}}"></scroll-btn>
+    <scroll-btn ng-show="$ctrl.nextf"
+                direction="down"
+                ng-click="$ctrl.ScrollToNext()"
+                title="{{$ctrl.nextf.title}}"></scroll-btn>
+  </div>
+</div>

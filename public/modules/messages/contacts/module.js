@@ -1,6 +1,7 @@
 class ContactsCtrl {
-  constructor() {
+  constructor(chatsrv) {
     this.initials = "";
+    this.chatsrv = chatsrv;
   }
 
   Call() {
@@ -9,6 +10,7 @@ class ContactsCtrl {
 
   Message() {
     console.log("Messaging " + this.contact.name);
+    this.chatsrv.NewChatbox(this.contact.name);
   }
 
   HasAvatar() {
@@ -34,7 +36,7 @@ class ContactsCtrl {
 }
 
 app.component("contactBox", {
-  controller: ContactsCtrl,
+  controller: ['ChatSystemService', ContactsCtrl],
   templateUrl: "modules/messages/contacts/default.html",
   bindings: {
     contact: '<'

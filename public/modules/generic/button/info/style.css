@@ -1,0 +1,21 @@
+info-button {
+  --info-size: 30px;
+
+  height: var(--info-size);
+  width: var(--info-size);
+  min-width: var(--info-size);
+  min-height: var(--info-size);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+info-button svg.info-btn {
+  fill: var(--cp-primary);
+}
+
+info-button:hover {
+  background-color: var(--cp-primary-pale);
+}

@@ -1,0 +1,47 @@
+ui-card-detail-section {
+  @flex-col();
+  width: 100%;
+
+  border-left: 1px;
+  border-right: 1px;
+  border-bottom: 1px;
+  border-color: @cp-card;
+  border-style: solid;
+
+  padding: 8px;
+
+  &>.title {
+    margin-bottom: 6px;
+
+    .detail-card-heading();
+  }
+
+  &>.body {
+    @flex-col();
+    &>content {
+      width: 100%;
+
+      &.row {
+        @flex-row();
+      }
+
+      &.col {
+        @flex-col();
+      }
+
+      .panel-right,
+      .panel-left {
+        @flex-col();
+      }
+
+      .panel-right {
+        margin-left: auto;
+        margin-right: 20px;
+      }
+
+      ui-card-simple {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}

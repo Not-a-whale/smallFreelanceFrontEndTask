@@ -1,0 +1,26 @@
+<style>
+  chat-box-bubble {
+    display: flex;
+    background-color: var(--cp-highlight);
+    border-radius: 10px 10px 10px 0px;
+    min-height: 30px;
+    min-width: 30px;
+    max-width: 320px;
+    width: fit-content;
+    padding: 6px 10px 6px 10px !important;
+    align-items: center;
+  }
+
+  chat-box-bubble.mine {
+    background-color: var(--cp-background);
+    border-radius: 10px 10px 0px 10px;
+  }
+
+  chat-box-bubble .msg-text {
+    font-family: var(--font-family-second);
+    font-size: var(--font-small);
+    color: var(--cp-default);
+  }
+</style>
+
+<pre class="msg-text">{{ $ctrl.message.text}}</pre>

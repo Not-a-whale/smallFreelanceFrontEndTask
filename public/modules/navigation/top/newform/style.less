@@ -1,0 +1,36 @@
+new-form {
+  @flex-col();
+  flex-direction: flex-end;
+  position: relative;
+  height: 100%;
+
+  ul {
+    position: absolute;
+    background-color: var(--topnav-new-btn-bg-color);
+    box-shadow: var(--shadow);
+    z-index: 99;
+    width: 166px;
+    flex-direction: column;
+    align-items: flex-start;
+    top: 42px;
+  }
+
+  li {
+    cursor: pointer;
+    padding: 0px 12px 0px 12px;
+    height: 32px;
+    vertical-align: center;
+    line-height: 32px;
+    font-size: var(--font-norm);
+    font-family: var(--font-family-primary);
+
+    &:hover {
+      background-color: var(--topnav-new-btn-bg-color-hover);
+    }
+  }
+
+  ul,
+  li {
+    list-style: none;
+  }
+}

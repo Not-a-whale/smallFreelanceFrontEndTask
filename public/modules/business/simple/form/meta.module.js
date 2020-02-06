@@ -1,6 +1,7 @@
-class MetaBusinessSimpleFormCtrl {
+class MetaBusinessSimpleFormCtrl extends MetaGateCtrl {
   constructor() {
-    this.meta = {
+    super();
+    this.imeta = {
       "BrnchId": {
         "tree": {},
         "attr": {

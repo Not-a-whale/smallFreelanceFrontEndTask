@@ -1,0 +1,9 @@
+<div class="label"> {{ $ctrl.label }}</div>
+<div class="item-container">
+  <main-nav-menu-item ng-repeat="item in $ctrl.items"
+                      data-label="item.label"
+                      data-children="item.children"
+                      data-icon="item.icon"
+                      data-goto="item.goto"
+                      data-state="item.state"></main-nav-menu-item>
+</div>

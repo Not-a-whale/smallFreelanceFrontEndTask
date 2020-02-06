@@ -1,0 +1,10 @@
+{
+   "tmsapp.main.inv":{
+      "url":"/inv",
+      "views":{
+         "content@tmsapp.main":{
+            "templateUrl":"/views/tmsapp/main/inv/content.html"
+         }
+      }
+   }
+}
