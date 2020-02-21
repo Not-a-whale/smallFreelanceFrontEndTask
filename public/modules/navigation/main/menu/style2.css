@@ -16,7 +16,7 @@ main-nav-menu2>.category>.label {
     font-family: var(--font-family-primary);
     font-weight: var(--font-weight-medium);
     font-size: var(--font-small);
-    text-transform: uppercase;
+    text-transform: capitalize;
     color: var(--navbar-font-nav-cat-color);
 }
 
@@ -70,7 +70,7 @@ main-nav-menu2>.category>.content>.item-container>.item>.label {
     font-family: var(--font-family-second);
     font-size: var(--font-norm);
     font-weight: var(--font-weight-medium);
-    text-transform: uppercase;
+    text-transform: capitalize;
     text-decoration: none;
     color: var(--navbar-font-nav-color);
 }
