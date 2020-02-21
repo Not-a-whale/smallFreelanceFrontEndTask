@@ -4,136 +4,105 @@
     --shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.08);
     --shadow-bucket: 0px 2px 4px 2px rgba(0, 0, 0, 0.08);
     --color-shadow-soft: rgba(0, 0, 0, 0.16);
-
     --layer-max: 9999;
     --layer-min: -9999;
-
     --layer-table-header: 20;
     --layer-table-search: 19;
     --layer-table-select: 18;
     --layer-table-hover: 17;
     --layer-table-row: 10;
-
     --layer-chatbox: 50;
     --layer-menu-subitem: 55;
-
-    --cp-usko-red: #873535;
-    --cp-usko-red-mid: #9A4949;
-    --cp-usko-red-light: #B25D58;
-    --cp-usko-red-pale: #F9C6C3;
-
-    --cp-primary: #4599D9;
-    --cp-primary-mid: #52A4E2;
-    --cp-primary-light: #8BC1E9;
-    --cp-primary-pale: #EFF8FF;
-    --cp-primary-pale2: #E8F5FF;
-
-    --cp-success: #8AB55F;
-    --cp-success-mid: #96BB73;
-    --cp-success-light: #AAC88E;
-    --cp-success-pale: #ECF2E7;
-
-    --cp-warn: #D69A20;
-    --cp-warn-mid: #D69A20;
-    --cp-warn-light: #E6AF3E;
-    --cp-warn-pale: #FFF5E2;
-
+    --cp-usko-red: #8B4040;
+    --cp-usko-red-mid: #944A4A;
+    --cp-usko-red-light: #AC6262;
+    --cp-usko-red-pale: #E9CCCC;
+    --cp-primary: #2F7DB4;
+    --cp-primary-mid: #4388B8;
+    --cp-primary-light: #AAD2EE;
+    --cp-primary-pale: #EAF5FC;
+    --cp-primary-pale2: #F3FAFF;
+    --cp-success: #25AB9D;
+    --cp-success-mid: #3AB7AA;
+    --cp-success-light: #6DCEC4;
+    --cp-success-pale: #D9F3F3;
+    --cp-warn: #D89D38;
+    --cp-warn-mid: #DEAB54;
+    --cp-warn-light: #E9B65F;
+    --cp-warn-pale: #FCF3DD;
     --cp-danger: #E54141;
     --cp-danger-mid: #E34F4F;
     --cp-danger-light: #F3746B;
     --cp-danger-pale: #FFECEB;
-
     --cp-default: #4B4B4B;
-    --cp-default-mid: #5E5E5E;
-    --cp-grey: #848484;
-    --cp-grey-mid: #B0B0B4;
-    --cp-grey-light: #E6E6E6;
-    --cp-grey-pale: #ECECEC;
-    --cp-card: #F3F3F3;
+    --cp-default-mid: #56565D;
+    --cp-grey: #CBCCCE;
+    --cp-grey-mid: #DCDCDC;
+    --cp-grey-light: #E8E8E8;
+    --cp-grey-pale: #F0F0F0;
+    --cp-card: #F9F9F9;
     --cp-highlight: #FFFFFF;
-
     --cp-background: var(--cp-grey-light);
     --cp-paper: var(--cp-highlight);
     --cp-shadow: #00000029;
-
     --font-family-primary: 'Poppins', Arial, Helvetica, sans-serif;
     --font-family-second: 'Nunito Sans', Arial, 'Helvetica', sans-serif;
-
     --font-tiny: 12px;
     --font-small: 14px;
     --font-norm: 16px;
     --font-large: 18px;
     --font-giant: 20px;
     --font-super: 30px;
-
     --font-weight-norm: normal;
     --font-weight-medium: 500;
     --font-weight-bold: bold;
-
     --font-line-large: 20px;
-
     --font-color-primary: var(--cp-default);
     --font-color-hover-primary: var(--cp-grey-heavy);
-
     --avatar-bg-color: var(--cp-grey-mid);
     --avatar-text-color: var(--cp-highlight);
-
     --form-font-color-active: var(--cp-usko-red);
     --form-font-color-optional: var(--cp-grey-light);
     --form-font-color-list: var(--cp-grey-mid);
     --form-font-color-hover: var(--cp-grey-heavy);
-
     --form-font-head-color: var(--cp-usko-red);
-
     --byline-font-color: var(--cp-grey-light);
-
     --form-nav-width: 263px;
     --form-nav-padding: 12px;
     --form-nav-item-margin: 26px;
     --form-holder-padding: 60px;
     --form-section-padding-top: 32px;
     --form-row-gutter: 46px;
-
     --form-nav-banner-color: var(--cp-usko-red);
     --form-nav-banner-font-color: var(--cp-highlight);
-
     --form-nav-body-color: var(--cp-card);
     --form-divider-color: var(--cp-background);
     --form-heading-divider-color: var(--cp-grey-light);
-
     --form-page-bg-color: var(--cp-highlight);
     --form-nav-buttons-line-color: var(--cp-grey-light);
-
     --ins-display-border: 1px solid var(--cp-grey-light);
     --ins-display-bg-color: var(--cp-card);
-
     --btn-shadow: 0px 1px 3px var(--cp-shadow);
     --btn-border-radius: 2px 2px 2px 2px;
-
     --input-height-min: 36px;
     --input-height: 36px;
-
     --input-color-default: var(--cp-grey-light);
     --input-color-active: var(--cp-primary);
     --input-color-hover: var(--cp-primary-mid);
     --input-color-error: var(--cp-danger);
     --input-color-disabled: var(--cp-background);
     --input-color-background: var(--cp-highlight);
-
     --fileupload-display-line-color: var(--cp-background);
     --fileupload-display-no-file-color: var(--cp-grey-mid);
     --fileupload-display-file-color: var(--cp-primary);
     --fileupload-display-close-color: var(--cp-grey-mid);
     --fileupload-display-close-color-hover: var(--cp-grey-light);
-
     --imgupload-line-color: var(--cp-grey-light);
     --imgupload-bg-color: var(--cp-card);
     --imgupload-line-color-hover: var(--cp-grey-mid);
-
     --layout-page-content-margin: 26px;
     --layout-page-content-padding-top: 16px;
     --layout-topnav-tools-margin-top: 15px;
-
     --logo-width: 163px;
     --logo-width-min: 43px;
     --icon-size-norm: 32px;
