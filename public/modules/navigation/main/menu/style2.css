@@ -38,7 +38,7 @@ main-nav-menu2>.category>.content>.item-container.active {
 
 main-nav-menu2>.category>.content>.item-container>.item {
     display: flex;
-    height: 35px;
+    height: 26px;
     align-items: center;
     cursor: pointer;
 }
