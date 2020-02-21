@@ -11,7 +11,7 @@ html {
   font-family: 'Poppins', Arial, Helvetica, sans-serif;
   font-size: 16px;
   font-weight: normal;
-  color: #4B4B4B;
+  color: #494950;
 }
 svg,
 use {
@@ -55,7 +55,7 @@ svg.small {
   font-family: 'Nunito Sans', Arial, 'Helvetica', sans-serif;
   font-weight: normal;
   font-size: 14px;
-  color: #4B4B4B;
+  color: #494950;
   line-height: 16px;
 }
 .font-title {
@@ -145,7 +145,7 @@ svg.small {
   font-weight: bold;
 }
 .font-c-default {
-  color: #4B4B4B;
+  color: #494950;
 }
 .font-c-grey {
   color: #CBCCCE;
@@ -256,7 +256,7 @@ top-navbar .breadcrumbs .stack {
   align-items: center;
 }
 top-navbar .breadcrumbs .stack:last-child * {
-  color: #4B4B4B !important;
+  color: #494950 !important;
 }
 top-navbar .breadcrumbs .stack .delimiter {
   color: #CBCCCE;
@@ -397,7 +397,7 @@ ui-container-accordion > .header {
   cursor: pointer;
 }
 ui-container-accordion > .header > svg {
-  fill: #4B4B4B;
+  fill: #494950;
 }
 ui-container-accordion > .header.expanded > svg {
   transform: scaleY(-1);
@@ -448,7 +448,7 @@ ui-container-labelled > .label {
   font-family: 'Poppins', Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: 12px;
-  color: #4B4B4B;
+  color: #494950;
   text-transform: uppercase;
 }
 ui-container-labelled .text,
@@ -456,7 +456,7 @@ ui-container-labelled div {
   font-family: 'Nunito Sans', Arial, 'Helvetica', sans-serif;
   font-weight: normal;
   font-size: 14px;
-  color: #4B4B4B;
+  color: #494950;
 }
 ui-list-detail {
   --header-height: 64px;
@@ -477,7 +477,7 @@ ui-list-detail > .header > .heading-banner {
   height: 64px;
   min-height: 64px;
   width: 100%;
-  background-color: #4B4B4B;
+  background-color: #494950;
   align-items: center;
   border-radius: 4px 4px 0px 0px;
 }
@@ -496,7 +496,7 @@ ui-list-detail > .header > .heading-banner > .avatar-container > .avatar {
 ui-list-detail > .header > .heading-banner > .activity {
   font-family: 'Poppins', Arial, Helvetica, sans-serif;
   font-size: 12px;
-  color: #4B4B4B;
+  color: #494950;
   text-transform: capitalize;
   margin-left: auto;
   margin-right: 32px;
@@ -552,7 +552,7 @@ ui-card-detail-section > .title {
   font-family: 'Poppins', Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: 16px;
-  color: #4B4B4B;
+  color: #494950;
   text-transform: capitalize;
 }
 ui-card-detail-section > .body {
@@ -590,7 +590,7 @@ ui-card-simple > .title {
   font-family: 'Poppins', Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: 12px;
-  color: #4B4B4B;
+  color: #494950;
   text-transform: uppercase;
   display: flex;
   width: 100%;
@@ -601,14 +601,14 @@ ui-card-simple > .body {
   font-family: 'Nunito Sans', Arial, 'Helvetica', sans-serif;
   font-weight: normal;
   font-size: 14px;
-  color: #4B4B4B;
+  color: #494950;
 }
 ui-card-simple > .body .text *,
 ui-card-simple > .body .text {
   font-family: 'Nunito Sans', Arial, 'Helvetica', sans-serif;
   font-weight: normal;
   font-size: 14px;
-  color: #4B4B4B;
+  color: #494950;
 }
 ui-card-simple-button {
   display: flex;
@@ -619,7 +619,7 @@ ui-card-simple-button .text {
   font-family: 'Nunito Sans', Arial, 'Helvetica', sans-serif;
   font-weight: normal;
   font-size: 14px;
-  color: #4B4B4B;
+  color: #494950;
 }
 ui-card-simple-button > a {
   margin-left: auto;
@@ -891,7 +891,7 @@ ui-table-search-input input {
   fill: var(--btn-color-font);
 }
 button-icon {
-  --btn-color: #4B4B4B;
+  --btn-color: #494950;
   --btn-color-hover: #56565D;
   --btn-color-active: #CBCCCE;
   --btn-color-font: #FFFFFF;
@@ -936,7 +936,7 @@ button-icon * {
   text-decoration: none;
 }
 button-icon.btn {
-  --btn-color: #4B4B4B;
+  --btn-color: #494950;
   --btn-color-hover: #56565D;
   --btn-color-active: #CBCCCE;
   --btn-color-font: #FFFFFF;
@@ -1070,7 +1070,7 @@ button-icon.btn-smp:hover {
 }
 button-icon.btn-simple.active,
 button-icon.btn-smp.active {
-  --btn-color-font: #4B4B4B;
+  --btn-color-font: #494950;
 }
 button-icon.btn-simple.btn-primary,
 button-icon.btn-smp.btn-primary {
@@ -1098,7 +1098,7 @@ button-icon.right .btn-icon-sm {
 button.btn,
 a.btn,
 input.btn {
-  --btn-color: #4B4B4B;
+  --btn-color: #494950;
   --btn-color-hover: #56565D;
   --btn-color-active: #CBCCCE;
   --btn-color-font: #FFFFFF;
@@ -1282,7 +1282,7 @@ a.btn-simple.active,
 a.btn-smp.active,
 input.btn-simple.active,
 input.btn-smp.active {
-  --btn-color-font: #4B4B4B;
+  --btn-color-font: #494950;
 }
 button.btn-simple.btn-primary,
 button.btn-smp.btn-primary,
@@ -1355,7 +1355,7 @@ operator-driver-card .card-text {
   font-family: 'Nunito Sans', Arial, 'Helvetica', sans-serif;
   font-size: 14px;
   font-weight: normal;
-  color: #4B4B4B;
+  color: #494950;
 }
 operator-driver-card .card-link {
   color: #2F7DB4;
@@ -1428,7 +1428,7 @@ ifta-account-card .card-text {
   font-family: 'Nunito Sans', Arial, 'Helvetica', sans-serif;
   font-size: 14px;
   font-weight: normal;
-  color: #4B4B4B;
+  color: #494950;
 }
 ifta-account-card .card-link {
   color: #2F7DB4;
@@ -1461,7 +1461,7 @@ list-insurance-card .card-text {
   font-family: 'Nunito Sans', Arial, 'Helvetica', sans-serif;
   font-size: 14px;
   font-weight: normal;
-  color: #4B4B4B;
+  color: #494950;
 }
 list-insurance-card .card-link {
   color: #2F7DB4;
@@ -1495,7 +1495,7 @@ permit-account-card .card-text {
   font-family: 'Nunito Sans', Arial, 'Helvetica', sans-serif;
   font-size: 14px;
   font-weight: normal;
-  color: #4B4B4B;
+  color: #494950;
 }
 permit-account-card .card-link {
   color: #2F7DB4;
@@ -1543,7 +1543,7 @@ item-holds-card .card-text {
   font-family: 'Nunito Sans', Arial, 'Helvetica', sans-serif;
   font-size: 14px;
   font-weight: normal;
-  color: #4B4B4B;
+  color: #494950;
 }
 item-holds-card .card-link {
   color: #2F7DB4;
@@ -1577,7 +1577,7 @@ owned-vehicle-card .card-text {
   font-family: 'Nunito Sans', Arial, 'Helvetica', sans-serif;
   font-size: 14px;
   font-weight: normal;
-  color: #4B4B4B;
+  color: #494950;
 }
 owned-vehicle-card .card-link {
   color: #2F7DB4;
@@ -1592,7 +1592,7 @@ owned-vehicle-card .user {
 }
 menu-main-nav {
   --menu-width: 180px;
-  --background-color: #4B4B4B;
+  --background-color: #494950;
 }
 menu-main-nav .menu-container {
   display: flex;
@@ -2163,7 +2163,7 @@ operator-detail ui-list-detail detail-body > .panel-left > .dl-container > .dl-i
   font-family: 'Nunito Sans', Arial, 'Helvetica', sans-serif;
   font-weight: normal;
   font-size: 14px;
-  color: #4B4B4B;
+  color: #494950;
 }
 operator-detail ui-list-detail detail-body > .panel-left > .dl-container > .dl-info > .dl-exp > div:first-child {
   font-weight: bold;
@@ -2176,7 +2176,7 @@ operator-detail ui-list-detail detail-body > .panel-left > .dl-container > .dl-i
   font-family: 'Nunito Sans', Arial, 'Helvetica', sans-serif;
   font-weight: normal;
   font-size: 14px;
-  color: #4B4B4B;
+  color: #494950;
 }
 operator-detail ui-list-detail detail-body > .panel-left > .dl-container > .dl-info > .dl-endo > div:first-child {
   font-weight: bold;
