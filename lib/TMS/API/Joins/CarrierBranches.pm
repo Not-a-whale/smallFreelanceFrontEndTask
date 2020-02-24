@@ -16,7 +16,9 @@ sub _build_prefetch {
                 },
                 'has_carrier'
             ]
-        }
+        },
+        'brnch_address',
+        'brnch_phone'
     ]
 }
 1;
