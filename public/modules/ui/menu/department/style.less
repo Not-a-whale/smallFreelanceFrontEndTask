@@ -1,0 +1,22 @@
+menu-main-nav-department {
+  @flex-col();
+  --menu-width: 180px;
+  width: var(--menu-width);
+  height: 100%;
+  background-color: @cp-default;
+  padding-top: 12px;
+  padding-bottom: 12px;
+
+  &>.title {
+    color: @cp-grey-light;
+    font-family: @font-family-primary;
+    font-size: @font-small;
+    font-weight: @font-weight-bold-semi;
+    text-transform: capitalize;
+    margin-left: 12px;
+  }
+
+  &>menu-main-nav-department-item {
+    margin-top: 6px;
+  }
+}
