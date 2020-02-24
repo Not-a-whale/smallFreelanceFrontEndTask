@@ -1,0 +1,145 @@
+page-layout-primary {
+  --page-nav-height: 48px;
+  --page-breadcrumb-height: 34px;
+  --page-header-height: calc(var(--page-nav-height) + var(--page-breadcrumb-height));
+
+  padding: 8px 23px 0px 16px;
+
+  @flex-col();
+  height: 100%;
+  width: 100%;
+
+  #page-header {
+    @flex-col();
+    height: var(--page-header-height);
+    width: 100%;
+    margin-bottom: 8px;
+    border-radius: 2px;
+    background-color: @cp-card;
+
+    #page-navigation {
+      @flex-row();
+      height: var(--page-nav-height);
+      width: 100%;
+      border-bottom: 1px solid @cp-grey-mid;
+
+      &>#page-title {
+        margin: 15px 15px 5px 15px;
+      }
+
+      &>.page-tabs {
+        margin-right: 12px;
+        font-family: @font-family-primary;
+        font-size: @font-norm;
+        font-weight: @font-weight-bold-semi;
+        color: @cp-default;
+        text-transform: capitalize;
+        margin-top: 15px;
+      }
+
+      &>.page-option {
+        margin-right: 12px;
+        margin-top: 15px;
+      }
+
+      &>.page-actions {
+        @flex-row();
+        align-items: center;
+        margin-left: auto;
+        margin-right: 24px;
+
+        &>.page-action {
+          margin-left: auto;
+          margin-right: 12px;
+        }
+
+      }
+
+      &>.v-div {
+        border-left: 1px solid @cp-default-light;
+        height: 22px;
+        width: 1px;
+        margin-top: 15px;
+        margin-right: 12px;
+      }
+    }
+
+    #breadcrumbs {
+      @flex-row();
+      height: var(--page-breadcrumb-height);
+      width: 100%;
+      align-items: center;
+
+      .home-icon {
+        fill: @cp-usko-red;
+      }
+
+      .back-button {
+        svg {
+          fill: @cp-usko-red;
+          transform: scaleX(-1);
+          margin-right: 6px;
+        }
+      }
+
+      #breadcrumb-path {
+        @flex-row();
+        height: 100%;
+        align-items: center;
+
+        .breadcrumb-page {
+          margin-left: 6px;
+          cursor: pointer;
+
+          &:not(:last-child) {
+            color: @cp-default-light;
+          }
+        }
+      }
+    }
+  }
+
+  #page-content {
+    height: calc(100% - var(--page-header-height) - 8px);
+  }
+
+
+  // #topbar-container {
+  //   @flex-row();
+  //   width: 100%;
+  //   height: var(--topbar-height);
+
+  //   #logo-view {
+  //     @flex-row();
+  //     width: var(--logo-width);
+  //     max-width: var(--logo-width-max);
+  //     height: 100%;
+  //     background: @cp-card;
+  //     border-right: 1px solid @cp-grey-light;
+  //   }
+
+  //   #topnav-view {
+  //     @flex-row();
+  //     height: 100%;
+  //     width: calc(100% - var(--logo-width));
+  //     max-width: calc(100% - var(--logo-width-max));
+  //   }
+  // }
+  // #body-container {
+  //   @flex-row();
+  //   width: 100%;
+  //   height: calc(100% - var(--topbar-height));
+
+  //   #mainnav-view {
+  //     @flex-row();
+  //     width: fit-content;
+  //     height: 100%;
+  //   }
+
+  //   #content-view {
+  //     @flex-col();
+  //     flex-grow: 1;
+  //     height: 100%;
+  //   }
+  // }
+}
