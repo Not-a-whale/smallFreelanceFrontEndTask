@@ -40,8 +40,8 @@
             rel="stylesheet"> -->
       <link href="modules/navigation/top/menu/style.css"
             rel="stylesheet">
-      <link href="modules/generic/table/style.css"
-            rel="stylesheet">
+      <!-- <link href="modules/generic/table/style.css"
+            rel="stylesheet"> -->
       <link href="modules/messages/drawer/style.css"
             rel="stylesheet">
       <link href="modules/generic/form/template/style.css"
@@ -117,6 +117,7 @@
       <script src="services/chip.js"></script>
       <script src="services/tablechips.service.js"></script>
       <script src="services/application/error.service.js"></script>
+      <script src="services/application/page.service.js"></script>
 
       <script src="modules/generic/input/meta.module.js"></script>
       <script src="modules/generic/checkbox/meta.module.js"></script>
@@ -191,8 +192,10 @@
 
       <script src="modules/ui/doodads/warning/module.js"></script>
       <script src="modules/ui/text/phone/optional_extension/component.js"></script>
+      <script src="modules/ui/text/phone/oneliner/component.js"></script>
       <script src="modules/ui/text/address/plain/component.js"></script>
       <script src="modules/ui/text/address/basic/component.js"></script>
+      <script src="modules/ui/text/address/oneliner/component.js"></script>
       <script src="modules/ui/text/primary_contact/component.js"></script>
       <script src="modules/ui/text/email/component.js"></script>
       <script src="modules/ui/text/name/component.js"></script>
@@ -202,10 +205,18 @@
 
             <!-- trying out new layout see what happens -->
       <script src="modules/layout/main/component.js"></script>
+      <script src="modules/layout/page/primary/component.js"></script>
+      <script src="modules/layout/menu/default/component.js"></script>
+
+
       <script src="modules/ui/menu/main/category/component.js"></script>
       <script src="modules/ui/menu/main/item/component.js"></script>
       <script src="modules/ui/menu/main/child/component.js"></script>
       <script src="modules/ui/menu/main/component.js"></script>
+
+      <script src="modules/ui/menu/department/item/component.js"></script>
+      <script src="modules/ui/menu/department/component.js"></script>
+      <script src="modules/ui/menu/default/component.js"></script>
 
 
       <script src="modules/navigation/component.js"></script>
@@ -277,8 +288,9 @@
       <script src="modules/forms/section/carrier_info/meta.module.js"></script>
       <script src="modules/forms/section/ifta/meta.module.js"></script>
 
-      <!-- pages modules -->
-      <script src="modules/pages/business/controller.js"></script>
+      <!-- page modules -->
+      <script src="modules/page/business/controller.js"></script>
+      <script src="modules/page/safety/business/all/component.js"></script>
       <script src="modules/ui/container/accordion/vehicles/component.js"></script>
       <script src="modules/ui/container/accordion/ifta/component.js"></script>
       <script src="modules/ui/container/accordion/holds/component.js"></script>
@@ -295,18 +307,20 @@
       <!-- personnel -->
       <!-- operators -->
 
-      <script src="modules/pages/personnel/operators/table/content/meta.module.js"></script>
-      <script src="modules/pages/personnel/operators/list/module.js"></script>
-      <script src="modules/pages/personnel/operators/list/detail/module.js"></script>
+      <script src="modules/page/personnel/operators/table/content/meta.module.js"></script>
+      <script src="modules/page/personnel/operators/list/module.js"></script>
+      <script src="modules/page/personnel/operators/list/detail/module.js"></script>
       <!-- business -->
       <!-- carriers -->
-      <script src="modules/tables/business/carrier/component.js"></script>
-      <script src="modules/pages/business/carrier/list/module.js"></script>
-      <script src="modules/pages/business/carrier/list/detail/module.js"></script>
+      <script src="modules/table/business/carrier/component.js"></script>
+      <script src="modules/page/business/carrier/list/module.js"></script>
+      <script src="modules/page/business/carrier/list/detail/module.js"></script>
       <!-- other -->
-      <script src="modules/pages/business/other/table/content/meta.module.js"></script>
-      <script src="modules/pages/business/other/list/meta.module.js"></script>
-      <script src="modules/pages/business/other/list/detail/component.js"></script>
+      <script src="modules/page/business/other/table/content/meta.module.js"></script>
+      <script src="modules/page/business/other/list/meta.module.js"></script>
+      <script src="modules/page/business/other/list/detail/component.js"></script>
+      <!-- all -->
+      <script src="modules/table/business/all/component.js"></script>
 </head>
 
 <body ng-app="tms">
