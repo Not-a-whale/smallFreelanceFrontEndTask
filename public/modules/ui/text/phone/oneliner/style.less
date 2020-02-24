@@ -1,0 +1,16 @@
+ui-phone-oneliner {
+  @flex-row();
+  width: 100%;
+
+  &>div {
+    @flex-row();
+    width: 100%;
+
+    .number {
+      margin-right: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
