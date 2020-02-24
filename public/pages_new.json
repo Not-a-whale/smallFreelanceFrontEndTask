@@ -1,0 +1,110 @@
+[{
+    "title": "dispatch",
+    "pages": [{
+      "title": "trucks",
+      "icon": "imgs/icons.svg#truck-loaded",
+      "pages": [{
+          "title": "available",
+          "path": ""
+        }, {
+          "title": "all trucks",
+          "path": ""
+        }
+      ],
+      "actions": [{
+        "title" : "register new"
+      }],
+      "optional" : [
+        {
+          "title": "view archives",
+          "path": ""
+        }
+      ]
+    }, {
+      "title": "drivers",
+      "icon": "imgs/icons.svg#user"
+    }, {
+      "title": "loads",
+      "icon": "imgs/icons.svg#boxes"
+    }, {
+      "title": "manage trips",
+      "icon": "imgs/icons.svg#circle-solid"
+    }]
+  }, {
+    "title": "safety",
+    "pages": [{
+      "title": "equipment",
+      "icon": "imgs/icons.svg#truck-loaded"
+    }, {
+      "title": "personnel",
+      "icon": "imgs/icons.svg#user"
+    }, {
+      "title": "businesses",
+      "icon": "imgs/icons.svg#boxes",
+      "pages": [
+        {
+          "title": "all"
+        },{
+          "title": "brokers"
+        },{
+          "title": "carriers"
+        },{
+          "title": "other"
+        }
+      ],
+      "optional" : [
+        {
+          "title": "view archives"
+        }
+      ]
+    }, {
+      "title": "expirations",
+      "icon": "imgs/icons.svg#circle-solid"
+    }, {
+      "title": "maintenance",
+      "icon": "imgs/icons.svg#circle-solid"
+    }, {
+      "title": "logbook",
+      "icon": "imgs/icons.svg#circle-solid"
+    }, {
+      "title": "IFTA/Highway use",
+      "icon": "imgs/icons.svg#circle-solid"
+    }]
+  }, {
+    "title": "finance",
+    "pages": [{
+      "title": "invoices",
+      "icon": "imgs/icons.svg#truck-loaded"
+    }, {
+      "title": "settlements",
+      "icon": "imgs/icons.svg#user"
+    }, {
+      "title": "payment schedule",
+      "icon": "imgs/icons.svg#boxes"
+    }, {
+      "title": "accounting",
+      "icon": "imgs/icons.svg#circle-solid"
+    }]
+  }, {
+    "title": "admin",
+    "pages": [{
+      "title": "my company",
+      "icon": "imgs/icons.svg#truck-loaded"
+    }, {
+      "title": "manage users",
+      "icon": "imgs/icons.svg#user"
+    }, {
+      "title": "manage units",
+      "icon": "imgs/icons.svg#boxes"
+    }, {
+      "title": "announcements",
+      "icon": "imgs/icons.svg#circle-solid"
+    }, {
+      "title": "app settings",
+      "icon": "imgs/icons.svg#circle-solid"
+    }]
+  }
+
+
+
+]
