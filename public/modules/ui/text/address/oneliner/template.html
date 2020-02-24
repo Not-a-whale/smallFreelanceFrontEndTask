@@ -1,0 +1,7 @@
+<div ng-show="$ctrl.address != undefined">
+  <div class="street1">{{ $ctrl.address.Street1 | lowercase }} {{ $ctrl.address.City | lowercase }}, {{ $ctrl.address.State }}
+    {{ $ctrl.address.Zip }}</div>
+</div>
+<div ng-hide="$ctrl.address != undefined">
+  no {{ $ctrl.type}} address listed
+</div>
