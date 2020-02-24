@@ -288,13 +288,13 @@
 }
 
 /* used inside of the secondary navbar for title */
-.font-page-title {
+/* .font-page-title {
   font-size: var(--font-super);
   font-weight: bold;
   text-transform: uppercase;
   line-height: var(--font-super);
   font-family: var(--font-family-second);
-}
+} */
 
 /* primary tab font */
 .font-tab {
