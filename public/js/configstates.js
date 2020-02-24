@@ -7,7 +7,7 @@ var configstates = {
     url: "/dev",
     views: {
       "main@": {
-        templateUrl: "modules/test/landingpage/meta.template.html"
+        templateUrl: "modules/test/landingpage/template.html"
       }
     }
   },
@@ -131,36 +131,81 @@ var configstates = {
         component: "topNavbar"
       },
       "mainnav-view@.": {
-        component: "menuMainNav"
+        component: "menuMainNavLayoutDefault"
+      },
+      "mainnav-default-view@.": {
+        component: "menuMainNavDefault"
+      },
+      "mainnav-department-view@.": {
+        component: "menuMainNavDepartment"
       }
     },
     resolve: {
-      items: function (MainNavService) {
-        console.log("resolving");
-        let items = MainNavService.GetMainNavMenu();
-        console.log(items);
-        return items;
+      departments: function (PageService) {
+        return PageService.GetDepartments();
       },
-      pages: function (PageService) {
-        return PageService.GetPages(); // this is not going to work if the state doesnt reload when clicking on page
+      defaults: function (PageService) {
+        return PageService.GetDefaults();
       }
-      // menulist: function (MenuService) {
-      //   return MenuService.List();
-      // },
-      // activeitem: function ($transition$, MenuService, menulist) {
-      //   return MenuService.SearchActiveState($transition$.to().name);
-      // }
     }
   },
   "tmsapp.main2.test": {
     url: "/test",
     views: {
-      "content-view@tmsapp.main2": {
-        template: '<div ui-sref="tmsapp.main2">click me</div>'
+      "main-content-view@tmsapp.main2": {
+        component: 'pageLayoutPrimary'
+        //template: '<div ui-sref="tmsapp.main2">click me</div>'
+      },
+      "page-content@.": {
+        component: 'pageSafetyBusinessAll'
+      }
+    },
+    resolve: {
+      current_page: function (PageService) {
+        PageService.SetDepartment('safety');
+        return PageService.SetPage('businesses');
       }
     }
-
   },
+
+  "tmapp.main2.safety" : {
+    url : "/safety",
+    abstract: true
+  },
+  "tmsapp.main2.safety.businesses" : {
+    url: "/businesses",
+  },
+
+  "tmsapp.main2.safety.businesses.all" : {
+    url : "/all"
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "tmsapp": {
     url: "/tmsapp"
   },
@@ -190,8 +235,8 @@ var configstates = {
       menu: function (MainNavService) {
         return MainNavService.GetMainNavMenu();
       },
-      pages: function (PageService) {
-        return PageService.GetPages(); // this is not going to work if the state doesnt reload when clicking on page
+      pages: function (PageServiceOld) {
+        return PageServiceOld.GetPages(); // this is not going to work if the state doesnt reload when clicking on page
       }
       // menulist: function (MenuService) {
       //   return MenuService.List();
@@ -229,8 +274,8 @@ var configstates = {
       }
     },
     resolve: {
-      page: function (PageService) {
-        PageService.SetPage('calendar');
+      page: function (PageServiceOld) {
+        PageServiceOld.SetPage('calendar');
       }
     }
   },
@@ -242,8 +287,8 @@ var configstates = {
       }
     },
     resolve: {
-      page: function (PageService) {
-        PageService.SetPage('dashboard');
+      page: function (PageServiceOld) {
+        PageServiceOld.SetPage('dashboard');
       }
     }
   },
@@ -355,8 +400,8 @@ var configstates = {
   "tmsapp.main.hr.prsnl": {
     url: "/prsnl",
     resolve: {
-      page: function (PageService) {
-        PageService.SetPage('personnel');
+      page: function (PageServiceOld) {
+        PageServiceOld.SetPage('personnel');
       }
     }
   },
@@ -448,8 +493,8 @@ var configstates = {
   "tmsapp.main.hr.biz": {
     url: "/biz",
     resolve: {
-      page: function (PageService) {
-        PageService.SetPage('business');
+      page: function (PageServiceOld) {
+        PageServiceOld.SetPage('business');
       }
     }
   },
@@ -699,8 +744,8 @@ var configstates = {
       }
     },
     resolve: {
-      page: function (PageService) {
-        PageService.SetPage('inventory');
+      page: function (PageServiceOld) {
+        PageServiceOld.SetPage('inventory');
       }
     }
   },
@@ -734,8 +779,8 @@ var configstates = {
       forms: function (MetaFormService) {
         return MetaFormService.NewTrailerForm();
       },
-      page: function (PageService) {
-        PageService.SetPage('newtrailer');
+      page: function (PageServiceOld) {
+        PageServiceOld.SetPage('newtrailer');
       }
     }
   },
@@ -753,8 +798,8 @@ var configstates = {
       forms: function (MetaFormService) {
         return MetaFormService.NewTruckForm();
       },
-      page: function (PageService) {
-        PageService.SetPage('newtruck');
+      page: function (PageServiceOld) {
+        PageServiceOld.SetPage('newtruck');
       }
     }
   },
