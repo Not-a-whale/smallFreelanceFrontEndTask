@@ -17,14 +17,15 @@ ui-table-header {
     }
   }
   .banner-container {
-    @banner-height: 34px;
+    @banner-height: 30px;
     @flex-row();
     width: 100%;
     align-items: center;
     height: @banner-height;
     max-height: @banner-height;
-    background-color: @cp-usko-red;
+    background-color: @cp-asphalt;
     position: relative;
+    border-radius: 4px 4px 0px 0px;
 
     &>.content {
       @flex-row();
@@ -61,10 +62,10 @@ ui-table-header {
       }
 
       ui-table-sort-arrow-vert {
-        --arrow-size: 16px;
-        --fill-def: @cp-usko-red-mid;
-        --fill-hover: @cp-usko-red-pale;
-        --fill-active: @cp-usko-red-pale;
+        --arrow-size: 10px;
+        --fill-def: @cp-default-light;
+        --fill-hover: @cp-highlight;
+        --fill-active: @cp-highlight;
       }
     }
   }
@@ -73,6 +74,9 @@ ui-table-header {
     width: 100%;
     background-color: @cp-card;
     position: relative;
+    border-width: 0px 1px 1px 1px;
+    border-color: @cp-grey;
+    border-style: solid;
 
     &.basic {
       .ui-table-padded();
@@ -134,6 +138,7 @@ ui-table-header {
         .ui-table-padded();
         ui-table-search-advanced {
           @flex-col();
+          padding-top: 12px;
         }
         .col {
           @flex-col();
