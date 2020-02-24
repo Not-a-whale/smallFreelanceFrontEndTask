@@ -231,3 +231,26 @@ app.directive('uiTableFlowout', function () {
     }
   };
 });
+
+
+app.directive('uiTableDefault', function () {
+  return {
+    restrict: 'E',
+    templateUrl: 'modules/generic/table/transclude/skeleton/template.html',
+    scope: true,
+    controller: 'UIFlowoutTableCtrl',
+    controllerAs: '$ctrl',
+    bindToController: {
+      onSelect: '&?',
+      onSearch: '&?',
+      mapping: '=?',
+      fields: '=?',
+      errors: '<?'
+    },
+    transclude: {
+      header: 'headerBanner',
+      fields: '?searchFields',
+      body: 'bodyContent'
+    }
+  };
+});
