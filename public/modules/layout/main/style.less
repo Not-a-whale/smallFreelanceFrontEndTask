@@ -1,10 +1,11 @@
 main-layout2 {
-  --topbar-height: 50px;
-  --logo-width: 9.375%;
+  --topbar-height: 46px;
+  --logo-width: 9.427%;
   --logo-width-max: 180px;
   @flex-col();
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
 
   #topbar-container {
     @flex-row();
@@ -33,12 +34,12 @@ main-layout2 {
     height: calc(100% - var(--topbar-height));
 
     #mainnav-view {
-      @flex-row();
+      @flex-col();
       width: fit-content;
       height: 100%;
     }
 
-    #content-view {
+    #main-content-view {
       @flex-col();
       flex-grow: 1;
       height: 100%;
