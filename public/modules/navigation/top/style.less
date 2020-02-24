@@ -7,8 +7,8 @@ top-navbar {
   // TODO: soft shadow
   box-shadow: 0px 3px 6px #00000029;
 
-  padding-left: 24px;
-  padding-right: 24px;
+  padding-left: 11px;
+  padding-right: 23px;
 
   .vbar {
     border-right: 1px solid @cp-grey;
@@ -30,26 +30,15 @@ top-navbar {
     }
   }
 
-  .breadcrumbs {
+  .departments {
     @flex-row();
     height: 100%;
     align-items: center;
-
-    .stack {
-      @flex-row();
+    &>.department {
       height: 100%;
       align-items: center;
-
-      &:last-child {
-        * {
-          color: @cp-default  !important;
-        }
-      }
-
-      .delimiter {
-        //padding: 0px 6px 0px 6px;
-        color: @cp-grey;
-      }
+      min-width: 83px;
+      margin-right: 25px;
     }
   }
 
