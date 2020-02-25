@@ -2,7 +2,7 @@ class UITablePaginationCtrl {
   constructor() {
     this.currentPage = 1;
     this.maxpages = 10;
-    this.rowOptions = [2, 10, 15, 20, 50, 100];
+    this.rowOptions = [20, 50, 100];
     this.rowCount = this.rowOptions[0];
 
     this.basepage = this.currentPage;
