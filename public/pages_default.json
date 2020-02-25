@@ -1,16 +1,16 @@
 [{
-  "title": "productivity",
-  "pages": [{
-    "title": "dashboard",
-    "icon": "imgs/icons.svg#bargraph"
-  }, {
-    "title": "map",
-    "icon": "imgs/icons.svg#map"
-  }, {
-    "title": "dispatch queue",
-    "icon": "imgs/icons.svg#tools"
-  }, {
-    "title": "tasks",
-    "icon": "imgs/icons.svg#list"
-  }]
+    "title": "productivity",
+    "pages": [{
+        "title": "dashboard",
+        "icon": "imgs/icons.svg#bargraph"
+    }, {
+        "title": "map",
+        "icon": "imgs/icons.svg#map"
+    }, {
+        "title": "dispatch queue",
+        "icon": "imgs/icons.svg#cart"
+    }, {
+        "title": "calendar",
+        "icon": "imgs/icons.svg#calendar"
+    }]
 }]
