@@ -1,0 +1,24 @@
+<div class="table-rows-count">
+  <div class="display font-pagination caps">display</div>
+  <select>
+    <option value="10">10</option>
+    <option value="15">15</option>
+    <option value="20">20</option>
+    <option value="50">50</option>
+    <option value="100">100</option>
+  </select>
+</div>
+<div class="paginator">
+  <svg class="icon-tiny icon left"
+       ng-click="$ctrl.PrevPage()">
+    <use xlink:href="imgs/icons.svg#triangle"></use>
+  </svg>
+  <div ng-repeat="num in $ctrl.DisplayPages()"
+       ng-class="{active: $ctrl.IsActive(num.value)}"
+       class="font-pagination table-page"
+       ng-click="$ctrl.SetPage(num.value)">{{num.show}}</div>
+  <svg class="icon icon-tiny right"
+       ng-click="$ctrl.NextPage()">
+    <use xlink:href="imgs/icons.svg#triangle"></use>
+  </svg>
+</div>
