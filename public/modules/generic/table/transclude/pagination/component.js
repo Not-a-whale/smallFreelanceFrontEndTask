@@ -2,7 +2,7 @@ class UITablePaginationCtrl {
   constructor() {
     this.currentPage = 1;
     this.maxpages = 10;
-    this.rowOptions = [10, 15, 20, 50, 100];
+    this.rowOptions = [2, 10, 15, 20, 50, 100];
     this.rowCount = this.rowOptions[0];
 
     this.basepage = this.currentPage;
@@ -10,19 +10,21 @@ class UITablePaginationCtrl {
     this.displayPages = [];
   }
 
-  SetRowOptions(options){
+  SetRowOptions(options) {
     this.rowOptions = options;
     this.rowCount = this.rowOptions[0];
     this.UpdatePage();
   }
 
-  SetRowOption(option){
-    if (this.rowOptions.includes(option)){
+  SetRowOption(option) {
+    if (this.rowOptions.includes(option)) {
       let results = this.rowCount * this.currentPage;
       let newpage = Math.ceil(results / option);
       // is this correct area to update the changes?
       this.rowCount = option;
       this.UpdatePage();
+    } else if (option == undefined) {
+      this.SetPage(1);
     } else {
       console.log('invalid row display option chosen ' + option);
     }
@@ -130,8 +132,8 @@ class UITablePaginationCtrl {
     }
   }
 
-  $onInit(){
-
+  $onInit() {
+    this.UpdatePage();
     this.SetDisplayPages();
   }
 }

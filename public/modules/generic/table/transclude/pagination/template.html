@@ -1,11 +1,6 @@
 <div class="table-rows-count">
   <div class="display font-pagination caps">display</div>
-  <select>
-    <option value="10">10</option>
-    <option value="15">15</option>
-    <option value="20">20</option>
-    <option value="50">50</option>
-    <option value="100">100</option>
+  <select ng-change="$ctrl.SetRowOption()" ng-options="option for option in $ctrl.rowOptions" ng-model="$ctrl.rowCount">
   </select>
 </div>
 <div class="paginator">
