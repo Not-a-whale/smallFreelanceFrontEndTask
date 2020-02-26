@@ -200,14 +200,18 @@ class UIFlowoutTableCtrl {
   $onInit() {
     this.SelectCount();
     let self = this;
-    let handle = this.scope.$on('TableSearch', function (event, data) {
+    this.scope.$on('TableSearch', function (event, data) {
       console.log("table caught search emit/broadcast");
       if (event.stopPropagation instanceof Function) {
         event.stopPropagation();
       }
       self.SearchPrep(data);
     });
-    this.scope.$on('$destroy', handle);
+
+    this.scope.$on('SearchClear', function(event, data) {
+      self.scope.$broadcast('InputClear');
+    });
+
     this.scope.$emit('TableSearchInit');
   }
 }
