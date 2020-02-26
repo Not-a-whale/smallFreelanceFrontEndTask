@@ -1,6 +1,6 @@
 class UITableSearchInputCtrl extends UIInputClearCtrl {
   constructor(scope, element, timeout) {
-    super(timeout);
+    super(scope, timeout);
     this.scope = scope;
     this.element = element;
     this.index = -1; //this must be bound otherwise autofocus will not work
@@ -14,12 +14,11 @@ class UITableSearchInputCtrl extends UIInputClearCtrl {
   }
 
   $onInit() {
+    super.$onInit();
     var self = this;
-    let focus_hdl = this.scope.$on("SearchFocus", function (event, data) {
+    this.scope.$on("SearchFocus", function (event, data) {
       self.Focus(data.index);
     });
-
-    this.scope.$on('$destroy', focus_hdl);
   }
 }
 
