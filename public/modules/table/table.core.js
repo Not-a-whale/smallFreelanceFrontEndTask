@@ -79,9 +79,8 @@ class TableCoreCtrl {
     this.chipsrv.SetMap(this.map);
     this.UpdateSort(this.fields[0].name, 'up');
     let self = this;
-    let handle = this.scope.$on('TableSearchInit', function (res) {
+    this.scope.$on('TableSearchInit', function (res) {
       self.PrepSearch();
     });
-    this.scope.$on('$destroy', handle);
   }
 }
