@@ -48,7 +48,23 @@ class BusinessService extends GenericService {
 
   CarrierSearch(query) {
     let self = this;
-    if (query != undefined && !('search' in query)){
+    if (query != undefined && !('search' in query)) {
+      query.search = [{}];
+    }
+    return this.Request('post', '/api/carrierbranches/search', query);
+  }
+
+  BrokerSearch(query) {
+    let self = this;
+    if (query != undefined && !('search' in query)) {
+      query.search = [{}];
+    }
+    return this.Request('post', '/api/carrierbranches/search', query);
+  }
+
+  OtherSearch(query) {
+    let self = this;
+    if (query != undefined && !('search' in query)) {
       query.search = [{}];
     }
     return this.Request('post', '/api/carrierbranches/search', query);
@@ -56,11 +72,11 @@ class BusinessService extends GenericService {
 
   CarrierFind(query) {
     query.rows = 1;
-    return this.Request('post', '/api/carrierfullinfo', query).then(function(data){
-      if (data instanceof ErrorObj){
+    return this.Request('post', '/api/carrierfullinfo', query).then(function (data) {
+      if (data instanceof ErrorObj) {
 
       } else {
-        if (data.length > 0){
+        if (data.length > 0) {
           return data[0];
         }
       }
@@ -68,7 +84,10 @@ class BusinessService extends GenericService {
   }
 
   TableOfCarriers() {
-    let query = {search: [{}], page : 1};
+    let query = {
+      search: [{}],
+      page: 1
+    };
     return this.CarrierSearch(query);
   }
 
