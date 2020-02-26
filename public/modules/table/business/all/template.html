@@ -1,3 +1,13 @@
+<div class="table-preamble">
+  <div class="table-name">Businesses</div>
+  <div class="table-count caps">X items found</div>
+  <ui-table-pagination current-page="$ctrl.page"
+                       on-page-change="$ctrl.PageChange(page, rows)"></ui-table-pagination>
+  <div class="other-actions">
+    <a class="btn btn-accent">create new</a>
+  </div>
+</div>
+
 <ui-table-default style="height: 100%;"
                   on-search="$ctrl.Search(query)"
                   data-fields="$ctrl.fields"
@@ -98,7 +108,22 @@
       <div class="colspan {{$ctrl.fields[5].size}} font-table-body-text font-c-primary">
         <ui-email email="item.BrnchEmail"></ui-email>
       </div>
-      <div class="colspan {{$ctrl.fields[6].size}}">no data available</div>
+      <div class="status colspan {{$ctrl.fields[6].size}}">
+        <div>no data available</div>
+        <svg class="icon icon-tiny blacklist">
+          <title>this is the blacklist icon.</title>
+          <use xlink:href="imgs/icons.svg#document-solid"></use>
+        </svg>
+        <svg class="icon icon-tiny hold">
+          <title>this is the holds icon.</title>
+          <use xlink:href="imgs/icons.svg#hold"></use>
+        </svg>
+
+      </div>
+      <svg class="row-options icon icon-tiny">
+        <title>this feature is not yet implemented</title>
+        <use xlink:href="imgs/icons.svg#dots-kebob"></use>
+      </svg>
     </ui-table-row>
   </body-content>
 </ui-table-default>

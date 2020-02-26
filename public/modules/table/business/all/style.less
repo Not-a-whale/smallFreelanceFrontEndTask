@@ -2,6 +2,7 @@ table-business-all {
   ui-table-default {
     body-content {
       ui-table-row {
+        position: relative;
         min-height: 32px;
         height: 32px;
         &>div { //this is the row container, helps align all the items properly
@@ -13,7 +14,7 @@ table-business-all {
             @flex-row();
             &>.icon {
 
-              fill: @cp-grey-light;
+              fill: @cp-default-light;
               margin-right: 6px;
             }
           }
@@ -27,6 +28,28 @@ table-business-all {
             * {
               .font-basic-text();
             }
+          }
+
+          .status {
+            @flex-row();
+            align-items: center;
+            &>* {
+              margin-right: 6px;
+            }
+
+            .hold {
+              fill: @cp-danger;
+            }
+            .blacklist {
+              fill: @cp-default;
+            }
+          }
+
+          .row-options {
+            cursor: pointer;
+            position: absolute;
+            right: 14px;
+            fill: @cp-default-light;
           }
         }
       }

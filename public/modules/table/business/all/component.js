@@ -1,12 +1,8 @@
-class BusinessAllTableCtrl {
-  constructor(scope, businesssrv, state, chipsrv, timeout) {
-    this.scope = scope;
-    this.timeout = timeout;
-    // used to focus the input fields, need to delay after search expands
-    this.focuscall = undefined;
+class BusinessAllTableCtrl extends TableCoreCtrl {
+  constructor(scope, state, chipsrv, timeout, businesssrv) {
+    super(scope, state, chipsrv, timeout);
 
-    this.chipsrv = chipsrv;
-    this.state = state;
+    // used to focus the input fields, need to delay after search expands
     this.businesssrv = businesssrv;
     this.fields = [{
       name: 'name',
@@ -32,10 +28,9 @@ class BusinessAllTableCtrl {
     }];
 
 
-
     this.map = {
       'name': ['biz.BizName', 'OfficeName'],
-      'type' : ['TODO'],
+      'type': ['TODO'],
       'mc': ['biz.has_carrier.MC'],
       'branch address': ['brnch_address.Street1', 'brnch_address.City', 'brnch_address.State', 'brnch_address.Zip', 'brnch_address.Country'],
       'primary contact': ['TODO'],
@@ -60,64 +55,19 @@ class BusinessAllTableCtrl {
   Search(query) {
     console.log('Business All Table Search is called');
     let self = this;
-    this.businesssrv.CarrierSearch(query).then(function (data) {
+    this.businesssrv.BusinessSearch(query).then(function (data) {
       if (data instanceof ErrorObj) {
         self.errors.push(data);
       } else {
         self.carrierList = data;
       }
-
     });
-  }
-
-  PrepSearch() {
-    let args = {
-      fields: this.chipsrv.GetChips(),
-      sort: this.chipsrv.GetSort()
-    };
-
-    console.log('broadcasting TableSearch with args');
-    this.scope.$broadcast('TableSearch', args);
-  }
-
-  UpdateSort(field, value) {
-    this.chipsrv.SetSort(field, value);
-    this.chipsrv.SetOrder(field);
-    this.PrepSearch();
-  }
-
-  UpdateField(field, value) {
-    this.chipsrv.AddChip(field, value);
-    this.PrepSearch();
-  }
-
-  Select(item) {
-    let id = item.BrnchId;
-    this.state.go('tmsapp.main.hr.biz.carrier.list.detail', {
-      'id': id
-    });
-  }
-
-  FocusMe(index) {
-    let self = this;
-    let args = {
-      index: index
-    };
-    this.scope.$broadcast('SearchOpen');
-    this.timeout(function () {
-      self.scope.$broadcast('SearchFocus', args);
-    }, 100);
-  }
-
-  $onInit() {
-    this.chipsrv.Reset();
-    this.chipsrv.SetMap(this.map);
   }
 }
 
 app.component('tableBusinessAll', {
   templateUrl: 'modules/table/business/all/template.html',
-  controller: ['$scope', 'BusinessService', '$state', 'TableSortChips', '$timeout', BusinessAllTableCtrl],
+  controller: ['$scope', '$state', 'TableSortChips', '$timeout', 'BusinessService', BusinessAllTableCtrl],
   bindings: {
     carrierList: '<?'
   }
