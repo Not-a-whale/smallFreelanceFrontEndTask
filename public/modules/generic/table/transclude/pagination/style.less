@@ -1,0 +1,79 @@
+ui-table-pagination {
+  @flex-row();
+  align-items: center;
+
+  .font-pagination {
+    color: @cp-default-light;
+    font-family: @font-family-primary;
+    font-weight: @font-weight-bold;
+    font-size: @font-small;
+    text-transform: capitalize;
+  }
+
+  select {
+    width: 55px;
+    height: 30px;
+    min-height: 30px;
+    max-height: 30px;
+  }
+
+
+  .table-rows-count {
+    @flex-row();
+    align-items: center;
+
+    & .display {
+      margin-right: 20px;
+      color: @cp-default;
+    }
+
+    margin-right: 30px;
+  }
+
+  .paginator {
+    --active-color: @cp-card;
+    --font-color: @cp-default-light;
+    --background-color: transparent;
+    --arrow-color: @cp-default-light;
+    @flex-row();
+    align-items: center;
+    cursor: pointer;
+
+    &>.table-page {
+      color: var(--font-color);
+      background-color: var(--background-color);
+      min-width: 20px;
+      height: 30px;
+      border-radius: 2px;
+      padding: 6px;
+      text-align: center;
+
+      &:not(:last-child) {
+        margin-right: 6px;
+      }
+
+      &:hover,
+      &.active {
+        --background-color: var(--active-color);
+      }
+    }
+
+
+    &>svg {
+      cursor: pointer;
+      fill: var(--arrow-color);
+
+      &:hover {
+        --arrow-color: var(--active-color);
+      }
+
+      &.left {
+        transform: rotate(-90deg);
+      }
+
+      &.right {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}

@@ -2,13 +2,37 @@ ui-table-search-chipbar {
   @flex-row();
   width: 100%;
 
+  background-color: @cp-card;
+
+  .clear-filters {
+    cursor: pointer;
+    height: 36px;
+    min-width: 120px;
+    @flex-row();
+    align-items: center;
+
+    .label {
+      font-size: @font-tiny;
+      font-family: @font-family-primary;
+      font-weight: @font-weight-bold;
+      color: @cp-default-light;
+
+      margin-right: 6px;
+
+    }
+    &>.icon {
+      fill: @cp-usko-red;
+      transform: rotate(45deg);
+    }
+  }
+
   ui-chips-container {
     @flex-row();
     flex-wrap: wrap;
-    width: 100%;
+    flex-grow: 1;
     min-height: 24px;
     align-items: center;
-    background-color: @cp-card;
+
     padding-top: 6px;
     padding-left: 6px;
     border-top: 1px solid @cp-grey-light;

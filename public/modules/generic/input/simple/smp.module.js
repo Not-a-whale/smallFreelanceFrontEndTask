@@ -5,7 +5,7 @@ class SimpleInputCtrl {
 };
 
 var smp_input_bindings = {
-  value: '=?', // this is the input but showValue is the one being changed
+  value: '=?', // this is the input
   label: '@?', // indicates to user what the field is for
   title: '@?', // mouseover hover, displays extra information
   type: '@?', // externally control the html type attr

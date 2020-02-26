@@ -1,6 +1,7 @@
 class UIInputClearCtrl extends SimpleInputCtrl {
-  constructor(timeout) {
+  constructor(scope, timeout) {
     super();
+    this.scope = scope;
     this.timeout = timeout;
     this.donetypecall = undefined;
     this.donetype_delay = 250; // in ms
@@ -31,13 +32,20 @@ class UIInputClearCtrl extends SimpleInputCtrl {
       }
     }
   }
+
+  $onInit() {
+    let self = this;
+    this.scope.$on("InputClear", function (event, data) {
+      self.value = undefined;
+    });
+  }
 };
 
 var ui_input_clear_bindings = CloneObj(smp_input_bindings);
 ui_input_clear_bindings['onUpdate'] = '&?';
 ui_input_clear_bindings['doneType'] = '&?';
 
-app.controller('UIInputClearCtrl', ['$timeout', UIInputClearCtrl]);
+app.controller('UIInputClearCtrl', ['$scope', '$timeout', UIInputClearCtrl]);
 app.component('uiInputClear', {
   templateUrl: 'modules/generic/input/clear/template.html',
   controller: 'UIInputClearCtrl',

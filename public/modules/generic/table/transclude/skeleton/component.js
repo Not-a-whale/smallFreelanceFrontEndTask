@@ -20,6 +20,8 @@ class UIFlowoutTableCtrl {
 
     this.page = 1;
     this.rows = 25;
+
+
   }
   _CanIterate(obj) {
     return obj !== undefined && typeof obj[Symbol.iterator] === 'function';
@@ -101,6 +103,12 @@ class UIFlowoutTableCtrl {
           };
 
           if (args != undefined) {
+            if ('page' in args) {
+              query.page = args.page;
+            }
+            if ('rows' in args) {
+              query.rows = args.rows;
+            }
             if ('sort' in args) {
               let orderby = self.MapOrderFields(args.sort, self.mapping);
               if (orderby.length > 0) {
@@ -110,7 +118,7 @@ class UIFlowoutTableCtrl {
 
             if ('fields' in args) {
               let search = self.MapSearchFields(args.fields, self.mapping);
-              if (search.length > 0){
+              if (search.length > 0) {
                 query.search = search;
               }
             }
@@ -184,7 +192,7 @@ class UIFlowoutTableCtrl {
     return orderby.flat();
   }
 
-  RemoveError(error){
+  RemoveError(error) {
     let index = this.errors.indexOf(error);
     this.errors.splice(index, 1);
   }
@@ -200,6 +208,7 @@ class UIFlowoutTableCtrl {
       self.SearchPrep(data);
     });
     this.scope.$on('$destroy', handle);
+    this.scope.$emit('TableSearchInit');
   }
 }
 
