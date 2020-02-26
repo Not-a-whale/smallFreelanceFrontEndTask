@@ -2,7 +2,8 @@
         "title": "dispatch",
         "pages": [{
                 "title": "trucks",
-                "icon": "imgs/icons.svg#truck-loaded"
+                "icon": "imgs/icons.svg#truck-loaded",
+                "state": "tmsapp.main2.dispatch.trucks"
             },
             {
                 "title": "drivers",
@@ -57,6 +58,7 @@
     },
     {
         "title": "safety",
+        "state": "tmsapp.main2.safety.businesses.all",
         "pages": [{
                 "title": "equipment",
                 "icon": "imgs/icons.svg#truck-loaded",
@@ -113,18 +115,23 @@
             },
             {
                 "title": "businesses",
+                "state" : "tmsapp.main2.safety.businesses",
                 "icon": "imgs/icons.svg#buildings",
                 "pages": [{
-                        "title": "all"
+                        "title": "all",
+                        "state": "tmsapp.main2.safety.businesses.all"
                     },
                     {
-                        "title": "brokers"
+                        "title": "brokers",
+                        "state": "tmsapp.main2.safety.businesses.broker"
                     },
                     {
-                        "title": "carriers"
+                        "title": "carriers",
+                        "state": "tmsapp.main2.safety.businesses.carrier"
                     },
                     {
-                        "title": "other"
+                        "title": "other",
+                        "state": "tmsapp.main2.safety.businesses.other"
                     }
                 ],
                 "optional": [{
