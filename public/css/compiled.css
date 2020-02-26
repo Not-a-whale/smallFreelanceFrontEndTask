@@ -1855,7 +1855,14 @@ menu-main-nav-department-item {
   align-items: center;
   cursor: pointer;
 }
-menu-main-nav-department-item > .selector {
+menu-main-nav-department-item a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+menu-main-nav-department-item a > .selector {
   position: absolute;
   left: 0px;
   height: 100%;
@@ -1863,23 +1870,24 @@ menu-main-nav-department-item > .selector {
   background-color: var(--font-color);
   display: var(--selector-visibility);
 }
-menu-main-nav-department-item:hover,
-menu-main-nav-department-item.active {
+menu-main-nav-department-item a:hover,
+menu-main-nav-department-item a.active {
   --font-color: #FFFFFF;
   --icon-color: var(--font-color);
   --selector-visibility: flex;
 }
-menu-main-nav-department-item > svg.icon {
+menu-main-nav-department-item a > svg.icon {
   margin-left: 12px;
   fill: var(--icon-color);
 }
-menu-main-nav-department-item > .label {
+menu-main-nav-department-item a > .label {
   margin-left: 12px;
   color: var(--font-color);
   font-family: 'Nunito Sans', Arial, Helvetica, sans-serif;
   font-size: 15px;
   font-weight: bold;
 }
+ui-table-default,
 ui-table-flowout {
   display: flex;
   flex-direction: column;
@@ -1887,29 +1895,42 @@ ui-table-flowout {
   position: relative;
   max-height: calc(100vh - var(--main-topnav-height));
 }
+ui-table-default > .head,
 ui-table-flowout > .head {
   display: flex;
   flex-direction: column;
 }
+ui-table-default > .head > .header,
 ui-table-flowout > .head > .header {
   position: relative;
   width: 100%;
 }
+ui-table-default > .head > .header > header-banner,
 ui-table-flowout > .head > .header > header-banner {
   position: relative;
   width: 100%;
 }
+ui-table-default > .head > .search,
 ui-table-flowout > .head > .search {
   position: relative;
 }
+ui-table-default > .head > .error-list,
+ui-table-flowout > .head > .error-list {
+  position: relative;
+  height: 0px;
+  z-index: 99999;
+}
+ui-table-default > .body,
 ui-table-flowout > .body {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
+ui-table-default > .body > *,
 ui-table-flowout > .body > * {
   margin-bottom: 2px;
 }
+ui-table-default header-banner,
 ui-table-flowout header-banner {
   display: flex;
   flex-direction: row;
@@ -2159,15 +2180,34 @@ ui-table-search-chipbar {
   display: flex;
   flex-direction: row;
   width: 100%;
+  background-color: #F9F9F9;
+}
+ui-table-search-chipbar .clear-filters {
+  cursor: pointer;
+  height: 36px;
+  min-width: 120px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+ui-table-search-chipbar .clear-filters .label {
+  font-size: 12px;
+  font-family: 'Nunito Sans', Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: #97989D;
+  margin-right: 6px;
+}
+ui-table-search-chipbar .clear-filters > .icon {
+  fill: #8B4040;
+  transform: rotate(45deg);
 }
 ui-table-search-chipbar ui-chips-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 100%;
+  flex-grow: 1;
   min-height: 24px;
   align-items: center;
-  background-color: #F9F9F9;
   padding-top: 6px;
   padding-left: 6px;
   border-top: 1px solid #E8E8E8;
@@ -2235,6 +2275,73 @@ ui-table-search-toggle .arrow {
 }
 ui-table-search-toggle .arrow.flip {
   transform: scaleY(1);
+}
+ui-table-pagination {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+ui-table-pagination .font-pagination {
+  color: #97989D;
+  font-family: 'Nunito Sans', Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 13px;
+  text-transform: capitalize;
+}
+ui-table-pagination select {
+  width: 55px;
+  height: 30px;
+  min-height: 30px;
+  max-height: 30px;
+}
+ui-table-pagination .table-rows-count {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 30px;
+}
+ui-table-pagination .table-rows-count .display {
+  margin-right: 20px;
+  color: #494950;
+}
+ui-table-pagination .paginator {
+  --active-color: #F9F9F9;
+  --font-color: #97989D;
+  --background-color: transparent;
+  --arrow-color: #97989D;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+}
+ui-table-pagination .paginator > .table-page {
+  color: var(--font-color);
+  background-color: var(--background-color);
+  min-width: 20px;
+  height: 30px;
+  border-radius: 2px;
+  padding: 6px;
+  text-align: center;
+}
+ui-table-pagination .paginator > .table-page:not(:last-child) {
+  margin-right: 6px;
+}
+ui-table-pagination .paginator > .table-page:hover,
+ui-table-pagination .paginator > .table-page.active {
+  --background-color: var(--active-color);
+}
+ui-table-pagination .paginator > svg {
+  cursor: pointer;
+  fill: var(--arrow-color);
+}
+ui-table-pagination .paginator > svg:hover {
+  --arrow-color: var(--active-color);
+}
+ui-table-pagination .paginator > svg.left {
+  transform: rotate(-90deg);
+}
+ui-table-pagination .paginator > svg.right {
+  transform: rotate(90deg);
 }
 :root {
   --table-huge-width: 1672px;
@@ -2337,30 +2444,96 @@ ui-table-search-toggle .arrow.flip {
 .c16 {
   --table-column-span: 16;
 }
-carrier-table ui-table-flowout body-content ui-table-row {
-  height: 60px;
+.table-preamble {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 6px;
+  align-items: flex-end;
 }
-carrier-table ui-table-flowout body-content ui-table-row > div {
+.table-preamble .table-name {
+  font-size: 18px;
+  font-family: 'Nunito Sans', Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: #494950;
+  margin-right: 12px;
+  text-transform: capitalize;
+}
+.table-preamble .table-count {
+  font-size: 13px;
+  font-weight: normal;
+  font-family: 'Nunito Sans', Arial, Helvetica, sans-serif;
+  color: #494950;
+}
+.table-preamble ui-table-pagination {
+  margin-right: 40px;
+  margin-left: auto;
+}
+.table-preamble .other-actions {
+  margin-right: 0px;
+}
+table-business-broker ui-table-default body-content ui-table-row {
+  min-height: 32px;
+  height: 32px;
+}
+table-business-broker ui-table-default body-content ui-table-row > div {
   display: flex;
   flex-direction: row;
   width: 100%;
   align-items: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
-carrier-table ui-table-flowout body-content ui-table-row > div > div:not(:last-child) {
+table-business-broker ui-table-default body-content ui-table-row > div .business-name {
+  display: flex;
+  flex-direction: row;
+}
+table-business-broker ui-table-default body-content ui-table-row > div .business-name > .icon {
+  fill: #E8E8E8;
+  margin-right: 6px;
+}
+table-business-broker ui-table-default body-content ui-table-row > div > *:not(:last-child) {
   padding-right: 10px;
 }
-carrier-table ui-table-flowout body-content ui-table-row > div ui-address-basic {
+table-business-broker ui-table-default body-content ui-table-row > div ui-address-basic {
   height: 100%;
   overflow-y: hidden;
 }
-carrier-table ui-table-flowout body-content ui-table-row > div ui-address-basic * {
+table-business-broker ui-table-default body-content ui-table-row > div ui-address-basic * {
+  font-family: 'Nunito Sans', Arial, 'Helvetica', sans-serif;
+  font-weight: normal;
+  font-size: 13px;
+}
+table-business-carrier ui-table-default body-content ui-table-row {
+  min-height: 32px;
+  height: 32px;
+}
+table-business-carrier ui-table-default body-content ui-table-row > div {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+}
+table-business-carrier ui-table-default body-content ui-table-row > div .business-name {
+  display: flex;
+  flex-direction: row;
+}
+table-business-carrier ui-table-default body-content ui-table-row > div .business-name > .icon {
+  fill: #E8E8E8;
+  margin-right: 6px;
+}
+table-business-carrier ui-table-default body-content ui-table-row > div > *:not(:last-child) {
+  padding-right: 10px;
+}
+table-business-carrier ui-table-default body-content ui-table-row > div ui-address-basic {
+  height: 100%;
+  overflow-y: hidden;
+}
+table-business-carrier ui-table-default body-content ui-table-row > div ui-address-basic * {
   font-family: 'Nunito Sans', Arial, 'Helvetica', sans-serif;
   font-weight: normal;
   font-size: 13px;
 }
 table-business-all ui-table-default body-content ui-table-row {
+  position: relative;
   min-height: 32px;
   height: 32px;
 }
@@ -2375,7 +2548,7 @@ table-business-all ui-table-default body-content ui-table-row > div .business-na
   flex-direction: row;
 }
 table-business-all ui-table-default body-content ui-table-row > div .business-name > .icon {
-  fill: #E8E8E8;
+  fill: #97989D;
   margin-right: 6px;
 }
 table-business-all ui-table-default body-content ui-table-row > div > *:not(:last-child) {
@@ -2386,6 +2559,56 @@ table-business-all ui-table-default body-content ui-table-row > div ui-address-b
   overflow-y: hidden;
 }
 table-business-all ui-table-default body-content ui-table-row > div ui-address-basic * {
+  font-family: 'Nunito Sans', Arial, 'Helvetica', sans-serif;
+  font-weight: normal;
+  font-size: 13px;
+}
+table-business-all ui-table-default body-content ui-table-row > div .status {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+table-business-all ui-table-default body-content ui-table-row > div .status > * {
+  margin-right: 6px;
+}
+table-business-all ui-table-default body-content ui-table-row > div .status .hold {
+  fill: #E54141;
+}
+table-business-all ui-table-default body-content ui-table-row > div .status .blacklist {
+  fill: #494950;
+}
+table-business-all ui-table-default body-content ui-table-row > div .row-options {
+  cursor: pointer;
+  position: absolute;
+  right: 14px;
+  fill: #97989D;
+}
+table-business-other ui-table-default body-content ui-table-row {
+  min-height: 32px;
+  height: 32px;
+}
+table-business-other ui-table-default body-content ui-table-row > div {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+}
+table-business-other ui-table-default body-content ui-table-row > div .business-name {
+  display: flex;
+  flex-direction: row;
+}
+table-business-other ui-table-default body-content ui-table-row > div .business-name > .icon {
+  fill: #E8E8E8;
+  margin-right: 6px;
+}
+table-business-other ui-table-default body-content ui-table-row > div > *:not(:last-child) {
+  padding-right: 10px;
+}
+table-business-other ui-table-default body-content ui-table-row > div ui-address-basic {
+  height: 100%;
+  overflow-y: hidden;
+}
+table-business-other ui-table-default body-content ui-table-row > div ui-address-basic * {
   font-family: 'Nunito Sans', Arial, 'Helvetica', sans-serif;
   font-weight: normal;
   font-size: 13px;

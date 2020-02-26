@@ -155,31 +155,110 @@ var configstates = {
       "main-content-view@tmsapp.main2": {
         component: 'pageLayoutPrimary'
         //template: '<div ui-sref="tmsapp.main2">click me</div>'
-      },
-      "page-content@.": {
-        component: 'pageSafetyBusinessAll'
+      }
+      // "page-content@.": {
+      //   component: 'pageSafetyBusinessAll'
+      // }
+    }
+    // resolve: {
+    //   current_page: function (PageService) {
+    //     PageService.SetDepartment('safety');
+    //     return PageService.SetPage('businesses');
+    //   }
+    // }
+  },
+
+  "tmsapp.main2.dispatch": {
+    url: "/dispatch",
+    views: {
+      "main-content-view@tmsapp.main2": {
+        component: 'pageLayoutPrimary'
+        //template: '<div ui-sref="tmsapp.main2">click me</div>'
       }
     },
     resolve: {
+      current_dept: function (PageService) {
+        return PageService.SetDepartment('dispatch');
+      }
+    }
+  },
+
+
+  "tmsapp.main2.dispatch.trucks": {
+    url: "/trucks",
+    views: {
+
+    },
+    resolve: {
       current_page: function (PageService) {
-        PageService.SetDepartment('safety');
+        return PageService.SetPage('trucks');
+      }
+    }
+  },
+
+
+
+
+  "tmsapp.main2.safety": {
+    url: "/safety",
+    views: {
+      "main-content-view@tmsapp.main2": {
+        component: 'pageLayoutPrimary'
+        //template: '<div ui-sref="tmsapp.main2">click me</div>'
+      }
+    },
+    resolve: {
+      current_dept: function (PageService) {
+        return PageService.SetDepartment('safety');
+      }
+    }
+  },
+  "tmsapp.main2.safety.businesses": {
+    url: "/businesses",
+    resolve: {
+      current_page: function (PageService) {
         return PageService.SetPage('businesses');
       }
     }
   },
 
-  "tmapp.main2.safety" : {
-    url : "/safety",
-    abstract: true
-  },
-  "tmsapp.main2.safety.businesses" : {
-    url: "/businesses",
+  "tmsapp.main2.safety.businesses.all": {
+    url: "/all",
+    views: {
+      "page-content@^.^": {
+        component: 'pageSafetyBusinessAll'
+      }
+    },
+
   },
 
-  "tmsapp.main2.safety.businesses.all" : {
-    url : "/all"
-  },
+  "tmsapp.main2.safety.businesses.broker": {
+    url: "/broker",
+    views: {
+      "page-content@^.^": {
+        component: 'pageSafetyBusinessBroker'
+      }
+    },
 
+  },
+  "tmsapp.main2.safety.businesses.carrier": {
+    url: "/carrier",
+    views: {
+      "page-content@^.^": {
+        component: 'pageSafetyBusinessCarrier'
+      }
+    },
+
+  },
+  "tmsapp.main2.safety.businesses.other": {
+    url: "/other",
+    views: {
+      "page-content@^.^": {
+        component: 'pageSafetyBusinessOther'
+      }
+    },
+
+  },
 
 
 
