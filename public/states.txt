@@ -1,7 +1,6 @@
 tmsapp
 tmsapp.main
-//
-//
+//-------- Dispatch --------------
 tmsapp.main.dispatch
 tmsapp.main.dispatch.avtrucks
 tmsapp.main.dispatch.avtrucks.detail
@@ -21,8 +20,7 @@ tmsapp.main.dispatch.trips.complete
 tmsapp.main.dispatch.trips.complete.details
 tmsapp.main.dispatch.trips.history
 tmsapp.main.dispatch.trips.history.details
-//
-//
+//-------- Safety --------------
 tmsapp.main.safety
 tmsapp.main.safety.personnel //abstract
 tmsapp.main.safety.personnel.all
@@ -74,25 +72,24 @@ tmsapp.main.safety.ifta //abstract
 tmsapp.main.safety.ifta.percarrier
 tmsapp.main.safety.ifta.pertruck
 tmsapp.main.safety.ifta.perstate
-//
-//
+//-------- Finanace --------------
 tmsapp.main.finance
 tmsapp.main.finance.invoices //abstract
 tmsapp.main.finance.invoices.open
 tmsapp.main.finance.invoices.proccesed
 tmsapp.main.finance.invoices.history
 tmsapp.main.finance.settlements //abstract
-tmsapp.main.finance.settlements.check.form
+tmsapp.main.finance.settlements.checks //abstract
+tmsapp.main.finance.settlements.checks.form
 tmsapp.main.finance.settlements.open
 tmsapp.main.finance.settlements.open.detail
 tmsapp.main.finance.settlements.processed
 tmsapp.main.finance.settlements.history
 tmsapp.main.finance.payschedule //abstract
 tmsapp.main.finance.payschedule.schedule
-tmsapp.main.finance.payschedule.schedule.form
+tmsapp.main.finance.payschedule.form
 tmsapp.main.finance.payschedule.history
-//
-//
+//-------- Admin --------------
 tmsapp.main.admin
 tmsapp.main.admin.mycompany
 tmsapp.main.admin.mngusers //abstract
@@ -105,12 +102,12 @@ tmsapp.main.admin.units.form
 tmsapp.main.admin.units.detail
 tms.main.admin.annoucements
 tms.main.admin.annoucements.form
-//
-//
+//-------- Productivity --------------
 tmsapp.main.productivity //abstract
 tmsapp.main.productivity.dashboard
 tmsapp.main.productivity.map
 tmsapp.main.productivity.calendar
-tmsapp.main.productivity.queue //stateless
+tmsapp.main.productivity.calendar.task //abstract
+tmsapp.main.productivity.calendar.task.form
 tmsapp.main.productivity.notifications
 tmsapp.main.productivity.messages
