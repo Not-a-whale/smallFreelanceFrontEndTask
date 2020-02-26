@@ -1,0 +1,113 @@
+tmsapp
+tmsapp.main
+//-------- Dispatch --------------
+tmsapp.main.dispatch
+tmsapp.main.dispatch.avtrucks
+tmsapp.main.dispatch.avtrucks.detail
+tmsapp.main.dispatch.avdrivers
+tmsapp.main.dispatch.avdrivers.detail
+tmsapp.main.dispatch.loads//abstract
+tmsapp.main.dispatch.loads.form
+tmsapp.main.dispatch.loads.available
+tmsapp.main.dispatch.loads.tenders
+tmsapp.main.dispatch.loads.boards
+tmsapp.main.dispatch.trips//abstract
+tmsapp.main.dispatch.trips.form
+tmsapp.main.dispatch.trips.active
+tmsapp.main.dispatch.trips.active.details
+tmsapp.main.dispatch.trips.pending
+tmsapp.main.dispatch.trips.complete
+tmsapp.main.dispatch.trips.complete.details
+tmsapp.main.dispatch.trips.history
+tmsapp.main.dispatch.trips.history.details
+//-------- Safety --------------
+tmsapp.main.safety
+tmsapp.main.safety.personnel //abstract
+tmsapp.main.safety.personnel.all
+tmsapp.main.safety.personnel.drivers
+tmsapp.main.safety.personnel.drivers.form
+tmsapp.main.safety.personnel.drivers.detail
+tmsapp.main.safety.personnel.ownerops
+tmsapp.main.safety.personnel.ownerops.form
+tmsapp.main.safety.personnel.ownerops.detail
+tmsapp.main.safety.personnel.officestaff
+tmsapp.main.safety.personnel.officestaff.form
+tmsapp.main.safety.personnel.officestaff.detail
+tmsapp.main.safety.personnel.contacts
+tmsapp.main.safety.personnel.contacts.form
+tmsapp.main.safety.personnel.contacts.detail
+tmsapp.main.safety.equipment //abstract
+tmsapp.main.safety.equipment.all
+tmsapp.main.safety.equipment.trucks
+tmsapp.main.safety.equipment.trucks.form
+tmsapp.main.safety.equipment.trucks.detail
+tmsapp.main.safety.equipment.trailers
+tmsapp.main.safety.equipment.trailers.form
+tmsapp.main.safety.equipment.trailers.detail
+tmsapp.main.safety.equipment.devices
+tmsapp.main.safety.equipment.devices.form
+tmsapp.main.safety.equipment.devices.detail
+tmsapp.main.safety.businesses //abstract
+tmsapp.main.safety.businesses.all
+tmsapp.main.safety.businesses.brokers
+tmsapp.main.safety.businesses.brokers.form
+tmsapp.main.safety.businesses.brokers.detail
+tmsapp.main.safety.businesses.carriers
+tmsapp.main.safety.businesses.carriers.form
+tmsapp.main.safety.businesses.carriers.detail
+tmsapp.main.safety.businesses.other
+tmsapp.main.safety.businesses.other.form
+tmsapp.main.safety.businesses.other.detail
+tmsapp.main.safety.expirations //abstract
+tmsapp.main.safety.expirations.current
+tmsapp.main.safety.expirations.form
+tmsapp.main.safety.expirations.scheduled
+tmsapp.main.safety.expirations.history
+tmsapp.main.safety.maintenence //abstract
+tmsapp.main.safety.maintenence.current
+tmsapp.main.safety.maintenence.form
+tmsapp.main.safety.maintenence.scheduled
+tmsapp.main.safety.maintenence.history
+tmsapp.main.safety.ifta //abstract
+tmsapp.main.safety.ifta.percarrier
+tmsapp.main.safety.ifta.pertruck
+tmsapp.main.safety.ifta.perstate
+//-------- Finanace --------------
+tmsapp.main.finance
+tmsapp.main.finance.invoices //abstract
+tmsapp.main.finance.invoices.open
+tmsapp.main.finance.invoices.proccesed
+tmsapp.main.finance.invoices.history
+tmsapp.main.finance.settlements //abstract
+tmsapp.main.finance.settlements.checks //abstract
+tmsapp.main.finance.settlements.checks.form
+tmsapp.main.finance.settlements.open
+tmsapp.main.finance.settlements.open.detail
+tmsapp.main.finance.settlements.processed
+tmsapp.main.finance.settlements.history
+tmsapp.main.finance.payschedule //abstract
+tmsapp.main.finance.payschedule.schedule
+tmsapp.main.finance.payschedule.form
+tmsapp.main.finance.payschedule.history
+//-------- Admin --------------
+tmsapp.main.admin
+tmsapp.main.admin.mycompany
+tmsapp.main.admin.mngusers //abstract
+tmsapp.main.admin.mngusers.users
+tmsapp.main.admin.mngusers.users.form
+tmsapp.main.admin.mngusers.groups
+tmsapp.main.admin.mngusers.groups.form
+tmsapp.main.admin.units
+tmsapp.main.admin.units.form
+tmsapp.main.admin.units.detail
+tms.main.admin.annoucements
+tms.main.admin.annoucements.form
+//-------- Productivity --------------
+tmsapp.main.productivity //abstract
+tmsapp.main.productivity.dashboard
+tmsapp.main.productivity.map
+tmsapp.main.productivity.calendar
+tmsapp.main.productivity.calendar.task //abstract
+tmsapp.main.productivity.calendar.task.form
+tmsapp.main.productivity.notifications
+tmsapp.main.productivity.messages
