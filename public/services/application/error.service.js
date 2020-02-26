@@ -37,6 +37,8 @@ class ErrorService {
     this.translators = [];
     let translator = new ErrorTranslator("No new data returned.");
     translator.AddRegex(new RegExp('Unknown column'));
+    translator = new ErrorTranslator("Server Error: Database Connection error.");
+    translator.AddRegex(new RegExp('Lost connection to MySQL server'));
     this.translators.push(translator);
 
   }
