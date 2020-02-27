@@ -1,0 +1,119 @@
+tmsapp
+tmsapp.main
+//-------- Dispatch --------------
+tmsapp.main2.dispatch
+tmsapp.main2.dispatch.truck //abstract
+tmsapp.main2.dispatch.truck.available
+tmsapp.main2.dispatch.truck.detail
+tmsapp.main2.dispatch.driver //abstract
+tmsapp.main2.dispatch.driver.available
+tmsapp.main2.dispatch.driver.detail
+tmsapp.main2.dispatch.load //abstract
+tmsapp.main2.dispatch.load.form
+tmsapp.main2.dispatch.load.available
+tmsapp.main2.dispatch.load.tender
+tmsapp.main2.dispatch.load.board
+tmsapp.main2.dispatch.trip //abstract
+tmsapp.main2.dispatch.trip.form
+tmsapp.main2.dispatch.trip.active
+tmsapp.main2.dispatch.trip.detail
+tmsapp.main2.dispatch.trip.pending
+tmsapp.main2.dispatch.trip.complete
+tmsapp.main2.dispatch.trip.history
+
+//-------- Safety --------------
+tmsapp.main2.safety
+tmsapp.main2.safety.personnel //abstract
+tmsapp.main2.safety.personnel.all
+tmsapp.main2.safety.personnel.driver
+tmsapp.main2.safety.personnel.driver.form
+tmsapp.main2.safety.personnel.driver.detail
+tmsapp.main2.safety.personnel.ownerop
+tmsapp.main2.safety.personnel.ownerop.form
+tmsapp.main2.safety.personnel.ownerop.detail
+tmsapp.main2.safety.personnel.officestaff
+tmsapp.main2.safety.personnel.officestaff.form
+tmsapp.main2.safety.personnel.officestaff.detail
+tmsapp.main2.safety.personnel.contact
+tmsapp.main2.safety.personnel.contact.form
+tmsapp.main2.safety.personnel.contact.detail
+tmsapp.main2.safety.equipment //abstract
+tmsapp.main2.safety.equipment.all
+tmsapp.main2.safety.equipment.truck
+tmsapp.main2.safety.equipment.truck.form
+tmsapp.main2.safety.equipment.truck.detail
+tmsapp.main2.safety.equipment.trailer
+tmsapp.main2.safety.equipment.trailer.form
+tmsapp.main2.safety.equipment.trailer.detail
+tmsapp.main2.safety.equipment.device
+tmsapp.main2.safety.equipment.device.form
+tmsapp.main2.safety.equipment.device.detail
+tmsapp.main2.safety.businesses //abstract
+tmsapp.main2.safety.businesses.all
+tmsapp.main2.safety.businesses.broker
+tmsapp.main2.safety.businesses.broker.form
+tmsapp.main2.safety.businesses.broker.detail
+tmsapp.main2.safety.businesses.carrier
+tmsapp.main2.safety.businesses.carrier.form
+tmsapp.main2.safety.businesses.carrier.detail
+tmsapp.main2.safety.businesses.other
+tmsapp.main2.safety.businesses.other.form
+tmsapp.main2.safety.businesses.other.detail
+tmsapp.main2.safety.expiration //abstract
+tmsapp.main2.safety.expiration.current
+tmsapp.main2.safety.expiration.form
+tmsapp.main2.safety.expiration.scheduled
+tmsapp.main2.safety.expiration.history
+tmsapp.main2.safety.maintenance //abstract
+tmsapp.main2.safety.maintenance.current
+tmsapp.main2.safety.maintenance.form
+tmsapp.main2.safety.maintenance.scheduled
+tmsapp.main2.safety.maintenance.history
+tmsapp.main2.safety.logbook //abstract
+tmsapp.main2.safety.logbook.all
+tmsapp.main2.safety.ifta //abstract
+tmsapp.main2.safety.ifta.carrier
+tmsapp.main2.safety.ifta.truck
+tmsapp.main2.safety.ifta.state
+//-------- Finanace --------------
+tmsapp.main2.finance
+tmsapp.main2.finance.invoices //abstract
+tmsapp.main2.finance.invoices.open
+tmsapp.main2.finance.invoices.proccesed
+tmsapp.main2.finance.invoices.history
+tmsapp.main2.finance.settlement //abstract
+tmsapp.main2.finance.settlement.check //abstract
+tmsapp.main2.finance.settlement.check.form
+tmsapp.main2.finance.settlement.open
+tmsapp.main2.finance.settlement.open.detail
+tmsapp.main2.finance.settlement.processed
+tmsapp.main2.finance.settlement.history
+tmsapp.main2.finance.payschedule //abstract
+tmsapp.main2.finance.payschedule.schedule
+tmsapp.main2.finance.payschedule.form
+tmsapp.main2.finance.payschedule.history
+//-------- Admin --------------
+tmsapp.main2.admin
+tmsapp.main2.admin.mycompany
+tmsapp.main2.admin.mnguser //abstract
+tmsapp.main2.admin.mnguser.user
+tmsapp.main2.admin.mnguser.user.form
+tmsapp.main2.admin.mnguser.group
+tmsapp.main2.admin.mnguser.group.form
+tmsapp.main2.admin.mnguser.role
+tmsapp.main2.admin.unit //abstract
+tmsapp.main2.admin.unit.all
+tmsapp.main2.admin.unit.form
+tmsapp.main2.admin.unit.detail
+tmsapp.main2.admin.announcement
+tmsapp.main2.admin.announcement.form
+tmsapp.main2.admin.setting
+//-------- Productivity --------------
+tmsapp.main2.productivity //abstract
+tmsapp.main2.productivity.dashboard
+tmsapp.main2.productivity.map
+tmsapp.main2.productivity.calendar
+tmsapp.main2.productivity.calendar.task //abstract
+tmsapp.main2.productivity.calendar.task.form
+tmsapp.main2.productivity.notification
+tmsapp.main2.productivity.message

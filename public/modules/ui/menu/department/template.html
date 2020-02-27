@@ -1,0 +1,7 @@
+<div class="title">
+  {{ $ctrl.MenuTitle() }} menu
+</div>
+
+<menu-main-nav-department-item class="item"
+                               data-page="page"
+                               ng-repeat="page in $ctrl.Pages()"></menu-main-nav-department-item>

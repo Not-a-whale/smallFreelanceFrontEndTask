@@ -1,0 +1,40 @@
+table-business-carrier {
+  ui-table-default {
+    body-content {
+      ui-table-row {
+        min-height: 32px;
+        height: 32px;
+
+        &>div {
+          //this is the row container, helps align all the items properly
+          @flex-row();
+          width: 100%;
+          align-items: center;
+
+          & .business-name {
+            @flex-row();
+
+            &>.icon {
+
+              fill: @cp-grey-light;
+              margin-right: 6px;
+            }
+          }
+
+          &>*:not(:last-child) {
+            padding-right: 10px;
+          }
+
+          ui-address-basic {
+            height: 100%;
+            overflow-y: hidden;
+
+            * {
+              .font-basic-text();
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,9 +1,17 @@
-<ui-chips-container ng-show="$ctrl.chipsrv.HasChips()">
-  <ui-chip ng-repeat="chip in $ctrl.chipsrv.GetChips()">
-    <div class="label font-sm-label1">{{chip.name}}: {{chip.value}}</div>
+<ui-chips-container ng-show="$ctrl.HasChips()">
+  <ui-chip ng-repeat="chip in $ctrl.Chips()">
+    <div class="label font-chip-label"><span class="font-chip-label caps">{{chip.name}}</span>: {{chip.value}}</div>
     <svg class="x"
-         ng-click="$ctrl.chipsrv.RemoveChip(chip)">
+         ng-click="$ctrl.RemoveChip(chip)">
       <use xlink:href="imgs/icons.svg#x"></use>
     </svg>
   </ui-chip>
 </ui-chips-container>
+<div ng-if="$ctrl.HasChips()"
+     class="clear-filters"
+     ng-click="$ctrl.ClearFilters()">
+  <div class="label upper">clear filters</div>
+  <svg class="icon icon-tiny">
+    <use xlink:href="imgs/icons.svg#circle-plus"></use>
+  </svg>
+</div>

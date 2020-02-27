@@ -1,0 +1,345 @@
+[{
+    "title": "dispatch",
+    "state": "tmsapp.main2.dispatch",
+    "pages": [{
+        "title": "trucks",
+        "icon": "imgs/icons.svg#truck-loaded",
+        "state": "tmsapp.main2.dispatch.truck"
+      },
+      {
+        "title": "drivers",
+        "icon": "imgs/icons.svg#user",
+        "state": "tmsapp.main2.dispatch.driver"
+      },
+      {
+        "title": "loads",
+        "icon": "imgs/icons.svg#boxes",
+        "state": "tmsapp.main2.dispatch.load",
+        "pages": [{
+            "title": "available",
+            "state": "tmsapp.main2.dispatch.load.available"
+          },
+          {
+            "title": "tenders",
+            "state": "tmsapp.main2.dispatch.load.tender"
+          },
+          {
+            "title": "load boards",
+            "state": "tmsapp.main2.dispatch.load.board"
+          }
+        ],
+        "actions": [{
+          "title": "new load"
+        }],
+        "optional": [{
+          "title": "view archives",
+          "state": ""
+        }]
+      },
+      {
+        "title": "manage trips",
+        "icon": "imgs/icons.svg#route",
+        "state": "tmsapp.main2.dispatch.trip",
+        "pages": [{
+            "title": "active",
+            "state": "tmsapp.main2.dispatch.trip.active"
+          },
+          {
+            "title": "pending",
+            "state": "tmsapp.main2.dispatch.trip.pending"
+          },
+          {
+            "title": "completed",
+            "state": "tmsapp.main2.dispatch.trip.complete"
+          }
+        ],
+        "optional": [{
+          "title": "view archives",
+          "state": "tmsapp.main2.dispatch.trip.history"
+        }]
+      }
+    ]
+  },
+  {
+    "title": "safety",
+    "state": "tmsapp.main2.safety",
+    "pages": [{
+        "title": "equipment",
+        "icon": "imgs/icons.svg#truck-loaded",
+        "state": "tmsapp.main2.safety.equipment",
+        "pages": [{
+            "title": "all",
+            "state": "tmsapp.main2.safety.equipment.all"
+          },
+          {
+            "title": "trucks",
+            "state": "tmsapp.main2.safety.equipment.truck"
+          },
+          {
+            "title": "trailers",
+            "state": "tmsapp.main2.safety.equipment.trailer"
+          },
+          {
+            "title": "devices",
+            "state": "tmsapp.main2.safety.equipment.device"
+          }
+        ],
+        "optional": [{
+          "title": "view archives",
+          "state": ""
+        }]
+      },
+      {
+        "title": "personnel",
+        "icon": "imgs/icons.svg#user",
+        "state": "tmsapp.main2.safety.personnel",
+        "pages": [{
+            "title": "all",
+            "state": "tmsapp.main2.safety.personnel.all"
+          },
+          {
+            "title": "drivers",
+            "state": "tmsapp.main2.safety.personnel.driver"
+          },
+          {
+            "title": "owner-operators",
+            "state": "tmsapp.main2.safety.personnel.ownerop"
+          },
+          {
+            "title": "office staff",
+            "state": "tmsapp.main2.safety.personnel.officestaff"
+          },
+          {
+            "title": "contacts",
+            "state": "tmsapp.main2.safety.personnel.contact"
+          }
+        ],
+        "optional": [{
+          "title": "view archives",
+          "state": ""
+        }]
+      },
+      {
+        "title": "businesses",
+        "state": "tmsapp.main2.safety.business",
+        "icon": "imgs/icons.svg#buildings",
+        "pages": [{
+            "title": "all",
+            "state": "tmsapp.main2.safety.business.all"
+          },
+          {
+            "title": "brokers",
+            "state": "tmsapp.main2.safety.business.broker"
+          },
+          {
+            "title": "carriers",
+            "state": "tmsapp.main2.safety.business.carrier"
+          },
+          {
+            "title": "other",
+            "state": "tmsapp.main2.safety.business.other"
+          }
+        ],
+        "optional": [{
+          "title": "view archives"
+        }]
+      },
+      {
+        "title": "expirations",
+        "icon": "imgs/icons.svg#exclamation-triangle",
+        "state": "tmsapp.main2.safety.expiration",
+        "pages": [{
+            "title": "all",
+            "state": "tmsapp.main2.safety.expiration.current"
+          },
+          {
+            "title": "scheduled",
+            "state": "tmsapp.main2.safety.expiration.scheduled"
+          }
+        ],
+        "optional": [{
+          "title": "view archives",
+          "state": "tmsapp.main2.safety.expiration.history"
+        }]
+      },
+      {
+        "title": "maintenance",
+        "icon": "imgs/icons.svg#tools",
+        "state": "tmsapp.main2.safety.maintenance",
+        "pages": [{
+            "title": "all",
+            "state": "tmsapp.main2.safety.maintenance.current"
+          },
+          {
+            "title": "scheduled",
+            "state": "tmsapp.main2.safety.maintenance.scheduled"
+          },
+          {
+            "title": "history",
+            "state": "tmsapp.main2.safety.maintenance.history"
+          }
+        ]
+      },
+      {
+        "title": "logbook",
+        "icon": "imgs/icons.svg#timer",
+        "state": "tmsapp.main2.safety.logbook"
+      },
+      {
+        "title": "IFTA/Highway use",
+        "icon": "imgs/icons.svg#gasoline-pump",
+        "state": "tmsapp.main2.safety.ifta",
+        "pages": [{
+            "title": "per carrier",
+            "state": "tmsapp.main2.safety.ifta.carrier"
+          },
+          {
+            "title": "per truck",
+            "state": "tmsapp.main2.safety.ifta.truck"
+          },
+          {
+            "title": "per state",
+            "state": "tmsapp.main2.safety.ifta.state"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "finance",
+    "state": "tmsapp.main2.finance",
+    "pages": [{
+        "title": "invoices",
+        "icon": "imgs/icons.svg#document-solid",
+        "state": "tmsapp.main2.finance.invoice",
+        "pages": [{
+            "title": "open",
+            "state": "tmsapp.main2.finance.invoice.open"
+          },
+          {
+            "title": "processed",
+            "state": "tmsapp.main2.finance.invoice.processed"
+          },
+          {
+            "title": "history",
+            "state": "tmsapp.main2.finance.invoice.history"
+          }
+        ]
+      },
+      {
+        "title": "settlements",
+        "icon": "imgs/icons.svg#circle-dollarsign",
+        "state": "tmsapp.main2.finance.settlement",
+        "pages": [{
+            "title": "all",
+            "state": "tmsapp.main2.finance.settlement.open"
+          },
+          {
+            "title": "processed",
+            "state": "tmsapp.main2.finance.settlement.processed"
+          }, {
+            "title": "history",
+            "state": "tmsapp.main2.finance.settlement.history"
+          }
+        ],
+        "actions": [{
+          "title": "write a check"
+        }]
+      },
+      {
+        "title": "payment schedule",
+        "icon": "imgs/icons.svg#pay-schedule",
+        "state": "tmsapp.main2.finance.payschedule",
+        "pages": [{
+            "title": "schedules",
+            "state": "tmsapp.main2.finance.payschedule.schedule"
+          },
+          {
+            "title": "history",
+            "state": "tmsapp.main2.finance.payschedule.history"
+          }
+        ],
+        "actions": [{
+          "title": "new schedule",
+          "state": "tmsapp.main2.finance.payschedule.form"
+        }]
+      },
+      {
+        "title": "accounting",
+        "icon": "imgs/icons.svg#balance-scale",
+        "pages": [{
+            "title": "chart of accounts",
+            "state": ""
+          },
+          {
+            "title": "balance sheet",
+            "state": ""
+          },
+          {
+            "title": "income sheet",
+            "state": ""
+          },
+          {
+            "title": "general ledger",
+            "state": ""
+          },
+          {
+            "title": "transaction templates",
+            "state": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "admin",
+    "state": "tmsapp.main2.admin",
+    "pages": [{
+        "title": "my company",
+        "icon": "imgs/icons.svg#buildings",
+        "state": "tmsapp.main2.admin.mycompany"
+      },
+      {
+        "title": "manage users",
+        "icon": "imgs/icons.svg#users",
+        "state": "tmsapp.main2.admin.mnguser",
+        "pages": [{
+            "title": "users",
+            "state": "tmsapp.main2.admin.mnguser.user"
+          },
+          {
+            "title": "groups",
+            "state": "tmsapp.main2.admin.mnguser.group"
+          },
+          {
+            "title": "roles & permissions",
+            "state": "tmsapp.main2.admin.mnguser.role"
+          }
+        ],
+        "optional": [{
+          "title": "view archives",
+          "state": ""
+        }]
+      },
+      {
+        "title": "manage units",
+        "icon": "imgs/icons.svg#truck-loaded",
+        "state": "tmsapp.main2.admin.unit",
+        "actions": [{
+          "title": "create a unit",
+          "state": ""
+        }]
+      },
+      {
+        "title": "announcements",
+        "icon": "imgs/icons.svg#megaphone",
+        "state": "tmsapp.main2.admin.announcement"
+      },
+      {
+        "title": "app settings",
+        "icon": "imgs/icons.svg#gear",
+        "state": "tmsapp.main2.admin.setting"
+      }
+    ]
+  }
+]

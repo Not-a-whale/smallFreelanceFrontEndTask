@@ -1,21 +1,9 @@
-<a class="btn btn-smp btn-tall btn-sharp back-button">
-     <svg>
-          <use xlink:href="imgs/icons.svg#circle-arrow-left"></use>
-     </svg>
-     <div class="text font-med-label2">go back</div>
-</a>
-<div class="breadcrumbs">
-     <a class="btn btn-smp btn-tall btn-sharp btn-accent">
-          <svg class="btn-icon">
-               <use xlink:href="imgs/icons.svg#exclamation-triangle"></use>
-          </svg>
-     </a>
-     <div class="stack"
-          ng-repeat="btn in ['pagetitle1', 'pagetitle2','pagetitle3','pagetitle4']">
-          <div class="delimiter">></div>
-          <a class="btn btn-smp btn-tall btn-sharp">{{btn}}</a>
-     </div>
-
+<div class="departments">
+     <a ng-repeat="department in $ctrl.Departments()"
+        class="department btn btn-smp btn-tall btn-sharp btn-accent upper bold"
+        ng-click="$ctrl.SetDepartment(department)"
+        ui-sref="{{department.state}}"
+        ui-sref-active="active">{{department.title}}</a>
 </div>
 
 <div class="search"

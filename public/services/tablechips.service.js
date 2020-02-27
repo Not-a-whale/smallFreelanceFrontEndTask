@@ -14,6 +14,8 @@ class TableSortChips {
     return this.sort;
   }
 
+  // this is used when a new table is generated to clean everything out inside of the singleton
+  // to clear out the chips, see "ClearChips"
   Reset() {
     this.chips = [];
     this.sort = {};
@@ -22,8 +24,11 @@ class TableSortChips {
 
   SetMap(map) {
     this.map = map;
-    for (let f in map){
-      this.sort[f] = {sort: null, order: null};
+    for (let f in map) {
+      this.sort[f] = {
+        sort: null,
+        order: null
+      };
     }
   }
 
@@ -101,6 +106,15 @@ class TableSortChips {
   RemoveChip(chip) {
     let index = this.chips.indexOf(chip);
     this.chips.splice(index, 1);
+    this.Broadcast();
+  }
+
+  ClearChips() {
+    this.chips = [];
+    this.Broadcast();
+  }
+
+  Broadcast() {
     let args = {
       fields: this.GetChips(),
       sort: this.GetSort()

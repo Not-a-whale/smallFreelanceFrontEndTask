@@ -3,7 +3,7 @@ class UITableHeaderCtrl {
     this.scope = scope;
     this.timeout = timeout;
     this.advanced = false;
-    this.search = false;
+    this.search = true;
   }
 
   SearchToggle(){

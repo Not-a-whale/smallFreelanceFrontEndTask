@@ -1,0 +1,129 @@
+<div class="table-preamble">
+  <div class="table-name">Businesses</div>
+  <div class="table-count caps">X items found</div>
+  <ui-table-pagination current-page="$ctrl.page"
+                       on-page-change="$ctrl.PageChange(page, rows)"></ui-table-pagination>
+  <div class="other-actions">
+    <a class="btn btn-accent">create new</a>
+  </div>
+</div>
+
+<ui-table-default style="height: 100%;"
+                  on-search="$ctrl.Search(query)"
+                  data-fields="$ctrl.fields"
+                  data-mapping="$ctrl.map"
+                  data-errors="$ctrl.errors"
+                  class="table-cols-16">
+  <header-banner>
+    <ui-table-header style="width: 100%"
+                     fields="$ctrl.fields">
+      <ui-table-banner>
+        <div class="colspan colhead {{ h.size }}"
+             ng-repeat="h in $ctrl.fields">
+          <div class="colname font-tbl-head"
+               ng-click="$ctrl.FocusMe($index);">{{ h.name }}</div>
+          <ui-table-sort-arrow-vert data-direction="$ctrl.chipsrv.Sort(h.name)"
+                                    update-field="$ctrl.UpdateSort(h.name, value)"></ui-table-sort-arrow-vert>
+        </div>
+
+      </ui-table-banner>
+      <ui-table-search-basic>
+        <ui-table-search-input class="colspan {{h.size}}"
+                               data-value="h.value"
+                               data-index="$index"
+                               ng-repeat="h in $ctrl.fields"
+                               on-update="$ctrl.UpdateField(h.name, value)"
+                               done-type="$ctrl.UpdateField(h.name, value)"></ui-table-search-input>
+      </ui-table-search-basic>
+      <ui-table-search-advanced>
+        <div class="col">
+          <div class="row">
+            <div class="label font-med-label2 font-c-grey">name</div>
+            <div class="fields">
+              <ui-input-clear data-label="business name"
+                              on-update="$ctrl.UpdateField('business name', value)"
+                              done-type="$ctrl.UpdateField('business name', value)"></ui-input-clear>
+              <ui-input-clear data-label="office name"
+                              on-update="$ctrl.UpdateField('office name', value)"
+                              done-type="$ctrl.UpdateField('office name', value)"></ui-input-clear>
+              <ui-input-clear data-label="MC"
+                              on-update="$ctrl.UpdateField('mc', value)"
+                              done-type="$ctrl.UpdateField('mc', value)"></ui-input-clear>
+              <ui-input-clear data-label="SCAC"
+                              on-update="$ctrl.UpdateField('scac', value)"
+                              done-type="$ctrl.UpdateField('scac', value)"></ui-input-clear>
+              <ui-input-clear data-label="DOT"
+                              on-update="$ctrl.UpdateField('dot', value)"
+                              done-type="$ctrl.UpdateField('dot', value)"></ui-input-clear>
+            </div>
+          </div>
+          <div class="row">
+            <div class="label font-med-label2 font-c-grey">address</div>
+            <div class="fields">
+              <ui-input-clear data-label="street"
+                              on-update="$ctrl.UpdateField('street', value)"
+                              done-type="$ctrl.UpdateField('street', value)"></ui-input-clear>
+              <ui-input-clear data-label="city"
+                              on-update="$ctrl.UpdateField('city', value)"
+                              done-type="$ctrl.UpdateField('city', value)"></ui-input-clear>
+              <ui-input-clear data-label="zip"
+                              on-update="$ctrl.UpdateField('zip', value)"
+                              done-type="$ctrl.UpdateField('zip', value)"></ui-input-clear>
+
+              <ui-input-clear data-label="state"
+                              on-update="$ctrl.UpdateField('state', value)"
+                              done-type="$ctrl.UpdateField('state', value)"></ui-input-clear>
+            </div>
+          </div>
+          <div class="row">
+            <div class="label font-med-label2 font-c-grey">amount insured</div>
+            <div class="fields">
+              <ui-input-clear data-label="amount insured"
+                              on-update="$ctrl.UpdateField('amount insured', value)"
+                              done-type="$ctrl.UpdateField('amount insured', value)"></ui-input-clear>
+            </div>
+          </div>
+        </div>
+      </ui-table-search-advanced>
+    </ui-table-header>
+  </header-banner>
+  <body-content>
+    <ui-table-row ng-repeat="item in $ctrl.carrierList"
+                  on-select="">
+      <div class="business-name colspan {{$ctrl.fields[0].size}}">
+        <svg class="icon icon-tiny">
+          <use xlink:href="imgs/icons.svg#buildings"></use>
+        </svg>
+        <div class="bold caps font-primary-text">{{ item.biz.BizName}}
+        </div>
+      </div>
+
+      <div class="colspan {{$ctrl.fields[1].size}} font-table-body-text"
+           title="this feature is not yet supported">N/S</div>
+      <ui-address-oneliner class="colspan {{$ctrl.fields[2].size}} font-table-body-text"
+                           address="item.brnch_address"></ui-address-oneliner>
+      <div class="colspan {{$ctrl.fields[3].size}}">no data available</div>
+      <ui-phone-oneliner class="colspan {{$ctrl.fields[4].size}} font-table-body-text font-c-primary"
+                         phone="item.brnch_phone"></ui-phone-oneliner>
+      <div class="colspan {{$ctrl.fields[5].size}} font-table-body-text font-c-primary">
+        <ui-email email="item.BrnchEmail"></ui-email>
+      </div>
+      <div class="status colspan {{$ctrl.fields[6].size}}">
+        <div>no data available</div>
+        <svg class="icon icon-tiny blacklist">
+          <title>this is the blacklist icon.</title>
+          <use xlink:href="imgs/icons.svg#document-solid"></use>
+        </svg>
+        <svg class="icon icon-tiny hold">
+          <title>this is the holds icon.</title>
+          <use xlink:href="imgs/icons.svg#hold"></use>
+        </svg>
+
+      </div>
+      <svg class="row-options icon icon-tiny">
+        <title>this feature is not yet implemented</title>
+        <use xlink:href="imgs/icons.svg#dots-kebob"></use>
+      </svg>
+    </ui-table-row>
+  </body-content>
+</ui-table-default>

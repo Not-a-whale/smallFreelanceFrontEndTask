@@ -1,13 +1,24 @@
-<ui-table-flowout style="min-width: 686px; max-width: 686px; height: 100%;"
+<div class="table-preamble">
+  <div class="table-name">brokerage companies</div>
+  <div class="table-count caps">X items found</div>
+  <ui-table-pagination current-page="$ctrl.page"
+                       on-page-change="$ctrl.PageChange(page, rows)"></ui-table-pagination>
+  <div class="other-actions">
+    <a class="btn btn-accent">create new</a>
+  </div>
+</div>
+
+<ui-table-default style="height: 100%;"
                   on-search="$ctrl.Search(query)"
                   data-fields="$ctrl.fields"
                   data-mapping="$ctrl.map"
-                  data-errors="$ctrl.errors">
+                  data-errors="$ctrl.errors"
+                  class="table-cols-16">
   <header-banner>
     <ui-table-header style="width: 100%"
                      fields="$ctrl.fields">
       <ui-table-banner>
-        <div class="colhead {{ h.size }}"
+        <div class="colspan colhead {{ h.size }}"
              ng-repeat="h in $ctrl.fields">
           <div class="colname font-tbl-head"
                ng-click="$ctrl.FocusMe($index);">{{ h.name }}</div>
@@ -17,7 +28,7 @@
 
       </ui-table-banner>
       <ui-table-search-basic>
-        <ui-table-search-input class="{{h.size}}"
+        <ui-table-search-input class="colspan {{h.size}}"
                                data-value="h.value"
                                data-index="$index"
                                ng-repeat="h in $ctrl.fields"
@@ -35,11 +46,6 @@
               <ui-input-clear data-label="office name"
                               on-update="$ctrl.UpdateField('office name', value)"
                               done-type="$ctrl.UpdateField('office name', value)"></ui-input-clear>
-            </div>
-          </div>
-          <div class="row">
-            <div class="label font-med-label2 font-c-grey">mc</div>
-            <div class="fields">
               <ui-input-clear data-label="MC"
                               on-update="$ctrl.UpdateField('mc', value)"
                               done-type="$ctrl.UpdateField('mc', value)"></ui-input-clear>
@@ -82,15 +88,27 @@
     </ui-table-header>
   </header-banner>
   <body-content>
-    <ui-table-row ng-repeat="item in $ctrl.carrierList"
-                  on-select="$ctrl.Select(item)">
-      <div class="bold caps font-primary-text {{$ctrl.fields[0].size}}">{{ item.biz.BizName}}</div>
-      <div class="font-basic-text {{$ctrl.fields[1].size}}">{{item.biz.has_carrier.MC}}</div>
-      <div class="{{$ctrl.fields[2].size}}"
-           style="height: 100%;">
-        <ui-address-basic address="item.brnch_address"></ui-address-basic>
+    <ui-table-row ng-repeat="item in $ctrl.brokerList"
+                  on-select="">
+      <div class="business-name colspan {{$ctrl.fields[0].size}}">
+        <svg class="icon icon-tiny">
+          <use xlink:href="imgs/icons.svg#buildings"></use>
+        </svg>
+        <div class="bold caps font-primary-text">{{ item.biz.BizName}}
+        </div>
       </div>
-      <div class="font-basic-text  {{$ctrl.fields[3].size}}">no data available</div>
+
+      <div class="colspan {{$ctrl.fields[1].size}} font-table-body-text"
+           title="this feature is not yet supported">N/S</div>
+      <ui-address-oneliner class="colspan {{$ctrl.fields[2].size}} font-table-body-text"
+                           address="item.brnch_address"></ui-address-oneliner>
+      <div class="colspan {{$ctrl.fields[3].size}}">no data available</div>
+      <ui-phone-oneliner class="colspan {{$ctrl.fields[4].size}} font-table-body-text font-c-primary"
+                         phone="item.brnch_phone"></ui-phone-oneliner>
+      <div class="colspan {{$ctrl.fields[5].size}} font-table-body-text font-c-primary">no data available
+      </div>
+      <div class="colspan {{$ctrl.fields[6].size}}">no data available</div>
+      <div class="colspan {{$ctrl.fields[7].size}}">no data available</div>
     </ui-table-row>
   </body-content>
-</ui-table-flowout>
+</ui-table-default>

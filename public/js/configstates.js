@@ -7,7 +7,7 @@ var configstates = {
     url: "/dev",
     views: {
       "main@": {
-        templateUrl: "modules/test/landingpage/meta.template.html"
+        templateUrl: "modules/test/landingpage/template.html"
       }
     }
   },
@@ -131,36 +131,823 @@ var configstates = {
         component: "topNavbar"
       },
       "mainnav-view@.": {
-        component: "menuMainNav"
+        component: "menuMainNavLayoutDefault"
+      },
+      "mainnav-default-view@.": {
+        component: "menuMainNavDefault"
+      },
+      "mainnav-department-view@.": {
+        component: "menuMainNavDepartment"
       }
     },
     resolve: {
-      items: function (MainNavService) {
-        console.log("resolving");
-        let items = MainNavService.GetMainNavMenu();
-        console.log(items);
-        return items;
+      departments: function (PageService) {
+        return PageService.GetDepartments();
       },
-      pages: function (PageService) {
-        return PageService.GetPages(); // this is not going to work if the state doesnt reload when clicking on page
+      defaults: function (PageService) {
+        return PageService.GetDefaults();
       }
-      // menulist: function (MenuService) {
-      //   return MenuService.List();
-      // },
-      // activeitem: function ($transition$, MenuService, menulist) {
-      //   return MenuService.SearchActiveState($transition$.to().name);
-      // }
     }
   },
   "tmsapp.main2.test": {
     url: "/test",
     views: {
-      "content-view@tmsapp.main2": {
-        template: '<div ui-sref="tmsapp.main2">click me</div>'
+      "main-content-view@tmsapp.main2": {
+        component: 'pageLayoutPrimary'
+        //template: '<div ui-sref="tmsapp.main2">click me</div>'
+      }
+      // "page-content@.": {
+      //   component: 'pageSafetyBusinessAll'
+      // }
+    }
+    // resolve: {
+    //   current_page: function (PageService) {
+    //     PageService.SetDepartment('safety');
+    //     return PageService.SetPage('businesses');
+    //   }
+    // }
+  },
+
+  "tmsapp.main2.dispatch": {
+    url: "/dispatch",
+    views: {
+      "main-content-view@tmsapp.main2": {
+        component: 'pageLayoutPrimary'
+        //template: '<div ui-sref="tmsapp.main2">click me</div>'
+      }
+    },
+    resolve: {
+      current_dept: function (PageService) {
+        return PageService.SetDepartment('dispatch');
+      }
+    },
+    redirectTo: 'tmsapp.main2.dispatch.truck.available'
+  },
+
+
+  "tmsapp.main2.dispatch.truck": {
+    url: "/truck",
+    resolve: {
+      current_page: function (PageService) {
+        return PageService.SetPage('trucks');
+      }
+    },
+    redirectTo: 'tmsapp.main2.dispatch.truck.available'
+  },
+
+  "tmsapp.main2.dispatch.truck.available": {
+    url: "/avail",
+    views: {
+      "page-content@^.^": {
+        template: 'this is the available truck page <br><a ui-sref="^.detail({truckid: 125})">Truck 125</a><br><a ui-sref="^.detail({truckid: 333})">Truck 333</a><br><a ui-sref="^.detail({truckid: 1002})">Truck 1002</a>'
       }
     }
+  },
+
+  "tmsapp.main2.dispatch.truck.detail": {
+    url: "/:truckid/detail",
+    views: {
+      "page-content@^.^": {
+        template: "this is the truck detail page <br>you picked truck {{$resolve.truckid}}"
+      }
+    },
+    resolve: {
+      truckid: function ($stateParams) {
+        return $stateParams.truckid;
+      }
+    }
+  },
+
+  "tmsapp.main2.dispatch.driver": {
+    url: "/drivers",
+    resolve: {
+      current_page: function (PageService) {
+        return PageService.SetPage('drivers');
+      }
+    },
+    redirectTo: 'tmsapp.main2.dispatch.driver.available'
+  },
+
+  "tmsapp.main2.dispatch.driver.available": {
+    url: "/avail",
+    views: {
+      "page-content@^.^": {
+        template: 'this is the available drivers page <br><a ui-sref="^.detail({driverid: 125})">Driver 125</a><br><a ui-sref="^.detail({driverid: 333})">Driver 333</a><br><a ui-sref="^.detail({driverid: 1002})">Driver 1002</a>'
+      }
+    },
+    resolve: {
+      current_page: function (PageService) {
+        return PageService.SetPage('drivers');
+      }
+    }
+  },
+
+
+  "tmsapp.main2.dispatch.driver.detail": {
+    url: "/:driverid/detail",
+    views: {
+      "page-content@^.^": {
+        template: "this is the driver detail page <br>you picked driver {{$resolve.driverid}}"
+      }
+    },
+    resolve: {
+      driverid: function ($stateParams) {
+        return $stateParams.driverid;
+      }
+    }
+  },
+
+  "tmsapp.main2.dispatch.load": {
+    url: "/loads",
+    resolve: {
+      current_page: function (PageService) {
+        return PageService.SetPage('loads');
+      }
+    },
+    redirectTo: 'tmsapp.main2.dispatch.load.available'
+  },
+
+  "tmsapp.main2.dispatch.load.form": {
+    url: "/form",
+    views: {
+      "page-content@^.^": {
+        template: "this is the loads form page"
+      }
+    },
+  },
+
+  "tmsapp.main2.dispatch.load.available": {
+    url: "/avail",
+    views: {
+      "page-content@^.^": {
+        template: "this is the loads available"
+      }
+    },
+  },
+  "tmsapp.main2.dispatch.load.tender": {
+    url: "/tenders",
+    views: {
+      "page-content@^.^": {
+        template: "this is the loads tenders"
+      }
+    },
+  },
+  "tmsapp.main2.dispatch.load.board": {
+    url: "/boards",
+    views: {
+      "page-content@^.^": {
+        template: "this is the load boards"
+      }
+    },
+  },
+
+
+  "tmsapp.main2.dispatch.trip": {
+    url: "/trips",
+    resolve: {
+      current_page: function (PageService) {
+        return PageService.SetPage('manage trips');
+      }
+    },
+    redirectTo: "tmsapp.main2.dispatch.trip.active"
+  },
+
+  "tmsapp.main2.dispatch.trip.active": {
+    url: "/active",
+    views: {
+      "page-content@^.^": {
+        template: "this is the trip active page"
+      }
+    },
+  },
+
+  "tmsapp.main2.dispatch.trip.detail": {
+    url: "/:tripid/detail",
+    views: {
+      "page-content@^.^": {
+        template: "this is the trip active detail page"
+      }
+    },
+  },
+
+  "tmsapp.main2.dispatch.trip.pending": {
+    url: "/pending",
+    views: {
+      "page-content@^.^": {
+        template: "this is the trip pending page"
+      }
+    },
+  },
+
+  "tmsapp.main2.dispatch.trip.complete": {
+    url: "/complete",
+    views: {
+      "page-content@^.^": {
+        template: "this is the trip complete page"
+      }
+    },
+  },
+
+  "tmsapp.main2.dispatch.trip.history": {
+    url: "/history",
+    views: {
+      "page-content@^.^": {
+        template: "this is the trip history page"
+      }
+    },
+  },
+
+
+  "tmsapp.main2.safety": {
+    url: "/safety",
+    views: {
+      "main-content-view@tmsapp.main2": {
+        component: 'pageLayoutPrimary'
+      }
+    },
+    resolve: {
+      current_dept: function (PageService) {
+        return PageService.SetDepartment('safety');
+      }
+    },
+    redirectTo: "tmsapp.main2.safety.personnel.all"
+  },
+
+  "tmsapp.main2.safety.personnel": {
+    url: "/personnel",
+    resolve: {
+      current_page: function (PageService) {
+        return PageService.SetPage('personnel');
+      }
+    },
+    redirectTo: "tmsapp.main2.safety.personnel.all"
+  },
+  "tmsapp.main2.safety.personnel.all": {
+    url: "/all",
+    views: {
+      "page-content@^.^": {
+        template: "this is the personnel all page"
+      }
+    },
+  },
+  "tmsapp.main2.safety.personnel.driver": {
+    url: "/driver",
+    views: {
+      "page-content@^.^": {
+        template: "this is the personnel drivers page"
+      }
+    },
+  },
+  "tmsapp.main2.safety.personnel.ownerop": {
+    url: "/ownerop",
+    views: {
+      "page-content@^.^": {
+        template: "this is the personnel ownerop page"
+      }
+    },
+  },
+  "tmsapp.main2.safety.personnel.officestaff": {
+    url: "/officestaff",
+    views: {
+      "page-content@^.^": {
+        template: "this is the personnel officestaff page"
+      }
+    },
+  },
+  "tmsapp.main2.safety.personnel.contact": {
+    url: "/contact",
+    views: {
+      "page-content@^.^": {
+        template: "this is the personnel contact page"
+      }
+    },
+  },
+
+  "tmsapp.main2.safety.equipment": {
+    url: "/equipment",
+    resolve: {
+      current_page: function (PageService) {
+        return PageService.SetPage('equipment');
+      }
+    },
+    redirectTo: "tmsapp.main2.safety.equipment.all"
+  },
+  "tmsapp.main2.safety.equipment.all": {
+    url: "/all",
+    views: {
+      "page-content@^.^": {
+        template: "this is the equipment all page"
+      }
+    },
+  },
+  "tmsapp.main2.safety.equipment.device": {
+    url: "/device",
+    views: {
+      "page-content@^.^": {
+        template: "this is the equipment device page"
+      }
+    },
+  },
+  "tmsapp.main2.safety.equipment.truck": {
+    url: "/truck",
+    views: {
+      "page-content@^.^": {
+        template: "this is the equipment truck page"
+      }
+    },
+  },
+  "tmsapp.main2.safety.equipment.trailer": {
+    url: "/trailer",
+    views: {
+      "page-content@^.^": {
+        template: "this is the equipment trailer page"
+      }
+    },
+  },
+
+  "tmsapp.main2.safety.business": {
+    url: "/businesses",
+    resolve: {
+      current_page: function (PageService) {
+        return PageService.SetPage('businesses');
+      }
+    },
+    redirectTo: "tmsapp.main2.safety.business.all"
+  },
+
+  "tmsapp.main2.safety.business.all": {
+    url: "/all",
+    views: {
+      "page-content@^.^": {
+        component: 'pageSafetyBusinessAll'
+      }
+    },
+  },
+
+  "tmsapp.main2.safety.business.broker": {
+    url: "/broker",
+    views: {
+      "page-content@^.^": {
+        component: 'pageSafetyBusinessBroker'
+      }
+    },
 
   },
+  "tmsapp.main2.safety.business.carrier": {
+    url: "/carrier",
+    views: {
+      "page-content@^.^": {
+        component: 'pageSafetyBusinessCarrier'
+      }
+    },
+
+  },
+  "tmsapp.main2.safety.business.other": {
+    url: "/other",
+    views: {
+      "page-content@^.^": {
+        component: 'pageSafetyBusinessOther'
+      }
+    },
+
+  },
+
+  "tmsapp.main2.safety.expiration": {
+    url: "/expiration",
+    resolve: {
+      current_page: function (PageService) {
+        return PageService.SetPage('expirations');
+      }
+    },
+    redirectTo: "tmsapp.main2.safety.expiration.current"
+  },
+  "tmsapp.main2.safety.expiration.current": {
+    url: "/all",
+    views: {
+      "page-content@^.^": {
+        template: "this is the expiration all page"
+      }
+    },
+  },
+  "tmsapp.main2.safety.expiration.scheduled": {
+    url: "/scheduled",
+    views: {
+      "page-content@^.^": {
+        template: "this is the expiration scheduled page"
+      }
+    },
+  },
+  "tmsapp.main2.safety.expiration.history": {
+    url: "/history",
+    views: {
+      "page-content@^.^": {
+        template: "this is the expiration history page"
+      }
+    },
+  },
+
+  "tmsapp.main2.safety.maintenance": {
+    url: "/maintenance",
+    resolve: {
+      current_page: function (PageService) {
+        return PageService.SetPage('maintenance');
+      }
+    },
+    redirectTo: "tmsapp.main2.safety.maintenance.current"
+  },
+  "tmsapp.main2.safety.maintenance.current": {
+    url: "/all",
+    views: {
+      "page-content@^.^": {
+        template: "this is the maintenance all page"
+      }
+    },
+  },
+  "tmsapp.main2.safety.maintenance.scheduled": {
+    url: "/scheduled",
+    views: {
+      "page-content@^.^": {
+        template: "this is the maintenance scheduled page"
+      }
+    },
+  },
+  "tmsapp.main2.safety.maintenance.history": {
+    url: "/history",
+    views: {
+      "page-content@^.^": {
+        template: "this is the maintenance history page"
+      }
+    },
+  },
+
+
+  "tmsapp.main2.safety.logbook": {
+    url: "/logbook",
+    resolve: {
+      current_page: function (PageService) {
+        return PageService.SetPage('logbook');
+      }
+    },
+    redirectTo: "tmsapp.main2.safety.logbook.all"
+  },
+  "tmsapp.main2.safety.logbook.all": {
+    url: "/all",
+    views: {
+      "page-content@^.^": {
+        template: "This feature is currently not implemented"
+      }
+    },
+  },
+
+  "tmsapp.main2.safety.ifta": {
+    url: "/ifta",
+    resolve: {
+      current_page: function (PageService) {
+        return PageService.SetPage('IFTA/Highway use');
+      }
+    },
+    redirectTo: "tmsapp.main2.safety.ifta.carrier"
+  },
+  "tmsapp.main2.safety.ifta.carrier": {
+    url: "/carrier",
+    views: {
+      "page-content@^.^": {
+        template: "this is the ifta per carrier page"
+      }
+    },
+  },
+  "tmsapp.main2.safety.ifta.truck": {
+    url: "/truck",
+    views: {
+      "page-content@^.^": {
+        template: "this is the ifta per truck page"
+      }
+    },
+  },
+  "tmsapp.main2.safety.ifta.state": {
+    url: "/state",
+    views: {
+      "page-content@^.^": {
+        template: "this is the ifta per state page"
+      }
+    },
+  },
+
+  "tmsapp.main2.finance": {
+    url: "/finance",
+    views: {
+      "main-content-view@tmsapp.main2": {
+        component: 'pageLayoutPrimary'
+        //template: '<div ui-sref="tmsapp.main2">click me</div>'
+      }
+    },
+    resolve: {
+      current_dept: function (PageService) {
+        return PageService.SetDepartment('finance');
+      }
+    },
+    redirectTo: "tmsapp.main2.finance.invoice.open"
+  },
+
+  "tmsapp.main2.finance.invoice": {
+    url: "/invoice",
+    resolve: {
+      current_page: function (PageService) {
+        return PageService.SetPage('invoices');
+      }
+    },
+    redirectTo: "tmsapp.main2.finance.invoice.open"
+  },
+  "tmsapp.main2.finance.invoice.open": {
+    url: "/open",
+    views: {
+      "page-content@^.^": {
+        template: "this is the invoice open page"
+      }
+    },
+  },
+  "tmsapp.main2.finance.invoice.processed": {
+    url: "/processed",
+    views: {
+      "page-content@^.^": {
+        template: "this is the invoice processed page"
+      }
+    },
+  },
+  "tmsapp.main2.finance.invoice.history": {
+    url: "/history",
+    views: {
+      "page-content@^.^": {
+        template: "this is the invoice history page"
+      }
+    },
+  },
+  "tmsapp.main2.finance.settlement": {
+    url: "/settlement",
+    resolve: {
+      current_page: function (PageService) {
+        return PageService.SetPage('settlements');
+      }
+    },
+    redirectTo: "tmsapp.main2.finance.settlement.open"
+  },
+  "tmsapp.main2.finance.settlement.open": {
+    url: "/open",
+    views: {
+      "page-content@^.^": {
+        template: "this is the settlement open page"
+      }
+    },
+  },
+  "tmsapp.main2.finance.settlement.check": {
+    url: "/check",
+    views: {
+      "page-content@^.^": {
+        template: "this is the settlement check page"
+      }
+    },
+  },
+
+  "tmsapp.main2.finance.settlement.processed": {
+    url: "/processed",
+    views: {
+      "page-content@^.^": {
+        template: "this is the settlement processed page"
+      }
+    },
+  },
+  "tmsapp.main2.finance.settlement.history": {
+    url: "/history",
+    views: {
+      "page-content@^.^": {
+        template: "this is the settlement history page"
+      }
+    },
+  },
+
+  "tmsapp.main2.finance.payschedule": {
+    url: "/payschedule",
+    resolve: {
+      current_page: function (PageService) {
+        return PageService.SetPage('payment schedule');
+      }
+    },
+    redirectTo: "tmsapp.main2.finance.payschedule.schedule"
+  },
+  "tmsapp.main2.finance.payschedule.schedule": {
+    url: "/schedule",
+    views: {
+      "page-content@^.^": {
+        template: "this is the payschedule schedule page"
+      }
+    },
+  },
+  "tmsapp.main2.finance.payschedule.form": {
+    url: "/form",
+    views: {
+      "page-content@^.^": {
+        template: "this is the payschedule form page"
+      }
+    },
+  },
+  "tmsapp.main2.finance.payschedule.history": {
+    url: "/history",
+    views: {
+      "page-content@^.^": {
+        template: "this is the payschedule history page"
+      }
+    },
+  },
+
+
+  "tmsapp.main2.admin": {
+    url: "/admin",
+    views: {
+      "main-content-view@tmsapp.main2": {
+        component: 'pageLayoutPrimary'
+      }
+    },
+    resolve: {
+      current_dept: function (PageService) {
+        return PageService.SetDepartment('admin');
+      }
+    },
+    redirectTo: "tmsapp.main2.admin.mycompany"
+  },
+
+  "tmsapp.main2.admin.mycompany": {
+    url: "/company",
+    resolve: {
+      current_page: function (PageService) {
+        return PageService.SetPage('my company');
+      }
+    }
+  },
+
+  "tmsapp.main2.admin.mnguser": {
+    url: "/manage",
+    resolve: {
+      current_page: function (PageService) {
+        return PageService.SetPage('manage users');
+      }
+    },
+    redirectTo: "tmsapp.main2.admin.mnguser.user"
+  },
+
+  "tmsapp.main2.admin.mnguser.user": {
+    url: "/user",
+    views: {
+      "page-content@^.^": {
+        template: "this is the manage user page"
+      }
+    },
+  },
+
+  "tmsapp.main2.admin.mnguser.user.form": {
+    url: "/form",
+    views: {
+      "page-content@^.^": {
+        template: "this is the manage user form page"
+      }
+    },
+  },
+
+  "tmsapp.main2.admin.mnguser.group": {
+    url: "/group",
+    views: {
+      "page-content@^.^": {
+        template: "this is the manage group page"
+      }
+    },
+  },
+
+  "tmsapp.main2.admin.mnguser.group.form": {
+    url: "/form",
+    views: {
+      "page-content@^.^": {
+        template: "this is the manage group form page"
+      }
+    },
+  },
+  "tmsapp.main2.admin.mnguser.role": {
+    url: "/role",
+    views: {
+      "page-content@^.^": {
+        template: "this is the manage role page"
+      }
+    },
+  },
+
+  "tmsapp.main2.admin.unit": {
+    url: "/unit",
+    resolve: {
+      current_page: function (PageService) {
+        return PageService.SetPage('manage units');
+      }
+    },
+    redirectTo : "tmsapp.main2.admin.unit.all"
+  },
+  "tmsapp.main2.admin.unit.all": {
+    url: "/all",
+    views: {
+      "page-content@^.^": {
+        template: "this is the manage unit page"
+      }
+    },
+  },
+  "tmsapp.main2.admin.unit.detail": {
+    url: "/:unitid/detail",
+    views: {
+      "page-content@^.^": {
+        template: "this is the manage unit detail page"
+      }
+    },
+  },
+  "tmsapp.main2.admin.unit.form": {
+    url: "/form",
+    views: {
+      "page-content@^.^": {
+        template: "this is the manage unit detail page"
+      }
+    },
+  },
+
+  "tmsapp.main2.admin.announcement": {
+    url: "/announcement",
+    views: {
+      "page-content@^": {
+        template: "this is the announcement page"
+      }
+    },
+    resolve: {
+      current_page: function (PageService) {
+        return PageService.SetPage('announcements');
+      }
+    }
+  },
+  "tmsapp.main2.admin.announcement.form": {
+    url: "/form",
+    views: {
+      "page-content@^.^": {
+        template: "this is the announcement form page"
+      }
+    },
+  },
+
+  "tmsapp.main2.admin.setting": {
+    url: "/settings",
+    views: {
+      "page-content@^": {
+        template: "this is the settings page"
+      }
+    },
+    resolve: {
+      current_page: function (PageService) {
+        return PageService.SetPage('app settings');
+      }
+    }
+  },
+
+  "tmsapp.main2.productivity": {
+    url: "/productivity",
+    redirectTo: "tmsapp.main2.productivity.dashboard"
+  },
+
+  "tmsapp.main2.productivity.dashboard": {
+    url: "/dashboard",
+    views: {
+      "main-content-view@tmsapp.main2": {
+        template: "this is the dashboard!"
+      }
+    }
+  },
+  "tmsapp.main2.productivity.calendar": {
+    url: "/calendar",
+    views: {
+      "main-content-view@tmsapp.main2": {
+        template: 'this is the calendar! <input type="date">'
+      }
+    }
+  },
+  "tmsapp.main2.productivity.map": {
+    url: "/map",
+    views: {
+      "main-content-view@tmsapp.main2": {
+        template: 'this is the map!'
+      }
+    }
+  },
+
+
+
+
+
+
+
+
+
+
+
   "tmsapp": {
     url: "/tmsapp"
   },
@@ -190,8 +977,8 @@ var configstates = {
       menu: function (MainNavService) {
         return MainNavService.GetMainNavMenu();
       },
-      pages: function (PageService) {
-        return PageService.GetPages(); // this is not going to work if the state doesnt reload when clicking on page
+      pages: function (PageServiceOld) {
+        return PageServiceOld.GetPages(); // this is not going to work if the state doesnt reload when clicking on page
       }
       // menulist: function (MenuService) {
       //   return MenuService.List();
@@ -229,8 +1016,8 @@ var configstates = {
       }
     },
     resolve: {
-      page: function (PageService) {
-        PageService.SetPage('calendar');
+      page: function (PageServiceOld) {
+        PageServiceOld.SetPage('calendar');
       }
     }
   },
@@ -242,8 +1029,8 @@ var configstates = {
       }
     },
     resolve: {
-      page: function (PageService) {
-        PageService.SetPage('dashboard');
+      page: function (PageServiceOld) {
+        PageServiceOld.SetPage('dashboard');
       }
     }
   },
@@ -355,8 +1142,8 @@ var configstates = {
   "tmsapp.main.hr.prsnl": {
     url: "/prsnl",
     resolve: {
-      page: function (PageService) {
-        PageService.SetPage('personnel');
+      page: function (PageServiceOld) {
+        PageServiceOld.SetPage('personnel');
       }
     }
   },
@@ -448,8 +1235,8 @@ var configstates = {
   "tmsapp.main.hr.biz": {
     url: "/biz",
     resolve: {
-      page: function (PageService) {
-        PageService.SetPage('business');
+      page: function (PageServiceOld) {
+        PageServiceOld.SetPage('business');
       }
     }
   },
@@ -699,8 +1486,8 @@ var configstates = {
       }
     },
     resolve: {
-      page: function (PageService) {
-        PageService.SetPage('inventory');
+      page: function (PageServiceOld) {
+        PageServiceOld.SetPage('inventory');
       }
     }
   },
@@ -734,8 +1521,8 @@ var configstates = {
       forms: function (MetaFormService) {
         return MetaFormService.NewTrailerForm();
       },
-      page: function (PageService) {
-        PageService.SetPage('newtrailer');
+      page: function (PageServiceOld) {
+        PageServiceOld.SetPage('newtrailer');
       }
     }
   },
@@ -753,8 +1540,8 @@ var configstates = {
       forms: function (MetaFormService) {
         return MetaFormService.NewTruckForm();
       },
-      page: function (PageService) {
-        PageService.SetPage('newtruck');
+      page: function (PageServiceOld) {
+        PageServiceOld.SetPage('newtruck');
       }
     }
   },

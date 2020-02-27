@@ -1,6 +1,8 @@
+ui-table-default,
 ui-table-flowout {
 
   .ui-table();
+
   header-banner {
     @flex-row();
     width: 100%;
@@ -10,12 +12,12 @@ ui-table-flowout {
 
 @table-side-padding: 20px;
 
-.ui-table-padded(){
+.ui-table-padded() {
   padding-left: @table-side-padding;
   padding-right: @table-side-padding;
 }
 
-.ui-table(){
+.ui-table() {
   @table-side-padding: 40px;
   @table-row-margin: 2px;
 
@@ -30,19 +32,28 @@ ui-table-flowout {
     &>.header {
       position: relative;
       width: 100%;
+
       &>header-banner {
         position: relative;
         width: 100%;
       }
     }
+
     &>.search {
       position: relative;
     }
+
+    &>.error-list {
+      position: relative;
+      height: 0px;
+      z-index: 99999;
+    }
   }
 
-  &>.body{
+  &>.body {
     @flex-col();
     width: 100%;
+
     &>* {
       margin-bottom: @table-row-margin;
     }

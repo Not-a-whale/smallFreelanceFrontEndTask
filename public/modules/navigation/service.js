@@ -155,7 +155,7 @@ class MenuService extends GenericService {
 
 app.service("MenuService", ["$http", MenuService]);
 
-class PageService {
+class PageServiceOld {
   constructor(http) {
     this.http = http;
     this.pages = undefined;
@@ -199,8 +199,7 @@ class PageService {
   }
 }
 
-app.service('PageService', ['$http', PageService]);
-
+app.service('PageServiceOld', ['$http', PageServiceOld]);
 class MainNavService {
   constructor(http) {
     this.http = http;
