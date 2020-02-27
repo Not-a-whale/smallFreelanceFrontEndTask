@@ -180,18 +180,19 @@ var configstates = {
       current_dept: function (PageService) {
         return PageService.SetDepartment('dispatch');
       }
-    }
+    },
+    redirectTo: 'tmsapp.main2.dispatch.truck.available'
   },
 
 
   "tmsapp.main2.dispatch.truck": {
     url: "/truck",
-    abstract: true,
     resolve: {
       current_page: function (PageService) {
         return PageService.SetPage('trucks');
       }
-    }
+    },
+    redirectTo: 'tmsapp.main2.dispatch.truck.available'
   },
 
   "tmsapp.main2.dispatch.truck.available": {
@@ -219,12 +220,12 @@ var configstates = {
 
   "tmsapp.main2.dispatch.driver": {
     url: "/drivers",
-    abstract: true,
     resolve: {
       current_page: function (PageService) {
         return PageService.SetPage('drivers');
       }
-    }
+    },
+    redirectTo: 'tmsapp.main2.dispatch.driver.available'
   },
 
   "tmsapp.main2.dispatch.driver.available": {
@@ -258,12 +259,12 @@ var configstates = {
 
   "tmsapp.main2.dispatch.load": {
     url: "/loads",
-    abstract: true,
     resolve: {
       current_page: function (PageService) {
         return PageService.SetPage('loads');
       }
-    }
+    },
+    redirectTo: 'tmsapp.main2.dispatch.load.available'
   },
 
   "tmsapp.main2.dispatch.load.form": {
@@ -303,12 +304,12 @@ var configstates = {
 
   "tmsapp.main2.dispatch.trip": {
     url: "/trips",
-    abstract: true,
     resolve: {
       current_page: function (PageService) {
         return PageService.SetPage('manage trips');
       }
-    }
+    },
+    redirectTo: "tmsapp.main2.dispatch.trip.active"
   },
 
   "tmsapp.main2.dispatch.trip.active": {
@@ -368,17 +369,18 @@ var configstates = {
       current_dept: function (PageService) {
         return PageService.SetDepartment('safety');
       }
-    }
+    },
+    redirectTo: "tmsapp.main2.safety.personnel.all"
   },
 
   "tmsapp.main2.safety.personnel": {
     url: "/personnel",
-    abstract: true,
     resolve: {
       current_page: function (PageService) {
         return PageService.SetPage('personnel');
       }
-    }
+    },
+    redirectTo: "tmsapp.main2.safety.personnel.all"
   },
   "tmsapp.main2.safety.personnel.all": {
     url: "/all",
@@ -423,12 +425,12 @@ var configstates = {
 
   "tmsapp.main2.safety.equipment": {
     url: "/equipment",
-    abstract: true,
     resolve: {
       current_page: function (PageService) {
         return PageService.SetPage('equipment');
       }
-    }
+    },
+    redirectTo: "tmsapp.main2.safety.equipment.all"
   },
   "tmsapp.main2.safety.equipment.all": {
     url: "/all",
@@ -465,12 +467,12 @@ var configstates = {
 
   "tmsapp.main2.safety.business": {
     url: "/businesses",
-    abstract: true,
     resolve: {
       current_page: function (PageService) {
         return PageService.SetPage('businesses');
       }
-    }
+    },
+    redirectTo: "tmsapp.main2.safety.business.all"
   },
 
   "tmsapp.main2.safety.business.all": {
@@ -512,12 +514,12 @@ var configstates = {
 
   "tmsapp.main2.safety.expiration": {
     url: "/expiration",
-    abstract: true,
     resolve: {
       current_page: function (PageService) {
         return PageService.SetPage('expirations');
       }
-    }
+    },
+    redirectTo: "tmsapp.main2.safety.expiration.current"
   },
   "tmsapp.main2.safety.expiration.current": {
     url: "/all",
@@ -546,12 +548,12 @@ var configstates = {
 
   "tmsapp.main2.safety.maintenance": {
     url: "/maintenance",
-    abstract: true,
     resolve: {
       current_page: function (PageService) {
         return PageService.SetPage('maintenance');
       }
-    }
+    },
+    redirectTo: "tmsapp.main2.safety.maintenance.current"
   },
   "tmsapp.main2.safety.maintenance.current": {
     url: "/all",
@@ -581,12 +583,12 @@ var configstates = {
 
   "tmsapp.main2.safety.logbook": {
     url: "/logbook",
-    abstract: true,
     resolve: {
       current_page: function (PageService) {
         return PageService.SetPage('logbook');
       }
-    }
+    },
+    redirectTo: "tmsapp.main2.safety.logbook.all"
   },
   "tmsapp.main2.safety.logbook.all": {
     url: "/all",
@@ -599,12 +601,12 @@ var configstates = {
 
   "tmsapp.main2.safety.ifta": {
     url: "/ifta",
-    abstract: true,
     resolve: {
       current_page: function (PageService) {
         return PageService.SetPage('IFTA/Highway use');
       }
-    }
+    },
+    redirectTo: "tmsapp.main2.safety.ifta.carrier"
   },
   "tmsapp.main2.safety.ifta.carrier": {
     url: "/carrier",
@@ -643,17 +645,18 @@ var configstates = {
       current_dept: function (PageService) {
         return PageService.SetDepartment('finance');
       }
-    }
+    },
+    redirectTo: "tmsapp.main2.finance.invoice.open"
   },
 
   "tmsapp.main2.finance.invoice": {
     url: "/invoice",
-    abstract: true,
     resolve: {
       current_page: function (PageService) {
         return PageService.SetPage('invoices');
       }
-    }
+    },
+    redirectTo: "tmsapp.main2.finance.invoice.open"
   },
   "tmsapp.main2.finance.invoice.open": {
     url: "/open",
@@ -681,12 +684,12 @@ var configstates = {
   },
   "tmsapp.main2.finance.settlement": {
     url: "/settlement",
-    abstract: true,
     resolve: {
       current_page: function (PageService) {
         return PageService.SetPage('settlements');
       }
-    }
+    },
+    redirectTo: "tmsapp.main2.finance.settlement.open"
   },
   "tmsapp.main2.finance.settlement.open": {
     url: "/open",
@@ -724,12 +727,12 @@ var configstates = {
 
   "tmsapp.main2.finance.payschedule": {
     url: "/payschedule",
-    abstract: true,
     resolve: {
       current_page: function (PageService) {
         return PageService.SetPage('payment schedule');
       }
-    }
+    },
+    redirectTo: "tmsapp.main2.finance.payschedule.schedule"
   },
   "tmsapp.main2.finance.payschedule.schedule": {
     url: "/schedule",
@@ -768,7 +771,8 @@ var configstates = {
       current_dept: function (PageService) {
         return PageService.SetDepartment('admin');
       }
-    }
+    },
+    redirectTo: "tmsapp.main2.admin.mycompany"
   },
 
   "tmsapp.main2.admin.mycompany": {
@@ -782,12 +786,12 @@ var configstates = {
 
   "tmsapp.main2.admin.mnguser": {
     url: "/manage",
-    abstract: true,
     resolve: {
       current_page: function (PageService) {
         return PageService.SetPage('manage users');
       }
-    }
+    },
+    redirectTo: "tmsapp.main2.admin.mnguser.user"
   },
 
   "tmsapp.main2.admin.mnguser.user": {
@@ -836,12 +840,12 @@ var configstates = {
 
   "tmsapp.main2.admin.unit": {
     url: "/unit",
-    abstract: true,
     resolve: {
       current_page: function (PageService) {
         return PageService.SetPage('manage units');
       }
-    }
+    },
+    redirectTo : "tmsapp.main2.admin.unit.all"
   },
   "tmsapp.main2.admin.unit.all": {
     url: "/all",
@@ -906,7 +910,7 @@ var configstates = {
 
   "tmsapp.main2.productivity": {
     url: "/productivity",
-    abstract: true
+    redirectTo: "tmsapp.main2.productivity.dashboard"
   },
 
   "tmsapp.main2.productivity.dashboard": {
@@ -929,7 +933,7 @@ var configstates = {
     url: "/map",
     views: {
       "main-content-view@tmsapp.main2": {
-        template: 'this is the map! <iframe src="https://www.google.com/maps/place/Usko+Express,+Inc/@38.609107,-121.2682923,17z/data=!3m1!4b1!4m5!3m4!1s0x809ad4171337e775:0xebc2e418f6fd3333!8m2!3d38.6091028!4d-121.2661036" height="480" width="640"></iframe>'
+        template: 'this is the map!'
       }
     }
   },
