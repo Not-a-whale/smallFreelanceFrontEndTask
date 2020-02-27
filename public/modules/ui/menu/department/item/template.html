@@ -1,5 +1,7 @@
-<svg class="icon icon-minute">
-  <use xlink:href="{{ $ctrl.page.icon }}"></use>
-</svg>
-<div class="label caps">{{ $ctrl.page.title }}</div>
-<div class="selector"></div>
+<a ui-sref="{{$ctrl.page.state}}" ui-sref-active="active">
+  <svg class="icon icon-minute">
+    <use xlink:href="{{ $ctrl.page.icon }}"></use>
+  </svg>
+  <div class="label caps">{{ $ctrl.page.title }}</div>
+  <div class="selector"></div>
+</a>

@@ -1,7 +1,9 @@
 <div class="departments">
      <a ng-repeat="department in $ctrl.Departments()"
         class="department btn btn-smp btn-tall btn-sharp btn-accent upper bold"
-        ng-click="$ctrl.SetDepartment(department)">{{department.title}}</a>
+        ng-click="$ctrl.SetDepartment(department)"
+        ui-sref="{{department.state}}"
+        ui-sref-active="active">{{department.title}}</a>
 </div>
 
 <div class="search"

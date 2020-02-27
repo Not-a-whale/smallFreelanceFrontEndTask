@@ -17,6 +17,14 @@ sub _connect_to_db {
     my $self = shift;
     if (!$DBIxSingleton) {
         my $dsnx = 'DBI:mysql:database=' . $self->dbname . ';';
+        my $dflt = {
+            mysql_auto_reconnect => 1,
+            mysql_server_prepare => 1,
+            RaiseError           => 1,
+            AutoCommit           => 1,
+            quote_char           => "\`",
+            name_sep             => '.'
+        };
 
         $dsnx .=
             $self->dbhost eq 'localhost'
@@ -26,15 +34,15 @@ sub _connect_to_db {
         $dsnx .= 'mysql_write_timeout=' . $self->wtmout . ';';
         $dsnx .= 'mysql_read_timeout=' . $self->rtmout . ';';
 
-        my $extras
-            = scalar($self->extras)
-            ? $self->extras
-            : {mysql_auto_reconnect => 1, mysql_server_prepare => 1, RaiseError => 1, AutoCommit => 1};
+        my $extras = scalar($self->extras) ? $self->extras : $dflt;
         $self->extras($extras);    # make it visible from outside.
         $ENV{DBIC_UNSAFE_AUTOCOMMIT_OK} = 1 unless $$extras{AutoCommit};
         $DBIxSingleton = $self->connect($dsnx, $self->dbuser, $self->dbpass, $extras);
+    } else {
+        my $st = $DBIxSingleton->storage;
+        $st->ensure_connected if !$st->connected;
+        $self->DBIxHandle($DBIxSingleton);
     }
-    $self->DBIxHandle($DBIxSingleton);
 }
 
 __PACKAGE__->meta->make_immutable(inline_constructor => 1);

@@ -6,10 +6,10 @@ use warnings;
 use Dancer2;
 use Dancer2::Logger::File;
 use Dancer2::Plugin::Auth::HTTP::Basic::DWIW;
-use Data::Dumper;
 use File::Find;
 use FindBin;
 use Cwd 'abs_path';
+use TMS::Schema;
 
 set session => 'Simple';
 set engines => {
@@ -43,6 +43,9 @@ get '/' => sub {
     send_as 'html' => send_file '/index.html';
 };
 
+my $prefetchLib = abs_path("$FindBin::Bin/../lib") . '/TMS/Transport/Dancer/Tools/Prefetch.pm';
+require $prefetchLib;
+
 find(
     sub {
         return if !-f;
@@ -56,13 +59,13 @@ sub BuildRoutes {
     my ($class, $prefix) = @_;
     prefix($prefix);
 
-    get ''        => http_basic_auth required => sub { $class->new()->Search(http_basic_auth_login(), body_parameters->mixed) };
-    post ''       => http_basic_auth required => sub { $class->new()->Search(http_basic_auth_login(), body_parameters->mixed) };
+    get ''         => http_basic_auth required => sub { $class->new()->Search(http_basic_auth_login(), body_parameters->mixed) };
+    post ''        => http_basic_auth required => sub { $class->new()->Search(http_basic_auth_login(), body_parameters->mixed) };
     get '/search'  => http_basic_auth required => sub { $class->new()->Search(http_basic_auth_login(), body_parameters->mixed) };
     post '/search' => http_basic_auth required => sub { $class->new()->Search(http_basic_auth_login(), body_parameters->mixed) };
     post '/create' => http_basic_auth required => sub { $class->new()->Create(http_basic_auth_login(), body_parameters->mixed) };
     post '/update' => http_basic_auth required => sub { $class->new()->Update(http_basic_auth_login(), body_parameters->mixed) };
     post '/delete' => http_basic_auth required => sub { $class->new()->Delete(http_basic_auth_login(), body_parameters->mixed) };
-} ## end sub BuildRoutes
+}
 
 1;

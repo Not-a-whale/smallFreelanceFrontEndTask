@@ -2,7 +2,7 @@
   <div id="page-navigation">
     <div id="page-title"
          class="font-page-title caps">{{ $ctrl.PageTitle() }}</div>
-    <a class="page-tabs btn btn-smp btn-nm " ng-repeat="tab in $ctrl.PageTabs()">{{ tab.title }}</a>
+    <a ui-sref="{{tab.state}}" ui-sref-active="active" class="page-tabs btn btn-smp btn-nm " ng-repeat="tab in $ctrl.PageTabs()">{{ tab.title }}</a>
 
     <div class="v-div" ng-if="$ctrl.PageOptionals().length > 0"></div>
     <a class="page-option btn btn-smp btn-nm" ng-repeat="option in $ctrl.PageOptionals()">{{ option.title }}</a>

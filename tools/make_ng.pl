@@ -300,13 +300,13 @@ sub BuildAPI {
         'datetime'         => 'DATETIME',
         'decimal'          => 'CurrencyValue',
         'float'            => 'Float',
-        'integer'          => 'Int',
+        'integer'          => 'PositiveInt',
         'tinyint'          => 'BoolInt',
+        'year'             => 'Year',
 
         'longblob'  => 'Any',
         'time'      => 'Any',
         'timestamp' => 'Any',
-        'year'      => 'Any',
     );
 
     my %coerce = (
@@ -340,6 +340,9 @@ sub BuildAPI {
                 $coerce{$isa} = 1;
             } elsif (exists $PrimaryKeys{$cl}) {
                 $isa = 'PrimaryKeyInt';
+                $coerce{$isa} = 1;
+            } elsif ($ColumnsInfo{$cl}{data_type} =~ /char/) {
+                $isa = "VarChar$ColumnsInfo{$cl}{size}";
                 $coerce{$isa} = 1;
             } else {
                 $isa
@@ -511,6 +514,9 @@ sub BuildAPI {
 
 sub AttributesHash {
     my %args = @_;
+    if( $args{class} eq 'HrAssociate' ) {
+        $DB::single = 2;
+    }
     my $idnt = exists $args{ident} ? $args{ident} : 0;
     my $tree = exists $args{tree} ? $args{tree} : {};
     my $uses = exists $args{uses} ? $args{uses} : {};
@@ -527,8 +533,9 @@ sub AttributesHash {
     foreach my $fk (grep { $$info{$_}{'attrs'}{'is_depends_on'} > 0 } sort keys %$info) {
 
         # hack around BizCompanyNode biz_company_nodes table
-        if( $$info{$fk}{class} =~ /BizCompanyNode/ ) {
+        if ($$info{$fk}{class} =~ /BizCompanyNode/) {
             delete $columns{NodeId} if exists $columns{NodeId};
+            next;
         }
 
         if (ref($$info{$fk}{'cond'}) eq 'HASH') {
@@ -571,7 +578,7 @@ sub UpdateFromTemplate {
     my $tempate = ReadFile($args{template});
     my $target  = ReadFile($args{target});
     my $addon   = '';
-    if (-f "$args{target}.addon") {
+    if (!$$CLI{build_tests} && -f "$args{target}.addon") {
         $addon = ReadFile("$args{target}.addon");
     }
 

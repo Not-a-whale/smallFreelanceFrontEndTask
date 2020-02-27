@@ -11,32 +11,39 @@ menu-main-nav-department-item {
   align-items: center;
   cursor: pointer;
 
-  &>.selector {
-    position: absolute;
-    left: 0px;
+  a {
+    @flex-row();
+    align-items: center;
+    width: 100%;
     height: 100%;
-    width: 3px;
-    background-color: var(--font-color);
-    display: var(--selector-visibility);
+    &>.selector {
+      position: absolute;
+      left: 0px;
+      height: 100%;
+      width: 3px;
+      background-color: var(--font-color);
+      display: var(--selector-visibility);
+    }
+
+    &:hover,
+    &.active {
+      --font-color: @cp-highlight;
+      --icon-color: var(--font-color);
+      --selector-visibility: flex;
+    }
+
+    &>svg.icon {
+      margin-left: 12px;
+      fill: var(--icon-color);
+    }
+
+    &>.label {
+      margin-left: 12px;
+      color: var(--font-color);
+      font-family: @font-family-primary;
+      font-size: @font-norm;
+      font-weight: @font-weight-bold-semi;
+    }
   }
 
-  &:hover,
-  &.active {
-    --font-color: @cp-highlight;
-    --icon-color: var(--font-color);
-    --selector-visibility: flex;
-  }
-
-  &>svg.icon {
-    margin-left: 12px;
-    fill: var(--icon-color);
-  }
-
-  &>.label {
-    margin-left: 12px;
-    color: var(--font-color);
-    font-family: @font-family-primary;
-    font-size: @font-norm;
-    font-weight: @font-weight-bold-semi;
-  }
 }

@@ -2,15 +2,18 @@
     "title": "productivity",
     "pages": [{
         "title": "dashboard",
-        "icon": "imgs/icons.svg#bargraph"
+        "icon": "imgs/icons.svg#bargraph",
+        "state": "tmsapp.main2.productivity.dashboard"
     }, {
         "title": "map",
-        "icon": "imgs/icons.svg#map"
+        "icon": "imgs/icons.svg#map",
+        "state": "tmsapp.main2.productivity.map"
     }, {
         "title": "dispatch queue",
         "icon": "imgs/icons.svg#cart"
     }, {
         "title": "calendar",
-        "icon": "imgs/icons.svg#calendar"
+        "icon": "imgs/icons.svg#calendar",
+        "state": "tmsapp.main2.productivity.calendar"
     }]
 }]

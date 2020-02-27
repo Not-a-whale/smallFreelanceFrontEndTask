@@ -1,0 +1,26 @@
+<ul class="builder">
+  <li ng-if="rsrs.columns"><span class="section">columns</span>
+    <ul class="builder">
+      <li ng-repeat="item in rsrs.columns"><span class="colslist">{{item}}</span></li>
+    </ul>
+  </li>
+  <li ng-if="rsrs.related.belongsto"><span class="section">belongs to</span>
+    <ul class="builder">
+      <li ng-repeat="item in rsrs.related.belongsto">
+        <input type="checkbox" ng-model="item.checked" ng-true-value="1" ng-false-value="0" ng-change="CheckSubset(item)">
+        {{item.relationship}} ({{item.source}})
+        <span ng-if="item.subset" ng-include="'/prefetch/modules/builder/template.html'" ng-init="rsrs=item.subset"></span>
+      </li>
+    </ul>
+  </li>
+  <li ng-if="rsrs.related.hasmany"><span class="section">has many</span>
+    <ul class="builder">
+      <li ng-repeat="item in rsrs.related.hasmany">
+        <input type="checkbox" ng-model="item.checked" ng-true-value="1" ng-false-value="0" ng-change="CheckSubset(item)">
+        {{item.relationship}} ({{item.source}})
+        <span ng-if="item.subset" ng-include="'/prefetch/modules/builder/template.html'" ng-init="rsrs=item.subset"></span>
+        </span>
+      </li>
+    </ul>
+  </li>
+</li>

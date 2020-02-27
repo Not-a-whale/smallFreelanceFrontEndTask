@@ -130,7 +130,8 @@ my %rgx = (
     isPerson   => qr/^[A-Z \.]{2,63}$/,
 );
 
-# ............................................................................
+#, ............................................................................
+
 subtype 'TidySpacesString', as 'Str', where {/$rgx{isTidy}/};
 coerce 'TidySpacesString', from 'Str', via { tryTidySpacesString($_) };
 
@@ -228,6 +229,64 @@ coerce 'Email', from 'Str', via { tryEmail($_) };
 subtype 'Person', as 'Str', where {/$rgx{isPerson}/};
 coerce 'Person', from 'Str', via { tryPerson($_) };
 
+subtype 'Year', as 'Int',  where { $_ > 1900 && $_ < 2050 };
+coerce 'Year', from 'Str', via { tryYear($_) };
+
+# ............................................................................
+subtype 'VarChar10', as 'Str', where {/^.{1,10}$/};
+coerce 'VarChar10', from 'Str', via { tryVarChar($_, 10) };
+
+subtype 'VarChar1024', as 'Str', where {/^.{1,1024}$/};
+coerce 'VarChar1024', from 'Str', via { tryVarChar($_, 1024) };
+
+subtype 'VarChar11', as 'Str', where {/^.{1,11}$/};
+coerce 'VarChar11', from 'Str', via { tryVarChar($_, 11) };
+
+subtype 'VarChar12', as 'Str', where {/^.{1,12}$/};
+coerce 'VarChar12', from 'Str', via { tryVarChar($_, 12) };
+
+subtype 'VarChar15', as 'Str', where {/^.{1,15}$/};
+coerce 'VarChar15', from 'Str', via { tryVarChar($_, 15) };
+
+subtype 'VarChar16', as 'Str', where {/^.{1,16}$/};
+coerce 'VarChar16', from 'Str', via { tryVarChar($_, 16) };
+
+subtype 'VarChar16', as 'Str', where {/^.{1,16}$/};
+coerce 'VarChar16', from 'Str', via { tryVarChar($_, 16) };
+
+subtype 'VarChar19', as 'Str', where {/^.{1,19}$/};
+coerce 'VarChar19', from 'Str', via { tryVarChar($_, 19) };
+
+subtype 'VarChar2', as 'Str', where {/^.{1,2}$/};
+coerce 'VarChar2', from 'Str', via { tryVarChar($_, 2) };
+
+subtype 'VarChar20', as 'Str', where {/^.{1,20}$/};
+coerce 'VarChar20', from 'Str', via { tryVarChar($_, 20) };
+
+subtype 'VarChar24', as 'Str', where {/^.{1,24}$/};
+coerce 'VarChar24', from 'Str', via { tryVarChar($_, 24) };
+
+subtype 'VarChar255', as 'Str', where {/^.{1,255}$/};
+coerce 'VarChar255', from 'Str', via { tryVarChar($_, 255) };
+
+subtype 'VarChar32', as 'Str', where {/^.{1,32}$/};
+coerce 'VarChar32', from 'Str', via { tryVarChar($_, 32) };
+
+subtype 'VarChar4', as 'Str', where {/^.{1,4}$/};
+coerce 'VarChar4', from 'Str', via { tryVarChar($_, 4) };
+
+subtype 'VarChar45', as 'Str', where {/^.{1,45}$/};
+coerce 'VarChar45', from 'Str', via { tryVarChar($_, 45) };
+
+subtype 'VarChar512', as 'Str', where {/^.{1,512}$/};
+coerce 'VarChar512', from 'Str', via { tryVarChar($_, 512) };
+
+subtype 'VarChar64', as 'Str', where {/^.{1,64}$/};
+coerce 'VarChar64', from 'Str', via { tryVarChar($_, 64) };
+
+subtype 'VarChar9', as 'Str', where {/^.{1,9}$/};
+coerce 'VarChar9', from 'Str', via { tryVarChar($_, 9) };
+
 # ............................................................................
 sub _auto_ok { $AUTO_GENERATE && (!defined $_[0] || $_[0] !~ /\S+/s) ? 1 : 0 }
 
@@ -236,12 +295,24 @@ sub isTidySpacesString {
     return undef unless defined $text;
     return 1 if $text =~ /^\S+(\s\S+)*$/ms;
     return undef;
-}
+} ## end sub isTidySpacesString
 
 sub tryTidySpacesString {
     my $text = shift;
     return Text::Lorem::More->new->description() if _auto_ok($text);
     return undef if !defined $text;
+    $text =~ s/^\s+|\s+$//gs;
+    $text =~ s/\s+/ /gs;
+    return $text;
+} ## end sub tryTidySpacesString
+
+sub tryVarChar {
+    my $text = shift;
+    my $size = shift;
+    if( _auto_ok($text) ) {
+        $text = Text::Lorem::More->new->description();
+        $text = substr($text,1,$size);
+    }
     $text =~ s/^\s+|\s+$//gs;
     $text =~ s/\s+/ /gs;
     return $text;
@@ -252,14 +323,14 @@ sub isUpperCaseStr {
     return undef unless defined $text;
     return 1 if isTidySpacesString($text) && $text !~ /[a-z]/ms;
     return undef;
-}
+} ## end sub isUpperCaseStr
 
 sub tryUpperCaseStr {
     my $text = tryTidySpacesString(shift);
     $text = Text::Lorem::More->new->description() if _auto_ok($text);
     return undef if !defined $text;
     return uc($text);
-}
+} ## end sub tryUpperCaseStr
 
 sub tryPrimaryKeyInt {
     my $text = shift;
@@ -267,7 +338,7 @@ sub tryPrimaryKeyInt {
     $text =~ s/\D+//g;
     return undef if !/\d+/;
     return $text;
-}
+} ## end sub tryPrimaryKeyInt
 
 sub tryPositiveInt {
     my $text = $_[0];
@@ -276,7 +347,7 @@ sub tryPositiveInt {
 
     $text =~ s/\D+//g;
     return $text =~ /^\d+$/ ? $text : $_[0];
-}
+} ## end sub tryPositiveInt
 
 sub tryBoolInt {
     my $text = shift;
@@ -286,7 +357,7 @@ sub tryBoolInt {
     return 0 if !defined $text;
     return ($text =~ /$rgx{yesBoolInt}/i ? 1 : 0) if $text =~ /$rgx{canBoolInt}/i;
     return $text;
-}
+} ## end sub tryBoolInt
 
 sub tryUserNameLowerCase {
     my $text = shift;
@@ -298,7 +369,7 @@ sub tryUserNameLowerCase {
         $text =~ s/[^a-z0-9_].*//gi;
         return lc($text);
     }
-}
+} ## end sub tryUserNameLowerCase
 
 sub tryEnumYesNo {
     my $text = $_[0];
@@ -311,7 +382,7 @@ sub tryEnumYesNo {
     $text =~ s/.*(yes|no).*/$1/i;
     return $_[0] if $text !~ /$rgx{isYesNo}/i;    # return original on error
     return lc($text);
-}
+} ## end sub tryEnumYesNo
 
 sub trySha256Password {
     my $text = shift;
@@ -324,7 +395,7 @@ sub trySha256Password {
         return 'No lower case'  if $text !~ /[a-z]/;
     }
     return sha256_hex($text);
-}
+} ## end sub trySha256Password
 
 sub isDateTime {
     my $date = shift;
@@ -339,14 +410,14 @@ sub isDateTime {
         return 1;
     }
     return undef;
-}
+} ## end sub isDateTime
 
 sub tryDateTime {
     my $text = $_[0];
     return rand_datetime() if _auto_ok($text);
     return $_[0] if $DateObj->parse($text);    # return original on error
     return $DateObj->printf('%Y-%m-%d %H:%M:%S');
-}
+} ## end sub tryDateTime
 
 sub tryDbDuration {    # ! HAS NO AUTO_GENERATE
     my $time     = shift;
@@ -360,7 +431,7 @@ sub tryDbDuration {    # ! HAS NO AUTO_GENERATE
     $duration += ($time =~ /(\d+)\s*w/i ? $1 : 0) * ($delta *= 7);     # (1W) weeks
     $duration += ($time =~ /(\d+)\s*r/i ? $1 : 0) * ($delta *= 5);     # (1R) 5 days woRk weeks
     return $duration;
-}
+} ## end sub tryDbDuration
 
 sub CurrencyValue {
     my $money = $_[0];
@@ -380,7 +451,7 @@ sub CurrencyValue {
     my $number = $1 || 0;
 
     return sprintf('%s%0.2f', ($sign, $number));
-}
+} ## end sub CurrencyValue
 
 sub tryPhoneExt {
     my $ext = $_[0];
@@ -393,7 +464,7 @@ sub tryPhoneExt {
         return $ext;
     }
     return $ext =~ /$rgx{isPhoneExt}/ ? $ext : $_[0];
-}
+} ## end sub tryPhoneExt
 
 sub tryPhoneNumber {
     my $phn = $_[0];
@@ -407,7 +478,7 @@ sub tryPhoneNumber {
         $phn =~ s/.*?(\d{3})(\d{3})(\d{4})$/$1\-$2\-$3/;
         return $phn;
     }
-}
+} ## end sub tryPhoneNumber
 
 sub isVIN {
     my $vin = shift;
@@ -421,14 +492,14 @@ sub isVIN {
         $sum += index($translit, substr($vin, $i, 1)) % 10 * index($map, substr($weights, $i, 1));
     }
     return substr($map, $sum % 11, 1) == substr($vin, 8, 1);
-}
+} ## end sub isVIN
 
 sub tryFloat {
     my $num = $_[0];
     $num =~ s/[^\d\.\-]//g;
     return sprintf "%6.2f", rand(10000) if _auto_ok($num);
     return $num =~ /$rgx{isFloat}/ ? $num : $_[0];
-}
+} ## end sub tryFloat
 
 sub isSupportedStateName {
     my $state = shift;
@@ -454,7 +525,7 @@ sub trySupportedStateName {
     return $$CanadaState_Abbr2Name{$state} if exists $$CanadaState_Abbr2Name{$state};
     return $$UsState_Abbr2Name{$state}     if exists $$UsState_Abbr2Name{$state};
     return $_[0];
-}
+} ## end sub trySupportedStateName
 
 sub isSupportedStateAbbr {
     my $state = shift;
@@ -474,7 +545,7 @@ sub trySupportedStateAbbr {
     return $$CanadaState_Name2AbbrUC{$state} if exists $$CanadaState_Name2AbbrUC{$state};
     return $$UsState_Name2AbbrUC{$state}     if exists $$UsState_Name2AbbrUC{$state};
     return $_[0];
-}
+} ## end sub trySupportedStateAbbr
 
 sub trySupportedCountryName {
     my $country = shift;
@@ -482,7 +553,7 @@ sub trySupportedCountryName {
     return "United States" if $country =~ /\b(US|USA|UNITED\s+STATES)\b/i;
     return "Canada"        if $country =~ /\bCANADA\b/i;
     return $country;
-}
+} ## end sub trySupportedCountryName
 
 sub isMinMax {
     my ($text, $min, $max) = @_;
@@ -498,7 +569,7 @@ sub tryMinMax {
     my $len = length($valid);
     return $valid if $len >= $min && $len <= $max;
     return $text;
-}
+} ## end sub tryMinMax
 
 sub tryZipCanadaUSA {
     my $zip = $_[0];
@@ -517,7 +588,7 @@ sub tryZipCanadaUSA {
     } else {
         return $_[0];    # return original as is
     }
-}
+} ## end sub tryZipCanadaUSA
 
 sub tryBlob {
     my $data = shift;
@@ -531,7 +602,7 @@ sub tryBlob {
         )
     ) if _auto_ok($data);
     return $data;
-}
+} ## end sub tryBlob
 
 sub trySha256 {
     my $data = shift;
@@ -545,7 +616,7 @@ sub trySha256 {
         )
     ) if _auto_ok($data);
     return sha256_hex($data);
-}
+} ## end sub trySha256
 
 sub tryMCnum {
     my $text = $_[0];
@@ -557,7 +628,7 @@ sub tryMCnum {
     $text =~ s/\D+//g;
     $text = 'MC' . $text;
     return $text =~ /$rgx{isMCnum}/ ? $text : $_[0];
-}
+} ## end sub tryMCnum
 
 sub tryDOTnum {
     my $text = $_[0];
@@ -569,7 +640,7 @@ sub tryDOTnum {
     $text =~ s/\D+//g;
     $text = 'USDOT' . $text;
     return $text =~ /$rgx{isDOTnum}/ ? $text : $_[0];
-}
+} ## end sub tryDOTnum
 
 sub trySCAC {
     my $text = uc($_[0]);
@@ -578,7 +649,7 @@ sub trySCAC {
 
     $text =~ s/\s+//g;
     return $text =~ /$rgx{isSCAC}/ ? $text : $_[0];
-}
+} ## end sub trySCAC
 
 sub tryDUNS {
     my $text = $_[0];
@@ -589,7 +660,7 @@ sub tryDUNS {
     }
     $text =~ s/\D+//g;
     return $text =~ /$rgx{isDUNS}/ ? $text : $_[0];
-}
+} ## end sub tryDUNS
 
 sub tryEmail {
     my $text = $_[0];
@@ -601,7 +672,7 @@ sub tryEmail {
     }
     $text =~ s/\s+//g;
     return $text =~ /$rgx{isEmail}/ ? $text : $_[0];
-}
+} ## end sub tryEmail
 
 sub tryPerson {
     my $text = shift;
@@ -609,6 +680,16 @@ sub tryPerson {
     $text = tryTidySpacesString($text);
     return undef if !defined $text;
     return uc($text);
+} ## end sub tryPerson
+
+sub tryYear {
+    my $text = shift;
+    if (_auto_ok($text)) {
+        my $data = 0;
+        $data = int(rand(2050)) while $data < 1900;
+        return $data;
+    }
+    return int(abs($text));
 }
 
 1;

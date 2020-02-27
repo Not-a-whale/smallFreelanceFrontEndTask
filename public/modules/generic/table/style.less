@@ -80,45 +80,92 @@
 .c2 {
   --table-column-span: 2;
 }
+
 .c3 {
   --table-column-span: 3;
 }
+
 .c4 {
   --table-column-span: 4;
 }
+
 .c5 {
   --table-column-span: 5;
 }
+
 .c6 {
   --table-column-span: 6;
 }
+
 .c7 {
   --table-column-span: 7;
 }
+
 .c8 {
   --table-column-span: 8;
 }
+
 .c9 {
   --table-column-span: 9;
 }
+
 .c10 {
   --table-column-span: 10;
 }
+
 .c11 {
   --table-column-span: 11;
 }
+
 .c12 {
   --table-column-span: 12;
 }
+
 .c13 {
   --table-column-span: 13;
 }
+
 .c14 {
   --table-column-span: 14;
 }
+
 .c15 {
   --table-column-span: 15;
 }
+
 .c16 {
   --table-column-span: 16;
+}
+
+.table-preamble {
+  @flex-row();
+  width: 100%;
+  margin-bottom: 6px;
+  align-items: flex-end;
+
+  .table-name {
+    font-size: @font-large;
+    font-family: @font-family-primary;
+    font-weight: @font-weight-bold;
+    color: @cp-default;
+    margin-right: 12px;
+    text-transform: capitalize;
+  }
+
+  .table-count {
+    font-size: @font-small;
+    font-weight: @font-weight-normal;
+    font-family: @font-family-primary;
+    color: @cp-default;
+  }
+
+  ui-table-pagination {
+    margin-right: 40px;
+    margin-left: auto;
+  }
+
+  .other-actions {
+    margin-right: 0px;
+  }
+
 }
