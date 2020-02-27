@@ -1,0 +1,45 @@
+<div class="row name">
+  <div class="as-col">
+    <div class="name">
+      <span class="bold">{{$ctrl.name}}</span>&nbsp-&nbsp{{$ctrl.role}}</div>
+    <div class="company"
+         ng-if="$ctrl.HasGroup()">{{$ctrl.group}}</div>
+  </div>
+</div>
+<div class="row phone">
+  <div class="icont icont-micro">
+    <svg class="icon">
+      <use xlink:href="imgs/icons.svg#phone"></use>
+    </svg>
+  </div>
+
+  <ui-phone-ext phone="$ctrl.phone"></ui-phone-ext>
+</div>
+<div class="row email">
+  <div class="icont icont-micro">
+    <svg class="icon">
+      <use xlink:href="imgs/icons.svg#email"></use>
+    </svg>
+  </div>
+
+  <ui-email email="$ctrl.email"></ui-email>
+</div>
+<div class="row address"
+     ng-if="$ctrl.HasAddress()">
+  <div class="icont icont-micro">
+    <svg class="icon">
+      <use xlink:href="imgs/icons.svg#house"></use>
+    </svg>
+  </div>
+
+  <ui-address-basic address="$ctrl.address"></ui-address-basic>
+</div>
+<div class="row buttons">
+  <button-icon class="btn btn-small caps"
+               icon="imgs/icons.svg#user"
+               label="view profile"></button-icon>
+  <button-icon class="btn btn-small caps"
+               icon="imgs/icons.svg#chat"
+               label="chat"
+               ng-if="$ctrl.CanChat()"></button-icon>
+</div>

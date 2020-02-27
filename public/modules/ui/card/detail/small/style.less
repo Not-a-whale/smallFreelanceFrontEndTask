@@ -1,0 +1,89 @@
+ui-card-detail-small {
+  @flex-col();
+  width: fit-content;
+  min-height: 105px;
+  min-width: 200px;
+
+  border: 1px solid @cp-grey-mid;
+  border-radius: 2px;
+
+  padding: 12px;
+
+  background-color: @cp-card;
+  box-shadow: @shadow-float;
+
+  --icon-color: @cp-usko-red;
+  --icon-font-color: @cp-default;
+
+  &>.row {
+    @flex-row();
+    width: 100%;
+    align-items: center;
+
+    &:not(:last-child) {
+      margin-bottom: 12px;
+    }
+
+    &:hover {
+      --icon-font-color: @cp-default-light;
+      --icon-color: @cp-usko-red-light;
+    }
+
+    * {
+      font-family: @font-family-primary;
+      font-size: @font-small;
+      font-weight: @font-weight-normal;
+      color: @cp-default;
+    }
+  }
+
+  .name {
+
+    &,
+    &>* {
+      font-family: @font-family-primary;
+      font-size: @font-small;
+      font-weight: @font-weight-normal;
+      color: @cp-default;
+      text-transform: capitalize;
+    }
+  }
+
+  .company {
+    font-family: @font-family-primary;
+    font-size: @font-tiny;
+    font-weight: @font-weight-normal;
+    color: @cp-default;
+  }
+
+  .phone,
+  .email,
+  .address {
+    cursor: pointer;
+
+    &>.icont {
+      margin-right: 12px;
+    }
+  }
+
+  .address {
+    align-items: flex-start;
+  }
+
+
+  &>.buttons {
+    margin-bottom: 0px;
+    margin-top: auto;
+    justify-content: flex-start;
+    &>*:not(:last-child){
+      margin-right: 12px;
+    }
+  }
+
+  svg {
+    &.icon {
+      fill: var(--icon-color);
+      color: var(--icon-font-color);
+    }
+  }
+}
