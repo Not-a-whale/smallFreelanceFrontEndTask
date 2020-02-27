@@ -1,0 +1,23 @@
+<div class="row unit bold">
+  unit&nbsp{{$ctrl.DisplayUnit()}}
+</div>
+<div class="row truck">
+  <div class="bold">truck</div>&nbsp{{$ctrl.DisplayTruck()}}
+</div>
+<div class="row trailer"
+     ng-if="$ctrl.HasTrailer()">
+  <div class="bold">trailer</div>&nbsp{{$ctrl.DisplayTrailer()}}
+</div>
+<div class="row driver"
+     ng-if="$ctrl.HasDriver()">
+  <div class="bold">driver</div>&nbsp{{$ctrl.DisplayDrivers()}}
+</div>
+<div class="row truck"
+     ng-if="$ctrl.HasDispatcher()">
+  <div class="bold">dispatcher</div>&nbsp{{$ctrl.DisplayDispatcher()}}
+</div>
+<div class="row buttons">
+  <button-icon class="btn btn-small upper"
+               icon="imgs/icons.svg#gear"
+               label="manage contents"></button-icon>
+</div>
