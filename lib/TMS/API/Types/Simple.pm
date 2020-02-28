@@ -132,160 +132,262 @@ my %rgx = (
 
 #, ............................................................................
 
-subtype 'TidySpacesString', as 'Str', where {/$rgx{isTidy}/};
-coerce 'TidySpacesString', from 'Str', via { tryTidySpacesString($_) };
+if (!find_type_constraint('TidySpacesString')) {
+    subtype 'TidySpacesString', as 'Str', where {/$rgx{isTidy}/};
+    coerce 'TidySpacesString', from 'Str', via { tryTidySpacesString($_) };
+}
 
-subtype 'UpperCaseStr', as 'Str', where {/$rgx{isUpper}/};
-coerce 'UpperCaseStr', from 'Str', via { tryUpperCaseStr($_) };
+if (!find_type_constraint('UpperCaseStr')) {
+    subtype 'UpperCaseStr', as 'Str', where { /$rgx{isUpper}/ && /\S+/ };
+    coerce 'UpperCaseStr', from 'Str', via { tryUpperCaseStr($_) };
+}
 
-subtype 'PrimaryKeyInt', as 'Int', where {/$rgx{isPriKey}/};
-coerce 'PrimaryKeyInt', from 'Str', via { tryPrimaryKeyInt($_) };
+if (!find_type_constraint('PrimaryKeyInt')) {
+    subtype 'PrimaryKeyInt', as 'Int', where {/$rgx{isPriKey}/};
+    coerce 'PrimaryKeyInt', from 'Str', via { tryPrimaryKeyInt($_) };
+}
 
-subtype 'PositiveInt', as 'Int', where {/$rgx{isPosInt}/};
-coerce 'PositiveInt', from 'Str', via { tryPositiveInt($_) };
+if (!find_type_constraint('PositiveInt')) {
+    subtype 'PositiveInt', as 'Int', where {/$rgx{isPosInt}/};
+    coerce 'PositiveInt', from 'Str', via { tryPositiveInt($_) };
+}
 
-subtype 'BoolInt', as 'Int', where {/$rgx{isBoolInt}/};
-coerce 'BoolInt', from 'Str', via { tryBoolInt($_) };
+if (!find_type_constraint('BoolInt')) {
+    subtype 'BoolInt', as 'Int', where {/$rgx{isBoolInt}/};
+    coerce 'BoolInt', from 'Str', via { tryBoolInt($_) };
+}
 
-subtype 'UserNameLowerCase', as 'Str', where {/$rgx{isLogin}/};
-coerce 'UserNameLowerCase', from 'Str', via { tryUserNameLowerCase($_) };
+if (!find_type_constraint('UserNameLowerCase')) {
+    subtype 'UserNameLowerCase', as 'Str', where {/$rgx{isLogin}/};
+    coerce 'UserNameLowerCase', from 'Str', via { tryUserNameLowerCase($_) };
+}
 
-subtype 'EnumYesNo', as 'Str', where {/$rgx{isYesNo}/};
-coerce 'EnumYesNo', from 'Str', via { tryEnumYesNo($_) };
+if (!find_type_constraint('EnumYesNo')) {
+    subtype 'EnumYesNo', as 'Str', where {/$rgx{isYesNo}/};
+    coerce 'EnumYesNo', from 'Str', via { tryEnumYesNo($_) };
+}
 
-subtype 'CronTabTime', as 'Str', where {/$rgx{isCronTab}/};
-coerce 'CronTabTime', from 'Str', via { tryTidySpacesString($_) };
+if (!find_type_constraint('CronTabTime')) {
+    subtype 'CronTabTime', as 'Str', where {/$rgx{isCronTab}/};
+    coerce 'CronTabTime', from 'Str', via { tryTidySpacesString($_) };
+}
 
-subtype 'Sha256Password', as 'Str', where {/$rgx{isSha256}/i};
-coerce 'Sha256Password', from 'Str', via { trySha256Password($_) };
+if (!find_type_constraint('Sha256Password')) {
+    subtype 'Sha256Password', as 'Str', where {/$rgx{isSha256}/i};
+    coerce 'Sha256Password', from 'Str', via { trySha256Password($_) };
+}
 
-subtype 'DATETIME', as 'Str', where { isDateTime($_) };
-coerce 'DATETIME', from 'Str', via { tryDateTime($_) };
+if (!find_type_constraint('DATETIME')) {
+    subtype 'DATETIME', as 'Str', where { isDateTime($_) };
+    coerce 'DATETIME', from 'Str', via { tryDateTime($_) };
+}
 
-subtype 'DbDuration', as 'Int', where {/$rgx{isPosInt}/};
-coerce 'DbDuration', from 'Str', via { tryDbDuration($_) };
+if (!find_type_constraint('DbDuration')) {
+    subtype 'DbDuration', as 'Int', where {/$rgx{isPosInt}/};
+    coerce 'DbDuration', from 'Str', via { tryDbDuration($_) };
+}
 
-subtype 'CurrencyValue', as 'Str', where {/$rgx{isCurrency}/};
-coerce 'CurrencyValue', from 'Str', via { tryFloat($_) };
+if (!find_type_constraint('CurrencyValue')) {
+    subtype 'CurrencyValue', as 'Str', where {/$rgx{isCurrency}/};
+    coerce 'CurrencyValue', from 'Str', via { tryFloat($_) };
+}
 
-subtype 'PhoneExt', as 'Str', where {/$rgx{isPhoneExt}/};
-coerce 'PhoneExt', from 'Str', via { tryPhoneExt($_) };
+if (!find_type_constraint('PhoneExt')) {
+    subtype 'PhoneExt', as 'Str', where {/$rgx{isPhoneExt}/};
+    coerce 'PhoneExt', from 'Str', via { tryPhoneExt($_) };
+}
 
-subtype 'PhoneNumber', as 'Str', where {/$rgx{isPhoneNum}/};
-coerce 'PhoneNumber', from 'Str', via { tryPhoneNumber($_) };
+if (!find_type_constraint('PhoneNumber')) {
+    subtype 'PhoneNumber', as 'Str', where {/$rgx{isPhoneNum}/};
+    coerce 'PhoneNumber', from 'Str', via { tryPhoneNumber($_) };
+}
 
-subtype 'Float', as 'Str', where {/$rgx{isFloat}/};
-coerce 'Float', from 'Str', via { tryFloat($_) };
+if (!find_type_constraint('Float')) {
+    subtype 'Float', as 'Str', where {/$rgx{isFloat}/};
+    coerce 'Float', from 'Str', via { tryFloat($_) };
+}
 
-subtype 'SupportedStateName', as 'Str', where { isSupportedStateName($_) };
-coerce 'SupportedStateName', from 'Str', via { trySupportedStateName($_) };
+if (!find_type_constraint('SupportedStateName')) {
+    subtype 'SupportedStateName', as 'Str', where { isSupportedStateName($_) };
+    coerce 'SupportedStateName', from 'Str', via { trySupportedStateName($_) };
+}
 
-subtype 'SupportedStateAbbr', as 'Str', where { isSupportedStateAbbr($_) };
-coerce 'SupportedStateAbbr', from 'Str', via { trySupportedStateAbbr($_) };
+if (!find_type_constraint('SupportedStateAbbr')) {
+    subtype 'SupportedStateAbbr', as 'Str', where { isSupportedStateAbbr($_) };
+    coerce 'SupportedStateAbbr', from 'Str', via { trySupportedStateAbbr($_) };
+}
 
-subtype 'SupportedCountryName', as 'Str', where {/$rgx{isCountry}/};
-coerce 'SupportedCountryName', from 'Str', via { trySupportedCountryName($_) };
+if (!find_type_constraint('SupportedCountryName')) {
+    subtype 'SupportedCountryName', as 'Str', where {/$rgx{isCountry}/};
+    coerce 'SupportedCountryName', from 'Str', via { trySupportedCountryName($_) };
+}
 
-subtype 'Street', as 'Str', where { isMinMax($_, 2, 64) && isUpperCaseStr($_) };
-coerce 'Street', from 'Str', via { tryUpperCaseStr(tryMinMax($_, 2, 64)) };
+if (!find_type_constraint('Street')) {
+    subtype 'Street', as 'Str', where { isMinMax($_, 2, 64) && isUpperCaseStr($_) };
+    coerce 'Street', from 'Str', via { tryUpperCaseStr(tryMinMax($_, 2, 64)) };
+}
 
-subtype 'City', as 'Str', where { isMinMax($_, 2, 64) && isUpperCaseStr($_) };
-coerce 'City', from 'Str', via { tryUpperCaseStr(tryMinMax($_, 2, 64)) };
+if (!find_type_constraint('City')) {
+    subtype 'City', as 'Str', where { isMinMax($_, 2, 64) && isUpperCaseStr($_) };
+    coerce 'City', from 'Str', via { tryUpperCaseStr(tryMinMax($_, 2, 64)) };
+}
 
-subtype 'ZipCanadaUSA', as 'Str', where {/$rgx{isZipCode}/};
-coerce 'ZipCanadaUSA', from 'Str', via { tryZipCanadaUSA($_) };
+if (!find_type_constraint('ZipCanadaUSA')) {
+    subtype 'ZipCanadaUSA', as 'Str', where {/$rgx{isZipCode}/};
+    coerce 'ZipCanadaUSA', from 'Str', via { tryZipCanadaUSA($_) };
+}
 
-subtype 'BizName', as 'Str', where { /$rgx{isTidy}/ && /$rgx{isUpper}/ };
-coerce 'BizName', from 'Str', via { tryUpperCaseStr($_) };
+if (!find_type_constraint('BizName')) {
+    subtype 'BizName', as 'Str', where { /$rgx{isTidy}/ && /$rgx{isUpper}/ };
+    coerce 'BizName', from 'Str', via { tryUpperCaseStr($_) };
+}
 
-subtype 'VIN', as 'Str', where { isVIN($_) }, message {
-    "The VIN you provided is invalid format. Please check and try again."
-};
+if (!find_type_constraint('VIN')) {
+    subtype 'VIN', as 'Str', where { isVIN($_) }, message {
+        "The VIN you provided is invalid format. Please check and try again."
+    };
+}
 
-subtype 'Blob', as 'Str', where {/$rgx{isBlob}/};
-coerce 'Blob', from 'Str', via { tryBlob($_) };
+if (!find_type_constraint('Blob')) {
+    subtype 'Blob', as 'Str', where {/$rgx{isBlob}/};
+    coerce 'Blob', from 'Str', via { tryBlob($_) };
+}
 
-subtype 'Sha256', as 'Str', where {/$rgx{isSha256}/};
-coerce 'Sha256', from 'Str', via { trySha256($_) };
+if (!find_type_constraint('Sha256')) {
+    subtype 'Sha256', as 'Str', where {/$rgx{isSha256}/};
+    coerce 'Sha256', from 'Str', via { trySha256($_) };
+}
 
-subtype 'MCnum', as 'Str', where {/$rgx{isMCnum}/};
-coerce 'MCnum', from 'Str', via { tryMCnum($_) };
+if (!find_type_constraint('MCnum')) {
+    subtype 'MCnum', as 'Str', where {/$rgx{isMCnum}/};
+    coerce 'MCnum', from 'Str', via { tryMCnum($_) };
+}
 
-subtype 'DOTnum', as 'Str', where {/$rgx{isDOTnum}/};
-coerce 'DOTnum', from 'Str', via { tryDOTnum($_) };
+if (!find_type_constraint('DOTnum')) {
+    subtype 'DOTnum', as 'Str', where {/$rgx{isDOTnum}/};
+    coerce 'DOTnum', from 'Str', via { tryDOTnum($_) };
+}
 
-subtype 'SCAC', as 'Str', where {/$rgx{isSCAC}/};
-coerce 'SCAC', from 'Str', via { trySCAC($_) };
+if (!find_type_constraint('SCAC')) {
+    subtype 'SCAC', as 'Str', where {/$rgx{isSCAC}/};
+    coerce 'SCAC', from 'Str', via { trySCAC($_) };
+}
 
-subtype 'DUNS', as 'Str', where {/$rgx{isDUNS}/};
-coerce 'DUNS', from 'Str', via { tryDUNS($_) };
+if (!find_type_constraint('DUNS')) {
+    subtype 'DUNS', as 'Str', where {/$rgx{isDUNS}/};
+    coerce 'DUNS', from 'Str', via { tryDUNS($_) };
+}
 
-subtype 'Bonds', as 'Str', where { isMinMax($_, 2, 64) };
-coerce 'Bonds', from 'Str', via { tryUpperCaseStr(tryMinMax($_, 2, 64)) };
+if (!find_type_constraint('Bonds')) {
+    subtype 'Bonds', as 'Str', where { isMinMax($_, 2, 64) };
+    coerce 'Bonds', from 'Str', via { tryUpperCaseStr(tryMinMax($_, 2, 64)) };
+}
 
-subtype 'Email', as 'Str', where {/$rgx{isEmail}/};
-coerce 'Email', from 'Str', via { tryEmail($_) };
+if (!find_type_constraint('Email')) {
+    subtype 'Email', as 'Str', where {/$rgx{isEmail}/};
+    coerce 'Email', from 'Str', via { tryEmail($_) };
+}
 
-subtype 'Person', as 'Str', where {/$rgx{isPerson}/};
-coerce 'Person', from 'Str', via { tryPerson($_) };
+if (!find_type_constraint('Person')) {
+    subtype 'Person', as 'Str', where {/$rgx{isPerson}/};
+    coerce 'Person', from 'Str', via { tryPerson($_) };
+}
 
-subtype 'Year', as 'Int',  where { $_ > 1900 && $_ < 2050 };
-coerce 'Year', from 'Str', via { tryYear($_) };
+if (!find_type_constraint('Year')) {
+    subtype 'Year', as 'Int', where { $_ > 1900 && $_ < 2050 };
+    coerce 'Year', from 'Str', via { tryYear($_) };
+}
 
 # ............................................................................
-subtype 'VarChar10', as 'Str', where {/^.{1,10}$/};
-coerce 'VarChar10', from 'Str', via { tryVarChar($_, 10) };
+if (!find_type_constraint('VarChar10')) {
+    subtype 'VarChar10', as 'Str', where {/^.{1,10}$/};
+    coerce 'VarChar10', from 'Str', via { tryVarChar($_, 10) };
+}
 
-subtype 'VarChar1024', as 'Str', where {/^.{1,1024}$/};
-coerce 'VarChar1024', from 'Str', via { tryVarChar($_, 1024) };
+if (!find_type_constraint('VarChar1024')) {
+    subtype 'VarChar1024', as 'Str', where {/^.{1,1024}$/};
+    coerce 'VarChar1024', from 'Str', via { tryVarChar($_, 1024) };
+}
 
-subtype 'VarChar11', as 'Str', where {/^.{1,11}$/};
-coerce 'VarChar11', from 'Str', via { tryVarChar($_, 11) };
+if (!find_type_constraint('VarChar11')) {
+    subtype 'VarChar11', as 'Str', where {/^.{1,11}$/};
+    coerce 'VarChar11', from 'Str', via { tryVarChar($_, 11) };
+}
 
-subtype 'VarChar12', as 'Str', where {/^.{1,12}$/};
-coerce 'VarChar12', from 'Str', via { tryVarChar($_, 12) };
+if (!find_type_constraint('VarChar12')) {
+    subtype 'VarChar12', as 'Str', where {/^.{1,12}$/};
+    coerce 'VarChar12', from 'Str', via { tryVarChar($_, 12) };
+}
 
-subtype 'VarChar15', as 'Str', where {/^.{1,15}$/};
-coerce 'VarChar15', from 'Str', via { tryVarChar($_, 15) };
+if (!find_type_constraint('VarChar15')) {
+    subtype 'VarChar15', as 'Str', where {/^.{1,15}$/};
+    coerce 'VarChar15', from 'Str', via { tryVarChar($_, 15) };
+}
 
-subtype 'VarChar16', as 'Str', where {/^.{1,16}$/};
-coerce 'VarChar16', from 'Str', via { tryVarChar($_, 16) };
+if (!find_type_constraint('VarChar16')) {
+    subtype 'VarChar16', as 'Str', where {/^.{1,16}$/};
+    coerce 'VarChar16', from 'Str', via { tryVarChar($_, 16) };
+}
 
-subtype 'VarChar16', as 'Str', where {/^.{1,16}$/};
-coerce 'VarChar16', from 'Str', via { tryVarChar($_, 16) };
+if (!find_type_constraint('VarChar16')) {
+    subtype 'VarChar16', as 'Str', where {/^.{1,16}$/};
+    coerce 'VarChar16', from 'Str', via { tryVarChar($_, 16) };
+}
 
-subtype 'VarChar19', as 'Str', where {/^.{1,19}$/};
-coerce 'VarChar19', from 'Str', via { tryVarChar($_, 19) };
+if (!find_type_constraint('VarChar19')) {
+    subtype 'VarChar19', as 'Str', where {/^.{1,19}$/};
+    coerce 'VarChar19', from 'Str', via { tryVarChar($_, 19) };
+}
 
-subtype 'VarChar2', as 'Str', where {/^.{1,2}$/};
-coerce 'VarChar2', from 'Str', via { tryVarChar($_, 2) };
+if (!find_type_constraint('VarChar2')) {
+    subtype 'VarChar2', as 'Str', where {/^.{1,2}$/};
+    coerce 'VarChar2', from 'Str', via { tryVarChar($_, 2) };
+}
 
-subtype 'VarChar20', as 'Str', where {/^.{1,20}$/};
-coerce 'VarChar20', from 'Str', via { tryVarChar($_, 20) };
+if (!find_type_constraint('VarChar20')) {
+    subtype 'VarChar20', as 'Str', where {/^.{1,20}$/};
+    coerce 'VarChar20', from 'Str', via { tryVarChar($_, 20) };
+}
 
-subtype 'VarChar24', as 'Str', where {/^.{1,24}$/};
-coerce 'VarChar24', from 'Str', via { tryVarChar($_, 24) };
+if (!find_type_constraint('VarChar24')) {
+    subtype 'VarChar24', as 'Str', where {/^.{1,24}$/};
+    coerce 'VarChar24', from 'Str', via { tryVarChar($_, 24) };
+}
 
-subtype 'VarChar255', as 'Str', where {/^.{1,255}$/};
-coerce 'VarChar255', from 'Str', via { tryVarChar($_, 255) };
+if (!find_type_constraint('VarChar255')) {
+    subtype 'VarChar255', as 'Str', where {/^.{1,255}$/};
+    coerce 'VarChar255', from 'Str', via { tryVarChar($_, 255) };
+}
 
-subtype 'VarChar32', as 'Str', where {/^.{1,32}$/};
-coerce 'VarChar32', from 'Str', via { tryVarChar($_, 32) };
+if (!find_type_constraint('VarChar32')) {
+    subtype 'VarChar32', as 'Str', where {/^.{1,32}$/};
+    coerce 'VarChar32', from 'Str', via { tryVarChar($_, 32) };
+}
 
-subtype 'VarChar4', as 'Str', where {/^.{1,4}$/};
-coerce 'VarChar4', from 'Str', via { tryVarChar($_, 4) };
+if (!find_type_constraint('VarChar4')) {
+    subtype 'VarChar4', as 'Str', where {/^.{1,4}$/};
+    coerce 'VarChar4', from 'Str', via { tryVarChar($_, 4) };
+}
 
-subtype 'VarChar45', as 'Str', where {/^.{1,45}$/};
-coerce 'VarChar45', from 'Str', via { tryVarChar($_, 45) };
+if (!find_type_constraint('VarChar45')) {
+    subtype 'VarChar45', as 'Str', where {/^.{1,45}$/};
+    coerce 'VarChar45', from 'Str', via { tryVarChar($_, 45) };
+}
 
-subtype 'VarChar512', as 'Str', where {/^.{1,512}$/};
-coerce 'VarChar512', from 'Str', via { tryVarChar($_, 512) };
+if (!find_type_constraint('VarChar512')) {
+    subtype 'VarChar512', as 'Str', where {/^.{1,512}$/};
+    coerce 'VarChar512', from 'Str', via { tryVarChar($_, 512) };
+}
 
-subtype 'VarChar64', as 'Str', where {/^.{1,64}$/};
-coerce 'VarChar64', from 'Str', via { tryVarChar($_, 64) };
+if (!find_type_constraint('VarChar64')) {
+    subtype 'VarChar64', as 'Str', where {/^.{1,64}$/};
+    coerce 'VarChar64', from 'Str', via { tryVarChar($_, 64) };
+}
 
-subtype 'VarChar9', as 'Str', where {/^.{1,9}$/};
-coerce 'VarChar9', from 'Str', via { tryVarChar($_, 9) };
+if (!find_type_constraint('VarChar9')) {
+    subtype 'VarChar9', as 'Str', where {/^.{1,9}$/};
+    coerce 'VarChar9', from 'Str', via { tryVarChar($_, 9) };
+}
 
 # ............................................................................
 sub _auto_ok { $AUTO_GENERATE && (!defined $_[0] || $_[0] !~ /\S+/s) ? 1 : 0 }
@@ -295,7 +397,7 @@ sub isTidySpacesString {
     return undef unless defined $text;
     return 1 if $text =~ /^\S+(\s\S+)*$/ms;
     return undef;
-} ## end sub isTidySpacesString
+}
 
 sub tryTidySpacesString {
     my $text = shift;
@@ -304,14 +406,14 @@ sub tryTidySpacesString {
     $text =~ s/^\s+|\s+$//gs;
     $text =~ s/\s+/ /gs;
     return $text;
-} ## end sub tryTidySpacesString
+}
 
 sub tryVarChar {
     my $text = shift;
     my $size = shift;
-    if( _auto_ok($text) ) {
+    if (_auto_ok($text)) {
         $text = Text::Lorem::More->new->description();
-        $text = substr($text,1,$size);
+        $text = substr($text, 1, $size);
     }
     $text =~ s/^\s+|\s+$//gs;
     $text =~ s/\s+/ /gs;
@@ -323,14 +425,14 @@ sub isUpperCaseStr {
     return undef unless defined $text;
     return 1 if isTidySpacesString($text) && $text !~ /[a-z]/ms;
     return undef;
-} ## end sub isUpperCaseStr
+}
 
 sub tryUpperCaseStr {
     my $text = tryTidySpacesString(shift);
     $text = Text::Lorem::More->new->description() if _auto_ok($text);
     return undef if !defined $text;
     return uc($text);
-} ## end sub tryUpperCaseStr
+}
 
 sub tryPrimaryKeyInt {
     my $text = shift;
@@ -338,7 +440,7 @@ sub tryPrimaryKeyInt {
     $text =~ s/\D+//g;
     return undef if !/\d+/;
     return $text;
-} ## end sub tryPrimaryKeyInt
+}
 
 sub tryPositiveInt {
     my $text = $_[0];
@@ -347,7 +449,7 @@ sub tryPositiveInt {
 
     $text =~ s/\D+//g;
     return $text =~ /^\d+$/ ? $text : $_[0];
-} ## end sub tryPositiveInt
+}
 
 sub tryBoolInt {
     my $text = shift;
@@ -357,7 +459,7 @@ sub tryBoolInt {
     return 0 if !defined $text;
     return ($text =~ /$rgx{yesBoolInt}/i ? 1 : 0) if $text =~ /$rgx{canBoolInt}/i;
     return $text;
-} ## end sub tryBoolInt
+}
 
 sub tryUserNameLowerCase {
     my $text = shift;
@@ -369,7 +471,7 @@ sub tryUserNameLowerCase {
         $text =~ s/[^a-z0-9_].*//gi;
         return lc($text);
     }
-} ## end sub tryUserNameLowerCase
+}
 
 sub tryEnumYesNo {
     my $text = $_[0];
@@ -382,7 +484,7 @@ sub tryEnumYesNo {
     $text =~ s/.*(yes|no).*/$1/i;
     return $_[0] if $text !~ /$rgx{isYesNo}/i;    # return original on error
     return lc($text);
-} ## end sub tryEnumYesNo
+}
 
 sub trySha256Password {
     my $text = shift;
@@ -395,7 +497,7 @@ sub trySha256Password {
         return 'No lower case'  if $text !~ /[a-z]/;
     }
     return sha256_hex($text);
-} ## end sub trySha256Password
+}
 
 sub isDateTime {
     my $date = shift;
@@ -410,14 +512,14 @@ sub isDateTime {
         return 1;
     }
     return undef;
-} ## end sub isDateTime
+}
 
 sub tryDateTime {
     my $text = $_[0];
     return rand_datetime() if _auto_ok($text);
     return $_[0] if $DateObj->parse($text);    # return original on error
     return $DateObj->printf('%Y-%m-%d %H:%M:%S');
-} ## end sub tryDateTime
+}
 
 sub tryDbDuration {    # ! HAS NO AUTO_GENERATE
     my $time     = shift;
@@ -431,7 +533,7 @@ sub tryDbDuration {    # ! HAS NO AUTO_GENERATE
     $duration += ($time =~ /(\d+)\s*w/i ? $1 : 0) * ($delta *= 7);     # (1W) weeks
     $duration += ($time =~ /(\d+)\s*r/i ? $1 : 0) * ($delta *= 5);     # (1R) 5 days woRk weeks
     return $duration;
-} ## end sub tryDbDuration
+}
 
 sub CurrencyValue {
     my $money = $_[0];
@@ -451,7 +553,7 @@ sub CurrencyValue {
     my $number = $1 || 0;
 
     return sprintf('%s%0.2f', ($sign, $number));
-} ## end sub CurrencyValue
+}
 
 sub tryPhoneExt {
     my $ext = $_[0];
@@ -464,7 +566,7 @@ sub tryPhoneExt {
         return $ext;
     }
     return $ext =~ /$rgx{isPhoneExt}/ ? $ext : $_[0];
-} ## end sub tryPhoneExt
+}
 
 sub tryPhoneNumber {
     my $phn = $_[0];
@@ -478,7 +580,7 @@ sub tryPhoneNumber {
         $phn =~ s/.*?(\d{3})(\d{3})(\d{4})$/$1\-$2\-$3/;
         return $phn;
     }
-} ## end sub tryPhoneNumber
+}
 
 sub isVIN {
     my $vin = shift;
@@ -492,14 +594,17 @@ sub isVIN {
         $sum += index($translit, substr($vin, $i, 1)) % 10 * index($map, substr($weights, $i, 1));
     }
     return substr($map, $sum % 11, 1) == substr($vin, 8, 1);
-} ## end sub isVIN
+}
 
 sub tryFloat {
     my $num = $_[0];
     $num =~ s/[^\d\.\-]//g;
-    return sprintf "%6.2f", rand(10000) if _auto_ok($num);
+    if (_auto_ok($num)) {
+        $num = sprintf "%6.2f", rand(10000);
+    }
+    $num =~ s/^\s+|\s+$//g;
     return $num =~ /$rgx{isFloat}/ ? $num : $_[0];
-} ## end sub tryFloat
+}
 
 sub isSupportedStateName {
     my $state = shift;
@@ -525,7 +630,7 @@ sub trySupportedStateName {
     return $$CanadaState_Abbr2Name{$state} if exists $$CanadaState_Abbr2Name{$state};
     return $$UsState_Abbr2Name{$state}     if exists $$UsState_Abbr2Name{$state};
     return $_[0];
-} ## end sub trySupportedStateName
+}
 
 sub isSupportedStateAbbr {
     my $state = shift;
@@ -545,7 +650,7 @@ sub trySupportedStateAbbr {
     return $$CanadaState_Name2AbbrUC{$state} if exists $$CanadaState_Name2AbbrUC{$state};
     return $$UsState_Name2AbbrUC{$state}     if exists $$UsState_Name2AbbrUC{$state};
     return $_[0];
-} ## end sub trySupportedStateAbbr
+}
 
 sub trySupportedCountryName {
     my $country = shift;
@@ -553,7 +658,7 @@ sub trySupportedCountryName {
     return "United States" if $country =~ /\b(US|USA|UNITED\s+STATES)\b/i;
     return "Canada"        if $country =~ /\bCANADA\b/i;
     return $country;
-} ## end sub trySupportedCountryName
+}
 
 sub isMinMax {
     my ($text, $min, $max) = @_;
@@ -569,7 +674,7 @@ sub tryMinMax {
     my $len = length($valid);
     return $valid if $len >= $min && $len <= $max;
     return $text;
-} ## end sub tryMinMax
+}
 
 sub tryZipCanadaUSA {
     my $zip = $_[0];
@@ -588,7 +693,7 @@ sub tryZipCanadaUSA {
     } else {
         return $_[0];    # return original as is
     }
-} ## end sub tryZipCanadaUSA
+}
 
 sub tryBlob {
     my $data = shift;
@@ -602,7 +707,7 @@ sub tryBlob {
         )
     ) if _auto_ok($data);
     return $data;
-} ## end sub tryBlob
+}
 
 sub trySha256 {
     my $data = shift;
@@ -616,7 +721,7 @@ sub trySha256 {
         )
     ) if _auto_ok($data);
     return sha256_hex($data);
-} ## end sub trySha256
+}
 
 sub tryMCnum {
     my $text = $_[0];
@@ -628,7 +733,7 @@ sub tryMCnum {
     $text =~ s/\D+//g;
     $text = 'MC' . $text;
     return $text =~ /$rgx{isMCnum}/ ? $text : $_[0];
-} ## end sub tryMCnum
+}
 
 sub tryDOTnum {
     my $text = $_[0];
@@ -640,7 +745,7 @@ sub tryDOTnum {
     $text =~ s/\D+//g;
     $text = 'USDOT' . $text;
     return $text =~ /$rgx{isDOTnum}/ ? $text : $_[0];
-} ## end sub tryDOTnum
+}
 
 sub trySCAC {
     my $text = uc($_[0]);
@@ -649,7 +754,7 @@ sub trySCAC {
 
     $text =~ s/\s+//g;
     return $text =~ /$rgx{isSCAC}/ ? $text : $_[0];
-} ## end sub trySCAC
+}
 
 sub tryDUNS {
     my $text = $_[0];
@@ -660,7 +765,7 @@ sub tryDUNS {
     }
     $text =~ s/\D+//g;
     return $text =~ /$rgx{isDUNS}/ ? $text : $_[0];
-} ## end sub tryDUNS
+}
 
 sub tryEmail {
     my $text = $_[0];
@@ -672,7 +777,7 @@ sub tryEmail {
     }
     $text =~ s/\s+//g;
     return $text =~ /$rgx{isEmail}/ ? $text : $_[0];
-} ## end sub tryEmail
+}
 
 sub tryPerson {
     my $text = shift;
@@ -680,7 +785,7 @@ sub tryPerson {
     $text = tryTidySpacesString($text);
     return undef if !defined $text;
     return uc($text);
-} ## end sub tryPerson
+}
 
 sub tryYear {
     my $text = shift;

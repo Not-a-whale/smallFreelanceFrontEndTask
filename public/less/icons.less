@@ -3,23 +3,77 @@
 @size-small: 20px;
 @size-minute: 16px;
 @size-tiny: 14px;
+@size-micro: 12px;
 
 .icon {
-  max-width: @size-normal;
-  max-height: @size-normal;
+  height: 100%;
+  width: 100%;
+  // use icon to label svg's as icons.
+  // deprecated, just use icont (icon container)
+  &-mr,
+  &-micro {
+    max-width: @size-micro;
+    max-height: @size-micro;
+  }
 
-  &-sm, &-small {
+  &-sm,
+  &-small {
     max-width: @size-small;
     max-height: @size-small;
   }
 
-   &-ty, &-tiny {
+  &-ty,
+  &-tiny {
     max-width: @size-tiny;
     max-height: @size-tiny;
-   }
+  }
 
-   &-mn, &-minute {
-     max-width: @size-minute;
-     max-height: @size-minute;
-   }
+  &-mn,
+  &-minute {
+    max-width: @size-minute;
+    max-height: @size-minute;
+  }
+
+
+}
+
+.icont {
+  @flex-row();
+  align-items: center;
+  justify-content: center;
+  &-mr,
+  &-micro {
+    height: @size-micro;
+    width: @size-micro;
+  }
+
+  &-ty,
+  &-tiny {
+    height: @size-tiny;
+    width: @size-tiny;
+  }
+
+  &-mn,
+  &-minute {
+    height: @size-minute;
+    width: @size-minute;
+  }
+
+  &-sm,
+  &-small {
+    height: @size-small;
+    width: @size-small;
+  }
+
+  &-md,
+  &-medium {
+    height: @size-medium;
+    width: @size-medium;
+  }
+
+  &-nm,
+  &-normal {
+    height: @size-normal;
+    width: @size-normal;
+  }
 }
