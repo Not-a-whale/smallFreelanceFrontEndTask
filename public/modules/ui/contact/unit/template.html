@@ -1,0 +1,23 @@
+<div id="{{$ctrl.id}}"
+     class="left-panel icont icont-tiny"
+     ng-click="$ctrl.Toggle()">
+  <svg class="icon">
+    <use xlink:href="imgs/icons.svg#truck-loaded"></use>
+  </svg>
+</div>
+<div id="{{$ctrl.id}}"
+     class="right-panel">
+  <div class="label"
+       ng-click="$ctrl.Toggle()">
+    {{$ctrl.Unit()}}
+  </div>
+  <ui-card-detail-small-unit click-outside="$ctrl.Close()"
+                             outside-if-not="{{$ctrl.id}}"
+                             ng-show="$ctrl.ShowDetail()"
+                             data-unit="$ctrl.Unit()"
+                             data-truck="$ctrl.Truck()"
+                             data-trailer="$ctrl.Trailer()"
+                             data-driver="$ctrl.Driver()"
+                             data-dispatcher="$ctrl.Dispatcher()"
+                             data-address="$ctrl.Address()"></ui-card-detail-small-unit>
+</div>
