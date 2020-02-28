@@ -12,6 +12,10 @@ class UIContactPersonCtrl extends UIContactCtrl {
     return this.image;
   }
 
+  DisplayName() {
+    return !this.hideName;
+  }
+
   Name() {
     let value = 'no name provided';
     if ('Person' in this.data) {
