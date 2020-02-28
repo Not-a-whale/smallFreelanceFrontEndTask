@@ -7,33 +7,67 @@ class UICardDetailSmallUnitCtrl {
     return this.trailer != undefined && !angular.equals(this.trailer, {});
   }
   HasDriver() {
-    return this.driver != undefined && !angular.equals(this.driver, []);
+    let retval = false;
+    if (this.driver != undefined) {
+      if (typeof this.driver == 'array') {
+        if (!angular.equals(this.driver, [])) {
+          retval = true;
+        }
+      } else if (typeof this.driver == 'string') {
+        if (this.driver != '') {
+          retval = true;
+        }
+      }
+    }
+    return retval;
   }
+
   HasDispatcher() {
     return this.dispatcher != undefined && !angular.equals(this.dispatcher, {});
   }
 
-  DisplayUnit(){
+  DisplayUnit() {
     return this.unit;
   }
 
-  DisplayTruck(){
+  DisplayTruck() {
     return this.truck;
   }
 
-  DisplayTrailer(){
+  DisplayTrailer() {
     return this.trailer;
   }
 
   DisplayDrivers() {
-    return this.driver.map(this.ConcatNames).join(',');
+    let display = 'no drivers listed';
+    if (typeof this.driver == 'array') {
+      display = this.driver.map(this.ConcatNames).join(',');
+    } else if (typeof this.driver == 'string') {
+      display = this.driver;
+    }
+    return display;
   }
 
   DisplayDispatcher() {
-    return this.ConcatNames(this.dispatcher);
+    let display = 'no dispatcher listed';
+    if (typeof this.dispatcher == 'object') {
+      display = this.ConcatNames(this.dispatcher);
+    } else if (typeof this.dispatcher == 'string') {
+      display = this.dispatcher;
+    }
+    return display;
   }
 
   ConcatNames(obj) {
+    let retval = '';
+    let names = [];
+    if ('FirstName' in obj) {
+      names.push(obj.FirstName);
+    }
+    if ('LastName' in obj) {
+      names.push(obj.LastName);
+    }
+    retval.join(',', names);
     return obj.FirstName + ' ' + obj.LastName;
   }
 }

@@ -1,4 +1,9 @@
-var app = angular.module("tms", ["ui.router", "duScroll", "angularFileUpload"]);
+var app = angular.module("tms", [
+  "ui.router",
+  "duScroll",
+  "angularFileUpload",
+  "angular-click-outside"
+]);
 
 app.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("tms/dev");
@@ -92,7 +97,7 @@ app.filter('menuitems', function () {
 
 app.filter('enabled', function () {
   return function (list) {
-    return list.filter(function(item, index, array){
+    return list.filter(function (item, index, array) {
       if ('enabled' in item) {
         return item.enabled == true;
       } else if ('disabled' in item) {
@@ -104,7 +109,7 @@ app.filter('enabled', function () {
 
 app.filter('disabled', function () {
   return function (list) {
-    return list.filter(function(item, index, array){
+    return list.filter(function (item, index, array) {
       if ('enabled' in item) {
         return item.enabled == false;
       } else if ('disabled' in item) {
@@ -119,6 +124,6 @@ function CloneObj(x) {
   return JSON.parse(JSON.stringify(x));
 }
 
-function IsObj(x){
+function IsObj(x) {
   return typeof x === 'object' && x != null;
 }

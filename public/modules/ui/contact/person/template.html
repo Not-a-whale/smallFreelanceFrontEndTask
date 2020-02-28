@@ -1,0 +1,32 @@
+<div id="{{$ctrl.id}}"
+     class="left-panel"
+     ng-click="$ctrl.Toggle()">
+  <div class="icont icont-tiny"
+       ng-if="!$ctrl.HasImage()">
+    <svg class="icon">
+      <use xlink:href="imgs/icons.svg#user"></use>
+    </svg>
+  </div>
+  <ui-avatar ng-if="$ctrl.HasImage()"
+             data-image="$ctrl.Image()"
+             data-name="$ctrl.Name()"></ui-avatar>
+</div>
+<div id="{{$ctrl.id}}"
+     class="right-panel">
+  <div class="label"
+       ng-click="$ctrl.Toggle()"
+       ng-if="$ctrl.DisplayName()">
+    {{$ctrl.Name()}}
+  </div>
+  <ui-card-detail-small ng-if="$ctrl.ValidData()"
+                        click-outside="$ctrl.Close()"
+                        outside-if-not="{{$ctrl.id}}"
+                        ng-show="$ctrl.ShowDetail()"
+                        data-role="$ctrl.Role()"
+                        data-name="$ctrl.Name()"
+                        data-group="$ctrl.Group()"
+                        data-chat="$ctrl.CanChat()"
+                        data-phone="$ctrl.Phone()"
+                        data-email="$ctrl.Email()"
+                        data-address="$ctrl.Address()"></ui-card-detail-small>
+</div>

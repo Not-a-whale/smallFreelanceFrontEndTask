@@ -91,18 +91,18 @@
     <ui-table-row ng-repeat="item in $ctrl.carrierList"
                   on-select="">
       <div class="business-name colspan {{$ctrl.fields[0].size}}">
-        <svg class="icon icon-tiny">
-          <use xlink:href="imgs/icons.svg#buildings"></use>
-        </svg>
-        <div class="bold caps font-primary-text">{{ item.biz.BizName}}
-        </div>
+        <ui-contact-business data="item"></ui-contact-business>
       </div>
 
       <div class="colspan {{$ctrl.fields[1].size}} font-table-body-text"
            title="this feature is not yet supported">N/S</div>
       <ui-address-oneliner class="colspan {{$ctrl.fields[2].size}} font-table-body-text"
                            address="item.brnch_address"></ui-address-oneliner>
-      <div class="colspan {{$ctrl.fields[3].size}}">no data available</div>
+
+      <div class="colspan {{$ctrl.fields[3].size}}">
+        <ui-contact-person data="{}"></ui-contact-person>
+      </div>
+
       <ui-phone-oneliner class="colspan {{$ctrl.fields[4].size}} font-table-body-text font-c-primary"
                          phone="item.brnch_phone"></ui-phone-oneliner>
       <div class="colspan {{$ctrl.fields[5].size}} font-table-body-text font-c-primary">

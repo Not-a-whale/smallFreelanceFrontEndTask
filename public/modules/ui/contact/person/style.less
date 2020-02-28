@@ -1,0 +1,43 @@
+ui-contact-person {
+  @flex-row();
+  height: 18px;
+  position: relative;
+  align-items: flex-start;
+
+  --font-color: @cp-default;
+
+  ui-avatar {
+    --square-size: 24px;
+  }
+
+  .left-panel {
+    cursor: pointer;
+    margin-right: 6px;
+    svg {
+      fill: @cp-default-light;
+    }
+  }
+
+  .right-panel {
+    @flex-col();
+    ui-card-detail-small {
+      margin-top: 2px;
+    }
+  }
+
+  .label {
+    cursor: pointer;
+    text-transform: capitalize;
+    text-decoration: underline;
+    font-family: @font-family-primary;
+    font-size: @font-small;
+    font-weight: @font-weight-bold;
+    line-height: 16px;
+    color: var(--font-color);
+
+    &:hover{
+      --font-color: @cp-default-light;
+    }
+  }
+
+}
