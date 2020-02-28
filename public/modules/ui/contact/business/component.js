@@ -1,28 +1,11 @@
-class UIContactBusinessCtrl {
+class UIContactBusinessCtrl extends UIContactCtrl {
   constructor(getid) {
-    this.id = getid();
-    this.expanded = false;
+    super(getid);
     this.icon = true;
-  }
-
-  Toggle() {
-    this.expanded = !this.expanded;
   }
 
   DisplayName() {
     return this.data.biz.BizName;
-  }
-
-  ShowDetail() {
-    return this.expanded;
-  }
-
-  ShowIcon() {
-    return this.icon;
-  }
-
-  Close() {
-    this.expanded = false;
   }
 
   Address() {
@@ -32,10 +15,12 @@ class UIContactBusinessCtrl {
   Phone() {
     return this.data.brnch_phone;
   }
-  Email(){
+
+  Email() {
     return this.data.BrnchEMail;
   }
-  BusinessType(){
+
+  BusinessType() {
     return 'business'
   }
 
