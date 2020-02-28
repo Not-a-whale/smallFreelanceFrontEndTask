@@ -1,0 +1,25 @@
+ul.tree, ul.tree ul {
+    list-style-type: none;
+    background: url('/prefetch/img/vline.png') repeat-y;
+    margin: 0;
+    padding: 0;
+    font-size: 10pt;
+    font-family: Tahoma;
+}
+
+ul.tree ul {
+    margin-left: 10px;
+}
+
+ul.tree li {
+    margin: 0;
+    padding: 0 12px;
+    line-height: 20px;
+    color: #369;
+    font-weight: normal;
+    background: url('/prefetch/img/node.png') no-repeat;
+}
+
+li.ng-scope:last-child {
+    background: #fff url('/prefetch/img/lastnode.png') no-repeat;
+}
