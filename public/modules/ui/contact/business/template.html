@@ -1,0 +1,23 @@
+<div id="{{$ctrl.id}}"
+     class="left-panel icont icont-tiny"
+     ng-click="$ctrl.Toggle()"
+     ng-if="$ctrl.ShowIcon()">
+  <svg class="icon">
+    <use xlink:href="imgs/icons.svg#buildings"></use>
+  </svg>
+</div>
+<div id="{{$ctrl.id}}"
+     class="right-panel">
+  <div class="label"
+       ng-click="$ctrl.Toggle()">
+    {{$ctrl.DisplayName()}}
+  </div>
+  <ui-card-detail-small click-outside="$ctrl.Close()"
+                        outside-if-not="{{$ctrl.id}}"
+                        ng-show="$ctrl.ShowDetail()"
+                        data-role="$ctrl.BusinessType()"
+                        data-name="$ctrl.DisplayName()"
+                        data-phone="$ctrl.Phone()"
+                        data-email="$ctrl.Email()"
+                        data-address="$ctrl.Address()"></ui-card-detail-small>
+</div>

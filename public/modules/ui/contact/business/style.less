@@ -1,0 +1,48 @@
+ui-contact-business {
+  @flex-row();
+  height: 18px;
+  width: 100%;
+  position: relative;
+  align-items: flex-start;
+
+  --font-color: @cp-default;
+  @icon-size: 14px;
+
+  .left-panel {
+    width: @icon-size;
+    min-width: @icon-size;
+    cursor: pointer;
+    margin-right: 6px;
+    svg {
+      fill: @cp-default-light;
+    }
+  }
+
+  .right-panel {
+    @flex-col();
+    width: calc(100% - @icon-size);
+    ui-card-detail-small {
+      margin-top: 2px;
+      position: absolute;
+    }
+    .label {
+      .one-liner();
+    }
+  }
+
+  .label {
+    cursor: pointer;
+    text-transform: capitalize;
+    text-decoration: underline;
+    font-family: @font-family-primary;
+    font-size: @font-small;
+    font-weight: @font-weight-bold;
+    line-height: 16px;
+    color: var(--font-color);
+
+    &:hover{
+      --font-color: @cp-default-light;
+    }
+  }
+
+}
