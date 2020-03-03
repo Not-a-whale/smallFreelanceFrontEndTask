@@ -128,6 +128,7 @@ my %rgx = (
     isDUNS     => qr/^\d{9}$/,
     isEmail    => qr/^[^\s\@]+\@[^\.\s]+(\.[^\.\s]+)+$/,
     isPerson   => qr/^[A-Z \.]{2,63}$/,
+    isEmpty    => qr/^$/,
 );
 
 #, ............................................................................
@@ -291,6 +292,11 @@ if (!find_type_constraint('Email')) {
 if (!find_type_constraint('Person')) {
     subtype 'Person', as 'Str', where {/$rgx{isPerson}/};
     coerce 'Person', from 'Str', via { tryPerson($_) };
+}
+
+if (!find_type_constraint('Empty')) {
+    subtype 'Empty', as 'Str', where {/$rgx{isEmpty}/};
+    coerce 'Empty', from 'Str', via { tryEmpty($_) };
 }
 
 if (!find_type_constraint('Year')) {
@@ -785,6 +791,12 @@ sub tryPerson {
     $text = tryTidySpacesString($text);
     return undef if !defined $text;
     return uc($text);
+}
+
+sub tryEmpty {
+    my $text = shift;
+    return $text if /\S+/;
+    return '';
 }
 
 sub tryYear {
