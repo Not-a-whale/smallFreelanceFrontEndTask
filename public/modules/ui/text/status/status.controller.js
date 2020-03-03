@@ -1,23 +1,19 @@
 class UIStatusCtrl {
   constructor() {
-    // this.status = 'unavailable';
-    // this.possible = {
-    //   'unavailable': {
-    //     class: 'unavailable'
-    //   },
-    //   'en route': {
-    //     class: 'enroute'
-    //   },
-    //   'available': {
-    //     class: 'available'
-    //   }
-    // };
+    this.status = undefined; // current status
+    // all possible statuses with their properties
+    this.possible = {
+      'status': {
+        class: 'unavailable',
+        icon: 'path_to_icon',
+        display: 'text to display'
+      },
+    };
 
   }
 
   Class() {
     let retval = '';
-    console.log(this.possible);
     if (this.status in this.possible) {
       retval = this.possible[this.status].class;
     }
@@ -28,6 +24,17 @@ class UIStatusCtrl {
     let retval = '';
     if (this.status in this.possible) {
       retval = this.possible[this.status].icon;
+    }
+    return retval;
+  }
+
+  DisplayText() {
+    let retval = 'unknown';
+    if (this.status in this.possible) {
+      let status = this.possible[this.status];
+      if ('display' in status) {
+        retval = status.display;
+      }
     }
     return retval;
   }

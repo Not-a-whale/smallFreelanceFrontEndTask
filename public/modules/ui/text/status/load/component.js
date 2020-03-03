@@ -6,15 +6,18 @@ class UIStatusLoadCtrl extends UIStatusCtrl {
     this.possible = {
       'delivered': {
         class: 'delivered',
-        icon: 'imgs/icons.svg#circle-checkmark'
+        icon: 'imgs/icons.svg#circle-checkmark',
+        display: 'delivered!'
       },
       'delayed': {
         class: 'delayed',
-        icon: 'imgs/icons.svg#circle-exclamation'
+        icon: 'imgs/icons.svg#circle-exclamation',
+        display: 'delayed!'
       },
       'en route': {
         class: 'enroute',
-        icon: 'imgs/icons.svg#circle-arrow-left'
+        icon: 'imgs/icons.svg#circle-arrow-left',
+        display: 'en route'
       }
     };
   }

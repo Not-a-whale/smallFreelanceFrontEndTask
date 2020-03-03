@@ -5,13 +5,16 @@ class UIStatusTripCtrl extends UIStatusCtrl {
 
     this.possible = {
       'unavailable': {
-        class: 'unavailable'
+        class: 'unavailable',
+        display: 'unavailable'
       },
       'en route': {
-        class: 'enroute'
+        class: 'enroute',
+        display: 'en route'
       },
       'available': {
-        class: 'available'
+        class: 'available',
+        display: 'available'
       }
     };
   }
