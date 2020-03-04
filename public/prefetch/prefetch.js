@@ -20,3 +20,13 @@ app.controller('MainCtrl', function($scope, $http) {
   };
 
 });
+
+function HideShow(item) {
+  console.log(item);
+  for (var sitemi=0;sitemi<item.childNodes.length;sitemi++) {
+    var sitem = item.childNodes[sitemi];
+    if (sitem.nodeName=="UL" && item.nodeName=="LI") {
+      sitem.style.display = sitem.style.display == 'none' ? 'block' : 'none';
+    }
+  }
+}
