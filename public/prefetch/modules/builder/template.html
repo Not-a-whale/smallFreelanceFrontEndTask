@@ -1,7 +1,10 @@
 <ul class="builder tree">
   <li ng-if="rsrs.columns"><span class="section" onClick="HideShow(this.parentNode)">columns</span>
     <ul class="builder">
-      <li ng-repeat="item in rsrs.columns"><span class="colslist">{{item}}</span></li>
+      <li ng-repeat="item in rsrs.columns">
+        <span ng-class="item.is_nullable ? 'colslist' : 'required'">{{item.name}}</span>
+        <span ng-if="item.is_foreign_key" class="fkey">fk</span>
+      </li>
     </ul>
   </li>
   <li ng-if="rsrs.related.belongsto"><span class="section" onClick="HideShow(this.parentNode)">belongs to</span>

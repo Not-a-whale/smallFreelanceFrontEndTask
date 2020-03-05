@@ -35,7 +35,17 @@ get '/prefetch' => sub { send_as 'html' => send_file '/prefetch/prefetch.html'; 
         my %info = ();
 
         tie %info, 'Tie::IxHash';
-        @{$info{columns}} = $rsrc->columns;
+        $info{resource} = {
+            name => $src,
+            table => $rsrc->name,
+        };
+
+        foreach my $clname ($rsrc->columns) {
+            my $clref = $rsrc->column_info($clname);
+            tie my %clinfo,'Tie::IxHash',( name => $clname );
+            $clinfo{$_} = $$clref{$_} foreach sort keys %$clref;
+            push @{$info{columns}}, \%clinfo;
+        }
 
         foreach my $rl (sort $rsrc->relationships) {
             my $data  = $rsrc->relationship_info($rl);
