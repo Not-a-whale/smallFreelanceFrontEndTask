@@ -14,7 +14,7 @@ span.required {
     color: red;
 }
 
-span.fkey {
+span.key {
     color: navy;
     font-style: oblique;
 }

@@ -3,7 +3,8 @@
     <ul class="builder">
       <li ng-repeat="item in rsrs.columns">
         <span ng-class="item.is_nullable ? 'colslist' : 'required'">{{item.name}}</span>
-        <span ng-if="item.is_foreign_key" class="fkey">fk</span>
+        <span ng-if="item.is_foreign_key" class="key">fk</span>
+        <span ng-if="item.is_primary" class="key">pk</span>
       </li>
     </ul>
   </li>
@@ -11,7 +12,7 @@
     <ul class="builder">
       <li ng-repeat="item in rsrs.related.belongsto">
         <input type="checkbox" ng-model="item.checked" ng-true-value="1" ng-false-value="0" ng-change="CheckSubset(item)">
-        {{item.relationship}} ({{item.source}})
+        <span onClick="HideShow(this.parentNode)">{{item.relationship}} ({{item.source}})</span>
         <span ng-if="item.subset" ng-include="'/prefetch/modules/builder/template.html'" ng-init="rsrs=item.subset"></span>
       </li>
     </ul>
@@ -20,9 +21,8 @@
     <ul class="builder">
       <li ng-repeat="item in rsrs.related.hasmany">
         <input type="checkbox" ng-model="item.checked" ng-true-value="1" ng-false-value="0" ng-change="CheckSubset(item)">
-        {{item.relationship}} ({{item.source}})
+        <span>{{item.relationship}} ({{item.source}})</span>
         <span ng-if="item.subset" ng-include="'/prefetch/modules/builder/template.html'" ng-init="rsrs=item.subset"></span>
-        </span>
       </li>
     </ul>
   </li>
