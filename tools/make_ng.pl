@@ -166,7 +166,8 @@ BuildEnumSetTypes();
 
 print '-' x 80 . "\n";
 my $total_end = time();
-printf "DBIxDumpe: %d\nAPI Build: %d\nTotal: %d\n", $after_dump - $before_dump, $after_api - $before_api, $total_end - $total_start;
+printf "DBIxDumpe: %d\nAPI Build: %d\nTotal: %d\n", $after_dump - $before_dump, $after_api - $before_api,
+    $total_end - $total_start;
 
 sub BuildEnumSetTypes {
     my $target = "$$CLI{dest}/$$CLI{class}/API/Types/Columns.pm";
@@ -514,12 +515,12 @@ sub BuildAPI {
 
 sub AttributesHash {
     my %args = @_;
-    if( $args{class} eq 'HrAssociate' ) {
+    if ($args{class} eq 'HrAssociate') {
         $DB::single = 2;
     }
     my $idnt = exists $args{ident} ? $args{ident} : 0;
-    my $tree = exists $args{tree} ? $args{tree} : {};
-    my $uses = exists $args{uses} ? $args{uses} : {};
+    my $tree = exists $args{tree}  ? $args{tree}  : {};
+    my $uses = exists $args{uses}  ? $args{uses}  : {};
     my $glob = $$GLOB{$args{class}};
     my $info = $$glob{RelateInfo};
     my $tble = $$glob{TableName};
@@ -663,6 +664,8 @@ sub SaveFile {
     my ($filename, $filedata) = @_;
     local $/ = undef;
     print "  writing \"$filename\"\n";
+    rename $filename, "$filename.bak" || "Cannot rename $filename, $!" if -f "$filename";
+
     open(FO, ">", $filename) || confess "Unable to open file, \"$filename\", $!";
     print FO $filedata;
     close(FO);
