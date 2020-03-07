@@ -51,10 +51,13 @@ class PageService {
     let myfun = function (res) {
       let dept = undefined;
       for (let d of self.departments) {
-        if (d.title === deptname) {
-          dept = d;
-          break;
+        if (d.active) {
+          if (d.title === deptname) {
+            dept = d;
+            break;
+          }
         }
+
       }
       if (dept != undefined) {
         self.current_department = dept;
@@ -71,6 +74,10 @@ class PageService {
 
   }
 
+  CurrentDepartmentPages() {
+    return this.current_department.pages.filter(x => x.active);
+  }
+
   CurrentDepartment() {
     return this.current_department;
   }
@@ -79,7 +86,28 @@ class PageService {
     return this.current_defaults;
   }
 
-  CurrentPage(){
+  CurrentPageTabs() {
+    if ('pages' in this.current_page) {
+      return this.current_page.pages.filter(x => x.active);
+    }
+    return undefined;
+  }
+
+  CurrentPageOptional() {
+    if ('optional' in this.current_page) {
+      return this.current_page.optional.filter(x => x.active);
+    }
+    return undefined;
+  }
+
+  CurrentPageActions() {
+    if ('actions' in this.current_page) {
+      return this.current_page.actions.filter(x => x.active);
+    }
+    return undefined;
+  }
+
+  CurrentPage() {
     return this.current_page;
   }
 
@@ -91,7 +119,7 @@ class PageService {
     let self = this;
     return this.http.get('pages_new.json').then(function (res) {
       self.departments = res.data;
-      if (self.current_department == undefined){
+      if (self.current_department == undefined) {
         self.current_department = self.departments[0];
       }
       return res.data;
@@ -102,7 +130,7 @@ class PageService {
     let self = this;
     return this.http.get('pages_default.json').then(function (res) {
       self.defaults = res.data;
-      if (self.current_defaults == undefined){
+      if (self.current_defaults == undefined) {
         self.current_defaults = self.defaults[0];
       }
       return res.data;
