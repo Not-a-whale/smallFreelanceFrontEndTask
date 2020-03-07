@@ -189,7 +189,7 @@ var configstates = {
     url: "/truck",
     resolve: {
       current_page: function (PageService) {
-        return PageService.SetPage('trucks');
+        return PageService.SetPage('units');
       }
     },
     redirectTo: 'tmsapp.main2.dispatch.truck.available'
