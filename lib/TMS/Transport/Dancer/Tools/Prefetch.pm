@@ -4,6 +4,8 @@ use Tie::IxHash;
 use Data::Dumper;
 use Perl::Tidy;
 
+use JSON;
+
 my %DBIxInfo = ();
 tie %DBIxInfo, 'Tie::IxHash';
 my @DBIxSrcs         = ();
@@ -12,6 +14,7 @@ my $FeatureTemplates = {};
 get '/prefetch' => sub { send_as 'html' => send_file '/prefetch/prefetch.html'; };
 
 {
+    my $JSON = JSON->new->utf8->allow_nonref->indent->space_after->space_before;
     my $DBIx = TMS::Schema->new()->DBIxHandle;
     @DBIxSrcs = sort $DBIx->sources;
 
@@ -32,10 +35,22 @@ get '/prefetch' => sub { send_as 'html' => send_file '/prefetch/prefetch.html'; 
     foreach my $src (@DBIxSrcs) {
         my $rset = $DBIx->resultset($src);
         my $rsrc = $rset->result_source;
+        my %pkey = map { $_, 1 } $rsrc->primary_columns;
         my %info = ();
 
         tie %info, 'Tie::IxHash';
-        @{$info{columns}} = $rsrc->columns;
+        $info{resource} = {
+            name  => $src,
+            table => $rsrc->name,
+        };
+
+        foreach my $clname ($rsrc->columns) {
+            my $clref = $rsrc->column_info($clname);
+            tie my %clinfo, 'Tie::IxHash', (name => $clname);
+            $clinfo{$_} = $$clref{$_} foreach sort keys %$clref;
+            $clinfo{is_primary} = 1 if exists $pkey{$clname};
+            push @{$info{columns}}, \%clinfo;
+        }
 
         foreach my $rl (sort $rsrc->relationships) {
             my $data  = $rsrc->relationship_info($rl);
@@ -78,6 +93,7 @@ get '/prefetch' => sub { send_as 'html' => send_file '/prefetch/prefetch.html'; 
         my $FeatureClassData = undef;
         my %DependencesList  = map { $_, 1 } @$CoreDependences;
         my $DependencyText   = join("\n", map {"use TMS::API::Core::$_;"} sort keys %DependencesList);
+        my $JsonSample       = SampleJson($$PostData{Selected});
 
         $FeatureClassName =~ s/\//::/g;
 
@@ -105,27 +121,64 @@ get '/prefetch' => sub { send_as 'html' => send_file '/prefetch/prefetch.html'; 
 
         my $dir = $FeatureClassFile;
         $dir =~ s/\/[^\/]+$//;
-        `mkdir -p $dir` if !-d "$dir";
+        print STDERR `mkdir -p "$dir" 2>&1` if !-d "$dir";
         if (-d "$dir") {
+            my $FileBase = "$FeaturesBase/$FeatureClassName";
+            open(FP, ">$FileBase.posted.json") || exit;
+            print FP $JSON->encode($PostData);
+            close(FP);
+
+            open(FS, ">$FileBase.sample.json") || exit;
+            print FS $JSON->encode($JsonSample);
+            close(FS);
+
             open(FO, ">$FeatureClassFile") || exit;
             print FO $FeatureClassData;
+            close(FO);
 
-            my $name = $FeatureRoute;
-            $name =~ s/\//_/g;
+            my $Name = $FeatureRoute;
+            $Name =~ s/\//_/g;
 
-            my $file = "$RoutesBase/$name.pm";
+            my $file = "$RoutesBase/$Name.pm";
             open(FR, ">$file") || exit;
             print FR $RouteTemplate;
-
-            print STDERR "Sleeping for 2 sec\n";
-            sleep 2;
-
             close(FR);
-            close(FO);
         }
 
         return {FeatureAPI => $FeatureClassFile};
     };
+}
+
+sub SampleJson {
+    my ($tree, $json) = @_;
+    return undef if ref($tree) ne 'HASH';
+    return undef if !exists $$tree{columns};
+
+    if (!defined $json) {
+        $json = {};
+        tie %$json, 'Tie::IxHash';
+    }
+    $$json{$$_{name}} = $$_{data_type} foreach @{$$tree{columns}};
+
+    return undef if !exists $$tree{'related'};
+    foreach my $type (qw(belongsto hasmany)) {
+        if (exists $$tree{'related'}{$type}) {
+            foreach my $rec (@{$$tree{'related'}{$type}}) {
+                next if !$$rec{checked};
+                my $subset = {};
+                tie %$subset, 'Tie::IxHash';
+
+                if ($type eq 'hasmany') {
+                    push @{$$json{$$rec{relationship}}}, $subset;
+                    __SUB__->($$rec{subset}, $$json{$$rec{relationship}}[0]);
+                } else {
+                    $$json{$$rec{relationship}} = $subset;
+                    __SUB__->($$rec{subset}, $$json{$$rec{relationship}});
+                }
+            }
+        }
+    }
+    return $json;
 }
 
 sub PrefetchLoop {

@@ -1,26 +1,29 @@
 <ul class="builder tree">
-  <li ng-if="rsrs.columns"><span class="section">columns</span>
+  <li ng-if="rsrs.columns"><span class="section" onClick="HideShow(this.parentNode)">columns</span>
     <ul class="builder">
-      <li ng-repeat="item in rsrs.columns"><span class="colslist">{{item}}</span></li>
+      <li ng-repeat="item in rsrs.columns">
+        <span ng-class="item.is_nullable ? 'colslist' : 'required'">{{item.name}}</span>
+        <span ng-if="item.is_foreign_key" class="key">fk</span>
+        <span ng-if="item.is_primary" class="key">pk</span>
+      </li>
     </ul>
   </li>
-  <li ng-if="rsrs.related.belongsto"><span class="section">belongs to</span>
+  <li ng-if="rsrs.related.belongsto"><span class="section" onClick="HideShow(this.parentNode)">belongs to</span>
     <ul class="builder">
       <li ng-repeat="item in rsrs.related.belongsto">
         <input type="checkbox" ng-model="item.checked" ng-true-value="1" ng-false-value="0" ng-change="CheckSubset(item)">
-        {{item.relationship}} ({{item.source}})
+        <span onClick="HideShow(this.parentNode)">{{item.relationship}} ({{item.source}})</span>
         <span ng-if="item.subset" ng-include="'/prefetch/modules/builder/template.html'" ng-init="rsrs=item.subset"></span>
       </li>
     </ul>
   </li>
-  <li ng-if="rsrs.related.hasmany"><span class="section">has many</span>
+  <li ng-if="rsrs.related.hasmany"><span class="section" onClick="HideShow(this.parentNode)">has many</span>
     <ul class="builder">
       <li ng-repeat="item in rsrs.related.hasmany">
         <input type="checkbox" ng-model="item.checked" ng-true-value="1" ng-false-value="0" ng-change="CheckSubset(item)">
-        {{item.relationship}} ({{item.source}})
+        <span>{{item.relationship}} ({{item.source}})</span>
         <span ng-if="item.subset" ng-include="'/prefetch/modules/builder/template.html'" ng-init="rsrs=item.subset"></span>
-        </span>
       </li>
     </ul>
   </li>
-</li>
+</ul>

@@ -9,3 +9,12 @@ span.colslist {
 span.section {
   color: #660033;
 }
+
+span.required {
+    color: red;
+}
+
+span.key {
+    color: navy;
+    font-style: oblique;
+}

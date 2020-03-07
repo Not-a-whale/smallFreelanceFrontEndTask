@@ -41,9 +41,21 @@
   },
 
   "ent_people" : {
-    "NickName"   : "Person",
+    "NickName"   : "Person|Empty",
     "FirstName"  : "Person",
-    "MiddleName" : "Person",
+    "MiddleName" : "Person|Empty",
     "LastName"   : "Person"
+  },
+
+  "inv_vehicles" : {
+    "Year"  : "Year"
+  },
+
+  "ent_businesses" : {
+    "BizName" : "UpperCaseStr"
+  },
+
+  "crr_iftas" : {
+    "McAccount" : "MCnum"
   }
 }
