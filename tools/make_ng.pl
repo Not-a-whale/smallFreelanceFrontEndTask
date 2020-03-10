@@ -215,8 +215,8 @@ sub ReadStaticTypes {
             my $types_text = <FI>;
             close(FI);
 
-            my @subtypes = ($types_text =~ /^subtype\s+['"]([^'"]+)['"]/gm);
-            my %coerce   = map { $_, 1 } ($types_text =~ /^coerce\s+['"]([^'"]+)['"]/gm);
+            my @subtypes = ($types_text =~ /^\s*subtype\s+['"]([^'"\|]+)['"]/gm);
+            my %coerce   = map { $_, 1 } ($types_text =~ /^\s*coerce\s+['"]([^'"\|]+)['"]/gm);
             foreach (@subtypes) {
                 $$SMPLTYPE{$_} = exists $coerce{$_} ? 1 : 0;
             }
