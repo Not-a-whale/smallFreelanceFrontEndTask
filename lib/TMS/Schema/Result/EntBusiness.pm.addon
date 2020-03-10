@@ -5,3 +5,12 @@ __PACKAGE__->belongs_to(
     {"foreign.CarrierId" => "self.BizId"},
     {cascade_copy        => 0, cascade_delete => 0},
 );
+
+foreach( qw( insr cust vend oper ) ) {
+    __PACKAGE__->has_many(
+        $_."_branches",
+        "TMS::Schema::Result::BizBranch",
+        {"foreign.BizId" => "self.BizId"},
+        {cascade_copy    => 0, cascade_delete => 0},
+    );
+}
