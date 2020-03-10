@@ -16,15 +16,16 @@ has coreapi => (is => 'rw', required => 1, isa => 'Str', init_arg => undef, lazy
 has prefetch => (is => 'rw', required => 0, isa => 'Undef|HashRef|ArrayRef', lazy_build => 1);
 
 sub Core {
-    my $self = shift;
-    my $core   = $self->coreapi;
-    my $trait  = $core . 'Search';
-    my $inst = $core->with_traits($trait)->new();
+    my $self  = shift;
+    my $core  = $self->coreapi;
+    my $trait = $core . 'Search';
+    my $inst  = $core->with_traits($trait)->new();
     return $inst;
 }
 
 sub Search {
-    my ($self, $user, $pass, $post) = @_;
+    $DB::single = 2;
+    my ($self, $post) = @_;
     my $core   = $self->coreapi;
     my $trait  = $core . 'Search';
     my $caller = (caller(1))[3];
@@ -83,7 +84,7 @@ sub Search {
 sub Fetch {&Search}
 
 sub Update {
-    my ($self, $user, $pass, $post) = @_;
+    my ($self, $post) = @_;
     my $data     = $$post{POST};
     my $core     = $self->coreapi;
     my $trait    = $core . 'Search';
@@ -104,28 +105,29 @@ sub Update {
 }
 
 sub Create {
-    my ($self, $user, $pass, $post) = @_;
+    my ($self, $post) = @_;
     my $data     = $$post{POST};
     my $core     = $self->coreapi;
     my $trait    = $core . 'Strict';
     my $prefetch = $self->prefetch;
 
     #try {
-        my $inst = $core->with_traits($trait)->new($data);
-        my $row  = $inst->FindOrCreate();
-        if ($row) {
-            my $record = undef;
-            $$record{$_} = $inst->$_ foreach $inst->ColumnsList;
-            $$post{DATA} = $inst->Show($record, {prefetch => $self->prefetch});
-        }
-#    } catch {
-#        $$post{ERROR} = "$_";
-#    };
+    my $inst = $core->with_traits($trait)->new($data);
+    my $row  = $inst->FindOrCreate();
+    if ($row) {
+        my $record = undef;
+        $$record{$_} = $inst->$_ foreach $inst->ColumnsList;
+        $$post{DATA} = $inst->Show($record, {prefetch => $self->prefetch});
+    }
+
+    #    } catch {
+    #        $$post{ERROR} = "$_";
+    #    };
     return $post;
 }
 
 sub Delete {
-    my ($self, $user, $pass, $post) = @_;
+    my ($self, $post) = @_;
     my $data     = $$post{POST};
     my $core     = $self->coreapi;
     my $trait    = $core . 'Search';
