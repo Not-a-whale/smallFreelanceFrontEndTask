@@ -4,17 +4,17 @@ use Moose;
 use TMS::Test::BuildAttributes;
 
 my $attr = {
-    'Title'      => ' ',
-    'MenuItemId' => ' ',
-    'Path'       => ' ',
-    'ParentId'   => ' ',
+    'Help'       => ' ',
     'Depth'      => ' ',
-    'Icon'       => ' ',
-    'Label'      => ' ',
+    'ParentId'   => ' ',
     'SortIndex'  => ' ',
     'Route'      => ' ',
+    'MenuItemId' => ' ',
+    'Path'       => ' ',
     'Enabled'    => ' ',
-    'Help'       => ' '
+    'Icon'       => ' ',
+    'Label'      => ' ',
+    'Title'      => ' '
 };
 
 with 'MooseX::Traits';

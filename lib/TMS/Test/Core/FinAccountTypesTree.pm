@@ -6,28 +6,28 @@ use TMS::API::Core::FinAccountType;
 
 my $attr = {
     'ancestor' => {
+        'UserDefined'  => ' ',
+        'DisplayOrder' => ' ',
+        'Credit'       => ' ',
         'BalanceSheet' => ' ',
         'IncomeSheet'  => ' ',
-        'Credit'       => ' ',
-        'Name'         => ' ',
-        'Debit'        => ' ',
-        'DisplayOrder' => ' ',
         'Temp'         => ' ',
-        'UserDefined'  => ' ',
+        'Debit'        => ' ',
         'Valid'        => ' ',
-        'Editable'     => ' '
+        'Editable'     => ' ',
+        'Name'         => ' '
     },
     'descendant' => {
-        'BalanceSheet' => ' ',
-        'IncomeSheet'  => ' ',
-        'Name'         => ' ',
-        'Credit'       => ' ',
-        'Debit'        => ' ',
         'UserDefined'  => ' ',
-        'Temp'         => ' ',
         'DisplayOrder' => ' ',
+        'Credit'       => ' ',
+        'IncomeSheet'  => ' ',
+        'BalanceSheet' => ' ',
+        'Temp'         => ' ',
+        'Debit'        => ' ',
         'Valid'        => ' ',
-        'Editable'     => ' '
+        'Editable'     => ' ',
+        'Name'         => ' '
     },
     'Depth' => ' '
 };

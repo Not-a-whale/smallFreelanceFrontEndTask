@@ -4,8 +4,9 @@ use Moose;
 use TMS::Test::BuildAttributes;
 
 my $attr = {
-    'UnitName' => ' ',
-    'Type'     => ' '
+    'Type'     => ' ',
+    'ParentId' => ' ',
+    'UnitName' => ' '
 };
 
 with 'MooseX::Traits';

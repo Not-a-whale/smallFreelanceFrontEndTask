@@ -2,55 +2,55 @@ package TMS::Test::Core::FinAccountsTree;
 
 use Moose;
 use TMS::Test::BuildAttributes;
-use TMS::API::Core::FinAccountType;
 use TMS::API::Core::FinAccount;
+use TMS::API::Core::FinAccountType;
 
 my $attr = {
     'ancestor' => {
         'account_type' => {
+            'UserDefined'  => ' ',
+            'DisplayOrder' => ' ',
+            'Credit'       => ' ',
             'BalanceSheet' => ' ',
             'IncomeSheet'  => ' ',
-            'Credit'       => ' ',
-            'Name'         => ' ',
-            'Debit'        => ' ',
-            'DisplayOrder' => ' ',
             'Temp'         => ' ',
-            'UserDefined'  => ' ',
+            'Debit'        => ' ',
             'Valid'        => ' ',
-            'Editable'     => ' '
+            'Editable'     => ' ',
+            'Name'         => ' '
         },
-        'Active'       => ' ',
-        'UserDefined'  => ' ',
-        'Code'         => ' ',
-        'Balance'      => ' ',
         'ExternalName' => ' ',
+        'UserDefined'  => ' ',
         'Description'  => ' ',
-        'Valid'        => ' ',
+        'Balance'      => ' ',
         'DateCreated'  => ' ',
-        'Name'         => ' '
+        'Valid'        => ' ',
+        'Code'         => ' ',
+        'Name'         => ' ',
+        'Active'       => ' '
     },
     'descendant' => {
         'account_type' => {
-            'BalanceSheet' => ' ',
-            'IncomeSheet'  => ' ',
-            'Name'         => ' ',
-            'Credit'       => ' ',
-            'Debit'        => ' ',
             'UserDefined'  => ' ',
-            'Temp'         => ' ',
             'DisplayOrder' => ' ',
+            'Credit'       => ' ',
+            'IncomeSheet'  => ' ',
+            'BalanceSheet' => ' ',
+            'Temp'         => ' ',
+            'Debit'        => ' ',
             'Valid'        => ' ',
-            'Editable'     => ' '
+            'Editable'     => ' ',
+            'Name'         => ' '
         },
-        'Active'       => ' ',
-        'UserDefined'  => ' ',
-        'Code'         => ' ',
-        'Balance'      => ' ',
         'ExternalName' => ' ',
+        'UserDefined'  => ' ',
         'Description'  => ' ',
-        'Valid'        => ' ',
+        'Balance'      => ' ',
         'DateCreated'  => ' ',
-        'Name'         => ' '
+        'Valid'        => ' ',
+        'Code'         => ' ',
+        'Name'         => ' ',
+        'Active'       => ' '
     },
     'Depth' => ' '
 };

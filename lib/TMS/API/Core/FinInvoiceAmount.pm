@@ -14,6 +14,7 @@ use Moose;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
 use TMS::API::Types::Complex;
+use TMS::API::Types::Columns;
 
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
@@ -23,9 +24,10 @@ has 'Comments'       => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => 
 has 'DateInvoiced'   => ('is' => 'rw', 'isa' => 'DATETIME',         'coerce' => '1', 'required' => '0');
 has 'FactoredParent' => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
 has 'Notes'          => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
-has 'PONumber'       => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
-has 'RefNumber'      => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
+has 'PONumber'       => ('is' => 'rw', 'isa' => 'VarChar32',        'coerce' => '1', 'required' => '0');
+has 'RefNumber'      => ('is' => 'rw', 'isa' => 'VarChar20',        'coerce' => '1', 'required' => '0');
 
+# core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinInvoiceAmount');
 
 1;

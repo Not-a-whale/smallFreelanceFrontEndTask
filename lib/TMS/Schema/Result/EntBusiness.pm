@@ -203,8 +203,23 @@ __PACKAGE__->might_have(
     {cascade_copy         => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-08 15:30:12
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:nVjfG8g0uS3kXNLFc4sUuA
+=head2 ins_policies
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::InsPolicy>
+
+=cut
+
+__PACKAGE__->has_many(
+    "ins_policies",
+    "TMS::Schema::Result::InsPolicy",
+    {"foreign.InsProvider" => "self.BizId"},
+    {cascade_copy          => 0, cascade_delete => 0},
+);
+
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-03-10 16:28:43
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yqqyI2DYpbXc0xnKJ/C5Cg
 
 __PACKAGE__->belongs_to(
     "has_carrier",
@@ -212,6 +227,15 @@ __PACKAGE__->belongs_to(
     {"foreign.CarrierId" => "self.BizId"},
     {cascade_copy        => 0, cascade_delete => 0},
 );
+
+foreach (qw( insr cust vend oper )) {
+    __PACKAGE__->has_many(
+        $_ . "_branches",
+        "TMS::Schema::Result::BizBranch",
+        {"foreign.BizId" => "self.BizId"},
+        {cascade_copy    => 0, cascade_delete => 0},
+    );
+}
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

@@ -2,211 +2,206 @@ package TMS::Test::Core::FinInvoicePayment;
 
 use Moose;
 use TMS::Test::BuildAttributes;
-use TMS::API::Core::HrAssociate;
 use TMS::API::Core::FinClass;
+use TMS::API::Core::Entity;
+use TMS::API::Core::FinJob;
 use TMS::API::Core::FinPaymentMethod;
+use TMS::API::Core::FinPaymentTerm;
+use TMS::API::Core::EntBusiness;
 use TMS::API::Core::FinInvoice;
 use TMS::API::Core::CntPhonesfax;
-use TMS::API::Core::FinJob;
-use TMS::API::Core::FinTransaction;
-use TMS::API::Core::FinTransactionType;
-use TMS::API::Core::BizBranch;
 use TMS::API::Core::CntAddress;
-use TMS::API::Core::EntBusiness;
-use TMS::API::Core::FinPaymentTerm;
-use TMS::API::Core::BizCompanyNode;
+use TMS::API::Core::HrAssociate;
+use TMS::API::Core::FinTransaction;
+use TMS::API::Core::BizBranch;
 use TMS::API::Core::EntPerson;
-use TMS::API::Core::Entity;
+use TMS::API::Core::FinTransactionType;
 
 my $attr = {
     'created_by' => {
         'ast' => {
             'brnch' => {
                 'biz' => {
-                    'BizURL'  => ' ',
-                    'BizName' => ' '
-                },
-                'brnch_address' => {
-                    'State'   => ' ',
-                    'Street2' => ' ',
-                    'Notes'   => ' ',
-                    'Zip'     => ' ',
-                    'Street3' => ' ',
-                    'Street1' => ' ',
-                    'GpsLng'  => ' ',
-                    'Country' => ' ',
-                    'GpsLat'  => ' ',
-                    'City'    => ' '
-                },
-                'brnch_fax' => {
-                    'Mobility'  => ' ',
-                    'Notes'     => ' ',
-                    'Extension' => ' ',
-                    'Features'  => ' ',
-                    'Number'    => ' '
-                },
-                'brnch_phone' => {
-                    'Mobility'  => ' ',
-                    'Notes'     => ' ',
-                    'Extension' => ' ',
-                    'Features'  => ' ',
-                    'Number'    => ' '
-                },
-                'OfficeName' => ' ',
-                'BrnchEMail' => ' '
-            },
-            'LastName'   => ' ',
-            'MiddleName' => ' ',
-            'NickName'   => ' ',
-            'FirstName'  => ' ',
-            'Prefix'     => ' ',
-            'Suffix'     => ' '
-        },
-        'biz_fax' => {
-            'Mobility'  => ' ',
-            'Notes'     => ' ',
-            'Extension' => ' ',
-            'Features'  => ' ',
-            'Number'    => ' '
-        },
-        'biz_phone' => {
-            'Mobility'  => ' ',
-            'Notes'     => ' ',
-            'Extension' => ' ',
-            'Features'  => ' ',
-            'Number'    => ' '
-        },
-        'node' => {
-            'UnitName' => ' ',
-            'Type'     => ' '
-        },
-        'CurrentTitle'   => ' ',
-        'BizEmail'       => ' ',
-        'Notes'          => ' ',
-        'AuthorityLevel' => ' ',
-        'PrimaryContact' => ' ',
-        'DateRemoved'    => ' ',
-        'DateCreated'    => ' '
-    },
-    'invoice' => {
-        'entity' => {
-            'business' => {
-                'BizName' => ' ',
-                'BizURL'  => ' '
-            },
-            'person' => {
-                'brnch' => {
-                    'biz' => {
-                        'BizURL'  => ' ',
-                        'BizName' => ' '
-                    },
-                    'brnch_address' => {
-                        'State'   => ' ',
-                        'Street2' => ' ',
-                        'Notes'   => ' ',
-                        'Zip'     => ' ',
-                        'Street3' => ' ',
-                        'Street1' => ' ',
-                        'GpsLng'  => ' ',
-                        'Country' => ' ',
-                        'GpsLat'  => ' ',
-                        'City'    => ' '
-                    },
-                    'brnch_fax' => {
-                        'Mobility'  => ' ',
-                        'Notes'     => ' ',
-                        'Extension' => ' ',
-                        'Features'  => ' ',
-                        'Number'    => ' '
-                    },
-                    'brnch_phone' => {
-                        'Mobility'  => ' ',
-                        'Notes'     => ' ',
-                        'Extension' => ' ',
-                        'Features'  => ' ',
-                        'Number'    => ' '
-                    },
-                    'OfficeName' => ' ',
-                    'BrnchEMail' => ' '
-                },
-                'LastName'   => ' ',
-                'MiddleName' => ' ',
-                'NickName'   => ' ',
-                'FirstName'  => ' ',
-                'Prefix'     => ' ',
-                'Suffix'     => ' '
-            },
-            'Notes'       => ' ',
-            'IsActive'    => ' ',
-            'DateCreated' => ' '
-        },
-        'payment_term' => {
-            'DueNext'         => ' ',
-            'DueInDays'       => ' ',
-            'DiscountAmount'  => ' ',
-            'DiscountPercent' => ' ',
-            'DiscountInDays'  => ' ',
-            'Type'            => ' ',
-            'Name'            => ' '
-        },
-        'PONumber'     => ' ',
-        'Notes'        => ' ',
-        'RefNumber'    => ' ',
-        'Status'       => ' ',
-        'Comments'     => ' ',
-        'DateInvoiced' => ' ',
-        'DateCreated'  => ' '
-    },
-    'payer' => {
-        'business' => {
-            'BizName' => ' ',
-            'BizURL'  => ' '
-        },
-        'person' => {
-            'brnch' => {
-                'biz' => {
                     'BizName' => ' ',
                     'BizURL'  => ' '
                 },
                 'brnch_address' => {
-                    'State'   => ' ',
-                    'Street2' => ' ',
-                    'Notes'   => ' ',
-                    'Zip'     => ' ',
-                    'Street3' => ' ',
-                    'Street1' => ' ',
-                    'GpsLng'  => ' ',
-                    'Country' => ' ',
                     'GpsLat'  => ' ',
-                    'City'    => ' '
+                    'Notes'   => ' ',
+                    'Street2' => ' ',
+                    'GpsLng'  => ' ',
+                    'City'    => ' ',
+                    'Street1' => ' ',
+                    'State'   => ' ',
+                    'Country' => ' ',
+                    'Street3' => ' ',
+                    'Zip'     => ' '
                 },
                 'brnch_fax' => {
-                    'Mobility'  => ' ',
                     'Notes'     => ' ',
                     'Extension' => ' ',
+                    'Number'    => ' ',
                     'Features'  => ' ',
-                    'Number'    => ' '
+                    'Mobility'  => ' '
                 },
                 'brnch_phone' => {
-                    'Mobility'  => ' ',
                     'Notes'     => ' ',
                     'Extension' => ' ',
+                    'Number'    => ' ',
                     'Features'  => ' ',
-                    'Number'    => ' '
+                    'Mobility'  => ' '
                 },
                 'OfficeName' => ' ',
                 'BrnchEMail' => ' '
             },
-            'LastName'   => ' ',
             'MiddleName' => ' ',
-            'NickName'   => ' ',
-            'FirstName'  => ' ',
             'Prefix'     => ' ',
+            'NickName'   => ' ',
+            'LastName'   => ' ',
+            'FirstName'  => ' ',
+            'Suffix'     => ' '
+        },
+        'biz_fax' => {
+            'Notes'     => ' ',
+            'Extension' => ' ',
+            'Number'    => ' ',
+            'Features'  => ' ',
+            'Mobility'  => ' '
+        },
+        'biz_phone' => {
+            'Notes'     => ' ',
+            'Extension' => ' ',
+            'Number'    => ' ',
+            'Features'  => ' ',
+            'Mobility'  => ' '
+        },
+        'Notes'          => ' ',
+        'BizEmail'       => ' ',
+        'DateCreated'    => ' ',
+        'DateRemoved'    => ' ',
+        'CurrentTitle'   => ' ',
+        'AuthorityLevel' => ' ',
+        'PrimaryContact' => ' '
+    },
+    'invoice' => {
+        'entity' => {
+            'business' => {
+                'BizURL'  => ' ',
+                'BizName' => ' '
+            },
+            'person' => {
+                'brnch' => {
+                    'biz' => {
+                        'BizName' => ' ',
+                        'BizURL'  => ' '
+                    },
+                    'brnch_address' => {
+                        'GpsLat'  => ' ',
+                        'Notes'   => ' ',
+                        'Street2' => ' ',
+                        'GpsLng'  => ' ',
+                        'City'    => ' ',
+                        'Street1' => ' ',
+                        'State'   => ' ',
+                        'Country' => ' ',
+                        'Street3' => ' ',
+                        'Zip'     => ' '
+                    },
+                    'brnch_fax' => {
+                        'Notes'     => ' ',
+                        'Extension' => ' ',
+                        'Number'    => ' ',
+                        'Features'  => ' ',
+                        'Mobility'  => ' '
+                    },
+                    'brnch_phone' => {
+                        'Notes'     => ' ',
+                        'Extension' => ' ',
+                        'Number'    => ' ',
+                        'Features'  => ' ',
+                        'Mobility'  => ' '
+                    },
+                    'OfficeName' => ' ',
+                    'BrnchEMail' => ' '
+                },
+                'MiddleName' => ' ',
+                'Prefix'     => ' ',
+                'NickName'   => ' ',
+                'LastName'   => ' ',
+                'FirstName'  => ' ',
+                'Suffix'     => ' '
+            },
+            'Notes'       => ' ',
+            'DateCreated' => ' ',
+            'IsActive'    => ' '
+        },
+        'payment_term' => {
+            'DiscountAmount'  => ' ',
+            'DueNext'         => ' ',
+            'DueInDays'       => ' ',
+            'Type'            => ' ',
+            'DiscountPercent' => ' ',
+            'Name'            => ' ',
+            'DiscountInDays'  => ' '
+        },
+        'Notes'        => ' ',
+        'RefNumber'    => ' ',
+        'DateCreated'  => ' ',
+        'PONumber'     => ' ',
+        'DateInvoiced' => ' ',
+        'Comments'     => ' ',
+        'Status'       => ' '
+    },
+    'payer' => {
+        'business' => {
+            'BizURL'  => ' ',
+            'BizName' => ' '
+        },
+        'person' => {
+            'brnch' => {
+                'biz' => {
+                    'BizURL'  => ' ',
+                    'BizName' => ' '
+                },
+                'brnch_address' => {
+                    'GpsLat'  => ' ',
+                    'Notes'   => ' ',
+                    'Street2' => ' ',
+                    'GpsLng'  => ' ',
+                    'City'    => ' ',
+                    'Street1' => ' ',
+                    'State'   => ' ',
+                    'Country' => ' ',
+                    'Street3' => ' ',
+                    'Zip'     => ' '
+                },
+                'brnch_fax' => {
+                    'Notes'     => ' ',
+                    'Extension' => ' ',
+                    'Number'    => ' ',
+                    'Features'  => ' ',
+                    'Mobility'  => ' '
+                },
+                'brnch_phone' => {
+                    'Notes'     => ' ',
+                    'Extension' => ' ',
+                    'Number'    => ' ',
+                    'Features'  => ' ',
+                    'Mobility'  => ' '
+                },
+                'OfficeName' => ' ',
+                'BrnchEMail' => ' '
+            },
+            'MiddleName' => ' ',
+            'Prefix'     => ' ',
+            'NickName'   => ' ',
+            'LastName'   => ' ',
+            'FirstName'  => ' ',
             'Suffix'     => ' '
         },
         'Notes'       => ' ',
-        'IsActive'    => ' ',
-        'DateCreated' => ' '
+        'DateCreated' => ' ',
+        'IsActive'    => ' '
     },
     'payment_method' => {},
     'transaction'    => {
@@ -215,86 +210,82 @@ my $attr = {
             'ast' => {
                 'brnch' => {
                     'biz' => {
-                        'BizName' => ' ',
-                        'BizURL'  => ' '
+                        'BizURL'  => ' ',
+                        'BizName' => ' '
                     },
                     'brnch_address' => {
-                        'State'   => ' ',
-                        'Street2' => ' ',
-                        'Notes'   => ' ',
-                        'Zip'     => ' ',
-                        'Street3' => ' ',
-                        'Street1' => ' ',
-                        'GpsLng'  => ' ',
-                        'Country' => ' ',
                         'GpsLat'  => ' ',
-                        'City'    => ' '
+                        'Notes'   => ' ',
+                        'Street2' => ' ',
+                        'GpsLng'  => ' ',
+                        'City'    => ' ',
+                        'Street1' => ' ',
+                        'State'   => ' ',
+                        'Country' => ' ',
+                        'Street3' => ' ',
+                        'Zip'     => ' '
                     },
                     'brnch_fax' => {
-                        'Mobility'  => ' ',
                         'Notes'     => ' ',
                         'Extension' => ' ',
+                        'Number'    => ' ',
                         'Features'  => ' ',
-                        'Number'    => ' '
+                        'Mobility'  => ' '
                     },
                     'brnch_phone' => {
-                        'Mobility'  => ' ',
                         'Notes'     => ' ',
                         'Extension' => ' ',
+                        'Number'    => ' ',
                         'Features'  => ' ',
-                        'Number'    => ' '
+                        'Mobility'  => ' '
                     },
                     'OfficeName' => ' ',
                     'BrnchEMail' => ' '
                 },
-                'LastName'   => ' ',
                 'MiddleName' => ' ',
-                'NickName'   => ' ',
-                'FirstName'  => ' ',
                 'Prefix'     => ' ',
+                'NickName'   => ' ',
+                'LastName'   => ' ',
+                'FirstName'  => ' ',
                 'Suffix'     => ' '
             },
             'biz_fax' => {
-                'Mobility'  => ' ',
                 'Notes'     => ' ',
                 'Extension' => ' ',
+                'Number'    => ' ',
                 'Features'  => ' ',
-                'Number'    => ' '
+                'Mobility'  => ' '
             },
             'biz_phone' => {
-                'Mobility'  => ' ',
                 'Notes'     => ' ',
                 'Extension' => ' ',
+                'Number'    => ' ',
                 'Features'  => ' ',
-                'Number'    => ' '
+                'Mobility'  => ' '
             },
-            'node' => {
-                'UnitName' => ' ',
-                'Type'     => ' '
-            },
-            'CurrentTitle'   => ' ',
-            'BizEmail'       => ' ',
             'Notes'          => ' ',
-            'AuthorityLevel' => ' ',
-            'PrimaryContact' => ' ',
+            'BizEmail'       => ' ',
+            'DateCreated'    => ' ',
             'DateRemoved'    => ' ',
-            'DateCreated'    => ' '
+            'AuthorityLevel' => ' ',
+            'CurrentTitle'   => ' ',
+            'PrimaryContact' => ' '
         },
         'job' => {
             'JobAddedBy' => ' ',
-            'Title'      => ' ',
-            'JobCreated' => ' '
+            'JobCreated' => ' ',
+            'Title'      => ' '
         },
         'transaction_type' => {'TransTypeName' => ' '},
-        'DateTransaction'  => ' ',
-        'RefNumber'        => ' ',
-        'Status'           => ' ',
         'Memo'             => ' ',
-        'DateCreated'      => ' '
+        'RefNumber'        => ' ',
+        'DateCreated'      => ' ',
+        'DateTransaction'  => ' ',
+        'Status'           => ' '
     },
-    'Amount'      => ' ',
     'Valid'       => ' ',
     'DateCreated' => ' ',
+    'Amount'      => ' ',
     'DatePayment' => ' '
 };
 

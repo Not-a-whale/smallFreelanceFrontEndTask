@@ -2,18 +2,11 @@ package TMS::Test::Core::BizCompanyTree;
 
 use Moose;
 use TMS::Test::BuildAttributes;
-use TMS::API::Core::BizCompanyNode;
 
 my $attr = {
-    'ancestor' => {
-        'UnitName' => ' ',
-        'Type'     => ' '
-    },
-    'descendant' => {
-        'UnitName' => ' ',
-        'Type'     => ' '
-    },
-    'Depth' => ' '
+    'DescendantId' => ' ',
+    'AncestorId'   => ' ',
+    'Depth'        => ' '
 };
 
 with 'MooseX::Traits';

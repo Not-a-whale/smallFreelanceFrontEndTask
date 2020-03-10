@@ -1,6 +1,8 @@
 package TMS::API::Core::AppFeatureStrict;
 use Moose::Role;
 
-has 'Name' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '1');
+has 'Method' => ('is' => 'rw', 'isa' => 'enum_Method', 'coerce' => '1', 'required' => '1');
+has 'Name'   => ('is' => 'rw', 'isa' => 'VarChar64',   'coerce' => '1', 'required' => '1');
+has 'Route'  => ('is' => 'rw', 'isa' => 'VarChar1024', 'coerce' => '1', 'required' => '1');
 
 1;

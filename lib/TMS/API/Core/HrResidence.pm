@@ -14,6 +14,7 @@ use Moose;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
 use TMS::API::Types::Complex;
+use TMS::API::Types::Columns;
 
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
@@ -22,13 +23,14 @@ has 'AstId'        => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 
 has 'DateMovedOut' => ('is' => 'rw', 'isa' => 'DATETIME',      'coerce' => '1', 'required' => '0');
 has 'ResAddress'   => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
 has 'ResPhone'     => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
-has 'ResdenceId'   => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
+has 'ResdenceId'   => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '1', 'required' => '0');
 
-# relations
+# relations depends on
 has 'ast'         => ('is' => 'rw', 'isa' => 'ObjHrAssociate',  'coerce' => '1', 'required' => '0');
 has 'res_address' => ('is' => 'rw', 'isa' => 'ObjCntAddress',   'coerce' => '1', 'required' => '0');
 has 'res_phone'   => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax', 'coerce' => '1', 'required' => '0');
 
+# core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'HrResidence');
 
 1;

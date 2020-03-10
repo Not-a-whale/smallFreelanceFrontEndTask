@@ -14,22 +14,26 @@ use Moose;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
 use TMS::API::Types::Complex;
+use TMS::API::Types::Columns;
 
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'DriverId'         => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '0', 'required' => '0');
+has 'DriverId'         => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '1', 'required' => '0');
 has 'LastAnnualReview' => ('is' => 'rw', 'isa' => 'DATETIME',      'coerce' => '1', 'required' => '0');
 has 'PullNotice'       => ('is' => 'rw', 'isa' => 'DATETIME',      'coerce' => '1', 'required' => '0');
 
-# relations
-has 'driver'              => ('is' => 'rw', 'isa' => 'ObjHrAssociate',           'coerce' => '1', 'required' => '0');
+# relations depends on
+has 'driver' => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'coerce' => '1', 'required' => '0');
+
+# relations point to us
 has 'drv_driverlicences'  => ('is' => 'rw', 'isa' => 'ArrayObjDrvDriverlicence', 'coerce' => '1', 'required' => '0');
 has 'drv_medcards'        => ('is' => 'rw', 'isa' => 'ArrayObjDrvMedcard',       'coerce' => '1', 'required' => '0');
 has 'drv_schedules'       => ('is' => 'rw', 'isa' => 'ArrayObjDrvSchedule',      'coerce' => '1', 'required' => '0');
 has 'dsp_loads_trackings' => ('is' => 'rw', 'isa' => 'ArrayObjDspLoadsTracking', 'coerce' => '1', 'required' => '0');
 has 'sft_log_entries'     => ('is' => 'rw', 'isa' => 'ArrayObjSftLogEntry',      'coerce' => '1', 'required' => '0');
 
+# core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'DrvDriver');
 
 1;

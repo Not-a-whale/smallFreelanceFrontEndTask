@@ -4,18 +4,18 @@ use Moose;
 use TMS::Test::BuildAttributes;
 
 my $attr = {
-    'PONumber'       => ' ',
-    'Notes'          => ' ',
-    'RefNumber'      => ' ',
-    'Amount'         => ' ',
-    'Status'         => ' ',
     'PaymentTermsId' => ' ',
-    'EntityId'       => ' ',
+    'FactoredParent' => ' ',
+    'Notes'          => ' ',
     'Comments'       => ' ',
     'InvoiceId'      => ' ',
+    'RefNumber'      => ' ',
+    'DateCreated'    => ' ',
+    'PONumber'       => ' ',
     'DateInvoiced'   => ' ',
-    'FactoredParent' => ' ',
-    'DateCreated'    => ' '
+    'Amount'         => ' ',
+    'Status'         => ' ',
+    'EntityId'       => ' '
 };
 
 with 'MooseX::Traits';

@@ -6,20 +6,20 @@ use TMS::API::Core::EntBusiness;
 
 my $attr = {
     'cstmr' => {
-        'BizURL'  => ' ',
-        'BizName' => ' '
+        'BizName' => ' ',
+        'BizURL'  => ' '
     },
-    'SCAC'             => ' ',
-    'RequireOriginals' => ' ',
-    'Bond'             => ' ',
-    'Terms'            => ' ',
-    'CreditLimit'      => ' ',
-    'WhyDontUse'       => ' ',
     'DOT'              => ' ',
-    'DUNS'             => ' ',
-    'MC'               => ' ',
     'DontUse'          => ' ',
-    'Factoring'        => ' '
+    'MC'               => ' ',
+    'Factoring'        => ' ',
+    'Terms'            => ' ',
+    'Bond'             => ' ',
+    'SCAC'             => ' ',
+    'WhyDontUse'       => ' ',
+    'DUNS'             => ' ',
+    'CreditLimit'      => ' ',
+    'RequireOriginals' => ' '
 };
 
 with 'MooseX::Traits';

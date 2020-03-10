@@ -6,24 +6,24 @@ use TMS::API::Core::AppMenuItem;
 
 my $attr = {
     'ancestor' => {
-        'Target'    => ' ',
+        'Help'      => ' ',
         'SortIndex' => ' ',
         'Route'     => ' ',
-        'Title'     => ' ',
         'Enabled'   => ' ',
-        'Help'      => ' ',
         'Icon'      => ' ',
-        'Label'     => ' '
+        'Label'     => ' ',
+        'Target'    => ' ',
+        'Title'     => ' '
     },
     'descendant' => {
-        'Target'    => ' ',
+        'Help'      => ' ',
         'SortIndex' => ' ',
         'Route'     => ' ',
-        'Title'     => ' ',
         'Enabled'   => ' ',
-        'Label'     => ' ',
         'Icon'      => ' ',
-        'Help'      => ' '
+        'Label'     => ' ',
+        'Target'    => ' ',
+        'Title'     => ' '
     },
     'Depth' => ' '
 };

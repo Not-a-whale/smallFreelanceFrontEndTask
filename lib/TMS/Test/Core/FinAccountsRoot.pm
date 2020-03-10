@@ -4,8 +4,8 @@ use Moose;
 use TMS::Test::BuildAttributes;
 
 my $attr = {
-    'DescendantId' => ' ',
-    'RootId'       => ' '
+    'RootId'       => ' ',
+    'DescendantId' => ' '
 };
 
 with 'MooseX::Traits';

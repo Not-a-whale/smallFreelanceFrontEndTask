@@ -4,8 +4,8 @@ use Moose;
 use TMS::Test::BuildAttributes;
 
 my $attr = {
-    'DestName' => ' ',
-    'Notes'    => ' '
+    'Notes'    => ' ',
+    'DestName' => ' '
 };
 
 with 'MooseX::Traits';

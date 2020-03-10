@@ -5,8 +5,8 @@ use TMS::Test::BuildAttributes;
 
 my $attr = {
     'WhatAmI' => ' ',
-    'Id'      => ' ',
-    'Name'    => ' '
+    'Name'    => ' ',
+    'Id'      => ' '
 };
 
 with 'MooseX::Traits';

@@ -2,60 +2,60 @@ package TMS::Test::Core::FinInvoice;
 
 use Moose;
 use TMS::Test::BuildAttributes;
-use TMS::API::Core::EntBusiness;
-use TMS::API::Core::FinPaymentTerm;
 use TMS::API::Core::CntPhonesfax;
-use TMS::API::Core::EntPerson;
-use TMS::API::Core::Entity;
-use TMS::API::Core::CntAddress;
+use TMS::API::Core::FinPaymentTerm;
 use TMS::API::Core::BizBranch;
+use TMS::API::Core::CntAddress;
+use TMS::API::Core::EntPerson;
+use TMS::API::Core::EntBusiness;
+use TMS::API::Core::Entity;
 
 my $attr = {
     'entity' => {
         'business' => {
-            'BizURL'  => ' ',
-            'BizName' => ' '
+            'BizName' => ' ',
+            'BizURL'  => ' '
         },
         'person' => {
             'brnch' => {
                 'biz' => {
-                    'BizURL'  => ' ',
-                    'BizName' => ' '
+                    'BizName' => ' ',
+                    'BizURL'  => ' '
                 },
                 'brnch_address' => {
-                    'State'   => ' ',
-                    'Street2' => ' ',
-                    'Notes'   => ' ',
-                    'Zip'     => ' ',
-                    'Street3' => ' ',
-                    'Street1' => ' ',
-                    'GpsLng'  => ' ',
-                    'Country' => ' ',
                     'GpsLat'  => ' ',
-                    'City'    => ' '
+                    'Notes'   => ' ',
+                    'Street2' => ' ',
+                    'GpsLng'  => ' ',
+                    'City'    => ' ',
+                    'Street1' => ' ',
+                    'State'   => ' ',
+                    'Country' => ' ',
+                    'Street3' => ' ',
+                    'Zip'     => ' '
                 },
                 'brnch_fax' => {
-                    'Mobility'  => ' ',
                     'Notes'     => ' ',
                     'Extension' => ' ',
+                    'Number'    => ' ',
                     'Features'  => ' ',
-                    'Number'    => ' '
+                    'Mobility'  => ' '
                 },
                 'brnch_phone' => {
-                    'Mobility'  => ' ',
                     'Notes'     => ' ',
                     'Extension' => ' ',
+                    'Number'    => ' ',
                     'Features'  => ' ',
-                    'Number'    => ' '
+                    'Mobility'  => ' '
                 },
                 'OfficeName' => ' ',
                 'BrnchEMail' => ' '
             },
-            'LastName'   => ' ',
             'MiddleName' => ' ',
-            'NickName'   => ' ',
-            'FirstName'  => ' ',
             'Prefix'     => ' ',
+            'NickName'   => ' ',
+            'LastName'   => ' ',
+            'FirstName'  => ' ',
             'Suffix'     => ' '
         },
         'Notes'       => ' ',
@@ -63,21 +63,21 @@ my $attr = {
         'IsActive'    => ' '
     },
     'payment_term' => {
+        'DiscountAmount'  => ' ',
         'DueNext'         => ' ',
         'DueInDays'       => ' ',
-        'DiscountAmount'  => ' ',
+        'Type'            => ' ',
         'DiscountPercent' => ' ',
-        'DiscountInDays'  => ' ',
         'Name'            => ' ',
-        'Type'            => ' '
+        'DiscountInDays'  => ' '
     },
+    'Notes'        => ' ',
     'Comments'     => ' ',
+    'RefNumber'    => ' ',
+    'DateCreated'  => ' ',
     'DateInvoiced' => ' ',
     'PONumber'     => ' ',
-    'Notes'        => ' ',
-    'RefNumber'    => ' ',
-    'Status'       => ' ',
-    'DateCreated'  => ' '
+    'Status'       => ' '
 };
 
 with 'MooseX::Traits';

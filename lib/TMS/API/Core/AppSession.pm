@@ -19,8 +19,7 @@ use TMS::API::Types::Columns;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'session_data' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
-has 'session_id'   => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '1', 'required' => '0');
+has 'session_id' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '1', 'required' => '0');
 
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'AppSession');

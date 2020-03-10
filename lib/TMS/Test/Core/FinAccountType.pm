@@ -4,16 +4,16 @@ use Moose;
 use TMS::Test::BuildAttributes;
 
 my $attr = {
+    'UserDefined'  => ' ',
+    'DisplayOrder' => ' ',
+    'Credit'       => ' ',
     'BalanceSheet' => ' ',
     'IncomeSheet'  => ' ',
-    'Credit'       => ' ',
-    'Name'         => ' ',
-    'Debit'        => ' ',
-    'DisplayOrder' => ' ',
     'Temp'         => ' ',
-    'UserDefined'  => ' ',
+    'Debit'        => ' ',
     'Valid'        => ' ',
-    'Editable'     => ' '
+    'Editable'     => ' ',
+    'Name'         => ' '
 };
 
 with 'MooseX::Traits';

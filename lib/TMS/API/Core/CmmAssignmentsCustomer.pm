@@ -14,22 +14,24 @@ use Moose;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
 use TMS::API::Types::Complex;
+use TMS::API::Types::Columns;
 
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'AddedBy'           => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
-has 'AssociateId'       => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
-has 'CommissionPackage' => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
-has 'CustomerId'        => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 'required' => '0');
-has 'DateAdded'         => ('is' => 'rw', 'isa' => 'DATETIME',         'coerce' => '1', 'required' => '0');
+has 'AddedBy'           => ('is' => 'rw', 'isa' => 'PositiveInt', 'coerce' => '1', 'required' => '0');
+has 'AssociateId'       => ('is' => 'rw', 'isa' => 'PositiveInt', 'coerce' => '1', 'required' => '0');
+has 'CommissionPackage' => ('is' => 'rw', 'isa' => 'VarChar255',  'coerce' => '1', 'required' => '0');
+has 'CustomerId'        => ('is' => 'rw', 'isa' => 'PositiveInt', 'coerce' => '1', 'required' => '0');
+has 'DateAdded'         => ('is' => 'rw', 'isa' => 'DATETIME',    'coerce' => '1', 'required' => '0');
 
-# relations
+# relations depends on
 has 'added_by'           => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'coerce' => '1', 'required' => '0');
 has 'associate'          => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'coerce' => '1', 'required' => '0');
 has 'commission_package' => ('is' => 'rw', 'isa' => 'ObjCmmPackage',  'coerce' => '1', 'required' => '0');
 has 'customer'           => ('is' => 'rw', 'isa' => 'ObjEntCustomer', 'coerce' => '1', 'required' => '0');
 
+# core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'CmmAssignmentsCustomer');
 
 1;

@@ -4,11 +4,11 @@ use Moose;
 use TMS::Test::BuildAttributes;
 
 my $attr = {
-    'Extension' => ' ',
-    'Mobility'  => ' ',
-    'Features'  => ' ',
     'Number'    => ' ',
-    'Notes'     => ' '
+    'Notes'     => ' ',
+    'Features'  => ' ',
+    'Extension' => ' ',
+    'Mobility'  => ' '
 };
 
 with 'MooseX::Traits';

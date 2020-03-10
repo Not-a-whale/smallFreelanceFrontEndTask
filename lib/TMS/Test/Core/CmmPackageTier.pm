@@ -7,8 +7,8 @@ use TMS::API::Core::CmmPackage;
 my $attr = {
     'package'    => {},
     'Threshold'  => ' ',
-    'Percentage' => ' ',
-    'Name'       => ' '
+    'Name'       => ' ',
+    'Percentage' => ' '
 };
 
 with 'MooseX::Traits';

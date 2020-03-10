@@ -54,9 +54,9 @@ __PACKAGE__->table("biz_company_nodes");
   is_nullable: 0
   size: 255
 
-=head2 Type
+=head2 UnitType
 
-  accessor: 'type'
+  accessor: 'unit_type'
   data_type: 'enum'
   default_value: 'Other'
   extra: {list => ["Department","Office","Team","Group","Other"]}
@@ -85,8 +85,8 @@ __PACKAGE__->add_columns(
         is_nullable => 0,
         size        => 255,
     },
-    "Type",
-    {   accessor      => "type",
+    "UnitType",
+    {   accessor      => "unit_type",
         data_type     => "enum",
         default_value => "Other",
         extra         => {list => ["Department", "Office", "Team", "Group", "Other"]},
@@ -114,13 +114,13 @@ __PACKAGE__->set_primary_key("NodeId");
 
 =item * L</UnitName>
 
-=item * L</Type>
+=item * L</UnitType>
 
 =back
 
 =cut
 
-__PACKAGE__->add_unique_constraint("UniqBizUnitName", ["UnitName", "Type"]);
+__PACKAGE__->add_unique_constraint("UniqBizUnitName", ["UnitName", "UnitType"]);
 
 =head1 RELATIONS
 
@@ -197,8 +197,8 @@ __PACKAGE__->belongs_to(
     },
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-08 15:30:12
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0tqf2exaLofuaZV/5vd8zg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-03-10 16:28:43
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:MsiWSIZxBOzNwtuIT85/Pw
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

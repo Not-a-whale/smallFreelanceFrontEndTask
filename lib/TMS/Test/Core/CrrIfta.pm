@@ -2,30 +2,30 @@ package TMS::Test::Core::CrrIfta;
 
 use Moose;
 use TMS::Test::BuildAttributes;
-use TMS::API::Core::EntBusiness;
 use TMS::API::Core::GenFile;
+use TMS::API::Core::EntBusiness;
 
 my $attr = {
     'biz' => {
-        'BizURL'  => ' ',
-        'BizName' => ' '
+        'BizName' => ' ',
+        'BizURL'  => ' '
     },
     'proof_doc' => {
         'FileName'      => ' ',
-        'ExpiredDate'   => ' ',
-        'DocumentTitle' => ' ',
-        'SHASIG'        => ' ',
         'Notes'         => ' ',
+        'FileData'      => ' ',
+        'SHASIG'        => ' ',
         'UploadDate'    => ' ',
         'Keywords'      => ' ',
-        'FileData'      => ' ',
-        'MIMEType'      => ' '
+        'ExpiredDate'   => ' ',
+        'MIMEType'      => ' ',
+        'DocumentTitle' => ' '
     },
-    'State'       => ' ',
     'IFTALicense' => ' ',
+    'Effective'   => ' ',
+    'State'       => ' ',
     'McAccount'   => ' ',
-    'Expiration'  => ' ',
-    'Effective'   => ' '
+    'Expiration'  => ' '
 };
 
 with 'MooseX::Traits';

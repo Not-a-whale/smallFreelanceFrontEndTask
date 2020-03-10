@@ -2,36 +2,36 @@ package TMS::Test::Core::EntOwnerOperator;
 
 use Moose;
 use TMS::Test::BuildAttributes;
-use TMS::API::Core::EntBusiness;
 use TMS::API::Core::EntCarrier;
 use TMS::API::Core::GenFile;
+use TMS::API::Core::EntBusiness;
 
 my $attr = {
     'biz' => {
-        'BizURL'  => ' ',
-        'BizName' => ' '
+        'BizName' => ' ',
+        'BizURL'  => ' '
     },
     'carrier' => {
         'carrier' => {
-            'BizURL'  => ' ',
-            'BizName' => ' '
+            'BizName' => ' ',
+            'BizURL'  => ' '
         },
         'mc_certificate_photo' => {
             'FileName'      => ' ',
-            'ExpiredDate'   => ' ',
-            'DocumentTitle' => ' ',
-            'SHASIG'        => ' ',
             'Notes'         => ' ',
+            'FileData'      => ' ',
+            'SHASIG'        => ' ',
             'UploadDate'    => ' ',
             'Keywords'      => ' ',
-            'FileData'      => ' ',
-            'MIMEType'      => ' '
+            'ExpiredDate'   => ' ',
+            'MIMEType'      => ' ',
+            'DocumentTitle' => ' '
         },
-        'CrType'               => ' ',
         'DOT'                  => ' ',
         'RateConfEmailAddress' => ' ',
-        'SCAC'                 => ' ',
-        'MC'                   => ' '
+        'MC'                   => ' ',
+        'CrType'               => ' ',
+        'SCAC'                 => ' '
     }
 };
 

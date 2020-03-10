@@ -87,7 +87,7 @@ Street
 
   accessor: 'country'
   data_type: 'varchar'
-  default_value: 'USA'
+  default_value: 'United States'
   is_nullable: 0
   size: 255
 
@@ -144,7 +144,7 @@ __PACKAGE__->add_columns(
     "Country",
     {   accessor      => "country",
         data_type     => "varchar",
-        default_value => "USA",
+        default_value => "United States",
         is_nullable   => 0,
         size          => 255,
     },
@@ -258,8 +258,8 @@ __PACKAGE__->has_many(
     {"foreign.LocationOfRecords" => "self.AddrId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-08 15:30:12
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:fscuG4BOeu4vbbz0jvZWHw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-03-10 16:28:43
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Qgi5oLBWmrVJsmbkV900uA
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

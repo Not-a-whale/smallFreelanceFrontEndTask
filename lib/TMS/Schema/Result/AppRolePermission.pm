@@ -27,25 +27,25 @@ __PACKAGE__->table("app_role_permissions");
 
 =head1 ACCESSORS
 
-=head2 RoleVsPermId
+=head2 RoleVsFeatureId
 
-  accessor: 'role_vs_perm_id'
+  accessor: 'role_vs_feature_id'
   data_type: 'bigint'
   extra: {unsigned => 1}
   is_auto_increment: 1
   is_nullable: 0
 
-=head2 Role
+=head2 RoleId
 
-  accessor: 'role'
+  accessor: 'role_id'
   data_type: 'bigint'
   extra: {unsigned => 1}
   is_foreign_key: 1
   is_nullable: 0
 
-=head2 Permission
+=head2 AppFeatureId
 
-  accessor: 'permission'
+  accessor: 'app_feature_id'
   data_type: 'bigint'
   extra: {unsigned => 1}
   is_foreign_key: 1
@@ -54,22 +54,22 @@ __PACKAGE__->table("app_role_permissions");
 =cut
 
 __PACKAGE__->add_columns(
-    "RoleVsPermId",
-    {   accessor          => "role_vs_perm_id",
+    "RoleVsFeatureId",
+    {   accessor          => "role_vs_feature_id",
         data_type         => "bigint",
         extra             => {unsigned => 1},
         is_auto_increment => 1,
         is_nullable       => 0,
     },
-    "Role",
-    {   accessor       => "role",
+    "RoleId",
+    {   accessor       => "role_id",
         data_type      => "bigint",
         extra          => {unsigned => 1},
         is_foreign_key => 1,
         is_nullable    => 0,
     },
-    "Permission",
-    {   accessor       => "permission",
+    "AppFeatureId",
+    {   accessor       => "app_feature_id",
         data_type      => "bigint",
         extra          => {unsigned => 1},
         is_foreign_key => 1,
@@ -81,13 +81,13 @@ __PACKAGE__->add_columns(
 
 =over 4
 
-=item * L</RoleVsPermId>
+=item * L</RoleVsFeatureId>
 
 =back
 
 =cut
 
-__PACKAGE__->set_primary_key("RoleVsPermId");
+__PACKAGE__->set_primary_key("RoleVsFeatureId");
 
 =head1 UNIQUE CONSTRAINTS
 
@@ -95,30 +95,30 @@ __PACKAGE__->set_primary_key("RoleVsPermId");
 
 =over 4
 
-=item * L</Role>
+=item * L</RoleId>
 
-=item * L</Permission>
+=item * L</AppFeatureId>
 
 =back
 
 =cut
 
-__PACKAGE__->add_unique_constraint("RoleVsPermUnq", ["Role", "Permission"]);
+__PACKAGE__->add_unique_constraint("RoleVsPermUnq", ["RoleId", "AppFeatureId"]);
 
 =head1 RELATIONS
 
-=head2 permission
+=head2 app_feature
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::AppPermission>
+Related object: L<TMS::Schema::Result::AppFeature>
 
 =cut
 
 __PACKAGE__->belongs_to(
-    "permission",
-    "TMS::Schema::Result::AppPermission",
-    {PermissionId  => "Permission"},
+    "app_feature",
+    "TMS::Schema::Result::AppFeature",
+    {AppFeatureId  => "AppFeatureId"},
     {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
@@ -133,12 +133,12 @@ Related object: L<TMS::Schema::Result::AppRole>
 __PACKAGE__->belongs_to(
     "role",
     "TMS::Schema::Result::AppRole",
-    {RoleId        => "Role"},
+    {RoleId        => "RoleId"},
     {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-08 15:30:12
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1669K2+1AyHz2NWTqigwOg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-03-10 16:28:43
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:CzitbieY53t3+FLhJEXipA
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

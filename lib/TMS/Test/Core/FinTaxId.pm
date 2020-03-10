@@ -2,60 +2,60 @@ package TMS::Test::Core::FinTaxId;
 
 use Moose;
 use TMS::Test::BuildAttributes;
-use TMS::API::Core::EntBusiness;
-use TMS::API::Core::CntPhonesfax;
-use TMS::API::Core::EntPerson;
-use TMS::API::Core::Entity;
 use TMS::API::Core::GenFile;
-use TMS::API::Core::CntAddress;
+use TMS::API::Core::CntPhonesfax;
 use TMS::API::Core::BizBranch;
+use TMS::API::Core::CntAddress;
+use TMS::API::Core::EntPerson;
+use TMS::API::Core::EntBusiness;
+use TMS::API::Core::Entity;
 
 my $attr = {
     'entity' => {
         'business' => {
-            'BizURL'  => ' ',
-            'BizName' => ' '
+            'BizName' => ' ',
+            'BizURL'  => ' '
         },
         'person' => {
             'brnch' => {
                 'biz' => {
-                    'BizURL'  => ' ',
-                    'BizName' => ' '
+                    'BizName' => ' ',
+                    'BizURL'  => ' '
                 },
                 'brnch_address' => {
-                    'State'   => ' ',
-                    'Street2' => ' ',
-                    'Notes'   => ' ',
-                    'Zip'     => ' ',
-                    'Street3' => ' ',
-                    'Street1' => ' ',
-                    'GpsLng'  => ' ',
-                    'Country' => ' ',
                     'GpsLat'  => ' ',
-                    'City'    => ' '
+                    'Notes'   => ' ',
+                    'Street2' => ' ',
+                    'GpsLng'  => ' ',
+                    'City'    => ' ',
+                    'Street1' => ' ',
+                    'State'   => ' ',
+                    'Country' => ' ',
+                    'Street3' => ' ',
+                    'Zip'     => ' '
                 },
                 'brnch_fax' => {
-                    'Mobility'  => ' ',
                     'Notes'     => ' ',
                     'Extension' => ' ',
+                    'Number'    => ' ',
                     'Features'  => ' ',
-                    'Number'    => ' '
+                    'Mobility'  => ' '
                 },
                 'brnch_phone' => {
-                    'Mobility'  => ' ',
                     'Notes'     => ' ',
                     'Extension' => ' ',
+                    'Number'    => ' ',
                     'Features'  => ' ',
-                    'Number'    => ' '
+                    'Mobility'  => ' '
                 },
                 'OfficeName' => ' ',
                 'BrnchEMail' => ' '
             },
-            'LastName'   => ' ',
             'MiddleName' => ' ',
-            'NickName'   => ' ',
-            'FirstName'  => ' ',
             'Prefix'     => ' ',
+            'NickName'   => ' ',
+            'LastName'   => ' ',
+            'FirstName'  => ' ',
             'Suffix'     => ' '
         },
         'Notes'       => ' ',
@@ -64,20 +64,20 @@ my $attr = {
     },
     'photo' => {
         'FileName'      => ' ',
-        'ExpiredDate'   => ' ',
-        'DocumentTitle' => ' ',
-        'SHASIG'        => ' ',
         'Notes'         => ' ',
+        'FileData'      => ' ',
+        'SHASIG'        => ' ',
         'UploadDate'    => ' ',
         'Keywords'      => ' ',
-        'FileData'      => ' ',
-        'MIMEType'      => ' '
+        'ExpiredDate'   => ' ',
+        'MIMEType'      => ' ',
+        'DocumentTitle' => ' '
     },
+    'Notes'    => ' ',
+    'Tax_ID'   => ' ',
     'Need1099' => ' ',
     'ID_Type'  => ' ',
-    'Entered'  => ' ',
-    'Tax_ID'   => ' ',
-    'Notes'    => ' '
+    'Entered'  => ' '
 };
 
 with 'MooseX::Traits';

@@ -35,15 +35,13 @@ __PACKAGE__->table("ins_policies");
   is_auto_increment: 1
   is_nullable: 0
 
-=head2 ProviderAgent
+=head2 InsProvider
 
-  accessor: 'provider_agent'
+  accessor: 'ins_provider'
   data_type: 'bigint'
   extra: {unsigned => 1}
   is_foreign_key: 1
   is_nullable: 0
-
-Insurance Provider Record
 
 =head2 ProofOfInsurance
 
@@ -134,8 +132,8 @@ __PACKAGE__->add_columns(
         is_auto_increment => 1,
         is_nullable       => 0,
     },
-    "ProviderAgent",
-    {   accessor       => "provider_agent",
+    "InsProvider",
+    {   accessor       => "ins_provider",
         data_type      => "bigint",
         extra          => {unsigned => 1},
         is_foreign_key => 1,
@@ -239,6 +237,21 @@ __PACKAGE__->add_unique_constraint("TagPolicyIndx",
 
 =head1 RELATIONS
 
+=head2 ins_provider
+
+Type: belongs_to
+
+Related object: L<TMS::Schema::Result::EntBusiness>
+
+=cut
+
+__PACKAGE__->belongs_to(
+    "ins_provider",
+    "TMS::Schema::Result::EntBusiness",
+    {BizId         => "InsProvider"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+);
+
 =head2 ins_to_entities
 
 Type: has_many
@@ -284,23 +297,8 @@ __PACKAGE__->belongs_to(
     },
 );
 
-=head2 provider_agent
-
-Type: belongs_to
-
-Related object: L<TMS::Schema::Result::HrAssociate>
-
-=cut
-
-__PACKAGE__->belongs_to(
-    "provider_agent",
-    "TMS::Schema::Result::HrAssociate",
-    {AstId         => "ProviderAgent"},
-    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
-);
-
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-08 15:30:12
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yQX0woBBURwr1bF546rKqQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-03-10 16:28:43
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ceadRLDyMd/OJU63sIEmAA
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

@@ -14,6 +14,7 @@ use Moose;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
 use TMS::API::Types::Complex;
+use TMS::API::Types::Columns;
 
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
@@ -21,10 +22,11 @@ with 'MooseX::Traits';
 has 'EquipmentType' => ('is' => 'rw', 'isa' => 'PositiveInt', 'coerce' => '1', 'required' => '0');
 has 'LoadId'        => ('is' => 'rw', 'isa' => 'PositiveInt', 'coerce' => '1', 'required' => '0');
 
-# relations
+# relations depends on
 has 'equipment_type' => ('is' => 'rw', 'isa' => 'ObjInvEquipmentType', 'coerce' => '1', 'required' => '0');
 has 'load'           => ('is' => 'rw', 'isa' => 'ObjDspLoad',          'coerce' => '1', 'required' => '0');
 
+# core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'DspLoadsRequiredEquipment');
 
 1;

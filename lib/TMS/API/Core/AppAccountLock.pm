@@ -14,6 +14,7 @@ use Moose;
 use TMS::API::Types::Simple;
 use TMS::API::Types::Objects;
 use TMS::API::Types::Complex;
+use TMS::API::Types::Columns;
 
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
@@ -21,9 +22,10 @@ with 'MooseX::Traits';
 has 'AppAccountId'    => ('is' => 'rw', 'isa' => 'PositiveInt', 'coerce' => '1', 'required' => '0');
 has 'DateLastAttempt' => ('is' => 'rw', 'isa' => 'DATETIME',    'coerce' => '1', 'required' => '0');
 
-# relations
+# relations depends on
 has 'app_account' => ('is' => 'rw', 'isa' => 'ObjAppAccount', 'coerce' => '1', 'required' => '0');
 
+# core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'AppAccountLock');
 
 1;

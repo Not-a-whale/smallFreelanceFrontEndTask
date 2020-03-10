@@ -307,21 +307,6 @@ __PACKAGE__->belongs_to(
     },
 );
 
-=head2 cmm_assignments
-
-Type: has_many
-
-Related object: L<TMS::Schema::Result::CmmAssignment>
-
-=cut
-
-__PACKAGE__->has_many(
-    "cmm_assignments",
-    "TMS::Schema::Result::CmmAssignment",
-    {"foreign.AssociateId" => "self.AstId"},
-    {cascade_copy          => 0, cascade_delete => 0},
-);
-
 =head2 cmm_assignments_addeds_by
 
 Type: has_many
@@ -335,16 +320,16 @@ __PACKAGE__->has_many(
     {"foreign.AddedBy" => "self.AstId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-=head2 cmm_assignments_customers
+=head2 cmm_assignments_associates
 
 Type: has_many
 
-Related object: L<TMS::Schema::Result::CmmAssignmentsCustomer>
+Related object: L<TMS::Schema::Result::CmmAssignment>
 
 =cut
 
 __PACKAGE__->has_many(
-    "cmm_assignments_customers", "TMS::Schema::Result::CmmAssignmentsCustomer",
+    "cmm_assignments_associates", "TMS::Schema::Result::CmmAssignment",
     {"foreign.AssociateId" => "self.AstId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
@@ -361,16 +346,16 @@ __PACKAGE__->has_many(
     {"foreign.AddedBy" => "self.AstId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-=head2 cmm_assignments_groups
+=head2 cmm_assignments_customers_associates
 
 Type: has_many
 
-Related object: L<TMS::Schema::Result::CmmAssignmentsGroup>
+Related object: L<TMS::Schema::Result::CmmAssignmentsCustomer>
 
 =cut
 
 __PACKAGE__->has_many(
-    "cmm_assignments_groups", "TMS::Schema::Result::CmmAssignmentsGroup",
+    "cmm_assignments_customers_associates", "TMS::Schema::Result::CmmAssignmentsCustomer",
     {"foreign.AssociateId" => "self.AstId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
@@ -385,6 +370,19 @@ Related object: L<TMS::Schema::Result::CmmAssignmentsGroup>
 __PACKAGE__->has_many(
     "cmm_assignments_groups_addeds_by", "TMS::Schema::Result::CmmAssignmentsGroup",
     {"foreign.AddedBy" => "self.AstId"}, {cascade_copy => 0, cascade_delete => 0},
+);
+
+=head2 cmm_assignments_groups_associates
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::CmmAssignmentsGroup>
+
+=cut
+
+__PACKAGE__->has_many(
+    "cmm_assignments_groups_associates", "TMS::Schema::Result::CmmAssignmentsGroup",
+    {"foreign.AssociateId" => "self.AstId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 crr_ifta_decals
@@ -432,7 +430,7 @@ __PACKAGE__->has_many(
     {cascade_copy       => 0, cascade_delete => 0},
 );
 
-=head2 dsp_loads
+=head2 dsp_loads_booked_by
 
 Type: has_many
 
@@ -441,7 +439,7 @@ Related object: L<TMS::Schema::Result::DspLoad>
 =cut
 
 __PACKAGE__->has_many(
-    "dsp_loads",
+    "dsp_loads_booked_by",
     "TMS::Schema::Result::DspLoad",
     {"foreign.BookedBy" => "self.AstId"},
     {cascade_copy       => 0, cascade_delete => 0},
@@ -743,21 +741,6 @@ __PACKAGE__->has_many(
     {"foreign.AstId" => "self.AstId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-=head2 hr_govidcards
-
-Type: has_many
-
-Related object: L<TMS::Schema::Result::HrGovidcard>
-
-=cut
-
-__PACKAGE__->has_many(
-    "hr_govidcards",
-    "TMS::Schema::Result::HrGovidcard",
-    {"foreign.AstId" => "self.AstId"},
-    {cascade_copy    => 0, cascade_delete => 0},
-);
-
 =head2 hr_govidcards_addeds_by
 
 Type: has_many
@@ -769,6 +752,19 @@ Related object: L<TMS::Schema::Result::HrGovidcard>
 __PACKAGE__->has_many(
     "hr_govidcards_addeds_by", "TMS::Schema::Result::HrGovidcard",
     {"foreign.AddedBy" => "self.AstId"}, {cascade_copy => 0, cascade_delete => 0},
+);
+
+=head2 hr_govidcards_asts
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::HrGovidcard>
+
+=cut
+
+__PACKAGE__->has_many(
+    "hr_govidcards_asts", "TMS::Schema::Result::HrGovidcard",
+    {"foreign.AstId" => "self.AstId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 hr_hire_records
@@ -840,21 +836,6 @@ __PACKAGE__->has_many(
     {cascade_copy    => 0, cascade_delete => 0},
 );
 
-=head2 ins_policies
-
-Type: has_many
-
-Related object: L<TMS::Schema::Result::InsPolicy>
-
-=cut
-
-__PACKAGE__->has_many(
-    "ins_policies",
-    "TMS::Schema::Result::InsPolicy",
-    {"foreign.ProviderAgent" => "self.AstId"},
-    {cascade_copy            => 0, cascade_delete => 0},
-);
-
 =head2 ins_to_entities_addeds_by
 
 Type: has_many
@@ -881,7 +862,7 @@ __PACKAGE__->has_many(
     {"foreign.RemovedBy" => "self.AstId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-=head2 ins_to_vehicles
+=head2 ins_to_vehicles_addeds_by
 
 Type: has_many
 
@@ -890,7 +871,7 @@ Related object: L<TMS::Schema::Result::InsToVehicle>
 =cut
 
 __PACKAGE__->has_many(
-    "ins_to_vehicles", "TMS::Schema::Result::InsToVehicle",
+    "ins_to_vehicles_addeds_by", "TMS::Schema::Result::InsToVehicle",
     {"foreign.AddedBy" => "self.AstId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
@@ -1049,8 +1030,8 @@ __PACKAGE__->has_many(
     {"foreign.InspectorId" => "self.AstId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-08 15:30:12
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ldov6HUsoI5LAvLAd5SP1A
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-03-10 16:28:43
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:8CVE4XJU25jBTNY4RdwMxw
 
 foreach (qw( vendor dispatcher owner driver customer shipper )) {
     __PACKAGE__->belongs_to(

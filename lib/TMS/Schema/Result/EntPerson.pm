@@ -309,8 +309,8 @@ __PACKAGE__->has_many(
     {cascade_copy     => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-08 15:30:12
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:scxDGzEdHMy/RbPMB4AWZA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-03-10 16:28:43
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:UE6yC2zLFzogk9LbnkmTLg
 
 foreach (qw( vendor dispatcher owner driver customer shipper )) {
     __PACKAGE__->belongs_to(
@@ -321,18 +321,18 @@ foreach (qw( vendor dispatcher owner driver customer shipper )) {
     );
 }
 
-__PACKAGE__->belongs_to(
-    "hr_primary",
-    "TMS::Schema::Result::HrAssociate",
-    sub {
-        my $args = shift;
-        return {
-            "$args->{foreign_alias}.AstId"          => {-ident => "$args->{self_alias}.PrsnId"},
-            "$args->{foreign_alias}.PrimaryContact" => {'>', "0"},
-        };
-    },
-    {cascade_copy => 0, cascade_delete => 0},
-);
+# __PACKAGE__->might_have(
+#     "hr_primary",
+#     "TMS::Schema::Result::HrAssociate",
+#     sub {
+#         my $args = shift;
+#         return {
+#             "$args->{foreign_alias}.AstId"          => {-ident => "$args->{self_alias}.PrsnId"},
+#             "$args->{foreign_alias}.PrimaryContact" => {'>', "0"},
+#         };
+#     },
+#     {cascade_copy => 0, cascade_delete => 0},
+# );
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

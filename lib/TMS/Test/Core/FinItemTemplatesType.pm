@@ -5,8 +5,8 @@ use TMS::Test::BuildAttributes;
 
 my $attr = {
     'DisplayToUser' => ' ',
-    'Description'   => ' ',
     'UserDefined'   => ' ',
+    'Description'   => ' ',
     'Name'          => ' '
 };
 

@@ -46,9 +46,23 @@ __PACKAGE__->table("app_features");
   is_nullable: 0
   size: 64
 
-=head2 Notes
+=head2 Route
 
-  accessor: 'notes'
+  accessor: 'route'
+  data_type: 'varchar'
+  is_nullable: 0
+  size: 1024
+
+=head2 Method
+
+  accessor: 'method'
+  data_type: 'enum'
+  extra: {list => ["GET","POST"]}
+  is_nullable: 0
+
+=head2 Description
+
+  accessor: 'description'
   data_type: 'text'
   is_nullable: 1
 
@@ -66,8 +80,16 @@ __PACKAGE__->add_columns(
     },
     "Name",
     {accessor => "name", data_type => "varchar", is_nullable => 0, size => 64},
-    "Notes",
-    {accessor => "notes", data_type => "text", is_nullable => 1},
+    "Route",
+    {accessor => "route", data_type => "varchar", is_nullable => 0, size => 1024},
+    "Method",
+    {   accessor    => "method",
+        data_type   => "enum",
+        extra       => {list => ["GET", "POST"]},
+        is_nullable => 0,
+    },
+    "Description",
+    {accessor => "description", data_type => "text", is_nullable => 1},
 );
 
 =head1 PRIMARY KEY
@@ -98,23 +120,21 @@ __PACKAGE__->add_unique_constraint("Name_UNIQUE", ["Name"]);
 
 =head1 RELATIONS
 
-=head2 app_permissions
+=head2 app_role_permissions
 
 Type: has_many
 
-Related object: L<TMS::Schema::Result::AppPermission>
+Related object: L<TMS::Schema::Result::AppRolePermission>
 
 =cut
 
 __PACKAGE__->has_many(
-    "app_permissions",
-    "TMS::Schema::Result::AppPermission",
-    {"foreign.Feature" => "self.AppFeatureId"},
-    {cascade_copy      => 0, cascade_delete => 0},
+    "app_role_permissions", "TMS::Schema::Result::AppRolePermission",
+    {"foreign.AppFeatureId" => "self.AppFeatureId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-08 15:30:12
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:iGplX39+serEU0BU9UkzvA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-03-10 16:28:43
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7w1Gaj/EnaFyao/GFLHfPw
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

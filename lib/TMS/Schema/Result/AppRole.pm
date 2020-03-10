@@ -209,7 +209,7 @@ Related object: L<TMS::Schema::Result::AppRolePermission>
 
 __PACKAGE__->has_many(
     "app_role_permissions", "TMS::Schema::Result::AppRolePermission",
-    {"foreign.Role" => "self.RoleId"}, {cascade_copy => 0, cascade_delete => 0},
+    {"foreign.RoleId" => "self.RoleId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 app_roles_assigned
@@ -263,8 +263,8 @@ __PACKAGE__->belongs_to(
     },
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-08 15:30:12
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:dHt2Zz7Kl1kQdJsdkvXuXw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-03-10 16:28:43
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:I4Qdroi2NRPwwyScUVFAyQ
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 
