@@ -323,6 +323,8 @@ sub TransactionBegin { shift->Schema->txn_begin }
 sub SvpBegin         { shift->Storage->svp_begin(@_) }
 sub SvpRelease       { shift->Storage->svp_release(@_) }
 sub SvpRollback      { shift->Storage->svp_rollback(@_) }
+sub Sources          { shift->Schema->sources }
+sub Table            { shift->ResultSource->name }
 
 sub _find_or_create   { shift->_loop_manager('update_or_create') }
 sub _update_or_new    { shift->_loop_manager('update_or_new') }
