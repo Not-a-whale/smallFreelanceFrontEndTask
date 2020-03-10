@@ -1,17 +1,17 @@
 use Carp;
-use feature 'current_sub';
 use Tie::IxHash;
 use Data::Dumper;
 use Perl::Tidy;
-
-use JSON;
 
 my %DBIxInfo = ();
 tie %DBIxInfo, 'Tie::IxHash';
 my @DBIxSrcs         = ();
 my $FeatureTemplates = {};
 
-get '/prefetch' => sub { send_as 'html' => send_file '/prefetch/prefetch.html'; };
+get '/prefetch' => sub {
+    session pid => $$;
+    send_as 'html' => send_file '/prefetch/prefetch.html';
+};
 
 {
     my $JSON = JSON->new->utf8->allow_nonref->indent->space_after->space_before;
