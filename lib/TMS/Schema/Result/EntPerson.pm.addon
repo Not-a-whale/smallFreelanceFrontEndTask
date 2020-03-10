@@ -8,15 +8,15 @@ foreach (qw( vendor dispatcher owner driver customer shipper )) {
     );
 }
 
-__PACKAGE__->belongs_to(
-    "hr_primary",
-    "TMS::Schema::Result::HrAssociate",
-    sub {
-        my $args = shift;
-        return {
-            "$args->{foreign_alias}.AstId"          => {-ident => "$args->{self_alias}.PrsnId"},
-            "$args->{foreign_alias}.PrimaryContact" => {'>', "0"},
-        };
-    },
-    {cascade_copy => 0, cascade_delete => 0},
-);
+# __PACKAGE__->might_have(
+#     "hr_primary",
+#     "TMS::Schema::Result::HrAssociate",
+#     sub {
+#         my $args = shift;
+#         return {
+#             "$args->{foreign_alias}.AstId"          => {-ident => "$args->{self_alias}.PrsnId"},
+#             "$args->{foreign_alias}.PrimaryContact" => {'>', "0"},
+#         };
+#     },
+#     {cascade_copy => 0, cascade_delete => 0},
+# );
