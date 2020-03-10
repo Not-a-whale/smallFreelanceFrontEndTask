@@ -7,8 +7,8 @@
 
   "cnt_addresses" : {
     "Street1" : "Street",
-    "Street2" : "Street",
-    "Street3" : "Street",
+    "Street2" : "StreetOrEmpty",
+    "Street3" : "StreetOrEmpty",
     "Zip" :     "ZipCanadaUSA",
     "Country" : "SupportedCountryName",
     "City" :    "City",
@@ -41,9 +41,9 @@
   },
 
   "ent_people" : {
-    "NickName"   : "Person|Empty",
+    "NickName"   : "PersonOrEmpty",
     "FirstName"  : "Person",
-    "MiddleName" : "Person|Empty",
+    "MiddleName" : "PersonOrEmpty",
     "LastName"   : "Person"
   },
 
