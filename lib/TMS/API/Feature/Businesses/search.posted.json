@@ -1,8 +1,8 @@
 {
    "POST" : 
       {
-        "search" : {
-           "BizName" : "enly Cookies"
-         }
+        "search" : [
+          { "me.BizName" : "4 RINGS EXPRESS" }
+          ]
       }
 }
