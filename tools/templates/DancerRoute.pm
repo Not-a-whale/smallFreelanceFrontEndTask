@@ -1,0 +1,2 @@
+use TMS::API::Feature::FEATURECLASSNAME;
+BuildRoutes('TMS::API::Feature::FEATURECLASSNAME','/api/THEROUTE');
