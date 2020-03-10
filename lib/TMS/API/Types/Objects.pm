@@ -31,9 +31,6 @@ coerce 'ObjAppFeature', from 'HashRef', via { _build_type('TMS::API::Core::AppFe
 subtype 'ObjAppMenuItem', as class_type('TMS::API::Core::AppMenuItem');
 coerce 'ObjAppMenuItem', from 'HashRef', via { _build_type('TMS::API::Core::AppMenuItem', $_) };
 
-subtype 'ObjAppPermission', as class_type('TMS::API::Core::AppPermission');
-coerce 'ObjAppPermission', from 'HashRef', via { _build_type('TMS::API::Core::AppPermission', $_) };
-
 subtype 'ObjAppRole', as class_type('TMS::API::Core::AppRole');
 coerce 'ObjAppRole', from 'HashRef', via { _build_type('TMS::API::Core::AppRole', $_) };
 

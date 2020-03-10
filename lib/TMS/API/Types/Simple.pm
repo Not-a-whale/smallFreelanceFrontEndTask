@@ -127,8 +127,7 @@ my %rgx = (
     isSCAC     => qr/^[A-Z]{2,4}$/,
     isDUNS     => qr/^\d{9}$/,
     isEmail    => qr/^[^\s\@]+\@[^\.\s]+(\.[^\.\s]+)+$/,
-    isPerson   => qr/^[A-Z \.]{2,63}$/,
-    isEmpty    => qr/^$/,
+    isPerson   => qr/^[A-Z \.]{1,63}$/,
 );
 
 #, ............................................................................
@@ -139,7 +138,7 @@ if (!find_type_constraint('TidySpacesString')) {
 }
 
 if (!find_type_constraint('UpperCaseStr')) {
-    subtype 'UpperCaseStr', as 'Str', where { /$rgx{isUpper}/ && /\S+/ };
+    subtype 'UpperCaseStr', as 'Str', where { isUpperCaseStr($_) && /\S+/ };
     coerce 'UpperCaseStr', from 'Str', via { tryUpperCaseStr($_) };
 }
 
@@ -228,6 +227,11 @@ if (!find_type_constraint('Street')) {
     coerce 'Street', from 'Str', via { tryUpperCaseStr(tryMinMax($_, 2, 64)) };
 }
 
+if (!find_type_constraint('StreetOrEmpty')) {
+    subtype 'StreetOrEmpty', as 'Str', where { $_ =~ /^$/ || (isMinMax($_, 2, 64) && isUpperCaseStr($_)) };
+    coerce 'StreetOrEmpty', from 'Str', via { tryUpperCaseStr(tryMinMax($_, 2, 64)) };
+}
+
 if (!find_type_constraint('City')) {
     subtype 'City', as 'Str', where { isMinMax($_, 2, 64) && isUpperCaseStr($_) };
     coerce 'City', from 'Str', via { tryUpperCaseStr(tryMinMax($_, 2, 64)) };
@@ -294,9 +298,9 @@ if (!find_type_constraint('Person')) {
     coerce 'Person', from 'Str', via { tryPerson($_) };
 }
 
-if (!find_type_constraint('Empty')) {
-    subtype 'Empty', as 'Str', where {/$rgx{isEmpty}/};
-    coerce 'Empty', from 'Str', via { tryEmpty($_) };
+if (!find_type_constraint('PersonOrEmpty')) {
+    subtype 'PersonOrEmpty', as 'Str', where {/$rgx{isPerson}|^$/};
+    coerce 'PersonOrEmpty', from 'Str', via { tryPerson($_) };
 }
 
 if (!find_type_constraint('Year')) {
