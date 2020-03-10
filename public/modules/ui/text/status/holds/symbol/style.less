@@ -1,0 +1,24 @@
+ui-status-holds-symbol {
+  @flex-row();
+  width: 100%;
+
+  align-items: center;
+
+  --status-color: @cp-danger;
+
+  &>.icont {
+    &>.icon {
+      fill: var(--status-color);
+    }
+
+    margin-right: 4px;
+  }
+
+  &>.label {
+    font-family: @font-family-primary;
+    font-weight: @font-weight-bold;
+    font-size: @font-small;
+    color: var(--status-color);
+    text-transform: capitalize;
+  }
+}

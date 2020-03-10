@@ -1,0 +1,45 @@
+ui-status-trip {
+  @flex-row();
+  width: 100%;
+
+  align-items: center;
+
+  --status-color: @cp-default-light;
+
+  &>.icont {
+    height: 8px;
+    width: 8px;
+
+    &>.icon {
+      fill: var(--status-color);
+      .status-colors();
+    }
+
+    margin-right: 8px;
+  }
+
+  &>.label {
+    font-family: @font-family-primary;
+    font-weight: @font-weight-bold;
+    font-size: @font-small;
+    color: var(--status-color);
+    text-transform: capitalize;
+    .status-colors();
+  }
+
+
+  .status-colors() {
+
+    &.available {
+      --status-color: @cp-success;
+    }
+
+    &.enroute {
+      --status-color: @cp-asphalt-mid;
+    }
+
+    &.unavailable {
+      --status-color: @cp-default-light;
+    }
+  }
+}

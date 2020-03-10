@@ -8,14 +8,14 @@ class PageCtrl {
   }
 
   PageTabs() {
-    return this.pagesrv.CurrentPage().pages;
+    return this.pagesrv.CurrentPageTabs();
   }
   PageActions() {
-    return this.pagesrv.CurrentPage().actions;
+    return this.pagesrv.CurrentPageActions();
   }
 
   PageOptionals(){
-    return this.pagesrv.CurrentPage().optional;
+    return this.pagesrv.CurrentPageOptional();
   }
 }
 

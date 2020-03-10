@@ -8,7 +8,7 @@ class MenuMainNavDepartmentCtrl {
   }
 
   Pages() {
-    return this.pagesrv.CurrentDepartment().pages;
+    return this.pagesrv.CurrentDepartmentPages();
   }
 
   SetPage(pagename){

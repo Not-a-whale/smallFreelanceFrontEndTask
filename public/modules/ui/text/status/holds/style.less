@@ -1,0 +1,37 @@
+ui-status-holds {
+  @flex-row();
+  width: 100%;
+
+  align-items: center;
+
+  --status-color: @cp-default-light;
+
+  &>.icont {
+    &>.icon {
+      fill: var(--status-color);
+      .status-colors();
+    }
+
+    margin-right: 8px;
+  }
+
+  &>.label {
+    font-family: @font-family-primary;
+    font-weight: @font-weight-bold;
+    font-size: @font-small;
+    color: var(--status-color);
+    text-transform: capitalize;
+    .status-colors();
+  }
+
+  .status-colors() {
+
+    &.unresolved {
+      --status-color: @cp-danger;
+    }
+
+    &.wip {
+      --status-color: @cp-success;
+    }
+  }
+}

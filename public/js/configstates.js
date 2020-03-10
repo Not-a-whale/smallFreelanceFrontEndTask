@@ -133,9 +133,9 @@ var configstates = {
       "mainnav-view@.": {
         component: "menuMainNavLayoutDefault"
       },
-      "mainnav-default-view@.": {
-        component: "menuMainNavDefault"
-      },
+      // "mainnav-default-view@.": {
+      //   component: "menuMainNavDefault"
+      // },
       "mainnav-department-view@.": {
         component: "menuMainNavDepartment"
       }
@@ -189,7 +189,7 @@ var configstates = {
     url: "/truck",
     resolve: {
       current_page: function (PageService) {
-        return PageService.SetPage('trucks');
+        return PageService.SetPage('units');
       }
     },
     redirectTo: 'tmsapp.main2.dispatch.truck.available'
@@ -199,7 +199,7 @@ var configstates = {
     url: "/avail",
     views: {
       "page-content@^.^": {
-        template: 'this is the available truck page <br><a ui-sref="^.detail({truckid: 125})">Truck 125</a><br><a ui-sref="^.detail({truckid: 333})">Truck 333</a><br><a ui-sref="^.detail({truckid: 1002})">Truck 1002</a>'
+        component: 'pageDispatchUnitAll'
       }
     }
   },
@@ -386,7 +386,7 @@ var configstates = {
     url: "/all",
     views: {
       "page-content@^.^": {
-        template: "this is the personnel all page"
+        component: 'pageSafetyPersonnelAll'
       }
     },
   },
@@ -406,11 +406,11 @@ var configstates = {
       }
     },
   },
-  "tmsapp.main2.safety.personnel.officestaff": {
-    url: "/officestaff",
+  "tmsapp.main2.safety.personnel.officeemps": {
+    url: "/officeemps",
     views: {
       "page-content@^.^": {
-        template: "this is the personnel officestaff page"
+        template: "this is the personnel office employees page"
       }
     },
   },
@@ -421,6 +421,22 @@ var configstates = {
         template: "this is the personnel contact page"
       }
     },
+  },
+  "tmsapp.main2.safety.personnel.detail": {
+    url: "/:pid/detail",
+    views: {
+      "page-content@^.^": {
+        component: "pageSafetyPersonnelDetail"
+      }
+    },
+    resolve : {
+      current_page: function (PageService){
+        return PageService.SetPage();
+      },
+      detail: function ($transition$, PersonnelService){
+        return PersonnelService.PersonnelFind({ AstId : $transition$.params().pid });
+      }
+    }
   },
 
   "tmsapp.main2.safety.equipment": {
@@ -838,16 +854,16 @@ var configstates = {
     },
   },
 
-  "tmsapp.main2.admin.unit": {
+  "tmsapp.main2.safety.unit": {
     url: "/unit",
     resolve: {
       current_page: function (PageService) {
         return PageService.SetPage('manage units');
       }
     },
-    redirectTo : "tmsapp.main2.admin.unit.all"
+    redirectTo: "tmsapp.main2.safety.unit.all"
   },
-  "tmsapp.main2.admin.unit.all": {
+  "tmsapp.main2.safety.unit.all": {
     url: "/all",
     views: {
       "page-content@^.^": {
@@ -855,7 +871,7 @@ var configstates = {
       }
     },
   },
-  "tmsapp.main2.admin.unit.detail": {
+  "tmsapp.main2.safety.unit.detail": {
     url: "/:unitid/detail",
     views: {
       "page-content@^.^": {
@@ -863,7 +879,7 @@ var configstates = {
       }
     },
   },
-  "tmsapp.main2.admin.unit.form": {
+  "tmsapp.main2.safety.unit.form": {
     url: "/form",
     views: {
       "page-content@^.^": {

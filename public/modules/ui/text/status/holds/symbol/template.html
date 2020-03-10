@@ -1,0 +1,8 @@
+<div class="icont icont-micro"
+     ng-if="$ctrl.HasHolds()">
+  <svg class="icon">
+    <use xlink:href="imgs/icons.svg#hold"></use>
+  </svg>
+</div>
+<div class="label"
+     ng-if="$ctrl.HasHolds()">{{$ctrl.count}}</div>
