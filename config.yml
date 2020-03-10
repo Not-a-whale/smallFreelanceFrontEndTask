@@ -21,32 +21,37 @@ charset: "UTF-8"
 #template: "simple"
 
 template: "template_toolkit"
+
+serializer: "JSON"
+
+content_type: "application/json"
+
+session: "DBIC"
+
 engines:
   template:
     template_toolkit:
-      start_tag: '<%'
-      end_tag:   '%>'
+      start_tag: "<%"
+      end_tag:   "%>"
 
-# session engine
-#
-# Simple: in-memory session store - Dancer2::Session::Simple
-# YAML: session stored in YAML files - Dancer2::Session::YAML
-#
-# Check out metacpan for other session storage options:
-# https://metacpan.org/search?q=Dancer2%3A%3ASession&search_type=modules
-#
-# Default value for 'cookie_name' is 'dancer.session'. If you run multiple
-# Dancer apps on the same host then you will need to make sure 'cookie_name'
-# is different for each app.
-#
-#engines:
-#  session:
-#    Simple:
-#      cookie_name: testapp.session
-#
-#engines:
-#  session:
-#    YAML:
-#      cookie_name: eshop.session
-#      is_secure: 1
-#      is_http_only: 1
+  serializer:
+    JSON:
+      allow_nonref: 1
+      indent:       1
+      space_after:  1
+      space_before: 1
+
+  session:
+    DBIC:
+      dsn:              "DBI:mysql:database=tms;host=192.168.11.7;port=3306"
+      schema_class:     "TMS::Schema"
+      resultset:        "TMS::Schema::Result::AppSession"
+      user:             "root"
+      password:         "Nlvae4asd!"
+      id_column:        "session_name"
+      data_column:      "session_data"
+      serializer:       "JSON"
+      cookie_name:      "instance"
+      cookie_duration:  "30 min"
+      is_secure:        1
+      is_http_only:     1
