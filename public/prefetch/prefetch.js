@@ -4,6 +4,7 @@ app.controller('MainCtrl', function($scope, $http) {
   $scope.selection = '';
   $scope.feature = null;
   $scope.route = null;
+  $scope.git = null;
 
   $scope.$on('MenuClick', function (event, args) {
     $scope.$broadcast('newResource', args);
@@ -15,6 +16,7 @@ app.controller('MainCtrl', function($scope, $http) {
       "toplevel": $scope.selection,
       "feature" : $scope.feature,
       "route"   : $scope.route,
+      "git"     : $scope.git,
     };
     $scope.$broadcast('finishUp', message );
   };

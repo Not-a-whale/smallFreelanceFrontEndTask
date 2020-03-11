@@ -25,10 +25,11 @@ function builderCtrl($scope, $http) {
 
   $scope.$on('finishUp',function (event, args) {
       let record = {
-        "TopLevel" : args.toplevel,
-        "Route"    : args.route,
-        "Feature"  : args.feature,
-        "Selected" : $scope.rsrs,
+        "TopLevel"   : args.toplevel,
+        "Route"      : args.route,
+        "Feature"    : args.feature,
+        "GitComment" : args.git,
+        "Selected"   : $scope.rsrs,
       };
 
       $http.post('/prefetch/post_selections',record);

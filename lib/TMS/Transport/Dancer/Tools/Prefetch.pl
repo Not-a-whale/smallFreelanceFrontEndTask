@@ -107,9 +107,32 @@ sub SaveFile {
     if (open(FO, ">$FileName")) {
         print FO $FileData;
         close(FO);
+
+        PushToGit($FileName)
     } else {
         confess "Unable to save \"$FileName\", $!";
     }
+}
+
+#----------------------------------------------------------------------------------------------------------------------
+# hardcoded and TMS specific with no error checkings
+sub PushToGit {
+    my $FileName = shift;
+    my $GitComment = $$PostData{GitComment};
+    my $GitBase = $FileName;
+
+    return if $GitComment !~ /\S+/;
+    return if $FileName !~ /lib\/TMS\//;
+
+    $GitComment =~ s/^\s+//;
+    $GitComment =~ s/\s+$//;
+    $GitComment =~ s/\s+/ /g;
+
+    $GitBase =~ s/lib\/TMS.*//;
+    $FileName =~ s/.*lib\/TMS\//lib\/TMS\//;
+
+    print `cd $GitBase && /usr/local/bin/git add $FileName 2>&1`;
+    print `cd $GitBase && /usr/local/bin/git commit -m "$GitComment" $FileName 2>&1`;
 }
 
 #----------------------------------------------------------------------------------------------------------------------
@@ -166,4 +189,3 @@ sub PrefetchLoop {
     }
     return $prefetch;
 }
-
