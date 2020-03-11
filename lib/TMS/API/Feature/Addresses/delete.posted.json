@@ -1,9 +1,0 @@
-{
-  "POST" :
-    {
-      "AddrId" : 3956,
-      "Street1" : "123 Main Street",
-      "City" : "Portland",
-      "Zip" : "32541"
-    }
-}
