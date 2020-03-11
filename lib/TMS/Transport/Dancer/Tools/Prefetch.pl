@@ -121,7 +121,7 @@ sub PushToGit {
     my $GitComment = $$PostData{GitComment};
     my $GitBase = $FileName;
 
-    return if $GitComment !~ /\S+/;
+    return if !defined $GitComment || $GitComment !~ /\S+/;
     return if $FileName !~ /lib\/TMS\//;
 
     $GitComment =~ s/^\s+//;
