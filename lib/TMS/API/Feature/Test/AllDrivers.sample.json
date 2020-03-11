@@ -1,0 +1,30 @@
+{
+   "DriverId" : "bigint",
+   "LocalRoutes" : "tinyint",
+   "InternationalRoutes" : "tinyint",
+   "LastAnnualReview" : "date",
+   "PullNotice" : "date",
+   "driver" : {
+      "AstId" : "bigint",
+      "CurrentTitle" : "varchar",
+      "NodeId" : "bigint",
+      "AuthorityLevel" : "enum",
+      "DateCreated" : "datetime",
+      "DateRemoved" : "datetime",
+      "BizPhone" : "bigint",
+      "BizFax" : "bigint",
+      "BizEmail" : "varchar",
+      "Notes" : "text",
+      "PrimaryContact" : "tinyint",
+      "ast_driver" : {
+         "PrsnId" : "bigint",
+         "NickName" : "varchar",
+         "Prefix" : "enum",
+         "FirstName" : "varchar",
+         "MiddleName" : "varchar",
+         "LastName" : "varchar",
+         "Suffix" : "enum",
+         "BrnchId" : "bigint"
+      }
+   }
+}
