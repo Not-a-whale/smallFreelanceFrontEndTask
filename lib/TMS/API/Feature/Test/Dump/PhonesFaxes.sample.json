@@ -1,0 +1,8 @@
+{
+   "PhnFaxId" : "bigint",
+   "Number" : "varchar",
+   "Extension" : "varchar",
+   "Features" : "set",
+   "Mobility" : "enum",
+   "Notes" : "text"
+}
