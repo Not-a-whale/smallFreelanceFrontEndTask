@@ -23,8 +23,26 @@ class DevFormsCtrl {
 
       let objpath = 'formData';
       self.template = self.BuildTemplateForm(jsondata.structure, objpath);
+      let template = self.template.split(/<simple-input/g);
+      console.log(template);
+      let index = 0;
+      let accumulator = '';
+      let newtemplate = '';
+      for (let part of template) {
+        if (part == '') {
+          continue;
+        }
+        accumulator += '<simple-input' + part;
+        if (++index > 3) {
+          newtemplate += '<div class="row">' + accumulator + '</div>'
+          accumulator = '';
+          index = 0;
+        }
+      }
+      newtemplate = '<div class="col">' + newtemplate + '</div>';
+
       let newscope = self.scope.$new();
-      let newelement = self.compile(self.template)(newscope);
+      let newelement = self.compile(newtemplate)(newscope);
 
       formroot.append(newelement);
     });
@@ -49,6 +67,7 @@ class DevFormsCtrl {
         label.splice(0, 1);
         label = label.join(' ');
         template += '<simple-input value="$ctrl.' + objpath + '.' + attrname + '" label="' + label + ' ' + attrname + '"></simple-input>';
+
       }
     }
     return template;

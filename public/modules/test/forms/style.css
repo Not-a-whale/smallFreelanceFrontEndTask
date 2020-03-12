@@ -20,6 +20,16 @@ dev-forms #form {
 dev-forms #form .row {
   display: flex;
   flex-direction: row;
+  align-items: flex-end;
+}
+
+dev-forms #form .row>*:not(:last-child) {
+  margin-right: 8px;
+}
+
+dev-forms #form .col {
+  display: flex;
+  flex-direction: column;
 }
 
 dev-forms .data {
