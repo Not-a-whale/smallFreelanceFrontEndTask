@@ -7,8 +7,17 @@
 <div id="form"
      class="right-panel">
   {{$ctrl.template}}
-  <a class="btn btn-primary"
-     ng-click="$ctrl.Submit()">submit</a>
+  <div class="row">
+    <a class="btn btn-primary"
+       ng-click="$ctrl.Submit()">submit</a>
+    <a class="btn btn-success"
+       ng-click="$ctrl.Create()">create</a>
+    <a class="btn btn-info"
+       ng-click="$ctrl.Update()">update</a>
+    <a class="btn btn-danger"
+       ng-click="$ctrl.Delete()">delete</a>
+  </div>
+
 </div>
 <div class="data">
   {{$ctrl.formData}}

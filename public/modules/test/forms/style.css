@@ -17,6 +17,11 @@ dev-forms #form {
   max-width: 60%;
 }
 
+dev-forms #form .row {
+  display: flex;
+  flex-direction: row;
+}
+
 dev-forms .data {
   display: flex;
   flex-direction: column;

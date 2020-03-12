@@ -45,13 +45,28 @@ class DevFormsCtrl {
       } else if (typeof attrval == 'object') {
         template += this.BuildTemplateForm(attrval, objpath + '.' + attrname);
       } else {
-        template += '<simple-input value="$ctrl.' + objpath + '.' + attrname + '" label="' + attrname + '"></simple-input>';
+        let label = objpath.split('.');
+        label.splice(0, 1);
+        label = label.join(' ');
+        template += '<simple-input value="$ctrl.' + objpath + '.' + attrname + '" label="' + label + ' ' + attrname + '"></simple-input>';
       }
     }
     return template;
   }
 
-  Submit() {
+  Create() {
+    this.Submit(this.currentForm.route + '/create');
+  }
+
+  Update() {
+    this.Submit(this.currentForm.route + '/update');
+  }
+
+  Delete() {
+    this.Submit(this.currentForm.route + '/delete');
+  }
+
+  Submit(url) {
     //TODO add the APIService to handle the requests/responses
     let self = this;
     let req = {
@@ -60,9 +75,14 @@ class DevFormsCtrl {
       DATA: null
     };
 
-    this.http.post(this.currentForm.route, req).then(function (res) {
+    let requrl = url || this.currentForm.route;
+
+    this.http.post(requrl, req).then(function (res) {
+      if (res.data.ERROR != undefined) {
+        console.error(res.data.ERROR);
+      }
       let singledata = res.data.DATA[0];
-      self.UpdateFormData(currenttitle, singledata);
+      self.formData = singledata;
     }, function (res) {
       console.error(res)
     });
