@@ -1,0 +1,13 @@
+{
+   "AddrId" : "bigint",
+   "Street1" : "varchar",
+   "Street2" : "varchar",
+   "Street3" : "varchar",
+   "City" : "varchar",
+   "State" : "char",
+   "Zip" : "char",
+   "Country" : "varchar",
+   "GpsLng" : "double precision",
+   "GpsLat" : "double precision",
+   "Notes" : "text"
+}
