@@ -1,0 +1,26 @@
+dev-forms {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+dev-forms .left-panel {
+  display: flex;
+  flex-direction: column;
+  width: 15%;
+}
+
+dev-forms #form {
+  display: flex;
+  flex-direction: column;
+  max-width: 60%;
+}
+
+dev-forms .data {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  word-wrap: normal;
+  margin-right: 0px;
+}

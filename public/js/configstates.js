@@ -11,6 +11,14 @@ var configstates = {
       }
     }
   },
+  "tms.dev.forms": {
+    url: "/forms",
+    views: {
+      "main@": {
+        component: 'devForms'
+      }
+    }
+  },
   "tms.test": {
     url: "/test/:component",
     views: {
@@ -168,12 +176,164 @@ var configstates = {
     // }
   },
 
+  "tmsapp.main2.form": {
+    url: "/form",
+    resolve: {
+      current_dept: function (PageService) {
+        return PageService.SetDepartment('forms');
+      },
+      forms: function (FormService) {
+        return FormService.FetchForms();
+      }
+    }
+  },
+  "tmsapp.main2.form.employee": {
+    url: "/employee?id",
+    views: {
+      "main-content-view@tmsapp.main2": {
+        component: 'pageLayoutPrimary'
+      },
+      "page-content@.": {
+        component: 'uiFormOfficeEmployee'
+      },
+      "page-actions@.": {
+        component: 'uiFormControls'
+      },
+      "page-optional@.": {
+        component: 'uiFormControlsOptional'
+      }
+    },
+    resolve: {
+      current_page: function (PageService) {
+        return PageService.SetPage('new office employee');
+      },
+      current_form: function (FormService) {
+        return FormService.SetForm('new office employee');
+      },
+      current_subform: function (FormService) {
+        return FormService.SetSubform('new office employee');
+      },
+      formdata: function (FormService, $stateParams) {
+        if ($stateParams.id == undefined) {
+          return FormService.CurrentFormData();
+        } else {
+
+        }
+      },
+      sections: function (FormService) {
+        FormService.CurrentSections();
+      },
+
+    },
+  },
+  "tmsapp.main2.form.business": {
+    url: "/business?id",
+    views: {
+      "main-content-view@tmsapp.main2": {
+        component: 'pageLayoutPrimary'
+      },
+      "page-content@.": {
+        component: 'uiFormGeneralBusiness'
+      },
+      "page-actions@.": {
+        component: 'uiFormControls'
+      },
+      "page-optional@.": {
+        component: 'uiFormControlsOptional'
+      }
+    },
+    resolve: {
+      current_page: function (PageService) {
+        return PageService.SetPage('new general business');
+      },
+      current_form: function (FormService) {
+        return FormService.SetForm('new general business');
+      },
+      current_subform: function (FormService) {
+        return FormService.SetSubform('new general business');
+      },
+      formdata: function (FormService, $stateParams) {
+        if ($stateParams.id == undefined) {
+          return FormService.CurrentFormData();
+        } else {
+
+        }
+      },
+      sections: function (FormService) {
+        let sects = FormService.CurrentSections();
+        console.log(sects);
+        return sects;
+      },
+
+    },
+  },
+
+
+  "tmsapp.main2.form.carrier": {
+    url: "/carrier",
+    views: {
+      "main-content-view@tmsapp.main2": {
+        component: 'pageLayoutPrimary'
+      }
+    },
+    resolve: {
+      current_page: function (PageService) {
+        return PageService.SetPage('new carrier');
+      },
+      current_form: function (FormService) {
+        return FormService.SetForm('example mega form');
+      }
+    },
+    redirectTo: "tmsapp.main2.form.carrier.carrierinfo"
+  },
+
+  "tmsapp.main2.form.carrier.carrierinfo": {
+    url: "/info",
+    views: {
+      "page-content@^": {
+        component: 'uiFormCarrier'
+      }
+    },
+    resolve: {
+      current_subform: function (FormService) {
+        FormService.SetSubform('example tab title 1');
+      }
+    }
+  },
+
+  "tmsapp.main2.form.carrier.vehicles": {
+    url: "/info",
+    views: {
+      "page-content@^": {
+        template: "this is the vehicles page"
+      }
+    },
+    resolve: {
+      current_subform: function (FormService) {
+        FormService.SetSubform('example tab title 2');
+      }
+    }
+  },
+
+  "tmsapp.main2.form.carrier.drivers": {
+    url: "/info",
+    views: {
+      "page-content@^": {
+        template: "this is the drivers page"
+      }
+    },
+    resolve: {
+      current_subform: function (FormService) {
+        FormService.SetSubform('example tab title 3');
+      }
+    }
+  },
+
   "tmsapp.main2.dispatch": {
     url: "/dispatch",
     views: {
       "main-content-view@tmsapp.main2": {
         component: 'pageLayoutPrimary'
-        //template: '<div ui-sref="tmsapp.main2">click me</div>'
       }
     },
     resolve: {
@@ -429,12 +589,14 @@ var configstates = {
         component: "pageSafetyPersonnelDetail"
       }
     },
-    resolve : {
-      current_page: function (PageService){
+    resolve: {
+      current_page: function (PageService) {
         return PageService.SetPage();
       },
-      detail: function ($transition$, PersonnelService){
-        return PersonnelService.PersonnelFind({ AstId : $transition$.params().pid });
+      detail: function ($transition$, PersonnelService) {
+        return PersonnelService.PersonnelFind({
+          AstId: $transition$.params().pid
+        });
       }
     }
   },

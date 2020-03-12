@@ -16,6 +16,8 @@
             @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,600,700|Poppins:500,600&display=swap');
       </style>
 
+      <link href="modules/test/forms/style.css"
+            rel="stylesheet">
       <link href="css/compiled.css"
             rel="stylesheet">
 
@@ -112,6 +114,7 @@
 
       <script src="js/main.js"></script>
 
+      <script src="modules/test/forms/component.js"></script>
       <script src="modules/generic/meta/module.js"></script>
       <script src="modules/generic/service/fetch.service.js"></script>
       <script src="modules/generic/phone/service.js"></script>
@@ -119,6 +122,12 @@
       <script src="services/tablechips.service.js"></script>
       <script src="services/application/error.service.js"></script>
       <script src="services/application/page.service.js"></script>
+      <script src="services/application/form.service.js"></script>
+      <script src="services/trackensure.service.js"></script>
+      <script src="services/application/api.service.js"></script>
+
+
+
 
       <script src="modules/generic/input/meta.module.js"></script>
       <script src="modules/generic/checkbox/meta.module.js"></script>
@@ -142,6 +151,7 @@
 
       <!-- Services -->
       <script src="services/business/business.service.js"></script>
+      <script src="services/personnel/personnel.service.js"></script>
 
       <script src="modules/navigation/service.js"></script>
       <!-- random directives that dont fit anywhere else -->
@@ -184,11 +194,20 @@
       <script src="modules/generic/table/transclude/pagination/component.js"></script>
       <script src="modules/generic/form/template/meta.module.js"></script>
 
+      <script src="modules/ui/input/datalist/component.js"></script>
+
       <script src="modules/ui/card/detail/section/module.js"></script>
       <script src="modules/ui/card/detail/small/module.js"></script>
       <script src="modules/ui/card/detail/small/unit/module.js"></script>
       <script src="modules/ui/card/simple/module.js"></script>
       <script src="modules/ui/card/simple/button/module.js"></script>
+
+      <script src="modules/ui/card/detail/panel/component.js"></script>
+      <script src="modules/ui/card/detail/panel/general_info/component.js"></script>
+      <script src="modules/ui/card/detail/panel/driver_license/component.js"></script>
+      <script src="modules/ui/card/detail/panel/payment_info/component.js"></script>
+      <script src="modules/ui/card/detail/panel/ifta_account/component.js"></script>
+      <script src="modules/ui/card/detail/panel/user_account/component.js"></script>
 
       <script src="modules/ui/contact/uicontact.controller.js"></script>
       <script src="modules/ui/contact/business/component.js"></script>
@@ -196,18 +215,30 @@
       <script src="modules/ui/contact/unit/component.js"></script>
 
       <script src="modules/ui/container/listdetail/module.js"></script>
-      <script src="modules/ui/container/accordion/module.js"></script>
+      <script src="modules/ui/container/accordion/expandable.component.js"></script>
+      <script src="modules/ui/container/accordion/open.component.js"></script>
       <script src="modules/ui/container/labelled/component.js"></script>
+      <script src="modules/ui/container/personnel/detail/component.js"></script>
 
       <script src="modules/ui/doodads/warning/module.js"></script>
       <script src="modules/ui/text/phone/optional_extension/component.js"></script>
       <script src="modules/ui/text/phone/oneliner/component.js"></script>
+      <script src="modules/ui/text/phone/with_icon/component.js"></script>
       <script src="modules/ui/text/address/plain/component.js"></script>
       <script src="modules/ui/text/address/basic/component.js"></script>
       <script src="modules/ui/text/address/oneliner/component.js"></script>
       <script src="modules/ui/text/primary_contact/component.js"></script>
       <script src="modules/ui/text/email/component.js"></script>
+      <script src="modules/ui/text/email/with_icon/component.js"></script>
       <script src="modules/ui/text/name/component.js"></script>
+      <script src="modules/ui/text/status/status.controller.js"></script>
+      <script src="modules/ui/text/status/load/component.js"></script>
+      <script src="modules/ui/text/status/trip/component.js"></script>
+      <script src="modules/ui/text/status/holds/component.js"></script>
+      <script src="modules/ui/text/status/holds/symbol/component.js"></script>
+      <script src="modules/ui/text/tripstatus/component.js"></script>
+      <script src="modules/ui/text/comment/multiline//component.js"></script>
+
 
       <script src="modules/ui/toasts/banner/component.js"></script>
       <script src="modules/ui/button/notify/component.js"></script>
@@ -299,6 +330,43 @@
       <script src="modules/forms/section/carrier_info/meta.module.js"></script>
       <script src="modules/forms/section/ifta/meta.module.js"></script>
 
+      <!-- FORMS -->
+      <script src="modules/ui/form/template/component.js"></script>
+      <script src="modules/ui/form/template/controls/component.js"></script>
+      <script src="modules/ui/form/template/section/component.js"></script>
+      <script src="modules/ui/form/template/section/container/component.js"></script>
+      <script src="modules/ui/form/template/section/item/component.js"></script>
+      <script src="modules/ui/form/template/subform/component.js"></script>
+      <!-- subform cards -->
+      <script src="modules/ui/card/subform/emergency_contact/component.js"></script>
+      <script src="modules/ui/card/subform/direct_deposit/component.js"></script>
+      <script src="modules/ui/card/subform/agents/component.js"></script>
+      <!-- partial form components to make section forms -->
+      <script src="modules/ui/form/partial/contact/address/component.js"></script>
+      <script src="modules/ui/form/partial/contact/phone/component.js"></script>
+      <script src="modules/ui/form/partial/contact/fax/component.js"></script>
+      <script src="modules/ui/form/partial/contact/email/component.js"></script>
+      <script src="modules/ui/form/partial/person/component.js"></script>
+      <script src="modules/ui/form/partial/agents/component.js"></script>
+      <script src="modules/ui/form/partial/business/component.js"></script>
+      <script src="modules/ui/form/partial/employment/component.js"></script>
+      <script src="modules/ui/form/partial/carrier/numbers/component.js"></script>
+      <script src="modules/ui/form/partial/application/account/component.js"></script>
+      <script src="modules/ui/form/partial/tax/info/component.js"></script>
+      <!-- sectional form -->
+      <script src="modules/ui/form/section/carrier_company_info/component.js"></script>
+      <script src="modules/ui/form/section/company_info/component.js"></script>
+      <script src="modules/ui/form/section/personal_info/component.js"></script>
+      <script src="modules/ui/form/section/employee_info/component.js"></script>
+      <script src="modules/ui/form/section/user_account/component.js"></script>
+      <script src="modules/ui/form/section/emergency_contact/component.js"></script>
+      <script src="modules/ui/form/section/payment_info/component.js"></script>
+      <!-- modular form -->
+      <script src="modules/ui/form/full/carrier/component.js"></script>
+      <script src="modules/ui/form/full/general_business/component.js"></script>
+      <script src="modules/ui/form/full/office_employee/component.js"></script>
+
+
       <!-- page modules -->
       <script src="modules/page/business/controller.js"></script>
       <script src="modules/page/safety/business/all/component.js"></script>
@@ -306,29 +374,43 @@
       <script src="modules/page/safety/business/carrier/component.js"></script>
       <script src="modules/page/safety/business/other/component.js"></script>
 
+      <script src="modules/ui/container/accordion/drivers/component.js"></script>
+      <script src="modules/ui/container/accordion/holds/component.js"></script>
+      <script src="modules/ui/container/accordion/tripstatus/component.js"></script>
+
       <script src="modules/ui/container/accordion/vehicles/component.js"></script>
       <script src="modules/ui/container/accordion/ifta/component.js"></script>
-      <script src="modules/ui/container/accordion/holds/component.js"></script>
-      <script src="modules/ui/container/accordion/drivers/component.js"></script>
+
       <script src="modules/ui/container/accordion/insurances/component.js"></script>
       <script src="modules/ui/container/accordion/permits/component.js"></script>
 
       <script src="modules/ui/card/accordion/drivers/component.js"></script>
+      <script src="modules/ui/card/accordion/holds/component.js"></script>
+      <script src="modules/ui/card/accordion/tripstatus/component.js"></script>
+
       <script src="modules/ui/card/accordion/ifta/component.js"></script>
       <script src="modules/ui/card/accordion/insurances/component.js"></script>
       <script src="modules/ui/card/accordion/permits/component.js"></script>
       <script src="modules/ui/card/accordion/vehicles/component.js"></script>
-      <script src="modules/ui/card/accordion/holds/component.js"></script>
+
+
+
+      <script src="modules/table/table.core.js"></script>
+
       <!-- personnel -->
+      <!-- detail    -->
+      <script src="modules/page/safety/personnel/detail/component.js"></script>
+
       <!-- all       -->
       <script src="modules/page/safety/personnel/all/component.js"></script>
+      <script src="modules/table/safety/personnel/all/component.js"></script>
       <!-- operators -->
 
       <script src="modules/page/personnel/operators/table/content/meta.module.js"></script>
       <script src="modules/page/personnel/operators/list/module.js"></script>
       <script src="modules/page/personnel/operators/list/detail/module.js"></script>
 
-      <script src="modules/table/table.core.js"></script>
+
       <!-- dispatch -->
       <!-- unit     -->
       <script src="modules/page/dispatch/unit/all/component.js"></script>
