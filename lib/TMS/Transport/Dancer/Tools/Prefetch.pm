@@ -16,6 +16,7 @@ my $JSON = JSON->new->utf8->allow_nonref->indent->space_after->space_before;
     my $TemplateBase = abs_path("$FindBin::Bin/../tools/templates");
     my $FeaturesBase = abs_path("$FindBin::Bin/../lib/TMS/API/Feature");
     my $RoutesBase   = abs_path("$FindBin::Bin/../lib/TMS/Transport/Dancer/Routes");
+    my $FormsBase    = abs_path("$FindBin::Bin/../public/modules/test/forms");
 
     foreach my $src (@DBIxSrcs) {
         my $rset = $DBIx->resultset($src);
@@ -67,6 +68,7 @@ my $JSON = JSON->new->utf8->allow_nonref->indent->space_after->space_before;
             TemplateBase => $TemplateBase,
             FeaturesBase => $FeaturesBase,
             RoutesBase   => $RoutesBase,
+            FormsBase    => $FormsBase,
         };
         my $JsonData = $JSON->encode($Record);
         print $TempFile "$JsonData";
