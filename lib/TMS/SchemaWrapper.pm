@@ -352,10 +352,10 @@ sub Delete {
     my $self = shift;
     confess "No fields representing unique sequence found" unless $self->_has_uniq(@_);
 
-    #my $trxn = $self->Schema->txn_scope_guard;
+    my $trxn = $self->Schema->txn_scope_guard;
     my $rslt = $self->_basic_delete(@_);
 
-    #$trxn->commit;
+    $trxn->commit;
     return $rslt;
 }
 
@@ -373,7 +373,7 @@ sub FindOrCreate {
     my $trxn = $self->Schema->txn_scope_guard;
     my $rslt = $self->_find_or_create;
 
-    # $trxn->commit;
+    $trxn->commit;
     return $rslt;
 }
 
