@@ -98,7 +98,7 @@ sub _inner_loop {
     $method = (caller(2))[3] if $method =~ /_loop_manager$/;
 
     #foreach my $rel (grep { $rlns{$_}{attrs}{accessor} eq 'single' } keys %rlns) {
-    foreach my $rel (grep { $rlns{$_}{attrs}{is_depends_on} eq 'single' } keys %rlns) {
+    foreach my $rel (grep { $rlns{$_}{attrs}{is_depends_on} } keys %rlns) {
         next unless exists $$self{$rel} && defined $$self{$rel} && ref($$self{$rel});
         my $row = $self->$rel->$method;
         if (defined $row && ref($row) =~ /Schema::Result::/) {
@@ -360,6 +360,7 @@ sub Delete {
 }
 
 sub Create {
+    $DB::single = 1;
     my $self = shift;
     my $trxn = $self->Schema->txn_scope_guard;
     my $rslt = $self->_strict_create(@_);
@@ -371,7 +372,8 @@ sub FindOrCreate {
     my $self = shift;
     my $trxn = $self->Schema->txn_scope_guard;
     my $rslt = $self->_find_or_create;
-    $trxn->commit;
+
+    # $trxn->commit;
     return $rslt;
 }
 
