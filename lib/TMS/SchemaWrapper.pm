@@ -378,13 +378,8 @@ sub FindOrCreate {
     my $self = shift;
     my $data = $self->Validate;
     my $trxn = $self->Schema->txn_scope_guard;
-<<<<<<< HEAD
     my $rslt = $self->ResultSet->find_or_create($data);
     $self->_update_self_with_results($rslt);
-=======
-    my $rslt = $self->_find_or_create;
-
->>>>>>> 0e307007e1e82954bf704c0f629084f55af29cb0
     $trxn->commit;
     return $rslt;
 }
