@@ -1,9 +1,9 @@
 class PageCtrl {
-  constructor(pagesrv){
+  constructor(pagesrv) {
     this.pagesrv = pagesrv;
   }
 
-  PageTitle(){
+  PageTitle() {
     return this.pagesrv.CurrentPage().title;
   }
 
@@ -14,8 +14,16 @@ class PageCtrl {
     return this.pagesrv.CurrentPageActions();
   }
 
-  PageOptionals(){
+  PageOptionals() {
     return this.pagesrv.CurrentPageOptional();
+  }
+
+  GoBack() {
+    this.pagesrv.GoBack();
+  }
+
+  CanGoBack() {
+    return this.pagesrv.CanGoBack();
   }
 }
 
