@@ -1,11 +1,11 @@
 .ui-card() {
-  @padding: 8px;
-
+  @padding-width : 8px;
+  box-sizing: border-box;
   display: flex;
   background-color: @cp-highlight;
-  padding: @padding;
+  padding: 0px @padding-width 0px @padding-width;
 
-  &:not(:last-child){
+  &:not(:last-child) {
     margin-bottom: 2px;
   }
 
@@ -13,23 +13,12 @@
     background-color: @cp-card;
   }
 
-  .card-text {
-    font-family: @font-family-second;
-    font-size: @font-small;
-    font-weight: @font-weight-norm;
-    color: @cp-default;
+  .box-left {
+    border-left: 1px solid @cp-grey-mid;
+    padding-left: @padding-width;
   }
 
-  .card-link {
-    color: @cp-primary;
-
-    &:hover {
-      color: @cp-primary-mid;
-    }
-  }
-
-  .user {
-    @flex-row();
-    @flex-center();
+  .box-right {
+    padding-right: @padding-width;
   }
 }

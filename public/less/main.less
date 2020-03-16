@@ -27,6 +27,8 @@
 @import "../modules/ui/container/accordion/style.less";
 @import "../modules/ui/container/labelled/style.less";
 @import "../modules/ui/container/listdetail/style.less";
+@import "../modules/ui/container/personnel/detail/style.less"; // used in detail pages to list out the information about the personnel
+
 
 // ------ Cards
 @import "../modules/ui/card/style.less";
@@ -35,6 +37,47 @@
 @import "../modules/ui/card/detail/small/unit/style.less";
 @import "../modules/ui/card/simple/style.less";
 @import "../modules/ui/card/simple/button/style.less";
+
+@import "../modules/ui/card/detail/panel/style.less"; // default styles for all the cards that go into the detail panels
+@import "../modules/ui/card/detail/panel/general_info/style.less";
+@import "../modules/ui/card/detail/panel/driver_license/style.less";
+@import "../modules/ui/card/detail/panel/payment_info/style.less";
+@import "../modules/ui/card/detail/panel/user_account/style.less";
+
+// --- Subform
+@import "../modules/ui/form/template/subform/subform.style.less";
+@import "../modules/ui/form/template/subform/subformlist.style.less";
+@import "../modules/ui/form/template/subform/card.style.less";
+
+// --- Subform Cards
+
+@import "../modules/ui/card/subform/emergency_contact/style.less";
+@import "../modules/ui/card/subform/direct_deposit/style.less";
+@import "../modules/ui/form/subforms/agent/card.style.less";
+
+// --- Subforms
+
+
+// ------ Forms
+@import "../modules/ui/form/template/style.less";
+@import "../modules/ui/form/template/controls/style.less";
+@import "../modules/ui/form/template/section/style.less";
+@import "../modules/ui/form/template/section/item/style.less";
+@import "../modules/ui/form/template/section/container/style.less";
+
+// --- Partial Forms
+@import "../modules/ui/form/partial/style.less";
+@import "../modules/ui/form/partial/contact/address/style.less";
+@import "../modules/ui/form/partial/contact/phone/style.less";
+@import "../modules/ui/form/partial/contact/fax/style.less";
+@import "../modules/ui/form/partial/contact/email/style.less";
+@import "../modules/ui/form/partial/person/style.less";
+@import "../modules/ui/form/partial/business/style.less";
+@import "../modules/ui/form/partial/employment/style.less";
+@import "../modules/ui/form/partial/carrier/numbers/style.less";
+@import "../modules/ui/form/partial/application/account/style.less";
+@import "../modules/ui/form/partial/tax/info//style.less";
+
 
 // ------ Toasts
 @import "../modules/ui/toasts/banner/style.less";
@@ -50,9 +93,19 @@
 // ------ Text Based
 @import "../modules/ui/text/phone/optional_extension/style.less";
 @import "../modules/ui/text/phone/oneliner/style.less";
+@import "../modules/ui/text/phone/with_icon/style.less";
+@import "../modules/ui/text/email/with_icon/style.less";
+
+@import "../modules/ui/text/comment/multiline/style.less";
+
 @import "../modules/ui/text/address/plain/style.less";
 @import "../modules/ui/text/address/basic/style.less";
 @import "../modules/ui/text/address/oneliner/style.less";
+// ------ Status Components
+@import "../modules/ui/text/status/load/style.less";
+@import "../modules/ui/text/status/trip/style.less";
+@import "../modules/ui/text/status/holds/style.less";
+@import "../modules/ui/text/status/holds/symbol/style.less";
 
 // ------ Inputs
 @import "../modules/generic/input/style.less";
@@ -64,11 +117,14 @@
 
 // ------ Detail Cards
 @import "../modules/ui/card/accordion/drivers/style.less";
+@import "../modules/ui/card/accordion/holds/style.less";
+@import "../modules/ui/card/accordion/tripstatus/style.less";
 @import "../modules/ui/card/accordion/ifta/style.less";
 @import "../modules/ui/card/accordion/insurances/style.less";
 @import "../modules/ui/card/accordion/permits/style.less";
-@import "../modules/ui/card/accordion/holds/style.less";
+
 @import "../modules/ui/card/accordion/vehicles/style.less";
+
 
 // ------ Doodads
 @import "../modules/ui/doodads/avatar/style.less";
@@ -106,6 +162,10 @@
 @import "../modules/table/business/all/style.less";
 // ------ Other Businesses
 @import "../modules/table/business/other/style.less";
+// --- Personnel Registry
+// ------ All Personnel
+@import "../modules/table/safety/personnel/all/style.less";
+
 
 // Pages
 // --- Business Registry
@@ -116,3 +176,5 @@
 // --- Personnel Registry
 // ------ Operator
 @import "../modules/page/personnel/operators/list/detail/style.less";
+// ------ Details
+@import "../modules/page/safety/personnel/detail/style.less";

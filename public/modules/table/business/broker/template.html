@@ -91,11 +91,12 @@
     <ui-table-row ng-repeat="item in $ctrl.brokerList"
                   on-select="">
       <div class="business-name colspan {{$ctrl.fields[0].size}}">
-        <svg class="icon icon-tiny">
+        <!-- <svg class="icon icon-tiny">
           <use xlink:href="imgs/icons.svg#buildings"></use>
         </svg>
         <div class="bold caps font-primary-text">{{ item.biz.BizName}}
-        </div>
+        </div> -->
+        <ui-contact-business data="item"></ui-contact-business>
       </div>
 
       <div class="colspan {{$ctrl.fields[1].size}} font-table-body-text"
