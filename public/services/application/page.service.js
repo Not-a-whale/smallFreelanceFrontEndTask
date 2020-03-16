@@ -1,20 +1,25 @@
 class PageService {
-  constructor(http) {
+  constructor(http, state, trans) {
     this.http = http;
+    this.state = state;
+    this.trans = trans;
     this.departments = undefined;
     this.current_department = undefined;
-    let self = this;
-    // this.GetDepartments().then(function (res) {
-    //   self.current_department = res[0];
-    // });
-
-    this.defaults = undefined;
-    this.current_defaults = undefined;
-    // this.GetDefaults().then(function (res) {
-    //   self.current_defaults = res[0];
-    // });
-
     this.current_page = undefined;
+    this.page_history = [];
+  }
+
+  GoBack() {
+    if (this.CanGoBack()) {
+      let page = this.page_history.pop();
+      this.state.go(page.state, undef, {
+        goback: true
+      });
+    }
+  }
+
+  CanGoBack() {
+    return this.page_history.length > 0;
   }
 
 
@@ -29,6 +34,11 @@ class PageService {
         }
       }
       if (nav != undefined) {
+        if (self[currentvar] != undefined) {
+          if (!('goback' in self.state)) {
+            self.page_history.push(self[currentvar]);
+          }
+        }
         self[currentvar] = nav;
       } else {
         console.error('Requested page ' + navname + ' not found.');
@@ -57,7 +67,6 @@ class PageService {
             break;
           }
         }
-
       }
       if (dept != undefined) {
         self.current_department = dept;
@@ -80,10 +89,6 @@ class PageService {
 
   CurrentDepartment() {
     return this.current_department;
-  }
-
-  CurrentDefault() {
-    return this.current_defaults;
   }
 
   CurrentPageTabs() {
@@ -125,17 +130,6 @@ class PageService {
       return res.data;
     });
   }
-
-  GetDefaults() {
-    let self = this;
-    return this.http.get('pages_default.json').then(function (res) {
-      self.defaults = res.data;
-      if (self.current_defaults == undefined) {
-        self.current_defaults = self.defaults[0];
-      }
-      return res.data;
-    });
-  }
 }
 
-app.service('PageService', ['$http', PageService]);
+app.service('PageService', ['$http', '$state', '$transitions', PageService]);
