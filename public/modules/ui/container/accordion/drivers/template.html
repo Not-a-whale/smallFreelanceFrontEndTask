@@ -1,13 +1,12 @@
-<ui-container-accordion data-title="'drivers'"
-                   data-count="$ctrl.drivers.length">
-  <content class="spacing">
-    <div class="header">
-      <div class="heading c4">name</div>
-      <div class="heading c3">contact</div>
-      <div class="heading c3">holds</div>
-      <div class="heading c2">status</div>
-    </div>
+<ui-container-accordion data-title="$ctrl.title"
+                        data-count="$ctrl.drivers.length">
+  <row-header class="table-cols-12">
+    <div class="colspan {{header.size}}"
+         ng-repeat="header in $ctrl.header">{{header.name}}</div>
+
+  </row-header>
+  <body-content class="spacing">
     <operator-driver-card ng-repeat="item in $ctrl.drivers"></operator-driver-card>
-  </content>
+  </body-content>
 
 </ui-container-accordion>
