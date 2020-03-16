@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 5.6.43, for FreeBSD12.0 (amd64)
 --
--- Host: dbs01b    Database: tms
+-- Host: balancer    Database: tms
 -- ------------------------------------------------------
--- Server version	5.7.29-log
+-- Server version	5.7.24-log
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -130,11 +130,15 @@ DROP TABLE IF EXISTS `app_features`;
 CREATE TABLE `app_features` (
   `AppFeatureId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `Name` varchar(64) NOT NULL,
-  `Notes` text COMMENT 'Dev Notes',
+  `Route` varchar(1024) NOT NULL,
+  `Method` enum('GET','POST') NOT NULL,
+  `Description` text COMMENT 'Dev Notes',
   PRIMARY KEY (`AppFeatureId`),
   UNIQUE KEY `Name_UNIQUE` (`Name`),
-  KEY `idx_app_features_Name` (`Name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Maps features to routes which then can be mapped to permissions';
+  KEY `idx_app_features_Name` (`Name`),
+  KEY `idx_app_features_Route` (`Route`),
+  KEY `idx_app_features_Method` (`Method`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='Maps features to routes which then can be mapped to permissions';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -143,6 +147,7 @@ CREATE TABLE `app_features` (
 
 LOCK TABLES `app_features` WRITE;
 /*!40000 ALTER TABLE `app_features` DISABLE KEYS */;
+INSERT INTO `app_features` VALUES (1,'HR Associates','/api/associates','GET',NULL),(3,'All Routes','/api/routes','GET',NULL),(5,'API Builder','/prefetch','GET',NULL);
 /*!40000 ALTER TABLE `app_features` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -307,33 +312,6 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Table structure for table `app_permissions`
---
-
-DROP TABLE IF EXISTS `app_permissions`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `app_permissions` (
-  `PermissionId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `Feature` bigint(20) unsigned NOT NULL,
-  `AccessName` varchar(64) NOT NULL,
-  PRIMARY KEY (`PermissionId`),
-  KEY `AppPermissionFeatureRef_idx` (`Feature`),
-  KEY `idx_app_permissions_Name` (`AccessName`),
-  CONSTRAINT `AppPermissionFeatureRef` FOREIGN KEY (`Feature`) REFERENCES `app_features` (`AppFeatureId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Table that holds different permissions for features offered by the application';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `app_permissions`
---
-
-LOCK TABLES `app_permissions` WRITE;
-/*!40000 ALTER TABLE `app_permissions` DISABLE KEYS */;
-/*!40000 ALTER TABLE `app_permissions` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `app_role_menus`
 --
 
@@ -370,15 +348,15 @@ DROP TABLE IF EXISTS `app_role_permissions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `app_role_permissions` (
-  `RoleVsPermId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `Role` bigint(20) unsigned NOT NULL,
-  `Permission` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`RoleVsPermId`),
-  UNIQUE KEY `RoleVsPermUnq` (`Role`,`Permission`),
-  KEY `RolePermissionPermissionRef_idx` (`Permission`),
-  CONSTRAINT `RolePermissionPermissionRef` FOREIGN KEY (`Permission`) REFERENCES `app_permissions` (`PermissionId`) ON UPDATE CASCADE,
-  CONSTRAINT `RolePermissionRoleRef` FOREIGN KEY (`Role`) REFERENCES `app_roles` (`RoleId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `RoleVsFeatureId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `RoleId` bigint(20) unsigned NOT NULL,
+  `AppFeatureId` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`RoleVsFeatureId`),
+  UNIQUE KEY `RoleVsPermUnq` (`RoleId`,`AppFeatureId`),
+  KEY `RolePermissionPermissionRef_idx` (`AppFeatureId`),
+  CONSTRAINT `RolePermissionFeatureRef` FOREIGN KEY (`AppFeatureId`) REFERENCES `app_features` (`AppFeatureId`) ON UPDATE CASCADE,
+  CONSTRAINT `RolePermissionRoleRef` FOREIGN KEY (`RoleId`) REFERENCES `app_roles` (`RoleId`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -387,6 +365,7 @@ CREATE TABLE `app_role_permissions` (
 
 LOCK TABLES `app_role_permissions` WRITE;
 /*!40000 ALTER TABLE `app_role_permissions` DISABLE KEYS */;
+INSERT INTO `app_role_permissions` VALUES (1,3,1),(3,5,1),(5,5,3),(7,5,5);
 /*!40000 ALTER TABLE `app_role_permissions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -417,7 +396,7 @@ CREATE TABLE `app_roles` (
   KEY `idx_app_roles_DateUpdated` (`DateUpdated`),
   CONSTRAINT `AppRoleCreatorRef` FOREIGN KEY (`CreatedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
   CONSTRAINT `AppRoleUpdaterRef` FOREIGN KEY (`UpdatedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -426,7 +405,7 @@ CREATE TABLE `app_roles` (
 
 LOCK TABLES `app_roles` WRITE;
 /*!40000 ALTER TABLE `app_roles` DISABLE KEYS */;
-INSERT INTO `app_roles` VALUES (1,'Admin','Website Admin, full Access to everything.',0,0,NULL,NULL,'2019-05-20 17:15:46',NULL);
+INSERT INTO `app_roles` VALUES (1,'Admin','Website Admin, full Access to everything.',0,0,NULL,NULL,'2019-05-20 17:15:46',NULL),(3,'Managers',NULL,1,1,NULL,NULL,'2020-03-10 17:04:42',NULL),(5,'Developers',NULL,1,1,NULL,NULL,'2020-03-10 17:19:15',NULL);
 /*!40000 ALTER TABLE `app_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -527,6 +506,36 @@ LOCK TABLES `app_roles_assigned` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `app_sessions`
+--
+
+DROP TABLE IF EXISTS `app_sessions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `app_sessions` (
+  `session_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `session_name` char(40) NOT NULL,
+  `session_data` text NOT NULL,
+  `created_on` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_active` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`session_id`),
+  UNIQUE KEY `session_name_UNIQUE` (`session_name`),
+  KEY `idx_app_sessions_created_on` (`created_on`),
+  KEY `idx_app_sessions_last_active` (`last_active`)
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `app_sessions`
+--
+
+LOCK TABLES `app_sessions` WRITE;
+/*!40000 ALTER TABLE `app_sessions` DISABLE KEYS */;
+INSERT INTO `app_sessions` VALUES (3,'Xmaf4wABc9H1LkoYbgBZCal_Zd-wQwnc','{\"pid\":95185}','2020-03-09 12:58:27','2020-03-09 12:58:27'),(5,'XmaFSwABEYnUsSRDBm1_eZ0N9feyi2Ay','{\"pid\":94252}','2020-03-09 11:04:59','2020-03-09 12:54:11'),(7,'XmahMgABeL4J54P5Wwptmwn5Mw0BQN7h','{\"pid\":3490}','2020-03-09 13:04:03','2020-03-09 13:26:12'),(9,'XmapAQAADaJ8NjsS82lOnAbCEBqA9kdV','{\"userid\":\"test\",\"pid\":3490}','2020-03-09 13:37:21','2020-03-09 13:57:12'),(11,'XmauFAAAKDqXxCOBNLfLJjnuaWRD4u4m','{\"userid\":\"test\"}','2020-03-09 13:59:00','2020-03-09 13:59:00'),(13,'XmavpwAALtSXpWsN-n5clKQuQsDPmIWj','{\"userid\":\"test\",\"pid\":11988}','2020-03-09 14:05:43','2020-03-09 14:05:43'),(15,'XmawGgAALtQnEDtpX1Jh8hGQa9kUuhAn','{\"userid\":\"test\"}','2020-03-09 14:07:38','2020-03-09 14:07:38'),(17,'Xma1yQAAQ7iOM1cqFC0DeQA6p7PsNwwp','{\"userid\":\"test\",\"pid\":17336}','2020-03-09 14:31:53','2020-03-09 14:31:53'),(19,'Xme7AAAARlPq4SfjyRtfUkiA74-veIX1','{\"userid\":\"test\"}','2020-03-10 09:06:24','2020-03-10 09:06:24'),(21,'XmfVOAAARlP58kKE-D1Z3Uc4j_QmG8Qz','{\"userid\":\"test\"}','2020-03-10 10:58:16','2020-03-10 10:58:16'),(23,'XmfgCwAARlP0u7TeehM1gY5e71m8rl05','{\"userid\":\"test\"}','2020-03-10 11:44:27','2020-03-10 11:44:27'),(25,'XmfuyAABgbRpZkY0f7YT8TVt0fyNxOm8','{\"userid\":\"test\",\"pid\":98740}','2020-03-10 12:47:20','2020-03-10 13:35:57'),(27,'XmgdKAAASLPtvAAI4wTc3CP2KK59T74d','{\"pid\":18611,\"userid\":\"test\"}','2020-03-10 16:05:12','2020-03-10 17:18:58'),(29,'XmgtuAABIvYHUbbWcxa1uD-KunBM7LNT','{\"userid\":\"test\"}','2020-03-10 17:15:52','2020-03-10 17:15:52'),(31,'XmkBugAA9TvuZBFQeu0waoBzNbYuo7dS','{\"userid\":\"test\"}','2020-03-11 08:20:26','2020-03-11 08:20:26'),(33,'XmkHngAA_PzjjDH1hmE7U45pSAMiEOG-','{\"pid\":64764,\"userid\":\"test\"}','2020-03-11 08:45:34','2020-03-12 11:26:51'),(35,'XmkOeQAA_YicLsl1W7gjfrgFN13_7Uhp','{\"userid\":\"test\"}','2020-03-11 09:14:49','2020-03-11 09:14:49'),(37,'XmkbMAAA_YgYeJOkCPZuW5vh6oKWs4oh','{\"userid\":\"test\"}','2020-03-11 10:09:04','2020-03-11 10:09:04'),(39,'XmkfHAAA_YjGtl26nfnZeyS84XLNocdm','{\"userid\":\"test\",\"pid\":64904}','2020-03-11 10:25:48','2020-03-11 10:25:53'),(41,'XmkqAQAA_Yjjv6UjJ6Hoguqsv5nyfSFL','{\"userid\":\"test\"}','2020-03-11 11:12:17','2020-03-11 11:12:17'),(43,'XmlFoAAA_YgySulogb5PlYCAaAlOKvRP','{\"userid\":\"test\"}','2020-03-11 13:10:08','2020-03-11 13:10:08'),(45,'XmlY0wAA_Yi2N0CGX4MnhyIvGeu64hjL','{\"userid\":\"test\"}','2020-03-11 14:32:03','2020-03-11 14:32:03'),(47,'Xmlc9QAA_YjJQm3OLvCHPvSpNLC575Ix','{\"userid\":\"test\"}','2020-03-11 14:49:41','2020-03-11 14:49:41'),(49,'XmllewAA_YjhvXLyyOqKQiLE9qqUXWwI','{\"userid\":\"test\"}','2020-03-11 15:26:03','2020-03-11 15:26:03'),(51,'XmlpeQAA_YhNLGy5mHNn8HiUPA1K5Ese','{\"userid\":\"test\",\"pid\":64904}','2020-03-11 15:43:05','2020-03-11 15:43:05'),(53,'Xml8iwABQYbHl35-m-YQYijIimnaHowM','{\"userid\":\"test\"}','2020-03-11 17:04:27','2020-03-11 17:04:27'),(55,'XmpSyAABIpCmvNaytJ9tKa8IB9BD8QiY','{\"userid\":\"test\"}','2020-03-12 08:18:32','2020-03-12 08:18:32'),(57,'XmpbfQABIpBk6MsdP83JfF_hHu65bh4t','{\"userid\":\"test\"}','2020-03-12 08:55:41','2020-03-12 08:55:41'),(59,'XmqaeQAAnvgx6s1Y5GtxqI4XOBsFTsYZ','{\"userid\":\"test\"}','2020-03-12 13:24:25','2020-03-12 13:24:25'),(61,'XmqcIgAApFIok5RjlP_JTdeEYkMUare7','{\"userid\":\"test\"}','2020-03-12 13:31:30','2020-03-12 13:31:30'),(63,'Xmqe-QAAr8aCC8EefJogoDKrA3Dt8VuC','{\"userid\":\"test\"}','2020-03-12 13:43:37','2020-03-12 13:43:37'),(65,'Xmq2bAAA8pRn25ma2k7OJ54uadL1SSBH','{\"userid\":\"test\"}','2020-03-12 15:23:40','2020-03-12 15:23:40'),(67,'XmuY8QABIYd3K_eVYe99yfjZrMKfVE-l','{\"userid\":\"test\"}','2020-03-13 07:30:10','2020-03-13 07:30:10'),(69,'XmuZbgABIYeEVIjEcFDKc5kq2O8-EeKv','{\"userid\":\"test\"}','2020-03-13 07:32:14','2020-03-13 07:32:14'),(71,'XmuqMQABJ01_FP21GdZEs_aPy7c1NH_r','{\"userid\":\"test\"}','2020-03-13 08:43:45','2020-03-13 08:43:45'),(73,'XmuwQAABJ002CdSdFI5F0OQsWfvEryox','{\"userid\":\"test\"}','2020-03-13 09:09:36','2020-03-13 09:09:36'),(75,'Xmu8ugAAFkT1KJSl6NNy4ra4OULU9slX','{\"userid\":\"test\"}','2020-03-13 10:02:50','2020-03-13 10:02:50'),(77,'XmvIfwAAQFUZPiBDHsRJ_l4QQmGOLNaH','{\"userid\":\"test\"}','2020-03-13 10:53:03','2020-03-13 10:53:03'),(79,'XmvYUwAAXtWIcYuYQUYaQnEq2FhftLKU','{\"userid\":\"test\"}','2020-03-13 12:00:35','2020-03-13 12:00:35'),(81,'Xmvj1wAAXtX1uoVqmkKXhvhPiDwWi_q-','{\"userid\":\"test\"}','2020-03-13 12:49:43','2020-03-13 12:49:43'),(83,'XmvlDwAAXtVedMCVp32Y1CMNznshHsmk','{\"userid\":\"test\"}','2020-03-13 12:54:55','2020-03-13 12:54:55'),(85,'XmvrdgAAXtVyfzd50B2M9ZkaNViCqvKF','{\"userid\":\"test\"}','2020-03-13 13:22:14','2020-03-13 13:22:14'),(87,'Xmv2aQAA2b76zed-8FTbce1OGRJJquHD','{\"userid\":\"test\"}','2020-03-13 14:08:57','2020-03-13 14:08:57'),(89,'Xm-VHQABP9yhj2l3PvtJabIskru7MEVF','{\"userid\":\"test\"}','2020-03-16 08:02:54','2020-03-16 08:02:54'),(91,'Xm-VIwABP9ybRQhHZ-kuXBuYzaAtcOQZ','{\"userid\":\"test\"}','2020-03-16 08:02:59','2020-03-16 08:02:59'),(93,'Xm-loAABP9wm-DJ52RKuAdxLTSrxe1Og','{\"userid\":\"test\"}','2020-03-16 09:13:20','2020-03-16 09:13:20'),(95,'Xm-qQgABP9zcpw9rRM2EaJo2PwPTMXOa','{\"userid\":\"test\"}','2020-03-16 09:33:06','2020-03-16 09:33:06'),(97,'Xm_RLwABTnK1eyguuDn0D8SL4lb2EMO5','{\"userid\":\"test\"}','2020-03-16 12:19:11','2020-03-16 12:19:11');
+/*!40000 ALTER TABLE `app_sessions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `biz_branches`
 --
 
@@ -553,7 +562,7 @@ CREATE TABLE `biz_branches` (
   CONSTRAINT `BrnchBizNameRef` FOREIGN KEY (`BizId`) REFERENCES `ent_businesses` (`BizId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchFaxRef` FOREIGN KEY (`BrnchFax`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchPhoneRef` FOREIGN KEY (`BrnchPhone`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Office Branch Details';
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8 COMMENT='Office Branch Details';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -562,6 +571,7 @@ CREATE TABLE `biz_branches` (
 
 LOCK TABLES `biz_branches` WRITE;
 /*!40000 ALTER TABLE `biz_branches` DISABLE KEYS */;
+INSERT INTO `biz_branches` VALUES (7,'CALIFORNIA HEAD QUARTERS',7,7,21,19,'info@uskoinc.com'),(9,'SAC',11,11,25,25,NULL),(11,'SAC',11,11,25,25,NULL),(13,'SAC',11,11,25,25,NULL),(15,'COMPANY',13,13,25,NULL,NULL),(17,'COMPANY',15,13,25,NULL,NULL),(19,'RANCHO',11,13,25,NULL,NULL),(21,'RANCHO',11,13,25,NULL,NULL),(23,'NEW BRANCH',17,15,27,NULL,NULL),(73,'RANCHO',55,55,25,NULL,NULL),(77,'RANCHO DE KOPOBA',61,59,127,129,'info@uskoinc.com');
 /*!40000 ALTER TABLE `biz_branches` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -576,14 +586,14 @@ CREATE TABLE `biz_company_nodes` (
   `NodeId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `ParentId` bigint(20) unsigned DEFAULT NULL,
   `UnitName` varchar(255) NOT NULL,
-  `Type` enum('Department','Office','Team','Group','Other') NOT NULL DEFAULT 'Other',
+  `UnitType` enum('Department','Office','Team','Group','Other') NOT NULL DEFAULT 'Other',
   PRIMARY KEY (`NodeId`),
-  UNIQUE KEY `UniqBizUnitName` (`UnitName`,`Type`),
+  UNIQUE KEY `UniqBizUnitName` (`UnitName`,`UnitType`),
   KEY `BizParentRef_idx` (`ParentId`),
   KEY `BizName_inx` (`UnitName`),
-  KEY `idx_biz_company_nodes_Type` (`Type`),
+  KEY `idx_biz_company_nodes_Type` (`UnitType`),
   CONSTRAINT `BizCompanyParentNodeRef` FOREIGN KEY (`ParentId`) REFERENCES `biz_company_nodes` (`NodeId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Holds the nodes for the structure of the client/user company hierarchy ';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='Holds the nodes for the structure of the client/user company hierarchy ';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -592,6 +602,7 @@ CREATE TABLE `biz_company_nodes` (
 
 LOCK TABLES `biz_company_nodes` WRITE;
 /*!40000 ALTER TABLE `biz_company_nodes` DISABLE KEYS */;
+INSERT INTO `biz_company_nodes` VALUES (7,NULL,'Executive Office','Other');
 /*!40000 ALTER TABLE `biz_company_nodes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -700,7 +711,7 @@ CREATE TABLE `biz_company_trees` (
   KEY `CompanyTreeDescendantNodeRef_idx` (`DescendantId`),
   CONSTRAINT `CompanyTreeAncestorNodeRef` FOREIGN KEY (`AncestorId`) REFERENCES `biz_company_nodes` (`NodeId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `CompanyTreeDescendantNodeRef` FOREIGN KEY (`DescendantId`) REFERENCES `biz_company_nodes` (`NodeId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Holds the tree for the structure of the heirarchy of the client/user company';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='Holds the tree for the structure of the heirarchy of the client/user company';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -709,6 +720,7 @@ CREATE TABLE `biz_company_trees` (
 
 LOCK TABLES `biz_company_trees` WRITE;
 /*!40000 ALTER TABLE `biz_company_trees` DISABLE KEYS */;
+INSERT INTO `biz_company_trees` VALUES (7,7,7,0);
 /*!40000 ALTER TABLE `biz_company_trees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -722,7 +734,7 @@ DROP TABLE IF EXISTS `cmm_assignments`;
 CREATE TABLE `cmm_assignments` (
   `AssociateId` bigint(20) unsigned NOT NULL,
   `CommissionPackage` varchar(255) NOT NULL,
-  `DateAdded` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `DateAdded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `AddedBy` bigint(20) unsigned NOT NULL,
   KEY `CommissionAssignmentGroupRef_idx` (`CommissionPackage`),
   KEY `CommissionAssignmentAssociateRef_idx` (`AssociateId`),
@@ -877,7 +889,7 @@ CREATE TABLE `cnt_addresses` (
   `City` varchar(64) NOT NULL,
   `State` char(2) NOT NULL,
   `Zip` char(11) NOT NULL,
-  `Country` varchar(255) NOT NULL DEFAULT 'USA',
+  `Country` varchar(255) NOT NULL DEFAULT 'United States',
   `GpsLng` double DEFAULT NULL,
   `GpsLat` double DEFAULT NULL,
   `Notes` text,
@@ -892,7 +904,7 @@ CREATE TABLE `cnt_addresses` (
   KEY `idx_cnt_addresses_State` (`State`),
   KEY `idx_cnt_addresses_Country` (`Country`),
   KEY `idx_cnt_addresses_Street1` (`Street1`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -901,6 +913,7 @@ CREATE TABLE `cnt_addresses` (
 
 LOCK TABLES `cnt_addresses` WRITE;
 /*!40000 ALTER TABLE `cnt_addresses` DISABLE KEYS */;
+INSERT INTO `cnt_addresses` VALUES (7,'11290 POINT EAST DRIVE','STE 200','','RANCHO CORDOVA','CA','95742','United States',NULL,NULL,NULL),(11,'1234 FAKE STREET','','','SACRAMENTO','CA','95435','United States',NULL,NULL,NULL),(13,'1234 FAKE STREET','','','SACRAMENTO','CA','95777','United States',NULL,NULL,NULL),(15,'12345 NEW STREET','','','NEW CITY','CA','95646','United States',NULL,NULL,NULL),(55,'1234 FAKE STREET','','','SACRAMENTO','CA','95684','United States',NULL,NULL,NULL),(59,'1 PERFECTLY STREIGHT CIRCLE','','','THE BEAUTIFUL ONE','CA','93721','United States',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `cnt_addresses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -924,7 +937,7 @@ CREATE TABLE `cnt_phonesfaxes` (
   KEY `idx_cnt_phonesfaxes_Extension` (`Extension`) USING BTREE,
   KEY `idx_cnt_phonesfaxes_Features` (`Features`) USING BTREE,
   KEY `idx_cnt_phonesfaxes_Mobility` (`Mobility`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -933,6 +946,7 @@ CREATE TABLE `cnt_phonesfaxes` (
 
 LOCK TABLES `cnt_phonesfaxes` WRITE;
 /*!40000 ALTER TABLE `cnt_phonesfaxes` DISABLE KEYS */;
+INSERT INTO `cnt_phonesfaxes` VALUES (19,'916-515-8066','0','VOICE','LAND LINE',NULL),(21,'916-515-8065','0','VOICE','LAND LINE',NULL),(23,'916-515-8065','1001','VOICE','LAND LINE',NULL),(25,'555-123-4567','0','VOICE','LAND LINE',NULL),(27,'111-222-3333','0','VOICE','LAND LINE',NULL),(45,'555-123-4567','1','VOICE','LAND LINE',NULL),(47,'555-123-4567','23','VOICE','LAND LINE',NULL),(127,'777-888-9999','0','VOICE','LAND LINE',NULL),(129,'777-888-9990','0','VOICE','LAND LINE',NULL),(131,'777-888-9999','65283','VOICE','LAND LINE',NULL);
 /*!40000 ALTER TABLE `cnt_phonesfaxes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1751,7 +1765,7 @@ CREATE TABLE `ent_businesses` (
   UNIQUE KEY `BizName_UNIQUE` (`BizName`),
   KEY `idx_ent_businesses_BizName` (`BizName`) USING BTREE,
   KEY `idx_ent_businesses_BizURL` (`BizURL`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1760,6 +1774,7 @@ CREATE TABLE `ent_businesses` (
 
 LOCK TABLES `ent_businesses` WRITE;
 /*!40000 ALTER TABLE `ent_businesses` DISABLE KEYS */;
+INSERT INTO `ent_businesses` VALUES (7,'USKO EXPRESS INC','http://uskoinc.com'),(11,'SNAKE OIL',NULL),(13,'ANOTHER COMPANY',NULL),(15,'SOME COMPANY',NULL),(17,'NEW COMPANY',NULL),(55,'SNAKE OIL INC',NULL),(61,'USKO DESIGNS',NULL);
 /*!40000 ALTER TABLE `ent_businesses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1915,7 +1930,7 @@ CREATE TABLE `ent_people` (
   KEY `idx_ent_people_Suffix` (`Suffix`) USING BTREE,
   KEY `idx_ent_people_BrnchId` (`BrnchId`) USING BTREE,
   CONSTRAINT `PeopleBranchRef` FOREIGN KEY (`BrnchId`) REFERENCES `biz_branches` (`BrnchId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1924,6 +1939,7 @@ CREATE TABLE `ent_people` (
 
 LOCK TABLES `ent_people` WRITE;
 /*!40000 ALTER TABLE `ent_people` DISABLE KEYS */;
+INSERT INTO `ent_people` VALUES (45,'','','ANA','','BANANA','',21),(47,'','','ANAD','','BANANAS','',21),(51,'','','ANADA','','BANANAS','',21),(57,'','','ASDF','','ASDF','',19),(87,'','','IVAN','','IVANOVICH','',77),(15,'','','JOE','','MA','',15),(17,'','','JOE','','MA','',17),(9,'','','JOE','','SCHMOE','',9),(11,'','','JOE','','SCHMOE','',11),(19,'','','JOE','','SCHMOE','',19),(21,'','','JOE','NO','SCHMOE','',21),(13,'','','JOE','SMTIH','SCHMOE','',13),(23,'','','NEW','','NEW','',23),(53,'','','TOM','','JOM','',21),(7,'','','VLADIMIR','','SKOTS','',7),(41,'','','VOVA','','KOROVA','',19),(43,'','','VOVAS','','VOVAD','',19);
 /*!40000 ALTER TABLE `ent_people` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3627,6 +3643,7 @@ CREATE TABLE `hr_associates` (
 
 LOCK TABLES `hr_associates` WRITE;
 /*!40000 ALTER TABLE `hr_associates` DISABLE KEYS */;
+INSERT INTO `hr_associates` VALUES (7,'CEO',7,'executive','2020-03-10 15:56:41',NULL,23,19,'vlad@uskoinc.com','Founder and CEO',1),(41,NULL,NULL,'member','2020-03-13 13:33:57',NULL,45,NULL,NULL,NULL,0),(43,NULL,NULL,'member','2020-03-13 13:42:57',NULL,25,NULL,NULL,NULL,0),(45,NULL,NULL,'member','2020-03-13 13:46:23',NULL,47,NULL,NULL,NULL,0),(47,NULL,NULL,'member','2020-03-13 13:49:33',NULL,47,NULL,NULL,NULL,0),(51,NULL,NULL,'member','2020-03-13 13:54:15',NULL,47,NULL,NULL,NULL,0),(53,NULL,NULL,'member','2020-03-13 13:55:07',NULL,45,NULL,NULL,NULL,0),(57,NULL,NULL,'member','2020-03-13 13:56:10',NULL,45,NULL,NULL,NULL,0),(87,'Sr. Lunch Eater',NULL,'member','2020-03-16 10:09:32',NULL,131,129,NULL,NULL,0);
 /*!40000 ALTER TABLE `hr_associates` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4640,7 +4657,7 @@ CREATE TABLE `msg_access` (
   `PermissionName` varchar(255) NOT NULL,
   PRIMARY KEY (`macsid`),
   UNIQUE KEY `PermissionName_UNIQUE` (`PermissionName`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4649,6 +4666,7 @@ CREATE TABLE `msg_access` (
 
 LOCK TABLES `msg_access` WRITE;
 /*!40000 ALTER TABLE `msg_access` DISABLE KEYS */;
+INSERT INTO `msg_access` VALUES (1,'read');
 /*!40000 ALTER TABLE `msg_access` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4679,7 +4697,7 @@ CREATE TABLE `msg_notes` (
   KEY `idx_msg_notes_keywords` (`keywords`),
   CONSTRAINT `NoteACLref` FOREIGN KEY (`macsid`) REFERENCES `msg_access` (`macsid`) ON UPDATE CASCADE,
   CONSTRAINT `NoteAuthorRef` FOREIGN KEY (`author`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4688,6 +4706,7 @@ CREATE TABLE `msg_notes` (
 
 LOCK TABLES `msg_notes` WRITE;
 /*!40000 ALTER TABLE `msg_notes` DISABLE KEYS */;
+INSERT INTO `msg_notes` VALUES (3,'note to user','this is s note to the user','2020-03-13 10:34:36',7,'ent_people',15,1,NULL),(5,'note of address','this address is great','2020-03-13 10:58:20',7,'cnt_addresses',7,1,NULL);
 /*!40000 ALTER TABLE `msg_notes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -6025,4 +6044,4 @@ USE `tms`;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-04 14:42:18
+-- Dump completed on 2020-03-16 13:06:31

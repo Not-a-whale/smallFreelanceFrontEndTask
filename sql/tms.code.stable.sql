@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 5.6.43, for FreeBSD12.0 (amd64)
 --
--- Host: dbs01b    Database: tms
+-- Host: balancer    Database: tms
 -- ------------------------------------------------------
--- Server version	5.7.29-log
+-- Server version	5.7.24-log
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -103,11 +103,15 @@ DROP TABLE IF EXISTS `app_features`;
 CREATE TABLE `app_features` (
   `AppFeatureId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `Name` varchar(64) NOT NULL,
-  `Notes` text COMMENT 'Dev Notes',
+  `Route` varchar(1024) NOT NULL,
+  `Method` enum('GET','POST') NOT NULL,
+  `Description` text COMMENT 'Dev Notes',
   PRIMARY KEY (`AppFeatureId`),
   UNIQUE KEY `Name_UNIQUE` (`Name`),
-  KEY `idx_app_features_Name` (`Name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Maps features to routes which then can be mapped to permissions';
+  KEY `idx_app_features_Name` (`Name`),
+  KEY `idx_app_features_Route` (`Route`),
+  KEY `idx_app_features_Method` (`Method`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='Maps features to routes which then can be mapped to permissions';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -252,24 +256,6 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Table structure for table `app_permissions`
---
-
-DROP TABLE IF EXISTS `app_permissions`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `app_permissions` (
-  `PermissionId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `Feature` bigint(20) unsigned NOT NULL,
-  `AccessName` varchar(64) NOT NULL,
-  PRIMARY KEY (`PermissionId`),
-  KEY `AppPermissionFeatureRef_idx` (`Feature`),
-  KEY `idx_app_permissions_Name` (`AccessName`),
-  CONSTRAINT `AppPermissionFeatureRef` FOREIGN KEY (`Feature`) REFERENCES `app_features` (`AppFeatureId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Table that holds different permissions for features offered by the application';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `app_role_menus`
 --
 
@@ -297,15 +283,15 @@ DROP TABLE IF EXISTS `app_role_permissions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `app_role_permissions` (
-  `RoleVsPermId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `Role` bigint(20) unsigned NOT NULL,
-  `Permission` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`RoleVsPermId`),
-  UNIQUE KEY `RoleVsPermUnq` (`Role`,`Permission`),
-  KEY `RolePermissionPermissionRef_idx` (`Permission`),
-  CONSTRAINT `RolePermissionPermissionRef` FOREIGN KEY (`Permission`) REFERENCES `app_permissions` (`PermissionId`) ON UPDATE CASCADE,
-  CONSTRAINT `RolePermissionRoleRef` FOREIGN KEY (`Role`) REFERENCES `app_roles` (`RoleId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `RoleVsFeatureId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `RoleId` bigint(20) unsigned NOT NULL,
+  `AppFeatureId` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`RoleVsFeatureId`),
+  UNIQUE KEY `RoleVsPermUnq` (`RoleId`,`AppFeatureId`),
+  KEY `RolePermissionPermissionRef_idx` (`AppFeatureId`),
+  CONSTRAINT `RolePermissionFeatureRef` FOREIGN KEY (`AppFeatureId`) REFERENCES `app_features` (`AppFeatureId`) ON UPDATE CASCADE,
+  CONSTRAINT `RolePermissionRoleRef` FOREIGN KEY (`RoleId`) REFERENCES `app_roles` (`RoleId`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -335,7 +321,7 @@ CREATE TABLE `app_roles` (
   KEY `idx_app_roles_DateUpdated` (`DateUpdated`),
   CONSTRAINT `AppRoleCreatorRef` FOREIGN KEY (`CreatedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
   CONSTRAINT `AppRoleUpdaterRef` FOREIGN KEY (`UpdatedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -426,6 +412,26 @@ CREATE TABLE `app_roles_assigned` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `app_sessions`
+--
+
+DROP TABLE IF EXISTS `app_sessions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `app_sessions` (
+  `session_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `session_name` char(40) NOT NULL,
+  `session_data` text NOT NULL,
+  `created_on` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_active` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`session_id`),
+  UNIQUE KEY `session_name_UNIQUE` (`session_name`),
+  KEY `idx_app_sessions_created_on` (`created_on`),
+  KEY `idx_app_sessions_last_active` (`last_active`)
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `biz_branches`
 --
 
@@ -452,7 +458,7 @@ CREATE TABLE `biz_branches` (
   CONSTRAINT `BrnchBizNameRef` FOREIGN KEY (`BizId`) REFERENCES `ent_businesses` (`BizId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchFaxRef` FOREIGN KEY (`BrnchFax`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchPhoneRef` FOREIGN KEY (`BrnchPhone`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Office Branch Details';
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8 COMMENT='Office Branch Details';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -466,14 +472,14 @@ CREATE TABLE `biz_company_nodes` (
   `NodeId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `ParentId` bigint(20) unsigned DEFAULT NULL,
   `UnitName` varchar(255) NOT NULL,
-  `Type` enum('Department','Office','Team','Group','Other') NOT NULL DEFAULT 'Other',
+  `UnitType` enum('Department','Office','Team','Group','Other') NOT NULL DEFAULT 'Other',
   PRIMARY KEY (`NodeId`),
-  UNIQUE KEY `UniqBizUnitName` (`UnitName`,`Type`),
+  UNIQUE KEY `UniqBizUnitName` (`UnitName`,`UnitType`),
   KEY `BizParentRef_idx` (`ParentId`),
   KEY `BizName_inx` (`UnitName`),
-  KEY `idx_biz_company_nodes_Type` (`Type`),
+  KEY `idx_biz_company_nodes_Type` (`UnitType`),
   CONSTRAINT `BizCompanyParentNodeRef` FOREIGN KEY (`ParentId`) REFERENCES `biz_company_nodes` (`NodeId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Holds the nodes for the structure of the client/user company hierarchy ';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='Holds the nodes for the structure of the client/user company hierarchy ';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -581,7 +587,7 @@ CREATE TABLE `biz_company_trees` (
   KEY `CompanyTreeDescendantNodeRef_idx` (`DescendantId`),
   CONSTRAINT `CompanyTreeAncestorNodeRef` FOREIGN KEY (`AncestorId`) REFERENCES `biz_company_nodes` (`NodeId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `CompanyTreeDescendantNodeRef` FOREIGN KEY (`DescendantId`) REFERENCES `biz_company_nodes` (`NodeId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Holds the tree for the structure of the heirarchy of the client/user company';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='Holds the tree for the structure of the heirarchy of the client/user company';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -594,7 +600,7 @@ DROP TABLE IF EXISTS `cmm_assignments`;
 CREATE TABLE `cmm_assignments` (
   `AssociateId` bigint(20) unsigned NOT NULL,
   `CommissionPackage` varchar(255) NOT NULL,
-  `DateAdded` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `DateAdded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `AddedBy` bigint(20) unsigned NOT NULL,
   KEY `CommissionAssignmentGroupRef_idx` (`CommissionPackage`),
   KEY `CommissionAssignmentAssociateRef_idx` (`AssociateId`),
@@ -704,7 +710,7 @@ CREATE TABLE `cnt_addresses` (
   `City` varchar(64) NOT NULL,
   `State` char(2) NOT NULL,
   `Zip` char(11) NOT NULL,
-  `Country` varchar(255) NOT NULL DEFAULT 'USA',
+  `Country` varchar(255) NOT NULL DEFAULT 'United States',
   `GpsLng` double DEFAULT NULL,
   `GpsLat` double DEFAULT NULL,
   `Notes` text,
@@ -719,7 +725,7 @@ CREATE TABLE `cnt_addresses` (
   KEY `idx_cnt_addresses_State` (`State`),
   KEY `idx_cnt_addresses_Country` (`Country`),
   KEY `idx_cnt_addresses_Street1` (`Street1`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -742,7 +748,7 @@ CREATE TABLE `cnt_phonesfaxes` (
   KEY `idx_cnt_phonesfaxes_Extension` (`Extension`) USING BTREE,
   KEY `idx_cnt_phonesfaxes_Features` (`Features`) USING BTREE,
   KEY `idx_cnt_phonesfaxes_Mobility` (`Mobility`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1362,7 +1368,7 @@ CREATE TABLE `ent_businesses` (
   UNIQUE KEY `BizName_UNIQUE` (`BizName`),
   KEY `idx_ent_businesses_BizName` (`BizName`) USING BTREE,
   KEY `idx_ent_businesses_BizURL` (`BizURL`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1490,7 +1496,7 @@ CREATE TABLE `ent_people` (
   KEY `idx_ent_people_Suffix` (`Suffix`) USING BTREE,
   KEY `idx_ent_people_BrnchId` (`BrnchId`) USING BTREE,
   CONSTRAINT `PeopleBranchRef` FOREIGN KEY (`BrnchId`) REFERENCES `biz_branches` (`BrnchId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3687,7 +3693,7 @@ CREATE TABLE `msg_access` (
   `PermissionName` varchar(255) NOT NULL,
   PRIMARY KEY (`macsid`),
   UNIQUE KEY `PermissionName_UNIQUE` (`PermissionName`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3717,7 +3723,7 @@ CREATE TABLE `msg_notes` (
   KEY `idx_msg_notes_keywords` (`keywords`),
   CONSTRAINT `NoteACLref` FOREIGN KEY (`macsid`) REFERENCES `msg_access` (`macsid`) ON UPDATE CASCADE,
   CONSTRAINT `NoteAuthorRef` FOREIGN KEY (`author`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4882,4 +4888,4 @@ USE `tms`;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-04 14:42:17
+-- Dump completed on 2020-03-16 13:06:30
