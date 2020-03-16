@@ -1,13 +1,13 @@
-<ui-container-accordion data-title="'holds'"
-                           data-count="$ctrl.holds.length">
-          <content class="spacing">
-            <div class="header">
-              <div class="heading c2">type</div>
-              <div class="heading c2">item</div>
-              <div class="heading c6">description</div>
-              <div class="heading c1 center">user</div>
-              <div class="heading c1"></div>
-            </div>
-            <item-holds-card ng-repeat="item in $ctrl.holds"></item-holds-card>
-          </content>
-        </ui-container-accordion>
+<ui-container-accordion-open data-title="$ctrl.title"
+                             data-count="$ctrl.holds.length">
+  <row-header class="table-cols-16">
+    <div class="colspan c2">item</div>
+    <div class="colspan c2">expiration date</div>
+    <div class="colspan c3">status</div>
+    <div class="colspan c7 padded">comment</div>
+    <div class="colspan c2 padded">hold</div>
+  </row-header>
+  <body-content class="spacing">
+    <item-holds-card ng-repeat="item in $ctrl.holds"></item-holds-card>
+  </body-content>
+</ui-container-accordion-open>
