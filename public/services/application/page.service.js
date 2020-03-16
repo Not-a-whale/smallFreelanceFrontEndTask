@@ -122,7 +122,7 @@ class PageService {
 
   GetDepartments() {
     let self = this;
-    return this.http.get('pages_new.json').then(function (res) {
+    return this.http.get('pages.json').then(function (res) {
       self.departments = res.data;
       if (self.current_department == undefined) {
         self.current_department = self.departments[0];
