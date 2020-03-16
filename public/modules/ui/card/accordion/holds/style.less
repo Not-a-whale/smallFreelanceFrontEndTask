@@ -1,7 +1,84 @@
 item-holds-card {
-  display: flex;
+  @flex-row();
+  position: relative;
+
   width: 100%;
   min-width: 500px;
-  height: 60px;
+  height: 46px;
+  --table-columns: 16;
+  align-items: center;
+
   .ui-card();
+
+  .box-left {
+    height: 100%;
+    border-left: 1px solid @cp-grey-mid;
+    padding-left: 12px;
+  }
+
+  .box-right {
+    border-right: 1px solid @cp-grey-mid;
+    padding-right: 12px;
+  }
+
+
+  &>.container-comment {
+    @flex-col();
+    justify-content: center;
+    padding-right: 12px;
+
+    &>.comment {
+      font-family: @font-family-primary;
+      font-weight: @font-weight-bold-semi;
+      font-size: @font-small;
+      color: @cp-default;
+      .one-liner();
+    }
+
+    &>.container-user {
+      @flex-row();
+      width: 100%;
+      align-items: center;
+
+      &>.user {
+        max-width: 55%;
+        .one-liner();
+      }
+
+      &>.date {
+        max-width: 45%;
+        .one-liner();
+      }
+    }
+  }
+
+  &>.container-hold {
+    @flex-row();
+    align-items: center;
+
+    &>.hold {
+      font-family: @font-family-primary;
+      font-weight: @font-weight-normal;
+      font-size: @font-small;
+      color: @cp-default;
+      text-transform: capitalize;
+    }
+  }
+
+  &>.extra {
+    @flex-row();
+    align-items: center;
+    position: absolute;
+    right: 12px;
+    top: 0px;
+    height: 100%;
+
+    .handle {
+      svg {
+        fill: @cp-default-light;
+      }
+    }
+
+  }
+
 }
