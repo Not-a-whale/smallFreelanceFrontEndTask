@@ -93,13 +93,14 @@ sub Validate {
 
 sub _inner_loop {
     my $self   = shift;
+    my $valid  = $self->Validate;
     my %rlns   = $self->RelationshipsInfo;
     my $method = (caller(1))[3];
     $method = (caller(2))[3] if $method =~ /_loop_manager$/;
 
-    #foreach my $rel (grep { $rlns{$_}{attrs}{accessor} eq 'single' } keys %rlns) {
     foreach my $rel (grep { $rlns{$_}{attrs}{is_depends_on} } keys %rlns) {
-        next unless exists $$self{$rel} && defined $$self{$rel} && ref($$self{$rel});
+        next unless exists $$valid{$rel};
+
         my $row = $self->$rel->$method;
         if (defined $row && ref($row) =~ /Schema::Result::/) {
             my %rcls = $row->get_columns();
@@ -114,16 +115,18 @@ sub _inner_loop {
 }
 
 sub _outter_loop {
-    my $self = shift;
-    my %rlns = $self->RelationshipsInfo;
+    my $self  = shift;
+    my %rlns  = $self->RelationshipsInfo;
+    my $valid = $self->Validate;
 
     my $method = (caller(1))[3];
     $method = (caller(2))[3] if $method =~ /_loop_manager$/;
 
-    #foreach my $rel (grep { $rlns{$_}{attrs}{accessor} ne 'single' } keys %rlns) {
     foreach my $rel (grep { !$rlns{$_}{attrs}{is_depends_on} } keys %rlns) {
-        next unless exists $$self{$rel} && defined $$self{$rel} && ref($$self{$rel}) eq 'ARRAY';
-        foreach my $inst (@{$$self{$rel}}) {
+        next unless exists $$valid{$rel};
+
+        my @dependencies = ref($$self{$rel}) eq 'ARRAY' ? @{$$self{$rel}} : ($$self{$rel});
+        foreach my $inst (@dependencies) {
             foreach (keys %{$rlns{$rel}{'cond'}}) {
                 (my $lcol = $rlns{$rel}{'cond'}{$_}) =~ s/^self\.//;
                 (my $fcol = $_) =~ s/^foreign\.//;
@@ -143,21 +146,12 @@ sub _loop_manager {
     $self->_inner_loop;
     my $valid = $self->Validate;
     if (defined $valid) {
-
-        # foreach my $rel (grep { $rlns{$_}{attrs}{accessor} ne 'single' } keys %rlns) {
-        foreach my $rel (grep { !$rlns{$_}{attrs}{is_depends_on} } keys %rlns) {
-            delete $$valid{$rel} if exists $$valid{$rel};
-        }
+        delete $rlns{$_} foreach grep { !exists $$valid{$_} } keys %rlns;
+        foreach my $rel (keys %rlns) { delete $$valid{$rel} if exists $$valid{$rel} }
 
         my $row = $self->ResultSet->$dbix($valid);
-        if (defined $row && ref($row) =~ /Schema::Result::/) {
-            my %data = $row->get_columns();
-            foreach (keys %data) {
-                if (defined $data{$_}) {
-                    $self->$_($data{$_});
-                }
-            }
-        }
+        $self->_update_self_with_results($row);
+
         $self->_outter_loop;
         return $row;
     }
@@ -224,12 +218,24 @@ sub _has_uniq {
     return 0;
 }
 
+sub _update_self_with_results {
+    my ($self, $rslt) = @_;
+    if (defined $rslt && ref($rslt) =~ /Schema::Result::/) {
+        my %data = $rslt->get_columns();
+        foreach (keys %data) {
+            if (defined $data{$_}) {
+                $self->$_($data{$_});
+            }
+        }
+    }
+    return $rslt;
+}
+
 sub Like  {&Show}
 sub RLike {&Show}
 sub Rlike {&Show}
 
 sub Show {
-    $DB::single = 2;
     my $self   = shift;
     my $acnt   = scalar @_;         # attributes count
     my $method = (caller(1))[3];    # who called us, maybe nobody, maybe LIKE or RLIKE
@@ -360,19 +366,25 @@ sub Delete {
 }
 
 sub Create {
-    $DB::single = 1;
     my $self = shift;
     my $trxn = $self->Schema->txn_scope_guard;
     my $rslt = $self->_strict_create(@_);
+    $self->_update_self_with_results($rslt);
     $trxn->commit;
     return $rslt;
 }
 
 sub FindOrCreate {
     my $self = shift;
+    my $data = $self->Validate;
     my $trxn = $self->Schema->txn_scope_guard;
+<<<<<<< HEAD
+    my $rslt = $self->ResultSet->find_or_create($data);
+    $self->_update_self_with_results($rslt);
+=======
     my $rslt = $self->_find_or_create;
 
+>>>>>>> 0e307007e1e82954bf704c0f629084f55af29cb0
     $trxn->commit;
     return $rslt;
 }
@@ -382,6 +394,7 @@ sub UpdateOrNew {
     confess "No fields representing unique sequence found" unless $self->_has_uniq(@_);
     my $trxn = $self->Schema->txn_scope_guard;
     my $rslt = $self->_update_or_new;
+    $self->_update_self_with_results($rslt);
     $trxn->commit;
     return $rslt;
 }
@@ -390,6 +403,7 @@ sub UpdateOrCreate {
     my $self = shift;                            # $self->EnsureConnected;
     my $trxn = $self->Schema->txn_scope_guard;
     my $rslt = $self->_update_or_create;
+    $self->_update_self_with_results($rslt);
     $trxn->commit;
     return $rslt;
 }

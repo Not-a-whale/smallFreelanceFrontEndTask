@@ -8,8 +8,6 @@ use Devel::Confess;
 use Data::Dumper;
 use Try::Tiny;
 
-$Data::Dumper::Terse = 1;
-
 use Moose;
 
 has coreapi => (is => 'rw', required => 1, isa => 'Str', init_arg => undef, lazy_build => 1);
@@ -60,6 +58,8 @@ sub Search {
                     }
                     push @and, '-or' => \@or;
                 } else {
+                    local $Data::Dumper::Terse  = 1;
+                    local $Data::Dumper::Indent = 3;
                     confess "Found non-hash elemenent in search" . Dumper($grp);
                 }
             }
@@ -101,6 +101,7 @@ sub Update {
     } catch {
         $$post{ERROR} = "$_";
     };
+
     return $post;
 }
 
@@ -111,18 +112,18 @@ sub Create {
     my $trait    = $core . 'Strict';
     my $prefetch = $self->prefetch;
 
-    #try {
-    my $inst = $core->with_traits($trait)->new($data);
-    my $row  = $inst->FindOrCreate();
-    if ($row) {
-        my $record = undef;
-        $$record{$_} = $inst->$_ foreach $inst->ColumnsList;
-        $$post{DATA} = $inst->Show($record, {prefetch => $self->prefetch});
-    }
+    try {
+        my $inst = $core->with_traits($trait)->new($data);
+        my $row  = $inst->UpdateOrCreate();
+        if ($row) {
+            my $record = undef;
+            $$record{$_} = $inst->$_ foreach $inst->ColumnsList;
+            $$post{DATA} = $inst->Show($record, {prefetch => $self->prefetch});
+        }
+    } catch {
+        $$post{ERROR} = "$_";
+    };
 
-    #    } catch {
-    #        $$post{ERROR} = "$_";
-    #    };
     return $post;
 }
 
