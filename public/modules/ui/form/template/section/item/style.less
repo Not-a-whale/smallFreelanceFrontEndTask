@@ -1,0 +1,52 @@
+ui-form-section-item {
+  @flex-row();
+  background-color: pink;
+  --font-color: @cp-default-light;
+  --icon-color: @cp-default-light;
+  --bg-color: transparent;
+  padding-left: 8px;
+  padding-right: 8px;
+  background-color: var(--bg-color);
+  align-items: center;
+  max-height: 36px;
+  height: 36px;
+
+  .no-select();
+  cursor: pointer;
+
+  .title {
+    color: var(--font-color);
+    font-family: @font-family-primary;
+    font-weight: @font-weight-bold-semi;
+    font-size: @font-norm;
+    text-transform: capitalize;
+  }
+
+
+  .status {
+    margin-right: 12px;
+  }
+
+  .toggle {
+    margin-right: 0px;
+    margin-left: auto;
+  }
+
+  &:hover,
+  &.active {
+    --bg-color: @cp-grey-pale;
+    --font-color: @cp-asphalt-mid;
+  }
+
+  .clicky {
+    cursor: pointer;
+
+    &:hover {
+      --icon-color: @cp-asphalt-mid;
+    }
+  }
+
+  svg {
+    fill: var(--icon-color);
+  }
+}

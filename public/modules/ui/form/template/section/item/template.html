@@ -1,0 +1,29 @@
+<div class="status"
+     ng-if="$ctrl.Enabled()">
+  <div class="icont icont-mini">
+    <svg class="icon">
+      <use xlink:href="imgs/icons.svg#circle-solid"></use>
+    </svg>
+  </div>
+</div>
+<div class="title">
+  {{$ctrl.Title()}}
+</div>
+<div class="clicky toggle"
+     ng-if="$ctrl.Optional()"
+     ng-click="$ctrl.Toggle()"
+     ng-if="$ctrl.Optional()">
+
+  <div class="icont icont-mini"
+       ng-show="$ctrl.Enabled()">
+    <svg class="icon icon-mini">
+      <use xlink:href="imgs/icons.svg#x"></use>
+    </svg>
+  </div>
+  <div class="icont icont-mini"
+       ng-hide="$ctrl.Enabled()">
+    <svg class="icon icon-mini">
+      <use xlink:href="imgs/icons.svg#plus"></use>
+    </svg>
+  </div>
+</div>
