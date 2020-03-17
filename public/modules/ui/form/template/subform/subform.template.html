@@ -1,0 +1,66 @@
+<form-container></form-container>
+<controls-container>
+  <div class="button"
+       ng-hide="$ctrl.currentitem.isActive()"
+       ng-click="$ctrl.AddNewItem()">
+    <div class="text">add</div>
+    <div class="icont icont-minute"><svg class="icon">
+        <use xlink:href="imgs/icons.svg#circle-arrow-left"></use>
+      </svg></div>
+  </div>
+  <div class="button"
+       ng-show="$ctrl.currentitem.isActive()"
+       ng-click="$ctrl.UpdateCurrentItem()">
+    <div class="text">update</div>
+    <div class="icont icont-minute"><svg class="icon">
+        <use xlink:href="imgs/icons.svg#circle-arrow-left"></use>
+      </svg></div>
+  </div>
+  <div class="button"
+       ng-show="$ctrl.currentitem.isActive()"
+       ng-click="$ctrl.DeleteCurrentItem()">
+    <div class="text">delete</div>
+    <div class="icont icont-minute"><svg class="icon grey">
+        <use xlink:href="imgs/icons.svg#circle-plus"></use>
+      </svg></div>
+  </div>
+</controls-container>
+<list-container></list-container>
+
+
+<!-- <div ng-transclude="subformForm"></div>
+<div class="controls">
+  <div class="button"
+       ng-hide="$ctrl.CanUpdate()"
+       ng-click="$ctrl.Add()">
+    <div class="text">add</div>
+    <div class="icont icont-minute"><svg class="icon">
+        <use xlink:href="imgs/icons.svg#circle-arrow-left"></use>
+      </svg></div>
+  </div>
+  <div class="button"
+       ng-show="$ctrl.CanUpdate()"
+       ng-click="$ctrl.Update()">
+    <div class="text">update</div>
+    <div class="icont icont-minute"><svg class="icon">
+        <use xlink:href="imgs/icons.svg#circle-arrow-left"></use>
+      </svg></div>
+  </div>
+  <div class="button"
+       ng-click="$ctrl.Delete()">
+    <div class="text">delete</div>
+    <div class="icont icont-minute"><svg class="icon grey">
+        <use xlink:href="imgs/icons.svg#circle-plus"></use>
+      </svg></div>
+  </div>
+</div>
+<div class="card-container">
+  <div class="header"
+       ng-transclude="subformHeader"></div>
+  <div class="cards"
+       ng-transclude="subformCards"
+       ng-click="$ctrl.Edit()">
+
+  </div>
+
+</div> -->
