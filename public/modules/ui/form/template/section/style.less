@@ -1,0 +1,71 @@
+ui-form-section {
+  @flex-col();
+  padding: 16px 24px 24px 24px;
+  width: 100%;
+  background-color: @cp-highlight;
+  border-radius: 4px;
+  border: 1px solid @cp-grey-mid;
+  --icon-color: @cp-usko-red;
+
+  &>.header {
+    @flex-row();
+    width: 100%;
+    margin-bottom: 12px;
+    align-items: center;
+
+    &>.title {
+      font-family: @font-family-primary;
+      font-weight: @font-weight-bold;
+      font-size: @font-giant;
+      color: @cp-asphalt;
+      text-transform: capitalize;
+    }
+
+    &>.remove {
+      @flex-row();
+      margin-right: 0px;
+      margin-left: auto;
+      cursor: pointer;
+
+      &:hover {
+        --icon-color: @cp-usko-red-mid;
+      }
+
+      &>.text {
+        font-family: @font-family-primary;
+        font-weight: @font-weight-bold;
+        font-size: @font-tiny;
+        color: @cp-asphalt-light;
+        text-transform: uppercase;
+        margin-right: 6px;
+      }
+
+      & .icon {
+        fill: var(--icon-color);
+      }
+    }
+  }
+
+  form-section-content {
+    display: flex;
+
+    .form-col {
+      @flex-col();
+    }
+
+    .form-row {
+      @flex-row();
+    }
+
+    .form-section {
+
+      &:not(:last-child) {
+        margin-bottom: 16px;
+      }
+
+      &:not(:first-child) {
+        margin-top: 16px;
+      }
+    }
+  }
+}

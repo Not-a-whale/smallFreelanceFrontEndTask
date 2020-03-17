@@ -1,0 +1,16 @@
+<div id="{{$ctrl.section.title}}"
+     class="header">
+  <div class="title">{{$ctrl.section.title}}</div>
+  <div class="remove"
+       ng-if="$ctrl.section.optional"
+       ng-click="$ctrl.Toggle()">
+    <div class="text">remove section</div>
+    <div class="icont icont-tiny">
+      <svg class="icon">
+        <use xlink:href="imgs/icons.svg#x"></use>
+      </svg>
+    </div>
+  </div>
+</div>
+<div class="body"
+     ng-transclude="formSectionContent"></div>
