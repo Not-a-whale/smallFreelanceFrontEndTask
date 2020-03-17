@@ -1,0 +1,34 @@
+ui-subform-list {
+  @flex-col();
+
+  background-color: @cp-grey-pale;
+  border: 1px solid @cp-grey-mid;
+
+  header {
+    @flex-row();
+    align-items: center;
+    border-bottom: 1px solid @cp-grey-mid;
+    padding-left: 8px;
+    padding-right: 8px;
+    width: 100%;
+    height: 30px;
+
+    .colspan {
+      font-family: @font-family-primary;
+      font-weight: @font-weight-bold;
+      font-size: @font-small;
+      color: @cp-default;
+      text-transform: capitalize;
+    }
+  }
+
+  cards {
+    @flex-col();
+
+    &>* {
+      &:not(:last-child) {
+        margin-bottom: 2px;
+      }
+    }
+  }
+}

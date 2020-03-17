@@ -1,0 +1,6 @@
+<header class="table-cols-16"
+        ng-if="$ctrl.hasHeader()">
+  <div class="colspan {{h.size}}"
+       ng-repeat="h in $ctrl.header">{{h.name}}</div>
+</header>
+<cards></cards>
