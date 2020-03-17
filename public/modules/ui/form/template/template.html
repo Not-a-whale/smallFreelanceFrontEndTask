@@ -1,0 +1,25 @@
+<div class="sections"
+     du-scroll-container="formPage">
+  <ui-form-section-container to-scroll="$ctrl.ScrollToSection(section)"></ui-form-section-container>
+</div>
+<div class="mainform"
+     ng-transclude="bodyContent"
+     du-scroll-container
+     id="formPage"
+     class="scrollable">
+</div>
+<div class="optional">
+  <a class="btn btn-primary btn-small"
+     ng-click="$ctrl.Submit()">submit</a>
+  <div style="width: 280px; word-wrap: break-word;">
+    {{$ctrl.formsrv.CurrentFormData()}}
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <div style="width: 280px; word-wrap: break-word;">
+    {{$ctrl.formsrv.CurrentSections()}}
+  </div>
+</div>
