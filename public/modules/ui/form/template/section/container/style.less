@@ -1,0 +1,33 @@
+ui-form-section-container {
+  @flex-col();
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid @cp-grey-mid;
+  background-color: @cp-highlight;
+  padding: 2px;
+
+  ui-form-section-item {
+    &:not(:last-child) {
+      margin-bottom: 2px;
+    }
+  }
+
+  &>.info {
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-top: 24px;
+    margin-bottom: 12px;
+
+    &>.text,
+    &>.title {
+      font-family: @font-family-primary;
+      font-size: @font-small;
+      color: @cp-default;
+    }
+
+    &>.title {
+      font-weight: @font-weight-bold;
+      text-transform: capitalize;
+    }
+  }
+}
