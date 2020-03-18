@@ -139,7 +139,7 @@ class UITablePaginationCtrl {
 }
 
 app.component('uiTablePagination', {
-  templateUrl: 'modules/generic/table/transclude/pagination/template.html',
+  templateUrl: 'modules/ui/table/pagination/template.html',
   controller: UITablePaginationCtrl,
   bindings: {
     onPageChange: '&?',

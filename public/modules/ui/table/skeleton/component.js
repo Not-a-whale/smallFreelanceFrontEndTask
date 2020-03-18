@@ -226,7 +226,7 @@ app.controller("UIFlowoutTableCtrl", ['$scope', '$element', '$timeout', 'ErrorSe
 app.directive('uiTableFlowout', function () {
   return {
     restrict: 'E',
-    templateUrl: 'modules/generic/table/transclude/skeleton/template.html',
+    templateUrl: 'modules/ui/table/skeleton/template.html',
     scope: true,
     controller: 'UIFlowoutTableCtrl',
     controllerAs: '$ctrl',
@@ -249,7 +249,7 @@ app.directive('uiTableFlowout', function () {
 app.directive('uiTableDefault', function () {
   return {
     restrict: 'E',
-    templateUrl: 'modules/generic/table/transclude/skeleton/template.html',
+    templateUrl: 'modules/ui/table/skeleton/template.html',
     scope: true,
     controller: 'UIFlowoutTableCtrl',
     controllerAs: '$ctrl',

@@ -57,7 +57,7 @@ app.controller('UITableHeaderCtrl', ['$scope', '$timeout', UITableHeaderCtrl] );
 app.directive('uiTableHeader', function() {
   return {
     restrict: 'E',
-    templateUrl: 'modules/generic/table/transclude/search/search.template.html',
+    templateUrl: 'modules/ui/table/search/search.template.html',
     scope: true,
     controller: 'UITableHeaderCtrl',
     controllerAs: '$ctrl',

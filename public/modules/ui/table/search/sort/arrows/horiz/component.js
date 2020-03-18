@@ -1,5 +1,5 @@
 app.component('uiTableSortArrowHoriz', {
-  templateUrl: 'modules/generic/table/transclude/search/sort/arrows/horiz/template.html',
+  templateUrl: 'modules/ui/table/search/sort/arrows/horiz/template.html',
   controller: 'UITableSortArrowCtrl',
   bindings: {
     updateField: '&?',

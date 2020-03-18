@@ -1,5 +1,5 @@
 app.component('uiTableColheader', {
-  templateUrl: 'modules/generic/table/transclude/colheader/template.html',
+  templateUrl: 'modules/ui/table/colheader/template.html',
   bindings: {
     index: '<?',
     data: '<?',

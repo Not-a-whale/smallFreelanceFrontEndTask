@@ -1,5 +1,5 @@
 app.component('uiTableSortArrowVert', {
-  templateUrl: 'modules/generic/table/transclude/search/sort/arrows/vert/template.html',
+  templateUrl: 'modules/ui/table/search/sort/arrows/vert/template.html',
   controller: 'UITableSortArrowCtrl',
   bindings: {
     updateField: '&?',

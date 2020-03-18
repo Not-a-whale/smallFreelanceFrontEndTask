@@ -21,7 +21,7 @@ class UITableRowCtrl {
 app.directive('uiTableRow', function(){
   return {
     restrict: 'E',
-    templateUrl: 'modules/generic/table/transclude/row/template.html',
+    templateUrl: 'modules/ui/table/row/template.html',
     scope: true,
     controller: UITableRowCtrl,
     controllerAs: '$ctrl',

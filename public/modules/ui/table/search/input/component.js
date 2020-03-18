@@ -28,7 +28,7 @@ var ui_table_search_input_bindings = CloneObj(ui_input_clear_bindings);
 ui_table_search_input_bindings['index'] = '<';
 
 app.component('uiTableSearchInput', {
-  templateUrl: 'modules/generic/table/transclude/search/input/template.html',
+  templateUrl: 'modules/ui/table/search/input/template.html',
   controller: 'UITableSearchInputCtrl',
   bindings: ui_table_search_input_bindings
 });

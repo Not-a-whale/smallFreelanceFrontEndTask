@@ -23,6 +23,6 @@ class UITableSearchChipbarCtrl {
 }
 
 app.component('uiTableSearchChipbar', {
-  templateUrl: 'modules/generic/table/transclude/search/chipbar/template.html',
+  templateUrl: 'modules/ui/table/search/chipbar/template.html',
   controller: ['$scope', 'TableSortChips', UITableSearchChipbarCtrl]
 });
