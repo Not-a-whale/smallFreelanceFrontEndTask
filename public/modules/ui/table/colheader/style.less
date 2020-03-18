@@ -1,0 +1,23 @@
+ui-table-colheader {
+  @flex-row();
+  align-items: center;
+
+  .colname {
+    margin-right: 6px;
+    cursor: pointer;
+    font-family: @font-family-primary;
+    font-size: @font-small;
+    font-weight: @font-weight-medium;
+    .one-liner();
+
+  }
+
+  ui-table-sort-arrow-vert {
+    width: 12px;
+    height: 20px;
+    --fill-def: @cp-default-light;
+    --fill-hover: @cp-highlight;
+    --fill-active: @cp-highlight;
+    --arrow-size: 10px;
+  }
+}

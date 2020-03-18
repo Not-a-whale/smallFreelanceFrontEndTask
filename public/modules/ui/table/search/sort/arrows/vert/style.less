@@ -1,0 +1,26 @@
+ui-table-sort-arrow-vert {
+  @flex-col();
+
+  svg {
+    max-height: var(--arrow-size);
+    max-width: var(--arrow-size);
+    fill: var(--fill-def);
+
+    &.sort-arrow {
+      cursor: pointer;
+
+      &.bottom {
+        transform: scaleY(-1);
+      }
+
+      &.active {
+        fill: var(--fill-active);
+      }
+
+      &:hover {
+        fill: var(--fill-hover);
+      }
+    }
+
+  }
+}
