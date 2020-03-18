@@ -208,19 +208,13 @@ class UIFlowoutTableCtrl {
       self.SearchPrep(data);
     });
 
-    this.scope.$on('SearchClear', function(event, data) {
+    this.scope.$on('SearchClear', function (event, data) {
       self.scope.$broadcast('InputClear');
     });
 
     this.scope.$emit('TableSearchInit');
   }
 }
-
-var meta_table_bindings = CloneObj(meta_bindings);
-meta_table_bindings.searchView = '@?'; // name of the view that the search bar goes into
-meta_table_bindings.selectView = '@?'; // name of the view that the extra options for selected
-meta_table_bindings.contentView = '@?'; // name of view that the row template goes into, this can include options
-meta_table_bindings.onSearch = '&'; // when the user searches, this function is called table just passes it the search data object
 
 app.controller("UIFlowoutTableCtrl", ['$scope', '$element', '$timeout', 'ErrorService', UIFlowoutTableCtrl]);
 app.directive('uiTableFlowout', function () {
