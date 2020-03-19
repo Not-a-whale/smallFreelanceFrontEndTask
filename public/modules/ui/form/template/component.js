@@ -26,6 +26,10 @@ class UIFormTemplateCtrl {
     });
   }
 
+  Clear() {
+    this.formdata = this.formsrv.ClearCurrentFormData();
+  }
+
   ScrollToSection(section) {
     this.ScrollTo(section);
   }
