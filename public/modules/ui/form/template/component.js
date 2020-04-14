@@ -27,6 +27,7 @@ class UIFormTemplateCtrl {
   }
 
   Clear() {
+    this.scope.$broadcast('form-clear');
     this.formdata = this.formsrv.ClearCurrentFormData();
   }
 
@@ -58,6 +59,7 @@ class UIFormTemplateCtrl {
       cstr += ' section="$ctrl.sections[' + index + ']"';
 
       cstr += '></' + comp + '>';
+      //cstr += '<div>data: {{ ' + entrypoint + '}}</div>'; // shows current data in the sectional form
       let newscope = this.scope.$new();
       let newelement = this.compile(cstr)(newscope);
 
@@ -81,7 +83,7 @@ class UIFormTemplateCtrl {
   }
 }
 
-app.directive('uiForm', function () {
+app.directive('uiFormTemp', function () {
   return {
     restrict: 'E',
     templateUrl: 'modules/ui/form/template/template.html',

@@ -1,24 +1,29 @@
 <div class="left-panel">
-  <ul>
-    <li ng-repeat="route in $ctrl.forms"
-        ng-click="$ctrl.FetchFile(route)"> {{ route}}</li>
-  </ul>
+   <ul>
+      <li ng-repeat="route in $ctrl.forms"
+          ng-click="$ctrl.FetchFile(route)"> {{ route}}</li>
+   </ul>
 </div>
 <div id="form"
      class="right-panel">
-  {{$ctrl.template}}
-  <div class="row">
-    <a class="btn btn-primary"
-       ng-click="$ctrl.Submit()">submit</a>
-    <a class="btn btn-success"
-       ng-click="$ctrl.Create()">create</a>
-    <a class="btn btn-info"
-       ng-click="$ctrl.Update()">update</a>
-    <a class="btn btn-danger"
-       ng-click="$ctrl.Delete()">delete</a>
-  </div>
+   <div class="row">
+      <a class="btn btn-primary"
+         ng-click="$ctrl.CopyToClipboard()">copy to clipboard</a>
+      <a class="btn btn-primary"
+         ng-click="$ctrl.Submit()">submit</a>
+      <a class="btn btn-success"
+         ng-click="$ctrl.Create()">create</a>
+      <a class="btn btn-info"
+         ng-click="$ctrl.Update()">update</a>
+      <a class="btn btn-danger"
+         ng-click="$ctrl.Delete()">delete</a>
+   </div>
 
 </div>
 <div class="data">
-  {{$ctrl.formData}}
+   {{$ctrl.formData}}
 </div>
+
+<textarea ng-model="$ctrl.template"
+          id="copyboard"
+          style="position:absolute; left: -100000px"></textarea>

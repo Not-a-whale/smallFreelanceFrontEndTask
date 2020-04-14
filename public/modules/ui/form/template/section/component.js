@@ -1,4 +1,4 @@
-class UIFormSectionCtrl {
+class UIFormSectionCtrl2 {
   constructor() {
 
   }
@@ -16,12 +16,12 @@ class UIFormSectionCtrl {
   }
 }
 
-app.directive('uiFormSection', function () {
+app.directive('uiFormSection2', function () {
   return {
     restrict: 'E',
     templateUrl: 'modules/ui/form/template/section/template.html',
     scope: true,
-    controller: UIFormSectionCtrl,
+    controller: UIFormSectionCtrl2,
     controllerAs: '$ctrl',
     bindToController: {
       section: '<?'

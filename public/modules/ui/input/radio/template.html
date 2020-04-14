@@ -1,0 +1,14 @@
+<label for="{{$ctrl.id}}"
+       ng-required="{{$ctrl.required}}"
+       ng-if="$ctrl.label != undefined">{{ $ctrl.label}}
+
+</label>
+<input id="{{$ctrl.id}}"
+       type="radio"
+       ng-model="$ctrl.value"
+       ng-required="{{$ctrl.required}}"
+       ng-disabled="{{$ctrl.disabled}}"
+       ng-class="{invalid: !$ctrl.valid}"
+       ng-value="$ctrl.trueValue" />
+
+<errors ng-show="!$ctrl.valid">{{ $ctrl.errmsg || 'This field is required'}}</errors>

@@ -1,0 +1,178 @@
+ui-popup-template {
+  position: fixed;
+  z-index: 9999;
+
+  @flex-col();
+  min-width: 500px;
+  min-height: 348px;
+  border-radius: 4px;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  outline: @cp-grey-mid;
+  --background-color: @cp-grey-pale;
+  @border-style: 1px solid @cp-grey-mid;
+  @banner-height: 40px;
+
+  &>.banner-container {
+    height: @banner-height;
+    padding: 12px 12px 8px 12px;
+    align-items: center;
+    pointer-events: none;
+    @flex-row();
+    background: @cp-asphalt-mid;
+    border-radius: 4px 4px 0px 0px;
+
+    .icont {
+      margin-right: 6px;
+
+      svg {
+        fill: @cp-highlight;
+      }
+    }
+
+
+    &>.title {
+      font-family: @font-family-primary;
+      font-weight: @font-weight-bold;
+      font-size: @font-normal;
+      color: @cp-highlight;
+      text-transform: capitalize;
+    }
+  }
+
+  &>.close-button {
+    position: absolute;
+    display: flex;
+    z-index: 1;
+    top: 12px;
+    right: 12px;
+    --icon-color: @cp-highlight;
+
+    &:hover {
+      --icon-color: @cp-grey-pale;
+    }
+
+    svg {
+      fill: var(--icon-color);
+    }
+  }
+
+  &>.drag-handle {
+    position: absolute;
+    display: flex;
+    z-index: -1;
+    top: 0px;
+    left: 0px;
+    height: 40px;
+    width: 100%;
+  }
+
+  .header-container {
+    @flex-col();
+    background-color: var(--background-color);
+    border-left: @border-style;
+    border-right: @border-style;
+
+    header-content {
+      @flex-row();
+      padding: 8px;
+
+      ui-popup-header {
+        @flex-row();
+        align-items: center;
+        width: 100%;
+
+        .title {
+          font-family: @font-family-primary;
+          font-weight: @font-weight-bold;
+          font-size: @font-normal;
+          text-transform: capitalize;
+          color: @cp-asphalt;
+        }
+
+        .userinfo {
+          margin-left: auto;
+          margin-right: 0px;
+          font-family: @font-family-primary;
+          font-weight: @font-weight-normal;
+          font-size: @font-tiny;
+          text-transform: capitalize;
+          color: @cp-asphalt;
+        }
+      }
+    }
+  }
+
+  .body-container {
+    @flex-col();
+    flex-grow: 1;
+    background-color: var(--background-color);
+    border-left: @border-style;
+    border-right: @border-style;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .footer-container {
+    @flex-col();
+    min-height: 8px;
+    border-radius: 0px 0px 4px 4px;
+
+    border-left: @border-style;
+    border-right: @border-style;
+    border-bottom: @border-style;
+
+    background-color: var(--background-color);
+    padding: 6px 8px 6px 8px;
+
+    ui-popup-footer {
+      @flex-row();
+      justify-content: flex-end;
+
+      button {
+        &:not(:last-child) {
+          margin-right: 24px;
+        }
+      }
+    }
+  }
+
+  form-col {
+    @flex-col();
+
+    &:not(:last-child) {
+      margin-right: 48px;
+    }
+  }
+
+  form-row {
+    @flex-row();
+    flex-grow: 1;
+
+    &:not(:last-child) {
+      margin-bottom: 2px;
+    }
+
+    &>*:not(:last-child) {
+      padding-right: 8px;
+    }
+  }
+
+  .make-form-columns(@maxcolumns, @i: @maxcolumns) when (@i > 0) {
+    .make-form-columns(@maxcolumns, @i - 1);
+
+    .fc@{i} {
+      display: flex;
+      box-sizing: border-box;
+      width: 100% / @maxcolumns * @i;
+    }
+  }
+
+  .make-form-columns(6);
+
+  .error-list {
+    position: absolute;
+    z-index: 10;
+    top: @banner-height;
+    width: 100%;
+  }
+}

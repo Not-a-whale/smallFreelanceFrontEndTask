@@ -184,6 +184,46 @@ var configstates = {
     }
   },
 
+  'tmsapp.main2.form.generic': {
+    url: '/:formName/:subformName?id',
+    views: {
+      'page-content@^': {
+        component: 'uiForm'
+      }
+    },
+    resolve: {
+      current_page: function (PageService, $stateParams) {
+        PageService.SetPage($stateParams.formName);
+      },
+      current_form: function (FormService, $stateParams) {
+        return FormService.SetForm($stateParams.formName);
+      },
+      current_subform: function (FormService, $stateParams, current_form) {
+        // current_form is used as dependency, do not remove
+        return FormService.SetSubform($stateParams.subformName);
+      },
+      formdata: function (PageService, FormService, $stateParams, current_form) {
+        // current_form is used a dependency, do not remove
+
+        return FormService.GetFormData($stateParams.id).then(function (data) {
+          let pagetitle = FormService.GetTempTitle();
+          PageService.SetCurrentPageTitle(pagetitle);
+          return data;
+        });
+      },
+      sections: function (FormService, current_subform) {
+        // current_subform is used as dependency, do not remove
+        FormService.CurrentSections();
+      },
+    },
+    params: {
+      formName: null,
+      subformName: null,
+      tempTitle: null,
+    }
+  },
+
+
   "tmsapp.main2.form.test": {
     url: "/test",
     views: {
@@ -234,11 +274,20 @@ var configstates = {
       sections: function (FormService) {
         FormService.CurrentSections();
       },
-      formdata: function (FormService, $stateParams) {
+      formdata: function (FormService, APIService, $stateParams) {
         if ($stateParams.id == undefined) {
           return FormService.CurrentFormData();
         } else {
-
+          let query = {
+            search: [{
+              'AstId': $stateParams.id
+            }]
+          };
+          return APIService.Single('/api/associate/search', query).then(
+            function (res) {
+              FormService.SetCurrentFormData(res);
+              return FormService.CurrentFormData();
+            });
         }
       }
     }
@@ -304,7 +353,7 @@ var configstates = {
               'me.brnchId': $stateParams.id
             }]
           };
-          return APIService.Single('post', '/api/business/branch/search', query).then(
+          return APIService.Single('/api/business/branch/search', query).then(
             function (res) {
               FormService.SetCurrentFormData(res);
               return FormService.CurrentFormData();
@@ -330,9 +379,6 @@ var configstates = {
     resolve: {
       current_page: function (PageService) {
         return PageService.SetPage('new carrier');
-      },
-      current_form: function (FormService) {
-        return FormService.SetForm('example mega form');
       }
     },
     redirectTo: "tmsapp.main2.form.carrier.carrierinfo"
@@ -346,14 +392,26 @@ var configstates = {
       }
     },
     resolve: {
+
+    }
+  },
+
+  "tmsapp.main2.form.carrier.branches": {
+    url: "/branches",
+    views: {
+      "page-content@^": {
+        component: 'uiBusinessBranchesForm'
+      }
+    },
+    resolve: {
       current_subform: function (FormService) {
         FormService.SetSubform('example tab title 1');
       }
     }
   },
 
-  "tmsapp.main2.form.carrier.vehicles": {
-    url: "/info",
+  "tmsapp.main2.form.carrier.equipment": {
+    url: "/equipment",
     views: {
       "page-content@^": {
         template: "this is the vehicles page"
@@ -605,7 +663,7 @@ var configstates = {
     url: "/driver",
     views: {
       "page-content@^.^": {
-        template: "this is the personnel drivers page"
+        component: 'pageSafetyPersonnelDriver'
       }
     },
   },
@@ -665,7 +723,7 @@ var configstates = {
     url: "/all",
     views: {
       "page-content@^.^": {
-        template: "this is the equipment all page"
+        template: '<ui-popup formtype="branch"></ui-popup>'
       }
     },
   },

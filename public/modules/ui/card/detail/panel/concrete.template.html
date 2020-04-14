@@ -1,0 +1,9 @@
+<ui-panel-detail data-title="$ctrl.title">
+  <body-content>
+    <div class="row"
+         ng-repeat="field in $ctrl.fields">
+      <div class="title">{{field.name}}</div>
+      <div class="field">{{field.path}}</div>
+    </div>
+  </body-content>
+</ui-panel-detail>

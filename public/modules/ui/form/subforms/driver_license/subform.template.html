@@ -1,0 +1,33 @@
+<div class="form-col">
+  <div class="form-row">
+    <ui-file data="$ctrl.data.photo"
+             document-title="driver license"
+             maxfiles="1"></ui-file>
+  </div>
+  <div class="form-row">
+    <simple-input class="f4"
+                  required="1"
+                  value="$ctrl.data.DrLicNumber"
+                  label="DL number"></simple-input>
+    <simple-input value="$ctrl.data.DrLcSate"
+                  label="state"></simple-input>
+  </div>
+  <div class="form-row">
+    <ui-date class="f3"
+             data="$ctrl.data.DrLcDateValid"
+             label="date valid"></ui-date>
+    <ui-date class="f3"
+             data="$ctrl.data.DrLcDateExpired"
+             label="expiration"></ui-date>
+  </div>
+  <simple-input value="$ctrl.data.dr_lc_endorsement.Endorsement"
+                label="Endorsement"></simple-input>
+  <div class="form-row">
+    <ui-date class="f3"
+             data="$ctrl.data.dr_lc_endorsement.ValidFromDate"
+             label="date valid"></ui-date>
+    <ui-date class="f3"
+             data="$ctrl.data.dr_lc_endorsement.ExpiredDate"
+             label="expiration"></ui-date>
+  </div>
+</div>

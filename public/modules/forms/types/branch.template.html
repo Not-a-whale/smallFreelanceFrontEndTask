@@ -1,0 +1,31 @@
+<form id="{{$ctrl.formid}}"
+      ng-submit="$ctrl.onSubmit()">
+  <form-row>
+    <simple-input class="fc2"
+                  value="$ctrl.data.OfficeName"
+                  label="branch name"
+                  required="1"></simple-input>
+    <ui-input-wrapper class="fc1">
+      <ui-checkbox value="$ctrl.data.biz.entity[0].IsActive"
+                   label="active"></ui-checkbox>
+    </ui-input-wrapper>
+  </form-row>
+  <ui-form-partial-address data="$ctrl.data.brnch_address"></ui-form-partial-address>
+  <ui-form-partial-phone data="$ctrl.data.brnch_phone"
+                         type="branch"
+                         ext="1"
+                         required="1"></ui-form-partial-phone>
+  <ui-form-partial-fax data="$ctrl.data.brnch_fax"
+                       type="branch"
+                       ext="1"></ui-form-partial-fax>
+  <form-row>
+    <simple-input label="branch email"
+                  class="fc3"
+                  value="$ctrl.data.BrnchEMail"></simple-input>
+    <simple-input label="business website/URL"
+                  class="fc3"
+                  value="$ctrl.data.biz.BizURL"></simple-input>
+  </form-row>
+  <button type="submit"
+          hidden></button>
+</form>

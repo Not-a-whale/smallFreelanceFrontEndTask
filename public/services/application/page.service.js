@@ -1,8 +1,9 @@
 class PageService {
-  constructor(http, state, trans) {
+  constructor(http, state, trans, q) {
     this.http = http;
     this.state = state;
     this.trans = trans;
+    this.q = q;
     this.departments = undefined;
     this.current_department = undefined;
     this.current_page = undefined;
@@ -52,6 +53,12 @@ class PageService {
     }
   }
 
+  FormToPage(formName) {
+    let deferred = this.q.defer();
+
+  }
+
+
   SetPage(pagename) {
     this._SetNavPage(this.current_department.pages, pagename, 'current_page', this.GetDepartment);
   }
@@ -80,7 +87,6 @@ class PageService {
     } else {
       myfun();
     }
-
   }
 
   CurrentDepartmentPages() {
@@ -116,6 +122,23 @@ class PageService {
     return this.current_page;
   }
 
+  CurrentPageTitle() {
+    if (this.current_page.temp_title != undefined) {
+      return this.current_page.temp_title;
+    }
+    return this.current_page.title;
+  }
+
+  SetCurrentPageTitle(title) {
+    if (this.current_page != undefined) {
+      if (title != undefined && title != '') {
+        this.current_page.temp_title = title;
+      }
+
+    }
+  }
+
+
   Departments() {
     return this.departments;
   }
@@ -132,4 +155,4 @@ class PageService {
   }
 }
 
-app.service('PageService', ['$http', '$state', '$transitions', PageService]);
+app.service('PageService', ['$http', '$state', '$transitions', '$q', PageService]);

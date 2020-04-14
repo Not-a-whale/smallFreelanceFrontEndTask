@@ -1,0 +1,11 @@
+<div class="icont icont-micro">
+  <svg class="icon">
+    <use xlink:href="imgs/icons.svg#email"></use>
+  </svg>
+</div>
+<div class="email-container">
+  <div class="text link"
+       ng-show="$ctrl.email != undefined">{{ $ctrl.email }}</div>
+  <div class="text"
+       ng-hide="$ctrl.email != undefined">no email listed</div>
+</div>

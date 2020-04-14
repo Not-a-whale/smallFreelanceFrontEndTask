@@ -1,0 +1,11 @@
+<ui-datalist data="$ctrl.data"
+             options="$ctrl.options"
+             label="{{$ctrl.label}}"
+             required="{{$ctrl.required}}"
+             url="/api/business/branch/list/search"
+             dataid="BrnchId"
+             displayfields="['biz.BizName', 'OfficeName']"
+             displaytemplate="<<biz.BizName>>, <<OfficeName>>"
+             route="tmsapp.main2.form.generic({formName: 'new general business', subformName: 'new general business', id: null})"
+             data-form="{{$ctrl.form}}">
+</ui-datalist>

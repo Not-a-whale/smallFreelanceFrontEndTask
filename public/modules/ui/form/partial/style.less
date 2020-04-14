@@ -1,0 +1,12 @@
+.ui-form-partial-defaults() {
+
+  @inner-row-padding: 8px;
+
+  ui-input-wrapper {
+    &>* {
+      &:not(:last-child) {
+        padding-right: @inner-row-padding;
+      }
+    }
+  }
+}

@@ -1,0 +1,80 @@
+ui-button-more-options {
+  position: relative;
+  @flex-row();
+  align-items: center;
+  justify-content: center;
+  --background-color: transparent;
+  --border-style: none;
+  --icon-color: @cp-asphalt-light;
+
+  height: 30px;
+  width: 30px;
+
+  &>.button {
+    @flex-row();
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+
+
+    border: var(--border-style);
+    background-color: var(--background-color);
+    .clickable();
+
+    &:hover,
+    &.active {
+      --border-style: 1px solid @cp-grey-mid;
+      --background-color: @cp-card;
+
+    }
+
+    &.active {
+      --icon-color: @cp-asphalt;
+    }
+
+    svg {
+      fill: var(--icon-color);
+    }
+  }
+
+  ui-more-options-menu {
+    @flex-col();
+    position: absolute;
+    min-width: 158px;
+    background-color: @cp-grey-pale;
+    border: 1px solid @cp-grey;
+    border-radius: 2px;
+    box-shadow: 0px 2px 3px #00000029;
+    right: 40px;
+    top: 0px;
+    z-index: 9999;
+    padding: 6px 12px 6px 12px;
+
+    menu-items {
+      @flex-col();
+      flex-grow: 1;
+    }
+
+    ui-more-options-menu-item {
+
+      .clickable();
+
+      &:not(:last-child) {
+        margin-bottom: 6px;
+      }
+    }
+
+    & * {
+      font-family: @font-family-primary;
+      font-weight: @font-weight-bold-semi;
+      font-size: @font-norm;
+      color: @cp-default;
+      text-transform: capitalize;
+
+      &:hover {
+        color: @cp-asphalt-light;
+      }
+    }
+  }
+}

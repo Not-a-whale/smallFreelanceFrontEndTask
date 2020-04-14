@@ -1,0 +1,11 @@
+<div class="header">
+  <div class="title">{{$ctrl.title}}</div>
+  <div class="icont icont-micro" ng-click="$ctrl.Edit()">
+    <svg class="icon">
+      <use xlink:href="imgs/icons.svg#pencil"></use>
+    </svg>
+  </div>
+</div>
+<div class="body"
+     ng-transclude="bodyContent">
+</div>

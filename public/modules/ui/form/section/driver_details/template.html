@@ -1,0 +1,42 @@
+<ui-form-section data-section="$ctrl.section">
+  <form-section-content>
+    <div class="form-row">
+      <ui-form-partial-person class="f6"
+                              data="$ctrl.data.person"></ui-form-partial-person>
+    </div>
+    <div class="form-row">
+      <simple-input class="f2"
+                    label="date of birth"
+                    type="date"
+                    value="$ctrl.data.person.hr_associate.hr_confidential.Birthday"></simple-input>
+      <ui-form-partial-gender class="f1"
+                              data="$ctrl.data.person.hr_associate.hr_confidential"></ui-form-partial-gender>
+      <ui-form-partial-marriage class="f3"
+                                data="$ctrl.data.person.hr_associate.hr_confidential"></ui-form-partial-marriage>
+    </div>
+    <div class="form-row f6">
+      <ui-form-partial-tax-info class="f3"
+                                data="$ctrl.data.fin_tax_id"></ui-form-partial-tax-info>
+    </div>
+    <div class="form-row">
+      <ui-form-partial-phone type="personal"
+                             ext="1"
+                             data="$ctrl.data.person.hr_associate.hr_confidential.personal_phone">
+      </ui-form-partial-phone>
+      <ui-form-partial-email type="personal"
+                             data="$ctrl.data.person.hr_associate.hr_confidential.PersonalEmail">
+      </ui-form-partial-email>
+    </div>
+    <div class="form-row">
+      <div class="form-label">route preferences</div>
+    </div>
+    <div class="form-row">
+      <div class="form-col">
+        <ui-checkbox label="international routes"
+                     value="$ctrl.data.person.hr_associate.drv_driver.InternationalRoutes"></ui-checkbox>
+        <ui-checkbox label="local routes"
+                     value="$ctrl.data.person.hr_associate.drv_driver.LocalRoutes"></ui-checkbox>
+      </div>
+    </div>
+  </form-section-content>
+</ui-form-section>

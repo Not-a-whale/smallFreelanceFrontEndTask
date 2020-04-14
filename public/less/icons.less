@@ -1,97 +1,68 @@
-@size-normal: 32px;
-@size-medium: 22px;
-@size-small: 20px;
-@size-minute: 16px;
-@size-tiny: 14px;
-@size-micro: 12px;
-@size-mini: 10px;
+@icon-sizes: 32px normal norm nm,
+  22px medium med md,
+  20px small sm,
+  16px minute min,
+  14px tiny ty,
+  12px micro mcr mr,
+  10px mini mn;
 
 .icon {
   height: 100%;
   width: 100%;
-
-  // use icon to label svg's as icons.
-  // deprecated, just use icont (icon container)
-
-  &-mi,
-  &-mini {
-    max-width: @size-mini;
-    max-height: @size-mini;
-  }
-
-  &-mr,
-  &-micro {
-    max-width: @size-micro;
-    max-height: @size-micro;
-  }
-
-  &-sm,
-  &-small {
-    max-width: @size-small;
-    max-height: @size-small;
-  }
-
-  &-ty,
-  &-tiny {
-    max-width: @size-tiny;
-    max-height: @size-tiny;
-  }
-
-  &-mn,
-  &-minute {
-    max-width: @size-minute;
-    max-height: @size-minute;
-  }
-
-
 }
 
 .icont {
   @flex-row();
   align-items: center;
   justify-content: center;
+}
+
+.make-icon-containers(icont, @icon-sizes);
+.make-icons(icon, @icon-sizes);
 
 
-  &-mi,
-  &-mini {
-    max-width: @size-mini;
-    max-height: @size-mini;
+.make-icon-containers(@prefix, @list) {
+  .iter(length(@list));
+
+  .iter(@i) when (@i > 0) {
+    @pair: extract(@list, @i);
+    @value: extract(@pair, 1);
+    .jter(length(@pair));
+    .iter(@i - 1);
+
+    .jter(@j) when (@j > 1) {
+      .jter(@j - 1);
+      @key: extract(@pair, @j);
+
+      .@{prefix}-@{key} {
+        width: @value;
+        height: @value;
+        max-width: @value;
+        max-height: @value;
+      }
+    }
   }
+}
 
 
-  &-mr,
-  &-micro {
-    height: @size-micro;
-    width: @size-micro;
-  }
+.make-icons(@prefix, @list) {
+  .iter(length(@list));
 
-  &-ty,
-  &-tiny {
-    height: @size-tiny;
-    width: @size-tiny;
-  }
+  .iter(@i) when (@i > 0) {
+    @pair: extract(@list, @i);
+    @value: extract(@pair, 1);
+    .jter(length(@pair));
+    .iter(@i - 1);
 
-  &-mn,
-  &-minute {
-    height: @size-minute;
-    width: @size-minute;
-  }
+    .jter(@j) when (@j > 1) {
+      .jter(@j - 1);
+      @key: extract(@pair, @j);
 
-  &-sm,
-  &-small {
-    height: @size-small;
-    width: @size-small;
-  }
+      .@{prefix}-@{key} {
+        max-width: @value;
+        max-height: @value;
 
-  &-md,
-  &-medium {
-    height: @size-medium;
-    width: @size-medium;
-  }
-
-  &-nm,
-  &-normal {
-    height: @size-normal;
-    width: @size-normal;
+      }
+    }
   }
 }

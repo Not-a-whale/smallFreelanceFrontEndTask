@@ -1,0 +1,65 @@
+ui-panel-detail {
+  .ui-panel-detail-defaults();
+
+  &-payment-info,
+  &-driver-license,
+  &-ifta-account,
+  &-user-account {
+    @flex-col();
+    width: 100%;
+  }
+}
+
+.ui-panel-detail-defaults() {
+  @flex-col();
+  width: 100%;
+
+  &>.header {
+    @flex-row();
+    margin-bottom: 6px;
+    align-items: center;
+
+    &>.title {
+      color: @cp-default;
+      font-family: @font-family-primary;
+      font-weight: @font-weight-bold;
+      font-size: @font-norm;
+      line-height: 20px;
+      text-transform: capitalize;
+      margin-right: 12px;
+    }
+
+    svg {
+      cursor: pointer;
+      fill: @cp-asphalt-light;
+    }
+  }
+
+  &>.body {
+    &>body-content, & {
+      @flex-col();
+      width: 100%;
+      &>.row {
+        @flex-row();
+        width: 100%;
+        line-height: 22px;
+
+        &>.title,
+        &>.field {
+          font-family: @font-family-primary;
+          font-weight: @font-weight-bold-semi;
+          font-size: @font-small;
+          color: @cp-default-mid;
+          text-transform: capitalize;
+
+        }
+
+        &>.title {
+          width: 25%;
+        }
+      }
+    }
+
+  }
+
+}

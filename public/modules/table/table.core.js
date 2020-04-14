@@ -1,10 +1,11 @@
 class TableCoreCtrl {
-  constructor(scope, state, chipsrv, timeout) {
+  constructor(scope, state, chipsrv, apisrv, timeout) {
     this.scope = scope;
     this.timeout = timeout;
     // used to focus the input fields, need to delay after search expands
     this.focuscall = undefined;
     this.chipsrv = chipsrv;
+    this.apisrv = apisrv;
     this.state = state;
     this.page = 1;
     this.rows = undefined;
@@ -16,10 +17,19 @@ class TableCoreCtrl {
 
     // holds ErrorObjs
     this.errors = [];
+
+    this.searchurl = undefined; // the endpoint to use to get the table list
+    this.profilestate = undefined; // the state to go to for profile view, id will be passed in
+    this.tableList = []; //holds the list to display in the table
   }
 
   Search(query) {
-    console.log('TableCore search, needs overriding');
+    if (this.searchurl != undefined) {
+      let self = this;
+      return this.apisrv.Table(this.searchurl, query).then(function (data) {
+        self.tableList = data;
+      });
+    }
   }
 
   PageChange(page, rows) {
@@ -60,7 +70,13 @@ class TableCoreCtrl {
   }
 
   Select(item) {
-    console.log('TableCore select, needs overriding');
+    if (this.profilestate != undefined) {
+
+      let params = CloneObj(this.stateparams);
+      params.id = this.GetId(item);
+      this.state.go(this.profilestate, params);
+    }
+
   }
 
   FocusMe(index) {

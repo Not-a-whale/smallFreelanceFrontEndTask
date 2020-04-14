@@ -1,0 +1,49 @@
+<ui-form-section data-section="$ctrl.section">
+  <form-section-content>
+    <ui-form-subform on-add="$ctrl.AddItem()"
+                     on-delete="$ctrl.DeleteItem()"
+                     on-update="$ctrl.UpdateItem()">
+      <subform-form>
+        <div class="form-col">
+          <div class="form-row">
+            <simple-input label="insurance type"
+                          value="$ctrl.currentitem.data.relationship"></simple-input>
+            <simple-input label="policy #"
+                          value="$ctrl.currentitem.data.relationship"></simple-input>
+            <simple-input label="amount insured"
+                          value="$ctrl.currentitem.data.relationship"
+                          required="1"></simple-input>
+          </div>
+          <div class="form-row">
+            <simple-input label="company"
+                          value="$ctrl.currentitem.data.name"></simple-input>
+            <simple-input label="contact person"
+                          value="$ctrl.currentitem.data.name"></simple-input>
+          </div>
+          <div class="form-row">
+            <simple-input label="insurance certificate"
+                          value="$ctrl.currentitem.data.name"></simple-input>
+          </div>
+          <div class="form-row">
+            <simple-input label="effective date"
+                          value="$ctrl.currentitem.data.name"></simple-input>
+            <simple-input label="expiration date"
+                          value="$ctrl.currentitem.data.name"></simple-input>
+          </div>
+        </div>
+      </subform-form>
+      <subform-header class="header table-cols-16">
+        <div class="text colspan c6">company</div>
+        <div class="text colspan c5">type</div>
+        <div class="text colspan c5">amount</div>
+      </subform-header>
+      <subform-cards>
+        <ui-subform-card-emergency-contact ng-class="{active: contact.isActive()}"
+                                           ng-click="contact.Activate(); $ctrl.SetCurrentItem(contact)"
+                                           item="contact"
+                                           ng-repeat="contact in $ctrl.metaArray">
+        </ui-subform-card-emergency-contact>
+      </subform-cards>
+    </ui-form-subform>
+  </form-section-content>
+</ui-form-section>

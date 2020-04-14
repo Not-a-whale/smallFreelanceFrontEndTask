@@ -1,0 +1,16 @@
+<div class="icont icont-micro">
+  <svg class="icon">
+    <use xlink:href="imgs/icons.svg#phone"></use>
+  </svg>
+</div>
+<div class="label-container">
+  <div ng-show="$ctrl.phone"
+       class="label">{{ $ctrl.phone.Number }}
+    <span class="ext"
+          ng-if="$ctrl.phone.Extension > 0">&nbspext {{ $ctrl.phone.Extension }}</span>
+  </div>
+  <div ng-hide="$ctrl.phone"
+       class="label">
+    no {{$ctrl.type}} listed
+  </div>
+</div>

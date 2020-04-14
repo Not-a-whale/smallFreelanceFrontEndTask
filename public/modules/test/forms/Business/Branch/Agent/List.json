@@ -1,0 +1,42 @@
+{
+   "route" : "/api/business/branch/agent/list",
+   "structure" : {
+      "AstId" : "bigint",
+      "CurrentTitle" : "varchar",
+      "NodeId" : "bigint",
+      "AuthorityLevel" : "enum",
+      "DateCreated" : "datetime",
+      "DateRemoved" : "datetime",
+      "BizPhone" : "bigint",
+      "BizFax" : "bigint",
+      "BizEmail" : "varchar",
+      "Notes" : "text",
+      "PrimaryContact" : "tinyint",
+      "ast" : {
+         "PrsnId" : "bigint",
+         "NickName" : "varchar",
+         "Prefix" : "enum",
+         "FirstName" : "varchar",
+         "MiddleName" : "varchar",
+         "LastName" : "varchar",
+         "Suffix" : "enum",
+         "BrnchId" : "bigint"
+      },
+      "biz_fax" : {
+         "PhnFaxId" : "bigint",
+         "Number" : "varchar",
+         "Extension" : "varchar",
+         "Features" : "set",
+         "Mobility" : "enum",
+         "Notes" : "text"
+      },
+      "biz_phone" : {
+         "PhnFaxId" : "bigint",
+         "Number" : "varchar",
+         "Extension" : "varchar",
+         "Features" : "set",
+         "Mobility" : "enum",
+         "Notes" : "text"
+      }
+   }
+}

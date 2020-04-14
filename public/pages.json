@@ -4,82 +4,99 @@
     "title": "forms",
     "state": "tmsapp.main2.form",
     "pages": [{
+        "title": "test",
+        "icon": null,
         "active": true,
         "visible": true,
-        "title": "example form",
-        "icon": null,
-        "state": "tmsapp.main2.form.test",
-        "pages": [{
-          "active": true,
-          "visible": true,
-          "title": "test1",
-          "state": "tmsapp.main2.form.carrier.carrierinfo"
-        }]
-      },
-      {
-        "active": true,
-        "visible": true,
-        "title": "new contact",
-        "icon": null,
-        "state": "tmsapp.main2.form.contact",
+        "state": "tmsapp.main2.form.generic({formName: 'test', subformName: 'test1' })",
         "pages": []
       },
-
       {
+        "title": "new contact",
+        "icon": null,
         "active": true,
         "visible": true,
+        "state": "tmsapp.main2.form.generic({formName: 'new contact', subformName: 'new contact'})",
+        "pages": []
+      },
+      {
         "title": "new carrier",
         "icon": null,
-        "state": "tmsapp.main2.form.carrier",
+        "active": true,
+        "visible": true,
+        "state": "tmsapp.main2.form.generic({formName: 'new carrier', subformName: 'company info'})",
         "pages": [{
             "active": true,
             "visible": true,
-            "title": "carrier info",
+            "title": "business info",
             "state": "tmsapp.main2.form.carrier.carrierinfo"
+          }, {
+            "active": true,
+            "visible": true,
+            "title": "branches",
+            "state": "tmsapp.main2.form.carrier.branches"
           },
           {
             "active": true,
             "visible": true,
-            "title": "vehicles",
-            "state": "tmsapp.main2.form.carrier.vehicles"
+            "title": "office staff",
+            "state": "tmsapp.main2.form.carrier.officestaff"
           },
           {
             "active": true,
             "visible": true,
             "title": "drivers",
             "state": "tmsapp.main2.form.carrier.drivers"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "title": "equipment",
+            "state": "tmsapp.main2.form.carrier.equipment"
           }
         ]
-      }, {
-        "active": true,
-        "visible": true,
-        "title": "new office employee",
-        "icon": null,
-        "state": "tmsapp.main2.form.employee"
       },
       {
+        "title": "new office employee",
+        "icon": null,
         "active": true,
         "visible": true,
+        "state": "tmsapp.main2.form.generic({formName: 'new office employee', subformName: 'new office employee'})"
+      },
+      {
         "title": "new general business",
         "icon": null,
-        "state": "tmsapp.main2.form.business"
+        "active": true,
+        "visible": true,
+        "state": "tmsapp.main2.form.generic({formName: 'new general business', subformName: 'new general business'})"
+      },
+      {
+        "title": "new driver",
+        "icon": null,
+        "active": true,
+        "visible": true,
+        "state": "tmsapp.main2.form.generic({formName: 'new driver', subformName: 'driver details'})"
+      },
+      {
+        "title": "new carrier authority",
+        "icon": null,
+        "active": true,
+        "visible": true,
+        "state": "tmsapp.main2.form.generic({formName: 'new carrier authority', subformName: 'authority'})"
       }
     ]
   },
-
-
   {
     "active": true,
     "visible": true,
-
     "title": "dispatch",
     "state": "tmsapp.main2.dispatch",
     "pages": [{
-        "active": true,
-        "visible": true,
 
         "title": "manage trips",
         "icon": "imgs/icons.svg#route",
+        "active": true,
+        "visible": true,
         "state": "tmsapp.main2.dispatch.trip",
         "pages": [{
             "active": true,
@@ -112,19 +129,19 @@
         }]
       },
       {
-        "active": true,
-        "visible": true,
 
         "title": "units",
         "icon": "imgs/icons.svg#truck-loaded",
+        "active": true,
+        "visible": true,
         "state": "tmsapp.main2.dispatch.truck"
       },
       {
-        "active": true,
-        "visible": true,
 
         "title": "loads",
         "icon": "imgs/icons.svg#boxes",
+        "active": true,
+        "visible": true,
         "state": "tmsapp.main2.dispatch.load",
         "pages": [{
             "active": true,
@@ -168,41 +185,35 @@
   {
     "active": true,
     "visible": true,
-
     "title": "safety",
     "state": "tmsapp.main2.safety",
     "pages": [{
-        "active": true,
-        "visible": true,
-
         "title": "equipment",
         "icon": "imgs/icons.svg#truck-loaded",
+        "active": true,
+        "visible": true,
         "state": "tmsapp.main2.safety.equipment",
         "pages": [{
             "active": true,
             "visible": true,
-
             "title": "all",
             "state": "tmsapp.main2.safety.equipment.all"
           },
           {
             "active": true,
             "visible": true,
-
             "title": "trucks",
             "state": "tmsapp.main2.safety.equipment.truck"
           },
           {
             "active": true,
             "visible": true,
-
             "title": "trailers",
             "state": "tmsapp.main2.safety.equipment.trailer"
           },
           {
             "active": true,
             "visible": true,
-
             "title": "devices",
             "state": "tmsapp.main2.safety.equipment.device"
           }
@@ -210,50 +221,43 @@
         "optional": [{
           "active": true,
           "visible": true,
-
           "title": "view archives",
           "state": ""
         }]
       },
       {
-        "active": true,
-        "visible": true,
-
         "title": "personnel",
         "icon": "imgs/icons.svg#user",
+        "active": true,
+        "visible": true,
         "state": "tmsapp.main2.safety.personnel",
         "pages": [{
             "active": true,
             "visible": true,
-
             "title": "all",
             "state": "tmsapp.main2.safety.personnel.all"
           },
           {
             "active": true,
             "visible": true,
-
             "title": "drivers",
             "state": "tmsapp.main2.safety.personnel.driver"
           },
           {
             "active": true,
             "visible": true,
-
             "title": "owner-operators",
             "state": "tmsapp.main2.safety.personnel.ownerop"
           },
           {
             "active": true,
             "visible": true,
-
             "title": "office employees",
             "state": "tmsapp.main2.safety.personnel.officeemps"
           },
           {
             "active": true,
             "visible": true,
-
             "title": "contacts",
             "state": "tmsapp.main2.safety.personnel.contact"
           }
@@ -261,7 +265,6 @@
         "optional": [{
           "active": true,
           "visible": true,
-
           "title": "view archives",
           "state": ""
         }]
@@ -269,35 +272,30 @@
       {
         "active": true,
         "visible": true,
-
         "title": "businesses",
         "state": "tmsapp.main2.safety.business",
         "icon": "imgs/icons.svg#buildings",
         "pages": [{
             "active": true,
             "visible": true,
-
             "title": "all",
             "state": "tmsapp.main2.safety.business.all"
           },
           {
             "active": true,
             "visible": true,
-
             "title": "brokers",
             "state": "tmsapp.main2.safety.business.broker"
           },
           {
             "active": true,
             "visible": true,
-
             "title": "carriers",
             "state": "tmsapp.main2.safety.business.carrier"
           },
           {
             "active": true,
             "visible": true,
-
             "title": "other",
             "state": "tmsapp.main2.safety.business.other"
           }
@@ -305,43 +303,37 @@
         "optional": [{
           "active": true,
           "visible": true,
-
           "title": "view archives"
         }]
       },
       {
-        "active": true,
-        "visible": true,
-
         "title": "manage units",
         "icon": "imgs/icons.svg#truck-loaded",
+        "active": true,
+        "visible": true,
         "state": "tmsapp.main2.safety.unit",
         "actions": [{
           "active": true,
           "visible": true,
-
           "title": "create a unit",
           "state": ""
         }]
       },
       {
-        "active": true,
-        "visible": true,
-
         "title": "expirations",
         "icon": "imgs/icons.svg#exclamation-triangle",
+        "active": true,
+        "visible": true,
         "state": "tmsapp.main2.safety.expiration",
         "pages": [{
             "active": true,
             "visible": true,
-
             "title": "current",
             "state": "tmsapp.main2.safety.expiration.current"
           },
           {
             "active": true,
             "visible": true,
-
             "title": "scheduled",
             "state": "tmsapp.main2.safety.expiration.scheduled"
           }
@@ -349,17 +341,15 @@
         "optional": [{
           "active": true,
           "visible": true,
-
           "title": "view archives",
           "state": "tmsapp.main2.safety.expiration.history"
         }]
       },
       {
-        "active": false,
-        "visible": true,
-
         "title": "maintenance",
         "icon": "imgs/icons.svg#tools",
+        "active": false,
+        "visible": true,
         "state": "tmsapp.main2.safety.maintenance",
         "pages": [{
             "active": true,
@@ -371,52 +361,45 @@
           {
             "active": true,
             "visible": true,
-
             "title": "scheduled",
             "state": "tmsapp.main2.safety.maintenance.scheduled"
           },
           {
             "active": true,
             "visible": true,
-
             "title": "history",
             "state": "tmsapp.main2.safety.maintenance.history"
           }
         ]
       },
       {
-        "active": false,
-        "visible": true,
-
         "title": "logbook",
         "icon": "imgs/icons.svg#timer",
+        "active": false,
+        "visible": true,
         "state": "tmsapp.main2.safety.logbook"
       },
       {
-        "active": false,
-        "visible": true,
-
         "title": "IFTA/Highway use",
         "icon": "imgs/icons.svg#gasoline-pump",
+        "active": false,
+        "visible": true,
         "state": "tmsapp.main2.safety.ifta",
         "pages": [{
             "active": true,
             "visible": true,
-
             "title": "per carrier",
             "state": "tmsapp.main2.safety.ifta.carrier"
           },
           {
             "active": true,
             "visible": true,
-
             "title": "per truck",
             "state": "tmsapp.main2.safety.ifta.truck"
           },
           {
             "active": true,
             "visible": true,
-
             "title": "per state",
             "state": "tmsapp.main2.safety.ifta.state"
           }
@@ -427,69 +410,59 @@
   {
     "active": true,
     "visible": true,
-
     "title": "finance",
     "state": "tmsapp.main2.finance",
     "pages": [{
-        "active": true,
-        "visible": true,
-
         "title": "invoices",
         "icon": "imgs/icons.svg#document-solid",
+        "active": true,
+        "visible": true,
         "state": "tmsapp.main2.finance.invoice",
         "pages": [{
             "active": true,
             "visible": true,
-
             "title": "open",
             "state": "tmsapp.main2.finance.invoice.open"
           },
           {
             "active": true,
             "visible": true,
-
             "title": "processed",
             "state": "tmsapp.main2.finance.invoice.processed"
           },
           {
             "active": true,
             "visible": true,
-
             "title": "history",
             "state": "tmsapp.main2.finance.invoice.history"
           }
         ]
       },
       {
-        "active": true,
-        "visible": true,
-
         "title": "settlements",
         "icon": "imgs/icons.svg#circle-dollarsign",
+        "active": true,
+        "visible": true,
         "state": "tmsapp.main2.finance.settlement",
         "pages": [{
             "active": true,
             "visible": true,
-
             "title": "open",
             "state": "tmsapp.main2.finance.settlement.open"
           },
           {
             "active": true,
             "visible": true,
-
             "title": "processed",
             "state": "tmsapp.main2.finance.settlement.processed"
           }, {
             "active": false,
             "visible": true,
-
             "title": "history",
             "state": "tmsapp.main2.finance.settlement.history"
           }, {
             "active": true,
             "visible": true,
-
             "title": "checks",
             "state": "tmsapp.main2.finance.settlement.check"
           }
@@ -497,71 +470,61 @@
         "actions": [{
           "active": true,
           "visible": true,
-
           "title": "write a check"
         }]
       },
       {
-        "active": true,
-        "visible": true,
-
         "title": "payment schedule",
         "icon": "imgs/icons.svg#schedule-dollarsign",
+        "active": true,
+        "visible": true,
         "state": "tmsapp.main2.finance.payschedule",
         "pages": [{
             "active": true,
             "visible": true,
-
             "title": "schedules",
             "state": "tmsapp.main2.finance.payschedule.schedule"
           },
           {
             "active": false,
             "visible": true,
-
             "title": "history",
             "state": "tmsapp.main2.finance.payschedule.history"
           }
         ]
       },
       {
-        "active": false,
-        "visible": true,
-
         "title": "accounting",
         "icon": "imgs/icons.svg#balance-scale",
+        "active": false,
+        "visible": true,
         "pages": [{
             "active": true,
             "visible": true,
-
             "title": "chart of accounts",
             "state": ""
           },
           {
             "active": true,
             "visible": true,
-
             "title": "balance sheet",
             "state": ""
           },
           {
             "active": true,
             "visible": true,
-
             "title": "income sheet",
             "state": ""
           },
           {
             "active": true,
             "visible": true,
-
             "title": "general ledger",
             "state": ""
           },
           {
             "active": true,
             "visible": true,
-
             "title": "transaction templates",
             "state": ""
           }
@@ -572,42 +535,36 @@
   {
     "active": true,
     "visible": true,
-
     "title": "admin",
     "state": "tmsapp.main2.admin",
     "pages": [{
-        "active": true,
-        "visible": true,
-
         "title": "my company",
         "icon": "imgs/icons.svg#buildings",
+        "active": true,
+        "visible": true,
         "state": "tmsapp.main2.admin.mycompany"
       },
       {
-        "active": true,
-        "visible": true,
-
         "title": "manage users",
         "icon": "imgs/icons.svg#users",
+        "active": true,
+        "visible": true,
         "state": "tmsapp.main2.admin.mnguser",
         "pages": [{
             "active": true,
             "visible": true,
-
             "title": "users",
             "state": "tmsapp.main2.admin.mnguser.user"
           },
           {
             "active": true,
             "visible": true,
-
             "title": "user groups",
             "state": "tmsapp.main2.admin.mnguser.group"
           },
           {
             "active": true,
             "visible": true,
-
             "title": "roles & permissions",
             "state": "tmsapp.main2.admin.mnguser.role"
           }
@@ -615,26 +572,23 @@
         "optional": [{
           "active": true,
           "visible": true,
-
           "title": "view archives",
           "state": ""
         }]
       },
 
       {
-        "active": false,
-        "visible": true,
-
         "title": "announcements",
         "icon": "imgs/icons.svg#megaphone",
+        "active": false,
+        "visible": true,
         "state": "tmsapp.main2.admin.announcement"
       },
       {
-        "active": true,
-        "visible": true,
-
         "title": "app settings",
         "icon": "imgs/icons.svg#gear",
+        "active": true,
+        "visible": true,
         "state": "tmsapp.main2.admin.setting"
       }
     ]

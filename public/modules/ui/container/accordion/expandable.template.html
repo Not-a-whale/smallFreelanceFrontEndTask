@@ -1,0 +1,31 @@
+<div ui-expand
+     open="$ctrl.open"
+     class="header"
+     ng-class="{expanded: expCtrl.IsOpen()}"
+     ng-click="expCtrl.Toggle()">
+     <div class="dept icont icont-tiny"
+          ng-if="$ctrl.ShowIcon()">
+          <svg class="icon">
+               <use xlink:href="{{$ctrl.icon}}"></use>
+          </svg>
+     </div>
+     <div class="title ">{{ $ctrl.title }} <span ng-if="$ctrl.ShowCount()">&nbsp-&nbsp{{ $ctrl.count}}</span></div>
+     <div class="addnew icont icont-tiny"
+          ng-if="$ctrl.CanAddNew()">
+          <svg class="icon">
+               <use xlink:href="imgs/icons.svg#plus"></use>
+          </svg>
+     </div>
+     <div class="expand icont icont-tiny">
+          <svg class="icon">
+               <use xlink:href="imgs/icons.svg#down"></use>
+          </svg>
+     </div>
+</div>
+<div class="row-header"
+     ng-show="expCtrl.IsOpen()"
+     ng-transclude="rowHeader"></div>
+<div class="body"
+     ng-show="expCtrl.IsOpen()"
+     ng-transclude="bodyContent">
+</div>

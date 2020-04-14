@@ -1,0 +1,29 @@
+{
+   "route" : "/api/business/adduser",
+   "structure" : {
+      "BrnchId" : "bigint",
+      "OfficeName" : "varchar",
+      "BizId" : "bigint",
+      "BrnchAddress" : "bigint",
+      "BrnchPhone" : "bigint",
+      "BrnchFax" : "bigint",
+      "BrnchEMail" : "varchar",
+      "biz" : {
+         "BizId" : "bigint",
+         "BizName" : "varchar",
+         "BizURL" : "varchar"
+      },
+      "ent_people" : [
+         {
+            "PrsnId" : "bigint",
+            "NickName" : "varchar",
+            "Prefix" : "enum",
+            "FirstName" : "varchar",
+            "MiddleName" : "varchar",
+            "LastName" : "varchar",
+            "Suffix" : "enum",
+            "BrnchId" : "bigint"
+         }
+      ]
+   }
+}

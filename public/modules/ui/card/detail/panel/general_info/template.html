@@ -1,0 +1,36 @@
+<div class="header">
+  <div class="left-panel">
+    <div class="row">
+      <ui-phone-with-icon phone="$ctrl.sample.Phone()"></ui-phone-with-icon>
+    </div>
+    <div class="row">
+      <ui-email-with-icon email="'information@example.com'"></ui-email-with-icon>
+    </div>
+    <div class="row">
+      <ui-fax-with-icon fax="$ctrl.sample.Phone()"></ui-fax-with-icon>
+    </div>
+  </div>
+  <div class="right-panel">
+    <a class="btn btn-accent btn-small"
+       icon="'imgs/icons.svg#chat'"
+       data-label="chat">chat</a>
+  </div>
+</div>
+<div class="body">
+  <div class="row">
+    <div class="title">mailing</div>
+    <ui-address-basic data-address="$ctrl.sample.Address()"></ui-address-basic>
+  </div>
+  <div class="row">
+    <div class="title">billing</div>
+    <ui-address-basic data-address="$ctrl.sample.Address()"></ui-address-basic>
+  </div>
+  <div class="row">
+    <div class="title">company</div>
+    <ui-contact-business data="$ctrl.sample.Business()"></ui-contact-business>
+  </div>
+  <div class="row">
+    <div class="title">authority</div>
+    <ui-contact-business data="$ctrl.sample.Business()"></ui-contact-business>
+  </div>
+</div>

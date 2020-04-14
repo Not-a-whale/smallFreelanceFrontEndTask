@@ -2,6 +2,49 @@ class UIContactPersonCtrl extends UIContactCtrl {
   constructor(getid) {
     super(getid);
     this.hideName = false; // choose to not display the name, only the icon
+    this.person;
+    this.associate;
+  }
+
+  SetupStructure() {
+    let data = this.data;
+    if (!Array.isArray(data)) {
+      data = [data];
+    }
+    for (let person of data) {
+      if ('ast' in person) {
+        this.associate = person;
+        this.person = person.ast;
+      } else if ('hr_associate' in person) {
+        this.person = person;
+        this.associate = person.hr_associate;
+      }
+      if (this.associate != undefined) {
+        if (this.associate.PrimaryContact == 1) {
+          break;
+        }
+      }
+    }
+  }
+
+  ValidData() {
+    let valid = false;
+    if (this.data != undefined && !angular.equals(this.data, {})) {
+      valid = this.person != undefined;
+    }
+    return valid;
+  }
+
+  Id() {
+    return this.person.PrsnId;
+  }
+
+  ProfileLink() {
+    if (this.person != undefined) {
+      return "tmsapp.main2.form.generic({id: " + this.Id() + ", formName: 'new contact', subformName: 'new contact'})";
+    } else {
+      return "#";
+    }
   }
 
   HasImage() {
@@ -12,15 +55,7 @@ class UIContactPersonCtrl extends UIContactCtrl {
     return this.image;
   }
 
-  ValidData() {
-    let valid = false;
-    if (this.data != undefined && !angular.equals(this.data, {})) {
-      if ('ast' in this.data) {
-        valid = true;
-      }
-    }
-    return valid;
-  }
+
 
   DisplayName() {
     return !this.hideName;
@@ -28,9 +63,9 @@ class UIContactPersonCtrl extends UIContactCtrl {
 
   Name() {
     let value = 'no name provided';
-    if ('ast' in this.data) {
-      if ('FirstName' in this.data.ast && 'LastName' in this.data.ast) {
-        value = this.data.ast.FirstName + ' ' + this.data.ast.LastName;
+    if (this.person != undefined) {
+      if ('FirstName' in this.person && 'LastName' in this.person) {
+        value = this.person.FirstName + ' ' + this.person.LastName;
       }
     }
     return value;
@@ -38,45 +73,55 @@ class UIContactPersonCtrl extends UIContactCtrl {
 
   Role() {
     let value = undefined;
-    if ('CurrentTitle' in this.data) {
-      value = this.data.CurrentTitle;
+    if (this.associate != undefined) {
+      if ('CurrentTitle' in this.associate) {
+        value = this.associate.CurrentTitle;
+      }
     }
+
     return value;
   }
 
   Address() {
     let value = undefined;
-    if ('ast' in this.data) {
-      value = this.data.ast.brnch.brnch_address;
+    if (this.person != undefined) {
+      if ('brnch' in this.person) {
+        value = this.person.brnch.brnch_address;
+      }
     }
     return value;
   }
 
   Group() {
     let value = undefined;
-    if ('ast' in this.data) {
-      value = this.data.ast.brnch.OfficeName;
+    if (this.person != undefined) {
+      if ('brnch' in this.person) {
+        value = this.person.brnch.OfficeName;
+      }
     }
     return value;
   }
 
   Phone() {
     let value = undefined;
-    if ('biz_phone' in this.data) {
-      value = this.data.biz_phone;
+    if (this.associate != undefined) {
+      if ('biz_phone' in this.associate) {
+        value = this.associate.biz_phone;
+      }
     }
+
     return value;
   }
 
 
   Email() {
     let value = undefined;
-    if ('BizEmail' in this.data) {
-      if (this.data.BizEmail != undefined && this.data.BizEmail != ' ') {
-        value = this.data.BizEmail;
+    if (this.associate != undefined) {
+      if (this.associate.BizEmail != undefined && this.associate.BizEmail != ' ') {
+        value = this.associate.BizEmail;
       }
-
     }
+
     return value;
   }
 

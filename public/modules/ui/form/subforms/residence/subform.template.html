@@ -1,0 +1,18 @@
+<div class="form-col f6">
+  <ui-form-partial-address data="$ctrl.data.res_address"></ui-form-partial-address>
+  <div class="form-row">
+    <ui-form-partial-phone class="f6"
+                           type="house"
+                           ext="1"
+                           data="$ctrl.data.res_phone"></ui-form-partial-phone>
+  </div>
+  <div class="form-row">
+    <ui-date class="f2"
+             data="$ctrl.data.DateMovedIn"
+             label="date moved in"
+             required="1"></ui-date>
+    <ui-date class="f2"
+             data="$ctrl.data.DateMovedOut"
+             label="date moved out"></ui-date>
+  </div>
+</div>

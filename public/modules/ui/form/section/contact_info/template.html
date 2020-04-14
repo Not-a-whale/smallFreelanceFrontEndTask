@@ -1,0 +1,41 @@
+<ui-list type="person"
+         endpoint="'/api/business/person'"
+         query="{'search': [{ 'me.BrnchId' : 21 }], 'orderby' : [{ 'me.FirstName': 'asc' }, { 'me.LastName': 'asc'}]}">
+</ui-list>
+
+
+<ui-form-section data-section="$ctrl.section">
+  <form-section-content>
+    <div class="form-col">
+      <ui-form-partial-person data="$ctrl.data.ast"></ui-form-partial-person>
+      <ui-form-partial-phone type="work"
+                             data="$ctrl.data.biz_phone"
+                             ext="1"></ui-form-partial-phone>
+      <ui-form-partial-email type="work"
+                             data="$ctrl.data.BizEmail"></ui-form-partial-email>
+      <ui-form-partial-fax type="work"
+                           data="$ctrl.data.biz_fax"
+                           ext="1"></ui-form-partial-fax>
+    </div>
+    <div class="form-col">
+      <div class="form-row">
+        <ui-datalist-concrete type="business"
+                              data="$ctrl.data.ast.brnch"
+                              label="company"
+                              data-form="business"></ui-datalist-concrete>
+      </div>
+      <div class="form-row">
+        <simple-input label="Position"
+                      value="$ctrl.data.AuthorityLevel"></simple-input>
+        <simple-input label="Title"
+                      value="$ctrl.data.CurrentTitle"></simple-input>
+      </div>
+      <div class="form-row">
+        <ui-checkbox value="$ctrl.data.PrimaryContact"
+                     label="primary contact"></ui-checkbox>
+      </div>
+    </div>
+  </form-section-content>
+</ui-form-section>
+
+<ui-subform-mediator></ui-subform-mediator>

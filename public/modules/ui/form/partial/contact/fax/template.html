@@ -1,0 +1,6 @@
+<simple-input label="{{$ctrl.type}} fax"
+              required="{{$ctrl.required}}"
+              value="$ctrl.data.Number"></simple-input>
+<simple-input label="extension"
+              ng-if="$ctrl.ext"
+              value="$ctrl.data.Extension"></simple-input>

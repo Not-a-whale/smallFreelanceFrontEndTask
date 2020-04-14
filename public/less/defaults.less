@@ -56,3 +56,24 @@ use {
 .clickable() {
   cursor: pointer;
 }
+
+.clickable {
+  .clickable();
+}
+
+
+.make-classes(@prefix, @list) {
+  .iter(length(@list));
+
+  .iter(@i) when (@i > 0) {
+    .iter(@i - 1);
+    @pair: extract(@list, @i);
+    @key: extract(@pair, 1);
+    @value: extract(@pair, 2);
+
+    .@{prefix}-@{key} {
+      max-width: @value;
+      max-height: @value;
+    }
+  }
+}

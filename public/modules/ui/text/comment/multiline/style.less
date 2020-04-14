@@ -1,0 +1,33 @@
+ui-comment-multiline {
+  @flex-col();
+  width: 100%;
+  height: fit-content;
+
+  &>.comment {
+    font-family: @font-family-primary;
+    font-weight: @font-weight-bold-semi;
+    font-size: @font-small;
+    color: @cp-default;
+    width: 100%;
+  }
+
+  &>.datestamp {
+    @flex-row();
+    width: 100%;
+    &>.user {
+      .one-liner();
+    }
+
+    &>.date {
+      min-width: 120px;
+    }
+
+    &>.user,
+    &>.date {
+      font-family: @font-family-primary;
+      font-weight: @font-weight-normal;
+      font-size: @font-tiny;
+      color: @cp-default;
+    }
+  }
+}

@@ -116,7 +116,6 @@ app.filter('disabled', function () {
         return item.disabled == true;
       }
     });
-
   }
 });
 
@@ -126,4 +125,21 @@ function CloneObj(x) {
 
 function IsObj(x) {
   return typeof x === 'object' && x != null;
+}
+
+function DeepFind(obj, path) {
+  let paths = path.split('.');
+  let current = obj;
+  for (let p of paths) {
+    if (current != undefined) {
+      if (p in current) {
+        current = current[p];
+      } else {
+        return undefined;
+      }
+    } else {
+      return undefined;
+    }
+  }
+  return current;
 }

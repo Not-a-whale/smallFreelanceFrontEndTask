@@ -5,7 +5,7 @@ class PersonnelService extends GenericService {
 
   PersonnelSearch(query) {
     let self = this;
-    return this.Request('post', '/api/associates/search', query, undefined, function (res) {
+    return this.Request('post', '/api/associate/table/search', query, undefined, function (res) {
       if (IsObj(res.data)) {
         return res.data.DATA;
       }
@@ -20,7 +20,7 @@ class PersonnelService extends GenericService {
 
   PersonnelFind(query) {
     let self = this;
-    return this.Request('post', '/api/associates/search', query, undefined, function (res) {
+    return this.Request('post', '/api/associate/table/search', query, undefined, function (res) {
       if (res.data.DATA.length > 0) {
         return res.data.DATA[0];
       }

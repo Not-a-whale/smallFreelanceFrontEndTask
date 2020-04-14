@@ -1,0 +1,16 @@
+<div class="icont icont-micro">
+  <svg class="icon">
+    <use xlink:href="imgs/icons.svg#fax"></use>
+  </svg>
+</div>
+<div class="label-container">
+  <div ng-show="$ctrl.fax"
+       class="label">{{ $ctrl.fax.Number }}
+    <span class="ext"
+          ng-if="$ctrl.fax.Extension > 0">&nbspext {{ $ctrl.fax.Extension }}</span>
+  </div>
+  <div ng-hide="$ctrl.fax"
+       class="label">
+    no fax listed
+  </div>
+</div>

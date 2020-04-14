@@ -1,6 +1,6 @@
 class BusinessCarrierTableCtrl extends TableCoreCtrl {
-  constructor(scope, state, chipsrv, timeout, businesssrv) {
-    super(scope, state, chipsrv, timeout);
+  constructor(scope, state, chipsrv, timeout, apisrv, businesssrv) {
+    super(scope, state, chipsrv, apisrv, timeout);
 
     this.businesssrv = businesssrv;
     this.fields = [{
@@ -27,51 +27,63 @@ class BusinessCarrierTableCtrl extends TableCoreCtrl {
     }];
 
     this.map = {
-      'name': ['biz.BizName', 'OfficeName'],
-      'mc': ['biz.has_carrier.MC'],
-      'branch address': ['brnch_address.Street1', 'brnch_address.City', 'brnch_address.State', 'brnch_address.Zip', 'brnch_address.Country'],
-      'primary contact': ['TODO'],
-      'company phone': ['TODO'],
+      'name': [
+        'carrier.BizName',
+        'carrier.biz_branches.OfficeName'
+      ],
+      'mc': ['MC'],
+      'branch address': [
+        'carrier.biz_branches.brnch_address.Street1',
+        'carrier.biz_branches.brnch_address.City',
+        'carrier.biz_branches.brnch_address.State',
+        'carrier.biz_branches.brnch_address.Zip',
+        'carrier.biz_branches.brnch_address.Country'
+      ],
+      'primary contact': [
+        'carrier.biz_branches.primary_contact.Suffix',
+        'carrier.biz_branches.primary_contact.Prefix',
+        'carrier.biz_branches.primary_contact.FirstName',
+        'carrier.biz_branches.primary_contact.MiddleName',
+        'carrier.biz_branches.primary_contact.LastName',
+        'carrier.biz_branches.primary_contact.NickName'
+      ],
+      'company phone': ['carrier.biz_branches.brnch_phone.Number', 'carrier.biz_branches.brnch_phone.Extension'],
       'amount insured': ['TODO'],
       'status': ['TODO'],
-      'business name': ['biz.BizName'],
-      'office name': ['OfficeName'],
-      'street': ['brnch_address.Street1', 'brnch_address.Street2', 'brnch_address.Street3'],
-      'city': ['brnch_address.City'],
-      'state': ['brnch_address.State'],
-      'zip': ['brnch_address.Zip'],
-      'dot': ['biz.has_carrier.DOT'],
-      'scac': ['biz.has_carrier.SCAC']
+      'business name': ['carrier.BizName'],
+      'office name': ['carrier.biz_branches.OfficeName'],
+      'street': [
+        'carrier.biz_branches.brnch_address.Street1',
+        'carrier.biz_branches.brnch_address.Street2',
+        'carrier.biz_branches.brnch_address.Street3'
+      ],
+      'city': ['carrier.biz_branches.brnch_address.City'],
+      'state': ['carrier.biz_branches.brnch_address.State'],
+      'zip': ['carrier.biz_branches.brnch_address.Zip'],
+      'dot': ['carrier.biz_branches.biz.has_carrier.DOT'],
+      'scac': ['carrier.biz_branches.biz.has_carrier.SCAC']
+    };
+
+    this.searchurl = '/api/business/carrier/table';
+    this.profilestate = 'tmsapp.main2.form.generic';
+    this.stateparams = {
+      formName: 'new general business',
+      subformName: 'company info'
     };
 
   }
 
-  Search(query) {
-    console.log('Carrier Table Search is called');
-    let self = this;
-    this.businesssrv.CarrierSearch(query).then(function (data) {
-      if (data instanceof ErrorObj) {
-        self.errors.push(data);
-      } else {
-        self.carrierList = data;
-      }
 
-    });
+  GetId(item) {
+    return item.CarrierId;
   }
 
-  Select(item) {
-    return undefined;
-    let id = item.BrnchId;
-    this.state.go('tmsapp.main.hr.biz.carrier.list.detail', {
-      'id': id
-    });
-  }
 
 }
 
 app.component('tableBusinessCarrier', {
   templateUrl: 'modules/table/business/carrier/template.html',
-  controller: ['$scope', '$state', 'TableSortChips', '$timeout', 'BusinessService', BusinessCarrierTableCtrl],
+  controller: ['$scope', '$state', 'TableSortChips', '$timeout', 'APIService', 'BusinessService', BusinessCarrierTableCtrl],
   bindings: {
     carrierList: '<?'
   }

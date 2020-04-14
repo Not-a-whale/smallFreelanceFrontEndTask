@@ -1,0 +1,19 @@
+<ui-input-wrapper>
+  <ui-radio value="$ctrl.data.ID_Type"
+            true-value="SSN"
+            label="SSN"></ui-radio>
+  <ui-radio value="$ctrl.data.ID_Type"
+            true-value="EIN"
+            label="EIN"></ui-radio>
+  <ui-radio value="$ctrl.data.ID_Type"
+            true-value="ITIN"
+            label="ITIN"></ui-radio>
+</ui-input-wrapper>
+<div class="form-row">
+  <simple-input label="Tax ID ({{$ctrl.data.ID_Type}})"
+                value="$ctrl.data.Tax_ID"></simple-input>
+  <ui-input-wrapper>
+    <ui-checkbox label="1099 vendor"
+                 value="$ctrl.data.Need1099"></ui-checkbox>
+  </ui-input-wrapper>
+</div>

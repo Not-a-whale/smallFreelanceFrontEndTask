@@ -1,0 +1,18 @@
+ui-form-partial-fax {
+  .ui-form-partial-defaults();
+  @flex-row();
+
+  &>* {
+    &:not(:last-child) {
+      padding-right: @inner-row-padding;
+    }
+  }
+
+  simple-input[label~=fax] {
+    flex-grow: 1;
+  }
+
+  simple-input[label=extension] {
+    width: 25%;
+  }
+}

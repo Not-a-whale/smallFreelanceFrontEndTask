@@ -1,0 +1,52 @@
+<ui-form-section data-section="$ctrl.section">
+  <form-section-content>
+    <div class="form-col">
+      <div class="form-row">
+        <simple-input label="pay to the order of"></simple-input>
+        <simple-input label="pay rate"></simple-input>
+      </div>
+      <ui-form-subform on-add="$ctrl.AddItem()"
+                       on-delete="$ctrl.DeleteItem()"
+                       on-update="$ctrl.UpdateItem()">
+        <subform-form>
+          <div class="form-col">
+            <div class="form-row">
+              direct deposit
+            </div>
+            <div class="form-row">
+              <simple-input label="bank"
+                            value="$ctrl.currentitem.data.relationship"></simple-input>
+              <simple-input label="routing #"
+                            value="$ctrl.currentitem.data.relationship"></simple-input>
+            </div>
+            <div class="form-row">
+              <simple-input label="acount #"
+                            value="$ctrl.currentitem.data.name"></simple-input>
+              <simple-input label="routing #"
+                            value="$ctrl.currentitem.data.name"></simple-input>
+            </div>
+            <div class="form-row">
+              <simple-input label="account nickname"
+                            value="$ctrl.currentitem.data.name"></simple-input>
+              <simple-input label="fraction amount"
+                            value="$ctrl.currentitem.data.name"></simple-input>
+            </div>
+          </div>
+        </subform-form>
+        <subform-header class="header table-cols-16">
+          <div class="text colspan c6">company</div>
+          <div class="text colspan c5">type</div>
+          <div class="text colspan c5">nickname</div>
+          <div class="text colspan c5">amount</div>
+        </subform-header>
+        <subform-cards>
+          <ui-subform-card-direct-deposit ng-class="{active: contact.isActive()}"
+                                          ng-click="contact.Activate(); $ctrl.SetCurrentItem(contact)"
+                                          item="contact"
+                                          ng-repeat="contact in $ctrl.metaArray">
+          </ui-subform-card-direct-deposit>
+        </subform-cards>
+      </ui-form-subform>
+    </div>
+  </form-section-content>
+</ui-form-section>

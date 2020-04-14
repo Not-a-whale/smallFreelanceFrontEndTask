@@ -39,3 +39,10 @@ dev-forms .data {
   word-wrap: normal;
   margin-right: 0px;
 }
+
+dev-forms .section {
+  border: 3px solid red;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

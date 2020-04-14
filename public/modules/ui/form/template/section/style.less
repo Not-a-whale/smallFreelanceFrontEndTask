@@ -21,6 +21,14 @@ ui-form-section {
       text-transform: capitalize;
     }
 
+    &>.optional {
+      font-family: @font-family-primary;
+      font-weight: @font-weight-normal;
+      font-size: @font-giant;
+      color: @cp-asphalt;
+      text-transform: capitalize;
+    }
+
     &>.remove {
       @flex-row();
       margin-right: 0px;
@@ -47,25 +55,45 @@ ui-form-section {
   }
 
   form-section-content {
-    display: flex;
+    @flex-col();
+    flex-grow: 1;
+    width: 100%;
 
-    .form-col {
+    .form-col,
+    form-col {
       @flex-col();
-    }
-
-    .form-row {
-      @flex-row();
-    }
-
-    .form-section {
 
       &:not(:last-child) {
-        margin-bottom: 16px;
-      }
-
-      &:not(:first-child) {
-        margin-top: 16px;
+        margin-right: 48px;
       }
     }
+
+    .form-row,
+    form-row {
+      @flex-row();
+      flex-grow: 1;
+
+      &:not(:last-child) {
+        margin-bottom: 2px;
+      }
+
+      &>*:not(:last-child) {
+        padding-right: 8px;
+      }
+    }
+
+    .make-form-columns(@maxcolumns, @i: @maxcolumns) when (@i > 0) {
+      .make-form-columns(@maxcolumns, @i - 1);
+
+      .f@{i},
+      .fc@{i} {
+        display: flex;
+        box-sizing: border-box;
+        width: 100% / @maxcolumns * @i;
+      }
+    }
+
+    .make-form-columns(6);
+
   }
 }

@@ -18,14 +18,12 @@
     <ui-table-header style="width: 100%"
                      fields="$ctrl.fields">
       <ui-table-banner>
-        <div class="colspan colhead {{ h.size }}"
-             ng-repeat="h in $ctrl.fields">
-          <div class="colname font-tbl-head"
-               ng-click="$ctrl.FocusMe($index);">{{ h.name }}</div>
-          <ui-table-sort-arrow-vert data-direction="$ctrl.chipsrv.Sort(h.name)"
-                                    update-field="$ctrl.UpdateSort(h.name, value)"></ui-table-sort-arrow-vert>
-        </div>
-
+        <ui-table-colheader class=" colspan {{ h.size }}"
+                            focus-me="$ctrl.FocusMe($index)"
+                            data="h"
+                            ng-repeat="h in $ctrl.fields"
+                            sort-direction="$ctrl.chipsrv.Sort(h.name)"
+                            update-field="$ctrl.UpdateSort(h.name, value)"></ui-table-colheader>
       </ui-table-banner>
       <ui-table-search-basic>
         <ui-table-search-input class="colspan {{h.size}}"
@@ -88,19 +86,19 @@
     </ui-table-header>
   </header-banner>
   <body-content>
-    <ui-table-row ng-repeat="item in $ctrl.carrierList"
+    <ui-table-row ng-repeat="item in $ctrl.tableList"
                   on-select="">
       <div class="business-name colspan {{$ctrl.fields[0].size}}">
         <ui-contact-business data="item"></ui-contact-business>
       </div>
 
       <div class="colspan {{$ctrl.fields[1].size}} font-table-body-text"
-           title="this feature is not yet supported">N/S</div>
+           title="this feature is not yet supported">{{item.OfficeName}}</div>
       <ui-address-oneliner class="colspan {{$ctrl.fields[2].size}} font-table-body-text"
                            address="item.brnch_address"></ui-address-oneliner>
 
       <div class="colspan {{$ctrl.fields[3].size}}">
-        <ui-contact-person data="{}"></ui-contact-person>
+        <ui-contact-person data="item.primary_contact"></ui-contact-person>
       </div>
 
       <ui-phone-oneliner class="colspan {{$ctrl.fields[4].size}} font-table-body-text font-c-primary"

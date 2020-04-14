@@ -1,0 +1,19 @@
+<div id="{{$ctrl.id}}"
+     class="button"
+     ng-class="{active: $ctrl.MenuVisible()}"
+     ng-click="$ctrl.Open()"
+     title="more options">
+  <div class="icont icont-tiny">
+    <svg class="icon">
+      <use xlink:href="imgs/icons.svg#dots-kebob"></use>
+    </svg>
+  </div>
+</div>
+
+
+<ui-more-options-menu id="{{$ctrl.id}}"
+                      ng-show="$ctrl.MenuVisible()"
+                      click-outside="$ctrl.Close()"
+                      outside-if-not="{{$ctrl.id}}"
+                      ng-transclude="menuItems">
+</ui-more-options-menu>

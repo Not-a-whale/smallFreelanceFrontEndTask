@@ -1,0 +1,32 @@
+<ui-form-section data-section="$ctrl.section">
+  <form-section-content>
+
+      <div class="form-col f6">
+        <div class="form-row"
+             ng-init="$ctrl.data.business.has_carrier.CrType='Company Carrier'">
+          <simple-input class="f2"
+                        label="company name"
+                        value="$ctrl.data.business.BizName"></simple-input>
+          <simple-input class="f2"
+                        label="email for rate confirmations"
+                        value="$ctrl.data.business.has_carrier.RateConfEmailAddress"></simple-input>
+        </div>
+        <div class="form-row">
+          <simple-input class="f2"
+                        label="MC #"
+                        value="$ctrl.data.business.has_carrier.MC"></simple-input>
+          <simple-input class="f2"
+                        label="DOT #"
+                        value="$ctrl.data.business.has_carrier.DOT"></simple-input>
+          <simple-input class="f2"
+                        label="SCAC #"
+                        value="$ctrl.data.business.has_carrier.SCAC"></simple-input>
+        </div>
+        <div class="form-row">
+          <ui-file data="$ctrl.data.business.has_carrier.mc_certificate_photo"
+                   maxfiles="1"></ui-file>
+        </div>
+
+      </div>
+  </form-section-content>
+</ui-form-section>

@@ -1,0 +1,12 @@
+ui-form-partial-person {
+  .ui-form-partial-defaults();
+  @flex-row();
+
+  &>* {
+    flex-grow: 1;
+  }
+
+  &>*:not(:last-child) {
+    padding-right: @inner-row-padding;
+  }
+}

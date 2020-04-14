@@ -1,0 +1,12 @@
+<header class="table-cols-16">
+  <div class="colspan c4">name</div>
+  <div class="colspan c4">phone</div>
+  <div class="colspan c4">email</div>
+  <div class="colspan c4"></div>
+</header>
+<inserts class="scrollable">
+  <ui-list-insert type="person"
+                  ng-repeat="item in $ctrl.items"
+                  item="item"
+                  ng-click="$ctrl.Select(item)"></ui-list-insert>
+</inserts>

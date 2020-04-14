@@ -1,0 +1,86 @@
+trip-status-card {
+  @flex-row();
+  position: relative;
+
+  width: 100%;
+  min-width: 500px;
+  min-height: 46px;
+  --table-columns: 16;
+  .ui-card();
+
+  &>* {
+    padding-top: 4px;
+  }
+
+  &>.container-location {
+    @flex-col();
+  }
+
+  .load-info {
+    height: 30px;
+    @flex-row();
+    padding-left: 8px;
+    padding-right: 8px;
+    width: 100%;
+    align-items: center;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid @cp-grey-light;
+    }
+
+    &>.load-number {
+      width: 40%;
+    }
+
+  }
+
+  .borders {
+    border-left: 1px solid @cp-grey-light;
+  }
+
+  &>.container-comment {
+    @flex-col();
+    padding-right: 12px;
+
+    &>.comment {
+      font-family: @font-family-primary;
+      font-weight: @font-weight-bold-semi;
+      font-size: @font-small;
+      color: @cp-default;
+      .one-liner();
+    }
+
+    &>.container-user {
+      @flex-row();
+      width: 100%;
+
+      &>.user {
+        max-width: 75%;
+        .one-liner();
+      }
+
+      &>.date {
+        max-width: 25%;
+        .one-liner();
+      }
+    }
+  }
+
+
+  &>.extra {
+    @flex-row();
+    align-items: center;
+    position: absolute;
+    right: 12px;
+    top: 0px;
+    height: 100%;
+
+    .handle {
+      svg {
+        fill: @cp-default-light;
+      }
+    }
+
+  }
+
+}

@@ -1,0 +1,16 @@
+<ui-container-accordion-open data-title="$ctrl.title"
+                             data-count="$ctrl.trips.length">
+  <row-header class="table-cols-16">
+    <div class="colspan c1">trip</div>
+    <div class="colspan c2 padded">load</div>
+    <div class="colspan c3">load status</div>
+    <div class="colspan c4 padded">truck location</div>
+    <div class="colspan c4 padded">comment</div>
+    <div class="colspan c2 padded">dispatcher</div>
+
+  </row-header>
+  <body-content class="spacing">
+    <trip-status-card ng-repeat="item in $ctrl.trips"></trip-status-card>
+  </body-content>
+
+</ui-container-accordion-open>

@@ -1,0 +1,16 @@
+{
+   "structure" : {
+      "PrsnId" : "bigint",
+      "NickName" : "varchar",
+      "Prefix" : "enum",
+      "FirstName" : "varchar",
+      "MiddleName" : "varchar",
+      "LastName" : "varchar",
+      "Suffix" : "enum",
+      "BrnchId" : "bigint",
+      "notes" : [
+         {}
+      ]
+   },
+   "route" : "/api/test/notes"
+}

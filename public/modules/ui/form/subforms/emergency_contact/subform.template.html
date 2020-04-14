@@ -1,0 +1,27 @@
+<div class="form-col f6">
+  <div class="form-row">
+    <simple-input label="peron's name"
+                  class="f4"
+                  value="$ctrl.data.ContactName"
+                  required="1"></simple-input>
+    <simple-input label="relationship"
+                  class="f2"
+                  value="$ctrl.data.Relationship"
+                  required="1"></simple-input>
+  </div>
+
+  <ui-form-partial-phone class="f6"
+                         ext="1"
+                         data="$ctrl.data.contact_phone"
+                         required="1">
+  </ui-form-partial-phone>
+  <div class="form-row">
+    <ui-date class="f2"
+             data="$ctrl.data.Effective"
+             label="effective"
+             required="1"></ui-date>
+    <ui-date class="f2"
+             data="$ctrl.data.Expired"
+             label="expiration"></ui-date>
+  </div>
+</div>

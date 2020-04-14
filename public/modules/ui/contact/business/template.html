@@ -11,12 +11,15 @@
        ng-click="$ctrl.Toggle()">
     {{$ctrl.DisplayName()}}
   </div>
-  <ui-card-detail-small click-outside="$ctrl.Close()"
+  <ui-card-detail-small ng-if="$ctrl.ValidData()"
+                        click-outside="$ctrl.Close()"
                         outside-if-not="{{$ctrl.id}}"
                         ng-show="$ctrl.ShowDetail()"
                         data-role="$ctrl.BusinessType()"
                         data-name="$ctrl.DisplayName()"
                         data-phone="$ctrl.Phone()"
                         data-email="$ctrl.Email()"
-                        data-address="$ctrl.Address()"></ui-card-detail-small>
+                        data-address="$ctrl.Address()"
+                        profile-link="$ctrl.ProfileLink()">
+  </ui-card-detail-small>
 </div>

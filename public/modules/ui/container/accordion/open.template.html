@@ -1,0 +1,27 @@
+<div class="header">
+     <div class="dept icont icont-tiny"
+          ng-if="$ctrl.ShowIcon()">
+          <svg class="icon">
+               <use xlink:href="{{$ctrl.icon}}"></use>
+          </svg>
+     </div>
+     <div class="title ">{{ $ctrl.title }} <span ng-if="$ctrl.ShowCount()">&nbsp-&nbsp{{ $ctrl.count}}</span></div>
+     <div class="edit icont icont-tiny"
+          ng-if="$ctrl.CanAddNew()">
+          <svg class="icon">
+               <use xlink:href="imgs/icons.svg#pencil"></use>
+          </svg>
+     </div>
+     <div class="addnew icont icont-tiny"
+          ng-if="$ctrl.CanAddNew()">
+          <svg class="icon">
+               <use xlink:href="imgs/icons.svg#plus"></use>
+          </svg>
+     </div>
+
+</div>
+<div class="row-header"
+     ng-transclude="rowHeader"></div>
+<div class="body"
+     ng-transclude="bodyContent">
+</div>

@@ -1,0 +1,19 @@
+ui-form-partial-phone {
+  .ui-form-partial-defaults();
+  @flex-row();
+
+  &>* {
+    &:not(:last-child) {
+      padding-right: @inner-row-padding;
+    }
+  }
+
+  simple-input[label~=phone] {
+    flex-grow: 1;
+  }
+
+  simple-input[label=extension] {
+    width: 25%;
+  }
+
+}

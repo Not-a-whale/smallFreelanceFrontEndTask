@@ -1,10 +1,10 @@
 class UIToastBannerCtrl {
-  constructor(errsrv, timeout) {
-
+  constructor(errsrv, timeout, element) {
     this.errsrv = errsrv;
+    this.element = element;
     this.message = '';
-
     this.timeout = timeout;
+    this.fade = 0;
   }
 
   Close() {
@@ -12,19 +12,29 @@ class UIToastBannerCtrl {
       this.onClose();
     }
   }
-  CanClose(){
+  CanClose() {
     return this.onClose instanceof Function;
   }
 
   $onInit() {
     if (this.error instanceof ErrorObj && this.error != undefined) {
       this.message = this.errsrv.ReadError(this.error);
+      let myclass = 'warn';
+      switch (this.error.level) {
+        case ErrorLevel.SUCCESS:
+          myclass = 'success';
+          break;
+        default:
+          myclass = 'warn';
+      }
+      console.log('adding class ' + myclass);
+      this.element.addClass(myclass);
     }
     if (this.fade) {
       let self = this;
       this.timeout(function () {
         self.Close();
-      }, 2200);
+      }, this.fade * 1000);
     }
 
   }
@@ -32,9 +42,9 @@ class UIToastBannerCtrl {
 
 app.component('uiToastBanner', {
   templateUrl: 'modules/ui/toasts/banner/template.html',
-  controller: ['ErrorService', '$timeout', UIToastBannerCtrl],
+  controller: ['ErrorService', '$timeout', '$element', UIToastBannerCtrl],
   bindings: {
-    fade: '@',
+    fade: '<?', // how many seconds for it to stay up
     type: '@',
     error: '<',
     onClose: '&?'

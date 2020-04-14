@@ -1,0 +1,62 @@
+<simple-input value="$ctrl.data.PayToTheOrderOf"
+              label="pay to the order of"></simple-input>
+<simple-input value="$ctrl.data.ContactName"
+              label="ContactName"></simple-input>
+<ui-form-partial-email data="$ctrl.data.EMail"
+                       type="billing"></ui-form-partial-email>
+<ui-date data="$ctrl.data.DateIn"
+         label="DateIn"></ui-date>
+<ui-date data="$ctrl.data.DateOut"
+         label="DateOut"></ui-date>
+<simple-input value="$ctrl.data.CreditLimit"
+              label="credit limit"></simple-input>
+<ui-select data="$ctrl.data.CreditHold"
+           label="credit hold"
+           table="FinBillingInfo"
+           column="CreditHold"></ui-select>
+<ui-form-partial-address data="$ctrl.data.address"
+                         label="billing address"></ui-form-partial-address>
+<simple-input value="$ctrl.data.billing_tag.BillingTag"
+              label="BillingTag"></simple-input>
+<ui-form-partial-fax data="$ctrl.data.fax"
+                     type="billing"
+                     ext="1"></ui-form-partial-fax>
+<ui-form-partial-phone data="$ctrl.data.phone"
+                       type="billing"
+                       ext="1"></ui-form-partial-phone>
+<simple-input value="$ctrl.data.fin_billing_banks[0].BillingId"
+              label="BillingId"></simple-input>
+<ui-datalist-concrete type="business"
+                      value="$ctrl.data.fin_billing_banks[0].Institution"
+                      label="bank"
+                      form="business">
+</ui-datalist-concrete>
+<form-row>
+  <simple-input class="fc4"
+                value="$ctrl.data.fin_billing_banks[0].AccountNickname"
+                label="AccountNickname"></simple-input>
+
+  <ui-select class="fc2"
+             value="$ctrl.data.fin_billing_banks[0].AccountType"
+             label="AccountType"
+             table="FinBillingBank"
+             column="AccountType"></ui-select>
+</form-row>
+
+<form-row>
+  <simple-input class="fc3"
+                value="$ctrl.data.fin_billing_banks[0].AccountNumber"
+                label="AccountNumber"></simple-input>
+  <simple-input class="fc3"
+                value="$ctrl.data.fin_billing_banks[0].RoutingNumber"
+                label="RoutingNumber"></simple-input>
+</form-row>
+
+<ui-select value="$ctrl.data.fin_billing_banks[0].Purpose"
+           label="Purpose"
+           table="FinBillingBank"
+           column="Purpose"></ui-select>
+<ui-checkbox value="$ctrl.data.fin_billing_banks[0].Active"
+             label="active"></ui-checkbox>
+<ui-file data="$ctrl.data.fin_billing_banks[0].void_check"
+         label="void check"></ui-file>

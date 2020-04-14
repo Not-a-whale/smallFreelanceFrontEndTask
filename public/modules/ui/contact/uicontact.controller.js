@@ -4,6 +4,13 @@ class UIContactCtrl {
     this.expanded = false;
   }
 
+  $onChanges(changes) {
+    if (changes != undefined) {
+      this.SetupStructure();
+    }
+
+  }
+
   Toggle() {
     this.expanded = !this.expanded;
   }
@@ -13,5 +20,9 @@ class UIContactCtrl {
 
   Close() {
     this.expanded = false;
+  }
+
+  $onInit() {
+    this.SetupStructure();
   }
 }

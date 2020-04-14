@@ -8,6 +8,10 @@ class UIFormSectionContainerCtrl {
     this.sections = this.formsrv.CurrentSubform().forms;
   }
 
+  Sections() {
+    return this.sections;
+  }
+
   EnabledSections() {
     if (this.sections != undefined) {
       return this.sections.filter(x => x.active);

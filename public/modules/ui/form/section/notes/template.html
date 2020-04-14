@@ -1,0 +1,61 @@
+<ui-form-section data-section="$ctrl.section">
+  <form-section-content>
+    <ui-form-subform on-add="$ctrl.AddItem()"
+                     on-delete="$ctrl.DeleteItem()"
+                     on-update="$ctrl.UpdateItem()">
+      <subform-form>
+        <div class="form-col">
+          <div class="form-row">
+            <simple-input label="write a note"
+                          value="$ctrl.currentitem.data.relationship"></simple-input>
+          </div>
+          <div class="form-row">
+            <div class="form-col">
+              <label>
+                <input type="radio"
+                       name="visibility"
+                       ng-model="$ctrl.currentitem.data.privacy"
+                       value="public">
+                public: everyone can see this note
+              </label>
+              <label>
+                <input type="radio"
+                       name="visibility"
+                       ng-model="$ctrl.currentitem.data.privacy"
+                       value="private">
+                private: only my company can see the note
+              </label>
+              <label>
+                <input type="radio"
+                       name="visibility"
+                       ng-model="$ctrl.currentitem.data.privacy"
+                       value="personal">
+                personal: only i can see this note
+              </label>
+
+            </div>
+            <div class="form-col">
+              <label>
+                <input type="checkbox"
+                       name="visibility"
+                       ng-model="$ctrl.currentitem.data.privacy">
+                mark important
+              </label>
+
+            </div>
+
+
+
+          </div>
+        </div>
+      </subform-form>
+      <subform-cards>
+        <ui-subform-card-emergency-contact ng-class="{active: contact.isActive()}"
+                                           ng-click="contact.Activate(); $ctrl.SetCurrentItem(contact)"
+                                           item="contact"
+                                           ng-repeat="contact in $ctrl.metaArray">
+        </ui-subform-card-emergency-contact>
+      </subform-cards>
+    </ui-form-subform>
+  </form-section-content>
+</ui-form-section>

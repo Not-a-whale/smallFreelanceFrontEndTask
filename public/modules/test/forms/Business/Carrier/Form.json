@@ -1,0 +1,25 @@
+{
+   "structure" : {
+      "EntityId" : "bigint",
+      "IsActive" : "tinyint",
+      "DateCreated" : "datetime",
+      "Notes" : "text",
+      "PersonId" : "bigint",
+      "BusinessId" : "bigint",
+      "business" : {
+         "BizId" : "bigint",
+         "BizName" : "varchar",
+         "BizURL" : "varchar",
+         "has_carrier" : {
+            "CarrierId" : "bigint",
+            "MC" : "varchar",
+            "McCertificatePhoto" : "bigint",
+            "DOT" : "varchar",
+            "CrType" : "enum",
+            "SCAC" : "varchar",
+            "RateConfEmailAddress" : "varchar"
+         }
+      }
+   },
+   "route" : "/api/business/carrier/form"
+}

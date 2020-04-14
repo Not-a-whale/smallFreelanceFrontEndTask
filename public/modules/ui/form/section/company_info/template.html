@@ -1,0 +1,25 @@
+<ui-form-section data-section="$ctrl.section">
+  <form-section-content>
+    <div class="form-col">
+      <div class="form-col">
+        <div class="form-row">
+          <simple-input label="company name"
+                        value="$ctrl.data.biz.BizName"></simple-input>
+          <simple-input label="branch name"
+                        value="$ctrl.data.OfficeName"></simple-input>
+        </div>
+        <div class="form-row">
+          <ui-form-partial-address-oneliner data="$ctrl.data.brnch_address"></ui-form-partial-address-oneliner>
+        </div>
+        <div class="form-row">
+          <ui-form-partial-phone data="$ctrl.data.brnch_phone"
+                                 type="branch"></ui-form-partial-phone>
+          <ui-form-partial-email data="$ctrl.data.BrnchEMail"
+                                 type="branch"></ui-form-partial-email>
+          <ui-form-partial-fax data="$ctrl.data.brnch_fax"
+                               type="branch"></ui-form-partial-fax>
+        </div>
+      </div>
+    </div>
+  </form-section-content>
+</ui-form-section>

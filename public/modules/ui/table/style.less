@@ -59,83 +59,31 @@
 
 /* ------ this is for indicating the width of the columns ------------*/
 
-.colspan {
-  width: calc(100% * (var(--table-column-span) / var(--table-columns)));
-  flex-basis: calc(100% * (var(--table-column-span) / var(--table-columns)));
+@table-columns: 12, 16, 64;
+
+.make-table-columns(@i: length(@table-columns)) when (@i > 0) {
+  .make-table-columns(@i - 1);
+  @col: extract(@table-columns, @i);
+
+  .table-cols-@{col} {
+    --table-columns: @col;
+  }
 }
 
-.table-cols-12 {
-  --table-columns: 12;
+.make-table-columns();
+
+.make-table-colspan(@colspan) when (@colspan > 0) {
+  .make-table-colspan(@colspan - 1);
+
+  .c@{colspan} {
+    --table-column-span: @colspan;
+    width: calc(100% * (var(--table-column-span) / var(--table-columns)));
+    flex-basis: calc(100% * (var(--table-column-span) / var(--table-columns)));
+  }
 }
 
-.table-cols-16 {
-  --table-columns: 16;
-}
+.make-table-colspan(64);
 
-
-.c1 {
-  --table-column-span: 1;
-}
-
-.c2 {
-  --table-column-span: 2;
-}
-
-.c3 {
-  --table-column-span: 3;
-}
-
-.c4 {
-  --table-column-span: 4;
-}
-
-.c5 {
-  --table-column-span: 5;
-}
-
-.c6 {
-  --table-column-span: 6;
-}
-
-.c7 {
-  --table-column-span: 7;
-}
-
-.c8 {
-  --table-column-span: 8;
-}
-
-.c9 {
-  --table-column-span: 9;
-}
-
-.c10 {
-  --table-column-span: 10;
-}
-
-.c11 {
-  --table-column-span: 11;
-}
-
-.c12 {
-  --table-column-span: 12;
-}
-
-.c13 {
-  --table-column-span: 13;
-}
-
-.c14 {
-  --table-column-span: 14;
-}
-
-.c15 {
-  --table-column-span: 15;
-}
-
-.c16 {
-  --table-column-span: 16;
-}
 
 .table-preamble {
   @flex-row();

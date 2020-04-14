@@ -1,0 +1,10 @@
+<label ng-required="{{$ctrl.required}}"
+       ng-if="$ctrl.label != undefined">{{ $ctrl.label}}</label>
+<input type="checkbox"
+       ng-model="$ctrl.checked"
+       ng-required="{{$ctrl.required}}"
+       ng-disabled="{{$ctrl.disabled}}"
+       ng-change="$ctrl.SetValue();$ctrl.isChecked()"
+       ng-class="{invalid: !$ctrl.valid}"
+        />
+<errors>{{ $ctrl.errmsg || 'This field is required'}}</errors>

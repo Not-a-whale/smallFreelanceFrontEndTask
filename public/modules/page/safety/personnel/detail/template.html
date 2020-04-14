@@ -1,0 +1,18 @@
+<div class="left-panel">
+  <ui-personnel-detail-panel data="$ctrl.detail">
+    <body-content>
+      <ui-panel-detail-general-info></ui-panel-detail-general-info>
+      <ui-panel-detail-driver-license></ui-panel-detail-driver-license>
+      <ui-panel-detail-payment-info></ui-panel-detail-payment-info>
+      <ui-panel-detail-ifta-account></ui-panel-detail-ifta-account>
+      <ui-panel-detail-user-account></ui-panel-detail-user-account>
+      <div class="row active"><span class="label bold caps">active since&nbsp</span>10/20/2020</div>
+    </body-content>
+  </ui-personnel-detail-panel>
+</div>
+<div class="middle-panel">
+  <ui-accordion-holds holds="[{},{}]"></ui-accordion-holds>
+  <ui-accordion-trip-status trips="[{},{},{}]"></ui-accordion-trip-status>
+  <ui-accordion-drivers drivers="[{},{},]"></ui-accordion-drivers>
+</div>
+<div class="right-panel"></div>

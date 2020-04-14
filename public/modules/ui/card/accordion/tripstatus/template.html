@@ -1,0 +1,22 @@
+<div class="colspan c1 font-detail-card-text caps box">sdfsdf</div>
+<div class="colspan c5 borders">
+  <div class="load-info"
+       ng-repeat="load in $ctrl.loads">
+    <div class="load-number font-detail-card-text">
+      {{load.number}}
+    </div>
+    <div class="load-status">
+      <ui-status-load status="load.status"></ui-status-load>
+    </div>
+  </div>
+</div>
+<div class="colspan c4 container-location box-left">
+  <div class="location font-detail-card-text bold caps">sacramento, CA 999999</div>
+  <div class="date font-detail-card-text-tiny">08/88/8888 (12:59 pm)</div>
+</div>
+<div class="colspan c4 box-left">
+  <ui-comment-multiline data=""></ui-comment-multiline>
+</div>
+<div class="colspan c2 box-left">
+  <ui-avatar></ui-avatar>
+</div>

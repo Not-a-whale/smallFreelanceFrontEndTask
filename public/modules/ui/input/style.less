@@ -1,0 +1,179 @@
+select,
+input {
+
+  --input-outline-color: @cp-grey;
+  --input-text-color: @cp-default;
+
+  display: flex;
+  height: 30px;
+  width: 100%;
+  padding: 0px 6px 0px 6px;
+
+  box-sizing: border-box;
+  border: 1px solid var(--input-outline-color);
+  border-radius: 2px;
+
+  background-color: @cp-highlight;
+  color: var(--input-text-color);
+
+
+
+  &[type="text"] {
+    font-family: @font-family-primary;
+    font-weight: @font-weight-normal;
+    font-size: @font-small;
+  }
+
+
+
+  &:hover {
+    --input-outline-color: @cp-default-light;
+  }
+
+  &:focus {
+    outline-color: var(--input-outline-color);
+    --input-outline-color: @cp-primary-light;
+  }
+
+  &.ng-touched,
+  &.ng-dirty {
+    &.invalid {
+      --input-outline-color: @cp-danger;
+    }
+  }
+}
+
+label {
+  height: 18px;
+  font-family: @font-family-primary;
+  font-weight: @font-weight-bold;
+  font-size: @font-small;
+  line-height: 18px;
+  text-transform: capitalize;
+  color: var(--input-label-color);
+
+  &[required] {
+    &:after {
+      content: ' *';
+    }
+  }
+}
+
+errors {
+  font-family: @font-family-primary;
+  font-weight: @font-weight-normal;
+  font-size: @font-small;
+  text-transform: lowercase;
+  color: @cp-danger;
+}
+
+
+.input-defaults() {
+  @flex-col();
+  position: relative;
+  height: 18px + 30px + 20px;
+
+  &>label {
+    position: absolute;
+    order: 1;
+  }
+
+  &>input,
+  &>select {
+    margin: 18px 0px 20px 0px;
+    order: 2;
+  }
+
+  errors {
+    display: none;
+    position: absolute;
+    order: 3;
+    bottom: 0px;
+  }
+
+  .ng-dirty,
+  .ng-touched {
+    &.invalid {
+      +errors {
+        display: flex;
+      }
+    }
+  }
+}
+
+ui-datalist {
+
+  &,
+  &-business {
+    .input-defaults();
+  }
+}
+
+
+ui-input-wrapper {
+  @flex-row();
+  height: 30px;
+  margin-top: 18px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+ui-radio,
+ui-checkbox {
+  @flex-row();
+  height: 30px;
+  align-items: center;
+
+  &>input {
+    min-width: 16px;
+    min-height: 16px;
+    height: 16px;
+    width: 16px;
+    order: 1;
+  }
+
+  &>label {
+    order: 2;
+    margin-left: 4px;
+  }
+
+  errors {
+    display: none;
+    position: absolute;
+    order: 3;
+    bottom: 0px;
+  }
+
+  .ng-dirty,
+  .ng-touched {
+    &.invalid {
+      +errors {
+        display: flex;
+      }
+    }
+  }
+}
+
+ui-select,
+ui-date,
+simple-input {
+  .input-defaults();
+}
+
+.input-new-btn {
+  position: absolute;
+  --newbtn-color: @cp-primary;
+  font-family: @font-family-primary;
+  font-weight: @font-weight-bold;
+  font-size: @font-teeny;
+  color: var(--newbtn-color);
+  .clickable();
+  right: 8px;
+  text-emphasis: none;
+  text-decoration: none;
+  text-transform: uppercase;
+
+  &:hover {
+    --newbtn-color: @cp-primary-mid;
+  }
+}

@@ -4,7 +4,7 @@ class PageCtrl {
   }
 
   PageTitle() {
-    return this.pagesrv.CurrentPage().title;
+    return this.pagesrv.CurrentPageTitle();
   }
 
   PageTabs() {

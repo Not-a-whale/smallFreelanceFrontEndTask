@@ -1,0 +1,27 @@
+<ui-form-section data-section="$ctrl.section">
+  <form-section-content>
+    <div class="form-row f6">
+      <ui-datalist-business class="f2"
+                            label="company employed by"
+                            data="$ctrl.data.brnch"></ui-datalist-business>
+      <ui-input-wrapper>
+        If you need to register a new carrier please use the new carrier form
+      </ui-input-wrapper>
+
+    </div>
+    <div class="form-row f6">
+      <ui-form-partial-phone data="$ctrl.data.hr_associate.biz_phone"
+                             type="work"
+                             ext="true"
+                             class="f3"></ui-form-partial-phone>
+      <ui-form-partial-fax data="$ctrl.data.hr_associate.biz_fax"
+                           type="work"
+                           ext="true"
+                           class="f3"></ui-form-partial-fax>
+    </div>
+    <div class="form-row f6">
+      <ui-form-partial-email data="$ctrl.data.hr_associate.BizEmail"
+                             type="work" class="f2"></ui-form-partial-email>
+    </div>
+  </form-section-content>
+</ui-form-section>

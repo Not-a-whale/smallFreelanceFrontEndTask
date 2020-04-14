@@ -1,0 +1,41 @@
+<form-container>
+  <ui-subform-form formid="$ctrl.formid"
+                   data="$ctrl.edit.data"
+                   form="$ctrl.form"
+                   submittype="$ctrl.submittype"
+                   on-submit="$ctrl.Submitted(data)"
+                   endpoint="$ctrl.endpoint"></ui-subform-form>
+</form-container>
+<controls-container>
+  <button ng-show="$ctrl.edit.isSelected()"
+          form="{{$ctrl.formid}}"
+          type="submit"
+          ng-click="$ctrl.UpdateItem()">update
+    <div class="icont icont-minute"><svg class="icon">
+        <use xlink:href="imgs/icons.svg#circle-arrow-left"></use>
+      </svg></div>
+  </button>
+  <button ng-hide="$ctrl.edit.isSelected()"
+          form="{{$ctrl.formid}}"
+          type="submit"
+          ng-click="$ctrl.AddItem()">add
+    <div class="icont icont-minute"><svg class="icon">
+        <use xlink:href="imgs/icons.svg#circle-arrow-left"></use>
+      </svg></div>
+  </button>
+  <button ng-show="$ctrl.edit.isSelected()"
+          form="{{$ctrl.formid}}"
+          type="submit"
+          ng-click="$ctrl.DeleteItem()">delete
+    <div class="icont icont-minute"><svg class="icon grey">
+        <use xlink:href="imgs/icons.svg#circle-plus"></use>
+      </svg></div>
+  </button>
+</controls-container>
+<list-container>
+  <ui-list class="scrollable"
+           type="person"
+           endpoint="$ctrl.endpoint"
+           on-select="$ctrl.edit = item;"
+           query="{'search':[], 'orderby':[{'FirstName':'asc'},{'LastName':'asc'}]}"></ui-list>
+</list-container>

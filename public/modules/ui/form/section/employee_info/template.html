@@ -1,0 +1,20 @@
+<ui-form-section data-section="$ctrl.section">
+  <form-section-content>
+    <div class="form-col">
+      <div class="form-row">
+        <ui-datalist value="$ctrl.data.brnch" label="branch"
+                     search-fun="ListOfBranches"></ui-datalist>
+        <ui-form-partial-employment branch="$ctrl.data.ast.brnch"></ui-form-partial-employment>
+      </div>
+      <div class="form-row">
+        <ui-form-partial-phone data="$ctrl.data.biz_phone"
+                               type="work"
+                               ext="true"></ui-form-partial-phone>
+        <ui-form-partial-email data="$ctrl.data.BizEmail"
+                               type="work"></ui-form-partial-email>
+        <ui-form-partial-fax data="$ctrl.data.biz_fax"
+                             type="work"></ui-form-partial-fax>
+      </div>
+    </div>
+  </form-section-content>
+</ui-form-section>

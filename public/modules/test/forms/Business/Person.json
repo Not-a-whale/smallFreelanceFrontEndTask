@@ -1,0 +1,13 @@
+{
+   "route" : "/api/business/person",
+   "structure" : {
+      "PrsnId" : "bigint",
+      "NickName" : "varchar",
+      "Prefix" : "enum",
+      "FirstName" : "varchar",
+      "MiddleName" : "varchar",
+      "LastName" : "varchar",
+      "Suffix" : "enum",
+      "BrnchId" : "bigint"
+   }
+}

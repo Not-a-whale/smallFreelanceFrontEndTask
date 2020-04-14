@@ -1,0 +1,516 @@
+[{
+    "title": "test",
+    "route": "/api/test",
+    "searchid": "none",
+    "temptitle": "none",
+    "forms": [{
+      "title": "test1",
+      "active": true,
+      "optional": false,
+      "forms": [{
+          "title": "company info",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-company-info",
+          "entrypoint": ""
+        }, {
+          "title": "contact information",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-contact-info",
+          "entrypoint": ""
+        },
+        {
+          "title": "agents (contacts)",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-agents",
+          "entrypoint": ""
+        },
+        {
+          "title": "billing information",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-billing-info",
+          "entrypoint": ""
+        },
+        {
+          "title": "carrier information",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-carrier-info",
+          "entrypoint": ""
+        },
+        {
+          "title": "emergency contacts",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-emergency-contact",
+          "entrypoint": ""
+        }, {
+          "title": "employee information",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-employee-info",
+          "entrypoint": ""
+        }, {
+          "title": "payment information",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-payment-info",
+          "entrypoint": ""
+        },
+        {
+          "title": "personal information",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-personal-info",
+          "entrypoint": ""
+        },
+        {
+          "title": "personal information (simple)",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-personal-info-simple",
+          "entrypoint": ""
+        },
+        {
+          "title": "user account",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-user-account",
+          "entrypoint": ""
+        },
+        {
+          "title": "IFTA",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-ifta",
+          "entrypoint": ""
+        },
+        {
+          "title": "insurance",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-insurance",
+          "entrypoint": ""
+        },
+        {
+          "title": "permit accounts",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-permit-accounts",
+          "entrypoint": ""
+        },
+        {
+          "title": "documents",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-documents",
+          "entrypoint": ""
+        },
+        {
+          "title": "notes",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-notes",
+          "entrypoint": ""
+        },
+        {
+          "title": "driver details",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-driver-details",
+          "entrypoint": ""
+        },
+        {
+          "title": "portal login",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-portal-login",
+          "entrypoint": ""
+        }
+      ]
+    }]
+  },
+
+  {
+    "title": "new carrier",
+    "route": "/api/test/general_contact/create",
+    "searchid": "none",
+    "temptitle": "none",
+    "forms": [{
+      "title": "test1",
+      "active": true,
+      "optional": false,
+      "forms": [{
+          "title": "company info",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-company-info",
+          "entrypoint": ""
+        }, {
+          "title": "contact information",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-contact-info",
+          "entrypoint": ""
+        },
+        {
+          "title": "agents (contacts)",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-agents",
+          "entrypoint": ""
+        },
+        {
+          "title": "billing information",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-billing-info",
+          "entrypoint": ""
+        },
+        {
+          "title": "carrier information",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-carrier-info",
+          "entrypoint": ""
+        },
+        {
+          "title": "emergency contacts",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-emergency-contact",
+          "entrypoint": ""
+        }, {
+          "title": "employee information",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-employee-info",
+          "entrypoint": ""
+        }, {
+          "title": "payment information",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-payment-info",
+          "entrypoint": ""
+        },
+        {
+          "title": "personal information",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-personal-info",
+          "entrypoint": ""
+        },
+        {
+          "title": "personal information (simple)",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-personal-info-simple",
+          "entrypoint": ""
+        },
+        {
+          "title": "user account",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-user-account",
+          "entrypoint": ""
+        },
+        {
+          "title": "IFTA",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-ifta",
+          "entrypoint": ""
+        },
+        {
+          "title": "insurance",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-insurance",
+          "entrypoint": ""
+        },
+        {
+          "title": "permit accounts",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-permit-accounts",
+          "entrypoint": ""
+        },
+        {
+          "title": "documents",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-documents",
+          "entrypoint": ""
+        },
+        {
+          "title": "notes",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-notes",
+          "entrypoint": ""
+        },
+        {
+          "title": "driver details",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-driver-details",
+          "entrypoint": ""
+        },
+        {
+          "title": "portal login",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-portal-login",
+          "entrypoint": ""
+        }
+      ]
+    }]
+  },
+  {
+    "title": "new contact",
+    "route": "/api/associate",
+    "searchid": "AstId",
+    "temptitle": "person.ast.FirstName person.ast.LastName",
+    "forms": [{
+      "title": "new contact",
+      "active": true,
+      "optional": false,
+      "forms": [{
+          "title": "business information",
+          "optional": false,
+          "active": true,
+          "component": "ui-form-section-business-picker"
+
+        },
+        {
+          "title": "contact information",
+          "optional": false,
+          "active": true,
+          "component": "ui-form-section-contact-info",
+          "entrypoint": ""
+        }
+      ]
+    }]
+  },
+  {
+    "title": "new general business",
+    "route": "/api/business/branch/form",
+    "searchid": "me.BrnchId",
+    "temptitle": "biz.BizName OfficeName",
+    "forms": [{
+      "title": "new general business",
+      "active": true,
+      "optional": false,
+      "forms": [{
+          "title": "company info",
+          "optional": false,
+          "active": true,
+          "component": "ui-form-section-company-info",
+          "entrypoint": ""
+        },
+        {
+          "title": "agents (contacts)",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-agents",
+          "entrypoint": "ent_people"
+
+        },
+        {
+          "title": "billing information",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-billing-info",
+          "entrypoint": "biz.entity.fin_billing_infos"
+        },
+        {
+          "title": "payment",
+          "optional": true,
+          "active": false,
+          "component": "ui-form-section-payment-info",
+          "entrypoint": ""
+        },
+        {
+          "title": "documents",
+          "optional": true,
+          "active": false,
+          "component": "ui-form-section-documents",
+          "entrypoint": ""
+        },
+        {
+          "title": "notes",
+          "optional": true,
+          "active": false,
+          "component": "ui-form-section-notes",
+          "entrypoint": ""
+        }
+      ]
+    }]
+  },
+  {
+    "title": "new office employee",
+    "route": "/api/associates/create",
+    "searchid": "none",
+    "temptitle": "none",
+    "forms": [{
+      "title": "new office employee",
+      "active": true,
+      "optional": false,
+      "forms": [{
+          "title": "personal information",
+          "component": "ui-form-section-employee-info",
+          "entrypoint": "",
+          "optional": false,
+          "active": true
+        },
+        {
+          "title": "employee info",
+          "optional": true,
+          "active": true
+        },
+        {
+          "title": "emergency contact",
+          "optional": true,
+          "active": true
+        },
+        {
+          "title": "user account",
+          "optional": true,
+          "active": true
+        },
+        {
+          "title": "documents",
+          "optional": true,
+          "active": true
+        },
+        {
+          "title": "notes",
+          "optional": true,
+          "active": true
+        }
+      ]
+    }]
+  },
+  {
+    "title": "new carrier authority",
+    "route": "/api/business/authority/form",
+    "searchid": "BusinessId",
+    "temptitle": "business.BizName",
+    "forms": [{
+      "title": "authority",
+      "active": true,
+      "optional": false,
+      "forms": [{
+        "title": "business information",
+        "optional": false,
+        "active": true,
+        "component": "ui-form-section-carrier-authority",
+        "entrypoint": ""
+      }]
+    }]
+  },
+  {
+    "title": "new driver",
+    "route": "/api/driver/form",
+    "searchid": "person.hr_associate.drv_driver.DriverId",
+    "temptitle": "driver.ast.FirstName driver.ast.LastName",
+    "forms": [{
+      "title": "driver details",
+      "active": true,
+      "optional": false,
+      "forms": [{
+          "title": "driver company",
+          "optional": false,
+          "active": true,
+          "component": "ui-form-section-driver-company",
+          "entrypoint": "person"
+        },
+        {
+          "title": "driver details",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-driver-details",
+          "entrypoint": ""
+        },
+        {
+          "title": "licenses",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-driver-license",
+          "entrypoint": "person.hr_associate.drv_driver.drv_driverlicences"
+        },
+        {
+          "title": "medical cards",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-driver-medcards",
+          "entrypoint": "person.hr_associate.drv_driver.drv_medcards"
+        },
+        {
+          "title": "residences",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-residences",
+          "entrypoint": "person.hr_associate.hr_residences"
+        },
+        {
+          "title": "emergency contacts",
+          "optional": true,
+          "active": true,
+          "component": "ui-form-section-emergency-contact",
+          "entrypoint": "person.hr_associate.hr_emrgency_contacts"
+        },
+        {
+          "title": "work information",
+          "optional": true,
+          "active": false,
+          "component": "ui-form-section-employee-info",
+          "entrypoint": "person.hr_associate"
+        },
+        {
+          "title": "payment information",
+          "optional": true,
+          "active": false,
+          "component": "ui-form-section-payment-info",
+          "entrypoint": "a"
+        },
+        {
+          "title": "documents",
+          "optional": true,
+          "active": false,
+          "component": "ui-form-section-documents",
+          "entrypoint": "a"
+        },
+        {
+          "title": "notes",
+          "optional": true,
+          "active": false,
+          "component": "ui-form-section-notes",
+          "entrypoint": "a"
+        }
+      ]
+    }]
+  },
+  {
+    "title": "new carrier",
+    "route": "/api/business/carrier/form",
+    "searchid": "me.BrnchId",
+    "temptitle": "biz.BizName OfficeName",
+    "forms": [{
+      "title": "new general business",
+      "active": true,
+      "optional": false,
+      "forms": [{
+          "title": "company info",
+          "optional": false,
+          "active": true,
+          "component": "ui-form-section-company-info",
+          "entrypoint": ""
+        }
+      ]
+    }]
+  }
+]

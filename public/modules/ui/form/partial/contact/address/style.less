@@ -1,0 +1,16 @@
+ui-form-partial-address {
+  .ui-form-partial-defaults();
+  @flex-col();
+  width: 100%;
+}
+
+ui-form-partial-address-oneliner {
+  .ui-form-partial-defaults();
+  @flex-row();
+
+  &>* {
+    &:not(:last-child) {
+      padding-right: @inner-row-padding;
+    }
+  }
+}

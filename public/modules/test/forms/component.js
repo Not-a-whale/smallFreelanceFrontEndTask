@@ -10,6 +10,8 @@ class DevFormsCtrl {
     this.currentForm = undefined;
 
     this.formData = {};
+    this.section = {};
+    this.currentElement = undefined;
   }
 
 
@@ -22,38 +24,68 @@ class DevFormsCtrl {
       let formroot = angular.element(document.getElementById('form'));
 
       let objpath = 'formData';
-      self.template = self.BuildTemplateForm(jsondata.structure, objpath);
-      let template = self.template.split(/<simple-input/g);
-      console.log(template);
-      let index = 0;
-      let accumulator = '';
-      let newtemplate = '';
-      for (let part of template) {
-        if (part == '') {
-          continue;
-        }
-        accumulator += '<simple-input' + part;
-        if (++index > 3) {
-          newtemplate += '<div class="row">' + accumulator + '</div>'
-          accumulator = '';
-          index = 0;
-        }
-      }
+      let newtemplate = self.BuildTemplateForm(jsondata.structure, objpath);
+
+      // let template = self.template.split(/<simple-input/g);
+      // console.log(template);
+      // let index = 0;
+      // let accumulator = '';
+      // let newtemplate = '';
+      // for (let part of template) {
+      //   if (part == '') {
+      //     continue;
+      //   }
+      //   accumulator += '<simple-input' + part;
+      //   if (++index > 3) {
+      //     newtemplate += '<div class="row">' + accumulator + '</div>'
+      //     accumulator = '';
+      //     index = 0;
+      //   }
+      // }
       newtemplate = '<div class="col">' + newtemplate + '</div>';
 
       let newscope = self.scope.$new();
-      let newelement = self.compile(newtemplate)(newscope);
+      if (self.currentElement != undefined) {
+        self.currentElement.remove();
+      }
 
-      formroot.append(newelement);
+      self.currentElement = self.compile(newtemplate)(newscope);
+
+      formroot.append(self.currentElement);
+      self.RebuildHTMLTemplate();
     });
 
   }
 
   BuildTemplateForm(obj, objpath) {
     let template = '';
+    let relationships = [];
+    if (Object.keys(obj).length > 0) {
+      template += '<div ><button ng-click="$ctrl.ToggleSection(\'' + objpath + '\')">toggle section ' + objpath + ' </button></div>'
+      template += '<div class="section" ng-show="$ctrl.section[\'' + objpath + '\'].active">';
+      let template_inner = '';
+      for (let attrname in obj) {
 
-    for (let attrname in obj) {
+        let attrval = obj[attrname];
+        if (typeof attrval == 'string') {
+          // let label = objpath.split('.');
+          // label.splice(0, 1);
+          // label = label.join(' ');
+          template_inner += '<simple-input value="$ctrl.' + objpath + '.' + attrname + '" label="' + attrname + '"></simple-input>';
+        } else {
+          relationships.push(attrname);
+        }
+      }
+      this.section[objpath] = {
+        active: true,
+        template: template_inner
+      };
+      template += template_inner;
+      template += '</div>';
+    }
 
+
+    for (let attrname of relationships) {
       let attrval = obj[attrname];
       if (Array.isArray(attrval)) {
         let index = 0;
@@ -62,15 +94,35 @@ class DevFormsCtrl {
         }
       } else if (typeof attrval == 'object') {
         template += this.BuildTemplateForm(attrval, objpath + '.' + attrname);
-      } else {
-        let label = objpath.split('.');
-        label.splice(0, 1);
-        label = label.join(' ');
-        template += '<simple-input value="$ctrl.' + objpath + '.' + attrname + '" label="' + label + ' ' + attrname + '"></simple-input>';
-
       }
+
+
     }
     return template;
+  }
+
+  ToggleSection(section) {
+    this.section[section].active = !this.section[section].active;
+    this.RebuildHTMLTemplate();
+  }
+  RebuildHTMLTemplate() {
+    let template = '';
+    for (let key in this.section) {
+      console.log(key);
+      if (this.section[key].active) {
+        template += this.section[key].template;
+      }
+    }
+
+    this.template = template;
+  }
+
+  CopyToClipboard() {
+    let copyboard = document.getElementById('copyboard');
+    console.log(copyboard);
+    copyboard.select();
+    copyboard.setSelectionRange(0, 99999);
+    document.execCommand('copy');
   }
 
   Create() {

@@ -1,0 +1,40 @@
+ui-email-with-icon {
+  @flex-row();
+  width: 100%;
+
+  &>.icont {
+    margin-right: 12px;
+
+    &>.icon {
+      fill: @cp-usko-red;
+    }
+  }
+
+  &>.email-container {
+    @flex-row();
+    flex-grow: 1;
+    align-items: flex-end;
+    line-height: 16px;
+    text-align: center;
+
+    .label {
+      @flex-row();
+      margin-right: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      align-items: center;
+    }
+
+    .label,
+    .ext {
+      font-family: @font-family-primary;
+      font-size: @font-small;
+      font-weight: @font-weight-normal;
+      color: @cp-default;
+      line-height: @font-small;
+
+      text-align: center;
+    }
+  }
+}

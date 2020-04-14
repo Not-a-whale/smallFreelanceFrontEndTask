@@ -1,5 +1,5 @@
 class UISubformCoreCtrl {
-  constructor(scope, element, compile) {
+  constructor(scope, element, compile, apisrv) {
 
 
     this.scope = scope;
@@ -64,8 +64,8 @@ class UISubformCoreCtrl {
   }
 
   BuildListItems() {
+    this.listitems = [];
     if (Array.isArray(this.data)) {
-      this.listitems = [];
       for (let d of this.data) {
         this.listitems.push(new UISubformItem(d));
       }
@@ -74,7 +74,6 @@ class UISubformCoreCtrl {
 
   $onInit() {
     this.Compile();
-
   }
 }
 
@@ -83,7 +82,7 @@ app.directive('uiSubform', function () {
     restrict: 'E',
     templateUrl: 'modules/ui/form/template/subform/subform.template.html',
     scope: true,
-    controller: ['$scope', '$element', '$compile', UISubformCoreCtrl],
+    controller: ['$scope', '$element', '$compile', 'APIService', UISubformCoreCtrl],
     controllerAs: '$ctrl',
     bindToController: {
       data: '<?', //this should be a list of items

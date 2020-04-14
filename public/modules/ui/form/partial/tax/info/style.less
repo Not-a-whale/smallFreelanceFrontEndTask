@@ -1,0 +1,18 @@
+ui-form-partial-tax-info {
+  .ui-form-partial-defaults();
+  @flex-col();
+
+  simple-input {
+    width: 50%;
+  }
+
+  ui-input-wrapper {
+    width: 50%;
+
+    ui-radio {
+      &:not(:last-child) {
+        padding-right: @inner-row-padding;
+      }
+    }
+  }
+}

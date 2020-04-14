@@ -1,0 +1,19 @@
+<label ng-required="{{$ctrl.required}}"
+       ng-if="$ctrl.label != undefined">{{ $ctrl.label }}</label>
+<input list="{{$ctrl.listid}}"
+       ng-model="$ctrl.typed"
+       ng-required="{{$ctrl.required}}"
+       ng-disabled="{{$ctrl.disabled}}"
+       ng-change="$ctrl.TimedSearch();"
+       ng-class="{invalid: !$ctrl.valid}" />
+<errors>{{ $ctrl.errmsg || 'This field is required' }}</errors>
+<datalist id="{{$ctrl.listid}}">
+       <option ng-repeat="item in $ctrl.options">{{ item.display }}</option>
+</datalist>
+<a ng-if="$ctrl.NewProfile()"
+   class="input-new-btn"
+   ui-sref="{{$ctrl.route}}">+new</a>
+<a ng-if="$ctrl.NewForm()"
+   class="input-new-btn"
+   popup-form="{{$ctrl.form}}"
+   on-close="$ctrl.data = data; $ctrl.DataToTyped()">+new</a>

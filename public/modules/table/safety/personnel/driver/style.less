@@ -1,0 +1,71 @@
+table-safety-personnel-driver {
+  ui-table-default {
+    body-content {
+      ui-table-row {
+        min-height: 32px;
+        height: 32px;
+
+
+        &>div {
+          //this is the row container, helps align all the items properly
+          @flex-row();
+          width: 100%;
+          align-items: center;
+
+          .role,
+          .branch {
+            .one-liner();
+          }
+
+          .business-name {
+            @flex-row();
+
+            &>.icon {
+
+              fill: @cp-grey-light;
+              margin-right: 6px;
+            }
+          }
+
+          ui-email {
+            &>* {
+              .one-liner();
+            }
+
+          }
+
+          &>* {
+            &:not(:last-child) {
+              padding-right: 10px;
+            }
+
+          }
+
+          ui-address-basic {
+            height: 100%;
+            overflow-y: hidden;
+
+            * {
+              .font-basic-text();
+            }
+          }
+        }
+
+        overlay {
+          position: absolute;
+          right: 0px;
+          @flex-row();
+
+          .button {
+            @flex-row();
+            align-items: center;
+            justify-content: center;
+            .clickable();
+            width: 30px;
+            height: 30px;
+          }
+        }
+      }
+    }
+  }
+}

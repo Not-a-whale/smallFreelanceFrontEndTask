@@ -1,0 +1,73 @@
+ui-subform-mediator {
+  @flex-row();
+  height: 300px;
+  width: 100%;
+
+  form-container {
+    @flex-col();
+    min-width: 50%;
+  }
+
+  list-container {
+    @flex-col();
+    min-width: 30%;
+  }
+
+
+  controls-container {
+    @flex-col();
+    justify-content: center;
+    padding-right: 24px;
+    padding-left: 24px;
+    width: 120px;
+
+    &>button {
+
+      @flex-row();
+      justify-content: flex-end;
+      position: relative;
+      .clickable();
+      .no-select();
+      --icon-color: @cp-usko-red;
+      font: @font-weight-bold @font-tiny @font-family-primary;
+      font-family: @font-family-primary;
+      font-weight: @font-weight-bold;
+      font-size: @font-tiny;
+      text-transform: uppercase;
+      color: @cp-asphalt-mid;
+
+      border-width: 0px;
+      border-style: none;
+      border-color: transparent;
+      border-image: none;
+      background-color: transparent;
+      width: 100%;
+
+
+      &:not(:last-child) {
+        margin-bottom: 24px;
+      }
+
+      .icon {
+        position: absolute;
+        margin-left: 12px;
+        fill: var(--icon-color);
+
+        &.grey {
+          --icon-color: @cp-default-light;
+          transform: rotate(45deg);
+        }
+
+        &.flip {
+          transform: scaleX(-1);
+        }
+      }
+    }
+  }
+}
+
+
+ui-subform-form {
+  @flex-col();
+
+}

@@ -1,0 +1,11 @@
+<input type="file"
+       file-loader
+       ng-model="$ctrl.data" />
+<div>
+  id: {{ $ctrl.id}}
+  <br>
+  maxfiles: {{$ctrl.maxfiles}}
+</div>
+<div ng-repeat="file in $ctrl.data">
+  {{file.FileName}}
+</div>

@@ -1,0 +1,30 @@
+<ui-form-section data-section="$ctrl.section">
+  <form-section-content>
+    <ui-form-subform on-add="$ctrl.AddItem()"
+                     on-delete="$ctrl.DeleteItem()"
+                     on-update="$ctrl.UpdateItem()">
+      <subform-form>
+        <div class="form-col">
+          <div class="form-row">
+            <simple-input label="state"
+                          value="$ctrl.currentitem.data.relationship"></simple-input>
+            <simple-input label="account #"
+                          value="$ctrl.currentitem.data.relationship"
+                          required="1"></simple-input>
+          </div>
+        </div>
+      </subform-form>
+      <subform-header class="header table-cols-16">
+        <div class="text colspan c8">state</div>
+        <div class="text colspan c8">account #</div>
+      </subform-header>
+      <subform-cards>
+        <ui-subform-card-emergency-contact ng-class="{active: contact.isActive()}"
+                                           ng-click="contact.Activate(); $ctrl.SetCurrentItem(contact)"
+                                           item="contact"
+                                           ng-repeat="contact in $ctrl.metaArray">
+        </ui-subform-card-emergency-contact>
+      </subform-cards>
+    </ui-form-subform>
+  </form-section-content>
+</ui-form-section>

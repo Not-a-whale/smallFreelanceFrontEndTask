@@ -1,0 +1,42 @@
+class UIRadioCtrl {
+  constructor(getid, apisrv) {
+    this.id = getid();
+    this.apisrv = apisrv;
+
+    this.trueValue = 1;
+
+    this.value = undefined;
+    this.checked = this.falseVal;
+    this.valid = true;
+  }
+
+  SetValue() {
+    console.log(this.checked);
+    console.log(this.trueValue);
+    if (this.checked) {
+      this.value = this.trueValue;
+    }
+  }
+
+  isChecked() {
+    if (this.value == this.trueValue) {
+      this.checked = true;
+    }
+    return this.checked;
+  }
+
+  $onInit() {}
+}
+
+app.component('uiRadio', {
+  templateUrl: 'modules/ui/input/radio/template.html',
+  controller: ['getid', 'APIService', UIRadioCtrl],
+  bindings: {
+    value: '=?',
+    label: '@?',
+    errmsg: '@?',
+    required: '@?',
+    disabled: '@?',
+    trueValue: '@?'
+  }
+});
