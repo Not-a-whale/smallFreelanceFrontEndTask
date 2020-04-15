@@ -5,6 +5,9 @@ class UIFormCtrl {
 }
 
 app.component('uiForm', {
+  require: {
+
+  },
   templateUrl: function ($element, $attrs) {
     let template = 'modules/forms/template.html';
     if ('type' in $attrs) {

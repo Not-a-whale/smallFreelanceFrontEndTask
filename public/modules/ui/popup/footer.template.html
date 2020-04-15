@@ -1,4 +1,8 @@
-<button class="btn"
-        ng-click="$ctrl.onCancel()">cancel</button>
-<button class="btn btn-accent"
-        ng-click="$ctrl.onSubmit()">submit</button>
+<button form="{{$ctrl.popupCtrl.formid}}"
+        class="btn"
+        type="submit"
+        ng-click="$ctrl.popupCtrl.SetSumbitFunction('Close')">cancel</button>
+<button form="{{$ctrl.popupCtrl.formid}}"
+        class="btn btn-accent"
+        type="submit"
+        ng-click="$ctrl.popupCtrl.SetSumbitFunction('Submit')">submit</button>

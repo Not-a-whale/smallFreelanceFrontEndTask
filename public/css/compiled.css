@@ -5375,8 +5375,26 @@ ui-business-branches-form {
   display: flex;
   flex-direction: row;
   width: 100%;
+  height: 100%;
 }
 ui-business-branches-form ui-list {
   width: 200px;
   min-width: 200px;
+}
+ui-business-branches-form form-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+form {
+  display: flex;
+  flex-direction: column;
+}
+form form-row {
+  display: flex;
+  flex-direction: row;
+}
+form form-col {
+  display: flex;
+  flex-direction: column;
 }

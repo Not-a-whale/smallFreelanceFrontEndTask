@@ -1,0 +1,15 @@
+{
+  "form-name": {
+    "title": "form title",
+    "dependencies": ["form-name1", "form-name2"],
+    "dependency_map": {
+      "form-name1": {
+        "path.to.data.in.form": ["first.path.to.data", "second.path.to.data"]
+      },
+      "form-name2": {
+        "path.to.data.in.form": "only.path.to.data"
+      }
+    },
+    "endpoint": "/api/to/submit/the/form"
+  }
+}

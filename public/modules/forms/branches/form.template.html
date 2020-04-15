@@ -3,71 +3,94 @@
            endpoint="$ctrl.list_endpoint"
            on-select="$ctrl.FetchFormData(item)"></ui-list>
 </list-container>
-<form-container>
+<form-container class="scrollable"
+                style="height: 100%;">
   <!-- <ui-form-section type="branch"
                    data="$ctrl.formdata"
                    section="{}"></ui-form-section> -->
+  <div ng-controller="uiFormSection as formA"
+       ng-init="$ctrl.formA = formA; formA.dependencies = []; formA.title = 'branch info'; formA.formdata.BrnchId = 1">
+    <form ng-submit="formA.SaveForm('formA')">
+      <form-row>
+        <simple-input value="formA.formdata.OfficeName"
+                      label="OfficeName"></simple-input>
+      </form-row>
+      <form-row>
+        <simple-input value="formA.formdata.brnch_address.Street1"
+                      label="Street1"></simple-input>
+        <simple-input value="formA.formdata.brnch_address.Street2"
+                      label="Street2"></simple-input>
+        <simple-input value="formA.formdata.brnch_address.Street3"
+                      label="Street3"></simple-input>
+      </form-row>
+      <form-row>
+        <simple-input value="formA.formdata.brnch_address.City"
+                      label="City"></simple-input>
+        <simple-input value="formA.formdata.brnch_address.State"
+                      label="State"></simple-input>
+        <simple-input value="formA.formdata.brnch_address.Zip"
+                      label="Zip"></simple-input>
+      </form-row>
+      <form-row>
+        <simple-input value="formA.formdata.brnch_address.Country"
+                      label="Country"></simple-input>
+      </form-row>
+      <form-row>
+        <simple-input value="formA.formdata.brnch_fax.Number"
+                      label="Number"></simple-input>
+        <simple-input value="formA.formdata.brnch_fax.Extension"
+                      label="Extension"></simple-input>
+      </form-row>
+      <form-row>
+        <simple-input value="formA.formdata.brnch_phone.Number"
+                      label="Number"></simple-input>
+        <simple-input value="formA.formdata.brnch_phone.Extension"
+                      label="Extension"></simple-input>
+      </form-row>
+      <simple-input value="formA.formdata.BrnchEMail"
+                    label="BrnchEMail"></simple-input>
+      <button type="submit">save</button>
+    </form>
+  </div>
+  <div ng-controller="uiFormSection as formB"
+       ng-init="$ctrl.formB = formB; formB.formdata = {}; formB.dependencies = [$ctrl.formA]; formB.title='people'; formB.dependency_map[$ctrl.formA] = {'BrnchId': 'BrnchId'}">
+    <form ng-submit="formB.SaveForm('formB')">
+      <form-row>
+        <simple-input value="formB.formdata.ent_people[0].NickName"
+                      label="NickName"></simple-input>
+        <simple-input value="formB.formdata.ent_people[0].Prefix"
+                      label="Prefix"></simple-input>
+        <simple-input value="formB.formdata.ent_people[0].FirstName"
+                      label="FirstName"></simple-input>
+        <simple-input value="formB.formdata.ent_people[0].MiddleName"
+                      label="MiddleName"></simple-input>
+        <simple-input value="formB.formdata.ent_people[0].LastName"
+                      label="LastName"></simple-input>
+        <simple-input value="formB.formdata.ent_people[0].Suffix"
+                      label="Suffix"></simple-input>
+      </form-row>
+      <form-row>
+        <simple-input value="formB.formdata.ent_people[0].hr_associate[0].biz_fax.Number"
+                      label="Number"></simple-input>
+        <simple-input value="formB.formdata.ent_people[0].hr_associate[0].biz_fax.Extension"
+                      label="Extension"></simple-input>
+      </form-row>
+      <form-row>
+        <simple-input value="formB.formdata.ent_people[0].hr_associate[0].biz_phone.Number"
+                      label="Number"></simple-input>
+        <simple-input value="formB.formdata.ent_people[0].hr_associate[0].biz_phone.Extension"
+                      label="Extension"></simple-input>
+      </form-row>
+      <simple-input value="formB.formdata.ent_people[0].hr_associate[0].BizEmail"
+                    label="BizEmail"></simple-input>
+      <simple-input value="formB.formdata.ent_people[0].hr_associate[0].PrimaryContact"
+                    label="PrimaryContact"></simple-input>
 
-  <form>
-    <simple-input value="$ctrl.formdata.OfficeName"
-                  label="OfficeName"></simple-input>
-    <simple-input value="$ctrl.formdata.BrnchEMail"
-                  label="BrnchEMail"></simple-input>
-    <simple-input value="$ctrl.formdata.brnch_address.AddrId"
-                  label="AddrId"></simple-input>
-    <simple-input value="$ctrl.formdata.brnch_address.Street1"
-                  label="Street1"></simple-input>
-    <simple-input value="$ctrl.formdata.brnch_address.Street2"
-                  label="Street2"></simple-input>
-    <simple-input value="$ctrl.formdata.brnch_address.Street3"
-                  label="Street3"></simple-input>
-    <simple-input value="$ctrl.formdata.brnch_address.City"
-                  label="City"></simple-input>
-    <simple-input value="$ctrl.formdata.brnch_address.State"
-                  label="State"></simple-input>
-    <simple-input value="$ctrl.formdata.brnch_address.Zip"
-                  label="Zip"></simple-input>
-    <simple-input value="$ctrl.formdata.brnch_address.Country"
-                  label="Country"></simple-input>
-    <simple-input value="$ctrl.formdata.brnch_fax.Number"
-                  label="Number"></simple-input>
-    <simple-input value="$ctrl.formdata.brnch_fax.Extension"
-                  label="Extension"></simple-input>
-    <simple-input value="$ctrl.formdata.brnch_phone.Number"
-                  label="Number"></simple-input>
-    <simple-input value="$ctrl.formdata.brnch_phone.Extension"
-                  label="Extension"></simple-input>
-  </form>
-  <form>
-    <simple-input value="$ctrl.formdata.ent_people[0].NickName"
-                  label="NickName"></simple-input>
-    <simple-input value="$ctrl.formdata.ent_people[0].Prefix"
-                  label="Prefix"></simple-input>
-    <simple-input value="$ctrl.formdata.ent_people[0].FirstName"
-                  label="FirstName"></simple-input>
-    <simple-input value="$ctrl.formdata.ent_people[0].MiddleName"
-                  label="MiddleName"></simple-input>
-    <simple-input value="$ctrl.formdata.ent_people[0].LastName"
-                  label="LastName"></simple-input>
-    <simple-input value="$ctrl.formdata.ent_people[0].Suffix"
-                  label="Suffix"></simple-input>
-    <simple-input value="$ctrl.formdata.ent_people[0].hr_associate[0].BizPhone"
-                  label="BizPhone"></simple-input>
-    <simple-input value="$ctrl.formdata.ent_people[0].hr_associate[0].BizFax"
-                  label="BizFax"></simple-input>
-    <simple-input value="$ctrl.formdata.ent_people[0].hr_associate[0].BizEmail"
-                  label="BizEmail"></simple-input>
-    <simple-input value="$ctrl.formdata.ent_people[0].hr_associate[0].PrimaryContact"
-                  label="PrimaryContact"></simple-input>
-    <simple-input value="$ctrl.formdata.ent_people[0].hr_associate[0].biz_fax.Number"
-                  label="Number"></simple-input>
-    <simple-input value="$ctrl.formdata.ent_people[0].hr_associate[0].biz_fax.Extension"
-                  label="Extension"></simple-input>
-    <simple-input value="$ctrl.formdata.ent_people[0].hr_associate[0].biz_phone.Number"
-                  label="Number"></simple-input>
-    <simple-input value="$ctrl.formdata.ent_people[0].hr_associate[0].biz_phone.Extension"
-                  label="Extension"></simple-input>
-  </form>
+
+      <button type="submit">save</button>
+    </form>
+  </div>
+
 
 </form-container>
 <control-container style="width: 200px;">

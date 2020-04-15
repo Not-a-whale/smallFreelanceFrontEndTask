@@ -1,12 +1,14 @@
 class UIPopupCtrl {
   constructor(getid, scope, element, apisrv, timeout) {
-    this.id = getid;
+    this.id = getid();
+    this.formid = getid();
     this.scope = scope;
     this.apisrv = apisrv;
     this.element = element;
     this.apisrv = apisrv;
     this.errors = [];
     this.timeout = timeout;
+    this.submitfunction = this.Submit;
   }
 
   Submit(endpoint) {
@@ -50,6 +52,18 @@ class UIPopupCtrl {
     this.element.remove();
   }
 
+  SubmitFunction(args) {
+    this.submitfunction(args);
+  }
+
+  SetSumitFunction(name) {
+    console.log('Setting submit function: ' + name);
+    if (name in Object.keys(this)) {
+      if (this[name] instanceof Function) {
+        this.submitfunction = this[name];
+      }
+    }
+  }
 }
 
 // concrete popup directive
@@ -77,6 +91,7 @@ app.directive('uiPopup', function () {
 class UIPopupTemplateCtrl {
   constructor(getid, scope, element) {
     this.id = getid();
+
     this.scope = scope;
     this.element = element;
     this.icon = 'imgs/icons.svg#boxes';
@@ -126,18 +141,17 @@ app.directive('uiPopupTemplate', function () {
 //default header
 app.component('uiPopupHeader', {
   templateUrl: 'modules/ui/popup/header.template.html',
-  bindings: {
-    title: '@?',
-    user: '@?'
+  require: {
+    popupCtrl: '^uiPopup'
   }
 });
+
 
 //default footer
 app.component('uiPopupFooter', {
   templateUrl: 'modules/ui/popup/footer.template.html',
-  bindings: {
-    onCancel: '&?',
-    onSubmit: '&?'
+  require: {
+    popupCtrl: '^uiPopup'
   }
 });
 

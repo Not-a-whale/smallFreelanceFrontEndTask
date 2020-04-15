@@ -127,19 +127,34 @@ function IsObj(x) {
   return typeof x === 'object' && x != null;
 }
 
-function DeepFind(obj, path) {
+function DeepFind(obj, path, setvalue) {
   let paths = path.split('.');
+  let retval = undefined;
   let current = obj;
+  let index = 0;
   for (let p of paths) {
-    if (current != undefined) {
-      if (p in current) {
-        current = current[p];
-      } else {
-        return undefined;
+    let last = index == paths.length - 1;
+    if (index == paths.length - 1) {
+      if (setvalue != undefined) {
+        current[p] = setvalue;
       }
-    } else {
-      return undefined;
     }
+    if (current != undefined) {
+      if (!(p in current)) {
+        if (setvalue != undefined) {
+          if (last) {
+            current[p] = setvalue;
+          } else {
+            current[p] = {};
+          }
+        }
+      }
+      current = current[p];
+      if (last) {
+        retval = current;
+      }
+    }
+    index++;
   }
-  return current;
+  return retval;
 }
