@@ -5,7 +5,7 @@ class UIRadioCtrl {
 
     this.trueValue = 1;
 
-    this.value = undefined;
+    this.data = undefined;
     this.checked = this.falseVal;
     this.valid = true;
   }
@@ -14,12 +14,12 @@ class UIRadioCtrl {
     console.log(this.checked);
     console.log(this.trueValue);
     if (this.checked) {
-      this.value = this.trueValue;
+      this.data = this.trueValue;
     }
   }
 
   isChecked() {
-    if (this.value == this.trueValue) {
+    if (this.data == this.trueValue) {
       this.checked = true;
     }
     return this.checked;
@@ -32,7 +32,7 @@ app.component('uiRadio', {
   templateUrl: 'modules/ui/input/radio/template.html',
   controller: ['getid', 'APIService', UIRadioCtrl],
   bindings: {
-    value: '=?',
+    data: '=?',
     label: '@?',
     errmsg: '@?',
     required: '@?',

@@ -1,6 +1,9 @@
-<div class="colspan c4">{{$ctrl.item.data.OfficeName}}</div>
-<div class="icont icont-small"
-     ng-click="$ctrl.Delete()">
+<div class="label colspan"
+     ng-class="{italic: $ctrl.item.data.OfficeName == undefined}"
+     ui-state="'tmsapp.main2.profile.business.branch.detail'"
+     ui-state-params="{branchid: $ctrl.item.data.BrnchId || 'new'}">{{$ctrl.item.data.OfficeName || 'new branch'}}</div>
+<div class="icont icont-min"
+     ng-click="$ctrl.Delete('tmsapp.main2.profile.business.branch')">
   <svg class="icon">
     <use xlink:href="imgs/icons.svg#trash"></use>
   </svg>

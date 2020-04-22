@@ -1,34 +1,33 @@
-<form id="{{$ctrl.formid}}"
-      ng-submit="$ctrl.onSubmit()">
+<form id="{{$formctrl.formid}}"
+      ng-submit="$formctrl.onSubmit()">
   <form-row>
-    <simple-input class="fc3"
-                  value="$ctrl.data.biz.BizName"
-                  label="business name"></simple-input>
-    <simple-input class="fc2"
-                  value="$ctrl.data.OfficeName"
-                  label="branch name"></simple-input>
-    <ui-input-wrapper class="fc1">
-      <ui-checkbox value="$ctrl.data.biz.entity[0].IsActive"
-                   label="active"></ui-checkbox>
-    </ui-input-wrapper>
+    <ui-form-partial-person data="$formctrl.data"></ui-form-partial-person>
   </form-row>
-  <ui-form-partial-address data="$ctrl.data.brnch_address"></ui-form-partial-address>
-  <ui-form-partial-phone data="$ctrl.data.brnch_phone"
-                         type="branch"
+  <form-row>
+    <ui-input label="Current Title"
+              data="$formctrl.data.hr_associate.CurrentTitle"></ui-input>
+    <ui-select table="HrAssociate"
+               column="AuthorityLevel"
+               label="Authority Level"
+               data="$formctrl.data.hr_associate.AuthorityLevel"></ui-select>
+  </form-row>
+  <form-row>
+    <ui-form-partial-phone class="fc3"
+                           type="work"
+                           ext="1"
+                           data="$formctrl.data.hr_associate.biz_phone"></ui-form-partial-phone>
+    <ui-form-partial-fax class="fc3"
+                         type="work"
                          ext="1"
-                         required="1"></ui-form-partial-phone>
-  <ui-form-partial-fax data="$ctrl.data.brnch_fax"
-                       type="branch"
-                       ext="1"></ui-form-partial-fax>
-
-  <form-row>
-    <simple-input label="branch email"
-                  class="fc3"
-                  value="$ctrl.data.BrnchEMail"></simple-input>
-    <simple-input label="business website/URL"
-                  class="fc3"
-                  value="$ctrl.data.biz.BizURL"></simple-input>
+                         data="$formctrl.data.hr_associate.biz_fax"></ui-form-partial-fax>
   </form-row>
+  <ui-input label="Work Email"
+            data="$formctrl.data.hr_associate.BizEmail"></ui-input>
+  <ui-checkbox style="display: none"
+               data="$formctrl.data.hr_associate.PrimaryContact"
+               true-val="1"
+               false-val="0"
+               default="1"></ui-checkbox>
   <button type="submit"
           hidden></button>
 </form>

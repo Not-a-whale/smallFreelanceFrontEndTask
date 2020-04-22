@@ -22,6 +22,13 @@ app.run(['$transitions', function (trans) {
   trans.onSuccess({}, function (trans) {
     //console.log(trans.from().name);
   });
+  trans.onBefore({}, function () {
+    if ($('form').hasClass('ng-dirty')) {
+      if (!confirm('All unsaved data will be lost, continue?')) {
+        return false;
+      }
+    }
+  });
 
 
 }]);

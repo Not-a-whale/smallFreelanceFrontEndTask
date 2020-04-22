@@ -1,0 +1,6 @@
+<div ng-show="$blankctrl.list.length > 0">you have {{ $blankctrl.list.length}} registered items. select an item or
+  register a new one</div>
+<div ng-hide="$blankctrl.list.length > 0">nothing registered</div>
+<a class="btn btn-primary"
+   ui-state="'.detail'"
+   ui-state-params="{branchid: 'new'}">register new</a>

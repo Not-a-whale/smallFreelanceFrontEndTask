@@ -5,26 +5,29 @@ class UICheckboxCtrl {
 
     this.trueVal = 1;
     this.falseVal = 0;
-
-    this.value = undefined;
-    this.checked = this.falseVal;
+    this.default = this.falseVal;
+    this.data = undefined;
+    this.checked = undefined;
     this.valid = true;
   }
 
   SetValue() {
     if (this.checked) {
-      this.value = this.trueVal;
+      this.data = this.trueVal;
     } else {
-      this.value = this.falseVal;
+      this.data = this.falseVal;
     }
   }
 
   isChecked() {
-    if (this.value == this.trueVal) {
+    if (this.checked == undefined) {
+      this.checked = this.default;
+    }
+    if (this.data == this.trueVal) {
       this.checked = true;
     }
-    if (this.value == undefined) {
-      this.value = this.falseVal;
+    if (this.data == undefined) {
+      this.data = this.falseVal;
       this.checked = false;
     }
     return this.checked;
@@ -39,11 +42,14 @@ app.component('uiCheckbox', {
   templateUrl: 'modules/ui/input/checkbox/template.html',
   controller: ['getid', 'APIService', UICheckboxCtrl],
   bindings: {
-    value: '=?',
+    data: '=?',
     checked: '<?',
     label: '@?',
     errmsg: '@?',
     required: '@?',
-    disabled: '<?'
+    disabled: '<?',
+    default: '<?',
+    trueVal: '<?',
+    falseVal: '<?'
   }
 });

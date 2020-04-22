@@ -83,6 +83,56 @@
         "active": true,
         "visible": true,
         "state": "tmsapp.main2.form.generic({formName: 'new carrier authority', subformName: 'authority'})"
+      },
+      {
+        "title": "general business",
+        "icon": null,
+        "active": true,
+        "visible": true,
+        "state": "tmsapp.main2.profile.business({businesstype:'general'})",
+        "pages": [{
+            "active": true,
+            "visible": true,
+            "title": "business info",
+            "state": "tmsapp.main2.form.business.cover"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "title": "branches",
+            "state": "tmsapp.main2.profile.business.branch"
+          }, {
+            "active": true,
+            "visible": true,
+            "title": "office staff",
+            "state": "tmsapp.main2.profile.business.staff"
+          }
+        ]
+      },
+      {
+        "title": "carrier",
+        "icon": null,
+        "active": true,
+        "visible": true,
+        "state": "tmsapp.main2.profile.business({businesstype:'general'})",
+        "pages": [{
+            "active": true,
+            "visible": true,
+            "title": "business info",
+            "state": "tmsapp.main2.form.business.cover"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "title": "branches",
+            "state": "tmsapp.main2.profile.business.branch"
+          }, {
+            "active": true,
+            "visible": true,
+            "title": "office staff",
+            "state": "tmsapp.main2.profile.business.staff"
+          }
+        ]
       }
     ]
   },

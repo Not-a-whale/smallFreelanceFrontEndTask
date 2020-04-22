@@ -33,7 +33,14 @@ class TableSortChips {
   }
 
   Sort(field) {
-    return this.sort[field].sort;
+    let retval = undefined;
+    if (this.sort != undefined) {
+      if (field in this.sort) {
+
+        retval = this.sort[field].sort;
+      }
+    }
+    return retval;
   }
 
   _CheckValidField(field) {

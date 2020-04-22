@@ -1,0 +1,35 @@
+<form id="{{$formctrl.formid}}"
+      ng-submit="$formctrl.onSubmit()">
+  <form-row>
+    <ui-checkbox class="fc3"
+                 label="LocalRoutes"
+                 data="$formctrl.data.LocalRoutes"></ui-checkbox>
+    <ui-checkbox label="InternationalRoutes"
+                 data="$formctrl.data.InternationalRoutes"></ui-checkbox>
+  </form-row>
+  <form-row>
+    <ui-date label="LastAnnualReview"
+             data="$formctrl.data.LastAnnualReview"></ui-date>
+    <ui-date label="PullNotice"
+             data="$formctrl.data.PullNotice"></ui-date>
+  </form-row>
+  <form-row>
+    <ui-input label="CurrentTitle"
+              data="$formctrl.data.driver.CurrentTitle"></ui-input>
+    <ui-select table="HrAssociate"
+               column="AuthorityLevel"
+               label="AuthorityLevel"
+               data="$formctrl.data.driver.AuthorityLevel"></ui-select>
+  </form-row>
+
+
+
+  <ui-date label="DateRemoved"
+           data="$formctrl.data.driver.DateRemoved"></ui-date>
+  <ui-input label="BizEmail"
+            data="$formctrl.data.driver.BizEmail"></ui-input>
+
+  <ui-checkbox label="PrimaryContact"
+               data="$formctrl.data.driver.PrimaryContact"></ui-checkbox><button type="submit"
+          hidden></button>
+</form>

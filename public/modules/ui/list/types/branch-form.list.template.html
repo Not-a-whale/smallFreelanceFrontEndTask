@@ -2,22 +2,25 @@
   <div class="title-container">
     <div class="title">registered branches</div>
     <div class="icont icont-small"
-         ng-click="$ctrl.AddNewEmpty()">
-      <svg class="icon">
-        <use xlink:href="imgs/icons.svg#circle-plus"></use>
+         ng-click="$ctrl.AddNewEmpty()"
+         ui-state="'tmsapp.main2.profile.business.branch.detail'"
+         ui-state-params="{branchid: 'new'}">
+      <svg class="icon-ty">
+        <use xlink:href="imgs/icons.svg#plus"></use>
       </svg>
     </div>
   </div>
-  <form ng-submit="$ctrl.GetData()">
-    <simple-input value="$ctrl.search_query['me.OfficeName']"></simple-input>
-    <button type="submit"
-            hidden></button>
-  </form>
-
+  <ui-input template="submit"
+            data="$ctrl.search_query['me.OfficeName']"
+            on-change="$ctrl.GetData(data)"></ui-input>
 </grand-header>
-<inserts class="scrollable">
+<inserts class="
+            scrollable">
+  <div ui-view="new-item">
+
+  </div>
   <ui-list-insert type="branch-form"
                   ng-repeat="item in $ctrl.items"
                   item="item"
-                  ng-click="$ctrl.Select(item)"></ui-list-insert>
+                  ui-sref-active="active"></ui-list-insert>
 </inserts>

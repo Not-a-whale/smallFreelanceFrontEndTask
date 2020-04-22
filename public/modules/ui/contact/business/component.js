@@ -45,13 +45,17 @@ class UIContactBusinessCtrl extends UIContactCtrl {
     return valid;
   }
 
-  Id() {
+  BranchId() {
     return this.branch.BrnchId;
   }
+  Id() {
+    return this.business.BizId;
+  }
+
 
   ProfileLink() {
     if (this.branch != undefined) {
-      return "tmsapp.main2.form.generic({id:" + this.Id() + ", formName: 'new general business', subformName: 'new general business'})";
+      return 'tmsapp.main2.profile.business.branch.detail({businesstype: "' + this.BusinessType() + '", bizid:' + this.Id() + ', branchid:' + this.BranchId() + '})';
     }
     return '#';
   }
@@ -93,7 +97,7 @@ class UIContactBusinessCtrl extends UIContactCtrl {
   BusinessType() {
     let value = 'unknown';
     if (this.business != undefined) {
-      value = 'business';
+      value = 'general';
       if ('has_carrier' in this.business) {
         if (this.business.has_carrier != undefined) {
           value = 'carrier';

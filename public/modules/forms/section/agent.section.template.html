@@ -1,0 +1,19 @@
+<ui-form-section-template>
+  <section-content>
+    <ui-subform-mediator>
+      <subform>
+        <ui-form type="agent"
+                 on-submit="$ctrl.Submit()"
+                 data="$ctrl.editItem.data"
+                 formid="$ctrl.formid"></ui-form>
+      </subform>
+      <list>
+        <ui-list type="agent"
+                 endpoint="'/api/associate/list'"
+                 on-select="$ctrl.Select(item)"></ui-list>
+      </list>
+
+    </ui-subform-mediator>
+
+  </section-content>
+</ui-form-section-template>

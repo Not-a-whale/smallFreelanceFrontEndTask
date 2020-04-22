@@ -1,13 +1,4 @@
-class UIFormCtrl {
-  constructor() {
-
-  }
-}
-
 app.component('uiForm', {
-  require: {
-
-  },
   templateUrl: function ($element, $attrs) {
     let template = 'modules/forms/template.html';
     if ('type' in $attrs) {
@@ -15,7 +6,7 @@ app.component('uiForm', {
     }
     return template;
   },
-  controller: UIFormCtrl,
+  controllerAs: '$formctrl',
   bindings: {
     data: '=?',
     onSubmit: '&?',

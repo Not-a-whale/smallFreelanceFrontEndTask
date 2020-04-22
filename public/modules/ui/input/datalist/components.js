@@ -155,7 +155,7 @@ class UIDatalistCrl {
 
 app.controller('UIDatalistCtrl', ['getid', 'APIService', '$timeout', UIDatalistCrl]);
 app.component('uiDatalist', {
-  templateUrl: 'modules/ui/input/datalist/template.html',
+  templateUrl: 'modules/ui/input/datalist/ui-datalist.template.html',
   controller: 'UIDatalistCtrl',
   bindings: {
     data: '=?',
@@ -175,9 +175,9 @@ app.component('uiDatalist', {
 app.component('uiDatalistConcrete', {
   templateUrl: function ($element, $attrs) {
     if ('type' in $attrs) {
-      return 'modules/ui/input/datalist/types/' + $attrs.type + '.template.html';
+      return 'modules/ui/input/datalist/types/' + $attrs.type + '.ui-datalist.template.html';
     } else {
-      return 'modules/ui/input/datalist/template.html';
+      return 'modules/ui/input/datalist/ui-datalist.template.html';
     }
   },
   bindings: {
@@ -212,7 +212,7 @@ class UISelectCtrl {
 
 
 app.component('uiSelect', {
-  templateUrl: 'modules/ui/input/datalist/select.template.html',
+  templateUrl: 'modules/ui/input/datalist/ui-select.template.html',
   controller: ['getid', 'APIService', UISelectCtrl],
   bindings: {
     data: '=?',
