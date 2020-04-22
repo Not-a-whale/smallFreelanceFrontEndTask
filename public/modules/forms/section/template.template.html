@@ -1,6 +1,13 @@
 <div id="{{$ctrl.section.title}}"
      class="header">
-  <div class="title">{{$ctrl.section.title}}</div>
+     <div class="title">{{$ctrl.section.title}}</div>
+     <div class="function">
+          <button ng-if="$ctrl.saveForm"
+                  class="btn btn-primary"
+                  form="{{$ctrl.formid}}"
+                  ng-click="$ctrl.SaveForm()"
+                  type="submit">{{ $ctrl.status}}</button>
+     </div>
 </div>
 <div class="body"
      ng-transclude="section-content"></div>

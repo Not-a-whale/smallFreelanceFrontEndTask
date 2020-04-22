@@ -98,15 +98,19 @@ class PageService {
   }
 
   CurrentPageTabs() {
-    if ('pages' in this.current_page) {
-      return this.current_page.pages.filter(x => x.active);
+    if (this.current_page != undefined) {
+      if ('pages' in this.current_page) {
+        return this.current_page.pages.filter(x => x.active);
+      }
     }
     return undefined;
   }
 
   CurrentPageOptional() {
-    if ('optional' in this.current_page) {
-      return this.current_page.optional.filter(x => x.active);
+    if (this.current_page != undefined) {
+      if ('optional' in this.current_page) {
+        return this.current_page.optional.filter(x => x.active);
+      }
     }
     return undefined;
   }
@@ -123,10 +127,15 @@ class PageService {
   }
 
   CurrentPageTitle() {
-    if (this.current_page.temp_title != undefined) {
-      return this.current_page.temp_title;
+    let retval = "missing page title";
+    if (this.current_page != undefined) {
+      if (this.current_page.temp_title != undefined) {
+        retval = this.current_page.temp_title;
+      } else {
+        retval = this.current_page.title;
+      }
     }
-    return this.current_page.title;
+    return retval;
   }
 
   SetCurrentPageTitle(title) {

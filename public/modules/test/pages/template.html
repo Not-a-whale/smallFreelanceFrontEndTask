@@ -1,0 +1,31 @@
+<div class="tab"
+     ng-repeat="level in $ctrl.levels">
+  <ul>
+    <li ng-repeat="page in level"
+        ng-click="$ctrl.SelectPage(page)"
+        ng-class="{active: page.active}">{{page.data.title}}</li>
+  </ul>
+</div>
+
+<div>
+  <a class="btn btn-primary"
+     ng-click="$ctrl.CopyToClipboard()">copy to clipboard</a>
+  <ui-input ng-repeat="(key, value) in $ctrl.active"
+            ng-if="key != 'pages'"
+            label="{{key}}"
+            data="value"></ui-input>
+
+  <br>
+  <div style="display: flex; flex-direction: row; align-items: center">
+    <ui-input label="attribute"
+              data="$ctrl.newattr"></ui-input>
+    <ui-input label="value"
+              data="$ctrl.newvalue"></ui-input>
+    <a class="btn btn-warn"
+       ng-click="$ctrl.AddAttr()">add new attribute</a>
+  </div>
+</div>
+
+<textarea ng-model="$ctrl.pages_string"
+          id="copyboard"
+          style="position:absolute; left: -100000px"></textarea>

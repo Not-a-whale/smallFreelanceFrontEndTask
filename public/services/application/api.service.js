@@ -1,7 +1,7 @@
 class APIService {
-  constructor(http, q) {
-    this.http = http;
-    this.q = q;
+  constructor($http, $q) {
+    this.http = $http;
+    this.q = $q;
     this.options_cache = {};
   }
 
@@ -162,4 +162,4 @@ class APIService {
   }
 }
 
-app.service('APIService', ['$http', '$q', APIService]);
+app.service('APIService', APIService);

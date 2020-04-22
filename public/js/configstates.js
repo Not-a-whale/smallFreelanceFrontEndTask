@@ -19,6 +19,14 @@ var configstates = {
       }
     }
   },
+  "tms.dev.pages": {
+    url: '/pages',
+    views: {
+      'main@': {
+        component: 'devPages'
+      }
+    }
+  },
   "tms.test": {
     url: "/test/:component",
     views: {
@@ -1226,14 +1234,158 @@ var configstates = {
   },
 
 
+  "tmsapp.main2.profile": {
+    url: "/profile",
+    abstract: true,
+    resolve: {
+      department: function (PageService) {
+        return PageService.SetDepartment('forms');
+      }
+    }
+  },
 
+  "tmsapp.main2.profile.business": {
+    url: "/:businesstype/:bizid",
+    views: {
+      "main-content-view@tmsapp.main2": {
+        component: 'pageLayoutPrimary'
+      },
+      "page-content@.": {
+        component: 'uiMegaForm'
+      }
+    },
+    resolve: {
 
+      bizid: function ($transition$) {
+        return $transition$.params().bizid;
+      },
+      businessType: function ($q, $transition$) {
+        let deferred = $q.defer();
+        let type = $transition$.params().businesstype;
+        switch (type) {
+          case 'carrier':
+          case 'broker':
+          case 'owner-operator':
+          case 'shipper':
+          case 'general':
+            deferred.resolve(type);
+          default:
+            deferred.reject('Incorrect business type');
+        }
 
+        return deferred.promise;
+      },
+      page: function (PageService, businessType) {
+        switch (businessType) {
+          case 'carrier':
+            PageService.SetPage('carrier');
+            break;
+          case 'general':
+            PageService.SetPage('general business');
+            break;
+        }
+      }
+    }
+  },
+  'tmsapp.main2.profile.business.branch': {
+    url: '/branch',
+    views: {
+      'megaform-list': {
+        template: function (params) {
+          let template = '';
+          template += '<ui-list ';
+          template += 'type="branch-form" ';
+          template += 'endpoint="$resolve.formListEndpoint" ';
+          template += 'query="$resolve.formListQuery" ';
+          template += 'list="$resolve.formList" ';
+          template += '></ui-list>';
+          return template;
+        }
+      },
+      'megaform-form': {
+        template: function (params) {
+          let template = '<ui-form-blank ';
+          template += 'list="$resolve.formList" ';
+          template += '></ui-form-blank>';
+          return template;
+        }
 
-
-
-
-
-
-
+      }
+    },
+    resolve: {
+      formListEndpoint: function () {
+        return '/api/business/branch/list'
+      },
+      formListQuery: function ($transition$) {
+        let bizid = $transition$.params().bizid;
+        return {
+          search: [{
+            'me.BizId': bizid
+          }],
+          orderby: [{
+            'me.OfficeName': 'asc'
+          }]
+        };
+      },
+      formList: function (APIService, formListEndpoint, formListQuery) {
+        return APIService.List(formListEndpoint, formListQuery);
+      },
+    }
+  },
+  'tmsapp.main2.profile.business.branch.detail': {
+    url: '/:branchid',
+    views: {
+      'megaform-form@^.^': {
+        template: function (params) {
+          let template = '';
+          template += '<ui-form-section type="branch" data="$resolve.branchinfo"></ui-form-section>';
+          template += '<ui-form-section type="owner" data="$resolve.primary_contact" ></ui-form-section>';
+          template += '<ui-form-section type="agent" data="$resolve.formdata"></ui-form-section>';
+          return template;
+        }
+      },
+      'new-item@^': {
+        template: function (params) {
+          let template = "";
+          console.log(params);
+          if (params.branchid == 'new') {
+            template = '<ui-list-insert type="branch-form" ui-sref-active="active" ></ui-list-insert>';
+          }
+          return template;
+        }
+      }
+    },
+    resolve: {
+      branchid: function ($transition$) {
+        return $transition$.params().branchid;
+      },
+      formdata: function (APIService, branchid, bizid, formList) {
+        if (branchid == 'new') {
+          return {};
+        }
+        return APIService.Single('/api/business/branch', {
+          search: [{
+            'me.BrnchId': branchid,
+          }, {
+            'me.BizId': bizid
+          }]
+        });
+      },
+      branchinfo: function (formdata) {
+        let data = CloneObj(formdata);
+        delete data.primary_contact;
+        return data;
+      },
+      primary_contact: function (formdata) {
+        let data = {};
+        if (formdata.primary_contact.length > 1) {
+          data = CloneObj(formdata.primary_contact[0])
+        }
+        return data;
+      },
+      sections: function () {
+        return {};
+      }
+    }
+  }
 }

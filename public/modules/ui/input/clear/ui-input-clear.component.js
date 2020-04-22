@@ -1,17 +1,17 @@
-class UIInputClearCtrl extends SimpleInputCtrl {
-  constructor(scope, timeout) {
-    super();
-    this.scope = scope;
-    this.timeout = timeout;
+class UIInputClearCtrl {
+  constructor($scope, $timeout) {
+    this.valid = true;
+    this.scope = $scope;
+    this.timeout = $timeout;
     this.donetypecall = undefined;
     this.donetype_delay = 250; // in ms
   }
 
   CheckKeyPress(event) {
-    let saved = this.value;
+    let saved = this.data;
     this.timeout.cancel(this.donetypecall);
     if (event.key == 'Enter' || event.code == 'Enter') {
-      this.value = undefined;
+      this.data = undefined;
       if (this.onUpdate instanceof Function) {
         this.onUpdate({
           value: saved
@@ -36,18 +36,24 @@ class UIInputClearCtrl extends SimpleInputCtrl {
   $onInit() {
     let self = this;
     this.scope.$on("InputClear", function (event, data) {
-      self.value = undefined;
+      self.data = undefined;
     });
   }
 };
 
-var ui_input_clear_bindings = CloneObj(smp_input_bindings);
-ui_input_clear_bindings['onUpdate'] = '&?';
-ui_input_clear_bindings['doneType'] = '&?';
-
-app.controller('UIInputClearCtrl', ['$scope', '$timeout', UIInputClearCtrl]);
 app.component('uiInputClear', {
-  templateUrl: 'modules/generic/input/clear/template.html',
-  controller: 'UIInputClearCtrl',
-  bindings: ui_input_clear_bindings
+  templateUrl: 'modules/ui/input/clear/ui-input-clear.template.html',
+  controller: UIInputClearCtrl,
+  bindings: {
+    data: '=?', // this is the input
+    label: '@?', // indicates to user what the field is for
+    title: '@?', // mouseover hover, displays extra information
+    type: '@?', // externally control the html type attr
+    errmsg: '@?', // error message to display
+    required: '@?', // if the this input field is required
+    pattern: '@?', // externally control the html pattern validation
+    disabled: '@?', // if this input is disabled
+    onUpdate: '&?',
+    doneType: '&?'
+  }
 });

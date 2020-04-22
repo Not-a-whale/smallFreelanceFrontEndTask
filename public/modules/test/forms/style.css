@@ -1,3 +1,7 @@
+html {
+  font-size: 62.5%;
+}
+
 dev-forms {
   display: flex;
   flex-direction: row;
@@ -5,39 +9,46 @@ dev-forms {
   width: 100%;
 }
 
-dev-forms .left-panel {
+dev-forms .center-panel {
   display: flex;
   flex-direction: column;
-  width: 15%;
+  flex-grow: 1;
+  max-width: 60%;
 }
 
 dev-forms #form {
   display: flex;
   flex-direction: column;
-  max-width: 60%;
+  flex-grow: 1;
+  width: 100%;
 }
 
-dev-forms #form .row {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-}
 
-dev-forms #form .row>*:not(:last-child) {
-  margin-right: 8px;
-}
-
-dev-forms #form .col {
+dev-forms .col {
   display: flex;
   flex-direction: column;
 }
 
-dev-forms .data {
+dev-forms .row {
+  display: flex;
+  flex-direction: row;
+}
+
+dev-forms .data * {
   display: flex;
   flex-direction: column;
   width: 25%;
   word-wrap: normal;
   margin-right: 0px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.2rem;
+}
+
+
+dev-forms .form-section {
+  border: 3px solid blue;
+  display: flex;
+  flex-direction: column;
 }
 
 dev-forms .section {
@@ -45,4 +56,48 @@ dev-forms .section {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+dev-forms .left-panel {
+  display: flex;
+  flex-direction: column;
+  width: 15%;
+  border-right: 1px solid black;
+}
+
+dev-forms .left-panel .panel-tab-container {
+  display: inline-flex;
+  flex-direction: row;
+}
+
+dev-forms .left-panel .panel-tab-container .panel-tab {
+  display: flex;
+  height: 2.2rem;
+  text-align: center;
+  vertical-align: center;
+  --bg-color: var(--cp-grey);
+  --font-color: var(--cp-default);
+  background-color: var(--bg-color);
+  color: var(--font-color);
+  border-radius: 0.4rem 0.4rem 0rem 0rem;
+  cursor: pointer;
+  margin-right: 0.2rem;
+  padding: 0rem 0.3rem 0rem 0.3rem;
+}
+
+dev-forms .left-panel .panel-tab-container .panel-tab.active {
+  --bg-color: var(--cp-default-mid);
+  --font-color: var(--cp-highlight);
+}
+
+dev-forms .right-panel {
+  border-left: 1px solid black;
+  width: 20%;
+  word-wrap: break-word;
+}
+
+dev-forms ul li:hover,
+dev-forms ul li:hover * {
+  background-color: var(--cp-default);
+  color: var(--cp-highlight);
 }

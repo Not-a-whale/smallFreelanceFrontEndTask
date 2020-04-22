@@ -14,13 +14,13 @@ class ListInsertItem {
     return this.selected = !this.selected;
   }
 
-  setSelected(value) {
+  SetSelected(value) {
     return this.selected = (value && true);
   }
   isClean() {
     return this.clean;
   }
-  setClean() {
+  SetClean() {
     return this.clean = true;
   }
 }
@@ -33,7 +33,7 @@ class UIListInsertCtrl {
     this.item = undefined;
   }
   SetActive(value) {
-    this.item.setSelected(value);
+    this.item.SetSelected(value);
 
     if (this.item.isSelected()) {
       this.element.addClass('active');
@@ -42,8 +42,8 @@ class UIListInsertCtrl {
     }
   }
 
-  Delete() {
-    this.scope.$emit('list-item-delete', this.item);
+  Delete(state) {
+    this.scope.$emit('list-item-delete', this.item, state);
   }
 
   $onInit() {
@@ -55,6 +55,9 @@ class UIListInsertCtrl {
 }
 
 app.component('uiListInsert', {
+  require: {
+    listCtrl: '^uiList'
+  },
   templateUrl: function ($element, $attrs) {
     let template = 'modules/ui/list/insert.template.html';
     if ('type' in $attrs && $attrs.type != undefined && $attrs.type != '') {
@@ -71,9 +74,10 @@ app.component('uiListInsert', {
 });
 
 class UIListCtrl {
-  constructor(APIService, $scope) {
+  constructor(APIService, $scope, $state) {
     this.apisrv = APIService;
     this.scope = $scope;
+    this.state = $state;
     this.items = [];
     this.endpoint = undefined;
     this.query = undefined;
@@ -81,6 +85,12 @@ class UIListCtrl {
     this.search_query = undefined; // this is for searchable lists only 1 entry
   }
 
+  $onChanges(changes) {
+    console.log(changes);
+    if ('list' in changes) {
+      this.MapDataToItems(this.list);
+    }
+  }
   SetQuery() {
     if (this.query == undefined) {
       this.query = {
@@ -99,14 +109,13 @@ class UIListCtrl {
         searchobj[search] = this.search_query[search];
         this.query.search.push(searchobj);
       }
-
     }
   }
 
   Select(item) {
-    console.log('called select for item ');
+
     if (this.onSelect instanceof Function) {
-      console.log('called onSelect for item ');
+
       this.onSelect({
         item: item
       });
@@ -124,49 +133,82 @@ class UIListCtrl {
         if (res instanceof ErrorObj) {
           console.log(res.ErrorMessage());
         } else {
-          self.items = res.map(x => new ListInsertItem(x));
-        }
-      });
-    }
-
-  }
-
-  DeleteItem(item) {
-
-    if (!item.isClean()) {
-      let self = this;
-      this.apisrv.Delete(this.endpoint, item.data).then(function (res) {
-        if (res instanceof ErrorObj) {
-          console.log(res.ErrorMessage());
-        } else {
-          self.GetData();
+          self.MapDataToItems(res);
         }
       });
     } else {
-      let index = this.items.indexOf(item);
-      this.items.splice(index, 1);
+      console.error('missing endpoint');
     }
-
   }
 
-  AddNewEmpty() {
-    if (!(this.items[this.items.length - 1].isClean())) {
-      console.log('adding new item');
-      let cleanitem = new ListInsertItem();
-      cleanitem.setClean();
-      this.items.push(cleanitem);
+  MapDataToItems(data) {
+    if (data == undefined) {
+      return undefined;
+    }
+    this.items = [];
+    let clean = undefined;
+    let todelete = [];
+    for (let x of data) {
+      if (x instanceof ListInsertItem) {
+        this.items.push(x);
+      } else if (angular.equals({}, x)) {
+        if (clean == undefined) {
+          clean = new ListInsertItem(x);
+          clean.SetClean();
+        } else {
+          todelete.push(x);
+        }
+      } else {
+        this.items.push(new ListInsertItem(x));
+      }
+    }
+    if (clean != undefined) {
+      this.items.unshift(clean);
+    }
+    for (let x of todelete) {
+      let index = data.indexOf(x);
+      data.splice(index, 1);
+    }
+    return this.items;
+  }
+
+  DeleteItem(item, state) {
+    if (item instanceof ListInsertItem) {
+      if (!item.isClean()) {
+        let self = this;
+        this.apisrv.Delete(this.endpoint, item.data).then(function (res) {
+          if (res instanceof ErrorObj) {
+            console.log(res.ErrorMessage());
+          } else {
+            self.GetData();
+            if (state != undefined) {
+              self.state.go(state);
+            }
+          }
+        });
+      }
+    } else {
+      this.state.go(state);
     }
   }
 
   $onInit() {
     let self = this;
-    this.GetData();
+    if (this.list != undefined) {
+      this.MapDataToItems(this.list);
+    } else {
+      this.GetData();
+    }
+
     this.scope.$on('list-refresh', function (event) {
       self.GetData();
     });
 
-    this.scope.$on('list-item-delete', function (event, item) {
-      self.DeleteItem(item);
+    this.scope.$on('list-reload', function (event) {
+      self.GetData();
+    });
+    this.scope.$on('list-item-delete', function (event, item, state) {
+      self.DeleteItem(item, state);
     });
   }
 }
@@ -183,6 +225,7 @@ app.component('uiList', {
   bindings: {
     onSelect: '&',
     endpoint: '<',
-    query: '<'
+    query: '<',
+    list: '=' // this will be converted to required data type
   }
 });

@@ -17,17 +17,20 @@
     outline-color: @cp-primary-light;
   }
 
-  &:valid, &.ng-valid,&:disabled {
-      &~.error-msg {
-        display: none;
-      }
+  &:valid,
+  &.ng-valid,
+  &:disabled {
+    &~.error-msg {
+      display: none;
     }
+  }
 }
 
 ui-input-clear,
 generic-input,
 bound-input,
-simple-input {
+simple-input,
+ui-input {
   @display-order-label: 1;
   @display-order-input: 2;
   @display-order-error: 3;
@@ -50,12 +53,14 @@ simple-input {
         }
       }
     }
-    &:invalid{
+
+    &:invalid {
 
       &:not(:disabled) {
         &:extend(+label);
       }
-      &+label{
+
+      &+label {
         color: @input-color-error;
       }
     }

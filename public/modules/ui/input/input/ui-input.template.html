@@ -1,0 +1,10 @@
+<input ng-model="$ctrl.data"
+       ng-required="{{$ctrl.required}}"
+       ng-attr-pattern="{{$ctrl.pattern}}"
+       ng-attr-type="{{$ctrl.type}}"
+       ng-disabled="{{$ctrl.disabled}}"
+       ng-attr-placeholder="{{$ctrl.placeholder}}"
+       ng-attr-title="{{$ctrl.title}}" />
+<label ng-required="{{$ctrl.required}}"
+       ng-if="$ctrl.label != undefined">{{ $ctrl.label }}</label>
+<errors ng-show="$ctrl.required">{{ $ctrl.errmsg || 'this field is required' }}</errors>

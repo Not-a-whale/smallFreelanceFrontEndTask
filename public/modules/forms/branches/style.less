@@ -3,11 +3,6 @@ ui-business-branches-form {
   width: 100%;
   height: 100%;
 
-  ui-list {
-    width: 200px;
-    min-width: 200px;
-  }
-
   form-container {
     height: 100%;
     @flex-col();
@@ -17,6 +12,7 @@ ui-business-branches-form {
 
 form {
   @flex-col();
+  flex-grow: 1;
 
   form-row {
     @flex-row();

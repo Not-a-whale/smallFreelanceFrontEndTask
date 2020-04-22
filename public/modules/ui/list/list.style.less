@@ -1,8 +1,11 @@
 ui-list {
   @flex-col();
   flex-grow: 1;
-  background-color: @cp-grey-pale;
+  --bg-color: @cp-card;
+  background-color: var(--bg-color);
   border: 1px solid @cp-grey-mid;
+  border-radius: 0.4rem;
+  min-width: 20rem;
 
   header {
     @flex-row();
@@ -36,10 +39,43 @@ ui-list {
 
   grand-header {
     @flex-col();
+    padding: 0.8rem;
+
 
     &>.title-container {
       @flex-row();
+      margin-bottom: 0.8rem;
+
+      .title {
+        font-family: @font-family-primary;
+        font-weight: @font-weight-bold;
+        font-size: @font-normal;
+        color: @cp-default;
+        text-transform: capitalize;
+        line-height: 22px;
+      }
     }
 
+    .icont {
+      .clickable();
+      margin-left: auto;
+      margin-right: 0rem;
+      background-color: @cp-primary;
+      border-radius: 0.2rem;
+
+      svg {
+        fill: var(--bg-color);
+      }
+    }
+
+    ui-input {
+      &[template] {
+        height: 3rem;
+      }
+
+      input {
+        margin: 0rem;
+      }
+    }
   }
 }

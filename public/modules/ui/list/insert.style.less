@@ -14,4 +14,44 @@ ui-list-insert {
   }
 
   .clickable();
+
+  &[type="branch-form"] {
+
+    --icon-color: @cp-asphalt-light;
+    align-items: center;
+    padding-left: 0.6rem;
+    padding-right: 1.2rem;
+    height: 4rem;
+
+    .label {
+      @flex-row();
+      flex-grow: 1;
+      height: 100%;
+      align-items: center;
+      font-family: @font-family-primary;
+      font-weight: @font-weight-bold;
+      font-size: @font-small;
+      color: @cp-default;
+      text-transform: capitalize;
+      .one-liner();
+
+      &.italic {
+        font-weight: @font-weight-normal;
+        font-style: italic;
+      }
+    }
+
+    .icont {
+      margin-left: auto;
+      margin-right: 0rem;
+
+      .icon {
+        fill: var(--icon-color);
+
+        &:hover {
+          --icon-color: @cp-asphalt;
+        }
+      }
+    }
+  }
 }

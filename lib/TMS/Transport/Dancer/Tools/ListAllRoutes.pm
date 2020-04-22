@@ -1,3 +1,14 @@
+get '/api/routes/all' => sub {
+    my $app  = app();
+    my %get  = map { $_, 'get' } CleanRgxRoutes($app->routes_regexps_for('get'));
+    my %post = map { $_, 'post' } CleanRgxRoutes($app->routes_regexps_for('post'));
+    my %all  = (%get, %post);
+
+    my @api_routes = grep { $_ =~ /^\/api\/.+$/ && $_ !~ /^.+\/(:?update|create|delete|search)$/ && $all{$_} eq 'post' } keys %all;
+    @api_routes = sort @api_routes;
+    return \@api_routes;
+};
+
 get '/api/routes' => sub {
     my $app = app();
 
@@ -38,4 +49,4 @@ sub CleanRgxRoutes {
         push @lst, $_;
     }
     return @lst;
-}
+} ## end sub CleanRgxRoutes

@@ -8,11 +8,6 @@
       "BrnchPhone" : "bigint",
       "BrnchFax" : "bigint",
       "BrnchEMail" : "varchar",
-      "biz" : {
-         "BizId" : "bigint",
-         "BizName" : "varchar",
-         "BizURL" : "varchar"
-      },
       "brnch_address" : {
          "AddrId" : "bigint",
          "Street1" : "varchar",
@@ -42,7 +37,7 @@
          "Mobility" : "enum",
          "Notes" : "text"
       },
-      "ent_people" : [
+      "primary_contact" : [
          {
             "PrsnId" : "bigint",
             "NickName" : "varchar",
@@ -83,53 +78,6 @@
                   }
                }
             ]
-         }
-      ],
-      "fin_billing_banks" : [
-         {
-            "BankId" : "bigint",
-            "BillingId" : "bigint",
-            "Institution" : "bigint",
-            "AccountNickname" : "varchar",
-            "AccountNumber" : "varchar",
-            "RoutingNumber" : "varchar",
-            "AccountType" : "enum",
-            "Purpose" : "enum",
-            "Active" : "tinyint",
-            "VoidCheck" : "bigint",
-            "Notes" : "text",
-            "billing" : {
-               "BillingId" : "bigint",
-               "EntityId" : "bigint",
-               "PayToTheOrderOf" : "varchar",
-               "ContactName" : "varchar",
-               "Phone" : "bigint",
-               "Fax" : "bigint",
-               "Address" : "bigint",
-               "EMail" : "varchar",
-               "BillingTagId" : "bigint",
-               "DateIn" : "datetime",
-               "DateOut" : "datetime",
-               "CreditLimit" : "decimal",
-               "CreditHold" : "enum",
-               "Notes" : "text",
-               "billing_tag" : {
-                  "BillingTagId" : "bigint",
-                  "BillingTag" : "varchar",
-                  "UserDefined" : "tinyint",
-                  "CreatedBy" : "bigint",
-                  "DateCreated" : "datetime"
-               }
-            },
-            "institution" : {
-               "BrnchId" : "bigint",
-               "OfficeName" : "varchar",
-               "BizId" : "bigint",
-               "BrnchAddress" : "bigint",
-               "BrnchPhone" : "bigint",
-               "BrnchFax" : "bigint",
-               "BrnchEMail" : "varchar"
-            }
          }
       ]
    }
