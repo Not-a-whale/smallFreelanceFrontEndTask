@@ -19,7 +19,7 @@ sub Core {
     my $trait = $core . 'Search';
     my $inst  = $core->with_traits($trait)->new();
     return $inst;
-}
+} ## end sub Core
 
 sub Search {
     $DB::single = 2;
@@ -71,15 +71,42 @@ sub Search {
         }
     }
 
+    if (exists $args{strict} && defined $args{strict} && ref($args{strict})) {
+        if (ref($args{strict}) eq 'HASH') {
+            $attrs{$_} = $args{strict}{$_} foreach keys %{$args{strict}};
+        } elsif (ref($args{strict}) eq 'ARRAY') {
+            my @and = ();
+            foreach my $grp (@{$args{strict}}) {
+                if (ref($grp) eq 'HASH') {
+                    my @or = ();
+                    foreach my $cl (keys %$grp) {
+                        push @or, $cl => $$grp{$cl};
+                    }
+                    push @and, '-or' => \@or;
+                } else {
+                    local $Data::Dumper::Terse  = 1;
+                    local $Data::Dumper::Indent = 3;
+                    confess "Found non-hash elemenent in search" . Dumper($grp);
+                }
+            }
+            push @{$$cond{'-and'}}, \@and;
+            $attrs{_flatten} = 0;
+        } else {
+            $$post{ERROR} = "Search must be either HashRef or an Array of Hashes";
+            $$post{DATA}  = undef;
+        }
+    }
+
     try {
         my $inst = $core->with_traits($trait)->new(%attrs);
         $$post{DATA} = $inst->$method($cond);
-    } catch {
+    }
+    catch {
         $$post{ERROR} = "$_";
     };
 
     return $post;
-}
+} ## end sub Search
 
 sub Fetch {&Search}
 
@@ -98,12 +125,13 @@ sub Update {
             $$record{$_} = $inst->$_ foreach $inst->ColumnsList;
             $$post{DATA} = $inst->Show($record, {prefetch => $self->prefetch});
         }
-    } catch {
+    }
+    catch {
         $$post{ERROR} = "$_";
     };
 
     return $post;
-}
+} ## end sub Update
 
 sub Create {
     my ($self, $post) = @_;
@@ -120,12 +148,13 @@ sub Create {
             $$record{$_} = $inst->$_ foreach $inst->ColumnsList;
             $$post{DATA} = $inst->Show($record, {prefetch => $self->prefetch});
         }
-    } catch {
+    }
+    catch {
         $$post{ERROR} = "$_";
     };
 
     return $post;
-}
+} ## end sub Create
 
 sub Delete {
     my ($self, $post) = @_;
@@ -137,11 +166,12 @@ sub Delete {
     try {
         my $inst = $core->with_traits($trait)->new($data);
         $$post{DATA} = {"records_removed" => defined $inst->Delete ? 'yes' : 'no'};
-    } catch {
+    }
+    catch {
         $$post{ERROR} = "$_";
     };
 
     return $post;
-}
+} ## end sub Delete
 
 1;
