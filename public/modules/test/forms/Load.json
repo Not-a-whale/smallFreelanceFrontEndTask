@@ -1,0 +1,245 @@
+{
+   "route" : "/api/load",
+   "structure" : {
+      "LoadId" : "bigint",
+      "CreatedBy" : "bigint",
+      "BrokerId" : "bigint",
+      "ShipperId" : "bigint",
+      "BookedBy" : "bigint",
+      "DateCreated" : "datetime",
+      "DateBooked" : "datetime",
+      "LoadNumber" : "varchar",
+      "ProNumber" : "varchar",
+      "LoadType" : "enum",
+      "TruckType" : "varchar",
+      "ReeferTempLow" : "decimal",
+      "ReeferTempHigh" : "decimal",
+      "Precooling" : "decimal",
+      "TempMode" : "enum",
+      "TeamRequired" : "enum",
+      "DispatchNote" : "text",
+      "Job" : "bigint",
+      "GoogleRoute" : "text",
+      "Status" : "varchar",
+      "LoadRate" : "decimal",
+      "booked_by" : {
+         "AstId" : "bigint",
+         "CurrentTitle" : "varchar",
+         "NodeId" : "bigint",
+         "AuthorityLevel" : "enum",
+         "DateCreated" : "datetime",
+         "DateRemoved" : "datetime",
+         "BizPhone" : "bigint",
+         "BizFax" : "bigint",
+         "BizEmail" : "varchar",
+         "Notes" : "text",
+         "PrimaryContact" : "tinyint",
+         "ast" : {
+            "PrsnId" : "bigint",
+            "NickName" : "varchar",
+            "Prefix" : "enum",
+            "FirstName" : "varchar",
+            "MiddleName" : "varchar",
+            "LastName" : "varchar",
+            "Suffix" : "enum",
+            "BrnchId" : "bigint",
+            "brnch" : {
+               "BrnchId" : "bigint",
+               "OfficeName" : "varchar",
+               "BizId" : "bigint",
+               "BrnchAddress" : "bigint",
+               "BrnchPhone" : "bigint",
+               "BrnchFax" : "bigint",
+               "BrnchEMail" : "varchar",
+               "biz" : {
+                  "BizId" : "bigint",
+                  "BizName" : "varchar",
+                  "BizURL" : "varchar"
+               },
+               "brnch_address" : {
+                  "AddrId" : "bigint",
+                  "Street1" : "varchar",
+                  "Street2" : "varchar",
+                  "Street3" : "varchar",
+                  "City" : "varchar",
+                  "State" : "char",
+                  "Zip" : "char",
+                  "Country" : "varchar",
+                  "GpsLng" : "double precision",
+                  "GpsLat" : "double precision",
+                  "Notes" : "text"
+               },
+               "brnch_fax" : {
+                  "PhnFaxId" : "bigint",
+                  "Number" : "varchar",
+                  "Extension" : "varchar",
+                  "Features" : "set",
+                  "Mobility" : "enum",
+                  "Notes" : "text"
+               },
+               "brnch_phone" : {
+                  "PhnFaxId" : "bigint",
+                  "Number" : "varchar",
+                  "Extension" : "varchar",
+                  "Features" : "set",
+                  "Mobility" : "enum",
+                  "Notes" : "text"
+               }
+            }
+         }
+      },
+      "broker" : {
+         "CstmrId" : "bigint",
+         "MC" : "varchar",
+         "DOT" : "varchar",
+         "SCAC" : "varchar",
+         "Terms" : "varchar",
+         "Factoring" : "enum",
+         "CreditLimit" : "decimal",
+         "Bond" : "varchar",
+         "DUNS" : "char",
+         "DontUse" : "enum",
+         "WhyDontUse" : "text",
+         "RequireOriginals" : "tinyint",
+         "cstmr" : {
+            "BizId" : "bigint",
+            "BizName" : "varchar",
+            "BizURL" : "varchar"
+         }
+      },
+      "job" : {
+         "JobId" : "bigint",
+         "Title" : "varchar",
+         "JobAddedBy" : "bigint",
+         "JobCreated" : "datetime"
+      },
+      "shipper" : {
+         "ShipperId" : "bigint",
+         "Notes" : "text",
+         "shipper" : {
+            "BizId" : "bigint",
+            "BizName" : "varchar",
+            "BizURL" : "varchar"
+         }
+      },
+      "truck_type" : {
+         "Name" : "varchar"
+      },
+      "dsp_loads_destinations" : [
+         {
+            "DestinationId" : "bigint",
+            "LoadId" : "bigint",
+            "PU_PO" : "varchar",
+            "Commodity" : "varchar",
+            "Pallets" : "integer",
+            "Pieces" : "integer",
+            "Weight" : "float",
+            "AppointmentStart" : "datetime",
+            "AppointmentEnd" : "datetime",
+            "AppointmentType" : "enum",
+            "StopOrder" : "integer",
+            "StopType" : "enum",
+            "Branch" : "bigint",
+            "AppointmentNotes" : "text",
+            "branch" : {
+               "BrnchId" : "bigint",
+               "OfficeName" : "varchar",
+               "BizId" : "bigint",
+               "BrnchAddress" : "bigint",
+               "BrnchPhone" : "bigint",
+               "BrnchFax" : "bigint",
+               "BrnchEMail" : "varchar",
+               "biz" : {
+                  "BizId" : "bigint",
+                  "BizName" : "varchar",
+                  "BizURL" : "varchar"
+               },
+               "brnch_address" : {
+                  "AddrId" : "bigint",
+                  "Street1" : "varchar",
+                  "Street2" : "varchar",
+                  "Street3" : "varchar",
+                  "City" : "varchar",
+                  "State" : "char",
+                  "Zip" : "char",
+                  "Country" : "varchar",
+                  "GpsLng" : "double precision",
+                  "GpsLat" : "double precision",
+                  "Notes" : "text"
+               },
+               "brnch_fax" : {
+                  "PhnFaxId" : "bigint",
+                  "Number" : "varchar",
+                  "Extension" : "varchar",
+                  "Features" : "set",
+                  "Mobility" : "enum",
+                  "Notes" : "text"
+               },
+               "brnch_phone" : {
+                  "PhnFaxId" : "bigint",
+                  "Number" : "varchar",
+                  "Extension" : "varchar",
+                  "Features" : "set",
+                  "Mobility" : "enum",
+                  "Notes" : "text"
+               }
+            },
+            "dsp_loads_destinations_docs" : [
+               {
+                  "DestFileId" : "bigint",
+                  "LoadDestinationId" : "bigint",
+                  "FileId" : "bigint",
+                  "Verified" : "enum",
+                  "ApprovedBy" : "bigint",
+                  "FactoredDoc" : "tinyint",
+                  "file" : {
+                     "FileId" : "bigint",
+                     "DocumentTitle" : "varchar",
+                     "Keywords" : "varchar",
+                     "FileName" : "varchar",
+                     "FileData" : "longblob",
+                     "SHASIG" : "char",
+                     "MIMEType" : "varchar",
+                     "UploadDate" : "datetime",
+                     "ExpiredDate" : "datetime",
+                     "Notes" : "text"
+                  }
+               }
+            ]
+         }
+      ],
+      "dsp_loads_docs" : [
+         {
+            "DocsLoadId" : "bigint",
+            "FileId" : "bigint",
+            "LoadId" : "bigint",
+            "DateAdded" : "datetime",
+            "AddedBy" : "bigint",
+            "FactoredDoc" : "tinyint",
+            "file" : {
+               "FileId" : "bigint",
+               "DocumentTitle" : "varchar",
+               "Keywords" : "varchar",
+               "FileName" : "varchar",
+               "FileData" : "longblob",
+               "SHASIG" : "char",
+               "MIMEType" : "varchar",
+               "UploadDate" : "datetime",
+               "ExpiredDate" : "datetime",
+               "Notes" : "text"
+            }
+         }
+      ],
+      "dsp_loads_required_equipments" : [
+         {
+            "LoadsEquipId" : "bigint",
+            "LoadId" : "bigint",
+            "EquipmentType" : "bigint",
+            "equipment_type" : {
+               "EquipmentTypeId" : "bigint",
+               "Name" : "varchar"
+            }
+         }
+      ]
+   }
+}
