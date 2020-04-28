@@ -11,8 +11,8 @@ extends 'DBIx::Class::Schema';
 
 __PACKAGE__->load_namespaces;
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-01-15 17:00:27
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:glm1slSOYalPCJlSlVJ8lg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:55
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9VrFSHYSysB0DH0InyWc3w
 
 my $DBIxSingleton = undef;
 
