@@ -133,8 +133,8 @@ __PACKAGE__->has_many(
     {"foreign.AppFeatureId" => "self.AppFeatureId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-03-10 16:28:43
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7w1Gaj/EnaFyao/GFLHfPw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:55
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:JEcx4vPj8EU7FyF9Ua1tqQ
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

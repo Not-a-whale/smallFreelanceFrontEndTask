@@ -46,9 +46,9 @@ __PACKAGE__->table("cmm_assignments");
 =head2 DateAdded
 
   accessor: 'date_added'
-  data_type: 'timestamp'
+  data_type: 'datetime'
   datetime_undef_if_invalid: 1
-  default_value: current_timestamp
+  default_value: 'CURRENT_TIMESTAMP'
   is_nullable: 0
 
 =head2 AddedBy
@@ -78,9 +78,9 @@ __PACKAGE__->add_columns(
     },
     "DateAdded",
     {   accessor                  => "date_added",
-        data_type                 => "timestamp",
+        data_type                 => "datetime",
         datetime_undef_if_invalid => 1,
-        default_value             => \"current_timestamp",
+        default_value             => "CURRENT_TIMESTAMP",
         is_nullable               => 0,
     },
     "AddedBy",
@@ -139,8 +139,8 @@ __PACKAGE__->belongs_to(
     {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-03-10 16:28:43
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GEk9vut968mly4/kSiLM6A
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:55
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:RGne0CCjnOE21+yGMhJXIw
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

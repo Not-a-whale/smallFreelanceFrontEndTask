@@ -72,6 +72,24 @@ __PACKAGE__->table("cnt_phonesfaxes");
   data_type: 'text'
   is_nullable: 1
 
+=head2 WorkHrsOpen
+
+  accessor: 'work_hrs_open'
+  data_type: 'time'
+  is_nullable: 1
+
+=head2 WorkHrsClosed
+
+  accessor: 'work_hrs_closed'
+  data_type: 'time'
+  is_nullable: 1
+
+=head2 TimeZone
+
+  accessor: 'time_zone'
+  data_type: 'tinyint'
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -107,6 +125,12 @@ __PACKAGE__->add_columns(
     },
     "Notes",
     {accessor => "notes", data_type => "text", is_nullable => 1},
+    "WorkHrsOpen",
+    {accessor => "work_hrs_open", data_type => "time", is_nullable => 1},
+    "WorkHrsClosed",
+    {accessor => "work_hrs_closed", data_type => "time", is_nullable => 1},
+    "TimeZone",
+    {accessor => "time_zone", data_type => "tinyint", is_nullable => 1},
 );
 
 =head1 PRIMARY KEY
@@ -275,8 +299,8 @@ __PACKAGE__->has_many(
     {cascade_copy       => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-03-10 16:28:43
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:bTuLVM3V8f715K0IpfrI7Q
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Cy2MNTy7B3aP0O6dF/KTuw
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

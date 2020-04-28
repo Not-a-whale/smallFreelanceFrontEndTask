@@ -42,6 +42,8 @@ __PACKAGE__->table("ent_carriers");
   is_nullable: 1
   size: 10
 
+MC/MX/FF Number(s)
+
 =head2 McCertificatePhoto
 
   accessor: 'mc_certificate_photo'
@@ -78,6 +80,189 @@ __PACKAGE__->table("ent_carriers");
   is_nullable: 1
   size: 255
 
+=head2 CargoCarried
+
+  accessor: 'cargo_carried'
+  data_type: 'enum'
+  extra: {list => ["General Freight","Household Goods","Metal: sheets, coils, rolls","Motor Vehicles","Drive/Tow away","Logs, Poles, Beams, Lumber","Building Materials","Mobile Homes","Machinery, Large Objects","Fresh Produce","Liquids/Gases","Intermodal Cont.","Passengers","Oilfield Equipment","Livestock","Grain, Feed, Hay","Coal/Coke","Meat","Garbage/Refuse","US Mail","Chemicals","Commodities Dry Bulk","Refrigerated Food","Beverages","Paper Products","Utilities","Agricultural/Farm Supplies","Construction","Water Well"]}
+  is_nullable: 1
+
+=head2 CarrierOperation
+
+  accessor: 'carrier_operation'
+  data_type: 'enum'
+  extra: {list => ["Interstate","Intrastate Only (HM)","Intrastate Only (Non-HM)"]}
+  is_nullable: 1
+
+=head2 OperationClassification
+
+  accessor: 'operation_classification'
+  data_type: 'enum'
+  extra: {list => ["Auth. For Hire","Exempt For Hire","Private(Property)","Priv. Pass. (Business)","Priv. Pass.(Non-business)","Migrant","U.S. Mail","Fed. Gov","State Gov","Local Gov","Indian Nation"]}
+  is_nullable: 1
+
+=head2 MCS150FormDate
+
+  accessor: 'mcs150_form_date'
+  data_type: 'date'
+  datetime_undef_if_invalid: 1
+  is_nullable: 1
+
+Latest date MCS-150 was filed
+
+=head2 MCS150FormMileage
+
+  accessor: 'mcs150_form_mileage'
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+Vehicle Mileage Traveled reported on the carrier MCS-150 form
+
+=head2 MCS150FormMileageYear
+
+  accessor: 'mcs150_form_mileage_year'
+  data_type: 'integer'
+  is_nullable: 1
+
+Year for which Vehicle Mileage Traveled was reported
+
+=head2 InerstateDriversLess100M
+
+  accessor: 'inerstate_drivers_less100_m'
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 InerstateDriversOver100M
+
+  accessor: 'inerstate_drivers_over100_m'
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 IntrastateDriversLess100M
+
+  accessor: 'intrastate_drivers_less100_m'
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 IntrastateDriversOver100M
+
+  accessor: 'intrastate_drivers_over100_m'
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 EmployedDriversCDL
+
+  accessor: 'employed_drivers_cdl'
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 TractorsOwned
+
+  accessor: 'tractors_owned'
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 TractorsTermLeased
+
+  accessor: 'tractors_term_leased'
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 TractorsTripLeased
+
+  accessor: 'tractors_trip_leased'
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 TrucksOwned
+
+  accessor: 'trucks_owned'
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 TrucksTermLeased
+
+  accessor: 'trucks_term_leased'
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 TrucksTripLeased
+
+  accessor: 'trucks_trip_leased'
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 TrailersOwned
+
+  accessor: 'trailers_owned'
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 TrailersTermLeased
+
+  accessor: 'trailers_term_leased'
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 TrailersTripLeased
+
+  accessor: 'trailers_trip_leased'
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 AddedToFMCSA
+
+  accessor: 'added_to_fmcsa'
+  data_type: 'date'
+  datetime_undef_if_invalid: 1
+  is_nullable: 1
+
+Date when carrier information was added to MCMIS Database System
+
+=head2 OIC_STATE
+
+  accessor: 'oic_state'
+  data_type: 'char'
+  is_nullable: 1
+  size: 2
+
+FMCSA State office with oversight for this carrier
+
+=head2 HmFlag
+
+  accessor: 'hm_flag'
+  data_type: 'tinyint'
+  default_value: 0
+  extra: {unsigned => 1}
+  is_nullable: 0
+
+Carrier is subject to placardable HM threshold
+
+=head2 PcFlag
+
+  accessor: 'pc_flag'
+  data_type: 'tinyint'
+  default_value: 0
+  extra: {unsigned => 1}
+  is_nullable: 0
+
+Carrier is subject to passenger carrier Threshold
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -112,6 +297,193 @@ __PACKAGE__->add_columns(
         data_type   => "varchar",
         is_nullable => 1,
         size        => 255,
+    },
+    "CargoCarried",
+    {   accessor  => "cargo_carried",
+        data_type => "enum",
+        extra     => {
+            list => [
+                "General Freight",
+                "Household Goods",
+                "Metal: sheets, coils, rolls",
+                "Motor Vehicles",
+                "Drive/Tow away",
+                "Logs, Poles, Beams, Lumber",
+                "Building Materials",
+                "Mobile Homes",
+                "Machinery, Large Objects",
+                "Fresh Produce",
+                "Liquids/Gases",
+                "Intermodal Cont.",
+                "Passengers",
+                "Oilfield Equipment",
+                "Livestock",
+                "Grain, Feed, Hay",
+                "Coal/Coke",
+                "Meat",
+                "Garbage/Refuse",
+                "US Mail",
+                "Chemicals",
+                "Commodities Dry Bulk",
+                "Refrigerated Food",
+                "Beverages",
+                "Paper Products",
+                "Utilities",
+                "Agricultural/Farm Supplies",
+                "Construction",
+                "Water Well",
+            ],
+        },
+        is_nullable => 1,
+    },
+    "CarrierOperation",
+    {   accessor    => "carrier_operation",
+        data_type   => "enum",
+        extra       => {list => ["Interstate", "Intrastate Only (HM)", "Intrastate Only (Non-HM)",],},
+        is_nullable => 1,
+    },
+    "OperationClassification",
+    {   accessor  => "operation_classification",
+        data_type => "enum",
+        extra     => {
+            list => [
+                "Auth. For Hire",
+                "Exempt For Hire",
+                "Private(Property)",
+                "Priv. Pass. (Business)",
+                "Priv. Pass.(Non-business)",
+                "Migrant",
+                "U.S. Mail",
+                "Fed. Gov",
+                "State Gov",
+                "Local Gov",
+                "Indian Nation",
+            ],
+        },
+        is_nullable => 1,
+    },
+    "MCS150FormDate",
+    {   accessor                  => "mcs150_form_date",
+        data_type                 => "date",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 1,
+    },
+    "MCS150FormMileage",
+    {   accessor    => "mcs150_form_mileage",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "MCS150FormMileageYear",
+    {   accessor    => "mcs150_form_mileage_year",
+        data_type   => "integer",
+        is_nullable => 1,
+    },
+    "InerstateDriversLess100M",
+    {   accessor    => "inerstate_drivers_less100_m",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "InerstateDriversOver100M",
+    {   accessor    => "inerstate_drivers_over100_m",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "IntrastateDriversLess100M",
+    {   accessor    => "intrastate_drivers_less100_m",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "IntrastateDriversOver100M",
+    {   accessor    => "intrastate_drivers_over100_m",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "EmployedDriversCDL",
+    {   accessor    => "employed_drivers_cdl",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "TractorsOwned",
+    {   accessor    => "tractors_owned",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "TractorsTermLeased",
+    {   accessor    => "tractors_term_leased",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "TractorsTripLeased",
+    {   accessor    => "tractors_trip_leased",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "TrucksOwned",
+    {   accessor    => "trucks_owned",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "TrucksTermLeased",
+    {   accessor    => "trucks_term_leased",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "TrucksTripLeased",
+    {   accessor    => "trucks_trip_leased",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "TrailersOwned",
+    {   accessor    => "trailers_owned",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "TrailersTermLeased",
+    {   accessor    => "trailers_term_leased",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "TrailersTripLeased",
+    {   accessor    => "trailers_trip_leased",
+        data_type   => "integer",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
+    },
+    "AddedToFMCSA",
+    {   accessor                  => "added_to_fmcsa",
+        data_type                 => "date",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 1,
+    },
+    "OIC_STATE",
+    {accessor => "oic_state", data_type => "char", is_nullable => 1, size => 2},
+    "HmFlag",
+    {   accessor      => "hm_flag",
+        data_type     => "tinyint",
+        default_value => 0,
+        extra         => {unsigned => 1},
+        is_nullable   => 0,
+    },
+    "PcFlag",
+    {   accessor      => "pc_flag",
+        data_type     => "tinyint",
+        default_value => 0,
+        extra         => {unsigned => 1},
+        is_nullable   => 0,
     },
 );
 
@@ -242,8 +614,8 @@ __PACKAGE__->belongs_to(
     },
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-03-10 16:28:43
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:CuaBNGFj2Dyl3Nz7aog57g
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:LiEiykQH2iQ3lRlaOvb9VQ
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

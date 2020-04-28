@@ -19,8 +19,11 @@ use TMS::API::Types::Columns;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'Notes'    => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
-has 'PhnFaxId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '1', 'required' => '0');
+has 'Notes'         => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
+has 'PhnFaxId'      => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '1', 'required' => '0');
+has 'TimeZone'      => ('is' => 'rw', 'isa' => 'BoolInt',          'coerce' => '1', 'required' => '0');
+has 'WorkHrsClosed' => ('is' => 'rw', 'isa' => 'Any',              'coerce' => '0', 'required' => '0');
+has 'WorkHrsOpen'   => ('is' => 'rw', 'isa' => 'Any',              'coerce' => '0', 'required' => '0');
 
 # relations point to us
 has 'biz_branches_brnch_faxes'  => ('is' => 'rw', 'isa' => 'ArrayObjBizBranch',         'coerce' => '1', 'required' => '0');

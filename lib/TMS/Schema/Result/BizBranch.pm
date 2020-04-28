@@ -297,8 +297,8 @@ __PACKAGE__->has_many(
     {"foreign.VendorId" => "self.BrnchId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-03-10 16:28:43
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:xKG/qLin3cq+T0jn6RUrsQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:55
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:LGrtdxROraa+k2cDedt5rw
 
 __PACKAGE__->has_many(
     "primary_contact",

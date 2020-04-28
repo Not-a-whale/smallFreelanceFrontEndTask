@@ -42,6 +42,13 @@ __PACKAGE__->table("ent_businesses");
   is_nullable: 0
   size: 1024
 
+=head2 DBA
+
+  accessor: 'dba'
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 1024
+
 =head2 BizURL
 
   accessor: 'biz_url'
@@ -65,6 +72,8 @@ __PACKAGE__->add_columns(
         is_nullable => 0,
         size        => 1024,
     },
+    "DBA",
+    {accessor => "dba", data_type => "varchar", is_nullable => 1, size => 1024},
     "BizURL",
     {   accessor    => "biz_url",
         data_type   => "varchar",
@@ -218,8 +227,8 @@ __PACKAGE__->has_many(
     {cascade_copy          => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-03-10 16:28:43
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yqqyI2DYpbXc0xnKJ/C5Cg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:wKTz7Hbqwjl92+R30Q65Tw
 
 __PACKAGE__->belongs_to(
     "has_carrier",

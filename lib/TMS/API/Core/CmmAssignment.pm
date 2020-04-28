@@ -22,6 +22,7 @@ with 'MooseX::Traits';
 has 'AddedBy'           => ('is' => 'rw', 'isa' => 'PositiveInt', 'coerce' => '1', 'required' => '0');
 has 'AssociateId'       => ('is' => 'rw', 'isa' => 'PositiveInt', 'coerce' => '1', 'required' => '0');
 has 'CommissionPackage' => ('is' => 'rw', 'isa' => 'VarChar255',  'coerce' => '1', 'required' => '0');
+has 'DateAdded'         => ('is' => 'rw', 'isa' => 'DATETIME',    'coerce' => '1', 'required' => '0');
 
 # relations depends on
 has 'added_by'           => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'coerce' => '1', 'required' => '0');

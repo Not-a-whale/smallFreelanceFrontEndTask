@@ -21,6 +21,7 @@ with 'MooseX::Traits';
 
 has 'BizId'  => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '1', 'required' => '0');
 has 'BizURL' => ('is' => 'rw', 'isa' => 'VarChar1024',   'coerce' => '1', 'required' => '0');
+has 'DBA'    => ('is' => 'rw', 'isa' => 'VarChar1024',   'coerce' => '1', 'required' => '0');
 
 # relations depends on
 has 'has_carrier' => ('is' => 'rw', 'isa' => 'ObjEntCarrier', 'coerce' => '1', 'required' => '0');

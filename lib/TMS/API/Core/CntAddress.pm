@@ -19,10 +19,11 @@ use TMS::API::Types::Columns;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'AddrId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '1', 'required' => '0');
-has 'GpsLat' => ('is' => 'rw', 'isa' => 'Float',            'coerce' => '1', 'required' => '0');
-has 'GpsLng' => ('is' => 'rw', 'isa' => 'Float',            'coerce' => '1', 'required' => '0');
-has 'Notes'  => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
+has 'AddrId'   => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',    'coerce' => '1', 'required' => '0');
+has 'AddrType' => ('is' => 'rw', 'isa' => 'set_AddrType',     'coerce' => '1', 'required' => '0');
+has 'GpsLat'   => ('is' => 'rw', 'isa' => 'Float',            'coerce' => '1', 'required' => '0');
+has 'GpsLng'   => ('is' => 'rw', 'isa' => 'Float',            'coerce' => '1', 'required' => '0');
+has 'Notes'    => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 'required' => '0');
 
 # relations point to us
 has 'biz_branches'            => ('is' => 'rw', 'isa' => 'ArrayObjBizBranch',            'coerce' => '1', 'required' => '0');

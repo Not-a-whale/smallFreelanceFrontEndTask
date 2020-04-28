@@ -109,6 +109,13 @@ Street
   data_type: 'text'
   is_nullable: 1
 
+=head2 AddrType
+
+  accessor: 'addr_type'
+  data_type: 'set'
+  extra: {list => ["physical","mail"]}
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -160,6 +167,12 @@ __PACKAGE__->add_columns(
     },
     "Notes",
     {accessor => "notes", data_type => "text", is_nullable => 1},
+    "AddrType",
+    {   accessor    => "addr_type",
+        data_type   => "set",
+        extra       => {list => ["physical", "mail"]},
+        is_nullable => 1,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -258,8 +271,8 @@ __PACKAGE__->has_many(
     {"foreign.LocationOfRecords" => "self.AddrId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-03-10 16:28:43
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Qgi5oLBWmrVJsmbkV900uA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:fIU7k5P5jXyBtv7/RzxrKQ
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

@@ -47,16 +47,16 @@ __PACKAGE__->table("app_sessions");
 
 =head2 created_on
 
-  data_type: 'timestamp'
+  data_type: 'datetime'
   datetime_undef_if_invalid: 1
-  default_value: current_timestamp
+  default_value: 'CURRENT_TIMESTAMP'
   is_nullable: 0
 
 =head2 last_active
 
-  data_type: 'timestamp'
+  data_type: 'datetime'
   datetime_undef_if_invalid: 1
-  default_value: current_timestamp
+  default_value: 'CURRENT_TIMESTAMP'
   is_nullable: 0
 
 =cut
@@ -73,15 +73,15 @@ __PACKAGE__->add_columns(
     "session_data",
     {data_type => "text", is_nullable => 0},
     "created_on",
-    {   data_type                 => "timestamp",
+    {   data_type                 => "datetime",
         datetime_undef_if_invalid => 1,
-        default_value             => \"current_timestamp",
+        default_value             => "CURRENT_TIMESTAMP",
         is_nullable               => 0,
     },
     "last_active",
-    {   data_type                 => "timestamp",
+    {   data_type                 => "datetime",
         datetime_undef_if_invalid => 1,
-        default_value             => \"current_timestamp",
+        default_value             => "CURRENT_TIMESTAMP",
         is_nullable               => 0,
     },
 );
@@ -112,8 +112,8 @@ __PACKAGE__->set_primary_key("session_id");
 
 __PACKAGE__->add_unique_constraint("session_name_UNIQUE", ["session_name"]);
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-03-10 16:28:43
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:N8V6frpMikOOCzSDkp5s9Q
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:55
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:AZyEHTO7JSeGXNvT9VKQTQ
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 
