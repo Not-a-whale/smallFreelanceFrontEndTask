@@ -396,7 +396,7 @@ CREATE TABLE `app_sessions` (
   UNIQUE KEY `session_name_UNIQUE` (`session_name`),
   KEY `idx_app_sessions_created_on` (`created_on`),
   KEY `idx_app_sessions_last_active` (`last_active`)
-) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=535 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -426,7 +426,7 @@ CREATE TABLE `biz_branches` (
   CONSTRAINT `BrnchBizNameRef` FOREIGN KEY (`BizId`) REFERENCES `ent_businesses` (`BizId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchFaxRef` FOREIGN KEY (`BrnchFax`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchPhoneRef` FOREIGN KEY (`BrnchPhone`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8 COMMENT='Office Branch Details';
+) ENGINE=InnoDB AUTO_INCREMENT=165 DEFAULT CHARSET=utf8 COMMENT='Office Branch Details';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -682,6 +682,7 @@ CREATE TABLE `cnt_addresses` (
   `GpsLng` double DEFAULT NULL,
   `GpsLat` double DEFAULT NULL,
   `Notes` text,
+  `AddrType` set('physical','mail') DEFAULT NULL,
   PRIMARY KEY (`AddrId`),
   UNIQUE KEY `UnqAddr` (`Country`,`State`,`Zip`,`City`,`Street1`,`Street2`,`Street3`),
   KEY `idx_cnt_addresses_Street2` (`Street2`),
@@ -692,8 +693,9 @@ CREATE TABLE `cnt_addresses` (
   KEY `idx_cnt_addresses_GpsLat` (`GpsLat`),
   KEY `idx_cnt_addresses_State` (`State`),
   KEY `idx_cnt_addresses_Country` (`Country`),
-  KEY `idx_cnt_addresses_Street1` (`Street1`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
+  KEY `idx_cnt_addresses_Street1` (`Street1`),
+  KEY `idx_cnt_addresses_AddrType` (`AddrType`)
+) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -710,13 +712,19 @@ CREATE TABLE `cnt_phonesfaxes` (
   `Features` set('VOICE','SMS','MMS','FAX') NOT NULL DEFAULT 'VOICE',
   `Mobility` enum('LAND LINE','MOBILE','SOFT PHONE') NOT NULL DEFAULT 'LAND LINE',
   `Notes` text,
+  `WorkHrsOpen` time DEFAULT NULL,
+  `WorkHrsClosed` time DEFAULT NULL,
+  `TimeZone` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`PhnFaxId`),
   UNIQUE KEY `UnqNum` (`Number`,`Extension`),
   KEY `idx_cnt_phonesfaxes_Number` (`Number`) USING BTREE,
   KEY `idx_cnt_phonesfaxes_Extension` (`Extension`) USING BTREE,
   KEY `idx_cnt_phonesfaxes_Features` (`Features`) USING BTREE,
-  KEY `idx_cnt_phonesfaxes_Mobility` (`Mobility`)
-) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8;
+  KEY `idx_cnt_phonesfaxes_Mobility` (`Mobility`),
+  KEY `idx_cnt_phonesfaxes_WorkHrsOpen` (`WorkHrsOpen`),
+  KEY `idx_cnt_phonesfaxes_WorkHrsClosed` (`WorkHrsClosed`),
+  KEY `idx_cnt_phonesfaxes_TimeZone` (`TimeZone`)
+) ENGINE=InnoDB AUTO_INCREMENT=236 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1331,12 +1339,14 @@ DROP TABLE IF EXISTS `ent_businesses`;
 CREATE TABLE `ent_businesses` (
   `BizId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `BizName` varchar(1024) NOT NULL,
+  `DBA` varchar(1024) DEFAULT NULL,
   `BizURL` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`BizId`),
   UNIQUE KEY `BizName_UNIQUE` (`BizName`),
   KEY `idx_ent_businesses_BizName` (`BizName`) USING BTREE,
-  KEY `idx_ent_businesses_BizURL` (`BizURL`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
+  KEY `idx_ent_businesses_BizURL` (`BizURL`),
+  KEY `idx_ent_businesses_DBA` (`DBA`)
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1348,12 +1358,36 @@ DROP TABLE IF EXISTS `ent_carriers`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ent_carriers` (
   `CarrierId` bigint(20) unsigned NOT NULL,
-  `MC` varchar(10) DEFAULT NULL,
+  `MC` varchar(10) DEFAULT NULL COMMENT 'MC/MX/FF Number(s)',
   `McCertificatePhoto` bigint(20) unsigned DEFAULT NULL,
   `DOT` varchar(15) DEFAULT NULL,
   `CrType` enum('Company Carrier','Brokerage Only') DEFAULT NULL,
   `SCAC` varchar(4) DEFAULT NULL,
   `RateConfEmailAddress` varchar(255) DEFAULT NULL,
+  `CargoCarried` enum('General Freight','Household Goods','Metal: sheets, coils, rolls','Motor Vehicles','Drive/Tow away','Logs, Poles, Beams, Lumber','Building Materials','Mobile Homes','Machinery, Large Objects','Fresh Produce','Liquids/Gases','Intermodal Cont.','Passengers','Oilfield Equipment','Livestock','Grain, Feed, Hay','Coal/Coke','Meat','Garbage/Refuse','US Mail','Chemicals','Commodities Dry Bulk','Refrigerated Food','Beverages','Paper Products','Utilities','Agricultural/Farm Supplies','Construction','Water Well') DEFAULT NULL,
+  `CarrierOperation` enum('Interstate','Intrastate Only (HM)','Intrastate Only (Non-HM)') DEFAULT NULL,
+  `OperationClassification` enum('Auth. For Hire','Exempt For Hire','Private(Property)','Priv. Pass. (Business)','Priv. Pass.(Non-business)','Migrant','U.S. Mail','Fed. Gov','State Gov','Local Gov','Indian Nation') DEFAULT NULL,
+  `MCS150FormDate` date DEFAULT NULL COMMENT 'Latest date MCS-150 was filed',
+  `MCS150FormMileage` int(10) unsigned DEFAULT NULL COMMENT 'Vehicle Mileage Traveled reported on the carrier MCS-150 form',
+  `MCS150FormMileageYear` int(4) DEFAULT NULL COMMENT 'Year for which Vehicle Mileage Traveled was reported',
+  `InerstateDriversLess100M` int(10) unsigned DEFAULT NULL,
+  `InerstateDriversOver100M` int(10) unsigned DEFAULT NULL,
+  `IntrastateDriversLess100M` int(10) unsigned DEFAULT NULL,
+  `IntrastateDriversOver100M` int(10) unsigned DEFAULT NULL,
+  `EmployedDriversCDL` int(10) unsigned DEFAULT NULL,
+  `TractorsOwned` int(10) unsigned DEFAULT NULL,
+  `TractorsTermLeased` int(10) unsigned DEFAULT NULL,
+  `TractorsTripLeased` int(10) unsigned DEFAULT NULL,
+  `TrucksOwned` int(10) unsigned DEFAULT NULL,
+  `TrucksTermLeased` int(10) unsigned DEFAULT NULL,
+  `TrucksTripLeased` int(10) unsigned DEFAULT NULL,
+  `TrailersOwned` int(10) unsigned DEFAULT NULL,
+  `TrailersTermLeased` int(10) unsigned DEFAULT NULL,
+  `TrailersTripLeased` int(10) unsigned DEFAULT NULL,
+  `AddedToFMCSA` date DEFAULT NULL COMMENT 'Date when carrier information was added to MCMIS Database System',
+  `OIC_STATE` char(2) DEFAULT NULL COMMENT 'FMCSA State office with oversight for this carrier',
+  `HmFlag` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT 'Carrier is subject to placardable HM threshold',
+  `PcFlag` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT 'Carrier is subject to passenger carrier Threshold',
   PRIMARY KEY (`CarrierId`),
   UNIQUE KEY `MC_UNIQUE` (`MC`),
   UNIQUE KEY `DOT_UNIQUE` (`DOT`),
@@ -1363,6 +1397,30 @@ CREATE TABLE `ent_carriers` (
   KEY `idx_ent_carriers_CrType` (`CrType`),
   KEY `idx_ent_carriers_SCAC` (`SCAC`),
   KEY `idx_ent_carriers_RateConfEmailAddress` (`RateConfEmailAddress`),
+  KEY `idx_ent_carriers_CargoCarried` (`CargoCarried`),
+  KEY `idx_ent_carriers_OperationClassification` (`OperationClassification`),
+  KEY `idx_ent_carriers_CarrierOperation` (`CarrierOperation`),
+  KEY `idx_ent_carriers_MCS150FormLastRenewed` (`MCS150FormDate`),
+  KEY `idx_ent_carriers_MCS150FormMileage` (`MCS150FormMileage`),
+  KEY `idx_ent_carriers_MCS150FormMileageDate` (`MCS150FormMileageYear`),
+  KEY `idx_ent_carriers_InerstateDriversLess100M` (`InerstateDriversLess100M`),
+  KEY `idx_ent_carriers_InerstateDriversOver100M` (`InerstateDriversOver100M`),
+  KEY `idx_ent_carriers_IntrastateDriversLess100M` (`IntrastateDriversLess100M`),
+  KEY `idx_ent_carriers_IntrastateDriversOver100M` (`IntrastateDriversOver100M`),
+  KEY `idx_ent_carriers_EmployedDriversCDL` (`EmployedDriversCDL`),
+  KEY `idx_ent_carriers_TractorsOwned` (`TractorsOwned`),
+  KEY `idx_ent_carriers_TrailersTripLeased` (`TrailersTripLeased`),
+  KEY `idx_ent_carriers_TrailersTermLeased` (`TrailersTermLeased`),
+  KEY `idx_ent_carriers_TrailersOwned` (`TrailersOwned`),
+  KEY `idx_ent_carriers_TrucksTripLeased` (`TrucksTripLeased`),
+  KEY `idx_ent_carriers_TrucksTermLeased` (`TrucksTermLeased`),
+  KEY `idx_ent_carriers_TrucksOwned` (`TrucksOwned`),
+  KEY `idx_ent_carriers_TractorsTripLeased` (`TractorsTripLeased`),
+  KEY `idx_ent_carriers_TractorsTermLeased` (`TractorsTermLeased`),
+  KEY `idx_ent_carriers_AddedToFMCSA` (`AddedToFMCSA`),
+  KEY `idx_ent_carriers_OIC_STATE` (`OIC_STATE`),
+  KEY `idx_ent_carriers_HmFlag` (`HmFlag`),
+  KEY `idx_ent_carriers_PcFlag` (`PcFlag`),
   CONSTRAINT `CarrierBusinessRef` FOREIGN KEY (`CarrierId`) REFERENCES `ent_businesses` (`BizId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `McCertRef` FOREIGN KEY (`McCertificatePhoto`) REFERENCES `gen_files` (`FileId`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1450,7 +1508,7 @@ CREATE TABLE `ent_people` (
   KEY `idx_ent_people_Suffix` (`Suffix`) USING BTREE,
   KEY `idx_ent_people_BrnchId` (`BrnchId`) USING BTREE,
   CONSTRAINT `PeopleBranchRef` FOREIGN KEY (`BrnchId`) REFERENCES `biz_branches` (`BrnchId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=154 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1491,7 +1549,7 @@ CREATE TABLE `entities` (
   KEY `EntityBusinessRef_idx` (`BusinessId`),
   CONSTRAINT `EntityBusinessRef` FOREIGN KEY (`BusinessId`) REFERENCES `ent_businesses` (`BizId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `EntityPersonRef` FOREIGN KEY (`PersonId`) REFERENCES `ent_people` (`PrsnId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -4224,4 +4282,4 @@ CREATE TABLE `tsk_trees` (
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-16 13:06:28
+-- Dump completed on 2020-04-28 12:24:25
