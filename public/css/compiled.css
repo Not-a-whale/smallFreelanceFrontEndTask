@@ -1498,14 +1498,16 @@ ui-list-insert.active {
   --background-color: #EAF5FC;
   --border-color: #AAD2EE;
 }
-ui-list-insert[type="branch-form"] {
+ui-list-insert[type="branch-form"],
+ui-list-insert[type="staff-form"] {
   --icon-color: #7A7985;
   align-items: center;
   padding-left: 0.6rem;
   padding-right: 1.2rem;
   height: 4rem;
 }
-ui-list-insert[type="branch-form"] .label {
+ui-list-insert[type="branch-form"] .label,
+ui-list-insert[type="staff-form"] .label {
   display: flex;
   flex-direction: row;
   flex-grow: 1;
@@ -1520,18 +1522,22 @@ ui-list-insert[type="branch-form"] .label {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-ui-list-insert[type="branch-form"] .label.italic {
+ui-list-insert[type="branch-form"] .label.italic,
+ui-list-insert[type="staff-form"] .label.italic {
   font-weight: normal;
   font-style: italic;
 }
-ui-list-insert[type="branch-form"] .icont {
+ui-list-insert[type="branch-form"] .icont,
+ui-list-insert[type="staff-form"] .icont {
   margin-left: auto;
   margin-right: 0rem;
 }
-ui-list-insert[type="branch-form"] .icont .icon {
+ui-list-insert[type="branch-form"] .icont .icon,
+ui-list-insert[type="staff-form"] .icont .icon {
   fill: var(--icon-color);
 }
-ui-list-insert[type="branch-form"] .icont .icon:hover {
+ui-list-insert[type="branch-form"] .icont .icon:hover,
+ui-list-insert[type="staff-form"] .icont .icon:hover {
   --icon-color: #525160;
 }
 ui-subform-mediator {
@@ -1822,7 +1828,7 @@ ui-subform-card-billing-info.active {
 }
 ui-form {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
   height: 100%;
 }
@@ -2123,17 +2129,32 @@ ui-form-section-template {
   border-radius: 4px;
   border: 1px solid #DCDCDC;
 }
-ui-form-section-template .function {
+ui-form-section-template save-button {
   display: flex;
   margin-right: 0px;
   margin-left: auto;
 }
-ui-form-section-template .header {
+ui-form-section-template section-content-container {
+  position: relative;
+}
+ui-form-section-template section-content {
+  position: relative;
+}
+ui-form-section-template section-title {
+  font-family: 'Nunito Sans', Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+}
+ui-form-section-template section-header {
   display: flex;
   flex-direction: row;
   flex-grow: 1;
   height: 2.4rem;
   margin-bottom: 8px;
+}
+ui-form-section-template form {
+  display: flex;
+  flex-direction: column;
 }
 ui-form-partial-address {
   display: flex;
@@ -3007,6 +3028,7 @@ button-icon {
   --btn-color: #494950;
   --btn-color-hover: #56565D;
   --btn-color-active: #CBCCCE;
+  --btn-color-disabled: #E8E8E8;
   --btn-color-font: #FFFFFF;
   --btn-color-icon: #8B4040;
   --btn-height: 30px;
@@ -3016,6 +3038,7 @@ button-icon {
   color: var(--btn-color-font);
   background-color: var(--btn-color);
   line-height: 21px;
+  border: none;
   border-radius: 4px;
   display: flex;
   width: fit-content;
@@ -3052,6 +3075,7 @@ button-icon.btn {
   --btn-color: #494950;
   --btn-color-hover: #56565D;
   --btn-color-active: #CBCCCE;
+  --btn-color-disabled: #E8E8E8;
   --btn-color-font: #FFFFFF;
   --btn-color-icon: #8B4040;
   --btn-height: 30px;
@@ -3061,6 +3085,7 @@ button-icon.btn {
   color: var(--btn-color-font);
   background-color: var(--btn-color);
   line-height: 21px;
+  border: none;
   border-radius: 4px;
   display: flex;
   width: fit-content;
@@ -3092,6 +3117,10 @@ button-icon.btn * {
   font-weight: 500;
   font-size: 13px;
   text-decoration: none;
+}
+button-icon.btn:disabled {
+  background-color: var(--btn-color-disabled);
+  cursor: initial;
 }
 button-icon.btn-sm,
 button-icon.btn-small {
@@ -3214,6 +3243,7 @@ input.btn {
   --btn-color: #494950;
   --btn-color-hover: #56565D;
   --btn-color-active: #CBCCCE;
+  --btn-color-disabled: #E8E8E8;
   --btn-color-font: #FFFFFF;
   --btn-color-icon: #8B4040;
   --btn-height: 30px;
@@ -3223,6 +3253,7 @@ input.btn {
   color: var(--btn-color-font);
   background-color: var(--btn-color);
   line-height: 21px;
+  border: none;
   border-radius: 4px;
   display: flex;
   width: fit-content;
@@ -3260,6 +3291,12 @@ input.btn * {
   font-weight: 500;
   font-size: 13px;
   text-decoration: none;
+}
+button.btn:disabled,
+a.btn:disabled,
+input.btn:disabled {
+  background-color: var(--btn-color-disabled);
+  cursor: initial;
 }
 button.btn-sm,
 button.btn-small,
@@ -5533,28 +5570,4 @@ page-safety-personnel-detail > .right-panel {
   min-width: 24%;
   max-width: 417px;
   background-color: green;
-}
-ui-business-branches-form {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 100%;
-}
-ui-business-branches-form form-container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-form {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-form form-row {
-  display: flex;
-  flex-direction: row;
-}
-form form-col {
-  display: flex;
-  flex-direction: column;
 }
