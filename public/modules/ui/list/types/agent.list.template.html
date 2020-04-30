@@ -6,7 +6,7 @@
 </header>
 <inserts class="scrollable">
   <ui-list-insert type="agent"
-                  ng-repeat="item in $ctrl.items"
-                  item="item"
-                  ng-click="$ctrl.Select(item)"></ui-list-insert>
+                  ng-repeat="item in $listctrl.items"
+                  ng-click="$listctrl.Select(item)"
+                  ng-class="{active: item.IsSelected()}"></ui-list-insert>
 </inserts>
