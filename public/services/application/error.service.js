@@ -97,24 +97,32 @@ class ErrorService {
     this.translators.push(translator);
     translator = new ErrorTranslator("Server Error: Database Connection error.");
     translator.AddRegex(new RegExp('Lost connection to MySQL server'));
+    this.translators.push(translator);
     translator = new ErrorTranslator("Cannot delete this item. It has dependencies.");
     translator.AddRegex(new RegExp('execute failed: Cannot delete'));
+    translator.AddRegex(new RegExp('execute failed: Cannot delete.+DELETE FROM'));
     this.translators.push(translator);
+
     this.translators.push(new RequiredTranslator());
     this.translators.push(new TypeConstraintTranslator());
   }
 
   // takes error object and translates the error into a human readable string
   ReadError(errobj) {
-    let translation = undefined;
-    for (let translator of this.translators) {
-      console.log(translator);
-      translation = translator.Translate(errobj);
-      if (translation != undefined) {
-        return translation;
+    if (errobj instanceof ErrorObj) {
+      let translation = undefined;
+      for (let translator of this.translators) {
+        console.log(translator);
+        translation = translator.Translate(errobj);
+        if (translation != undefined) {
+          return translation;
+        }
       }
+      return errobj.ErrorMessage();
+    } else {
+      console.error('trying to translate non-ErrorObj type');
+      return 'Unknown message';
     }
-    return errobj.ErrorMessage();
   }
 }
 
