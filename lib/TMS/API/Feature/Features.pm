@@ -82,14 +82,19 @@ sub Search {
                     foreach my $cl (keys %$grp) {
                         push @or, $cl => $$grp{$cl};
                     }
-                    push @and, '-or' => \@or;
+                    if (scalar keys %$grp > 1){
+                        push @and, '-or' => \@or;
+                    } else {
+                        push @and, \@or;
+                    }
+
                 } else {
                     local $Data::Dumper::Terse  = 1;
                     local $Data::Dumper::Indent = 3;
                     confess "Found non-hash elemenent in search" . Dumper($grp);
                 }
             }
-            push @{$$cond{'-and'}}, \@and;
+            push @{$$cond{'-and'}}, @and;
             $attrs{_flatten} = 0;
         } else {
             $$post{ERROR} = "Search must be either HashRef or an Array of Hashes";
