@@ -1,3 +1,9 @@
+class UIFormCtrl {
+  constructor($scope) {
+    this.scope = $scope;
+  }
+}
+
 app.component('uiForm', {
   templateUrl: function ($element, $attrs) {
     let template = 'modules/forms/template.html';
@@ -6,11 +12,10 @@ app.component('uiForm', {
     }
     return template;
   },
+  controller: UIFormCtrl,
   controllerAs: '$formctrl',
   bindings: {
     data: '=?',
-    onSubmit: '&?',
-    formid: '<'
   }
 
 });
