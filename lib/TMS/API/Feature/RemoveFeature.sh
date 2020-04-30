@@ -21,10 +21,10 @@ do
         do
             if [ -f "$json" ]; then
                 git rm $file $route $json
-                git commit -m "Depricated feature" $file $route $json
+                git commit -m "Deprecated feature" $file $route $json
             else
                 git rm $file $route
-                git commit -m "Depricated feature" $file $route
+                git commit -m "Deprecated feature" $file $route
             fi
         done
     fi
