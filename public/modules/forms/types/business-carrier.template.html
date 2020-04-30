@@ -1,0 +1,49 @@
+<form-row>
+  <ui-input label="carrier name"
+            data="$formctrl.data.BizName"
+            required="1"></ui-input>
+  <ui-input label="DBA"
+            data="$formctrl.data.DBA"></ui-input>
+  <ui-input-wrapper>
+    <ui-checkbox label="is active"
+                 data="$formctrl.data.entity.IsActive"></ui-checkbox>
+  </ui-input-wrapper>
+
+  <ui-datalist-concrete type="carrier"
+                        label="carrier authority"
+                        data="$formctrl.data.ent_owner_operator.carrier"></ui-datalist-concrete>
+</form-row>
+<form-row>
+  <ui-input label="carrier website"
+            data="$formctrl.data.BizURL"></ui-input>
+  <ui-input label="email for rate confirmation"
+            data="$formctrl.data.ent_carrier.RateConfEmailAddress"></ui-input>
+</form-row>
+<form-row>
+  <ui-input label="MC"
+            data="$formctrl.data.ent_carrier.MC"
+            template="mc"></ui-input>
+  <ui-input label="DOT"
+            data="$formctrl.data.ent_carrier.DOT"
+            template="usdot"></ui-input>
+  <ui-input label="SCAC"
+            data="$formctrl.data.ent_carrier.SCAC"
+            template="scac"></ui-input>
+</form-row>
+<form-row>
+  <ui-select table="EntCarrier"
+             column="CargoCarried"
+             label="CargoCarried"
+             data="$formctrl.data.ent_carrier.CargoCarried"></ui-select>
+  <ui-select table="EntCarrier"
+             column="CarrierOperation"
+             label="CarrierOperation"
+             data="$formctrl.data.ent_carrier.CarrierOperation"></ui-select>
+  <ui-select table="EntCarrier"
+             column="OperationClassification"
+             label="OperationClassification"
+             data="$formctrl.data.ent_carrier.OperationClassification"></ui-select>
+</form-row>
+<input type="hidden"
+       ng-model="$formctrl.data.ent_carrier.CrType"
+       value="Company Carrier" />
