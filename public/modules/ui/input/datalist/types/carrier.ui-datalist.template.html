@@ -1,0 +1,11 @@
+<ui-datalist data="$ctrl.data"
+             options="$ctrl.options"
+             label="{{$ctrl.label}}"
+             required="{{$ctrl.required}}"
+             url="/api/carrier/list/search"
+             dataid="CarrierId"
+             displayfields="['carrier.BizName']"
+             displaytemplate="<<carrier.BizName>>"
+             route="tmsapp.main2.form.generic({formName: 'new general business', subformName: 'new general business', id: null})"
+             data-form="{{$ctrl.form}}">
+</ui-datalist>
