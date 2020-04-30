@@ -1,0 +1,24 @@
+<grand-header>
+  <div class="title-container">
+    <div class="title">business staff</div>
+    <div class="icont icont-small"
+         ng-click="$listctrl.AddNewEmpty()"
+         ui-state="'tmsapp.main2.profile.business.staff.detail'"
+         ui-state-params="{staffid: 'new'}">
+      <svg class="icon-ty">
+        <use xlink:href="imgs/icons.svg#plus"></use>
+      </svg>
+    </div>
+  </div>
+  <ui-input template="submit"
+            data="$listctrl.user_query['ast.FirstName']"
+            on-change="$listctrl.GetData(data)"></ui-input>
+</grand-header>
+<inserts class="scrollable">
+  <div ui-view="new-item">
+
+  </div>
+  <ui-list-insert type="staff-form"
+                  ng-repeat="item in $listctrl.items"
+                  ui-sref-active="active"></ui-list-insert>
+</inserts>
