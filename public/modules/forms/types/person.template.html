@@ -1,6 +1,24 @@
-<form id="{{$formctrl.formid}}"
-      ng-submit="$formctrl.onSubmit()">
-
-  <button type="submit"
-          hidden></button>
-</form>
+<form-row>
+    <ui-select table="EntPerson"
+               column="Prefix"
+               label="Prefix"
+               data="$formctrl.data.Prefix"></ui-select>
+    <ui-input label="FirstName"
+              data="$formctrl.data.FirstName"
+              required="1"></ui-input>
+    <ui-input label="MiddleName"
+              data="$formctrl.data.MiddleName"></ui-input>
+    <ui-input label="LastName"
+              data="$formctrl.data.LastName"
+              required="1"></ui-input>
+    <ui-select table="EntPerson"
+               column="Suffix"
+               label="Suffix"
+               data="$formctrl.data.Suffix"></ui-select>
+</form-row>
+<form-row>
+    <ui-input label="NickName"
+              data="$formctrl.data.NickName"></ui-input>
+    <ui-checkbox label="IsActive"
+                 data="$formctrl.data.entity.IsActive"></ui-checkbox>
+</form-row>

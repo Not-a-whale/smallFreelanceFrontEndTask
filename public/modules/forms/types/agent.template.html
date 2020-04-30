@@ -1,50 +1,47 @@
-<form id="{{$formctrl.formid}}"
-      ng-submit="$formctrl.onSubmit()">
-  <form-row>
-    <ui-select table="EntPerson"
-               column="Prefix"
-               label="Prefix"
-               data="$formctrl.data.ast.Prefix"></ui-select>
-    <ui-input label="FirstName"
-              data="$formctrl.data.ast.FirstName"
-              required="1"></ui-input>
-    <ui-input label="MiddleName"
-              data="$formctrl.data.ast.MiddleName"></ui-input>
-    <ui-input label="LastName"
-              data="$formctrl.data.ast.LastName"
-              required="1"></ui-input>
-    <ui-select table="EntPerson"
-               column="Suffix"
-               label="Suffix"
-               data="$formctrl.data.ast.Suffix"></ui-select>
-  </form-row>
-  <form-row>
-    <ui-input class="fc2"
-              label="NickName"
-              data="$formctrl.data.ast.NickName"></ui-input>
-    <ui-input class="fc2"
-              label="CurrentTitle"
-              data="$formctrl.data.CurrentTitle"></ui-input>
-    <ui-select class="fc2"
-               table="HrAssociate"
-               column="AuthorityLevel"
-               label="AuthorityLevel"
-               data="$formctrl.data.AuthorityLevel"></ui-select>
-    <ui-input class="fc2"
-              label="BizEmail"
-              data="$formctrl.data.BizEmail"></ui-input>
-  </form-row>
+<form-row>
+  <ui-select table="EntPerson"
+             column="Prefix"
+             label="Prefix"
+             data="$formctrl.data.ast.Prefix"></ui-select>
+  <ui-input label="FirstName"
+            data="$formctrl.data.ast.FirstName"
+            required="1"></ui-input>
+  <ui-input label="MiddleName"
+            data="$formctrl.data.ast.MiddleName"></ui-input>
+  <ui-input label="LastName"
+            data="$formctrl.data.ast.LastName"
+            required="1"></ui-input>
+  <ui-select table="EntPerson"
+             column="Suffix"
+             label="Suffix"
+             data="$formctrl.data.ast.Suffix"></ui-select>
+</form-row>
+<form-row>
+  <ui-input class="fc2"
+            label="NickName"
+            data="$formctrl.data.ast.NickName"></ui-input>
+  <ui-input class="fc2"
+            label="CurrentTitle"
+            data="$formctrl.data.CurrentTitle"></ui-input>
+  <ui-select class="fc2"
+             table="HrAssociate"
+             column="AuthorityLevel"
+             label="AuthorityLevel"
+             data="$formctrl.data.AuthorityLevel"></ui-select>
+  <ui-input class="fc2"
+            label="BizEmail"
+            data="$formctrl.data.BizEmail"></ui-input>
+</form-row>
 
-  <form-row>
-    <ui-form-partial-phone class="fc3"
-                           data="$formctrl.data.biz_phone"
-                           type="work"
-                           ext="1">
-    </ui-form-partial-phone>
-    <ui-form-partial-fax class="fc3"
-                         data="$formctrl.data.biz_fax"
+<form-row>
+  <ui-form-partial-phone class="fc3"
+                         data="$formctrl.data.biz_phone"
                          type="work"
                          ext="1">
-    </ui-form-partial-fax>
-  </form-row>
-</form>
+  </ui-form-partial-phone>
+  <ui-form-partial-fax class="fc3"
+                       data="$formctrl.data.biz_fax"
+                       type="work"
+                       ext="1">
+  </ui-form-partial-fax>
+</form-row>

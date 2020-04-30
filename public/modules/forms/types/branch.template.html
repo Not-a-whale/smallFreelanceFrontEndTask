@@ -1,31 +1,24 @@
-<form id="{{$formctrl.formid}}"
-      ng-submit="$formctrl.onSubmit()">
-  <form-row>
-    <simple-input class="fc2"
-                  value="$formctrl.data.OfficeName"
-                  label="branch name"
-                  required="1"></simple-input>
-    <ui-input-wrapper class="fc1">
-      <ui-checkbox value="$formctrl.data.biz.entity[0].IsActive"
-                   label="active"></ui-checkbox>
-    </ui-input-wrapper>
-  </form-row>
-  <ui-form-partial-address data="$formctrl.data.brnch_address"></ui-form-partial-address>
-  <ui-form-partial-phone data="$formctrl.data.brnch_phone"
-                         type="branch"
-                         ext="1"
-                         required="1"></ui-form-partial-phone>
-  <ui-form-partial-fax data="$formctrl.data.brnch_fax"
+<form-row>
+  <ui-input class="fc2"
+            data="$formctrl.data.OfficeName"
+            label="branch name"
+            required="1"></ui-input>
+  <ui-input-wrapper class="fc1">
+  </ui-input-wrapper>
+</form-row>
+<ui-form-partial-address data="$formctrl.data.brnch_address"></ui-form-partial-address>
+<ui-form-partial-phone data="$formctrl.data.brnch_phone"
                        type="branch"
-                       ext="1"></ui-form-partial-fax>
-  <form-row>
-    <simple-input label="branch email"
-                  class="fc3"
-                  value="$formctrl.data.BrnchEMail"></simple-input>
-    <simple-input label="business website/URL"
-                  class="fc3"
-                  value="$formctrl.data.biz.BizURL"></simple-input>
-  </form-row>
-  <button type="submit"
-          hidden></button>
-</form>
+                       ext="1"
+                       required="1"></ui-form-partial-phone>
+<ui-form-partial-fax data="$formctrl.data.brnch_fax"
+                     type="branch"
+                     ext="1"></ui-form-partial-fax>
+<form-row>
+  <ui-input label="branch email"
+            class="fc3"
+            data="$formctrl.data.BrnchEMail"></ui-input>
+  <ui-input label="business website/URL"
+            class="fc3"
+            data="$formctrl.data.biz.BizURL"></ui-input>
+</form-row>
