@@ -1,6 +1,6 @@
-<simple-input label="{{$ctrl.type}} phone"
-              required="{{$ctrl.required}}"
-              value="$ctrl.data.Number"></simple-input>
-<simple-input label="extension"
-              ng-if="$ctrl.ext"
-              value="$ctrl.data.Extension"></simple-input>
+<ui-input label="{{$ctrl.type}} phone"
+          required="{{$ctrl.required}}"
+          data="$ctrl.data.Number"></ui-input>
+<ui-input label="extension"
+          ng-if="$ctrl.ext"
+          data="$ctrl.data.Extension"></ui-input>
