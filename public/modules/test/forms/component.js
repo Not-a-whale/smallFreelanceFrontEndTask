@@ -238,14 +238,14 @@ class DevFormsCtrl {
   }
 
   RebuildHTMLTemplate() {
-    let template = '<form id="{{$ctrl.formid}}" ng-submit="$ctrl.onSubmit()">';
+    let template = ''; //<form id="{{$ctrl.formid}}" ng-submit="$ctrl.onSubmit()">
     for (let key in this.section) {
       if (this.section[key].active) {
         template += this.section[key].template;
       }
     }
-    template += '<button type="submit" hidden></button>'
-    template += '</form>';
+    // template += '<button type="submit" hidden></button>'
+    // template += '</form>';
     this.template = template;
   }
 
