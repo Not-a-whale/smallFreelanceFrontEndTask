@@ -11,16 +11,36 @@ ui-form-section-template {
   border-radius: 4px;
   border: 1px solid @cp-grey-mid;
 
-  .function {
+  save-button {
     display: flex;
     margin-right: 0px;
     margin-left: auto;
   }
 
-  .header {
+  section-content-container {
+    position: relative;
+  }
+
+  section-content {
+    position: relative;
+  }
+
+  section-title {
+    font-family: @font-family-primary;
+    font-weight: @font-weight-bold;
+    font-size: @font-large;
+  }
+
+  section-header {
     @flex-row();
     flex-grow: 1;
     height: 2.4rem;
     margin-bottom: 8px;
   }
+
+  form {
+    @flex-col();
+  }
+
+
 }
