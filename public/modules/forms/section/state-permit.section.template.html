@@ -1,0 +1,21 @@
+<form name="form"
+      id="{{$ctrl.formid}}"
+      ng-submit="$ctrl.Submit()">
+  <ui-form-section-template data-title="'state permits'"
+                            can-save="false">
+    <section-content>
+      <ui-subform-mediator>
+        <subform>
+          <ui-form type="state-permit"
+                   data="$ctrl.data"></ui-form>
+        </subform>
+        <list>
+          <ui-list query="$ctrl.query"
+                   type="state-permit"
+                   endpoint="'/api/carrier/permit/list'"
+                   on-select="$ctrl.Select(item)"></ui-list>
+        </list>
+      </ui-subform-mediator>
+    </section-content>
+  </ui-form-section-template>
+</form>
