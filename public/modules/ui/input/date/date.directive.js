@@ -1,18 +1,19 @@
-app.directive('date', function () {
-
+let timeregex = new RegExp(/^\d{4}-\d{2}-\d{2}$/);
+app.directive('uiDateTime', function () {
   return {
     restrict: 'A',
     require: 'ngModel',
-    link: function (scope, element, attrs, model) {
-      function dateparser(value) {
-        if (value) {
-          let month = value.getMonth() < 10 ? '0' + value.getMonth() : value.getMonth();
-          let day = value.getDate() < 10 ? '0' + value.getDate() : value.getDate();
-          let output = value.getFullYear() + '/' + month + '/' + day;
-          return output;
-        }
-      }
-      //model.$parsers.push(dateparser);
+    link: function ($scope, $element, $attrs, ngModel) {
+
+      let parserfun = function (input) {
+        let newdate = new Date(input);
+        ngModel.$modelValue = newdate;
+        return newdate;
+      };
+
+      ngModel.$formatters.push(function (input) {
+        return parserfun(input);
+      });
     }
   };
 });
