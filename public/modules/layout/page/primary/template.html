@@ -1,11 +1,11 @@
 <div id="page-header">
   <div id="page-navigation">
     <div id="page-title"
-         class="font-page-title caps">{{ $pageCtrl.PageTitle() }}</div>
-    <a ui-sref="{{tab.state}}"
+         class="font-page-title caps">{{ $pageCtrl.page.GetTitle() }}</div>
+    <a ui-sref="{{tab.State()}}"
        ui-sref-active="active"
        class="page-tabs btn btn-smp btn-nm "
-       ng-repeat="tab in $pageCtrl.PageTabs()">{{ tab.title }}</a>
+       ng-repeat="tab in $pageCtrl.page.GetTabs()">{{ tab.Title() }}</a>
 
     <div class="v-div"
          ng-if="$pageCtrl.PageOptionals().length > 0"></div>

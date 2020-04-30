@@ -1,6 +1,7 @@
-class PageCtrl {
+class LayoutPagePrimaryCtrl {
   constructor(PageService) {
     this.pagesrv = PageService;
+    this.page = PageService;
   }
 
   PageTitle() {
@@ -29,6 +30,6 @@ class PageCtrl {
 
 app.component('pageLayoutPrimary', {
   templateUrl: 'modules/layout/page/primary/template.html',
-  controller: PageCtrl,
+  controller: LayoutPagePrimaryCtrl,
   controllerAs: '$pageCtrl'
 });
