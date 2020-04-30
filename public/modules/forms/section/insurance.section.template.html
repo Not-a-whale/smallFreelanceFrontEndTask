@@ -1,0 +1,21 @@
+<form name="form"
+      id="{{$ctrl.formid}}"
+      ng-submit="$ctrl.Submit()">
+  <ui-form-section-template data-title="'insurances'"
+                            can-save="false">
+    <section-content>
+      <ui-subform-mediator>
+        <subform>
+          <ui-form type="insurance"
+                   data="$ctrl.data"></ui-form>
+        </subform>
+        <list>
+          <ui-list query="$ctrl.query"
+                   type="insurance"
+                   endpoint="'/api/insurance/list'"
+                   on-select="$ctrl.Select(item)"></ui-list>
+        </list>
+      </ui-subform-mediator>
+    </section-content>
+  </ui-form-section-template>
+</form>
