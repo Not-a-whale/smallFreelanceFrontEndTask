@@ -6,6 +6,10 @@
   <br>
   maxfiles: {{$ctrl.maxfiles}}
 </div>
-<div ng-repeat="file in $ctrl.data">
+<div ng-if="$ctrl.maxfiles > 1"
+     ng-repeat="file in $ctrl.data">
   {{file.FileName}}
+</div>
+<div ng-if="$ctrl.maxfiles == 1">
+  {{$ctrl.data.FileName}}
 </div>
