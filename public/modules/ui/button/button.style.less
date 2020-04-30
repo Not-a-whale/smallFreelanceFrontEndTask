@@ -10,6 +10,7 @@
   --btn-color: @cp-default;
   --btn-color-hover: @cp-default-mid;
   --btn-color-active: @cp-grey;
+  --btn-color-disabled: @cp-grey-light;
   --btn-color-font: @cp-highlight;
   --btn-color-icon: @cp-usko-red;
   --btn-height: @size;
@@ -23,6 +24,7 @@
 
   line-height: @line-height;
 
+  border: none;
   border-radius: 4px;
 
   display: flex;
@@ -61,6 +63,11 @@
 
 .button-properties() {
   .button-defaults();
+
+  &:disabled {
+    background-color: var(--btn-color-disabled);
+    cursor: initial;
+  }
 
   &-sm,
   &-small {
