@@ -1,10 +1,13 @@
-<ui-form-section-template sectoin="$ctrl.section"
-                          formid="$ctrl.formid" save-form="1">
-  <section-content>
-    <ui-form type="owner"
-             formid="$ctrl.formid"
-             data="$ctrl.data"
-             on-submit="$ctrl.Submit()"></ui-form>
+<form name="form"
+      id="{{$ctrl.formid}}"
+      ng-submit="$ctrl.Submit()">
 
-  </section-content>
-</ui-form-section-template>
+  <ui-form-section-template data-title="'Branch Owner'"
+                            can-save="true">
+    <section-content>
+      <ui-form type="owner"
+               data="$ctrl.data"></ui-form>
+
+    </section-content>
+  </ui-form-section-template>
+</form>

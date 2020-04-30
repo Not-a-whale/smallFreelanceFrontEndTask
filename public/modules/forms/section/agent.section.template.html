@@ -1,19 +1,21 @@
-<ui-form-section-template>
-  <section-content>
-    <ui-subform-mediator>
-      <subform>
-        <ui-form type="agent"
-                 on-submit="$ctrl.Submit()"
-                 data="$ctrl.editItem.data"
-                 formid="$ctrl.formid"></ui-form>
-      </subform>
-      <list>
-        <ui-list type="agent"
-                 endpoint="'/api/associate/list'"
-                 on-select="$ctrl.Select(item)"></ui-list>
-      </list>
-
-    </ui-subform-mediator>
-
-  </section-content>
-</ui-form-section-template>
+<form name="form"
+      id="{{$ctrl.formid}}"
+      ng-submit="$ctrl.Submit()">
+  <ui-form-section-template data-title="'Contacts'"
+                            can-save="false">
+    <section-content>
+      <ui-subform-mediator>
+        <subform>
+          <ui-form type="agent"
+                   data="$ctrl.data"></ui-form>
+        </subform>
+        <list>
+          <ui-list query="$ctrl.query"
+                   type="agent"
+                   endpoint="'/api/associate/list'"
+                   on-select="$ctrl.Select(item)"></ui-list>
+        </list>
+      </ui-subform-mediator>
+    </section-content>
+  </ui-form-section-template>
+</form>
