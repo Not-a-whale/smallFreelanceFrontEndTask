@@ -1,19 +1,19 @@
-<label ng-required="{{$ctrl.required}}"
-       ng-if="$ctrl.label != undefined">{{ $ctrl.label }}</label>
-<input list="{{$ctrl.listid}}"
-       ng-model="$ctrl.typed"
-       ng-required="{{$ctrl.required}}"
-       ng-disabled="{{$ctrl.disabled}}"
-       ng-change="$ctrl.TimedSearch();"
-       ng-class="{invalid: !$ctrl.valid}" />
-<errors>{{ $ctrl.errmsg || 'This field is required' }}</errors>
-<datalist id="{{$ctrl.listid}}">
-       <option ng-repeat="item in $ctrl.options">{{ item.display }}</option>
+<label ng-required="$datalistctrl.required == 1"
+       ng-if="$datalistctrl.label != undefined">{{ $datalistctrl.label }}</label>
+<input list="{{$datalistctrl.listid}}"
+       ng-model="$datalistctrl.typed"
+       ng-required="$datalistctrl.required == 1"
+       ng-disabled="{{$datalistctrl.disabled}}"
+       ng-change="$datalistctrl.TimedSearch();"
+       ng-class="{invalid: !$datalistctrl.valid}" />
+<errors>{{ $datalistctrl.errmsg || 'This field is required' }}</errors>
+<datalist id="{{$datalistctrl.listid}}">
+       <option ng-repeat="item in $datalistctrl.options">{{ item.display }}</option>
 </datalist>
-<a ng-if="$ctrl.NewProfile()"
+<a ng-if="$datalistctrl.NewProfile()"
    class="input-new-btn"
-   ui-sref="{{$ctrl.route}}">+new</a>
-<a ng-if="$ctrl.NewForm()"
+   ui-sref="{{$datalistctrl.route}}">+new</a>
+<a ng-if="$datalistctrl.NewForm()"
    class="input-new-btn"
-   popup-form="{{$ctrl.form}}"
-   on-close="$ctrl.data = data; $ctrl.DataToTyped()">+new</a>
+   popup-form="{{$datalistctrl.form}}"
+   on-close="$datalistctrl.data = data; $datalistctrl.DataToTyped()">+new</a>
