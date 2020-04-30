@@ -1,0 +1,12 @@
+<section-header id="{{$formtemplate.title}}">
+     <section-title>{{$formtemplate.title}}</section-title>
+     <save-button>
+          <button ng-if="$formtemplate.canSave"
+                  class="btn btn-primary"
+                  form="{{$ctrl.formid}}"
+                  ng-click="$ctrl.SaveForm()"
+                  ng-disabled="form.$pristine"
+                  type="submit">{{ $formtemplate.Status($ctrl.GetForm()) }}</button>
+     </save-button>
+</section-header>
+<section-content-container ng-transclude="section-content"></section-content-container>
