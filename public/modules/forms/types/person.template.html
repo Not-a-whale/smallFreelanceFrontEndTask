@@ -11,14 +11,20 @@
     <ui-input label="LastName"
               data="$formctrl.data.LastName"
               required="1"></ui-input>
+
     <ui-select table="EntPerson"
                column="Suffix"
                label="Suffix"
                data="$formctrl.data.Suffix"></ui-select>
+
+
 </form-row>
 <form-row>
     <ui-input label="NickName"
               data="$formctrl.data.NickName"></ui-input>
-    <ui-checkbox label="IsActive"
-                 data="$formctrl.data.entity.IsActive"></ui-checkbox>
+    <ui-input-wrapper>
+        <ui-checkbox label="IsActive"
+                     data="$formctrl.data.entity.IsActive"></ui-checkbox>
+    </ui-input-wrapper>
+
 </form-row>
