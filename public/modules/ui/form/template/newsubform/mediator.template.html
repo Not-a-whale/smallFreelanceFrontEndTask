@@ -1,7 +1,7 @@
 <form-container ng-transclude="subform">
 </form-container>
 <controls-container>
-  <button ng-show="$ctrl.editItem.isSelected()"
+  <button ng-show="$ctrl.editItem.IsSelected()"
           form="{{$ctrl.formid}}"
           type="submit"
           ng-click="$ctrl.SetSubmit('Update')">update
@@ -9,7 +9,7 @@
         <use xlink:href="imgs/icons.svg#circle-arrow-left"></use>
       </svg></div>
   </button>
-  <button ng-show="$ctrl.editItem.isSelected()"
+  <button ng-show="$ctrl.editItem.IsSelected()"
           form="{{$ctrl.formid}}"
           type="submit"
           ng-click="$ctrl.SetSubmit('Delete')">delete
@@ -17,7 +17,7 @@
         <use xlink:href="imgs/icons.svg#circle-plus"></use>
       </svg></div>
   </button>
-  <button ng-hide="$ctrl.editItem.isSelected()"
+  <button ng-hide="$ctrl.editItem.IsSelected()"
           form="{{$ctrl.formid}}"
           type="submit"
           ng-click="$ctrl.SetSubmit('Add')">add
