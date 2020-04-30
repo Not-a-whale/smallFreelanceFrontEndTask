@@ -29,6 +29,7 @@ find(
 
 sub BuildRoutes {
     my ($class, $prefix) = @_;
+    #have to clear the prefix
     prefix($prefix);
 
     get ''         => http_basic_auth required => sub { $class->new()->Search(body_parameters->mixed) };
@@ -39,6 +40,8 @@ sub BuildRoutes {
     post '/create' => http_basic_auth required => sub { $class->new()->Create(body_parameters->mixed) };
     post '/update' => http_basic_auth required => sub { $class->new()->Update(body_parameters->mixed) };
     post '/delete' => http_basic_auth required => sub { $class->new()->Delete(body_parameters->mixed) };
+    prefix(undef);
+    return 1;
 }
 
 1;
