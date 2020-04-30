@@ -1,8 +1,8 @@
-class UIDatalistCrl {
-  constructor(getid, apisrv, timeout) {
+class UIDatalistCtrl {
+  constructor(getid, APIService, $timeout) {
     this.listid = getid();
-    this.apisrv = apisrv;
-    this.timeout = timeout;
+    this.apisrv = APIService;
+    this.timeout = $timeout;
     this.searchcall = undefined;
     this.typed = undefined;
     this.options = [];
@@ -137,13 +137,12 @@ class UIDatalistCrl {
   }
 
   NewProfile() {
-    let res = this.form == undefined && this.route != undefined;
-    return res;
+    return !this.NewForm() && this.route != undefined;
   }
 
   NewForm() {
-    let res = this.form != undefined;
-    return res;
+    return this.form != undefined && this.form != '';
+
   }
 
   $onInit() {
@@ -153,10 +152,10 @@ class UIDatalistCrl {
   }
 }
 
-app.controller('UIDatalistCtrl', ['getid', 'APIService', '$timeout', UIDatalistCrl]);
 app.component('uiDatalist', {
   templateUrl: 'modules/ui/input/datalist/ui-datalist.template.html',
-  controller: 'UIDatalistCtrl',
+  controller: UIDatalistCtrl,
+  controllerAs: '$datalistctrl',
   bindings: {
     data: '=?',
     options: '<?', // list of options to bind when needed
