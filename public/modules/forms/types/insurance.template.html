@@ -1,0 +1,45 @@
+<form-row>
+  <ui-datalist-concrete label="provider"
+                        type="business"
+                        data="$formctrl.data.ins.ins_provider"
+                        data-form="business-info"
+                        required="1"></ui-datalist-concrete>
+  <ui-input label="policy number"
+            data="$formctrl.data.ins.PolicyNumber"
+            required="1"></ui-input>
+</form-row>
+<form-row>
+  <ui-input label="what is insured"
+            data="$formctrl.data.ins.WhatIsInsured"></ui-input>
+  <ui-input label="tag name"
+            data="$formctrl.data.ins.TagName"
+            required="1"></ui-input>
+  <ui-input label="insured amount"
+            data="$formctrl.data.ins.InsuredAmount"
+            required="1"
+            template="currency"></ui-input>
+
+</form-row>
+<form-row>
+  <ui-select table="InsPolicy"
+             column="PaidBy"
+             label="paid by"
+             data="$formctrl.data.ins.PaidBy"></ui-select>
+  <ui-input label="downpayment amount"
+            data="$formctrl.data.ins.DownpaymentAmount"
+            template="currency"></ui-input>
+</form-row>
+
+<form-row>
+  <ui-date label="date effective"
+           data="$formctrl.data.ins.EffectiveDate"
+           required="1"></ui-date>
+  <ui-date label="date expiration"
+           data="$formctrl.data.ins.ExpirationDate"
+           required="1"></ui-date>
+</form-row>
+<form-row>
+  <ui-file data="$formctrl.data.ins.proof_of_insurance"
+           label="proof of insurance"
+           maxfiles="1"></ui-file>
+</form-row>
