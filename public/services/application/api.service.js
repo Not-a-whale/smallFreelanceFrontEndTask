@@ -14,10 +14,16 @@ class APIService {
         }
       }
       // keep as separate if statements
-      // ERROR will most likely be in the response
+      // empty ERROR will most likely be in the response
       // and therefore else if will never reach DATA portion
       if ('DATA' in res.data) {
-        return res.data.DATA;
+        let data = res.data.DATA;
+        if ('records_removed' in data) {
+          if (data.records_removed == 'no') {
+            return new ErrorObj('Could not delete the data requested.', ErrorLevel.WARNING);
+          }
+        }
+        return data;
       }
     }
 
@@ -63,13 +69,14 @@ class APIService {
 
   // Builds the object to send to the server in request body
   BuildObject(object) {
+    // null is intentionally set blank value, undefined is unintentionally
     // default behavior is to clean out undefined and empty strings
     // this will only clean out toplevel attrs, all other attrs will not be cleaned
     // because you can have infinite loop with obj refs
     if (object !== undefined) {
       let newobj = CloneObj(object);
       for (let attr in newobj) {
-        if (newobj[attr] === '' || newobj[attr] == undefined) {
+        if (newobj[attr] === '' || newobj[attr] === undefined) {
           delete newobj[attr];
         }
       }
@@ -91,9 +98,6 @@ class APIService {
   Table(url, query) {
     return this.Request('post', url, query);
   }
-
-
-
   Request(method, url, object, query) {
     if (method != 'get' && method != 'post') {
       console.error('not correct method used ' + method);
@@ -124,21 +128,30 @@ class APIService {
   List(url, query) {
     return this.Request('post', url, query);
   }
-
+  /**
+   *
+   * @param {String} table
+   * @param {String} column
+   */
   Options(table, column) {
-    if (table + column in this.options_cache) {
-      let defer = this.q.defer();
-      defer.resolve(this.options_cache[table + column]);
-      return defer.promise;
+    let defer = this.q.defer();
+    let promise = defer.promise;
+    if (table != undefined && column != undefined) {
+      if (table + column in this.options_cache) {
+        defer.resolve(this.options_cache[table + column]);
+        promise = defer.promise;
+      } else {
+        let self = this;
+        let url = ['api', 'options', table, column].join('/');
+        promise = this.Request('get', url, undefined).then(function (res) {
+          self.options_cache[table + column] = res;
+          return res;
+        });
+      }
     } else {
-      let self = this;
-      let url = ['api', 'options', table, column].join('/');
-      return this.Request('get', url, undefined).then(function (res) {
-        self.options_cache[table + column] = res;
-        return res;
-      });
+      defer.reject('column and table names not provided');
     }
-
+    return promise;
   }
 
   Create(endpoint, query) {
@@ -153,12 +166,23 @@ class APIService {
     return this.Request('post', endpoint + '/delete', query);
   }
 
-  First(data) {
-    let retdata = data;
-    if (Array.isArray(data) && data.length > 0) {
-      retdata = data[0];
-    }
-    return retdata;
+  /**
+   *
+   * @param {String} endpoint
+   * @param {Object} query
+   *
+   *  query:
+   * {
+   *  search: [{ OR'd } AND'd],
+   *  strict: [{ OR'd} AND'd],
+   *  orderby: [{key: asc / desc}]
+   *  page: int
+   *  rows: int
+   * }
+   */
+  Search(endpoint, query) {
+    //do proper search query? or completely pointless?
+    return this.Request('post', endpoint + '/search', query);
   }
 }
 
