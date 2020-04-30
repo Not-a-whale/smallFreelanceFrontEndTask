@@ -1,0 +1,11 @@
+<form name="form"
+      id="{{$ctrl.formid}}"
+      ng-submit="$ctrl.Submit()">
+  <ui-form-section-template data-title="'Carrier Information'"
+                            can-save="true">
+    <section-content>
+      <ui-form type="business-carrier"
+               data="$ctrl.data"></ui-form>
+    </section-content>
+  </ui-form-section-template>
+</form>
