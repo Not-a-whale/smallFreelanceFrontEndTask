@@ -1,3 +1,17 @@
+class PageTab {
+  constructor(title, state) {
+    this.title = title;
+    this.state = state;
+  }
+
+  Title() {
+    return this.title;
+  }
+
+  State() {
+    return this.state;
+  }
+}
 class PageService {
   constructor(http, state, trans, q) {
     this.http = http;
@@ -8,6 +22,40 @@ class PageService {
     this.current_department = undefined;
     this.current_page = undefined;
     this.page_history = [];
+
+
+    this.currentPage = {};
+  }
+
+  GetTitle() {
+    return this.currentPage.title;
+  }
+
+  GetTabs() {
+    return this.currentPage.tabs;
+  }
+
+  SetTitle(title) {
+    this.currentPage.title = title;
+  }
+
+  Clear() {
+    this.currentPage = {};
+  }
+
+  /**
+   *
+   * @param {String} title
+   * @param {String} state
+   */
+  AddTab(title, state) {
+    if (!('tabs' in this.currentPage)) {
+      if (!Array.isArray(this.currentPage.tabs)) {
+        this.currentPage.tabs = [];
+      }
+    }
+
+    this.currentPage.tabs.push(new PageTab(title, state));
   }
 
   GoBack() {
