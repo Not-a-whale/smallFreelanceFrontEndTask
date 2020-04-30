@@ -1,0 +1,16 @@
+<form id="{{$ctrl.formid}}"
+      ng-submit="$ctrl.SubmitFunction('/api/business/info')">
+  <ui-popup-template errors="$ctrl.errors"
+                     on-close="$ctrl.Close()">
+    <header-content>
+      <ui-popup-header data-title="{{$ctrl.title}}"></ui-popup-header>
+    </header-content>
+    <body-content>
+      <ui-form type="business"
+               data="$ctrl.data"></ui-form>
+    </body-content>
+    <footer-content>
+      <ui-popup-footer formid="$ctrl.formid"></ui-popup-footer>
+    </footer-content>
+  </ui-popup-template>
+</form>
