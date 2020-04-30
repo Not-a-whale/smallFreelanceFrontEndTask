@@ -2,7 +2,7 @@
   <div class="title-container">
     <div class="title">registered branches</div>
     <div class="icont icont-small"
-         ng-click="$ctrl.AddNewEmpty()"
+         ng-click="$listctrl.AddNewEmpty()"
          ui-state="'tmsapp.main2.profile.business.branch.detail'"
          ui-state-params="{branchid: 'new'}">
       <svg class="icon-ty">
@@ -11,8 +11,8 @@
     </div>
   </div>
   <ui-input template="submit"
-            data="$ctrl.search_query['me.OfficeName']"
-            on-change="$ctrl.GetData(data)"></ui-input>
+            data="$listctrl.user_query['me.OfficeName']"
+            on-change="$listctrl.GetData(data)"></ui-input>
 </grand-header>
 <inserts class="
             scrollable">
@@ -20,7 +20,6 @@
 
   </div>
   <ui-list-insert type="branch-form"
-                  ng-repeat="item in $ctrl.items"
-                  item="item"
+                  ng-repeat="item in $listctrl.items"
                   ui-sref-active="active"></ui-list-insert>
 </inserts>
