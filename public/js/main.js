@@ -22,7 +22,7 @@ app.run(['$transitions', function (trans) {
   trans.onSuccess({}, function (trans) {
     //console.log(trans.from().name);
   });
-  trans.onBefore({}, function () {
+  trans.onFinish({}, function () {
     if ($('form').hasClass('ng-dirty')) {
       if (!confirm('All unsaved data will be lost, continue?')) {
         return false;
@@ -141,14 +141,14 @@ function DeepFind(obj, path, setvalue) {
   let index = 0;
   for (let p of paths) {
     let last = index == paths.length - 1;
-    if (index == paths.length - 1) {
-      if (setvalue != undefined) {
+    if (last) {
+      if (setvalue !== undefined) {
         current[p] = setvalue;
       }
     }
     if (current != undefined) {
       if (!(p in current)) {
-        if (setvalue != undefined) {
+        if (setvalue !== undefined) {
           if (last) {
             current[p] = setvalue;
           } else {
@@ -160,8 +160,37 @@ function DeepFind(obj, path, setvalue) {
       if (last) {
         retval = current;
       }
+    } else {
+      break;
     }
     index++;
+  }
+  return retval;
+}
+
+function DeepSet(obj, path, value) {
+  let paths = path.split('.');
+  let retval = false;
+  let current = obj;
+  let index = 0;
+  for (let p of paths) {
+    let last = index == paths.length - 1;
+    if (current != undefined) {
+      if (!(p in current)) {
+        if (last) {
+          current[p] = value;
+          retval = true;
+        } else {
+          current[p] = {};
+        }
+      }
+
+      current = current[p];
+      index++; //for sanity and readablility increase index at the end
+    } else {
+      retval = null;
+      break;
+    }
   }
   return retval;
 }
