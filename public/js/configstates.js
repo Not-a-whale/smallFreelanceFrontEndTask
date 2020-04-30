@@ -1,3 +1,7 @@
+function stitch_attrs(attrs) {
+  return Object.keys(attrs).map(x => x + '="' + attrs[x] + '"').join(' ');
+}
+
 var configstates = {
   "tms": {
     abstract: true,
@@ -1243,48 +1247,214 @@ var configstates = {
       }
     }
   },
-
   "tmsapp.main2.profile.business": {
-    url: "/:businesstype/:bizid",
+    url: '/{businesstype:owner-operator|carrier|broker|shipper|general}/{bizid:[0-9]+|new}',
+    abstract: true,
     views: {
-      "main-content-view@tmsapp.main2": {
+      'main-content-view@tmsapp.main2': {
         component: 'pageLayoutPrimary'
       },
-      "page-content@.": {
+      'page-content@.': {
         component: 'uiMegaForm'
       }
     },
     resolve: {
+      businessData: function (APIService, bizid) {
+        return APIService.Single('/api/business/info', {
+          strict: [{
+            'me.BizId': bizid
+          }]
+        });
+      },
+      pagesetup: function ($q, $transition$, PageService, bizid, businessData, businessIsNew) {
 
+        let type = $transition$.params().businesstype;
+
+
+        PageService.Clear();
+
+        PageService.AddTab(type + ' info', 'tmsapp.main2.profile.business.detail');
+        if (businessIsNew) {
+          PageService.SetTitle(['new', type, 'business'].join(' '));
+        } else {
+          PageService.SetTitle(businessData.BizName || 'nothing here');
+          PageService.AddTab('branches', 'tmsapp.main2.profile.business.branch');
+          PageService.AddTab('office staff', 'tmsapp.main2.profile.business.staff');
+          switch (type) {
+            case 'owner-operator':
+              break;
+            case 'carrier':
+              PageService.AddTab('Equipment', 'tmsapp.main2.profile.business.equipment');
+              break;
+            case 'broker':
+              break;
+            case 'shipper':
+              break;
+            case 'general':
+
+              break;
+          }
+        }
+        return true;
+      },
       bizid: function ($transition$) {
         return $transition$.params().bizid;
       },
-      businessType: function ($q, $transition$) {
-        let deferred = $q.defer();
-        let type = $transition$.params().businesstype;
-        switch (type) {
-          case 'carrier':
-          case 'broker':
-          case 'owner-operator':
-          case 'shipper':
-          case 'general':
-            deferred.resolve(type);
-          default:
-            deferred.reject('Incorrect business type');
-        }
-
-        return deferred.promise;
+      businessIsNew: function (bizid) {
+        return bizid === 'new';
       },
-      page: function (PageService, businessType) {
-        switch (businessType) {
-          case 'carrier':
-            PageService.SetPage('carrier');
-            break;
-          case 'general':
-            PageService.SetPage('general business');
-            break;
+      businessType: function ($transition$) {
+        return $transition$.params().businesstype;
+      }
+    },
+    redirectTo: '.detail'
+  },
+
+  "tmsapp.main2.profile.business.detail": {
+    url: '/detail',
+    views: {
+      'megaform-form': {
+        template: function (params) {
+          let type = params.businesstype;
+          let template = '';
+          let business_attrs = {
+            'type': 'business-info',
+            'data': "$resolve.businessinfo",
+            'endpoint': "'/api/business/info'",
+            'is-new': "$resolve.businessIsNew",
+            'ids': "$resolve.businessIds",
+            'dependency': "$resolve.deps.business"
+          };
+          let insurance_attrs = {
+            'type': 'insurance',
+            'endpoint': "'/api/insurance/list'",
+            'dependency': "$resolve.deps.business_insurance",
+            'query': "$resolve.insuranceQuery"
+          };
+          let state_attrs = {
+            'type': 'state-permit',
+            'endpoint': "'/api/carrier/permit/list'",
+            'dependency': '$resolve.deps.business_statepermit',
+            'query': "$resolve.statepermitQuery"
+          };
+
+          let ifta_attrs = {
+            'type': 'ifta-account',
+            'data': "$resolve.iftaaccountData",
+            'endpoint': "'/api/carrier/ifta/account'",
+            'dependency': '$resolve.deps.business_ifta',
+            'query': "$resolve.iftaaccountQuery"
+
+          }
+          switch (type) {
+            case 'owner-operator':
+
+              break;
+            case 'carrier':
+              business_attrs.type = 'business-carrier';
+              template += '<ui-form-section ' + stitch_attrs(business_attrs) + ' ></ui-form-section>';
+              template += '<ui-form-section ' + stitch_attrs(insurance_attrs) + ' ></ui-form-section>';
+              template += '<ui-form-section ' + stitch_attrs(ifta_attrs) + ' ></ui-form-section>';
+              template += '<ui-form-section ' + stitch_attrs(state_attrs) + ' ></ui-form-section>';
+              break;
+            case 'broker':
+              break;
+            case 'shipper':
+              break;
+            case 'general':
+              template += '<ui-form-section ' + stitch_attrs(business_attrs) + ' ></ui-form-section>';
+              template += '<ui-form-section ' + stitch_attrs(insurance_attrs) + ' ></ui-form-section>';
+              break;
+          }
+
+          return template;
         }
       }
+    },
+    resolve: {
+      businessinfo: function (businessData, businessIsNew) {
+        if (businessIsNew) {
+          return {};
+        }
+        return businessData;
+      },
+      iftaaccountData: function (APIService, iftaaccountQuery, businessIsNew) {
+        if (businessIsNew) {
+          return {};
+        }
+        return APIService.Single('/api/carrier/ifta/account', iftaaccountQuery);
+      },
+      businessQuery: function (businessType, bizid) {
+        return {
+          strict: [{
+            BizId: bizid
+          }]
+        };
+      },
+      insuranceQuery: function (bizid) {
+        return {
+          strict: [{
+            'entity.BusinessId': bizid
+          }]
+        };
+      },
+      statepermitQuery: function (bizid) {
+        return {
+          strict: [{
+            'crr_prmt_acc.CarrierId': bizid
+          }]
+        };
+      },
+      iftaaccountQuery: function (bizid) {
+        return {
+          strict: [{
+            'BizId': bizid
+          }]
+        }
+      },
+      businessIds: function () {
+        return [{
+          state: 'bizid',
+          data: 'BizId'
+        }];
+      },
+      deps: function (bizid) {
+        // used for checking dependencies between sections
+        return {
+          business_insurance: [{
+            section: ['business-info', 'business-carrier'],
+            fields: [{
+              from: 'BizId',
+              to: 'entity.BusinessId',
+              type: 'data'
+            }]
+          }],
+          business: [{
+            section: null,
+            fields: [{
+              from: bizid,
+              to: 'BizId',
+              type: 'const'
+            }]
+          }],
+          business_statepermit: [{
+            section: 'business-carrier',
+            fields: [{
+              from: 'BizId',
+              to: 'crr_prmt_acc.CarrierId',
+              type: 'data'
+            }]
+          }],
+          business_ifta: [{
+            section: 'business-carrier',
+            fields: [{
+              from: 'BizId',
+              to: 'BizId',
+              type: 'data'
+            }]
+          }]
+        };
+      },
     }
   },
   'tmsapp.main2.profile.business.branch': {
@@ -1316,10 +1486,9 @@ var configstates = {
       formListEndpoint: function () {
         return '/api/business/branch/list'
       },
-      formListQuery: function ($transition$) {
-        let bizid = $transition$.params().bizid;
+      formListQuery: function (bizid) {
         return {
-          search: [{
+          strict: [{
             'me.BizId': bizid
           }],
           orderby: [{
@@ -1333,14 +1502,36 @@ var configstates = {
     }
   },
   'tmsapp.main2.profile.business.branch.detail': {
-    url: '/:branchid',
+    url: '/{branchid: [0-9]+|new}',
     views: {
       'megaform-form@^.^': {
         template: function (params) {
+          let branch_attrs = {
+            "type": "branch",
+            'data': "$resolve.branchinfo",
+            'is-new': "$resolve.isNew",
+            'dependency': "$resolve.deps.branch_business",
+            'endpoint': "\'/api/business/branch\'",
+            'ids': "$resolve.ids"
+          };
+          let owner_attrs = {
+            'type': "owner",
+            'data': "$resolve.primary_contact",
+            'dependency': "$resolve.deps.owner_branch",
+            'is-new': "$resolve.isNew"
+          };
+          let agent_attrs = {
+            'type': "agent",
+            'data': "$resolve.formdata",
+            'dependency': "$resolve.deps.agent_branch",
+            'query': "$resolve.associateQuery",
+            'endpoint': "\'/api/associate/list\'",
+            'primary-path': "\'AstId\'"
+          };
           let template = '';
-          template += '<ui-form-section type="branch" data="$resolve.branchinfo"></ui-form-section>';
-          template += '<ui-form-section type="owner" data="$resolve.primary_contact" ></ui-form-section>';
-          template += '<ui-form-section type="agent" data="$resolve.formdata"></ui-form-section>';
+          template += '<ui-form-section ' + stitch_attrs(branch_attrs) + ' ></ui-form-section>';
+          template += '<ui-form-section ' + stitch_attrs(owner_attrs) + ' ></ui-form-section>';
+          template += '<ui-form-section ' + stitch_attrs(agent_attrs) + ' ></ui-form-section>';
           return template;
         }
       },
@@ -1356,20 +1547,35 @@ var configstates = {
       }
     },
     resolve: {
+      isNew: function (branchid) {
+        return branchid === 'new';
+      },
       branchid: function ($transition$) {
         return $transition$.params().branchid;
       },
-      formdata: function (APIService, branchid, bizid, formList) {
-        if (branchid == 'new') {
-          return {};
-        }
-        return APIService.Single('/api/business/branch', {
-          search: [{
+      branchQuery: function (branchid, bizid) {
+        return {
+          strict: [{
             'me.BrnchId': branchid,
           }, {
             'me.BizId': bizid
           }]
-        });
+        };
+      },
+      associateQuery: function (branchid, bizid) {
+        return {
+          strict: [{
+            'ast.BrnchId': branchid
+          }, {
+            'brnch.BizId': bizid
+          }]
+        };
+      },
+      formdata: function (APIService, branchQuery, isNew) {
+        if (isNew) {
+          return {};
+        }
+        return APIService.Single('/api/business/branch', branchQuery);
       },
       branchinfo: function (formdata) {
         let data = CloneObj(formdata);
@@ -1378,13 +1584,191 @@ var configstates = {
       },
       primary_contact: function (formdata) {
         let data = {};
-        if (formdata.primary_contact.length > 1) {
-          data = CloneObj(formdata.primary_contact[0])
+        if ('primay_contact' in formdata && formdata.primary_contact != undefined) {
+          if (formdata.primary_contact.length > 0) {
+            data = CloneObj(formdata.primary_contact[0]);
+          }
         }
         return data;
       },
-      sections: function () {
-        return {};
+      deps: function (bizid) {
+        // used for checking dependencies between sections
+        return {
+          branch_business: [{
+            section: undefined,
+            fields: [{
+              from: bizid,
+              to: 'BizId',
+              type: 'const'
+            }]
+          }],
+          agent_branch: [{
+            section: 'branch',
+            fields: [{
+              from: 'BrnchId',
+              to: 'ast.BrnchId',
+              type: 'data'
+            }]
+          }],
+          owner_branch: [{
+            section: 'branch',
+            fields: [{
+              from: 'BrnchId',
+              to: 'BrnchId',
+              type: 'data'
+            }]
+          }]
+        };
+      },
+      ids: function () {
+        // used for section to navigate to newly created business
+        return [{
+          state: 'branchid',
+          data: 'BrnchId'
+        }];
+      }
+    }
+  },
+  'tmsapp.main2.profile.business.staff': {
+    url: '/staff',
+    views: {
+      'megaform-list': {
+        template: function (params) {
+          let template = '';
+          template += '<ui-list ';
+          template += 'type="staff-form" ';
+          template += 'endpoint="$resolve.formListEndpoint" ';
+          template += 'query="$resolve.formListQuery" ';
+          template += 'list="$resolve.formList" ';
+          template += '></ui-list>';
+          return template;
+        }
+      },
+      'megaform-form': {
+        template: function (params) {
+          let template = '<ui-form-blank ';
+          template += 'list="$resolve.formList" ';
+          template += '></ui-form-blank>';
+          return template;
+        }
+
+      }
+    },
+    resolve: {
+      formListEndpoint: function () {
+        return '/api/associate/list'
+      },
+      formListQuery: function (bizid) {
+
+        return {
+          strict: [{
+            'brnch.BizId': bizid
+          }],
+          orderby: [{
+            'ast.FirstName': 'asc'
+          }, {
+            'ast.LastName': 'asc'
+          }]
+        };
+      },
+      formList: function (APIService, formListEndpoint, formListQuery) {
+        return APIService.List(formListEndpoint, formListQuery);
+      },
+    }
+  },
+  'tmsapp.main2.profile.business.staff.detail': {
+    url: '/{staffid: [0-9]+|new}',
+    views: {
+      'megaform-form@^.^': {
+        template: function (params) {
+          let personal_attrs = {
+            'type': "person",
+            'data': "$resolve.personalinfo",
+            'endpoint': "'/api/person'",
+            'is-new': "$resolve.isNew",
+            'dependency': "$resolve.deps.personal",
+            'ids': "$resolve.ids"
+          };
+          let template = '';
+          template += '<ui-form-section ' + stitch_attrs(personal_attrs) + ' ></ui-form-section>';
+          //template += '<ui-form-section type="owner" data="$resolve.primary_contact" dependency="$resolve.deps.owner_branch" is-new="$resolve.isNew"></ui-form-section>';
+          //template += '<ui-form-section type="agent" data="$resolve.formdata" dependency="$resolve.deps.agent_branch" query="$resolve.associateQuery" endpoint="\'/api/associate/list\'" primary-path="\'AstId\'"></ui-form-section>';
+          return template;
+        }
+      },
+      'new-item@^': {
+        template: function (params) {
+          let template = "";
+          console.log(params);
+          if (params.branchid == 'new') {
+            template = '<ui-list-insert type="branch-form" ui-sref-active="active" ></ui-list-insert>';
+          }
+          return template;
+        }
+      }
+    },
+    resolve: {
+      isNew: function (staffid) {
+        return staffid === 'new';
+      },
+      staffid: function ($transition$) {
+        return $transition$.params().staffid;
+      },
+      associateQuery: function (staffid, bizid) {
+        return {
+          strict: [{
+            'me.AstId': staffid
+          }, {
+            'brnch.BizId': bizid
+          }]
+        };
+      },
+      formdata: function (APIService, associateQuery, isNew) {
+        if (isNew) {
+          return {};
+        }
+        return APIService.Single('/api/associate/list', associateQuery);
+      },
+      personalinfo: function (formdata) {
+        let data = CloneObj(formdata.ast);
+        console.log(data);
+        return data;
+      },
+      deps: function (bizid) {
+        // used for checking dependencies between sections
+        return {
+          branch_business: [{
+            section: undefined,
+            fields: [{
+              from: bizid,
+              to: 'BizId',
+              type: 'const'
+            }]
+          }],
+          agent_branch: [{
+            section: 'branch',
+            fields: [{
+              from: 'BrnchId',
+              to: 'ast.BrnchId',
+              type: 'data'
+            }]
+          }],
+          owner_branch: [{
+            section: 'branch',
+            fields: [{
+              from: 'BrnchId',
+              to: 'BrnchId',
+              type: 'data'
+            }]
+          }]
+        };
+      },
+      ids: function () {
+        // used for section to navigate to newly created business
+        return [{
+          state: 'staffid',
+          data: 'AstId'
+        }];
       }
     }
   }
