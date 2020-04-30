@@ -1,3 +1,4 @@
+use Module::Load::Conditional qw(check_install);
 
 find(
     sub {
@@ -5,12 +6,10 @@ find(
         return if $File::Find::name !~ /\.pm$/;
         require $File::Find::name;
     },
-    abs_path("$FindBin::Bin/../lib") . '/TMS/API/Core',    # tooling - login, prefetch, route list etc.
-
+    abs_path("$FindBin::Bin/../lib") . '/TMS/API/Core',
 );
 
 my $enum_cache = {};
-use Module::Load::Conditional qw(check_install);
 
 prefix '/api/options' => sub {
     get '/:table/:column' => sub {
