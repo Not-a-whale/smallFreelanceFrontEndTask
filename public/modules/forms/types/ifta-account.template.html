@@ -1,0 +1,22 @@
+<form-row>
+  <ui-input label="IFTALicense"
+            data="$formctrl.data.IFTALicense"
+            required="1"></ui-input>
+  <ui-input label="MC account"
+            data="$formctrl.data.McAccount"
+            required="1"
+            template="mc"></ui-input>
+  <ui-input label="State"
+            data="$formctrl.data.State"
+            required="1"></ui-input>
+</form-row>
+<form-row>
+  <ui-date label="Effective"
+           data="$formctrl.data.Effective"
+           required="1"></ui-date>
+  <ui-date label="Expiration"
+           data="$formctrl.data.Expiration"
+           required="1"></ui-date>
+</form-row>
+<ui-file document-title="IFTA ACCOUNT PROOF"
+         data="$formctrl.data.proof_doc"></ui-file>
