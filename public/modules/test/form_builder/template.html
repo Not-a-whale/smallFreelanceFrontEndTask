@@ -1,0 +1,91 @@
+<link href="modules/test/form_builder/style.css"
+      rel="stylesheet">
+
+<div class="left-panel">
+   <div class="panel-tab-container">
+      <div class="panel-tab"
+           ng-class="{active: $ctrl.panel == 1}"
+           ng-click="$ctrl.panel = 1">
+         Create Form
+      </div>
+      <div class="panel-tab"
+           ng-class="{active: $ctrl.panel == 2}"
+           ng-click="$ctrl.panel = 2">
+         Pick Route
+      </div>
+      <div class="panel-tab"
+           ng-class="{active: $ctrl.panel == 3}"
+           ng-click="$ctrl.panel = 3">
+         Search
+      </div>
+   </div>
+   <div class="panel-tab-content scrollable"
+        ng-show="$ctrl.panel == 1">
+      <div class="tables "
+           style="height: 100vh; display: flex; flex-direction: column;">
+         <ul>
+            <li class="clickable"
+                ng-repeat="table in $ctrl.tablerequests"
+                ng-click="$ctrl.SetFormInfoRoot(table)"> {{ table }}</li>
+         </ul>
+      </div>
+   </div>
+   <div class="panel-tab-content scrollable"
+        ng-show="$ctrl.panel == 2">
+      <ul>
+         <li class="clickable"
+             ng-repeat="route in $ctrl.routes"
+             ng-click="$ctrl.route = route">{{route}}</li>
+      </ul>
+   </div>
+   <div class="panel-tab-content scrollable"
+        ng-show="$ctrl.panel == 3">
+      <ui-input data="$ctrl.search.rows"
+                label="rows"></ui-input>
+      <ui-input data="$ctrl.search.page"
+                label="page"></ui-input>
+
+   </div>
+
+
+   <!-- <input placeholder="GIT Comment"
+          ng-model="$ctrl.git_comment" />
+   <input placeholder="Feature API i.e. Business/Branch"
+          ng-model="$ctrl.git_comment" />
+   <input placeholder="Base Route Name i.e. business/branch"
+          ng-model="$ctrl.git_comment" /> -->
+</div>
+<div class="center-panel">
+   <div class="row">
+      <a class="btn btn-primary"
+         ng-click="$ctrl.CopyToClipboard()">copy to clipboard</a>
+      <ui-radio data=""></ui-radio>
+      <input ng-model="$ctrl.route"
+             placeholder="api route" />
+      <a class="btn btn-primary"
+         ng-click="$ctrl.Submit()">submit</a>
+      <a class="btn btn-primary"
+         ng-click="$ctrl.Search()">search</a>
+      <a class="btn btn-success"
+         ng-click="$ctrl.Create()">create</a>
+      <a class="btn btn-info"
+         ng-click="$ctrl.Update()">update</a>
+      <a class="btn btn-danger"
+         ng-click="$ctrl.Delete()">delete</a>
+      <a class="btn btn-warn"
+         ng-click="$ctrl.data ={}">clear</a>
+   </div>
+   <form id="form"
+         class="scrollable">
+
+   </form>
+
+</div>
+<div class="data right-panel scrollable">
+   <pre>{{$ctrl.Formatted($ctrl.data)}}</pre>
+
+</div>
+
+<textarea ng-model="$ctrl.template"
+          id="copyboard"
+          style="position:absolute; left: -100000px"></textarea>
