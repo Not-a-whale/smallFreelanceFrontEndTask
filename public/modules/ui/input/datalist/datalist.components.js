@@ -109,12 +109,36 @@ class UIDatalistCtrl {
   BuildQuery() {
     let searchlist = this.BuildSearchList();
     let orderbylist = this.BuildOrderByList();
-    let query = {
-      page: this.page,
-      rows: this.rows,
-      search: searchlist,
-      orderby: orderbylist
-    };
+    let query = null;
+    if (this.concreteCtrl != undefined && this.concreteCtrl.query != undefined) {
+      query = CloneObj(this.concreteCtrl.query);
+    } else {
+      query = {};
+    }
+
+
+
+    if (!('page' in query)) {
+      query.page = this.page;
+    }
+    if (!('rows' in query)) {
+      query.rows = this.rows;
+    }
+    if ('search' in query) {
+      for (let item of searchlist) {
+        query.search.push(item);
+      }
+    } else {
+      query.search = searchlist;
+    }
+
+    if ('orderby' in query) {
+      for (let item of orderbylist) {
+        query.orderby.push(item);
+      }
+    } else {
+      query.orderby = orderbylist;
+    }
     return query;
   }
 
@@ -123,6 +147,7 @@ class UIDatalistCtrl {
     for (let fname of this.displayfields) {
       fields[fname] = this.typed;
     }
+
     return [fields];
   }
 
@@ -168,6 +193,9 @@ app.component('uiDatalist', {
     route: '@?',
     form: '@?',
     name: '@?'
+  },
+  require: {
+    concreteCtrl: '?^uiDatalistConcrete'
   }
 });
 
@@ -184,7 +212,9 @@ app.component('uiDatalistConcrete', {
     options: '<?',
     required: '@?',
     label: '@?',
-    form: '@?'
+    form: '@?',
+    newButton: '<?',
+    query: '<?'
   }
 });
 

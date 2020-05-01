@@ -10,10 +10,12 @@
 <datalist id="{{$datalistctrl.listid}}">
        <option ng-repeat="item in $datalistctrl.options">{{ item.display }}</option>
 </datalist>
-<a ng-if="$datalistctrl.NewProfile()"
-   class="input-new-btn"
-   ui-sref="{{$datalistctrl.route}}">+new</a>
-<a ng-if="$datalistctrl.NewForm()"
-   class="input-new-btn"
-   popup-form="{{$datalistctrl.form}}"
-   on-close="$datalistctrl.data = data; $datalistctrl.DataToTyped()">+new</a>
+<div ng-if="$datalistctrl.concreteCtrl.newButton != undefined">
+       <a ng-if="$datalistctrl.NewProfile()"
+          class="input-new-btn"
+          ui-sref="{{$datalistctrl.route}}">+new</a>
+       <a ng-if="$datalistctrl.NewForm()"
+          class="input-new-btn"
+          popup-form="{{$datalistctrl.form}}"
+          on-close="$datalistctrl.data = data; $datalistctrl.DataToTyped()">+new</a>
+</div>
