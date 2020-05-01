@@ -207,6 +207,13 @@ class UIListCtrl {
     }
   }
 
+  PickOne(generated, defaultval) {
+    if (generated == undefined || generated == '' || generated == ' ') {
+      return defaultval;
+    }
+    return generated;
+  }
+
   $onInit() {
     let self = this;
     if (this.list != undefined) {

@@ -1,7 +1,8 @@
 <div class="label colspan"
      ng-class="{italic: item.data.ast.FirstName == undefined}"
      ui-state="'tmsapp.main2.profile.business.staff.detail'"
-     ui-state-params="{staffid: item.data.AstId || 'new'}">{{(item.data.ast.FirstName + ' ' + item.data.ast.LastName) || 'new staff'}}</div>
+     ui-state-params="{staffid: item.data.AstId || 'new'}">
+  {{$listctrl.PickOne(item.data.ast.FirstName + ' ' + item.data.ast.LastName, 'new staff')}}</div>
 <div class="icont icont-min"
      ng-click="$listctrl.DeleteItem({AstId: item.data.AstId},'tmsapp.main2.profile.business.staff')">
   <svg class="icon">
