@@ -1,6 +1,7 @@
 class UIFormCtrl {
-  constructor($scope) {
+  constructor($scope, $stateParams) {
     this.scope = $scope;
+    this.state_params = $stateParams;
   }
 }
 
