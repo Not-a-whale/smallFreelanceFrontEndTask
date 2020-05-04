@@ -238,14 +238,22 @@ class DevFormsCtrl {
   }
 
   RebuildHTMLTemplate() {
-    let template = ''; //<form id="{{$ctrl.formid}}" ng-submit="$ctrl.onSubmit()">
+    let template = '<form class="ui-form-section" name="form">';
+    template += '<section-header id="branch-info">';
+    template += '<!-- for scrollspy -->';
+    template += '<section-title>{{$sectionctrl.title}}</section-title>';
+    template += '<save-button>';
+    template += '<button class="btn btn-primary" ng-click="$sectionctrl.SaveForm()" ng-disabled="!$sectionctrl.SaveEnabled()" type="submit">{{ $sectionctrl.Status() }}</button>';
+    template += '</save-button>';
+    template += '</section-header>';
+    template += '<section-content-container>';
     for (let key in this.section) {
       if (this.section[key].active) {
         template += this.section[key].template;
       }
     }
-    // template += '<button type="submit" hidden></button>'
-    // template += '</form>';
+    template += '</section-content-container>';
+    template += '</form>';
     this.template = template;
   }
 
