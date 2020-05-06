@@ -50,7 +50,9 @@ sub Search {
                 if (ref($grp) eq 'HASH') {
                     my @or = ();
                     foreach my $cl (keys %$grp) {
-                        if ($method eq 'Show') {
+                        if (!(defined $$grp{$cl})) {
+                            push @or, $cl => {'=', undef};
+                        } elsif ($method eq 'Show') {
                             push @or, $cl => $$grp{$cl};
                         } else {
                             push @or, $cl => {'like' => "\%$$grp{$cl}\%"};
@@ -82,7 +84,7 @@ sub Search {
                     foreach my $cl (keys %$grp) {
                         push @or, $cl => $$grp{$cl};
                     }
-                    if (scalar keys %$grp > 1){
+                    if (scalar keys %$grp > 1) {
                         push @and, '-or' => \@or;
                     } else {
                         push @and, \@or;
