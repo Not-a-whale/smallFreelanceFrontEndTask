@@ -1,0 +1,20 @@
+my $foreign_objs = [
+    {   resultsource => 'TMS::Schema::Result::CntAddress',
+        primary_key  => 'AddrId'
+    },
+    {   resultsource => 'TMS::Schema::Result::EntCarrier',
+        primary_key  => 'CarrierId'
+    }
+];
+
+foreach my $fobj (@$foreign_objs) {
+    __PACKAGE__->belongs_to(
+        "address",
+        $$fobj{resultsource},
+        sub {
+            my $args = shift;
+            return {"$args->{foreign_alias}.$$fobj{primary_key}" => "$args->{self_alias}.sourceid"};
+        },
+        {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+    );
+}
