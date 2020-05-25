@@ -3,9 +3,8 @@
              label="{{$ctrl.label}}"
              required="{{$ctrl.required}}"
              api-call="'SearchBusiness'"
-             dataid="BizId"
-             displayfields="['BizName']"
-             displaytemplate="<<BizName>>"
-             data-route="tmsapp.main2.profile.business.detail({bizid: 'new'})"
+             dataid="AstId"
+             displayfields="['FirstName', 'LastName']"
+             displaytemplate="<<FirstName LastName>>"
              data-form="{{$ctrl.form}}">
 </ui-datalist>

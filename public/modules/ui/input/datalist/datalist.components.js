@@ -1,7 +1,15 @@
+class DatalistOption {
+  constructor(data, id, display) {
+    this.data = data;
+    this.id = id;
+    this.display = display;
+  }
+}
+
 class UIDatalistCtrl {
-  constructor(getid, APIService, $timeout) {
+  constructor(APIService, getid, $timeout) {
     this.listid = getid();
-    this.apisrv = APIService;
+    this.api = APIService;
     this.timeout = $timeout;
     this.searchcall = undefined;
     this.typed = undefined;
@@ -13,8 +21,33 @@ class UIDatalistCtrl {
     this.route = undefined;
     this.form = undefined;
 
+    this.old_data = undefined;
+
   }
 
+  $doCheck() {
+    // sync up the typed or display part of the datalist and the data bound to datalist
+    // this is purely for programatically changed data
+    // propagate the data to typed variable
+
+    if (this.typed === undefined) {
+      this.typed = '';
+    }
+
+    if (!angular.equals(this.old_data, this.data)) {
+      if (this.typed == '' && this.data != undefined && !angular.equals(this.data, {})) {
+        this.DataToTyped();
+      }
+      // if data was cleared, have to clear typed as well
+      if (this.data == undefined || angular.equals(this.data, {})) {
+        if (this.typed != '') {
+          // doCheck runs every digest cycle, only want to update the value once
+          this.Clear();
+        }
+      }
+      this.old_data = this.data;
+    }
+  }
   $onChanges(changes) {
     if ('typed' in changes || 'data' in changes) {
       this.Reset();
@@ -28,7 +61,7 @@ class UIDatalistCtrl {
 
   Validate(data) {
     if (data == undefined) {
-      data = this.typed;
+      data = this.typed; //typed is nothing first time around
     }
 
     let valid = false;
@@ -50,6 +83,24 @@ class UIDatalistCtrl {
     return valid;
   }
 
+  Clear() {
+    this.ClearOptions();
+    this.ClearData();
+    this.ClearDisplay();
+  }
+
+  ClearOptions() {
+    this.options = [];
+  }
+
+  ClearDisplay() {
+    this.typed = '';
+  }
+
+  ClearData() {
+    this.data = {};
+  }
+
   TimedSearch() {
     this.timeout.cancel(this.searchcall);
     let self = this;
@@ -60,9 +111,15 @@ class UIDatalistCtrl {
   }
 
   Search() {
-    if (this.url != undefined) {
-      let self = this;
-      return this.apisrv.List(this.url, this.BuildQuery()).then(function (data) {
+    let self = this;
+    let apiFunc = this.apiCall;
+    let apiParams = this.apiParams || {};
+    if (apiFunc != undefined) {
+      // let selfquery = this.BuildQuery();
+      // let concretequery = this.BuildConcreteQuery();
+      apiParams.query = this.BuildQuery();
+
+      return this.api.CallFunction(apiFunc, apiParams).then(function (data) {
         return data.map(function (x) {
           return self.Mapper(x);
         });
@@ -71,19 +128,14 @@ class UIDatalistCtrl {
           self.options = data;
         }
       }).then(function () {
-        self.Validate(self.typed);
+        self.Validate();
       });
-    } else {
-      console.error('no url provided for search');
     }
-
   }
 
   Mapper(data) {
     // this mapper is doing job for backend
-    let obj = {};
-    obj.data = data;
-    obj.id = DeepFind(data, this.dataid);
+    let id = DeepFind(data, this.dataid);
     let template = this.displaytemplate;
     let matches = template.matchAll(this.mapping_regex);
     for (let match of matches) {
@@ -93,15 +145,15 @@ class UIDatalistCtrl {
         template = template.replace(new RegExp('<<' + path + '>>', 'g'), value);
       }
     }
-    obj.display = template;
-    return obj;
+    let display = template;
+    return new DatalistOption(data, id, display);
   }
 
   DataToTyped() {
     let obj = this.Mapper(this.data);
     this.options = [obj];
-    this.Validate();
     this.typed = obj.display;
+    this.Validate();
     return obj.display;
   }
 
@@ -109,13 +161,13 @@ class UIDatalistCtrl {
   BuildQuery() {
     let searchlist = this.BuildSearchList();
     let orderbylist = this.BuildOrderByList();
-    let query = null;
-    if (this.concreteCtrl != undefined && this.concreteCtrl.query != undefined) {
-      query = CloneObj(this.concreteCtrl.query);
-    } else {
-      query = {};
+    let query = {};
+    if (this.concreteCtrl != undefined) {
+      //might want to do some logic here that is particular to only concreteCtrl
+      if (this.concreteCtrl.query != undefined) {
+        query = CloneObj(this.concreteCtrl.query);
+      }
     }
-
 
 
     if (!('page' in query)) {
@@ -167,7 +219,6 @@ class UIDatalistCtrl {
 
   NewForm() {
     return this.form != undefined && this.form != '';
-
   }
 
   $onInit() {
@@ -186,13 +237,13 @@ app.component('uiDatalist', {
     options: '<?', // list of options to bind when needed
     label: '@?',
     required: '@?',
-    url: '@',
-    dataid: '@',
-    displayfields: '<',
-    displaytemplate: '@',
-    route: '@?',
-    form: '@?',
-    name: '@?'
+    apiCall: '<?', // api function call string name
+    apiParams: '<?', // api function params, obj mapping api params to values
+    dataid: '@', // the "ID / Primary Key" of the data
+    displayfields: '<', // the fields used to display in the dropdown
+    displaytemplate: '@', // how to display the fields in the dropdown, must be enclosed by <<>>
+    route: '@?', // go to a state when clicked on new button
+    form: '@?', // the form to open when clicked on new button
   },
   require: {
     concreteCtrl: '?^uiDatalistConcrete'
@@ -208,26 +259,26 @@ app.component('uiDatalistConcrete', {
     }
   },
   bindings: {
-    data: '=?',
-    options: '<?',
-    required: '@?',
-    label: '@?',
+    data: '=?', // the data from an external source
+    options: '<?', // the options to display from external source
+    required: '@?', // if input is required to be filled in
+    label: '@?', // label to display
     form: '@?',
-    newButton: '<?',
-    query: '<?'
+    newButton: '<?', // if the new button should be displayed
+    query: '<?' //
   }
 });
 
 class UISelectCtrl {
-  constructor(getid, apisrv) {
+  constructor(APIService, getid) {
     this.id = getid();
-    this.apisrv = apisrv;
+    this.api = APIService;
   }
 
   $onInit() {
     if (this.options == undefined) {
       let self = this;
-      this.apisrv.Options(this.table, this.column).then(function (data) {
+      this.api.Options(this.table, this.column).then(function (data) {
         if ('options' in data) {
           self.options = data.options;
           if (self.data == undefined) {
@@ -242,7 +293,7 @@ class UISelectCtrl {
 
 app.component('uiSelect', {
   templateUrl: 'modules/ui/input/datalist/ui-select.template.html',
-  controller: ['getid', 'APIService', UISelectCtrl],
+  controller: UISelectCtrl,
   bindings: {
     data: '=?',
     options: '<?', // list of options to bind when needed
