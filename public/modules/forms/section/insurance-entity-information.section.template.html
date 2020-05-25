@@ -1,0 +1,54 @@
+<form class="ui-form-section"
+      name="form">
+  <section-header id="insurance-info">
+    <!-- for scrollspy -->
+    <section-title>{{$sectionctrl.title}}</section-title>
+  </section-header>
+  <section-content-container>
+    <ui-form-mediator>
+      <subform>
+        <form-row>
+          <ui-datalist-concrete type="business"
+                                label="provider"
+                                data-data="$sectionctrl.data.ins.ins_provider"></ui-datalist-concrete>
+          <ui-input label="PolicyNumber"
+                    data="$sectionctrl.data.ins.PolicyNumber"
+                    required="1"></ui-input>
+        </form-row>
+        <form-row>
+          <ui-input label="TagName"
+                    data="$sectionctrl.data.ins.TagName"
+                    required="1"></ui-input>
+          <ui-input label="WhatIsInsured"
+                    data="$sectionctrl.data.ins.WhatIsInsured"></ui-input>
+        </form-row>
+        <form-row>
+          <ui-input label="InsuredAmount"
+                    data="$sectionctrl.data.ins.InsuredAmount"
+                    required="1"></ui-input>
+          <ui-input label="DownpaymentAmount"
+                    data="$sectionctrl.data.ins.DownpaymentAmount"></ui-input>
+          <ui-select table="InsPolicy"
+                     column="PaidBy"
+                     label="PaidBy"
+                     data="$sectionctrl.data.ins.PaidBy"></ui-select>
+        </form-row>
+        <form-row>
+          <ui-date label="EffectiveDate"
+                   data="$sectionctrl.data.ins.EffectiveDate"
+                   required="1"></ui-date>
+          <ui-date label="ExpirationDate"
+                   data="$sectionctrl.data.ins.ExpirationDate"
+                   required="1"></ui-date>
+        </form-row>
+      </subform>
+      <list>
+        <ui-list api-call="'GetBusinessInsuranceEntityList'"
+                 api-params="{businessId : $sectionctrl.businessId, entityId: $sectionctrl.entityId}"
+                 type="insurance"
+                 on-select="$sectionctrl.Select(item)"></ui-list>
+      </list>
+    </ui-form-mediator>
+
+  </section-content-container>
+</form>

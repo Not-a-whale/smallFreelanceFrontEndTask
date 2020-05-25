@@ -1,0 +1,67 @@
+<form class="ui-form-section"
+      name="form">
+  <section-header id="personal-info">
+    <!-- for scrollspy -->
+    <section-title>{{$sectionctrl.title}}</section-title>
+    <save-button>
+      <button class="btn btn-primary"
+              ng-click="$sectionctrl.SaveForm()"
+              ng-disabled="!$sectionctrl.SaveEnabled()"
+              type="submit">{{ $sectionctrl.Status() }}</button>
+    </save-button>
+  </section-header>
+  <section-content-container>
+    <form-row>
+      <ui-datalist-concrete label="works at branch"
+                            type="branch"
+                            data="$sectionctrl.data.ast.brnch"
+                            data-query="{search: [{ 'me.BizId': $sectionctrl.businessId}]}">
+      </ui-datalist-concrete>
+    </form-row>
+    <form-row>
+      <ui-select table="EntPerson"
+                 column="Prefix"
+                 label="Prefix"
+                 data="$sectionctrl.data.ast.Prefix"></ui-select>
+      <ui-input label="FirstName"
+                data="$sectionctrl.data.ast.FirstName"
+                required="1"></ui-input>
+      <ui-input label="MiddleName"
+                data="$sectionctrl.data.ast.MiddleName"></ui-input>
+      <ui-input label="LastName"
+                data="$sectionctrl.data.ast.LastName"
+                required="1"></ui-input>
+
+      <ui-select table="EntPerson"
+                 column="Suffix"
+                 label="Suffix"
+                 data="$sectionctrl.data.ast.Suffix"></ui-select>
+
+
+    </form-row>
+    <form-row>
+      <ui-input label="NickName"
+                data="$sectionctrl.data.ast.NickName"></ui-input>
+
+    </form-row>
+    <form-row>
+      <ui-input label="CurrentTitle"
+                data="$formctrl.data.CurrentTitle"></ui-input>
+      <ui-select table="HrAssociate"
+                 column="AuthorityLevel"
+                 label="AuthorityLevel"
+                 data="$formctrl.data.AuthorityLevel"></ui-select>
+    </form-row>
+    <form-row>
+      <ui-form-partial-phone data="$formctrl.data.biz_phone"
+                             type="work"
+                             ext="1"></ui-form-partial-phone>
+      <ui-input label="BizEmail"
+                data="$formctrl.data.BizEmail"></ui-input>
+      <ui-form-partial-fax data="$formctrl.data.biz_fax"
+                           type="work"
+                           ext="1">
+      </ui-form-partial-fax>
+    </form-row>
+  </section-content-container>
+</form>

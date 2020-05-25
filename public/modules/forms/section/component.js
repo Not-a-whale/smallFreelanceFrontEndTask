@@ -1,171 +1,203 @@
+/**
+ * Base controller for UI-Form-Sections
+ */
 class UIFormSectionCtrl {
-  constructor(getid, APIService, $scope, $q, $state) {
-    this.formid = getid();
+  constructor(APIService, $scope, $q, $state) {
     this.api = APIService;
     this.scope = $scope;
     this.q = $q;
     this.state = $state;
-
-    this.submitfunction = null;
-    this.endpoint = null;
-    this.dependency = null;
-    this.isNew = false;
-    this.uiform = null;
-    this.canSave = true;
+    this.dependency = null; // used for grabbing bindings and putting them into the proper spot
+    this.submitfunction = null; //dynamic function for submitting with submit button bound to ngForm
     this.editItem = null;
+
+
+    // all sections should go through "SaveForm" function when submitting.
+    // override functions as needed
   }
 
   $onInit() {
+    let self = this;
     if (this.megaformCtrl != undefined) {
       this.megaformCtrl.Register(this); //observer pattern sorta
+      this.scope.$on('$destroy', function () {
+        self.megaformCtrl.Deregister(self);
+      });
     }
   }
 
-  GetForm() {
-    return this.scope.form;
-  }
-
-  HasDepdendencies() {
-    return this.dependency != undefined;
-  }
-
-  CheckDependencies() {
-    console.log('Checking dependencies');
-    let retval = false;
-    if (this.HasDepdendencies()) {
-      let all_good = true;
-      // dependencies are located in the state's resolve
-      // list of configuration objects
-      for (let depobj of this.dependency) {
-        console.log(depobj);
-        if (all_good == false) {
-          break;
-        }
-        let depCtrl = null;
-        if (depobj.section != undefined) {
-          let depCtrl = this.megaformCtrl.GetDependency(depobj);
-          if (depCtrl == undefined) {
-            console.error('dependency not found');
-            return false;
-          }
-          if (!(depCtrl instanceof UIFormSectionCtrl) && !depCtrl.IsAccurate()) {
-            all_good = false;
-            continue;
-          }
-        }
-
-        for (let fieldobj of depobj.fields) {
-          if (all_good == false) {
-            break;
-          }
-          let fielddata = fieldobj.from;
-          if (fieldobj.type != 'const') {
-            fielddata = DeepFind(depCtrl.data, fieldobj.from);
-          }
-          if (fielddata == undefined) {
-            all_good = false;
-            continue;
-          }
-          let topaths = fieldobj.to;
-          if (!(Array.isArray(fieldobj.to))) {
-            topaths = [fieldobj.to];
-          }
-          for (let path of topaths) {
-            if (DeepFind(this.data, path, fielddata) == undefined) {
-              all_good = false;
-              continue;
-            }
-          }
-        }
-      }
-      retval = all_good;
-    } else {
-      console.log('no dependencies');
-      // no dependencies
-      retval = true;
+  /**
+   * Displays the text inside of the button
+   */
+  Status() {
+    let form = this.GetForm();
+    let retval = 'save';
+    if (form.$submitted && !(form.$dirty)) {
+      retval = 'saved';
     }
     return retval;
   }
 
-  IsAccurate() {
+  /**
+   * true/false based on whether the form can be submitted
+   */
+  SaveEnabled() {
     let form = this.GetForm();
-    return form.$pristine && form.$submitted;
-  }
-  SaveForm() {
-    let cansave = true;
-    cansave = this.CheckDependencies(); //checks and maps dependencies
-    cansave &= this.canSave;
-    if (cansave) {
-      this.SetSubmit('Add');
-    } else {
-      console.log('dependency not satisfied');
+    let canSubmit = true;
+
+    if (form.$pristine) {
+      canSubmit &= false;
     }
+
+    if (Object.keys(form.$error).length > 0) {
+      canSubmit &= false;
+    }
+    if (this.HasDependencies()) {
+      canSubmit &= this.CheckDependencies();
+    }
+
+    return canSubmit;
   }
 
-  SetSubmit(fun) {
-    console.log('setting ' + fun);
-    if (fun in this) {
-      if (this[fun] instanceof Function) {
-        if (this.isNew) {
-          this.submitfunction = this.Add;
+  /**
+   * getter for Form bound to Controller
+   */
+  GetForm() {
+    return this.scope.form;
+  }
+  /** */
+
+  /**
+   * Override as needed per class
+   * Default no dependencies
+   */
+  HasDependencies() {
+    return this.dependency != undefined;
+  }
+
+  /**
+   * returns true/false based on whether dependencies are correct enough
+   */
+  CheckDependencies() {
+    return true;
+  }
+  /**
+   * Set the dependencies to the proper paths
+   *  Expects object to have list of dep objects
+   */
+  ResolveDependencies() {
+    let resolved = true;
+    for (let dep of this.dependency) {
+      if (dep instanceof UIFormSectionDependency) {
+        if (dep.binding in this && this[dep.binding] !== undefined) {
+          let binding_value = this[dep.binding];
+          if (isNaN(binding_value) === false) {
+            resolved &= DeepSet(this.data, dep.location, binding_value);
+          } else if (binding_value !== 'new') {
+            console.error('Dependency resolved to unknown value');
+          }
+
         } else {
-          this.submitfunction = this[fun];
+          resolved = false;
         }
       } else {
-        console.log('not a function ' + fun);
+        resolved = false;
       }
-    } else {
-      console.log('not found ' + fun);
     }
+    return resolved;
   }
 
-  Submit() {
-    let deferred = this.q.defer();
-    if (this.submitfunction instanceof Function) {
-      let self = this;
-      console.log('submitting section form...');
-      if (this.CheckDependencies()) { //checks and maps dependencies
-        return this.submitfunction().then(function (result) {
-          if (result instanceof ErrorObj) {
-            alert(result.ErrorMessage());
-            return false;
+  IsAccurate() {
+    let form = this.GetForm();
+    return form.$pristine && form.$submitted && Object.keys(form.$error).length == 0;
+  }
+  SaveForm(funcname) {
+    // funcname is used for doing a specific function.
+    let self = this;
+    let defer = this.q.defer();
+    let form = this.GetForm();
+    let promise = defer.promise;
+    let force_submit = (funcname === 'Delete');
+    if (this.SaveEnabled() || force_submit) {
+      if (this.ResolveDependencies()) {
+        if (!this.SetSubmit(funcname)) {
+          if (this.IsNew()) {
+            this.SetSubmit('Create');
           } else {
-            self.data = result[0];
-            self.ClearAfterSubmit();
-            self.scope.$broadcast('list-reload');
-
-            return true;
+            this.SetSubmit('Update');
           }
-        }).then(function (result) {
-          if (result) {
-            self.GetForm().$setPristine();
-            self.GetForm().$setSubmitted();
-            return result;
-          }
-
-          return false;
-        }).then(function (result) {
-          if (result && self.isNew) {
-            let params = {};
-            if (self.ids != undefined) {
-              for (let id of self.ids) {
-                params[id.state] = DeepFind(self.data, id.data);
-              }
-            }
-            let options = {
-              reload: true
-            };
-            self.state.go('.', params, options);
-          }
+        }
+        defer.resolve('Ready to submit form');
+        defer.promise.then(function (result) {
+          return self.Submit();
+        });
+      } else {
+        this.SetSubmit(null);
+        defer.reject('Failed to resolve dependencies');
+        defer.promise.then(function (result) {
+          form.$submitted = false;
         });
       }
+
     } else {
-      console.error('submitfunction not set');
+      this.SetSubmit(null);
+      defer.reject('Save is not enabled for this form');
+      defer.promise.then(function (result) {
+        form.$submitted = false;
+      });
     }
-    deferred.reject(false);
-    return deferred.promise;
+    return promise;
   }
 
+  // override
+  Submit() {
+    let defer = this.q.defer();
+    let promise = defer.promise;
+
+    if (this.submitfunction instanceof Function) {
+      promise = this.submitfunction();
+    } else {
+      defer.reject('unknown submit function called');
+    }
+
+    return promise;
+  }
+
+  /**
+   * Attempts to set the dynamic submit function
+   * @param {Function} fun
+   */
+  SetSubmit(fun) {
+    let retval = false;
+    if (fun in this) {
+      if (this[fun] instanceof Function) {
+        this.submitfunction = this[fun];
+        retval = true;
+      }
+    } else {
+      this.submitfunction = null;
+    }
+    return retval;
+  }
+
+  ResultError(result) {
+    let retval = false;
+    if (result instanceof ErrorObj) {
+      console.error(result.ErrorMessage());
+      if (this.errorCtrl != undefined) {
+        this.errorCtrl.ShowError(result);
+      }
+      retval = true;
+    }
+    return retval;
+  }
+  SetData(result) {
+    this.GetForm().$setPristine();
+    this.GetForm().$setSubmitted();
+    this.data = result;
+  }
+
+  // this item selection can go into its own directive
   Select(item) {
     this.editItem = item;
     this.data = item.data;
@@ -177,34 +209,29 @@ class UIFormSectionCtrl {
     if (this._CanClearEditItem()) {
       this.editItem.SetSelected(false);
     }
-    this.data = {};
+    this.SetData({});
+    this.ReloadList();
   }
   ClearAfterSubmit() {
     if (this._CanClearEditItem()) {
       // only clear after a submit when it is a list item
       this.editItem.SetSelected(false);
-      this.data = {};
+      this.data = this.SetData({});
+      this.ReloadList();
     }
   }
 
-  Add() {
-    return this.api.Create(this.endpoint, this.data);
-  }
-  Delete() {
-    let delete_data = this.data;
-    if (this.primaryPath != undefined) {
-      let obj = {};
-      DeepSet(obj, this.primaryPath, DeepFind(this.data, this.primaryPath));
-      delete_data = obj;
-    }
-    return this.api.Delete(this.endpoint, delete_data);
-  }
-
-  Update() {
-    return this.api.Update(this.endpoint, this.data);
+  ReloadList() {
+    this.scope.$broadcast('ui-list-reload');
   }
 }
 
+class UIFormSectionDependency {
+  constructor(location, binding) {
+    this.location = location || null;
+    this.binding = binding || null;
+  }
+}
 
 app.controller('uiFormSectionCtrl', UIFormSectionCtrl);
 app.component('uiFormSection', {
@@ -219,42 +246,9 @@ app.component('uiFormSection', {
   bindings: {
     data: '=?',
     editItem: '=?',
-    dependency: '<?', // object of object mappings, find uiFormSection of the type, then move that data over to this one
-    // i.e. agent type uiFormSection needs branchid from branch uiFormSection
-    endpoint: '=?', //where to submit the form's data
     query: '<?', //what information needs to be used to get information from serverside (i.e. lists or something else)
-    isNew: '<?', //if this form is used to submit a new item
-    type: '@?', // this is used for dependencies and template selection
-    ids: '<?', // the id mapping of the state to the data's for new
-    primaryPath: '<?' //the id to delete
   },
   require: {
     megaformCtrl: '?^^uiMegaForm'
   }
-});
-
-class UIFormSectionTemplateCtrl {
-  constructor() {}
-  Status(form) {
-    let retval = 'save'
-    if (form.$submitted && !(form.$dirty)) {
-      retval = 'saved';
-    }
-    return retval;
-  }
-}
-app.directive('uiFormSectionTemplate', function () {
-  return {
-    restrict: 'E',
-    templateUrl: 'modules/forms/section/section-template.template.html',
-    transclude: {
-      'section-content': '?sectionContent'
-    },
-    bindToController: {
-      canSave: '<?',
-      title: '<?'
-    },
-    controller: UIFormSectionTemplateCtrl,
-    controllerAs: '$formtemplate'
-  };
 });

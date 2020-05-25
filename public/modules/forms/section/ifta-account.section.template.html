@@ -1,11 +1,38 @@
-<form name="form"
-      id="{{$ctrl.formid}}"
-      ng-submit="$ctrl.Submit()">
-  <ui-form-section-template data-title="'ifta account'"
-                            can-save="true">
-    <section-content>
-      <ui-form type="ifta-account"
-               data="$ctrl.data"></ui-form>
-    </section-content>
-  </ui-form-section-template>
+<form class="ui-form-section"
+      name="form">
+  <section-header id="ifta-account">
+    <!-- for scrollspy -->
+    <section-title>{{$sectionctrl.title}}</section-title>
+    <save-button>
+      <button class="btn btn-primary"
+              ng-click="$sectionctrl.SaveForm()"
+              ng-disabled="!$sectionctrl.SaveEnabled()"
+              type="submit">{{ $sectionctrl.Status() }}</button>
+    </save-button>
+  </section-header>
+  <section-content-container>
+    <form-row>
+      <ui-input label="IFTALicense"
+                data="$sectionctrl.data.IFTALicense"
+                required="1"></ui-input>
+      <ui-input label="MC account"
+                data="$sectionctrl.data.McAccount"
+                required="1"
+                template="mc"></ui-input>
+      <ui-input label="State"
+                data="$sectionctrl.data.State"
+                required="1"></ui-input>
+    </form-row>
+    <form-row>
+      <ui-date label="Effective"
+               data="$sectionctrl.data.Effective"
+               required="1"></ui-date>
+      <ui-date label="Expiration"
+               data="$sectionctrl.data.Expiration"
+               required="1"></ui-date>
+    </form-row>
+    <ui-file document-title="IFTA ACCOUNT PROOF"
+             data="$sectionctrl.data.proof_doc"
+             maxfiles="1"></ui-file>
+  </section-content-container>
 </form>

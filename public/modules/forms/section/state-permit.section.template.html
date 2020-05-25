@@ -1,21 +1,30 @@
-<form name="form"
-      id="{{$ctrl.formid}}"
-      ng-submit="$ctrl.Submit()">
-  <ui-form-section-template data-title="'state permits'"
-                            can-save="false">
-    <section-content>
-      <ui-subform-mediator>
-        <subform>
-          <ui-form type="state-permit"
-                   data="$ctrl.data"></ui-form>
-        </subform>
-        <list>
-          <ui-list query="$ctrl.query"
-                   type="state-permit"
-                   endpoint="'/api/carrier/permit/list'"
-                   on-select="$ctrl.Select(item)"></ui-list>
-        </list>
-      </ui-subform-mediator>
-    </section-content>
-  </ui-form-section-template>
+<form class="ui-form-section"
+      name="form">
+  <section-header id="branch-contacts">
+    <!-- for scrollspy -->
+    <section-title>{{$sectionctrl.title}}</section-title>
+  </section-header>
+  <section-content-container>
+    <ui-form-mediator>
+      <subform>
+        <form-row>
+          <ui-input label="AccountNo"
+                    data="$sectionctrl.data.crr_prmt_acc.AccountNo"
+                    required="1"></ui-input>
+          <ui-input label="State"
+                    data="$sectionctrl.data.crr_prmt_acc.State"
+                    required="1"></ui-input>
+        </form-row>
+        <ui-file document-title="STATE PERMIT ACCOUNT"
+                 data="$sectionctrl.data.crr_prmt_acc_doc"
+                 maxfiles="1"></ui-file>
+      </subform>
+      <list>
+        <ui-list api-call="'GetCarrierStatePermit'"
+                 api-params="{user_query: {strict: {carrierId : $sectionctrl.businessId}}}"
+                 type="state-permit"
+                 on-select="$sectionctrl.Select(item)"></ui-list>
+      </list>
+    </ui-form-mediator>
+  </section-content-container>
 </form>

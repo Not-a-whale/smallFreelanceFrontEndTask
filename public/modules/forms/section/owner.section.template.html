@@ -1,13 +1,44 @@
-<form name="form"
-      id="{{$ctrl.formid}}"
-      ng-submit="$ctrl.Submit()">
+<form class="ui-form-section"
+      name="form">
+  <section-header id="branch-info">
+    <!-- for scrollspy -->
+    <section-title>{{$sectionctrl.title}}</section-title>
+    <save-button>
+      <button class="btn btn-primary"
+              ng-click="$sectionctrl.SaveForm()"
+              ng-disabled="!$sectionctrl.SaveEnabled()"
+              type="submit">{{ $sectionctrl.Status() }}</button>
+    </save-button>
+  </section-header>
+  <section-content-container>
 
-  <ui-form-section-template data-title="'Branch Owner'"
-                            can-save="true">
-    <section-content>
-      <ui-form type="owner"
-               data="$ctrl.data"></ui-form>
-
-    </section-content>
-  </ui-form-section-template>
+    <form-row>
+      <ui-form-partial-person data="$sectionctrl.data.ast"></ui-form-partial-person>
+    </form-row>
+    <form-row>
+      <ui-input label="Current Title"
+                data="$sectionctrl.data.CurrentTitle"></ui-input>
+      <ui-select table="HrAssociate"
+                 column="AuthorityLevel"
+                 label="Authority Level"
+                 data="$sectionctrl.data.AuthorityLevel"></ui-select>
+    </form-row>
+    <form-row>
+      <ui-form-partial-phone class="fc3"
+                             type="work"
+                             ext="1"
+                             data="$sectionctrl.data.biz_phone"></ui-form-partial-phone>
+      <ui-form-partial-fax class="fc3"
+                           type="work"
+                           ext="1"
+                           data="$sectionctrl.data.biz_fax"></ui-form-partial-fax>
+    </form-row>
+    <ui-input label="Work Email"
+              data="$sectionctrl.data.BizEmail"></ui-input>
+    <ui-checkbox style="display: none"
+                 data="$sectionctrl.data.PrimaryContact"
+                 true-val="1"
+                 false-val="0"
+                 default="1"></ui-checkbox>
+  </section-content-container>
 </form>

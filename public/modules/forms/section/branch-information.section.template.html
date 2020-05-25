@@ -1,0 +1,39 @@
+<form class="ui-form-section"
+      name="form">
+  <section-header id="branch-info">
+    <!-- for scrollspy -->
+    <section-title>{{$sectionctrl.title}}</section-title>
+    <save-button>
+      <button class="btn btn-primary"
+              ng-click="$sectionctrl.SaveForm()"
+              ng-disabled="!$sectionctrl.SaveEnabled()"
+              type="submit">{{ $sectionctrl.Status() }}</button>
+    </save-button>
+  </section-header>
+  <section-content-container>
+    <form-row>
+      <ui-input class="fc2"
+                data="$sectionctrl.data.OfficeName"
+                label="branch name"
+                required="1"></ui-input>
+      <ui-input-wrapper class="fc1">
+      </ui-input-wrapper>
+    </form-row>
+    <ui-form-partial-address data="$sectionctrl.data.brnch_address"></ui-form-partial-address>
+    <ui-form-partial-phone data="$sectionctrl.data.brnch_phone"
+                           type="branch"
+                           ext="1"
+                           required="1"></ui-form-partial-phone>
+    <ui-form-partial-fax data="$sectionctrl.data.brnch_fax"
+                         type="branch"
+                         ext="1"></ui-form-partial-fax>
+    <form-row>
+      <ui-input label="branch email"
+                class="fc3"
+                data="$sectionctrl.data.BrnchEMail"></ui-input>
+      <ui-input label="business website/URL"
+                class="fc3"
+                data="$sectionctrl.data.biz.BizURL"></ui-input>
+    </form-row>
+  </section-content-container>
+</form>

@@ -1,0 +1,45 @@
+<form class="ui-form-section"
+      name="form">
+  <section-header id="{{$sectionctrl.id}}">
+    <!-- for scrollspy -->
+    <section-title>{{$sectionctrl.title}}</section-title>
+    <save-button>
+      <button class="btn btn-primary"
+              ng-click="$sectionctrl.SaveForm()"
+              ng-disabled="!$sectionctrl.SaveEnabled()"
+              type="submit">{{ $sectionctrl.Status() }}</button>
+    </save-button>
+  </section-header>
+  <section-content-container>
+    <form-row>
+      <ui-datalist-concrete type="business"
+                            class="fc2"
+                            data="$sectionctrl.data.a"
+                            label="customer"
+                            required="1"
+                            new-button="1"
+                            form="1">
+      </ui-datalist-concrete>
+      <ui-input class="fc2"
+                data="$sectionctrl.data.b"
+                label="contact / agent"
+                required="1"></ui-input>
+      <ui-input class="fc2"
+                data="$sectionctrl.data.c"
+                label="customer's reference #"
+                required="1"></ui-input>
+
+    </form-row>
+    <form-row>
+      <ui-input class="fc2"
+                data="$sectionctrl.data.d"
+                label="booked with"
+                required="1"></ui-input>
+      <ui-file class="fc2"
+               data="$sectionctrl.data.e"
+               label="customer rate confirmation"
+               required="1"></ui-file>
+
+    </form-row>
+  </section-content-container>
+</form>

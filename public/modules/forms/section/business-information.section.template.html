@@ -1,0 +1,29 @@
+<form class="ui-form-section"
+      name="form">
+  <section-header id="business-info">
+    <!-- for scrollspy -->
+    <section-title>{{$sectionctrl.title}}</section-title>
+    <save-button>
+      <button class="btn btn-primary"
+              ng-click="$sectionctrl.SaveForm()"
+              ng-disabled="!$sectionctrl.SaveEnabled()"
+              type="submit">{{ $sectionctrl.Status() }}</button>
+    </save-button>
+  </section-header>
+  <section-content-container>
+    <form-row>
+      <ui-input label="business name"
+                data="$sectionctrl.data.BizName"
+                required="1"></ui-input>
+      <ui-input-wrapper>
+        <ui-checkbox label="IsActive"
+                     data="$sectionctrl.data.entity.IsActive"></ui-checkbox>
+      </ui-input-wrapper>
+
+    </form-row>
+    <form-row>
+      <ui-input label="business website"
+                data="$sectionctrl.data.BizURL"></ui-input>
+    </form-row>
+  </section-content-container>
+</form>

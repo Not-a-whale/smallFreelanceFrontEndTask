@@ -1,9 +1,16 @@
-ui-form-section {
-  display: flex;
+form {
+  &.ui-form-section {
+    .ui-form-section-template();
+  }
 }
 
 
+ui-form-section,
 ui-form-section-template {
+  .ui-form-section-template();
+}
+
+.ui-form-section-template() {
   @flex-col();
   flex-grow: 1;
   background-color: @cp-highlight;
@@ -29,6 +36,7 @@ ui-form-section-template {
     font-family: @font-family-primary;
     font-weight: @font-weight-bold;
     font-size: @font-large;
+    text-transform: capitalize;
   }
 
   section-header {

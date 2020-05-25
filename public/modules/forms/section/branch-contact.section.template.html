@@ -1,0 +1,66 @@
+<form class="ui-form-section"
+      name="form">
+  <section-header id="branch-contacts">
+    <!-- for scrollspy -->
+    <section-title>{{$sectionctrl.title}}</section-title>
+  </section-header>
+  <section-content-container>
+    <ui-form-mediator>
+      <subform>
+        <form-row>
+          <ui-select table="EntPerson"
+                     column="Prefix"
+                     label="Prefix"
+                     data="$sectionctrl.data.ast.Prefix"></ui-select>
+          <ui-input label="FirstName"
+                    data="$sectionctrl.data.ast.FirstName"
+                    required="1"></ui-input>
+          <ui-input label="MiddleName"
+                    data="$sectionctrl.data.ast.MiddleName"></ui-input>
+          <ui-input label="LastName"
+                    data="$sectionctrl.data.ast.LastName"
+                    required="1"></ui-input>
+          <ui-select table="EntPerson"
+                     column="Suffix"
+                     label="Suffix"
+                     data="$sectionctrl.data.ast.Suffix"></ui-select>
+        </form-row>
+        <form-row>
+          <ui-input class="fc2"
+                    label="NickName"
+                    data="$sectionctrl.data.ast.NickName"></ui-input>
+          <ui-input class="fc2"
+                    label="CurrentTitle"
+                    data="$sectionctrl.data.CurrentTitle"></ui-input>
+          <ui-select class="fc2"
+                     table="HrAssociate"
+                     column="AuthorityLevel"
+                     label="AuthorityLevel"
+                     data="$sectionctrl.data.AuthorityLevel"></ui-select>
+          <ui-input class="fc2"
+                    label="BizEmail"
+                    data="$sectionctrl.data.BizEmail"></ui-input>
+        </form-row>
+
+        <form-row>
+          <ui-form-partial-phone class="fc3"
+                                 data="$sectionctrl.data.biz_phone"
+                                 type="work"
+                                 ext="1">
+          </ui-form-partial-phone>
+          <ui-form-partial-fax class="fc3"
+                               data="$sectionctrl.data.biz_fax"
+                               type="work"
+                               ext="1">
+          </ui-form-partial-fax>
+        </form-row>
+      </subform>
+      <list>
+        <ui-list api-call="'GetBranchContactList'"
+                 api-params="{branchId : $sectionctrl.branchId}"
+                 type="agent"
+                 on-select="$sectionctrl.Select(item)"></ui-list>
+      </list>
+    </ui-form-mediator>
+  </section-content-container>
+</form>
