@@ -1,15 +1,17 @@
 my $foreign_objs = [
     {   resultsource => 'TMS::Schema::Result::CntAddress',
-        primary_key  => 'AddrId'
+        primary_key  => 'AddrId',
+        relation_name => 'msg_note_address'
     },
     {   resultsource => 'TMS::Schema::Result::EntCarrier',
-        primary_key  => 'CarrierId'
+        primary_key  => 'CarrierId',
+        relation_name => 'msg_note_carrier'
     }
 ];
 
 foreach my $fobj (@$foreign_objs) {
     __PACKAGE__->belongs_to(
-        "address",
+        $$fobj{relation_name},
         $$fobj{resultsource},
         sub {
             my $args = shift;
