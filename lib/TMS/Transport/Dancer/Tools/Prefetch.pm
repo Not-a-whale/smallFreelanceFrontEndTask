@@ -3,7 +3,7 @@ use File::Temp qw/ tempfile /;
 
 get '/prefetch' => sub { send_as 'html' => send_file '/prefetch/prefetch.html' };
 
-my $JSON = JSON->new->utf8->allow_nonref->indent->space_after->space_before;
+my $JSON = JSON->new->utf8->pretty;
 {
     my %DBIxInfo = ();
     tie %DBIxInfo, 'Tie::IxHash';
@@ -72,7 +72,7 @@ my $JSON = JSON->new->utf8->allow_nonref->indent->space_after->space_before;
         };
         my $JsonData = $JSON->encode($Record);
         print $TempFile "$JsonData";
-        system($Utility, $FileName);
+        system('nohup',$Utility, $FileName);
         return {FileName => $FileName};
     };
 }
