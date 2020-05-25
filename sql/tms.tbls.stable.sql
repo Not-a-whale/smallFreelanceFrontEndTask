@@ -396,7 +396,7 @@ CREATE TABLE `app_sessions` (
   UNIQUE KEY `session_name_UNIQUE` (`session_name`),
   KEY `idx_app_sessions_created_on` (`created_on`),
   KEY `idx_app_sessions_last_active` (`last_active`)
-) ENGINE=InnoDB AUTO_INCREMENT=535 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=735 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -411,7 +411,7 @@ CREATE TABLE `biz_branches` (
   `OfficeName` varchar(255) NOT NULL DEFAULT '',
   `BizId` bigint(20) unsigned NOT NULL,
   `BrnchAddress` bigint(20) unsigned NOT NULL,
-  `BrnchPhone` bigint(20) unsigned NOT NULL,
+  `BrnchPhone` bigint(20) unsigned DEFAULT NULL,
   `BrnchFax` bigint(20) unsigned DEFAULT NULL,
   `BrnchEMail` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`BrnchId`),
@@ -426,7 +426,7 @@ CREATE TABLE `biz_branches` (
   CONSTRAINT `BrnchBizNameRef` FOREIGN KEY (`BizId`) REFERENCES `ent_businesses` (`BizId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchFaxRef` FOREIGN KEY (`BrnchFax`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE,
   CONSTRAINT `BrnchPhoneRef` FOREIGN KEY (`BrnchPhone`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=165 DEFAULT CHARSET=utf8 COMMENT='Office Branch Details';
+) ENGINE=InnoDB AUTO_INCREMENT=187 DEFAULT CHARSET=utf8 COMMENT='Office Branch Details';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -441,12 +441,19 @@ CREATE TABLE `biz_company_nodes` (
   `ParentId` bigint(20) unsigned DEFAULT NULL,
   `UnitName` varchar(255) NOT NULL,
   `UnitType` enum('Department','Office','Team','Group','Other') NOT NULL DEFAULT 'Other',
+  `UnitPhone` bigint(20) unsigned DEFAULT NULL,
+  `OpenStartTime` time DEFAULT NULL,
+  `OpenEndTime` time DEFAULT NULL,
+  `TimeZone` int(11) DEFAULT NULL,
+  `UnitEmail` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`NodeId`),
   UNIQUE KEY `UniqBizUnitName` (`UnitName`,`UnitType`),
   KEY `BizParentRef_idx` (`ParentId`),
   KEY `BizName_inx` (`UnitName`),
   KEY `idx_biz_company_nodes_Type` (`UnitType`),
-  CONSTRAINT `BizCompanyParentNodeRef` FOREIGN KEY (`ParentId`) REFERENCES `biz_company_nodes` (`NodeId`) ON UPDATE CASCADE
+  KEY `DepPhoneNum_idx` (`UnitPhone`),
+  CONSTRAINT `BizCompanyParentNodeRef` FOREIGN KEY (`ParentId`) REFERENCES `biz_company_nodes` (`NodeId`) ON UPDATE CASCADE,
+  CONSTRAINT `DepPhoneNum` FOREIGN KEY (`UnitPhone`) REFERENCES `cnt_phonesfaxes` (`PhnFaxId`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='Holds the nodes for the structure of the client/user company hierarchy ';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -556,6 +563,44 @@ CREATE TABLE `biz_company_trees` (
   CONSTRAINT `CompanyTreeAncestorNodeRef` FOREIGN KEY (`AncestorId`) REFERENCES `biz_company_nodes` (`NodeId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `CompanyTreeDescendantNodeRef` FOREIGN KEY (`DescendantId`) REFERENCES `biz_company_nodes` (`NodeId`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='Holds the tree for the structure of the heirarchy of the client/user company';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `brk_loadstatus`
+--
+
+DROP TABLE IF EXISTS `brk_loadstatus`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `brk_loadstatus` (
+  `StatId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `LoadId` bigint(20) unsigned NOT NULL,
+  `StatListId` bigint(20) unsigned NOT NULL,
+  `UpdatedBy` bigint(20) unsigned NOT NULL,
+  `UpdatedOn` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Notes` text,
+  PRIMARY KEY (`StatId`),
+  KEY `brk_load_id_ref_idx` (`LoadId`),
+  KEY `brk_statlist_ref_idx` (`StatListId`),
+  KEY `brk_statasst_ref_idx` (`UpdatedBy`),
+  CONSTRAINT `brk_load_id_ref` FOREIGN KEY (`LoadId`) REFERENCES `dsp_loads` (`LoadId`) ON UPDATE CASCADE,
+  CONSTRAINT `brk_statasst_ref` FOREIGN KEY (`UpdatedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
+  CONSTRAINT `brk_statlist_ref` FOREIGN KEY (`StatListId`) REFERENCES `brk_statuslist` (`StatListId`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `brk_statuslist`
+--
+
+DROP TABLE IF EXISTS `brk_statuslist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `brk_statuslist` (
+  `StatListId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `StatusName` varchar(255) DEFAULT NULL COMMENT 'Unposted, Posted, Holding, Booked, Dispatching, IRC Sent, Activating Driver, Assigning Driver, Pre-Transit, In-Transit, Trip Finished, FRC Sent, Closed',
+  PRIMARY KEY (`StatListId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -682,7 +727,7 @@ CREATE TABLE `cnt_addresses` (
   `GpsLng` double DEFAULT NULL,
   `GpsLat` double DEFAULT NULL,
   `Notes` text,
-  `AddrType` set('physical','mail') DEFAULT NULL,
+  `AddrType` set('physical','mail') DEFAULT 'physical,mail',
   PRIMARY KEY (`AddrId`),
   UNIQUE KEY `UnqAddr` (`Country`,`State`,`Zip`,`City`,`Street1`,`Street2`,`Street3`),
   KEY `idx_cnt_addresses_Street2` (`Street2`),
@@ -695,7 +740,7 @@ CREATE TABLE `cnt_addresses` (
   KEY `idx_cnt_addresses_Country` (`Country`),
   KEY `idx_cnt_addresses_Street1` (`Street1`),
   KEY `idx_cnt_addresses_AddrType` (`AddrType`)
-) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=203 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -724,7 +769,7 @@ CREATE TABLE `cnt_phonesfaxes` (
   KEY `idx_cnt_phonesfaxes_WorkHrsOpen` (`WorkHrsOpen`),
   KEY `idx_cnt_phonesfaxes_WorkHrsClosed` (`WorkHrsClosed`),
   KEY `idx_cnt_phonesfaxes_TimeZone` (`TimeZone`)
-) ENGINE=InnoDB AUTO_INCREMENT=236 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=263 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -788,7 +833,7 @@ CREATE TABLE `crr_iftas` (
   KEY `idx_crr_iftas_McAccount` (`McAccount`),
   CONSTRAINT `IftaPayerBizRef` FOREIGN KEY (`BizId`) REFERENCES `ent_businesses` (`BizId`) ON UPDATE CASCADE,
   CONSTRAINT `IftaProofRef` FOREIGN KEY (`ProofDoc`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -807,7 +852,7 @@ CREATE TABLE `crr_permit_account_docs` (
   KEY `PrmtRegAccDocRef_idx` (`CrrPrmtAccDoc`),
   CONSTRAINT `PrmtRegAccDocRef` FOREIGN KEY (`CrrPrmtAccDoc`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE,
   CONSTRAINT `PrmtRegAccRef` FOREIGN KEY (`CrrPrmtAccId`) REFERENCES `crr_permit_accounts` (`CrrPrmtAccId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='State Registration Documents	';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='State Registration Documents	';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -827,7 +872,7 @@ CREATE TABLE `crr_permit_accounts` (
   KEY `idx_crr_permit_accounts_AccountNo` (`AccountNo`),
   KEY `idx_crr_permit_accounts_State` (`State`),
   CONSTRAINT `PermCarrRef` FOREIGN KEY (`CarrierId`) REFERENCES `ent_carriers` (`CarrierId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -876,6 +921,74 @@ CREATE TABLE `crr_state_permits` (
   CONSTRAINT `PermAccRef` FOREIGN KEY (`CrrPrmtAccId`) REFERENCES `crr_permit_accounts` (`CrrPrmtAccId`) ON UPDATE CASCADE,
   CONSTRAINT `PermVhclRef` FOREIGN KEY (`VehicleId`) REFERENCES `inv_vehicles` (`VehicleId`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `crr_statistics`
+--
+
+DROP TABLE IF EXISTS `crr_statistics`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `crr_statistics` (
+  `StatsId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `CarrierId` bigint(20) unsigned NOT NULL,
+  `DateUpdated` datetime DEFAULT CURRENT_TIMESTAMP,
+  `CargoCarried` enum('General Freight','Household Goods','Metal: sheets, coils, rolls','Motor Vehicles','Drive/Tow away','Logs, Poles, Beams, Lumber','Building Materials','Mobile Homes','Machinery, Large Objects','Fresh Produce','Liquids/Gases','Intermodal Cont.','Passengers','Oilfield Equipment','Livestock','Grain, Feed, Hay','Coal/Coke','Meat','Garbage/Refuse','US Mail','Chemicals','Commodities Dry Bulk','Refrigerated Food','Beverages','Paper Products','Utilities','Agricultural/Farm Supplies','Construction','Water Well') DEFAULT NULL,
+  `CarrierOperation` enum('Interstate','Intrastate Only (HM)','Intrastate Only (Non-HM)') DEFAULT NULL,
+  `OperationClassification` enum('Auth. For Hire','Exempt For Hire','Private(Property)','Priv. Pass. (Business)','Priv. Pass.(Non-business)','Migrant','U.S. Mail','Fed. Gov','State Gov','Local Gov','Indian Nation') DEFAULT NULL,
+  `HmFlag` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT 'Carrier is subject to placardable hazardous material threshold',
+  `PcFlag` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT 'Carrier is subject to passenger carrier threshold',
+  `MCS150FormDate` date DEFAULT NULL COMMENT 'Latest date MCS-150 was filed',
+  `MCS150FormMileage` int(10) unsigned DEFAULT NULL COMMENT 'Vehicle Mileage Traveled reported on the carrier MCS-150 form',
+  `MCS150FormMileageYear` int(4) DEFAULT NULL COMMENT 'Year for which Vehicle Mileage Traveled was reported',
+  `InerstateDriversLess100M` int(10) unsigned DEFAULT NULL,
+  `InerstateDriversOver100M` int(10) unsigned DEFAULT NULL,
+  `IntrastateDriversLess100M` int(10) unsigned DEFAULT NULL,
+  `IntrastateDriversOver100M` int(10) unsigned DEFAULT NULL,
+  `EmployedDriversCDL` int(10) unsigned DEFAULT NULL COMMENT 'CDL holders',
+  `TractorsOwned` int(10) unsigned DEFAULT NULL,
+  `TractorsTermLeased` int(10) unsigned DEFAULT NULL,
+  `TractorsTripLeased` int(10) unsigned DEFAULT NULL,
+  `TrucksOwned` int(10) unsigned DEFAULT NULL,
+  `TrucksTermLeased` int(10) unsigned DEFAULT NULL,
+  `TrucksTripLeased` int(10) unsigned DEFAULT NULL,
+  `TrailersOwned` int(10) unsigned DEFAULT NULL,
+  `TrailersTermLeased` int(10) unsigned DEFAULT NULL,
+  `TrailersTripLeased` int(10) unsigned DEFAULT NULL,
+  `UnitsOperated` int(10) DEFAULT NULL,
+  PRIMARY KEY (`StatsId`),
+  UNIQUE KEY `StatsUpdated` (`CarrierId`,`DateUpdated`),
+  KEY `idx_ent_carriers_CargoCarried` (`CargoCarried`),
+  KEY `idx_ent_carriers_OperationClassification` (`OperationClassification`),
+  KEY `idx_ent_carriers_CarrierOperation` (`CarrierOperation`),
+  KEY `idx_ent_carriers_MCS150FormLastRenewed` (`MCS150FormDate`),
+  KEY `idx_ent_carriers_MCS150FormMileage` (`MCS150FormMileage`),
+  KEY `idx_ent_carriers_MCS150FormMileageDate` (`MCS150FormMileageYear`),
+  KEY `idx_ent_carriers_InerstateDriversLess100M` (`InerstateDriversLess100M`),
+  KEY `idx_ent_carriers_InerstateDriversOver100M` (`InerstateDriversOver100M`),
+  KEY `idx_ent_carriers_IntrastateDriversLess100M` (`IntrastateDriversLess100M`),
+  KEY `idx_ent_carriers_IntrastateDriversOver100M` (`IntrastateDriversOver100M`),
+  KEY `idx_ent_carriers_EmployedDriversCDL` (`EmployedDriversCDL`),
+  KEY `idx_ent_carriers_TractorsOwned` (`TractorsOwned`),
+  KEY `idx_ent_carriers_TrailersTripLeased` (`TrailersTripLeased`),
+  KEY `idx_ent_carriers_TrailersTermLeased` (`TrailersTermLeased`),
+  KEY `idx_ent_carriers_TrailersOwned` (`TrailersOwned`),
+  KEY `idx_ent_carriers_TrucksTripLeased` (`TrucksTripLeased`),
+  KEY `idx_ent_carriers_TrucksTermLeased` (`TrucksTermLeased`),
+  KEY `idx_ent_carriers_TrucksOwned` (`TrucksOwned`),
+  KEY `idx_ent_carriers_TractorsTripLeased` (`TractorsTripLeased`),
+  KEY `idx_ent_carriers_TractorsTermLeased` (`TractorsTermLeased`),
+  KEY `idx_ent_carriers_HmFlag` (`HmFlag`),
+  KEY `idx_ent_carriers_PcFlag` (`PcFlag`),
+  KEY `StatsCarrierRef_idx` (`CarrierId`),
+  KEY `idx_crr_stats_HmFlag` (`HmFlag`),
+  KEY `idx_crr_stats_PcFlag` (`PcFlag`),
+  KEY `idx_crr_stats_DateUpdated` (`DateUpdated`),
+  KEY `idx_crr_stats_CargoCarried` (`CargoCarried`),
+  KEY `idx_crr_statistics_UnitsOperated` (`UnitsOperated`),
+  CONSTRAINT `StatsCarrierRef` FOREIGN KEY (`CarrierId`) REFERENCES `ent_carriers` (`CarrierId`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Carrier Statistics';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1024,51 +1137,62 @@ DROP TABLE IF EXISTS `dsp_loads`;
 CREATE TABLE `dsp_loads` (
   `LoadId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `CreatedBy` bigint(20) unsigned NOT NULL,
-  `BrokerId` bigint(20) unsigned NOT NULL,
-  `ShipperId` bigint(20) unsigned DEFAULT NULL,
+  `CustomerId` bigint(20) unsigned NOT NULL,
+  `CustomerAgentId` bigint(20) unsigned zerofill DEFAULT NULL,
+  `VendorId` bigint(20) unsigned DEFAULT NULL,
+  `VendorAgentId` bigint(20) unsigned zerofill DEFAULT NULL,
   `BookedBy` bigint(20) unsigned DEFAULT NULL,
   `DateCreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `DateBooked` datetime DEFAULT NULL,
   `LoadNumber` varchar(64) DEFAULT NULL,
-  `ProNumber` varchar(16) DEFAULT NULL,
-  `LoadType` enum('FTL','LTL','Partial') DEFAULT NULL,
-  `TruckType` varchar(24) DEFAULT NULL COMMENT 'This is technically the trailer type for the load but will be called TruckType due to nomenclature used in office',
+  `CustomerRefNumber` varchar(64) DEFAULT NULL,
+  `LoadType` enum('full','partial') DEFAULT NULL,
+  `Comodotiy` varchar(64) NOT NULL,
+  `Weight` float DEFAULT NULL,
+  `WeightUnit` enum('lbs','kg') NOT NULL DEFAULT 'lbs',
+  `Pieces` int(11) DEFAULT NULL,
+  `Pallets` int(11) DEFAULT NULL,
+  `Distance` decimal(12,2) DEFAULT NULL,
+  `DistanceUnit` enum('mi','km') NOT NULL DEFAULT 'mi',
+  `ProductTemp` decimal(5,2) DEFAULT NULL,
   `ReeferTempLow` decimal(5,2) DEFAULT NULL,
   `ReeferTempHigh` decimal(5,2) DEFAULT NULL,
   `Precooling` decimal(5,2) DEFAULT NULL,
-  `TempMode` enum('continuous','start/stop') DEFAULT NULL,
+  `TemperatureMode` enum('continuous','cycle-sentry','na') DEFAULT NULL,
+  `TemperatureUnit` enum('F','C','K') NOT NULL DEFAULT 'F',
   `TeamRequired` enum('yes','no') DEFAULT NULL,
-  `DispatchNote` text,
+  `LoadTerms` text,
   `Job` bigint(20) unsigned DEFAULT NULL,
   `GoogleRoute` text,
   `Status` varchar(45) DEFAULT NULL COMMENT 'Internal status for load, cancelled, tonu, etc.',
   `LoadRate` decimal(12,2) NOT NULL,
   PRIMARY KEY (`LoadId`),
-  KEY `LoadsTrailerTypeRef_idx` (`TruckType`),
-  KEY `LoadsBrokerRef_idx` (`BrokerId`),
-  KEY `LoadsShipperRef_idx` (`ShipperId`),
   KEY `LoadsCreatedByRef_idx` (`CreatedBy`),
   KEY `LoadsBookedByRef_idx` (`BookedBy`),
   KEY `LoadsJobRef_idx` (`Job`),
   KEY `idx_dsp_loads_DateCreated` (`DateCreated`),
   KEY `idx_dsp_loads_DateBooked` (`DateBooked`),
   KEY `idx_dsp_loads_LoadNumber` (`LoadNumber`),
-  KEY `idx_dsp_loads_ProNumber` (`ProNumber`),
+  KEY `idx_dsp_loads_ProNumber` (`CustomerRefNumber`),
   KEY `idx_dsp_loads_LoadType` (`LoadType`),
-  KEY `idx_dsp_loads_TruckType` (`TruckType`),
   KEY `idx_dsp_loads_ReeferTempLow` (`ReeferTempLow`),
   KEY `idx_dsp_loads_ReeferTempHigh` (`ReeferTempHigh`),
   KEY `idx_dsp_loads_Precooling` (`Precooling`),
-  KEY `idx_dsp_loads_TempMode` (`TempMode`),
+  KEY `idx_dsp_loads_TempMode` (`TemperatureMode`),
   KEY `idx_dsp_loads_TeamRequired` (`TeamRequired`),
   KEY `idx_dsp_loads_Status` (`Status`),
   KEY `idx_dsp_loads_LoadRate` (`LoadRate`),
+  KEY `LoadsVendorRef` (`VendorId`),
+  KEY `LoadsCustomerRef` (`CustomerId`),
+  KEY `LoadsCustomerAgentRef_idx` (`CustomerAgentId`),
+  KEY `LoadsVendorAgentRef_idx` (`VendorAgentId`),
   CONSTRAINT `LoadsBookedByRef` FOREIGN KEY (`BookedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
-  CONSTRAINT `LoadsBrokerRef` FOREIGN KEY (`BrokerId`) REFERENCES `ent_customers` (`CstmrId`) ON UPDATE CASCADE,
   CONSTRAINT `LoadsCreatedByRef` FOREIGN KEY (`CreatedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
+  CONSTRAINT `LoadsCustomerAgentRef` FOREIGN KEY (`CustomerAgentId`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
+  CONSTRAINT `LoadsCustomerRef` FOREIGN KEY (`CustomerId`) REFERENCES `ent_businesses` (`BizId`) ON UPDATE CASCADE,
   CONSTRAINT `LoadsJobRef` FOREIGN KEY (`Job`) REFERENCES `fin_jobs` (`JobId`) ON UPDATE CASCADE,
-  CONSTRAINT `LoadsShipperRef` FOREIGN KEY (`ShipperId`) REFERENCES `ent_shippers` (`ShipperId`) ON UPDATE CASCADE,
-  CONSTRAINT `LoadsTrailerTypeRef` FOREIGN KEY (`TruckType`) REFERENCES `inv_trailer_types` (`Name`) ON UPDATE CASCADE
+  CONSTRAINT `LoadsVendorAgentRef` FOREIGN KEY (`VendorAgentId`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
+  CONSTRAINT `LoadsVendorRef` FOREIGN KEY (`VendorId`) REFERENCES `ent_businesses` (`BizId`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='tables of all loads in our system';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1083,20 +1207,21 @@ CREATE TABLE `dsp_loads_destinations` (
   `DestinationId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `LoadId` bigint(20) unsigned NOT NULL,
   `PU_PO` varchar(255) NOT NULL COMMENT 'PU#/PO# ????',
-  `Commodity` varchar(255) NOT NULL,
+  `Commodity` varchar(64) NOT NULL,
   `Pallets` int(11) DEFAULT NULL,
   `Pieces` int(11) DEFAULT NULL,
   `Weight` float DEFAULT NULL,
   `AppointmentStart` datetime NOT NULL,
   `AppointmentEnd` datetime DEFAULT NULL,
-  `AppointmentType` enum('Appointment','Time Open') NOT NULL,
+  `AppointmentType` enum('appointment','first come first serve') NOT NULL,
   `StopOrder` int(11) NOT NULL DEFAULT '0',
-  `StopType` enum('PickUp','DropOff') NOT NULL,
-  `Branch` bigint(20) unsigned NOT NULL,
+  `StopType` enum('pick up','drop off') NOT NULL,
+  `Location` bigint(20) unsigned NOT NULL,
+  `LocationContact` bigint(20) unsigned DEFAULT NULL,
   `AppointmentNotes` text,
   PRIMARY KEY (`DestinationId`),
   KEY `LoadsDestinationsLoadRef_idx` (`LoadId`),
-  KEY `LoadsDestinationsBranchRef_idx` (`Branch`),
+  KEY `LoadsDestinationsBranchRef_idx` (`Location`),
   KEY `idx_dsp_loads_destinations_AppointmentStart` (`AppointmentStart`),
   KEY `idx_dsp_loads_destinations_AppointmentEnd` (`AppointmentEnd`),
   KEY `idx_dsp_loads_destinations_AppointmentType` (`AppointmentType`),
@@ -1107,7 +1232,7 @@ CREATE TABLE `dsp_loads_destinations` (
   KEY `idx_dsp_loads_destinations_Weight` (`Weight`),
   KEY `idx_dsp_loads_destinations_StopOrder` (`StopOrder`),
   KEY `idx_dsp_loads_destinations_StopType` (`StopType`),
-  CONSTRAINT `LoadsDestinationsBranchRef` FOREIGN KEY (`Branch`) REFERENCES `biz_branches` (`BrnchId`) ON UPDATE CASCADE,
+  CONSTRAINT `LoadsDestinationsBranchRef` FOREIGN KEY (`Location`) REFERENCES `biz_branches` (`BrnchId`) ON UPDATE CASCADE,
   CONSTRAINT `LoadsDestinationsLoadRef` FOREIGN KEY (`LoadId`) REFERENCES `dsp_loads` (`LoadId`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1341,12 +1466,15 @@ CREATE TABLE `ent_businesses` (
   `BizName` varchar(1024) NOT NULL,
   `DBA` varchar(1024) DEFAULT NULL,
   `BizURL` varchar(1024) DEFAULT NULL,
+  `Logo` bigint(20) unsigned DEFAULT NULL,
   PRIMARY KEY (`BizId`),
   UNIQUE KEY `BizName_UNIQUE` (`BizName`),
   KEY `idx_ent_businesses_BizName` (`BizName`) USING BTREE,
   KEY `idx_ent_businesses_BizURL` (`BizURL`),
-  KEY `idx_ent_businesses_DBA` (`DBA`)
-) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8;
+  KEY `idx_ent_businesses_DBA` (`DBA`),
+  KEY `LogoFileRef_idx` (`Logo`),
+  CONSTRAINT `LogoFileRef` FOREIGN KEY (`Logo`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1361,33 +1489,15 @@ CREATE TABLE `ent_carriers` (
   `MC` varchar(10) DEFAULT NULL COMMENT 'MC/MX/FF Number(s)',
   `McCertificatePhoto` bigint(20) unsigned DEFAULT NULL,
   `DOT` varchar(15) DEFAULT NULL,
-  `CrType` enum('Company Carrier','Brokerage Only') DEFAULT NULL,
+  `CrType` set('Company Carrier','Brokerage Only') DEFAULT NULL,
   `SCAC` varchar(4) DEFAULT NULL,
   `RateConfEmailAddress` varchar(255) DEFAULT NULL,
-  `CargoCarried` enum('General Freight','Household Goods','Metal: sheets, coils, rolls','Motor Vehicles','Drive/Tow away','Logs, Poles, Beams, Lumber','Building Materials','Mobile Homes','Machinery, Large Objects','Fresh Produce','Liquids/Gases','Intermodal Cont.','Passengers','Oilfield Equipment','Livestock','Grain, Feed, Hay','Coal/Coke','Meat','Garbage/Refuse','US Mail','Chemicals','Commodities Dry Bulk','Refrigerated Food','Beverages','Paper Products','Utilities','Agricultural/Farm Supplies','Construction','Water Well') DEFAULT NULL,
-  `CarrierOperation` enum('Interstate','Intrastate Only (HM)','Intrastate Only (Non-HM)') DEFAULT NULL,
-  `OperationClassification` enum('Auth. For Hire','Exempt For Hire','Private(Property)','Priv. Pass. (Business)','Priv. Pass.(Non-business)','Migrant','U.S. Mail','Fed. Gov','State Gov','Local Gov','Indian Nation') DEFAULT NULL,
-  `MCS150FormDate` date DEFAULT NULL COMMENT 'Latest date MCS-150 was filed',
-  `MCS150FormMileage` int(10) unsigned DEFAULT NULL COMMENT 'Vehicle Mileage Traveled reported on the carrier MCS-150 form',
-  `MCS150FormMileageYear` int(4) DEFAULT NULL COMMENT 'Year for which Vehicle Mileage Traveled was reported',
-  `InerstateDriversLess100M` int(10) unsigned DEFAULT NULL,
-  `InerstateDriversOver100M` int(10) unsigned DEFAULT NULL,
-  `IntrastateDriversLess100M` int(10) unsigned DEFAULT NULL,
-  `IntrastateDriversOver100M` int(10) unsigned DEFAULT NULL,
-  `EmployedDriversCDL` int(10) unsigned DEFAULT NULL,
-  `TractorsOwned` int(10) unsigned DEFAULT NULL,
-  `TractorsTermLeased` int(10) unsigned DEFAULT NULL,
-  `TractorsTripLeased` int(10) unsigned DEFAULT NULL,
-  `TrucksOwned` int(10) unsigned DEFAULT NULL,
-  `TrucksTermLeased` int(10) unsigned DEFAULT NULL,
-  `TrucksTripLeased` int(10) unsigned DEFAULT NULL,
-  `TrailersOwned` int(10) unsigned DEFAULT NULL,
-  `TrailersTermLeased` int(10) unsigned DEFAULT NULL,
-  `TrailersTripLeased` int(10) unsigned DEFAULT NULL,
   `AddedToFMCSA` date DEFAULT NULL COMMENT 'Date when carrier information was added to MCMIS Database System',
   `OIC_STATE` char(2) DEFAULT NULL COMMENT 'FMCSA State office with oversight for this carrier',
-  `HmFlag` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT 'Carrier is subject to placardable HM threshold',
-  `PcFlag` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT 'Carrier is subject to passenger carrier Threshold',
+  `AgreementFile` bigint(20) unsigned DEFAULT NULL,
+  `AgreedBy` bigint(20) unsigned DEFAULT NULL,
+  `CarrierRepAgreedBy` bigint(20) unsigned DEFAULT NULL,
+  `AgreementDate` date DEFAULT NULL,
   PRIMARY KEY (`CarrierId`),
   UNIQUE KEY `MC_UNIQUE` (`MC`),
   UNIQUE KEY `DOT_UNIQUE` (`DOT`),
@@ -1397,30 +1507,14 @@ CREATE TABLE `ent_carriers` (
   KEY `idx_ent_carriers_CrType` (`CrType`),
   KEY `idx_ent_carriers_SCAC` (`SCAC`),
   KEY `idx_ent_carriers_RateConfEmailAddress` (`RateConfEmailAddress`),
-  KEY `idx_ent_carriers_CargoCarried` (`CargoCarried`),
-  KEY `idx_ent_carriers_OperationClassification` (`OperationClassification`),
-  KEY `idx_ent_carriers_CarrierOperation` (`CarrierOperation`),
-  KEY `idx_ent_carriers_MCS150FormLastRenewed` (`MCS150FormDate`),
-  KEY `idx_ent_carriers_MCS150FormMileage` (`MCS150FormMileage`),
-  KEY `idx_ent_carriers_MCS150FormMileageDate` (`MCS150FormMileageYear`),
-  KEY `idx_ent_carriers_InerstateDriversLess100M` (`InerstateDriversLess100M`),
-  KEY `idx_ent_carriers_InerstateDriversOver100M` (`InerstateDriversOver100M`),
-  KEY `idx_ent_carriers_IntrastateDriversLess100M` (`IntrastateDriversLess100M`),
-  KEY `idx_ent_carriers_IntrastateDriversOver100M` (`IntrastateDriversOver100M`),
-  KEY `idx_ent_carriers_EmployedDriversCDL` (`EmployedDriversCDL`),
-  KEY `idx_ent_carriers_TractorsOwned` (`TractorsOwned`),
-  KEY `idx_ent_carriers_TrailersTripLeased` (`TrailersTripLeased`),
-  KEY `idx_ent_carriers_TrailersTermLeased` (`TrailersTermLeased`),
-  KEY `idx_ent_carriers_TrailersOwned` (`TrailersOwned`),
-  KEY `idx_ent_carriers_TrucksTripLeased` (`TrucksTripLeased`),
-  KEY `idx_ent_carriers_TrucksTermLeased` (`TrucksTermLeased`),
-  KEY `idx_ent_carriers_TrucksOwned` (`TrucksOwned`),
-  KEY `idx_ent_carriers_TractorsTripLeased` (`TractorsTripLeased`),
-  KEY `idx_ent_carriers_TractorsTermLeased` (`TractorsTermLeased`),
-  KEY `idx_ent_carriers_AddedToFMCSA` (`AddedToFMCSA`),
   KEY `idx_ent_carriers_OIC_STATE` (`OIC_STATE`),
-  KEY `idx_ent_carriers_HmFlag` (`HmFlag`),
-  KEY `idx_ent_carriers_PcFlag` (`PcFlag`),
+  KEY `idx_ent_carriers_AddedToFMCSA` (`AddedToFMCSA`),
+  KEY `AgreementFileRef_idx` (`AgreementFile`),
+  KEY `AgreedByAssociateRef_idx` (`AgreedBy`),
+  KEY `CarrierAgreedByAssociateRef_idx` (`CarrierRepAgreedBy`),
+  CONSTRAINT `AgreedByAssociateRef` FOREIGN KEY (`AgreedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
+  CONSTRAINT `AgreementFileRef` FOREIGN KEY (`AgreementFile`) REFERENCES `gen_files` (`FileId`) ON UPDATE CASCADE,
+  CONSTRAINT `CarrierAgreedByAssociateRef` FOREIGN KEY (`CarrierRepAgreedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
   CONSTRAINT `CarrierBusinessRef` FOREIGN KEY (`CarrierId`) REFERENCES `ent_businesses` (`BizId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `McCertRef` FOREIGN KEY (`McCertificatePhoto`) REFERENCES `gen_files` (`FileId`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1508,7 +1602,7 @@ CREATE TABLE `ent_people` (
   KEY `idx_ent_people_Suffix` (`Suffix`) USING BTREE,
   KEY `idx_ent_people_BrnchId` (`BrnchId`) USING BTREE,
   CONSTRAINT `PeopleBranchRef` FOREIGN KEY (`BrnchId`) REFERENCES `biz_branches` (`BrnchId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=154 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1549,7 +1643,7 @@ CREATE TABLE `entities` (
   KEY `EntityBusinessRef_idx` (`BusinessId`),
   CONSTRAINT `EntityBusinessRef` FOREIGN KEY (`BusinessId`) REFERENCES `ent_businesses` (`BizId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `EntityPersonRef` FOREIGN KEY (`PersonId`) REFERENCES `ent_people` (`PrsnId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1750,6 +1844,7 @@ CREATE TABLE `fin_accounts` (
   `Description` varchar(1024) DEFAULT NULL,
   `ExternalName` varchar(255) DEFAULT NULL,
   `Balance` decimal(12,2) NOT NULL DEFAULT '0.00',
+  `PhysicalAccount` bigint(20) unsigned DEFAULT NULL COMMENT 'Physical Bank Account if Required',
   PRIMARY KEY (`AccountId`),
   UNIQUE KEY `Name_UNIQUE` (`Name`),
   KEY `AccAccTypeRef_idx` (`AccountTypeId`),
@@ -1763,8 +1858,10 @@ CREATE TABLE `fin_accounts` (
   KEY `idx_fin_accounts_UserDefined` (`UserDefined`),
   KEY `idx_fin_accounts_DateCreated` (`DateCreated`),
   KEY `idx_fin_accounts_Description` (`Description`),
+  KEY `BankAccountRef_idx` (`PhysicalAccount`),
   CONSTRAINT `AccAccTypeRef` FOREIGN KEY (`AccountTypeId`) REFERENCES `fin_account_types` (`AccountTypeId`) ON UPDATE CASCADE,
-  CONSTRAINT `AccountParentRef` FOREIGN KEY (`ParentId`) REFERENCES `fin_accounts` (`AccountId`) ON UPDATE CASCADE
+  CONSTRAINT `AccountParentRef` FOREIGN KEY (`ParentId`) REFERENCES `fin_accounts` (`AccountId`) ON UPDATE CASCADE,
+  CONSTRAINT `BankAccountRef` FOREIGN KEY (`PhysicalAccount`) REFERENCES `fin_billing_banks` (`BankId`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -2461,6 +2558,7 @@ CREATE TABLE `fin_jobs` (
   `Title` varchar(255) DEFAULT NULL,
   `JobAddedBy` bigint(20) unsigned NOT NULL,
   `JobCreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `JobNumber` varchar(24) DEFAULT NULL,
   PRIMARY KEY (`JobId`),
   KEY `idx_jobs_Title` (`Title`),
   KEY `JobAddedByEmplRef_idx` (`JobAddedBy`),
@@ -2628,7 +2726,9 @@ DROP TABLE IF EXISTS `fin_payment_methods`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `fin_payment_methods` (
   `PaymentMethodId` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`PaymentMethodId`)
+  `PaymentMethodName` varchar(64) NOT NULL,
+  PRIMARY KEY (`PaymentMethodId`),
+  UNIQUE KEY `PaymentMethodName_UNIQUE` (`PaymentMethodName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -2648,6 +2748,9 @@ CREATE TABLE `fin_payment_terms` (
   `DiscountPercent` decimal(12,2) DEFAULT NULL,
   `DiscountInDays` int(11) unsigned DEFAULT NULL,
   `Type` enum('STANDARD','BY DATE','CASH') NOT NULL,
+  `QuickPay` tinyint(1) NOT NULL DEFAULT '0',
+  `QuickPayFee` decimal(12,2) NOT NULL DEFAULT '0.00',
+  `QuickPayFeeType` enum('percentage','flat rate') NOT NULL DEFAULT 'percentage',
   PRIMARY KEY (`PaymentTermId`),
   UNIQUE KEY `Name_UNIQUE` (`Name`),
   KEY `idx_fin_payment_terms_Name` (`Name`),
@@ -2809,7 +2912,7 @@ CREATE TABLE `gen_files` (
   KEY `idx_gen_files_UploadDate` (`UploadDate`),
   KEY `idx_gen_files_Keywords` (`Keywords`),
   KEY `idx_gen_files_ExpiredDate` (`ExpiredDate`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3063,6 +3166,7 @@ CREATE TABLE `ins_policies` (
   `InsuredAmount` decimal(12,2) unsigned NOT NULL COMMENT 'Amount Insured',
   `DownpaymentAmount` decimal(12,2) unsigned NOT NULL DEFAULT '0.00' COMMENT 'Downpayment Amount',
   `PaidBy` enum('Owner','Company') DEFAULT NULL COMMENT 'Paid By',
+  `InsContact` bigint(20) unsigned DEFAULT NULL,
   PRIMARY KEY (`InsId`),
   UNIQUE KEY `TagPolicyIndx` (`TagName`,`PolicyNumber`,`EffectiveDate`,`ExpirationDate`,`InsuredAmount`),
   KEY `ProofDocument_idx` (`ProofOfInsurance`),
@@ -3074,9 +3178,11 @@ CREATE TABLE `ins_policies` (
   KEY `idx_ins_policies_DownpaymentAmount` (`DownpaymentAmount`),
   KEY `idx_ins_policies_PaidBy` (`PaidBy`),
   KEY `InsProviderRef_idx` (`InsProvider`),
+  KEY `InsContactAssociateRef_idx` (`InsContact`),
+  CONSTRAINT `InsContactAssociateRef` FOREIGN KEY (`InsContact`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
   CONSTRAINT `InsProviderRef` FOREIGN KEY (`InsProvider`) REFERENCES `ent_businesses` (`BizId`) ON UPDATE CASCADE,
   CONSTRAINT `ProofDocument` FOREIGN KEY (`ProofOfInsurance`) REFERENCES `gen_files` (`FileId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3111,7 +3217,7 @@ CREATE TABLE `ins_to_entities` (
   CONSTRAINT `EntInsAddedInsRef` FOREIGN KEY (`AddedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
   CONSTRAINT `EntInsRemovedInsRef` FOREIGN KEY (`RemovedBy`) REFERENCES `hr_associates` (`AstId`) ON UPDATE CASCADE,
   CONSTRAINT `InsIdRef` FOREIGN KEY (`InsId`) REFERENCES `ins_policies` (`InsId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3247,7 +3353,7 @@ CREATE TABLE `inv_equipment_types` (
   `Name` varchar(64) NOT NULL,
   PRIMARY KEY (`EquipmentTypeId`),
   KEY `idx_inv_equipment_types_Name` (`Name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Types of equipment used for load requirement contraints';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='Types of equipment used for load requirement contraints';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4282,4 +4388,4 @@ CREATE TABLE `tsk_trees` (
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-28 12:24:25
+-- Dump completed on 2020-05-25 14:37:40
