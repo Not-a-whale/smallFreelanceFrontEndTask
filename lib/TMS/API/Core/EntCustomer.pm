@@ -35,9 +35,7 @@ has 'WhyDontUse'  => ('is' => 'rw', 'isa' => 'TidySpacesString',  'coerce' => '1
 has 'cstmr' => ('is' => 'rw', 'isa' => 'ObjEntBusiness', 'coerce' => '1', 'required' => '0');
 
 # relations point to us
-has 'cmm_assignments_customers' =>
-    ('is' => 'rw', 'isa' => 'ArrayObjCmmAssignmentsCustomer', 'coerce' => '1', 'required' => '0');
-has 'dsp_loads' => ('is' => 'rw', 'isa' => 'ArrayObjDspLoad', 'coerce' => '1', 'required' => '0');
+has 'cmm_assignments_customers' => ('is' => 'rw', 'isa' => 'ArrayObjCmmAssignmentsCustomer', 'coerce' => '1', 'required' => '0');
 
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'EntCustomer');

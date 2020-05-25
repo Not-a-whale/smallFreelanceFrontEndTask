@@ -21,6 +21,7 @@ with 'MooseX::Traits';
 
 has 'JobCreated' => ('is' => 'rw', 'isa' => 'DATETIME',      'coerce' => '1', 'required' => '0');
 has 'JobId'      => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '1', 'required' => '0');
+has 'JobNumber'  => ('is' => 'rw', 'isa' => 'VarChar24',     'coerce' => '1', 'required' => '0');
 has 'Title'      => ('is' => 'rw', 'isa' => 'VarChar255',    'coerce' => '1', 'required' => '0');
 
 # relations point to us

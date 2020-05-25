@@ -84,6 +84,29 @@ Net 7, 10, 30, 60, 90
   extra: {list => ["STANDARD","BY DATE","CASH"]}
   is_nullable: 0
 
+=head2 QuickPay
+
+  accessor: 'quick_pay'
+  data_type: 'tinyint'
+  default_value: 0
+  is_nullable: 0
+
+=head2 QuickPayFee
+
+  accessor: 'quick_pay_fee'
+  data_type: 'decimal'
+  default_value: 0.00
+  is_nullable: 0
+  size: [12,2]
+
+=head2 QuickPayFeeType
+
+  accessor: 'quick_pay_fee_type'
+  data_type: 'enum'
+  default_value: 'percentage'
+  extra: {list => ["percentage","flat rate"]}
+  is_nullable: 0
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -123,6 +146,26 @@ __PACKAGE__->add_columns(
         data_type   => "enum",
         extra       => {list => ["STANDARD", "BY DATE", "CASH"]},
         is_nullable => 0,
+    },
+    "QuickPay",
+    {   accessor      => "quick_pay",
+        data_type     => "tinyint",
+        default_value => 0,
+        is_nullable   => 0,
+    },
+    "QuickPayFee",
+    {   accessor      => "quick_pay_fee",
+        data_type     => "decimal",
+        default_value => "0.00",
+        is_nullable   => 0,
+        size          => [12, 2],
+    },
+    "QuickPayFeeType",
+    {   accessor      => "quick_pay_fee_type",
+        data_type     => "enum",
+        default_value => "percentage",
+        extra         => {list => ["percentage", "flat rate"]},
+        is_nullable   => 0,
     },
 );
 
@@ -169,8 +212,8 @@ __PACKAGE__->has_many(
     {cascade_copy             => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:k7lqk77SZk2BQKXvgmBXyQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:gbg1m7/Yvsq3FNTYDBWocg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

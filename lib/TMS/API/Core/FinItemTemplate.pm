@@ -54,8 +54,7 @@ has 'fin_item_templates_trees_ancestors' =>
     ('is' => 'rw', 'isa' => 'ArrayObjFinItemTemplatesTree', 'coerce' => '1', 'required' => '0');
 has 'fin_item_templates_trees_descendants' =>
     ('is' => 'rw', 'isa' => 'ArrayObjFinItemTemplatesTree', 'coerce' => '1', 'required' => '0');
-has 'fin_scheduled_deductions' =>
-    ('is' => 'rw', 'isa' => 'ArrayObjFinScheduledDeduction', 'coerce' => '1', 'required' => '0');
+has 'fin_scheduled_deductions' => ('is' => 'rw', 'isa' => 'ArrayObjFinScheduledDeduction', 'coerce' => '1', 'required' => '0');
 
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinItemTemplate');

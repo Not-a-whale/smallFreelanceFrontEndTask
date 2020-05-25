@@ -122,6 +122,14 @@ Downpayment Amount
 
 Paid By
 
+=head2 InsContact
+
+  accessor: 'ins_contact'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_foreign_key: 1
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -197,6 +205,13 @@ __PACKAGE__->add_columns(
         extra       => {list => ["Owner", "Company"]},
         is_nullable => 1,
     },
+    "InsContact",
+    {   accessor       => "ins_contact",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
 );
 
 =head1 PRIMARY KEY
@@ -236,6 +251,25 @@ __PACKAGE__->add_unique_constraint("TagPolicyIndx",
 );
 
 =head1 RELATIONS
+
+=head2 ins_contact
+
+Type: belongs_to
+
+Related object: L<TMS::Schema::Result::HrAssociate>
+
+=cut
+
+__PACKAGE__->belongs_to(
+    "ins_contact",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId => "InsContact"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
+);
 
 =head2 ins_provider
 
@@ -297,8 +331,8 @@ __PACKAGE__->belongs_to(
     },
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:NH/5ZX6Oa1HOCO7q7BiFFg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:dWuEPZddmY+FgEPvYig2gA
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

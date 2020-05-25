@@ -57,6 +57,13 @@ __PACKAGE__->table("fin_jobs");
   default_value: 'CURRENT_TIMESTAMP'
   is_nullable: 0
 
+=head2 JobNumber
+
+  accessor: 'job_number'
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 24
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -81,6 +88,12 @@ __PACKAGE__->add_columns(
         datetime_undef_if_invalid => 1,
         default_value             => "CURRENT_TIMESTAMP",
         is_nullable               => 0,
+    },
+    "JobNumber",
+    {   accessor    => "job_number",
+        data_type   => "varchar",
+        is_nullable => 1,
+        size        => 24,
     },
 );
 
@@ -152,8 +165,8 @@ __PACKAGE__->has_many(
     {"foreign.JobId" => "self.JobId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yL7RjmDqHyw+IDPLbvtULA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:o5jsL+zYG7km5en9atcW9Q
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

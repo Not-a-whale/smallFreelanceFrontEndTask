@@ -40,6 +40,9 @@ coerce 'ObjBizBranch', from 'HashRef', via { _build_type('TMS::API::Core::BizBra
 subtype 'ObjBizCompanyNode', as class_type('TMS::API::Core::BizCompanyNode');
 coerce 'ObjBizCompanyNode', from 'HashRef', via { _build_type('TMS::API::Core::BizCompanyNode', $_) };
 
+subtype 'ObjBrkStatuslist', as class_type('TMS::API::Core::BrkStatuslist');
+coerce 'ObjBrkStatuslist', from 'HashRef', via { _build_type('TMS::API::Core::BrkStatuslist', $_) };
+
 subtype 'ObjCmmPackage', as class_type('TMS::API::Core::CmmPackage');
 coerce 'ObjCmmPackage', from 'HashRef', via { _build_type('TMS::API::Core::CmmPackage', $_) };
 

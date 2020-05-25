@@ -77,8 +77,8 @@ __PACKAGE__->add_columns(
     "length", {data_type => "integer", default_value => 0, is_nullable => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SMVB6y+dZ/7Rd670yXZxrQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:79yp5cJF1fz6rq1Lfus08Q
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

@@ -57,7 +57,7 @@ PU#/PO# ????
   accessor: 'commodity'
   data_type: 'varchar'
   is_nullable: 0
-  size: 255
+  size: 64
 
 =head2 Pallets
 
@@ -95,7 +95,7 @@ PU#/PO# ????
 
   accessor: 'appointment_type'
   data_type: 'enum'
-  extra: {list => ["Appointment","Time Open"]}
+  extra: {list => ["appointment","first come first serve"]}
   is_nullable: 0
 
 =head2 StopOrder
@@ -109,16 +109,23 @@ PU#/PO# ????
 
   accessor: 'stop_type'
   data_type: 'enum'
-  extra: {list => ["PickUp","DropOff"]}
+  extra: {list => ["pick up","drop off"]}
   is_nullable: 0
 
-=head2 Branch
+=head2 Location
 
-  accessor: 'branch'
+  accessor: 'location'
   data_type: 'bigint'
   extra: {unsigned => 1}
   is_foreign_key: 1
   is_nullable: 0
+
+=head2 LocationContact
+
+  accessor: 'location_contact'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_nullable: 1
 
 =head2 AppointmentNotes
 
@@ -149,7 +156,7 @@ __PACKAGE__->add_columns(
     {   accessor    => "commodity",
         data_type   => "varchar",
         is_nullable => 0,
-        size        => 255,
+        size        => 64,
     },
     "Pallets",
     {accessor => "pallets", data_type => "integer", is_nullable => 1},
@@ -172,7 +179,7 @@ __PACKAGE__->add_columns(
     "AppointmentType",
     {   accessor    => "appointment_type",
         data_type   => "enum",
-        extra       => {list => ["Appointment", "Time Open"]},
+        extra       => {list => ["appointment", "first come first serve"]},
         is_nullable => 0,
     },
     "StopOrder",
@@ -184,15 +191,21 @@ __PACKAGE__->add_columns(
     "StopType",
     {   accessor    => "stop_type",
         data_type   => "enum",
-        extra       => {list => ["PickUp", "DropOff"]},
+        extra       => {list => ["pick up", "drop off"]},
         is_nullable => 0,
     },
-    "Branch",
-    {   accessor       => "branch",
+    "Location",
+    {   accessor       => "location",
         data_type      => "bigint",
         extra          => {unsigned => 1},
         is_foreign_key => 1,
         is_nullable    => 0,
+    },
+    "LocationContact",
+    {   accessor    => "location_contact",
+        data_type   => "bigint",
+        extra       => {unsigned => 1},
+        is_nullable => 1,
     },
     "AppointmentNotes",
     {accessor => "appointment_notes", data_type => "text", is_nullable => 1},
@@ -211,21 +224,6 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("DestinationId");
 
 =head1 RELATIONS
-
-=head2 branch
-
-Type: belongs_to
-
-Related object: L<TMS::Schema::Result::BizBranch>
-
-=cut
-
-__PACKAGE__->belongs_to(
-    "branch",
-    "TMS::Schema::Result::BizBranch",
-    {BrnchId       => "Branch"},
-    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
-);
 
 =head2 dsp_loads_destinations_docs
 
@@ -270,8 +268,23 @@ __PACKAGE__->belongs_to(
     {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0xl8ck3rpmzPaLqwayO/SQ
+=head2 location
+
+Type: belongs_to
+
+Related object: L<TMS::Schema::Result::BizBranch>
+
+=cut
+
+__PACKAGE__->belongs_to(
+    "location",
+    "TMS::Schema::Result::BizBranch",
+    {BrnchId       => "Location"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+);
+
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:X5jg6GW8jGDTuWsNG/b55Q
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

@@ -11,8 +11,8 @@ extends 'DBIx::Class::Schema';
 
 __PACKAGE__->load_namespaces;
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:55
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9VrFSHYSysB0DH0InyWc3w
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:t/8DhiRCs4zg5wyDzXWhFg
 
 my $DBIxSingleton = undef;
 
@@ -58,7 +58,7 @@ sub _connect_to_db {
         $st->ensure_connected if !$st->connected;
         $self->DBIxHandle($DBIxSingleton);
     }
-}
+} ## end sub _connect_to_db
 
 __PACKAGE__->meta->make_immutable(inline_constructor => 1);
 

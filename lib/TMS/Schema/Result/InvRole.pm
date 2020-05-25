@@ -109,8 +109,8 @@ __PACKAGE__->has_many(
     {"foreign.InvRoleId" => "self.InvRoleId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:DC+t86BPEK5muPfSwEJgQQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:smOGITnBTYZ+3BCn51c+fg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

@@ -27,11 +27,9 @@ has 'RelNodeId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '1', 're
 has 'parent' => ('is' => 'rw', 'isa' => 'ObjTmpRelationsNode', 'coerce' => '1', 'required' => '0');
 
 # relations point to us
-has 'tmp_relations_clsr_ancestors' =>
-    ('is' => 'rw', 'isa' => 'ArrayObjTmpRelationsClsr', 'coerce' => '1', 'required' => '0');
-has 'tmp_relations_clsr_descendants' =>
-    ('is' => 'rw', 'isa' => 'ArrayObjTmpRelationsClsr', 'coerce' => '1', 'required' => '0');
-has 'tmp_relations_nodes' => ('is' => 'rw', 'isa' => 'ArrayObjTmpRelationsNode', 'coerce' => '1', 'required' => '0');
+has 'tmp_relations_clsr_ancestors'   => ('is' => 'rw', 'isa' => 'ArrayObjTmpRelationsClsr', 'coerce' => '1', 'required' => '0');
+has 'tmp_relations_clsr_descendants' => ('is' => 'rw', 'isa' => 'ArrayObjTmpRelationsClsr', 'coerce' => '1', 'required' => '0');
+has 'tmp_relations_nodes'            => ('is' => 'rw', 'isa' => 'ArrayObjTmpRelationsNode', 'coerce' => '1', 'required' => '0');
 
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'TmpRelationsNode');

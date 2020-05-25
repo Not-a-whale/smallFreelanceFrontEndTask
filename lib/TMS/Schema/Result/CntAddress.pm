@@ -113,6 +113,7 @@ Street
 
   accessor: 'addr_type'
   data_type: 'set'
+  default_value: 'physical,mail'
   extra: {list => ["physical","mail"]}
   is_nullable: 1
 
@@ -168,10 +169,11 @@ __PACKAGE__->add_columns(
     "Notes",
     {accessor => "notes", data_type => "text", is_nullable => 1},
     "AddrType",
-    {   accessor    => "addr_type",
-        data_type   => "set",
-        extra       => {list => ["physical", "mail"]},
-        is_nullable => 1,
+    {   accessor      => "addr_type",
+        data_type     => "set",
+        default_value => "physical,mail",
+        extra         => {list => ["physical", "mail"]},
+        is_nullable   => 1,
     },
 );
 
@@ -271,8 +273,22 @@ __PACKAGE__->has_many(
     {"foreign.LocationOfRecords" => "self.AddrId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:fIU7k5P5jXyBtv7/RzxrKQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:WZ+iJeY1yRNVJ9birJaKug
+__PACKAGE__->has_many(
+    "notes",
+    "TMS::Schema::Result::MsgNote",
+    sub {
+        my $args          = shift;
+        my @primary_cols  = $args->{self_resultsource}->primary_columns;
+        my $primary_alias = $args->{self_alias} . '.' . $primary_cols[0];
+        return {
+            "$args->{foreign_alias}.sourceid"    => {-ident => $primary_alias},
+            "$args->{foreign_alias}.sourcetable" => $args->{self_resultsource}->from(),
+        };
+    },
+    {cascade_copy => 0, cascade_delete => 0},
+);
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

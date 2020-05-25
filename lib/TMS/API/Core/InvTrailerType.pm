@@ -22,7 +22,6 @@ with 'MooseX::Traits';
 has 'Name' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '1', 'required' => '0');
 
 # relations point to us
-has 'dsp_loads'    => ('is' => 'rw', 'isa' => 'ArrayObjDspLoad',    'coerce' => '1', 'required' => '0');
 has 'inv_trailers' => ('is' => 'rw', 'isa' => 'ArrayObjInvTrailer', 'coerce' => '1', 'required' => '0');
 
 # core class for Traits

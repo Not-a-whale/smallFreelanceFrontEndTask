@@ -169,8 +169,30 @@ __PACKAGE__->belongs_to(
     {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:HkhFGkO4WMr+/4qJvBIIoQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ekmTDb+xysxAq0duVwPzuw
+my $foreign_objs = [
+    {   resultsource  => 'TMS::Schema::Result::CntAddress',
+        primary_key   => 'AddrId',
+        relation_name => 'msg_note_address'
+    },
+    {   resultsource  => 'TMS::Schema::Result::EntCarrier',
+        primary_key   => 'CarrierId',
+        relation_name => 'msg_note_carrier'
+    }
+];
+
+foreach my $fobj (@$foreign_objs) {
+    __PACKAGE__->belongs_to(
+        $$fobj{relation_name},
+        $$fobj{resultsource},
+        sub {
+            my $args = shift;
+            return {"$args->{foreign_alias}.$$fobj{primary_key}" => "$args->{self_alias}.sourceid"};
+        },
+        {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+    );
+}
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

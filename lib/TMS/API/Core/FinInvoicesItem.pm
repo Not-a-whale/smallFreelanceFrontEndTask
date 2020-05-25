@@ -40,8 +40,7 @@ has 'item_template'        => ('is' => 'rw', 'isa' => 'ObjFinItemTemplate', 'coe
 has 'job'                  => ('is' => 'rw', 'isa' => 'ObjFinJob',          'coerce' => '1', 'required' => '0');
 
 # relations point to us
-has 'fin_invoice_payment_items' =>
-    ('is' => 'rw', 'isa' => 'ArrayObjFinInvoicePaymentItem', 'coerce' => '1', 'required' => '0');
+has 'fin_invoice_payment_items' => ('is' => 'rw', 'isa' => 'ArrayObjFinInvoicePaymentItem', 'coerce' => '1', 'required' => '0');
 
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinInvoicesItem');

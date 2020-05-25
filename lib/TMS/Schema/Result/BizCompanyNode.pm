@@ -62,6 +62,39 @@ __PACKAGE__->table("biz_company_nodes");
   extra: {list => ["Department","Office","Team","Group","Other"]}
   is_nullable: 0
 
+=head2 UnitPhone
+
+  accessor: 'unit_phone'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_foreign_key: 1
+  is_nullable: 1
+
+=head2 OpenStartTime
+
+  accessor: 'open_start_time'
+  data_type: 'time'
+  is_nullable: 1
+
+=head2 OpenEndTime
+
+  accessor: 'open_end_time'
+  data_type: 'time'
+  is_nullable: 1
+
+=head2 TimeZone
+
+  accessor: 'time_zone'
+  data_type: 'integer'
+  is_nullable: 1
+
+=head2 UnitEmail
+
+  accessor: 'unit_email'
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 255
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -91,6 +124,25 @@ __PACKAGE__->add_columns(
         default_value => "Other",
         extra         => {list => ["Department", "Office", "Team", "Group", "Other"]},
         is_nullable   => 0,
+    },
+    "UnitPhone",
+    {   accessor       => "unit_phone",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "OpenStartTime",
+    {accessor => "open_start_time", data_type => "time", is_nullable => 1},
+    "OpenEndTime",
+    {accessor => "open_end_time", data_type => "time", is_nullable => 1},
+    "TimeZone",
+    {accessor => "time_zone", data_type => "integer", is_nullable => 1},
+    "UnitEmail",
+    {   accessor    => "unit_email",
+        data_type   => "varchar",
+        is_nullable => 1,
+        size        => 255,
     },
 );
 
@@ -197,8 +249,27 @@ __PACKAGE__->belongs_to(
     },
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:55
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:EJmiQVtUgn+/2hxmTkFOSQ
+=head2 unit_phone
+
+Type: belongs_to
+
+Related object: L<TMS::Schema::Result::CntPhonesfax>
+
+=cut
+
+__PACKAGE__->belongs_to(
+    "unit_phone",
+    "TMS::Schema::Result::CntPhonesfax",
+    {PhnFaxId => "UnitPhone"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
+);
+
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:/0vEVHzvucnl8BvHNwwfoA
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

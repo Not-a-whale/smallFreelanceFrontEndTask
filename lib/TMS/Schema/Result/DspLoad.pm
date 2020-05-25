@@ -43,17 +43,33 @@ __PACKAGE__->table("dsp_loads");
   is_foreign_key: 1
   is_nullable: 0
 
-=head2 BrokerId
+=head2 CustomerId
 
-  accessor: 'broker_id'
+  accessor: 'customer_id'
   data_type: 'bigint'
   extra: {unsigned => 1}
   is_foreign_key: 1
   is_nullable: 0
 
-=head2 ShipperId
+=head2 CustomerAgentId
 
-  accessor: 'shipper_id'
+  accessor: 'customer_agent_id'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_foreign_key: 1
+  is_nullable: 1
+
+=head2 VendorId
+
+  accessor: 'vendor_id'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_foreign_key: 1
+  is_nullable: 1
+
+=head2 VendorAgentId
+
+  accessor: 'vendor_agent_id'
   data_type: 'bigint'
   extra: {unsigned => 1}
   is_foreign_key: 1
@@ -89,29 +105,74 @@ __PACKAGE__->table("dsp_loads");
   is_nullable: 1
   size: 64
 
-=head2 ProNumber
+=head2 CustomerRefNumber
 
-  accessor: 'pro_number'
+  accessor: 'customer_ref_number'
   data_type: 'varchar'
   is_nullable: 1
-  size: 16
+  size: 64
 
 =head2 LoadType
 
   accessor: 'load_type'
   data_type: 'enum'
-  extra: {list => ["FTL","LTL","Partial"]}
+  extra: {list => ["full","partial"]}
   is_nullable: 1
 
-=head2 TruckType
+=head2 Comodotiy
 
-  accessor: 'truck_type'
+  accessor: 'comodotiy'
   data_type: 'varchar'
-  is_foreign_key: 1
-  is_nullable: 1
-  size: 24
+  is_nullable: 0
+  size: 64
 
-This is technically the trailer type for the load but will be called TruckType due to nomenclature used in office
+=head2 Weight
+
+  accessor: 'weight'
+  data_type: 'float'
+  is_nullable: 1
+
+=head2 WeightUnit
+
+  accessor: 'weight_unit'
+  data_type: 'enum'
+  default_value: 'lbs'
+  extra: {list => ["lbs","kg"]}
+  is_nullable: 0
+
+=head2 Pieces
+
+  accessor: 'pieces'
+  data_type: 'integer'
+  is_nullable: 1
+
+=head2 Pallets
+
+  accessor: 'pallets'
+  data_type: 'integer'
+  is_nullable: 1
+
+=head2 Distance
+
+  accessor: 'distance'
+  data_type: 'decimal'
+  is_nullable: 1
+  size: [12,2]
+
+=head2 DistanceUnit
+
+  accessor: 'distance_unit'
+  data_type: 'enum'
+  default_value: 'mi'
+  extra: {list => ["mi","km"]}
+  is_nullable: 0
+
+=head2 ProductTemp
+
+  accessor: 'product_temp'
+  data_type: 'decimal'
+  is_nullable: 1
+  size: [5,2]
 
 =head2 ReeferTempLow
 
@@ -134,12 +195,20 @@ This is technically the trailer type for the load but will be called TruckType d
   is_nullable: 1
   size: [5,2]
 
-=head2 TempMode
+=head2 TemperatureMode
 
-  accessor: 'temp_mode'
+  accessor: 'temperature_mode'
   data_type: 'enum'
-  extra: {list => ["continuous","start/stop"]}
+  extra: {list => ["continuous","cycle-sentry","na"]}
   is_nullable: 1
+
+=head2 TemperatureUnit
+
+  accessor: 'temperature_unit'
+  data_type: 'enum'
+  default_value: 'F'
+  extra: {list => ["F","C","K"]}
+  is_nullable: 0
 
 =head2 TeamRequired
 
@@ -148,9 +217,9 @@ This is technically the trailer type for the load but will be called TruckType d
   extra: {list => ["yes","no"]}
   is_nullable: 1
 
-=head2 DispatchNote
+=head2 LoadTerms
 
-  accessor: 'dispatch_note'
+  accessor: 'load_terms'
   data_type: 'text'
   is_nullable: 1
 
@@ -201,15 +270,29 @@ __PACKAGE__->add_columns(
         is_foreign_key => 1,
         is_nullable    => 0,
     },
-    "BrokerId",
-    {   accessor       => "broker_id",
+    "CustomerId",
+    {   accessor       => "customer_id",
         data_type      => "bigint",
         extra          => {unsigned => 1},
         is_foreign_key => 1,
         is_nullable    => 0,
     },
-    "ShipperId",
-    {   accessor       => "shipper_id",
+    "CustomerAgentId",
+    {   accessor       => "customer_agent_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "VendorId",
+    {   accessor       => "vendor_id",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
+    "VendorAgentId",
+    {   accessor       => "vendor_agent_id",
         data_type      => "bigint",
         extra          => {unsigned => 1},
         is_foreign_key => 1,
@@ -241,24 +324,55 @@ __PACKAGE__->add_columns(
         is_nullable => 1,
         size        => 64,
     },
-    "ProNumber",
-    {   accessor    => "pro_number",
+    "CustomerRefNumber",
+    {   accessor    => "customer_ref_number",
         data_type   => "varchar",
         is_nullable => 1,
-        size        => 16,
+        size        => 64,
     },
     "LoadType",
     {   accessor    => "load_type",
         data_type   => "enum",
-        extra       => {list => ["FTL", "LTL", "Partial"]},
+        extra       => {list => ["full", "partial"]},
         is_nullable => 1,
     },
-    "TruckType",
-    {   accessor       => "truck_type",
-        data_type      => "varchar",
-        is_foreign_key => 1,
-        is_nullable    => 1,
-        size           => 24,
+    "Comodotiy",
+    {   accessor    => "comodotiy",
+        data_type   => "varchar",
+        is_nullable => 0,
+        size        => 64,
+    },
+    "Weight",
+    {accessor => "weight", data_type => "float", is_nullable => 1},
+    "WeightUnit",
+    {   accessor      => "weight_unit",
+        data_type     => "enum",
+        default_value => "lbs",
+        extra         => {list => ["lbs", "kg"]},
+        is_nullable   => 0,
+    },
+    "Pieces",
+    {accessor => "pieces", data_type => "integer", is_nullable => 1},
+    "Pallets",
+    {accessor => "pallets", data_type => "integer", is_nullable => 1},
+    "Distance",
+    {   accessor    => "distance",
+        data_type   => "decimal",
+        is_nullable => 1,
+        size        => [12, 2],
+    },
+    "DistanceUnit",
+    {   accessor      => "distance_unit",
+        data_type     => "enum",
+        default_value => "mi",
+        extra         => {list => ["mi", "km"]},
+        is_nullable   => 0,
+    },
+    "ProductTemp",
+    {   accessor    => "product_temp",
+        data_type   => "decimal",
+        is_nullable => 1,
+        size        => [5, 2],
     },
     "ReeferTempLow",
     {   accessor    => "reefer_temp_low",
@@ -278,11 +392,18 @@ __PACKAGE__->add_columns(
         is_nullable => 1,
         size        => [5, 2],
     },
-    "TempMode",
-    {   accessor    => "temp_mode",
+    "TemperatureMode",
+    {   accessor    => "temperature_mode",
         data_type   => "enum",
-        extra       => {list => ["continuous", "start/stop"]},
+        extra       => {list => ["continuous", "cycle-sentry", "na"]},
         is_nullable => 1,
+    },
+    "TemperatureUnit",
+    {   accessor      => "temperature_unit",
+        data_type     => "enum",
+        default_value => "F",
+        extra         => {list => ["F", "C", "K"]},
+        is_nullable   => 0,
     },
     "TeamRequired",
     {   accessor    => "team_required",
@@ -290,8 +411,8 @@ __PACKAGE__->add_columns(
         extra       => {list => ["yes", "no"]},
         is_nullable => 1,
     },
-    "DispatchNote",
-    {accessor => "dispatch_note", data_type => "text", is_nullable => 1},
+    "LoadTerms",
+    {accessor => "load_terms", data_type => "text", is_nullable => 1},
     "Job",
     {   accessor       => "job",
         data_type      => "bigint",
@@ -344,19 +465,17 @@ __PACKAGE__->belongs_to(
     },
 );
 
-=head2 broker
+=head2 brk_loadstatuses
 
-Type: belongs_to
+Type: has_many
 
-Related object: L<TMS::Schema::Result::EntCustomer>
+Related object: L<TMS::Schema::Result::BrkLoadstatus>
 
 =cut
 
-__PACKAGE__->belongs_to(
-    "broker",
-    "TMS::Schema::Result::EntCustomer",
-    {CstmrId       => "BrokerId"},
-    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+__PACKAGE__->has_many(
+    "brk_loadstatuses", "TMS::Schema::Result::BrkLoadstatus",
+    {"foreign.LoadId" => "self.LoadId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 created_by
@@ -372,6 +491,40 @@ __PACKAGE__->belongs_to(
     "TMS::Schema::Result::HrAssociate",
     {AstId         => "CreatedBy"},
     {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+);
+
+=head2 customer
+
+Type: belongs_to
+
+Related object: L<TMS::Schema::Result::EntBusiness>
+
+=cut
+
+__PACKAGE__->belongs_to(
+    "customer",
+    "TMS::Schema::Result::EntBusiness",
+    {BizId         => "CustomerId"},
+    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+);
+
+=head2 customer_agent
+
+Type: belongs_to
+
+Related object: L<TMS::Schema::Result::HrAssociate>
+
+=cut
+
+__PACKAGE__->belongs_to(
+    "customer_agent",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId => "CustomerAgentId"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
 =head2 dsp_loads_destinations
@@ -460,18 +613,18 @@ __PACKAGE__->belongs_to(
     },
 );
 
-=head2 shipper
+=head2 vendor
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::EntShipper>
+Related object: L<TMS::Schema::Result::EntBusiness>
 
 =cut
 
 __PACKAGE__->belongs_to(
-    "shipper",
-    "TMS::Schema::Result::EntShipper",
-    {ShipperId => "ShipperId"},
+    "vendor",
+    "TMS::Schema::Result::EntBusiness",
+    {BizId => "VendorId"},
     {   is_deferrable => 1,
         join_type     => "LEFT",
         on_delete     => "RESTRICT",
@@ -479,18 +632,18 @@ __PACKAGE__->belongs_to(
     },
 );
 
-=head2 truck_type
+=head2 vendor_agent
 
 Type: belongs_to
 
-Related object: L<TMS::Schema::Result::InvTrailerType>
+Related object: L<TMS::Schema::Result::HrAssociate>
 
 =cut
 
 __PACKAGE__->belongs_to(
-    "truck_type",
-    "TMS::Schema::Result::InvTrailerType",
-    {Name => "TruckType"},
+    "vendor_agent",
+    "TMS::Schema::Result::HrAssociate",
+    {AstId => "VendorAgentId"},
     {   is_deferrable => 1,
         join_type     => "LEFT",
         on_delete     => "RESTRICT",
@@ -498,8 +651,8 @@ __PACKAGE__->belongs_to(
     },
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Qf4tL2NPz3hOtpCMhVPLJA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:LUduAt8yF2hHYC5gqI+76g
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

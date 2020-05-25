@@ -19,11 +19,17 @@ use TMS::API::Types::Columns;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'NodeId'   => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '1', 'required' => '0');
-has 'ParentId' => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
+has 'NodeId'        => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '1', 'required' => '0');
+has 'OpenEndTime'   => ('is' => 'rw', 'isa' => 'Any',           'coerce' => '0', 'required' => '0');
+has 'OpenStartTime' => ('is' => 'rw', 'isa' => 'Any',           'coerce' => '0', 'required' => '0');
+has 'ParentId'      => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
+has 'TimeZone'      => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
+has 'UnitEmail'     => ('is' => 'rw', 'isa' => 'VarChar255',    'coerce' => '1', 'required' => '0');
+has 'UnitPhone'     => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
 
 # relations depends on
-has 'parent' => ('is' => 'rw', 'isa' => 'ObjBizCompanyNode', 'coerce' => '1', 'required' => '0');
+has 'parent'     => ('is' => 'rw', 'isa' => 'ObjBizCompanyNode', 'coerce' => '1', 'required' => '0');
+has 'unit_phone' => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax',   'coerce' => '1', 'required' => '0');
 
 # relations point to us
 has 'biz_company_nodes'             => ('is' => 'rw', 'isa' => 'ArrayObjBizCompanyNode', 'coerce' => '1', 'required' => '0');

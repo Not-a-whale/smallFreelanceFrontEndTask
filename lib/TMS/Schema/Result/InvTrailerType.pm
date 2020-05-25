@@ -56,21 +56,6 @@ __PACKAGE__->set_primary_key("Name");
 
 =head1 RELATIONS
 
-=head2 dsp_loads
-
-Type: has_many
-
-Related object: L<TMS::Schema::Result::DspLoad>
-
-=cut
-
-__PACKAGE__->has_many(
-    "dsp_loads",
-    "TMS::Schema::Result::DspLoad",
-    {"foreign.TruckType" => "self.Name"},
-    {cascade_copy        => 0, cascade_delete => 0},
-);
-
 =head2 inv_trailers
 
 Type: has_many
@@ -86,8 +71,8 @@ __PACKAGE__->has_many(
     {cascade_copy   => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:443+C+YwobJURX1HAanYEQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:CyqjJeUfRsnGcWEnz/GTbQ
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

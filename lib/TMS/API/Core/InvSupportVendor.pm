@@ -29,8 +29,7 @@ has 'primary_contact' => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'coerce' => '
 has 'vendor'          => ('is' => 'rw', 'isa' => 'ObjBizBranch',   'coerce' => '1', 'required' => '0');
 
 # relations point to us
-has 'inv_equipments_to_support' =>
-    ('is' => 'rw', 'isa' => 'ArrayObjInvEquipmentToSupport', 'coerce' => '1', 'required' => '0');
+has 'inv_equipments_to_support' => ('is' => 'rw', 'isa' => 'ArrayObjInvEquipmentToSupport', 'coerce' => '1', 'required' => '0');
 
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'InvSupportVendor');

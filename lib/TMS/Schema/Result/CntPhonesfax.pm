@@ -189,6 +189,19 @@ __PACKAGE__->has_many(
     {"foreign.BrnchPhone" => "self.PhnFaxId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
+=head2 biz_company_nodes
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::BizCompanyNode>
+
+=cut
+
+__PACKAGE__->has_many(
+    "biz_company_nodes", "TMS::Schema::Result::BizCompanyNode",
+    {"foreign.UnitPhone" => "self.PhnFaxId"}, {cascade_copy => 0, cascade_delete => 0},
+);
+
 =head2 fin_billing_infos_faxes
 
 Type: has_many
@@ -299,8 +312,8 @@ __PACKAGE__->has_many(
     {cascade_copy       => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Cy2MNTy7B3aP0O6dF/KTuw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:uZpbaUi+RNGyKU/lgHBz4A
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

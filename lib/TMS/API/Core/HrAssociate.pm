@@ -58,6 +58,7 @@ has 'app_accounts'               => ('is' => 'rw', 'isa' => 'ArrayObjAppAccount'
 has 'app_roles_assigned'         => ('is' => 'rw', 'isa' => 'ArrayObjAppRoleAssigned', 'coerce' => '1', 'required' => '0');
 has 'app_roles_created_by'       => ('is' => 'rw', 'isa' => 'ArrayObjAppRole',         'coerce' => '1', 'required' => '0');
 has 'app_roles_updated_by'       => ('is' => 'rw', 'isa' => 'ArrayObjAppRole',         'coerce' => '1', 'required' => '0');
+has 'brk_loadstatuses'           => ('is' => 'rw', 'isa' => 'ArrayObjBrkLoadstatus',   'coerce' => '1', 'required' => '0');
 has 'cmm_assignments_addeds_by'  => ('is' => 'rw', 'isa' => 'ArrayObjCmmAssignment',   'coerce' => '1', 'required' => '0');
 has 'cmm_assignments_associates' => ('is' => 'rw', 'isa' => 'ArrayObjCmmAssignment',   'coerce' => '1', 'required' => '0');
 has 'cmm_assignments_customers_addeds_by' =>
@@ -68,55 +69,53 @@ has 'cmm_assignments_groups_addeds_by' =>
     ('is' => 'rw', 'isa' => 'ArrayObjCmmAssignmentsGroup', 'coerce' => '1', 'required' => '0');
 has 'cmm_assignments_groups_associates' =>
     ('is' => 'rw', 'isa' => 'ArrayObjCmmAssignmentsGroup', 'coerce' => '1', 'required' => '0');
-has 'crr_ifta_decals'      => ('is' => 'rw', 'isa' => 'ArrayObjCrrIftaDecal', 'coerce' => '1', 'required' => '0');
-has 'drv_driver'           => ('is' => 'rw', 'isa' => 'ObjDrvDriver',         'coerce' => '1', 'required' => '0');
-has 'drv_schedules'        => ('is' => 'rw', 'isa' => 'ArrayObjDrvSchedule',  'coerce' => '1', 'required' => '0');
-has 'dsp_loads_booked_by'  => ('is' => 'rw', 'isa' => 'ArrayObjDspLoad',      'coerce' => '1', 'required' => '0');
-has 'dsp_loads_created_by' => ('is' => 'rw', 'isa' => 'ArrayObjDspLoad',      'coerce' => '1', 'required' => '0');
-has 'dsp_loads_destinations_docs' =>
-    ('is' => 'rw', 'isa' => 'ArrayObjDspLoadsDestinationsDoc', 'coerce' => '1', 'required' => '0');
-has 'dsp_loads_dispatched'       => ('is' => 'rw', 'isa' => 'ArrayObjDspLoadDispatched', 'coerce' => '1', 'required' => '0');
-has 'dsp_loads_docs'             => ('is' => 'rw', 'isa' => 'ArrayObjDspLoadsDoc',       'coerce' => '1', 'required' => '0');
-has 'dsp_trips'                  => ('is' => 'rw', 'isa' => 'ArrayObjDspTrip',           'coerce' => '1', 'required' => '0');
-has 'dsp_trips_loads'            => ('is' => 'rw', 'isa' => 'ArrayObjDspTripsLoad',      'coerce' => '1', 'required' => '0');
-has 'ent_blacklists'             => ('is' => 'rw', 'isa' => 'ArrayObjEntBlacklist',      'coerce' => '1', 'required' => '0');
-has 'fin_billing_tags'           => ('is' => 'rw', 'isa' => 'ArrayObjFinBillingTag',     'coerce' => '1', 'required' => '0');
-has 'fin_cheques_authorizeds_by' => ('is' => 'rw', 'isa' => 'ArrayObjFinCheque',         'coerce' => '1', 'required' => '0');
-has 'fin_cheques_created_by'     => ('is' => 'rw', 'isa' => 'ArrayObjFinCheque',         'coerce' => '1', 'required' => '0');
-has 'fin_cheques_prints'         => ('is' => 'rw', 'isa' => 'ArrayObjFinChequesPrint',   'coerce' => '1', 'required' => '0');
-has 'fin_cheques_voided_by'      => ('is' => 'rw', 'isa' => 'ArrayObjFinCheque',         'coerce' => '1', 'required' => '0');
-has 'fin_invoice_payments'       => ('is' => 'rw', 'isa' => 'ArrayObjFinInvoicePayment', 'coerce' => '1', 'required' => '0');
-has 'fin_invoices_items'         => ('is' => 'rw', 'isa' => 'ArrayObjFinInvoicesItem',   'coerce' => '1', 'required' => '0');
-has 'fin_item_templates_created_by' =>
-    ('is' => 'rw', 'isa' => 'ArrayObjFinItemTemplate', 'coerce' => '1', 'required' => '0');
-has 'fin_item_templates_deleted_by' =>
-    ('is' => 'rw', 'isa' => 'ArrayObjFinItemTemplate', 'coerce' => '1', 'required' => '0');
-has 'fin_item_templates_updated_by' =>
-    ('is' => 'rw', 'isa' => 'ArrayObjFinItemTemplate', 'coerce' => '1', 'required' => '0');
-has 'fin_journal_entries' => ('is' => 'rw', 'isa' => 'ArrayObjFinJournalEntry', 'coerce' => '1', 'required' => '0');
-has 'fin_scheduled_deductions' =>
-    ('is' => 'rw', 'isa' => 'ArrayObjFinScheduledDeduction', 'coerce' => '1', 'required' => '0');
-has 'fin_transactions'          => ('is' => 'rw', 'isa' => 'ArrayObjFinTransaction',    'coerce' => '1', 'required' => '0');
-has 'hr_confidential'           => ('is' => 'rw', 'isa' => 'ObjHrConfidential',         'coerce' => '1', 'required' => '0');
-has 'hr_emrgency_contacts'      => ('is' => 'rw', 'isa' => 'ArrayObjHrEmrgencyContact', 'coerce' => '1', 'required' => '0');
-has 'hr_govidcards_addeds_by'   => ('is' => 'rw', 'isa' => 'ArrayObjHrGovidcard',       'coerce' => '1', 'required' => '0');
-has 'hr_govidcards_asts'        => ('is' => 'rw', 'isa' => 'ArrayObjHrGovidcard',       'coerce' => '1', 'required' => '0');
-has 'hr_hire_records'           => ('is' => 'rw', 'isa' => 'ArrayObjHrHireRecord',      'coerce' => '1', 'required' => '0');
-has 'hr_payrates'               => ('is' => 'rw', 'isa' => 'ArrayObjHrPayrate',         'coerce' => '1', 'required' => '0');
-has 'hr_references_received_by' => ('is' => 'rw', 'isa' => 'ArrayObjHrReference',       'coerce' => '1', 'required' => '0');
-has 'hr_references_references_for' => ('is' => 'rw', 'isa' => 'ArrayObjHrReference',  'coerce' => '1', 'required' => '0');
-has 'hr_residences'                => ('is' => 'rw', 'isa' => 'ArrayObjHrResidence',  'coerce' => '1', 'required' => '0');
-has 'ins_to_entities_addeds_by'    => ('is' => 'rw', 'isa' => 'ArrayObjInsToEntity',  'coerce' => '1', 'required' => '0');
-has 'ins_to_entities_removed_by'   => ('is' => 'rw', 'isa' => 'ArrayObjInsToEntity',  'coerce' => '1', 'required' => '0');
-has 'ins_to_vehicles_addeds_by'    => ('is' => 'rw', 'isa' => 'ArrayObjInsToVehicle', 'coerce' => '1', 'required' => '0');
-has 'ins_to_vehicles_removed_by'   => ('is' => 'rw', 'isa' => 'ArrayObjInsToVehicle', 'coerce' => '1', 'required' => '0');
-has 'inv_equipments'               => ('is' => 'rw', 'isa' => 'ArrayObjInvEquipment', 'coerce' => '1', 'required' => '0');
-has 'inv_notes'                    => ('is' => 'rw', 'isa' => 'ArrayObjInvNote',      'coerce' => '1', 'required' => '0');
-has 'inv_support_vendors' => ('is' => 'rw', 'isa' => 'ArrayObjInvSupportVendor', 'coerce' => '1', 'required' => '0');
-has 'inv_unit_reservations_created_by' =>
-    ('is' => 'rw', 'isa' => 'ArrayObjInvUnitReservation', 'coerce' => '1', 'required' => '0');
-has 'inv_unit_reservations_prsns' =>
-    ('is' => 'rw', 'isa' => 'ArrayObjInvUnitReservation', 'coerce' => '1', 'required' => '0');
+has 'crr_ifta_decals'             => ('is' => 'rw', 'isa' => 'ArrayObjCrrIftaDecal',            'coerce' => '1', 'required' => '0');
+has 'drv_driver'                  => ('is' => 'rw', 'isa' => 'ObjDrvDriver',                    'coerce' => '1', 'required' => '0');
+has 'drv_schedules'               => ('is' => 'rw', 'isa' => 'ArrayObjDrvSchedule',             'coerce' => '1', 'required' => '0');
+has 'dsp_loads_booked_by'         => ('is' => 'rw', 'isa' => 'ArrayObjDspLoad',                 'coerce' => '1', 'required' => '0');
+has 'dsp_loads_created_by'        => ('is' => 'rw', 'isa' => 'ArrayObjDspLoad',                 'coerce' => '1', 'required' => '0');
+has 'dsp_loads_customer_agents'   => ('is' => 'rw', 'isa' => 'ArrayObjDspLoad',                 'coerce' => '1', 'required' => '0');
+has 'dsp_loads_destinations_docs' => ('is' => 'rw', 'isa' => 'ArrayObjDspLoadsDestinationsDoc', 'coerce' => '1', 'required' => '0');
+has 'dsp_loads_dispatched'        => ('is' => 'rw', 'isa' => 'ArrayObjDspLoadDispatched',       'coerce' => '1', 'required' => '0');
+has 'dsp_loads_docs'              => ('is' => 'rw', 'isa' => 'ArrayObjDspLoadsDoc',             'coerce' => '1', 'required' => '0');
+has 'dsp_loads_vendor_agents'     => ('is' => 'rw', 'isa' => 'ArrayObjDspLoad',                 'coerce' => '1', 'required' => '0');
+has 'dsp_trips'                   => ('is' => 'rw', 'isa' => 'ArrayObjDspTrip',                 'coerce' => '1', 'required' => '0');
+has 'dsp_trips_loads'             => ('is' => 'rw', 'isa' => 'ArrayObjDspTripsLoad',            'coerce' => '1', 'required' => '0');
+has 'ent_blacklists'              => ('is' => 'rw', 'isa' => 'ArrayObjEntBlacklist',            'coerce' => '1', 'required' => '0');
+has 'ent_carriers_agreed_by'      => ('is' => 'rw', 'isa' => 'ArrayObjEntCarrier',              'coerce' => '1', 'required' => '0');
+has 'ent_carriers_carrier_reps_agreed_by' => ('is' => 'rw', 'isa' => 'ArrayObjEntCarrier',      'coerce' => '1', 'required' => '0');
+has 'fin_billing_tags'                    => ('is' => 'rw', 'isa' => 'ArrayObjFinBillingTag',   'coerce' => '1', 'required' => '0');
+has 'fin_cheques_authorizeds_by'          => ('is' => 'rw', 'isa' => 'ArrayObjFinCheque',       'coerce' => '1', 'required' => '0');
+has 'fin_cheques_created_by'              => ('is' => 'rw', 'isa' => 'ArrayObjFinCheque',       'coerce' => '1', 'required' => '0');
+has 'fin_cheques_prints'                  => ('is' => 'rw', 'isa' => 'ArrayObjFinChequesPrint', 'coerce' => '1', 'required' => '0');
+has 'fin_cheques_voided_by'               => ('is' => 'rw', 'isa' => 'ArrayObjFinCheque',       'coerce' => '1', 'required' => '0');
+has 'fin_invoice_payments'          => ('is' => 'rw', 'isa' => 'ArrayObjFinInvoicePayment',     'coerce' => '1', 'required' => '0');
+has 'fin_invoices_items'            => ('is' => 'rw', 'isa' => 'ArrayObjFinInvoicesItem',       'coerce' => '1', 'required' => '0');
+has 'fin_item_templates_created_by' => ('is' => 'rw', 'isa' => 'ArrayObjFinItemTemplate',       'coerce' => '1', 'required' => '0');
+has 'fin_item_templates_deleted_by' => ('is' => 'rw', 'isa' => 'ArrayObjFinItemTemplate',       'coerce' => '1', 'required' => '0');
+has 'fin_item_templates_updated_by' => ('is' => 'rw', 'isa' => 'ArrayObjFinItemTemplate',       'coerce' => '1', 'required' => '0');
+has 'fin_journal_entries'           => ('is' => 'rw', 'isa' => 'ArrayObjFinJournalEntry',       'coerce' => '1', 'required' => '0');
+has 'fin_scheduled_deductions'      => ('is' => 'rw', 'isa' => 'ArrayObjFinScheduledDeduction', 'coerce' => '1', 'required' => '0');
+has 'fin_transactions'              => ('is' => 'rw', 'isa' => 'ArrayObjFinTransaction',        'coerce' => '1', 'required' => '0');
+has 'hr_confidential'               => ('is' => 'rw', 'isa' => 'ObjHrConfidential',             'coerce' => '1', 'required' => '0');
+has 'hr_emrgency_contacts'          => ('is' => 'rw', 'isa' => 'ArrayObjHrEmrgencyContact',     'coerce' => '1', 'required' => '0');
+has 'hr_govidcards_addeds_by'       => ('is' => 'rw', 'isa' => 'ArrayObjHrGovidcard',           'coerce' => '1', 'required' => '0');
+has 'hr_govidcards_asts'            => ('is' => 'rw', 'isa' => 'ArrayObjHrGovidcard',           'coerce' => '1', 'required' => '0');
+has 'hr_hire_records'               => ('is' => 'rw', 'isa' => 'ArrayObjHrHireRecord',          'coerce' => '1', 'required' => '0');
+has 'hr_payrates'                   => ('is' => 'rw', 'isa' => 'ArrayObjHrPayrate',             'coerce' => '1', 'required' => '0');
+has 'hr_references_received_by'     => ('is' => 'rw', 'isa' => 'ArrayObjHrReference',           'coerce' => '1', 'required' => '0');
+has 'hr_references_references_for'  => ('is' => 'rw', 'isa' => 'ArrayObjHrReference',           'coerce' => '1', 'required' => '0');
+has 'hr_residences'                 => ('is' => 'rw', 'isa' => 'ArrayObjHrResidence',           'coerce' => '1', 'required' => '0');
+has 'ins_policies'                  => ('is' => 'rw', 'isa' => 'ArrayObjInsPolicy',             'coerce' => '1', 'required' => '0');
+has 'ins_to_entities_addeds_by'     => ('is' => 'rw', 'isa' => 'ArrayObjInsToEntity',           'coerce' => '1', 'required' => '0');
+has 'ins_to_entities_removed_by'    => ('is' => 'rw', 'isa' => 'ArrayObjInsToEntity',           'coerce' => '1', 'required' => '0');
+has 'ins_to_vehicles_addeds_by'     => ('is' => 'rw', 'isa' => 'ArrayObjInsToVehicle',          'coerce' => '1', 'required' => '0');
+has 'ins_to_vehicles_removed_by'    => ('is' => 'rw', 'isa' => 'ArrayObjInsToVehicle',          'coerce' => '1', 'required' => '0');
+has 'inv_equipments'                => ('is' => 'rw', 'isa' => 'ArrayObjInvEquipment',          'coerce' => '1', 'required' => '0');
+has 'inv_notes'                     => ('is' => 'rw', 'isa' => 'ArrayObjInvNote',               'coerce' => '1', 'required' => '0');
+has 'inv_support_vendors'           => ('is' => 'rw', 'isa' => 'ArrayObjInvSupportVendor',      'coerce' => '1', 'required' => '0');
+has 'inv_unit_reservations_created_by' => ('is' => 'rw', 'isa' => 'ArrayObjInvUnitReservation', 'coerce' => '1', 'required' => '0');
+has 'inv_unit_reservations_prsns'      => ('is' => 'rw', 'isa' => 'ArrayObjInvUnitReservation', 'coerce' => '1', 'required' => '0');
 has 'inv_units_to_equipment_addeds_by' =>
     ('is' => 'rw', 'isa' => 'ArrayObjInvUnitsToEquipment', 'coerce' => '1', 'required' => '0');
 has 'inv_units_to_equipments_removed_by' =>

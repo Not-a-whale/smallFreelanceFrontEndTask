@@ -30,12 +30,10 @@ has 'Title'      => ('is' => 'rw', 'isa' => 'VarChar1024',      'coerce' => '1',
 has 'parent' => ('is' => 'rw', 'isa' => 'ObjAppMenuItem', 'coerce' => '1', 'required' => '0');
 
 # relations point to us
-has 'app_menu_items' => ('is' => 'rw', 'isa' => 'ArrayObjAppMenuItem', 'coerce' => '1', 'required' => '0');
-has 'app_menu_items_trees_ancestors' =>
-    ('is' => 'rw', 'isa' => 'ArrayObjAppMenuItemsTree', 'coerce' => '1', 'required' => '0');
-has 'app_menu_items_trees_descendants' =>
-    ('is' => 'rw', 'isa' => 'ArrayObjAppMenuItemsTree', 'coerce' => '1', 'required' => '0');
-has 'app_role_menuses' => ('is' => 'rw', 'isa' => 'ArrayObjAppRoleMenus', 'coerce' => '1', 'required' => '0');
+has 'app_menu_items'                   => ('is' => 'rw', 'isa' => 'ArrayObjAppMenuItem',      'coerce' => '1', 'required' => '0');
+has 'app_menu_items_trees_ancestors'   => ('is' => 'rw', 'isa' => 'ArrayObjAppMenuItemsTree', 'coerce' => '1', 'required' => '0');
+has 'app_menu_items_trees_descendants' => ('is' => 'rw', 'isa' => 'ArrayObjAppMenuItemsTree', 'coerce' => '1', 'required' => '0');
+has 'app_role_menuses'                 => ('is' => 'rw', 'isa' => 'ArrayObjAppRoleMenus',     'coerce' => '1', 'required' => '0');
 
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'AppMenuItem');

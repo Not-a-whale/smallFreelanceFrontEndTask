@@ -307,6 +307,19 @@ __PACKAGE__->belongs_to(
     },
 );
 
+=head2 brk_loadstatuses
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::BrkLoadstatus>
+
+=cut
+
+__PACKAGE__->has_many(
+    "brk_loadstatuses", "TMS::Schema::Result::BrkLoadstatus",
+    {"foreign.UpdatedBy" => "self.AstId"}, {cascade_copy => 0, cascade_delete => 0},
+);
+
 =head2 cmm_assignments_addeds_by
 
 Type: has_many
@@ -460,6 +473,19 @@ __PACKAGE__->has_many(
     {cascade_copy        => 0, cascade_delete => 0},
 );
 
+=head2 dsp_loads_customer_agents
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::DspLoad>
+
+=cut
+
+__PACKAGE__->has_many(
+    "dsp_loads_customer_agents", "TMS::Schema::Result::DspLoad",
+    {"foreign.CustomerAgentId" => "self.AstId"}, {cascade_copy => 0, cascade_delete => 0},
+);
+
 =head2 dsp_loads_destinations_docs
 
 Type: has_many
@@ -499,6 +525,21 @@ __PACKAGE__->has_many(
     "TMS::Schema::Result::DspLoadsDoc",
     {"foreign.AddedBy" => "self.AstId"},
     {cascade_copy      => 0, cascade_delete => 0},
+);
+
+=head2 dsp_loads_vendor_agents
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::DspLoad>
+
+=cut
+
+__PACKAGE__->has_many(
+    "dsp_loads_vendor_agents",
+    "TMS::Schema::Result::DspLoad",
+    {"foreign.VendorAgentId" => "self.AstId"},
+    {cascade_copy            => 0, cascade_delete => 0},
 );
 
 =head2 dsp_trips
@@ -544,6 +585,32 @@ __PACKAGE__->has_many(
     "TMS::Schema::Result::EntBlacklist",
     {"foreign.Creator" => "self.AstId"},
     {cascade_copy      => 0, cascade_delete => 0},
+);
+
+=head2 ent_carriers_agreed_by
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::EntCarrier>
+
+=cut
+
+__PACKAGE__->has_many(
+    "ent_carriers_agreed_by", "TMS::Schema::Result::EntCarrier",
+    {"foreign.AgreedBy" => "self.AstId"}, {cascade_copy => 0, cascade_delete => 0},
+);
+
+=head2 ent_carriers_carrier_reps_agreed_by
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::EntCarrier>
+
+=cut
+
+__PACKAGE__->has_many(
+    "ent_carriers_carrier_reps_agreed_by", "TMS::Schema::Result::EntCarrier",
+    {"foreign.CarrierRepAgreedBy" => "self.AstId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 fin_billing_tags
@@ -836,6 +903,21 @@ __PACKAGE__->has_many(
     {cascade_copy    => 0, cascade_delete => 0},
 );
 
+=head2 ins_policies
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::InsPolicy>
+
+=cut
+
+__PACKAGE__->has_many(
+    "ins_policies",
+    "TMS::Schema::Result::InsPolicy",
+    {"foreign.InsContact" => "self.AstId"},
+    {cascade_copy         => 0, cascade_delete => 0},
+);
+
 =head2 ins_to_entities_addeds_by
 
 Type: has_many
@@ -1030,8 +1112,8 @@ __PACKAGE__->has_many(
     {"foreign.InspectorId" => "self.AstId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:62MbN+BwDr4qYQr9LpBMDA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6f2xG5U1ifZfbWnyYAxRUw
 
 foreach (qw( vendor dispatcher owner driver customer shipper )) {
     __PACKAGE__->belongs_to(

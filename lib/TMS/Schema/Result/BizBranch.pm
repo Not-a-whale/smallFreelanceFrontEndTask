@@ -65,7 +65,7 @@ __PACKAGE__->table("biz_branches");
   data_type: 'bigint'
   extra: {unsigned => 1}
   is_foreign_key: 1
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 BrnchFax
 
@@ -118,7 +118,7 @@ __PACKAGE__->add_columns(
         data_type      => "bigint",
         extra          => {unsigned => 1},
         is_foreign_key => 1,
-        is_nullable    => 0,
+        is_nullable    => 1,
     },
     "BrnchFax",
     {   accessor       => "brnch_fax",
@@ -209,8 +209,12 @@ Related object: L<TMS::Schema::Result::CntPhonesfax>
 __PACKAGE__->belongs_to(
     "brnch_phone",
     "TMS::Schema::Result::CntPhonesfax",
-    {PhnFaxId      => "BrnchPhone"},
-    {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
+    {PhnFaxId => "BrnchPhone"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
 );
 
 =head2 dsp_loads_destinations
@@ -223,7 +227,7 @@ Related object: L<TMS::Schema::Result::DspLoadsDestination>
 
 __PACKAGE__->has_many(
     "dsp_loads_destinations", "TMS::Schema::Result::DspLoadsDestination",
-    {"foreign.Branch" => "self.BrnchId"}, {cascade_copy => 0, cascade_delete => 0},
+    {"foreign.Location" => "self.BrnchId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 ent_people
@@ -297,8 +301,8 @@ __PACKAGE__->has_many(
     {"foreign.VendorId" => "self.BrnchId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:55
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:LGrtdxROraa+k2cDedt5rw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:RvLoqcpb17D4X5K2lByHLA
 
 __PACKAGE__->has_many(
     "primary_contact",

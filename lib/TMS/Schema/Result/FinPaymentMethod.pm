@@ -34,6 +34,13 @@ __PACKAGE__->table("fin_payment_methods");
   extra: {unsigned => 1}
   is_nullable: 0
 
+=head2 PaymentMethodName
+
+  accessor: 'payment_method_name'
+  data_type: 'varchar'
+  is_nullable: 0
+  size: 64
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -42,6 +49,12 @@ __PACKAGE__->add_columns(
         data_type   => "bigint",
         extra       => {unsigned => 1},
         is_nullable => 0,
+    },
+    "PaymentMethodName",
+    {   accessor    => "payment_method_name",
+        data_type   => "varchar",
+        is_nullable => 0,
+        size        => 64,
     },
 );
 
@@ -56,6 +69,20 @@ __PACKAGE__->add_columns(
 =cut
 
 __PACKAGE__->set_primary_key("PaymentMethodId");
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<PaymentMethodName_UNIQUE>
+
+=over 4
+
+=item * L</PaymentMethodName>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("PaymentMethodName_UNIQUE", ["PaymentMethodName"]);
 
 =head1 RELATIONS
 
@@ -74,8 +101,8 @@ __PACKAGE__->has_many(
     {cascade_copy              => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:UbQcsXgBKRm3lhLQycNVhA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:XqU05h5/YZuzcWkQ6eD94Q
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

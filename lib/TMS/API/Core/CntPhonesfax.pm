@@ -28,6 +28,7 @@ has 'WorkHrsOpen'   => ('is' => 'rw', 'isa' => 'Any',              'coerce' => '
 # relations point to us
 has 'biz_branches_brnch_faxes'  => ('is' => 'rw', 'isa' => 'ArrayObjBizBranch',         'coerce' => '1', 'required' => '0');
 has 'biz_branches_brnch_phones' => ('is' => 'rw', 'isa' => 'ArrayObjBizBranch',         'coerce' => '1', 'required' => '0');
+has 'biz_company_nodes'         => ('is' => 'rw', 'isa' => 'ArrayObjBizCompanyNode',    'coerce' => '1', 'required' => '0');
 has 'fin_billing_infos_faxes'   => ('is' => 'rw', 'isa' => 'ArrayObjFinBillingInfo',    'coerce' => '1', 'required' => '0');
 has 'fin_billing_infos_phones'  => ('is' => 'rw', 'isa' => 'ArrayObjFinBillingInfo',    'coerce' => '1', 'required' => '0');
 has 'hr_associates_biz_faxes'   => ('is' => 'rw', 'isa' => 'ArrayObjHrAssociate',       'coerce' => '1', 'required' => '0');

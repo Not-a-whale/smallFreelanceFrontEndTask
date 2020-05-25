@@ -56,6 +56,14 @@ __PACKAGE__->table("ent_businesses");
   is_nullable: 1
   size: 1024
 
+=head2 Logo
+
+  accessor: 'logo'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_foreign_key: 1
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -79,6 +87,13 @@ __PACKAGE__->add_columns(
         data_type   => "varchar",
         is_nullable => 1,
         size        => 1024,
+    },
+    "Logo",
+    {   accessor       => "logo",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
     },
 );
 
@@ -138,6 +153,36 @@ __PACKAGE__->has_many(
     "TMS::Schema::Result::CrrIfta",
     {"foreign.BizId" => "self.BizId"},
     {cascade_copy    => 0, cascade_delete => 0},
+);
+
+=head2 dsp_loads_customers
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::DspLoad>
+
+=cut
+
+__PACKAGE__->has_many(
+    "dsp_loads_customers",
+    "TMS::Schema::Result::DspLoad",
+    {"foreign.CustomerId" => "self.BizId"},
+    {cascade_copy         => 0, cascade_delete => 0},
+);
+
+=head2 dsp_loads_vendors
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::DspLoad>
+
+=cut
+
+__PACKAGE__->has_many(
+    "dsp_loads_vendors",
+    "TMS::Schema::Result::DspLoad",
+    {"foreign.VendorId" => "self.BizId"},
+    {cascade_copy       => 0, cascade_delete => 0},
 );
 
 =head2 ent_carrier
@@ -227,8 +272,27 @@ __PACKAGE__->has_many(
     {cascade_copy          => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:wKTz7Hbqwjl92+R30Q65Tw
+=head2 logo
+
+Type: belongs_to
+
+Related object: L<TMS::Schema::Result::GenFile>
+
+=cut
+
+__PACKAGE__->belongs_to(
+    "logo",
+    "TMS::Schema::Result::GenFile",
+    {FileId => "Logo"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
+);
+
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:H/2OK/irsVoAZ+fqacf+nw
 
 __PACKAGE__->belongs_to(
     "has_carrier",

@@ -119,6 +119,16 @@ __PACKAGE__->table("fin_accounts");
   is_nullable: 0
   size: [12,2]
 
+=head2 PhysicalAccount
+
+  accessor: 'physical_account'
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_foreign_key: 1
+  is_nullable: 1
+
+Physical Bank Account if Required
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -193,6 +203,13 @@ __PACKAGE__->add_columns(
         default_value => "0.00",
         is_nullable   => 0,
         size          => [12, 2],
+    },
+    "PhysicalAccount",
+    {   accessor       => "physical_account",
+        data_type      => "bigint",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 1,
     },
 );
 
@@ -338,8 +355,27 @@ __PACKAGE__->belongs_to(
     },
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:iSsp4UrRBUEV6Tih4wCPCA
+=head2 physical_account
+
+Type: belongs_to
+
+Related object: L<TMS::Schema::Result::FinBillingBank>
+
+=cut
+
+__PACKAGE__->belongs_to(
+    "physical_account",
+    "TMS::Schema::Result::FinBillingBank",
+    {BankId => "PhysicalAccount"},
+    {   is_deferrable => 1,
+        join_type     => "LEFT",
+        on_delete     => "RESTRICT",
+        on_update     => "CASCADE",
+    },
+);
+
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Oy5Tn1oAeUsW51W6Hx1ECQ
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

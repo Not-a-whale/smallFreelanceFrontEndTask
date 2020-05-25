@@ -19,6 +19,7 @@ use TMS::API::Types::Columns;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
+has 'InsContact'       => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
 has 'InsId'            => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '1', 'required' => '0');
 has 'InsProvider'      => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
 has 'PaidBy'           => ('is' => 'rw', 'isa' => 'enum_PaidBy',   'coerce' => '1', 'required' => '0');
@@ -26,6 +27,7 @@ has 'ProofOfInsurance' => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '
 has 'WhatIsInsured'    => ('is' => 'rw', 'isa' => 'VarChar255',    'coerce' => '1', 'required' => '0');
 
 # relations depends on
+has 'ins_contact'        => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'coerce' => '1', 'required' => '0');
 has 'ins_provider'       => ('is' => 'rw', 'isa' => 'ObjEntBusiness', 'coerce' => '1', 'required' => '0');
 has 'proof_of_insurance' => ('is' => 'rw', 'isa' => 'ObjGenFile',     'coerce' => '1', 'required' => '0');
 

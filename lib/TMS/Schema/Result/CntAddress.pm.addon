@@ -1,0 +1,14 @@
+__PACKAGE__->has_many(
+    "notes",
+    "TMS::Schema::Result::MsgNote",
+    sub {
+        my $args          = shift;
+        my @primary_cols  = $args->{self_resultsource}->primary_columns;
+        my $primary_alias = $args->{self_alias} . '.' . $primary_cols[0];
+        return {
+            "$args->{foreign_alias}.sourceid"    => {-ident => $primary_alias},
+            "$args->{foreign_alias}.sourcetable" => $args->{self_resultsource}->from(),
+        };
+    },
+    {cascade_copy => 0, cascade_delete => 0},
+);

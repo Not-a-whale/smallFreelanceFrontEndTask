@@ -19,42 +19,30 @@ use TMS::API::Types::Columns;
 extends 'TMS::SchemaWrapper';
 with 'MooseX::Traits';
 
-has 'AddedToFMCSA'              => ('is' => 'rw', 'isa' => 'DATETIME',              'coerce' => '1', 'required' => '0');
-has 'CargoCarried'              => ('is' => 'rw', 'isa' => 'enum_CargoCarried',     'coerce' => '1', 'required' => '0');
-has 'CarrierId'                 => ('is' => 'rw', 'isa' => 'PrimaryKeyInt',         'coerce' => '1', 'required' => '0');
-has 'CarrierOperation'          => ('is' => 'rw', 'isa' => 'enum_CarrierOperation', 'coerce' => '1', 'required' => '0');
-has 'CrType'                    => ('is' => 'rw', 'isa' => 'enum_CrType',           'coerce' => '1', 'required' => '0');
-has 'DOT'                       => ('is' => 'rw', 'isa' => 'DOTnum',                'coerce' => '1', 'required' => '0');
-has 'EmployedDriversCDL'        => ('is' => 'rw', 'isa' => 'PositiveInt',           'coerce' => '1', 'required' => '0');
-has 'InerstateDriversLess100M'  => ('is' => 'rw', 'isa' => 'PositiveInt',           'coerce' => '1', 'required' => '0');
-has 'InerstateDriversOver100M'  => ('is' => 'rw', 'isa' => 'PositiveInt',           'coerce' => '1', 'required' => '0');
-has 'IntrastateDriversLess100M' => ('is' => 'rw', 'isa' => 'PositiveInt',           'coerce' => '1', 'required' => '0');
-has 'IntrastateDriversOver100M' => ('is' => 'rw', 'isa' => 'PositiveInt',           'coerce' => '1', 'required' => '0');
-has 'MC'                        => ('is' => 'rw', 'isa' => 'MCnum',                 'coerce' => '1', 'required' => '0');
-has 'MCS150FormDate'            => ('is' => 'rw', 'isa' => 'DATETIME',              'coerce' => '1', 'required' => '0');
-has 'MCS150FormMileage'         => ('is' => 'rw', 'isa' => 'PositiveInt',           'coerce' => '1', 'required' => '0');
-has 'MCS150FormMileageYear'     => ('is' => 'rw', 'isa' => 'PositiveInt',           'coerce' => '1', 'required' => '0');
-has 'McCertificatePhoto'        => ('is' => 'rw', 'isa' => 'PositiveInt',           'coerce' => '1', 'required' => '0');
-has 'OIC_STATE'                 => ('is' => 'rw', 'isa' => 'VarChar2',              'coerce' => '1', 'required' => '0');
-has 'OperationClassification' => ('is' => 'rw', 'isa' => 'enum_OperationClassification', 'coerce' => '1', 'required' => '0');
-has 'RateConfEmailAddress'    => ('is' => 'rw', 'isa' => 'VarChar255',                   'coerce' => '1', 'required' => '0');
-has 'SCAC'                    => ('is' => 'rw', 'isa' => 'SCAC',                         'coerce' => '1', 'required' => '0');
-has 'TractorsOwned'           => ('is' => 'rw', 'isa' => 'PositiveInt',                  'coerce' => '1', 'required' => '0');
-has 'TractorsTermLeased'      => ('is' => 'rw', 'isa' => 'PositiveInt',                  'coerce' => '1', 'required' => '0');
-has 'TractorsTripLeased'      => ('is' => 'rw', 'isa' => 'PositiveInt',                  'coerce' => '1', 'required' => '0');
-has 'TrailersOwned'           => ('is' => 'rw', 'isa' => 'PositiveInt',                  'coerce' => '1', 'required' => '0');
-has 'TrailersTermLeased'      => ('is' => 'rw', 'isa' => 'PositiveInt',                  'coerce' => '1', 'required' => '0');
-has 'TrailersTripLeased'      => ('is' => 'rw', 'isa' => 'PositiveInt',                  'coerce' => '1', 'required' => '0');
-has 'TrucksOwned'             => ('is' => 'rw', 'isa' => 'PositiveInt',                  'coerce' => '1', 'required' => '0');
-has 'TrucksTermLeased'        => ('is' => 'rw', 'isa' => 'PositiveInt',                  'coerce' => '1', 'required' => '0');
-has 'TrucksTripLeased'        => ('is' => 'rw', 'isa' => 'PositiveInt',                  'coerce' => '1', 'required' => '0');
+has 'AddedToFMCSA'         => ('is' => 'rw', 'isa' => 'DATETIME',      'coerce' => '1', 'required' => '0');
+has 'AgreedBy'             => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
+has 'AgreementDate'        => ('is' => 'rw', 'isa' => 'DATETIME',      'coerce' => '1', 'required' => '0');
+has 'AgreementFile'        => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
+has 'CarrierId'            => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '1', 'required' => '0');
+has 'CarrierRepAgreedBy'   => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
+has 'CrType'               => ('is' => 'rw', 'isa' => 'set_CrType',    'coerce' => '1', 'required' => '0');
+has 'DOT'                  => ('is' => 'rw', 'isa' => 'DOTnum',        'coerce' => '1', 'required' => '0');
+has 'MC'                   => ('is' => 'rw', 'isa' => 'MCnum',         'coerce' => '1', 'required' => '0');
+has 'McCertificatePhoto'   => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', 'required' => '0');
+has 'OIC_STATE'            => ('is' => 'rw', 'isa' => 'VarChar2',      'coerce' => '1', 'required' => '0');
+has 'RateConfEmailAddress' => ('is' => 'rw', 'isa' => 'VarChar255',    'coerce' => '1', 'required' => '0');
+has 'SCAC'                 => ('is' => 'rw', 'isa' => 'SCAC',          'coerce' => '1', 'required' => '0');
 
 # relations depends on
-has 'carrier'              => ('is' => 'rw', 'isa' => 'ObjEntBusiness', 'coerce' => '1', 'required' => '0');
-has 'mc_certificate_photo' => ('is' => 'rw', 'isa' => 'ObjGenFile',     'coerce' => '1', 'required' => '0');
+has 'agreed_by'             => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'coerce' => '1', 'required' => '0');
+has 'agreement_file'        => ('is' => 'rw', 'isa' => 'ObjGenFile',     'coerce' => '1', 'required' => '0');
+has 'carrier'               => ('is' => 'rw', 'isa' => 'ObjEntBusiness', 'coerce' => '1', 'required' => '0');
+has 'carrier_rep_agreed_by' => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'coerce' => '1', 'required' => '0');
+has 'mc_certificate_photo'  => ('is' => 'rw', 'isa' => 'ObjGenFile',     'coerce' => '1', 'required' => '0');
 
 # relations point to us
 has 'crr_permit_accounts' => ('is' => 'rw', 'isa' => 'ArrayObjCrrPermitAccount', 'coerce' => '1', 'required' => '0');
+has 'crr_statistics'      => ('is' => 'rw', 'isa' => 'ArrayObjCrrStatistic',     'coerce' => '1', 'required' => '0');
 has 'ent_owner_operators' => ('is' => 'rw', 'isa' => 'ArrayObjEntOwnerOperator', 'coerce' => '1', 'required' => '0');
 has 'inv_vehicles'        => ('is' => 'rw', 'isa' => 'ArrayObjInvVehicle',       'coerce' => '1', 'required' => '0');
 

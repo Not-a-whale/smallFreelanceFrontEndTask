@@ -69,6 +69,9 @@ coerce 'ArrayObjBizCompanyNode', from 'ArrayRef', via { _build_types('TMS::API::
 subtype 'ArrayObjBizCompanyTree', as 'ArrayRef[ObjBizCompanyTree]';
 coerce 'ArrayObjBizCompanyTree', from 'ArrayRef', via { _build_types('TMS::API::Core::BizCompanyTree', $_) };
 
+subtype 'ArrayObjBrkLoadstatus', as 'ArrayRef[ObjBrkLoadstatus]';
+coerce 'ArrayObjBrkLoadstatus', from 'ArrayRef', via { _build_types('TMS::API::Core::BrkLoadstatus', $_) };
+
 subtype 'ArrayObjCmmAssignment', as 'ArrayRef[ObjCmmAssignment]';
 coerce 'ArrayObjCmmAssignment', from 'ArrayRef', via { _build_types('TMS::API::Core::CmmAssignment', $_) };
 
@@ -99,6 +102,9 @@ coerce 'ArrayObjCrrPermitImage', from 'ArrayRef', via { _build_types('TMS::API::
 subtype 'ArrayObjCrrStatePermit', as 'ArrayRef[ObjCrrStatePermit]';
 coerce 'ArrayObjCrrStatePermit', from 'ArrayRef', via { _build_types('TMS::API::Core::CrrStatePermit', $_) };
 
+subtype 'ArrayObjCrrStatistic', as 'ArrayRef[ObjCrrStatistic]';
+coerce 'ArrayObjCrrStatistic', from 'ArrayRef', via { _build_types('TMS::API::Core::CrrStatistic', $_) };
+
 subtype 'ArrayObjDrvDriverlicence', as 'ArrayRef[ObjDrvDriverlicence]';
 coerce 'ArrayObjDrvDriverlicence', from 'ArrayRef', via { _build_types('TMS::API::Core::DrvDriverlicence', $_) };
 
@@ -118,15 +124,13 @@ subtype 'ArrayObjDspLoadsDestination', as 'ArrayRef[ObjDspLoadsDestination]';
 coerce 'ArrayObjDspLoadsDestination', from 'ArrayRef', via { _build_types('TMS::API::Core::DspLoadsDestination', $_) };
 
 subtype 'ArrayObjDspLoadsDestinationsDoc', as 'ArrayRef[ObjDspLoadsDestinationsDoc]';
-coerce 'ArrayObjDspLoadsDestinationsDoc',  from 'ArrayRef',
-    via { _build_types('TMS::API::Core::DspLoadsDestinationsDoc', $_) };
+coerce 'ArrayObjDspLoadsDestinationsDoc', from 'ArrayRef', via { _build_types('TMS::API::Core::DspLoadsDestinationsDoc', $_) };
 
 subtype 'ArrayObjDspLoadsDoc', as 'ArrayRef[ObjDspLoadsDoc]';
 coerce 'ArrayObjDspLoadsDoc', from 'ArrayRef', via { _build_types('TMS::API::Core::DspLoadsDoc', $_) };
 
 subtype 'ArrayObjDspLoadsRequiredEquipment', as 'ArrayRef[ObjDspLoadsRequiredEquipment]';
-coerce 'ArrayObjDspLoadsRequiredEquipment',  from 'ArrayRef',
-    via { _build_types('TMS::API::Core::DspLoadsRequiredEquipment', $_) };
+coerce 'ArrayObjDspLoadsRequiredEquipment', from 'ArrayRef', via { _build_types('TMS::API::Core::DspLoadsRequiredEquipment', $_) };
 
 subtype 'ArrayObjDspLoadsTracking', as 'ArrayRef[ObjDspLoadsTracking]';
 coerce 'ArrayObjDspLoadsTracking', from 'ArrayRef', via { _build_types('TMS::API::Core::DspLoadsTracking', $_) };
@@ -139,6 +143,9 @@ coerce 'ArrayObjDspTripsLoad', from 'ArrayRef', via { _build_types('TMS::API::Co
 
 subtype 'ArrayObjEntBlacklist', as 'ArrayRef[ObjEntBlacklist]';
 coerce 'ArrayObjEntBlacklist', from 'ArrayRef', via { _build_types('TMS::API::Core::EntBlacklist', $_) };
+
+subtype 'ArrayObjEntBusiness', as 'ArrayRef[ObjEntBusiness]';
+coerce 'ArrayObjEntBusiness', from 'ArrayRef', via { _build_types('TMS::API::Core::EntBusiness', $_) };
 
 subtype 'ArrayObjEntCarrier', as 'ArrayRef[ObjEntCarrier]';
 coerce 'ArrayObjEntCarrier', from 'ArrayRef', via { _build_types('TMS::API::Core::EntCarrier', $_) };
@@ -288,8 +295,7 @@ subtype 'ArrayObjSftVehicleInspectProof', as 'ArrayRef[ObjSftVehicleInspectProof
 coerce 'ArrayObjSftVehicleInspectProof', from 'ArrayRef', via { _build_types('TMS::API::Core::SftVehicleInspectProof', $_) };
 
 subtype 'ArrayObjSftVehicleInspectedItem', as 'ArrayRef[ObjSftVehicleInspectedItem]';
-coerce 'ArrayObjSftVehicleInspectedItem',  from 'ArrayRef',
-    via { _build_types('TMS::API::Core::SftVehicleInspectedItem', $_) };
+coerce 'ArrayObjSftVehicleInspectedItem', from 'ArrayRef', via { _build_types('TMS::API::Core::SftVehicleInspectedItem', $_) };
 
 subtype 'ArrayObjSftVehicleInspection', as 'ArrayRef[ObjSftVehicleInspection]';
 coerce 'ArrayObjSftVehicleInspection', from 'ArrayRef', via { _build_types('TMS::API::Core::SftVehicleInspection', $_) };

@@ -292,6 +292,19 @@ __PACKAGE__->has_many(
     {cascade_copy     => 0, cascade_delete => 0},
 );
 
+=head2 ent_businesses
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::EntBusiness>
+
+=cut
+
+__PACKAGE__->has_many(
+    "ent_businesses", "TMS::Schema::Result::EntBusiness",
+    {"foreign.Logo" => "self.FileId"}, {cascade_copy => 0, cascade_delete => 0},
+);
+
 =head2 ent_carriers
 
 Type: has_many
@@ -305,6 +318,19 @@ __PACKAGE__->has_many(
     "TMS::Schema::Result::EntCarrier",
     {"foreign.McCertificatePhoto" => "self.FileId"},
     {cascade_copy                 => 0, cascade_delete => 0},
+);
+
+=head2 ent_carriers_agreement_files
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::EntCarrier>
+
+=cut
+
+__PACKAGE__->has_many(
+    "ent_carriers_agreement_files", "TMS::Schema::Result::EntCarrier",
+    {"foreign.AgreementFile" => "self.FileId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
 =head2 fin_billing_banks
@@ -445,8 +471,8 @@ __PACKAGE__->has_many(
     {"foreign.RegistrationCard" => "self.FileId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ZOT3q0MTfBqttE8Qw0e8Aw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7GzYGEgiM/D4ahyU1GksSA
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

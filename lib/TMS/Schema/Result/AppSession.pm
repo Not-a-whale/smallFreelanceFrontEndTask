@@ -112,8 +112,8 @@ __PACKAGE__->set_primary_key("session_id");
 
 __PACKAGE__->add_unique_constraint("session_name_UNIQUE", ["session_name"]);
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-28 11:12:55
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:AZyEHTO7JSeGXNvT9VKQTQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0+QPbOZ0UJmh+gwe6WFoAg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 
