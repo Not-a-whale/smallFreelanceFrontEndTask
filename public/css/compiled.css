@@ -1493,13 +1493,17 @@ ui-list-insert {
   box-sizing: border-box;
   cursor: pointer;
 }
+ui-list-insert > * {
+  margin-right: 0.4rem;
+}
 ui-list-insert:hover,
 ui-list-insert.active {
   --background-color: #EAF5FC;
   --border-color: #AAD2EE;
 }
 ui-list-insert[type="branch-form"],
-ui-list-insert[type="staff-form"] {
+ui-list-insert[type="staff-form"],
+ui-list-insert[type="driver-form"] {
   --icon-color: #7A7985;
   align-items: center;
   padding-left: 0.6rem;
@@ -1507,7 +1511,8 @@ ui-list-insert[type="staff-form"] {
   height: 4rem;
 }
 ui-list-insert[type="branch-form"] .label,
-ui-list-insert[type="staff-form"] .label {
+ui-list-insert[type="staff-form"] .label,
+ui-list-insert[type="driver-form"] .label {
   display: flex;
   flex-direction: row;
   flex-grow: 1;
@@ -1523,108 +1528,26 @@ ui-list-insert[type="staff-form"] .label {
   text-overflow: ellipsis;
 }
 ui-list-insert[type="branch-form"] .label.italic,
-ui-list-insert[type="staff-form"] .label.italic {
+ui-list-insert[type="staff-form"] .label.italic,
+ui-list-insert[type="driver-form"] .label.italic {
   font-weight: normal;
   font-style: italic;
 }
 ui-list-insert[type="branch-form"] .icont,
-ui-list-insert[type="staff-form"] .icont {
+ui-list-insert[type="staff-form"] .icont,
+ui-list-insert[type="driver-form"] .icont {
   margin-left: auto;
   margin-right: 0rem;
 }
 ui-list-insert[type="branch-form"] .icont .icon,
-ui-list-insert[type="staff-form"] .icont .icon {
+ui-list-insert[type="staff-form"] .icont .icon,
+ui-list-insert[type="driver-form"] .icont .icon {
   fill: var(--icon-color);
 }
 ui-list-insert[type="branch-form"] .icont .icon:hover,
-ui-list-insert[type="staff-form"] .icont .icon:hover {
+ui-list-insert[type="staff-form"] .icont .icon:hover,
+ui-list-insert[type="driver-form"] .icont .icon:hover {
   --icon-color: #525160;
-}
-ui-subform-mediator {
-  display: flex;
-  flex-direction: row;
-  min-height: 300px;
-  width: 100%;
-}
-ui-subform-mediator form-container {
-  display: flex;
-  flex-direction: column;
-  min-width: 50%;
-}
-ui-subform-mediator list-container {
-  display: flex;
-  flex-direction: column;
-  min-width: 30%;
-}
-ui-subform-mediator controls-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-right: 24px;
-  padding-left: 24px;
-  width: 120px;
-}
-ui-subform-mediator controls-container > button,
-ui-subform-mediator controls-container > a,
-ui-subform-mediator controls-container > input {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  position: relative;
-  cursor: pointer;
-  -webkit-touch-callout: none;
-  /* iOS Safari */
-  -webkit-user-select: none;
-  /* Safari */
-  -khtml-user-select: none;
-  /* Konqueror HTML */
-  -moz-user-select: none;
-  /* Old versions of Firefox */
-  -ms-user-select: none;
-  /* Internet Explorer/Edge */
-  user-select: none;
-  /* Non-prefixed version, currently
-                                  supported by Chrome, Opera and Firefox */
-  --icon-color: #8B4040;
-  font: bold 12px 'Nunito Sans', Arial, Helvetica, sans-serif;
-  font-family: 'Nunito Sans', Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  font-size: 12px;
-  text-transform: uppercase;
-  color: #696877;
-  border-width: 0px;
-  border-style: none;
-  border-color: transparent;
-  border-image: none;
-  background-color: transparent;
-  width: 100%;
-}
-ui-subform-mediator controls-container > button:not(:last-child),
-ui-subform-mediator controls-container > a:not(:last-child),
-ui-subform-mediator controls-container > input:not(:last-child) {
-  margin-bottom: 24px;
-}
-ui-subform-mediator controls-container > button .icon,
-ui-subform-mediator controls-container > a .icon,
-ui-subform-mediator controls-container > input .icon {
-  position: absolute;
-  margin-left: 12px;
-  fill: var(--icon-color);
-}
-ui-subform-mediator controls-container > button .icon.grey,
-ui-subform-mediator controls-container > a .icon.grey,
-ui-subform-mediator controls-container > input .icon.grey {
-  --icon-color: #97989D;
-  transform: rotate(45deg);
-}
-ui-subform-mediator controls-container > button .icon.flip,
-ui-subform-mediator controls-container > a .icon.flip,
-ui-subform-mediator controls-container > input .icon.flip {
-  transform: scaleX(-1);
-}
-ui-subform-form {
-  display: flex;
-  flex-direction: column;
 }
 ui-subform {
   display: flex;
@@ -1954,38 +1877,38 @@ ui-form-section2 form-section-content .form-row > *:not(:last-child),
 ui-form-section2 form-section-content form-row > *:not(:last-child) {
   padding-right: 8px;
 }
-ui-form-section2 form-section-content .f1,
-ui-form-section2 form-section-content .fc1 {
+.f1,
+.fc1 {
   display: flex;
   box-sizing: border-box;
   width: 16.66666667%;
 }
-ui-form-section2 form-section-content .f2,
-ui-form-section2 form-section-content .fc2 {
+.f2,
+.fc2 {
   display: flex;
   box-sizing: border-box;
   width: 33.33333333%;
 }
-ui-form-section2 form-section-content .f3,
-ui-form-section2 form-section-content .fc3 {
+.f3,
+.fc3 {
   display: flex;
   box-sizing: border-box;
   width: 50%;
 }
-ui-form-section2 form-section-content .f4,
-ui-form-section2 form-section-content .fc4 {
+.f4,
+.fc4 {
   display: flex;
   box-sizing: border-box;
   width: 66.66666667%;
 }
-ui-form-section2 form-section-content .f5,
-ui-form-section2 form-section-content .fc5 {
+.f5,
+.fc5 {
   display: flex;
   box-sizing: border-box;
   width: 83.33333333%;
 }
-ui-form-section2 form-section-content .f6,
-ui-form-section2 form-section-content .fc6 {
+.f6,
+.fc6 {
   display: flex;
   box-sizing: border-box;
   width: 100%;
@@ -2109,6 +2032,88 @@ form form-col {
   display: flex;
   flex-direction: column;
 }
+ui-form-mediator {
+  display: flex;
+  flex-direction: row;
+  min-height: 300px;
+  width: 100%;
+}
+ui-form-mediator form-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 50%;
+}
+ui-form-mediator list-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 30%;
+}
+ui-form-mediator controls-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 24px;
+  padding-left: 24px;
+  width: 120px;
+}
+ui-form-mediator controls-container > button,
+ui-form-mediator controls-container > a,
+ui-form-mediator controls-container > input {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  position: relative;
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+                                  supported by Chrome, Opera and Firefox */
+  --icon-color: #8B4040;
+  font: bold 12px 'Nunito Sans', Arial, Helvetica, sans-serif;
+  font-family: 'Nunito Sans', Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #696877;
+  border-width: 0px;
+  border-style: none;
+  border-color: transparent;
+  border-image: none;
+  background-color: transparent;
+  width: 100%;
+}
+ui-form-mediator controls-container > button:not(:last-child),
+ui-form-mediator controls-container > a:not(:last-child),
+ui-form-mediator controls-container > input:not(:last-child) {
+  margin-bottom: 24px;
+}
+ui-form-mediator controls-container > button .icon,
+ui-form-mediator controls-container > a .icon,
+ui-form-mediator controls-container > input .icon {
+  position: absolute;
+  margin-left: 12px;
+  fill: var(--icon-color);
+}
+ui-form-mediator controls-container > button .icon.grey,
+ui-form-mediator controls-container > a .icon.grey,
+ui-form-mediator controls-container > input .icon.grey {
+  --icon-color: #97989D;
+  transform: rotate(45deg);
+}
+ui-form-mediator controls-container > button .icon.flip,
+ui-form-mediator controls-container > a .icon.flip,
+ui-form-mediator controls-container > input .icon.flip {
+  transform: scaleX(-1);
+}
 ui-form-blank {
   display: flex;
   flex-direction: column;
@@ -2117,9 +2122,40 @@ ui-form-blank {
   align-items: center;
   justify-content: center;
 }
-ui-form-section {
+form.ui-form-section {
   display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background-color: #FFFFFF;
+  padding: 1.2rem 2.4rem 2.4rem 2.4rem;
+  border-radius: 4px;
+  border: 1px solid #DCDCDC;
 }
+form.ui-form-section save-button {
+  display: flex;
+  margin-right: 0px;
+  margin-left: auto;
+}
+form.ui-form-section section-content-container {
+  position: relative;
+}
+form.ui-form-section section-content {
+  position: relative;
+}
+form.ui-form-section section-title {
+  font-family: 'Nunito Sans', Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  text-transform: capitalize;
+}
+form.ui-form-section section-header {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  height: 2.4rem;
+  margin-bottom: 8px;
+}
+ui-form-section,
 ui-form-section-template {
   display: flex;
   flex-direction: column;
@@ -2129,32 +2165,34 @@ ui-form-section-template {
   border-radius: 4px;
   border: 1px solid #DCDCDC;
 }
+ui-form-section save-button,
 ui-form-section-template save-button {
   display: flex;
   margin-right: 0px;
   margin-left: auto;
 }
+ui-form-section section-content-container,
 ui-form-section-template section-content-container {
   position: relative;
 }
+ui-form-section section-content,
 ui-form-section-template section-content {
   position: relative;
 }
+ui-form-section section-title,
 ui-form-section-template section-title {
   font-family: 'Nunito Sans', Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: 18px;
+  text-transform: capitalize;
 }
+ui-form-section section-header,
 ui-form-section-template section-header {
   display: flex;
   flex-direction: row;
   flex-grow: 1;
   height: 2.4rem;
   margin-bottom: 8px;
-}
-ui-form-section-template form {
-  display: flex;
-  flex-direction: column;
 }
 ui-form-partial-address {
   display: flex;
@@ -2982,36 +3020,30 @@ ui-input .ng-touched.invalid + errors {
 .input-new-btn:hover {
   --newbtn-color: #4388B8;
 }
-ui-datalist,
-ui-datalist-business {
+ui-datalist {
   display: flex;
   flex-direction: column;
   position: relative;
   height: 68px;
+  width: 100%;
 }
-ui-datalist > label,
-ui-datalist-business > label {
+ui-datalist > label {
   position: absolute;
   order: 1;
 }
 ui-datalist > input,
-ui-datalist-business > input,
-ui-datalist > select,
-ui-datalist-business > select {
+ui-datalist > select {
   margin: 18px 0px 20px 0px;
   order: 2;
 }
-ui-datalist errors,
-ui-datalist-business errors {
+ui-datalist errors {
   display: none;
   position: absolute;
   order: 3;
   bottom: 0px;
 }
 ui-datalist .ng-dirty.invalid + errors,
-ui-datalist-business .ng-dirty.invalid + errors,
-ui-datalist .ng-touched.invalid + errors,
-ui-datalist-business .ng-touched.invalid + errors {
+ui-datalist .ng-touched.invalid + errors {
   display: flex;
 }
 .btn-icon {
