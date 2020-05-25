@@ -169,28 +169,42 @@ function DeepFind(obj, path, setvalue) {
 }
 
 function DeepSet(obj, path, value) {
-  let paths = path.split('.');
+  let paths = path.replace(/\[\]/, '.').split('.');
   let retval = false;
   let current = obj;
   let index = 0;
   for (let p of paths) {
     let last = index == paths.length - 1;
-    if (current != undefined) {
-      if (!(p in current)) {
-        if (last) {
-          current[p] = value;
-          retval = true;
-        } else {
-          current[p] = {};
+    let next_p = undefined;
+    //maybe this need to be an array?
+    if (index + 1 < paths.length) {
+      next_p = paths[index + 1];
+    }
+
+    if (current == undefined) {
+      let int = NaN;
+      if (next_p !== undefined) {
+        // make the array
+        if (isNaN(next_p) === false) {
+          int = parseInt(next_p);
+          if (int) {
+            current[p] = [];
+          }
         }
       }
+      //if array failed, make the object
+      if (current == undefined) {
+        current = {};
+      }
+    }
 
-      current = current[p];
-      index++; //for sanity and readablility increase index at the end
-    } else {
-      retval = null;
+    if (last) {
+      current[p] = value;
+      retval = true;
       break;
     }
+    current = current[p];
+    index++; //for sanity and readablility increase index at the end
   }
   return retval;
 }
