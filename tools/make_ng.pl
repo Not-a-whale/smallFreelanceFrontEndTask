@@ -72,6 +72,8 @@ my $CLI = ParseCLI(
     }
 );
 
+exit 0 if $$CLI{help};
+
 # ----------------------------------------------------------------------------------------------------------------------
 my $DESTROOT = "$$CLI{dest}/$$CLI{class}";
 my $BASEAPI  = "$DESTROOT/API";
@@ -113,7 +115,9 @@ foreach (values %$dbixpm) {
     }
 }
 ReadStaticTypes();
-$_->join() foreach @ResultThreads;
+if (!$$CLI{single}) {
+    $_->join() foreach @ResultThreads;
+}
 
 # ----------------------------------------------------------------------------------------------------------------------
 my $GLOB = undef;
@@ -141,11 +145,17 @@ require "$$CLI{class}/Schema.pm";
 my @ApiThreads = ();
 my $before_api = time();
 if ($$CLI{single}) {
-    BuildAPI(class => $_) foreach sort keys %$dbixpm;
+    foreach (sort keys %$dbixpm) {
+        BuildAPI(class => $_);
+    }
+
+    # BuildAPI(class => $_) foreach sort keys %$dbixpm;
 } else {
     push @ApiThreads, threads->create('BuildAPI', class => $_) foreach sort keys %$dbixpm;
 }
-$_->join() foreach @ApiThreads;
+if (!$$CLI{single}) {
+    $_->join() foreach @ApiThreads;
+}
 my $after_api = time();
 
 unless (exists $$CLI{tables} && defined $$CLI{tables}) {
@@ -157,7 +167,9 @@ unless (exists $$CLI{tables} && defined $$CLI{tables}) {
         $ObjTypesThread = threads->create('BuildObjectTypes');
     }
     BuildComplexTypes();
-    $ObjTypesThread->join if $ObjTypesThread;
+    if (!$$CLI{single}) {
+        $ObjTypesThread->join if $ObjTypesThread;
+    }
 } else {
     print "\nWARNING: types are not generated due to explicit list of tables!\n\n";
 }
@@ -177,7 +189,6 @@ sub BuildEnumSetTypes {
         set  => ReadTemplate('Columns.set.pm'),
     };
 
-    $DB::single = 2;
     foreach my $sig (keys %EnumSetTypesSign) {
         my $name = $EnumSetTypesSign{$sig};
         my $type = $EnumSetTypesType{$sig};
@@ -251,6 +262,7 @@ sub BuildComplexTypes {
 }
 
 sub BuildObjectTypes {
+    $DB::single = 2;
     my $target       = "$$CLI{dest}/$$CLI{class}/API/Types/Objects.pm";
     my $CoreTemplate = ReadFile("$$CLI{templt}/Objects.pm");
     my $ObjTemplate  = ReadFile("$$CLI{templt}/ObjectType.pm");
@@ -334,8 +346,13 @@ sub BuildAPI {
                 my $name = $isa . '_' . $cl;
 
                 if (!exists $EnumSetTypesSign{$sign}) {
-                    { lock(%EnumSetTypesSign); $EnumSetTypesSign{$sign} = $name; }
-                    { lock(%EnumSetTypesType); $EnumSetTypesType{$sign} = $isa; }
+                    if ($$CLI{single}) {
+                        $EnumSetTypesSign{$sign} = $name;
+                        $EnumSetTypesType{$sign} = $isa;
+                    } else {
+                        { lock(%EnumSetTypesSign); $EnumSetTypesSign{$sign} = $name; }
+                        { lock(%EnumSetTypesType); $EnumSetTypesType{$sign} = $isa; }
+                    }
                 }
                 $isa = $EnumSetTypesSign{$sign};
                 $coerce{$isa} = 1;
@@ -371,13 +388,26 @@ sub BuildAPI {
 
         if ($RelateInfo{$cl}{'attrs'}{'accessor'} eq 'multi') {
             if (!exists $ArrClassTypes{$MooseType}) {
-                lock(%ArrClassTypes);
-                $ArrClassTypes{$MooseType} = $MooseClass;
+                if ($$CLI{single}) {
+                    $ArrClassTypes{$MooseType} = $MooseClass;
+                } else {
+                    lock(%ArrClassTypes);
+                    $ArrClassTypes{$MooseType} = $MooseClass;
+                }
             }
-        } else {
-            if (!exists $ObjClassTypes{$MooseType}) {
-                lock(%ObjClassTypes);
-                $ObjClassTypes{$MooseType} = $MooseClass;
+        }
+        {
+
+            my $ObjType = $MooseType;
+            $ObjType =~ s/ArrayObj/Obj/;
+
+            if (!exists $ObjClassTypes{$ObjType}) {
+                if ($$CLI{single}) {
+                    $ObjClassTypes{$ObjType} = $MooseClass;
+                } else {
+                    lock(%ObjClassTypes);
+                    $ObjClassTypes{$ObjType} = $MooseClass;
+                }
             }
         }
 
@@ -516,7 +546,6 @@ sub BuildAPI {
 sub AttributesHash {
     my %args = @_;
     if ($args{class} eq 'HrAssociate') {
-        $DB::single = 2;
     }
     my $idnt = exists $args{ident} ? $args{ident} : 0;
     my $tree = exists $args{tree}  ? $args{tree}  : {};
@@ -591,7 +620,6 @@ sub UpdateFromTemplate {
 }
 
 sub RunDbicDump {
-    $DB::single = 2;
     my @tables    = ();
     my $constr    = '';
     my $processed = {};
