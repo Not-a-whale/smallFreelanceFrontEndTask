@@ -666,7 +666,7 @@ sub trySupportedCountryName {
     my $country = shift;
     return rand_enum(set => ['United States', 'Canada']) if _auto_ok($country);
     return "United States" if $country =~ /\b(US|USA|UNITED\s+STATES)\b/i;
-    return "Canada"        if $country =~ /\bCANADA\b/i;
+    return "Canada"        if $country =~ /\b(CANADA|CA|CAN)\b/i;
     return $country;
 }
 
