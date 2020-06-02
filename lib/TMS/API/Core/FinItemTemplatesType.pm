@@ -23,6 +23,8 @@ has 'TemplateTypeId' => ('is' => 'rw', 'isa' => 'PrimaryKeyInt', 'coerce' => '1'
 
 # relations point to us
 has 'fin_item_templates' => ('is' => 'rw', 'isa' => 'ArrayObjFinItemTemplate', 'coerce' => '1', 'required' => '0');
+has 'msg_fin_item_templates_types' =>
+    ('is' => 'rw', 'isa' => 'ArrayObjMsgFinItemTemplatesType', 'coerce' => '1', 'required' => '0');
 
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinItemTemplatesType');

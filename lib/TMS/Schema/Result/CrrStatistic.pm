@@ -62,14 +62,14 @@ __PACKAGE__->table("crr_statistics");
 
   accessor: 'carrier_operation'
   data_type: 'enum'
-  extra: {list => ["Interstate","Intrastate Only (HM)","Intrastate Only (Non-HM)"]}
+  extra: {list => ["Interstate","Intrastate Only - HM","Intrastate Only - Non-HM"]}
   is_nullable: 1
 
 =head2 OperationClassification
 
   accessor: 'operation_classification'
   data_type: 'enum'
-  extra: {list => ["Auth. For Hire","Exempt For Hire","Private(Property)","Priv. Pass. (Business)","Priv. Pass.(Non-business)","Migrant","U.S. Mail","Fed. Gov","State Gov","Local Gov","Indian Nation"]}
+  extra: {list => ["Auth. For Hire","Exempt For Hire","Private Property","Priv. Pass. Business","Priv. Pass. Non-business","Migrant","U.S. Mail","Fed. Gov","State Gov","Local Gov","Indian Nation"]}
   is_nullable: 1
 
 =head2 HmFlag
@@ -289,7 +289,7 @@ __PACKAGE__->add_columns(
     "CarrierOperation",
     {   accessor    => "carrier_operation",
         data_type   => "enum",
-        extra       => {list => ["Interstate", "Intrastate Only (HM)", "Intrastate Only (Non-HM)",],},
+        extra       => {list => ["Interstate", "Intrastate Only - HM", "Intrastate Only - Non-HM",],},
         is_nullable => 1,
     },
     "OperationClassification",
@@ -299,9 +299,9 @@ __PACKAGE__->add_columns(
             list => [
                 "Auth. For Hire",
                 "Exempt For Hire",
-                "Private(Property)",
-                "Priv. Pass. (Business)",
-                "Priv. Pass.(Non-business)",
+                "Private Property",
+                "Priv. Pass. Business",
+                "Priv. Pass. Non-business",
                 "Migrant",
                 "U.S. Mail",
                 "Fed. Gov",
@@ -476,8 +476,8 @@ __PACKAGE__->belongs_to(
     {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Ny9cIn719TXRXOncdYCDKw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4Lqyvx9WTDjmGSpCxyc2gQ
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

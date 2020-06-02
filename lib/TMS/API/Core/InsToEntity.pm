@@ -38,6 +38,9 @@ has 'in'         => ('is' => 'rw', 'isa' => 'ObjInsPolicy',   'coerce' => '1', '
 has 'ins'        => ('is' => 'rw', 'isa' => 'ObjInsPolicy',   'coerce' => '1', 'required' => '0');
 has 'removed_by' => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'coerce' => '1', 'required' => '0');
 
+# relations point to us
+has 'msg_ins_to_entities' => ('is' => 'rw', 'isa' => 'ArrayObjMsgInsToEntity', 'coerce' => '1', 'required' => '0');
+
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'InsToEntity');
 

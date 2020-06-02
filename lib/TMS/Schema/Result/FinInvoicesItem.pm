@@ -332,8 +332,21 @@ __PACKAGE__->belongs_to(
     {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ZARAteIJtL3BpP9yPvR7Dw
+=head2 msg_fin_invoices_items
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::MsgFinInvoicesItem>
+
+=cut
+
+__PACKAGE__->has_many(
+    "msg_fin_invoices_items", "TMS::Schema::Result::MsgFinInvoicesItem",
+    {"foreign.InvoiceItemId" => "self.InvoiceItemId"}, {cascade_copy => 0, cascade_delete => 0},
+);
+
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5cl9dJ28g95H7viKFmTvYg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

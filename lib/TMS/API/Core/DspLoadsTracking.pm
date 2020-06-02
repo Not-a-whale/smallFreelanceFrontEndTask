@@ -35,6 +35,9 @@ has 'Weight'        => ('is' => 'rw', 'isa' => 'Float',            'coerce' => '
 has 'destination' => ('is' => 'rw', 'isa' => 'ObjDspLoadsDestination', 'coerce' => '1', 'required' => '0');
 has 'driver'      => ('is' => 'rw', 'isa' => 'ObjDrvDriver',           'coerce' => '1', 'required' => '0');
 
+# relations point to us
+has 'msg_dsp_loads_trackings' => ('is' => 'rw', 'isa' => 'ArrayObjMsgDspLoadsTracking', 'coerce' => '1', 'required' => '0');
+
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'DspLoadsTracking');
 

@@ -34,6 +34,7 @@ has 'created_by' => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'coerce' => '1', '
 
 # relations point to us
 has 'dsp_trips_loads' => ('is' => 'rw', 'isa' => 'ArrayObjDspTripsLoad', 'coerce' => '1', 'required' => '0');
+has 'msg_dsp_trips'   => ('is' => 'rw', 'isa' => 'ArrayObjMsgDspTrip',   'coerce' => '1', 'required' => '0');
 has 'sft_logbooks'    => ('is' => 'rw', 'isa' => 'ArrayObjSftLogbook',   'coerce' => '1', 'required' => '0');
 
 # core class for Traits

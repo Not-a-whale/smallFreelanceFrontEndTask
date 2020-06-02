@@ -227,6 +227,19 @@ __PACKAGE__->belongs_to(
     {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
+=head2 msg_ins_to_vehicles
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::MsgInsToVehicle>
+
+=cut
+
+__PACKAGE__->has_many(
+    "msg_ins_to_vehicles", "TMS::Schema::Result::MsgInsToVehicle",
+    {"foreign.VhlInsId" => "self.VhlInsId"}, {cascade_copy => 0, cascade_delete => 0},
+);
+
 =head2 removed_by
 
 Type: belongs_to
@@ -261,8 +274,8 @@ __PACKAGE__->belongs_to(
     {is_deferrable => 1, on_delete => "CASCADE", on_update => "RESTRICT"},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:27TGCxlzK+PJHhoAV1jerg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:HBFvVrB6wDXWMXOw8igE7A
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

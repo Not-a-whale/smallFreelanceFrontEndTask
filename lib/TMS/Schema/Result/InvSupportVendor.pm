@@ -119,6 +119,19 @@ __PACKAGE__->has_many(
     {"foreign.SupportId" => "self.SupportId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
+=head2 msg_inv_support_vendors
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::MsgInvSupportVendor>
+
+=cut
+
+__PACKAGE__->has_many(
+    "msg_inv_support_vendors", "TMS::Schema::Result::MsgInvSupportVendor",
+    {"foreign.SupportId" => "self.SupportId"}, {cascade_copy => 0, cascade_delete => 0},
+);
+
 =head2 primary_contact
 
 Type: belongs_to
@@ -153,8 +166,8 @@ __PACKAGE__->belongs_to(
     {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:+bJCrGE796v4M+OOBcOKhg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:d+VIB8SlmEIVBQviUTHYeg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

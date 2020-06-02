@@ -400,8 +400,23 @@ __PACKAGE__->belongs_to(
     },
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:fs5Pjsn1IDHnbdepRUIjWQ
+=head2 msg_ent_carriers
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::MsgEntCarrier>
+
+=cut
+
+__PACKAGE__->has_many(
+    "msg_ent_carriers",
+    "TMS::Schema::Result::MsgEntCarrier",
+    {"foreign.CarrierId" => "self.CarrierId"},
+    {cascade_copy        => 0, cascade_delete => 0},
+);
+
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:lH04DBKxp21x4/R5MEWoOg
 __PACKAGE__->has_many(
     "notes",
     "TMS::Schema::Result::MsgNote",

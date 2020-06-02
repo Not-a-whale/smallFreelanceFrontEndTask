@@ -96,6 +96,19 @@ __PACKAGE__->add_unique_constraint("ItemAreaName_UNIQUE", ["ItemAreaName"]);
 
 =head1 RELATIONS
 
+=head2 msg_sft_vehicle_inspect_items
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::MsgSftVehicleInspectItem>
+
+=cut
+
+__PACKAGE__->has_many(
+    "msg_sft_vehicle_inspect_items", "TMS::Schema::Result::MsgSftVehicleInspectItem",
+    {"foreign.InspItmId" => "self.InspItmId"}, {cascade_copy => 0, cascade_delete => 0},
+);
+
 =head2 sft_vehicle_inspected_items
 
 Type: has_many
@@ -109,8 +122,8 @@ __PACKAGE__->has_many(
     {"foreign.InspectedItem" => "self.InspItmId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:3xm3Zvplkf5WjXEkj6swqA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:h227V7ug/qEf7Q+nyTXNzQ
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

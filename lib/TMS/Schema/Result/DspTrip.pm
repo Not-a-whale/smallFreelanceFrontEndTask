@@ -246,6 +246,21 @@ __PACKAGE__->has_many(
     {"foreign.TripId" => "self.TripId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
+=head2 msg_dsp_trips
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::MsgDspTrip>
+
+=cut
+
+__PACKAGE__->has_many(
+    "msg_dsp_trips",
+    "TMS::Schema::Result::MsgDspTrip",
+    {"foreign.TripId" => "self.TripId"},
+    {cascade_copy     => 0, cascade_delete => 0},
+);
+
 =head2 sft_logbooks
 
 Type: has_many
@@ -261,8 +276,8 @@ __PACKAGE__->has_many(
     {cascade_copy   => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9MiHIZMdNIRHpzy2otJY8A
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:J2+b/PwiIk2pvD0Hn8IQAw
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

@@ -24,6 +24,7 @@ has 'Notes'     => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1', 
 
 # relations point to us
 has 'inv_unit_reservations' => ('is' => 'rw', 'isa' => 'ArrayObjInvUnitReservation', 'coerce' => '1', 'required' => '0');
+has 'msg_inv_roles'         => ('is' => 'rw', 'isa' => 'ArrayObjMsgInvRole',         'coerce' => '1', 'required' => '0');
 
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'InvRole');

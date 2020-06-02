@@ -120,7 +120,8 @@ has 'inv_units_to_equipment_addeds_by' =>
     ('is' => 'rw', 'isa' => 'ArrayObjInvUnitsToEquipment', 'coerce' => '1', 'required' => '0');
 has 'inv_units_to_equipments_removed_by' =>
     ('is' => 'rw', 'isa' => 'ArrayObjInvUnitsToEquipment', 'coerce' => '1', 'required' => '0');
-has 'msg_notes' => ('is' => 'rw', 'isa' => 'ArrayObjMsgNote', 'coerce' => '1', 'required' => '0');
+has 'msg_hr_associates'       => ('is' => 'rw', 'isa' => 'ArrayObjMsgHrAssociate',       'coerce' => '1', 'required' => '0');
+has 'msg_notes'               => ('is' => 'rw', 'isa' => 'ArrayObjMsgNote',              'coerce' => '1', 'required' => '0');
 has 'sft_vehicle_inspections' => ('is' => 'rw', 'isa' => 'ArrayObjSftVehicleInspection', 'coerce' => '1', 'required' => '0');
 
 # core class for Traits

@@ -121,8 +121,8 @@ __PACKAGE__->belongs_to(
     {is_deferrable  => 1, on_delete => "CASCADE", on_update => "CASCADE"},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:NxaOw+4Dqr1x83kDBh4H/w
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:CcVE5HlVme9f4vJd/VhNmQ
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

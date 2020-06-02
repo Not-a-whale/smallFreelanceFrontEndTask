@@ -241,6 +241,19 @@ __PACKAGE__->belongs_to(
     {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
+=head2 msg_sft_vehicle_inspections
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::MsgSftVehicleInspection>
+
+=cut
+
+__PACKAGE__->has_many(
+    "msg_sft_vehicle_inspections", "TMS::Schema::Result::MsgSftVehicleInspection",
+    {"foreign.InspectionId" => "self.InspectionId"}, {cascade_copy => 0, cascade_delete => 0},
+);
+
 =head2 sft_vehicle_inspected_items
 
 Type: has_many
@@ -254,8 +267,8 @@ __PACKAGE__->has_many(
     {"foreign.InspectionId" => "self.InspectionId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:FsM5Lw7vhWDkXraPxL4jnA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:QDRXPHiOS7eJKzAUI1uiqA
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

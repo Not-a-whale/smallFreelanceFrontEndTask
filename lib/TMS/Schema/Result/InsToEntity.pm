@@ -235,6 +235,19 @@ __PACKAGE__->belongs_to(
     {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
+=head2 msg_ins_to_entities
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::MsgInsToEntity>
+
+=cut
+
+__PACKAGE__->has_many(
+    "msg_ins_to_entities", "TMS::Schema::Result::MsgInsToEntity",
+    {"foreign.InsEntId" => "self.InsEntId"}, {cascade_copy => 0, cascade_delete => 0},
+);
+
 =head2 removed_by
 
 Type: belongs_to
@@ -254,8 +267,8 @@ __PACKAGE__->belongs_to(
     },
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:JTfpy6iSQkfSt74awv3zbQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zzI0NZxwmSKj1mmAKpjWog
 
 __PACKAGE__->belongs_to(
     "ins",

@@ -63,6 +63,7 @@ has 'dsp_loads_docs'         => ('is' => 'rw', 'isa' => 'ArrayObjDspLoadsDoc',  
 has 'dsp_loads_required_equipments' =>
     ('is' => 'rw', 'isa' => 'ArrayObjDspLoadsRequiredEquipment', 'coerce' => '1', 'required' => '0');
 has 'dsp_trips_loads' => ('is' => 'rw', 'isa' => 'ArrayObjDspTripsLoad', 'coerce' => '1', 'required' => '0');
+has 'msg_dsp_loads'   => ('is' => 'rw', 'isa' => 'ArrayObjMsgDspLoad',   'coerce' => '1', 'required' => '0');
 
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'DspLoad');

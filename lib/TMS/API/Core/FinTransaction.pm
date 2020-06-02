@@ -40,6 +40,7 @@ has 'transaction_type' => ('is' => 'rw', 'isa' => 'ObjFinTransactionType', 'coer
 has 'fin_cheques'          => ('is' => 'rw', 'isa' => 'ArrayObjFinCheque',         'coerce' => '1', 'required' => '0');
 has 'fin_invoice_payments' => ('is' => 'rw', 'isa' => 'ArrayObjFinInvoicePayment', 'coerce' => '1', 'required' => '0');
 has 'fin_journal_entries'  => ('is' => 'rw', 'isa' => 'ArrayObjFinJournalEntry',   'coerce' => '1', 'required' => '0');
+has 'msg_fin_transactions' => ('is' => 'rw', 'isa' => 'ArrayObjMsgFinTransaction', 'coerce' => '1', 'required' => '0');
 
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinTransaction');

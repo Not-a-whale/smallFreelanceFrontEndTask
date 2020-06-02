@@ -253,6 +253,15 @@ Internal status for load, cancelled, tonu, etc.
   is_nullable: 0
   size: [12,2]
 
+=head2 RequireLocationTracking
+
+  accessor: 'require_location_tracking'
+  data_type: 'tinyint'
+  default_value: 0
+  is_nullable: 0
+
+Customer wants to track location
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -429,6 +438,12 @@ __PACKAGE__->add_columns(
         data_type   => "decimal",
         is_nullable => 0,
         size        => [12, 2],
+    },
+    "RequireLocationTracking",
+    {   accessor      => "require_location_tracking",
+        data_type     => "tinyint",
+        default_value => 0,
+        is_nullable   => 0,
     },
 );
 
@@ -613,6 +628,21 @@ __PACKAGE__->belongs_to(
     },
 );
 
+=head2 msg_dsp_loads
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::MsgDspLoad>
+
+=cut
+
+__PACKAGE__->has_many(
+    "msg_dsp_loads",
+    "TMS::Schema::Result::MsgDspLoad",
+    {"foreign.LoadId" => "self.LoadId"},
+    {cascade_copy     => 0, cascade_delete => 0},
+);
+
 =head2 vendor
 
 Type: belongs_to
@@ -651,8 +681,8 @@ __PACKAGE__->belongs_to(
     },
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:LUduAt8yF2hHYC5gqI+76g
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:fMkXaSsNDWKPjUiPphXKnQ
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

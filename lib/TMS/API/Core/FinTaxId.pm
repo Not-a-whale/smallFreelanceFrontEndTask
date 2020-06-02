@@ -28,6 +28,9 @@ has 'Photo'    => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', '
 has 'entity' => ('is' => 'rw', 'isa' => 'ObjEntity',  'coerce' => '1', 'required' => '0');
 has 'photo'  => ('is' => 'rw', 'isa' => 'ObjGenFile', 'coerce' => '1', 'required' => '0');
 
+# relations point to us
+has 'msg_fin_tax_ids' => ('is' => 'rw', 'isa' => 'ArrayObjMsgFinTaxId', 'coerce' => '1', 'required' => '0');
+
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinTaxId');
 

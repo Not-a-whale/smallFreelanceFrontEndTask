@@ -209,6 +209,19 @@ __PACKAGE__->belongs_to(
     {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
+=head2 msg_inv_units_to_equipments
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::MsgInvUnitsToEquipment>
+
+=cut
+
+__PACKAGE__->has_many(
+    "msg_inv_units_to_equipments", "TMS::Schema::Result::MsgInvUnitsToEquipment",
+    {"foreign.EquipUnitResId" => "self.EquipUnitResId"}, {cascade_copy => 0, cascade_delete => 0},
+);
+
 =head2 removed_by
 
 Type: belongs_to
@@ -243,8 +256,8 @@ __PACKAGE__->belongs_to(
     {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:P2AEkSAFGDJT8F4ytpeWVA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:fuv4+qomj4FChOPGrbLEpQ
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

@@ -276,8 +276,122 @@ coerce 'ArrayObjInvUnitsToEquipment', from 'ArrayRef', via { _build_types('TMS::
 subtype 'ArrayObjInvVehicle', as 'ArrayRef[ObjInvVehicle]';
 coerce 'ArrayObjInvVehicle', from 'ArrayRef', via { _build_types('TMS::API::Core::InvVehicle', $_) };
 
+subtype 'ArrayObjMsgBrkLoadstatus', as 'ArrayRef[ObjMsgBrkLoadstatus]';
+coerce 'ArrayObjMsgBrkLoadstatus', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgBrkLoadstatus', $_) };
+
+subtype 'ArrayObjMsgCntAddress', as 'ArrayRef[ObjMsgCntAddress]';
+coerce 'ArrayObjMsgCntAddress', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgCntAddress', $_) };
+
+subtype 'ArrayObjMsgCntPhonesfax', as 'ArrayRef[ObjMsgCntPhonesfax]';
+coerce 'ArrayObjMsgCntPhonesfax', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgCntPhonesfax', $_) };
+
+subtype 'ArrayObjMsgDrvDesttype', as 'ArrayRef[ObjMsgDrvDesttype]';
+coerce 'ArrayObjMsgDrvDesttype', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgDrvDesttype', $_) };
+
+subtype 'ArrayObjMsgDrvSchedule', as 'ArrayRef[ObjMsgDrvSchedule]';
+coerce 'ArrayObjMsgDrvSchedule', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgDrvSchedule', $_) };
+
+subtype 'ArrayObjMsgDspLoad', as 'ArrayRef[ObjMsgDspLoad]';
+coerce 'ArrayObjMsgDspLoad', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgDspLoad', $_) };
+
+subtype 'ArrayObjMsgDspLoadsDestination', as 'ArrayRef[ObjMsgDspLoadsDestination]';
+coerce 'ArrayObjMsgDspLoadsDestination', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgDspLoadsDestination', $_) };
+
+subtype 'ArrayObjMsgDspLoadsTracking', as 'ArrayRef[ObjMsgDspLoadsTracking]';
+coerce 'ArrayObjMsgDspLoadsTracking', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgDspLoadsTracking', $_) };
+
+subtype 'ArrayObjMsgDspTrip', as 'ArrayRef[ObjMsgDspTrip]';
+coerce 'ArrayObjMsgDspTrip', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgDspTrip', $_) };
+
+subtype 'ArrayObjMsgEntBlacklist', as 'ArrayRef[ObjMsgEntBlacklist]';
+coerce 'ArrayObjMsgEntBlacklist', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgEntBlacklist', $_) };
+
+subtype 'ArrayObjMsgEntCarrier', as 'ArrayRef[ObjMsgEntCarrier]';
+coerce 'ArrayObjMsgEntCarrier', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgEntCarrier', $_) };
+
+subtype 'ArrayObjMsgEntCustomer', as 'ArrayRef[ObjMsgEntCustomer]';
+coerce 'ArrayObjMsgEntCustomer', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgEntCustomer', $_) };
+
+subtype 'ArrayObjMsgEntShipper', as 'ArrayRef[ObjMsgEntShipper]';
+coerce 'ArrayObjMsgEntShipper', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgEntShipper', $_) };
+
+subtype 'ArrayObjMsgEntity', as 'ArrayRef[ObjMsgEntity]';
+coerce 'ArrayObjMsgEntity', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgEntity', $_) };
+
+subtype 'ArrayObjMsgFinBillingBank', as 'ArrayRef[ObjMsgFinBillingBank]';
+coerce 'ArrayObjMsgFinBillingBank', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgFinBillingBank', $_) };
+
+subtype 'ArrayObjMsgFinBillingInfo', as 'ArrayRef[ObjMsgFinBillingInfo]';
+coerce 'ArrayObjMsgFinBillingInfo', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgFinBillingInfo', $_) };
+
+subtype 'ArrayObjMsgFinBillingRule', as 'ArrayRef[ObjMsgFinBillingRule]';
+coerce 'ArrayObjMsgFinBillingRule', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgFinBillingRule', $_) };
+
+subtype 'ArrayObjMsgFinInvoice', as 'ArrayRef[ObjMsgFinInvoice]';
+coerce 'ArrayObjMsgFinInvoice', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgFinInvoice', $_) };
+
+subtype 'ArrayObjMsgFinInvoicesItem', as 'ArrayRef[ObjMsgFinInvoicesItem]';
+coerce 'ArrayObjMsgFinInvoicesItem', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgFinInvoicesItem', $_) };
+
+subtype 'ArrayObjMsgFinItemTemplate', as 'ArrayRef[ObjMsgFinItemTemplate]';
+coerce 'ArrayObjMsgFinItemTemplate', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgFinItemTemplate', $_) };
+
+subtype 'ArrayObjMsgFinItemTemplatesType', as 'ArrayRef[ObjMsgFinItemTemplatesType]';
+coerce 'ArrayObjMsgFinItemTemplatesType', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgFinItemTemplatesType', $_) };
+
+subtype 'ArrayObjMsgFinScheduledDeduction', as 'ArrayRef[ObjMsgFinScheduledDeduction]';
+coerce 'ArrayObjMsgFinScheduledDeduction', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgFinScheduledDeduction', $_) };
+
+subtype 'ArrayObjMsgFinTaxId', as 'ArrayRef[ObjMsgFinTaxId]';
+coerce 'ArrayObjMsgFinTaxId', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgFinTaxId', $_) };
+
+subtype 'ArrayObjMsgFinTransaction', as 'ArrayRef[ObjMsgFinTransaction]';
+coerce 'ArrayObjMsgFinTransaction', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgFinTransaction', $_) };
+
+subtype 'ArrayObjMsgGenFile', as 'ArrayRef[ObjMsgGenFile]';
+coerce 'ArrayObjMsgGenFile', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgGenFile', $_) };
+
+subtype 'ArrayObjMsgHrAssociate', as 'ArrayRef[ObjMsgHrAssociate]';
+coerce 'ArrayObjMsgHrAssociate', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgHrAssociate', $_) };
+
+subtype 'ArrayObjMsgHrEmrgencyContact', as 'ArrayRef[ObjMsgHrEmrgencyContact]';
+coerce 'ArrayObjMsgHrEmrgencyContact', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgHrEmrgencyContact', $_) };
+
+subtype 'ArrayObjMsgHrReference', as 'ArrayRef[ObjMsgHrReference]';
+coerce 'ArrayObjMsgHrReference', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgHrReference', $_) };
+
+subtype 'ArrayObjMsgInsToEntity', as 'ArrayRef[ObjMsgInsToEntity]';
+coerce 'ArrayObjMsgInsToEntity', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgInsToEntity', $_) };
+
+subtype 'ArrayObjMsgInsToVehicle', as 'ArrayRef[ObjMsgInsToVehicle]';
+coerce 'ArrayObjMsgInsToVehicle', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgInsToVehicle', $_) };
+
+subtype 'ArrayObjMsgInvNote', as 'ArrayRef[ObjMsgInvNote]';
+coerce 'ArrayObjMsgInvNote', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgInvNote', $_) };
+
+subtype 'ArrayObjMsgInvRole', as 'ArrayRef[ObjMsgInvRole]';
+coerce 'ArrayObjMsgInvRole', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgInvRole', $_) };
+
+subtype 'ArrayObjMsgInvSupportVendor', as 'ArrayRef[ObjMsgInvSupportVendor]';
+coerce 'ArrayObjMsgInvSupportVendor', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgInvSupportVendor', $_) };
+
+subtype 'ArrayObjMsgInvUnitsToEquipment', as 'ArrayRef[ObjMsgInvUnitsToEquipment]';
+coerce 'ArrayObjMsgInvUnitsToEquipment', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgInvUnitsToEquipment', $_) };
+
 subtype 'ArrayObjMsgNote', as 'ArrayRef[ObjMsgNote]';
 coerce 'ArrayObjMsgNote', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgNote', $_) };
+
+subtype 'ArrayObjMsgSftLogbook', as 'ArrayRef[ObjMsgSftLogbook]';
+coerce 'ArrayObjMsgSftLogbook', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgSftLogbook', $_) };
+
+subtype 'ArrayObjMsgSftVehicleInspectItem', as 'ArrayRef[ObjMsgSftVehicleInspectItem]';
+coerce 'ArrayObjMsgSftVehicleInspectItem', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgSftVehicleInspectItem', $_) };
+
+subtype 'ArrayObjMsgSftVehicleInspectProof', as 'ArrayRef[ObjMsgSftVehicleInspectProof]';
+coerce 'ArrayObjMsgSftVehicleInspectProof', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgSftVehicleInspectProof', $_) };
+
+subtype 'ArrayObjMsgSftVehicleInspection', as 'ArrayRef[ObjMsgSftVehicleInspection]';
+coerce 'ArrayObjMsgSftVehicleInspection', from 'ArrayRef', via { _build_types('TMS::API::Core::MsgSftVehicleInspection', $_) };
 
 subtype 'ArrayObjSftElogStat', as 'ArrayRef[ObjSftElogStat]';
 coerce 'ArrayObjSftElogStat', from 'ArrayRef', via { _build_types('TMS::API::Core::SftElogStat', $_) };

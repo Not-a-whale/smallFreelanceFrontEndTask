@@ -41,6 +41,7 @@ has 'job'                  => ('is' => 'rw', 'isa' => 'ObjFinJob',          'coe
 
 # relations point to us
 has 'fin_invoice_payment_items' => ('is' => 'rw', 'isa' => 'ArrayObjFinInvoicePaymentItem', 'coerce' => '1', 'required' => '0');
+has 'msg_fin_invoices_items'    => ('is' => 'rw', 'isa' => 'ArrayObjMsgFinInvoicesItem',    'coerce' => '1', 'required' => '0');
 
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinInvoicesItem');

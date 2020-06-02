@@ -27,6 +27,9 @@ has 'EntityId'    => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', '
 has 'creator' => ('is' => 'rw', 'isa' => 'ObjHrAssociate', 'coerce' => '1', 'required' => '0');
 has 'entity'  => ('is' => 'rw', 'isa' => 'ObjEntity',      'coerce' => '1', 'required' => '0');
 
+# relations point to us
+has 'msg_ent_blacklists' => ('is' => 'rw', 'isa' => 'ArrayObjMsgEntBlacklist', 'coerce' => '1', 'required' => '0');
+
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'EntBlacklist');
 

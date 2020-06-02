@@ -31,6 +31,9 @@ has 'load'       => ('is' => 'rw', 'isa' => 'ObjDspLoad',       'coerce' => '1',
 has 'stat_list'  => ('is' => 'rw', 'isa' => 'ObjBrkStatuslist', 'coerce' => '1', 'required' => '0');
 has 'updated_by' => ('is' => 'rw', 'isa' => 'ObjHrAssociate',   'coerce' => '1', 'required' => '0');
 
+# relations point to us
+has 'msg_brk_loadstatuses' => ('is' => 'rw', 'isa' => 'ArrayObjMsgBrkLoadstatus', 'coerce' => '1', 'required' => '0');
+
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'BrkLoadstatus');
 

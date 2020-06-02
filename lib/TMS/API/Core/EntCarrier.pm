@@ -45,6 +45,7 @@ has 'crr_permit_accounts' => ('is' => 'rw', 'isa' => 'ArrayObjCrrPermitAccount',
 has 'crr_statistics'      => ('is' => 'rw', 'isa' => 'ArrayObjCrrStatistic',     'coerce' => '1', 'required' => '0');
 has 'ent_owner_operators' => ('is' => 'rw', 'isa' => 'ArrayObjEntOwnerOperator', 'coerce' => '1', 'required' => '0');
 has 'inv_vehicles'        => ('is' => 'rw', 'isa' => 'ArrayObjInvVehicle',       'coerce' => '1', 'required' => '0');
+has 'msg_ent_carriers'    => ('is' => 'rw', 'isa' => 'ArrayObjMsgEntCarrier',    'coerce' => '1', 'required' => '0');
 
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'EntCarrier');

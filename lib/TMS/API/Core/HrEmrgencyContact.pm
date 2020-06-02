@@ -28,6 +28,9 @@ has 'Notes'        => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1
 has 'ast'           => ('is' => 'rw', 'isa' => 'ObjHrAssociate',  'coerce' => '1', 'required' => '0');
 has 'contact_phone' => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax', 'coerce' => '1', 'required' => '0');
 
+# relations point to us
+has 'msg_hr_emrgency_contacts' => ('is' => 'rw', 'isa' => 'ArrayObjMsgHrEmrgencyContact', 'coerce' => '1', 'required' => '0');
+
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'HrEmrgencyContact');
 

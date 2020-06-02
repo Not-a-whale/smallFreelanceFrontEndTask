@@ -35,6 +35,7 @@ has 'inspector_signature' => ('is' => 'rw', 'isa' => 'ObjGenFile',              
 has 'location_of_records' => ('is' => 'rw', 'isa' => 'ObjCntAddress',            'coerce' => '1', 'required' => '0');
 
 # relations point to us
+has 'msg_sft_vehicle_inspections' => ('is' => 'rw', 'isa' => 'ArrayObjMsgSftVehicleInspection', 'coerce' => '1', 'required' => '0');
 has 'sft_vehicle_inspected_items' => ('is' => 'rw', 'isa' => 'ArrayObjSftVehicleInspectedItem', 'coerce' => '1', 'required' => '0');
 
 # core class for Traits

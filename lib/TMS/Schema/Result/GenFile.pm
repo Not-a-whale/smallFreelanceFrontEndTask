@@ -432,6 +432,21 @@ __PACKAGE__->has_many(
     {"foreign.FileId" => "self.FileId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
+=head2 msg_gen_files
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::MsgGenFile>
+
+=cut
+
+__PACKAGE__->has_many(
+    "msg_gen_files",
+    "TMS::Schema::Result::MsgGenFile",
+    {"foreign.FileId" => "self.FileId"},
+    {cascade_copy     => 0, cascade_delete => 0},
+);
+
 =head2 sft_vehicle_inspect_proofs
 
 Type: has_many
@@ -471,8 +486,8 @@ __PACKAGE__->has_many(
     {"foreign.RegistrationCard" => "self.FileId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7GzYGEgiM/D4ahyU1GksSA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:D6ZYI3p5mfUpkzpQKKmLtA
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

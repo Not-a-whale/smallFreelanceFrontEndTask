@@ -41,7 +41,8 @@ has 'fax'         => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax',  'coerce' => '1'
 has 'phone'       => ('is' => 'rw', 'isa' => 'ObjCntPhonesfax',  'coerce' => '1', 'required' => '0');
 
 # relations point to us
-has 'fin_billing_banks' => ('is' => 'rw', 'isa' => 'ArrayObjFinBillingBank', 'coerce' => '1', 'required' => '0');
+has 'fin_billing_banks'     => ('is' => 'rw', 'isa' => 'ArrayObjFinBillingBank',    'coerce' => '1', 'required' => '0');
+has 'msg_fin_billing_infos' => ('is' => 'rw', 'isa' => 'ArrayObjMsgFinBillingInfo', 'coerce' => '1', 'required' => '0');
 
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinBillingInfo');

@@ -172,6 +172,19 @@ __PACKAGE__->belongs_to(
     {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
+=head2 msg_drv_schedules
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::MsgDrvSchedule>
+
+=cut
+
+__PACKAGE__->has_many(
+    "msg_drv_schedules", "TMS::Schema::Result::MsgDrvSchedule",
+    {"foreign.DrvSchdId" => "self.DrvSchdId"}, {cascade_copy => 0, cascade_delete => 0},
+);
+
 =head2 posted_by
 
 Type: belongs_to
@@ -187,8 +200,8 @@ __PACKAGE__->belongs_to(
     {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:WfKximgIeo2oyr+VxVEg5g
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:L/9+mQRuDlWBPoqUiXldow
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

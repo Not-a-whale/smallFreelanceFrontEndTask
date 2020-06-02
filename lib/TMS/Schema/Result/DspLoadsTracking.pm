@@ -227,8 +227,21 @@ __PACKAGE__->belongs_to(
     {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:L1gg8Wu+0A+qLeLVZvzz3A
+=head2 msg_dsp_loads_trackings
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::MsgDspLoadsTracking>
+
+=cut
+
+__PACKAGE__->has_many(
+    "msg_dsp_loads_trackings", "TMS::Schema::Result::MsgDspLoadsTracking",
+    {"foreign.DestinationId" => "self.DestinationId"}, {cascade_copy => 0, cascade_delete => 0},
+);
+
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:HbkAqAiIIG4bwfPIlwQC2A
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

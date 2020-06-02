@@ -34,6 +34,9 @@ has 'equipment'  => ('is' => 'rw', 'isa' => 'ObjInvEquipment', 'coerce' => '1', 
 has 'removed_by' => ('is' => 'rw', 'isa' => 'ObjHrAssociate',  'coerce' => '1', 'required' => '0');
 has 'unit'       => ('is' => 'rw', 'isa' => 'ObjInvUnit',      'coerce' => '1', 'required' => '0');
 
+# relations point to us
+has 'msg_inv_units_to_equipments' => ('is' => 'rw', 'isa' => 'ArrayObjMsgInvUnitsToEquipment', 'coerce' => '1', 'required' => '0');
+
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'InvUnitsToEquipment');
 

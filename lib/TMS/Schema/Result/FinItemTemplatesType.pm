@@ -123,8 +123,21 @@ __PACKAGE__->has_many(
     {cascade_copy             => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9OL8+n8qSYqB262uakb+QQ
+=head2 msg_fin_item_templates_types
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::MsgFinItemTemplatesType>
+
+=cut
+
+__PACKAGE__->has_many(
+    "msg_fin_item_templates_types", "TMS::Schema::Result::MsgFinItemTemplatesType",
+    {"foreign.TemplateTypeId" => "self.TemplateTypeId"}, {cascade_copy => 0, cascade_delete => 0},
+);
+
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:su0FpbsI3VCocsYk3BuFmg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

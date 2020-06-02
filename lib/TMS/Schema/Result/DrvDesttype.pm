@@ -97,8 +97,23 @@ __PACKAGE__->has_many(
     {cascade_copy            => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:jiMlEAzc/alIK6NMPLG33Q
+=head2 msg_drv_desttypes
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::MsgDrvDesttype>
+
+=cut
+
+__PACKAGE__->has_many(
+    "msg_drv_desttypes",
+    "TMS::Schema::Result::MsgDrvDesttype",
+    {"foreign.DesiredDestId" => "self.DesiredDestId"},
+    {cascade_copy            => 0, cascade_delete => 0},
+);
+
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:68ztrOkyNXhUM7w9zElGbA
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

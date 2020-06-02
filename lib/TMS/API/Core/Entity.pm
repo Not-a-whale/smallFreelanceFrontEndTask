@@ -41,6 +41,7 @@ has 'fin_journal_entries'      => ('is' => 'rw', 'isa' => 'ArrayObjFinJournalEnt
 has 'fin_scheduled_deductions' => ('is' => 'rw', 'isa' => 'ArrayObjFinScheduledDeduction', 'coerce' => '1', 'required' => '0');
 has 'fin_tax_id'               => ('is' => 'rw', 'isa' => 'ObjFinTaxId',                   'coerce' => '1', 'required' => '0');
 has 'ins_to_entities'          => ('is' => 'rw', 'isa' => 'ArrayObjInsToEntity',           'coerce' => '1', 'required' => '0');
+has 'msg_entities'             => ('is' => 'rw', 'isa' => 'ArrayObjMsgEntity',             'coerce' => '1', 'required' => '0');
 
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'Entity');

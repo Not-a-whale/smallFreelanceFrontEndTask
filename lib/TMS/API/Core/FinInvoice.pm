@@ -39,6 +39,7 @@ has 'payment_term'    => ('is' => 'rw', 'isa' => 'ObjFinPaymentTerm', 'coerce' =
 has 'fin_invoice_payments' => ('is' => 'rw', 'isa' => 'ArrayObjFinInvoicePayment', 'coerce' => '1', 'required' => '0');
 has 'fin_invoices'         => ('is' => 'rw', 'isa' => 'ArrayObjFinInvoice',        'coerce' => '1', 'required' => '0');
 has 'fin_invoices_items'   => ('is' => 'rw', 'isa' => 'ArrayObjFinInvoicesItem',   'coerce' => '1', 'required' => '0');
+has 'msg_fin_invoices'     => ('is' => 'rw', 'isa' => 'ArrayObjMsgFinInvoice',     'coerce' => '1', 'required' => '0');
 
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinInvoice');

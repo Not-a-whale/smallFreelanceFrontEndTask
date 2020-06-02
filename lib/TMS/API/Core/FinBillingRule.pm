@@ -27,6 +27,9 @@ has 'Notes'       => ('is' => 'rw', 'isa' => 'TidySpacesString', 'coerce' => '1'
 # relations depends on
 has 'bank_account' => ('is' => 'rw', 'isa' => 'ObjFinBillingBank', 'coerce' => '1', 'required' => '0');
 
+# relations point to us
+has 'msg_fin_billing_rules' => ('is' => 'rw', 'isa' => 'ArrayObjMsgFinBillingRule', 'coerce' => '1', 'required' => '0');
+
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'FinBillingRule');
 

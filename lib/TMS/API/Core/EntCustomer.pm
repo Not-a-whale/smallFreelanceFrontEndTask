@@ -36,6 +36,7 @@ has 'cstmr' => ('is' => 'rw', 'isa' => 'ObjEntBusiness', 'coerce' => '1', 'requi
 
 # relations point to us
 has 'cmm_assignments_customers' => ('is' => 'rw', 'isa' => 'ArrayObjCmmAssignmentsCustomer', 'coerce' => '1', 'required' => '0');
+has 'msg_ent_customers'         => ('is' => 'rw', 'isa' => 'ArrayObjMsgEntCustomer',         'coerce' => '1', 'required' => '0');
 
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'EntCustomer');

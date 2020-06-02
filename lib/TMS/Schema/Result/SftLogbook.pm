@@ -97,6 +97,21 @@ __PACKAGE__->set_primary_key("LogbookId");
 
 =head1 RELATIONS
 
+=head2 msg_sft_logbooks
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::MsgSftLogbook>
+
+=cut
+
+__PACKAGE__->has_many(
+    "msg_sft_logbooks",
+    "TMS::Schema::Result::MsgSftLogbook",
+    {"foreign.LogbookId" => "self.LogbookId"},
+    {cascade_copy        => 0, cascade_delete => 0},
+);
+
 =head2 sft_log_entries
 
 Type: has_many
@@ -127,8 +142,8 @@ __PACKAGE__->belongs_to(
     {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:XFxkMzj7fXESzan402K87w
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:sghMBKG0LlZ0dv7Cm/si2A
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

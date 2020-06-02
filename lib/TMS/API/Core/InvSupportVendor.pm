@@ -30,6 +30,7 @@ has 'vendor'          => ('is' => 'rw', 'isa' => 'ObjBizBranch',   'coerce' => '
 
 # relations point to us
 has 'inv_equipments_to_support' => ('is' => 'rw', 'isa' => 'ArrayObjInvEquipmentToSupport', 'coerce' => '1', 'required' => '0');
+has 'msg_inv_support_vendors'   => ('is' => 'rw', 'isa' => 'ArrayObjMsgInvSupportVendor',   'coerce' => '1', 'required' => '0');
 
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'InvSupportVendor');

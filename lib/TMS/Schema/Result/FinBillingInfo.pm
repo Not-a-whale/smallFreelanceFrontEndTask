@@ -325,6 +325,19 @@ __PACKAGE__->has_many(
     {"foreign.BillingId" => "self.BillingId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
+=head2 msg_fin_billing_infos
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::MsgFinBillingInfo>
+
+=cut
+
+__PACKAGE__->has_many(
+    "msg_fin_billing_infos", "TMS::Schema::Result::MsgFinBillingInfo",
+    {"foreign.BillingId" => "self.BillingId"}, {cascade_copy => 0, cascade_delete => 0},
+);
+
 =head2 phone
 
 Type: belongs_to
@@ -340,8 +353,8 @@ __PACKAGE__->belongs_to(
     {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:IJIDjFU47zyKUqJdaJbFfg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7+RBIUh0eYAIJWV/4801+Q
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

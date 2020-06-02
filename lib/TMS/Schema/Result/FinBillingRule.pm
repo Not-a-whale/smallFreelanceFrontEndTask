@@ -137,8 +137,21 @@ __PACKAGE__->belongs_to(
     {is_deferrable => 1, on_delete => "RESTRICT", on_update => "CASCADE"},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GKDEXK02AWOI0+RHkC+8MA
+=head2 msg_fin_billing_rules
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::MsgFinBillingRule>
+
+=cut
+
+__PACKAGE__->has_many(
+    "msg_fin_billing_rules", "TMS::Schema::Result::MsgFinBillingRule",
+    {"foreign.BillRuleId" => "self.BillRuleId"}, {cascade_copy => 0, cascade_delete => 0},
+);
+
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ChT2KSCZSYlv/EYqwiu6cg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

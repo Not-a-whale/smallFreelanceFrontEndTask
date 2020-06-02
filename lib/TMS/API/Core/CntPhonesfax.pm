@@ -37,6 +37,7 @@ has 'hr_confidentials'          => ('is' => 'rw', 'isa' => 'ArrayObjHrConfidenti
 has 'hr_emrgency_contacts'      => ('is' => 'rw', 'isa' => 'ArrayObjHrEmrgencyContact', 'coerce' => '1', 'required' => '0');
 has 'hr_references'             => ('is' => 'rw', 'isa' => 'ArrayObjHrReference',       'coerce' => '1', 'required' => '0');
 has 'hr_residences'             => ('is' => 'rw', 'isa' => 'ArrayObjHrResidence',       'coerce' => '1', 'required' => '0');
+has 'msg_cnt_phonesfaxes'       => ('is' => 'rw', 'isa' => 'ArrayObjMsgCntPhonesfax',   'coerce' => '1', 'required' => '0');
 
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'CntPhonesfax');

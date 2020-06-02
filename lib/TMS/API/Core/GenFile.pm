@@ -47,6 +47,7 @@ has 'hr_hire_records'              => ('is' => 'rw', 'isa' => 'ArrayObjHrHireRec
 has 'hr_payrates'                  => ('is' => 'rw', 'isa' => 'ArrayObjHrPayrate',              'coerce' => '1', 'required' => '0');
 has 'ins_policies'                 => ('is' => 'rw', 'isa' => 'ArrayObjInsPolicy',              'coerce' => '1', 'required' => '0');
 has 'inv_equipment_docs'           => ('is' => 'rw', 'isa' => 'ArrayObjInvEquipmentDoc',        'coerce' => '1', 'required' => '0');
+has 'msg_gen_files'                => ('is' => 'rw', 'isa' => 'ArrayObjMsgGenFile',             'coerce' => '1', 'required' => '0');
 has 'sft_vehicle_inspect_proofs'   => ('is' => 'rw', 'isa' => 'ArrayObjSftVehicleInspectProof', 'coerce' => '1', 'required' => '0');
 has 'sft_vehicle_inspections'      => ('is' => 'rw', 'isa' => 'ArrayObjSftVehicleInspection',   'coerce' => '1', 'required' => '0');
 has 'sft_vehicle_registrations'    => ('is' => 'rw', 'isa' => 'ArrayObjSftVehicleRegistration', 'coerce' => '1', 'required' => '0');

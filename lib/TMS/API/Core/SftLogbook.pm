@@ -27,7 +27,8 @@ has 'Trip'      => ('is' => 'rw', 'isa' => 'PositiveInt',      'coerce' => '1', 
 has 'trip' => ('is' => 'rw', 'isa' => 'ObjDspTrip', 'coerce' => '1', 'required' => '0');
 
 # relations point to us
-has 'sft_log_entries' => ('is' => 'rw', 'isa' => 'ArrayObjSftLogEntry', 'coerce' => '1', 'required' => '0');
+has 'msg_sft_logbooks' => ('is' => 'rw', 'isa' => 'ArrayObjMsgSftLogbook', 'coerce' => '1', 'required' => '0');
+has 'sft_log_entries'  => ('is' => 'rw', 'isa' => 'ArrayObjSftLogEntry',   'coerce' => '1', 'required' => '0');
 
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'SftLogbook');

@@ -28,6 +28,9 @@ has 'PostedBy'    => ('is' => 'rw', 'isa' => 'PositiveInt',   'coerce' => '1', '
 has 'equipment' => ('is' => 'rw', 'isa' => 'ObjInvEquipment', 'coerce' => '1', 'required' => '0');
 has 'posted_by' => ('is' => 'rw', 'isa' => 'ObjHrAssociate',  'coerce' => '1', 'required' => '0');
 
+# relations point to us
+has 'msg_inv_notes' => ('is' => 'rw', 'isa' => 'ArrayObjMsgInvNote', 'coerce' => '1', 'required' => '0');
+
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'InvNote');
 

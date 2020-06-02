@@ -1065,6 +1065,19 @@ __PACKAGE__->has_many(
     {"foreign.RemovedBy" => "self.AstId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
+=head2 msg_hr_associates
+
+Type: has_many
+
+Related object: L<TMS::Schema::Result::MsgHrAssociate>
+
+=cut
+
+__PACKAGE__->has_many(
+    "msg_hr_associates", "TMS::Schema::Result::MsgHrAssociate",
+    {"foreign.AstId" => "self.AstId"}, {cascade_copy => 0, cascade_delete => 0},
+);
+
 =head2 msg_notes
 
 Type: has_many
@@ -1112,8 +1125,8 @@ __PACKAGE__->has_many(
     {"foreign.InspectorId" => "self.AstId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-05-25 15:45:37
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6f2xG5U1ifZfbWnyYAxRUw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zxVtOiLruDUlc50iV/bS3g
 
 foreach (qw( vendor dispatcher owner driver customer shipper )) {
     __PACKAGE__->belongs_to(

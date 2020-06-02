@@ -36,6 +36,7 @@ has 'location' => ('is' => 'rw', 'isa' => 'ObjBizBranch', 'coerce' => '1', 'requ
 # relations point to us
 has 'dsp_loads_destinations_docs' => ('is' => 'rw', 'isa' => 'ArrayObjDspLoadsDestinationsDoc', 'coerce' => '1', 'required' => '0');
 has 'dsp_loads_tracking'          => ('is' => 'rw', 'isa' => 'ObjDspLoadsTracking',             'coerce' => '1', 'required' => '0');
+has 'msg_dsp_loads_destinations'  => ('is' => 'rw', 'isa' => 'ArrayObjMsgDspLoadsDestination',  'coerce' => '1', 'required' => '0');
 
 # core class for Traits
 has '_dbix_class' => (is => 'ro', required => 1, isa => 'Str', init_arg => undef, default => 'DspLoadsDestination');
