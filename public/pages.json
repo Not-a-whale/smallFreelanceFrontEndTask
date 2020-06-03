@@ -1,143 +1,5 @@
 [{
     "active": true,
-    "visible": false,
-    "title": "forms",
-    "state": "tmsapp.main2.form",
-    "pages": [{
-        "title": "test",
-        "icon": null,
-        "active": true,
-        "visible": true,
-        "state": "tmsapp.main2.form.generic({formName: 'test', subformName: 'test1' })",
-        "pages": []
-      },
-      {
-        "title": "new contact",
-        "icon": null,
-        "active": true,
-        "visible": true,
-        "state": "tmsapp.main2.form.generic({formName: 'new contact', subformName: 'new contact'})",
-        "pages": []
-      },
-      {
-        "title": "new carrier",
-        "icon": null,
-        "active": true,
-        "visible": true,
-        "state": "tmsapp.main2.form.generic({formName: 'new carrier', subformName: 'company info'})",
-        "pages": [{
-            "active": true,
-            "visible": true,
-            "title": "business info",
-            "state": "tmsapp.main2.form.carrier.carrierinfo"
-          }, {
-            "active": true,
-            "visible": true,
-            "title": "branches",
-            "state": "tmsapp.main2.form.carrier.branches"
-          },
-          {
-            "active": true,
-            "visible": true,
-            "title": "office staff",
-            "state": "tmsapp.main2.form.carrier.officestaff"
-          },
-          {
-            "active": true,
-            "visible": true,
-            "title": "drivers",
-            "state": "tmsapp.main2.form.carrier.drivers"
-          },
-          {
-            "active": true,
-            "visible": true,
-            "title": "equipment",
-            "state": "tmsapp.main2.form.carrier.equipment"
-          }
-        ]
-      },
-      {
-        "title": "new office employee",
-        "icon": null,
-        "active": true,
-        "visible": true,
-        "state": "tmsapp.main2.form.generic({formName: 'new office employee', subformName: 'new office employee'})"
-      },
-      {
-        "title": "new general business",
-        "icon": null,
-        "active": true,
-        "visible": true,
-        "state": "tmsapp.main2.form.generic({formName: 'new general business', subformName: 'new general business'})"
-      },
-      {
-        "title": "new driver",
-        "icon": null,
-        "active": true,
-        "visible": true,
-        "state": "tmsapp.main2.form.generic({formName: 'new driver', subformName: 'driver details'})"
-      },
-      {
-        "title": "new carrier authority",
-        "icon": null,
-        "active": true,
-        "visible": true,
-        "state": "tmsapp.main2.form.generic({formName: 'new carrier authority', subformName: 'authority'})"
-      },
-      {
-        "title": "general business",
-        "icon": null,
-        "active": true,
-        "visible": true,
-        "state": "tmsapp.main2.profile.business({businesstype:'general'})",
-        "pages": [{
-            "active": true,
-            "visible": true,
-            "title": "business info",
-            "state": "tmsapp.main2.form.business.cover"
-          },
-          {
-            "active": true,
-            "visible": true,
-            "title": "branches",
-            "state": "tmsapp.main2.profile.business.branch"
-          }, {
-            "active": true,
-            "visible": true,
-            "title": "office staff",
-            "state": "tmsapp.main2.profile.business.staff"
-          }
-        ]
-      },
-      {
-        "title": "carrier",
-        "icon": null,
-        "active": true,
-        "visible": true,
-        "state": "tmsapp.main2.profile.business({businesstype:'general'})",
-        "pages": [{
-            "active": true,
-            "visible": true,
-            "title": "business info",
-            "state": "tmsapp.main2.form.business.cover"
-          },
-          {
-            "active": true,
-            "visible": true,
-            "title": "branches",
-            "state": "tmsapp.main2.profile.business.branch"
-          }, {
-            "active": true,
-            "visible": true,
-            "title": "office staff",
-            "state": "tmsapp.main2.profile.business.staff"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "active": true,
     "visible": true,
     "title": "dispatch",
     "state": "tmsapp.main2.dispatch",
@@ -228,6 +90,123 @@
           "title": "view archives",
           "state": ""
         }]
+      }
+
+    ]
+  },
+  {
+    "active": true,
+    "visible": true,
+    "title": "directory",
+    "state": "tmsapp.main2.logistics.directory",
+    "pages": [{
+
+        "title": "carriers",
+        "icon": "imgs/icons.svg#truck-loaded",
+        "active": true,
+        "visible": true,
+        "state": "tmsapp.main2.logistics.directory.business.list",
+        "params": {
+          "businesstype": "carrier"
+        },
+        "pages": [{
+            "active": true,
+            "visible": true,
+
+            "title": "active",
+            "state": "tmsapp.main2.dispatch.trip.active"
+          },
+          {
+            "active": true,
+            "visible": true,
+
+            "title": "pending",
+            "state": "tmsapp.main2.dispatch.trip.pending"
+          },
+          {
+            "active": true,
+            "visible": true,
+
+            "title": "completed",
+            "state": "tmsapp.main2.dispatch.trip.complete"
+          }
+        ],
+        "optional": [{
+          "active": true,
+          "visible": true,
+
+          "title": "view archives",
+          "state": "tmsapp.main2.dispatch.trip.history"
+        }]
+      },
+      {
+
+        "title": "customers",
+        "icon": "imgs/icons.svg#buildings",
+        "active": true,
+        "visible": true,
+        "state": "tmsapp.main2.logistics.directory.business.list",
+        "params": {
+          "businesstype": "customer"
+        }
+      },
+      {
+        "title": "locations",
+        "icon": "imgs/icons.svg#location-marker",
+        "active": true,
+        "visible": true,
+        "state": "tmsapp.main2.dispatch.load",
+        "pages": [{
+            "active": true,
+            "visible": true,
+
+            "title": "available",
+            "state": "tmsapp.main2.dispatch.load.available"
+          },
+          {
+            "active": true,
+            "visible": true,
+
+            "title": "tenders",
+            "state": "tmsapp.main2.dispatch.load.tender"
+          },
+          {
+            "active": true,
+            "visible": true,
+
+            "title": "load boards",
+            "state": "tmsapp.main2.dispatch.load.board"
+          }
+        ],
+        "actions": [{
+          "active": true,
+          "visible": true,
+
+          "title": "new load"
+        }],
+        "optional": [{
+          "active": true,
+          "visible": true,
+
+          "title": "view archives",
+          "state": ""
+        }]
+      },
+      {
+
+        "title": "drivers",
+        "icon": "imgs/icons.svg#user",
+        "active": true,
+        "visible": true,
+        "state": "tmsapp.main2.dispatch.truck"
+      },
+      {
+
+        "title": "equipment",
+        "icon": "imgs/icons.svg#toolbox",
+        "active": true,
+        "visible": true,
+        "state": "tmsapp.main2.dispatch.truck"
       }
 
     ]
