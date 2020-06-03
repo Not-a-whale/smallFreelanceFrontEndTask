@@ -4,26 +4,29 @@
     <!-- for scrollspy -->
     <section-title>{{$sectionctrl.title}}</section-title>
     <save-button>
-      <button class="btn btn-primary"
+      <!-- <button class="btn btn-primary"
               ng-click="$sectionctrl.SaveForm()"
               ng-disabled="!$sectionctrl.SaveEnabled()"
-              type="submit">{{ $sectionctrl.Status() }}</button>
+              type="submit">{{ $sectionctrl.Status() }}</button> -->
     </save-button>
   </section-header>
   <section-content-container>
     <form-row>
       <ui-datalist-concrete type="business"
                             class="fc2"
-                            data="$sectionctrl.data.a"
+                            data="$sectionctrl.data.customer"
                             label="customer"
                             required="1"
                             new-button="1"
                             form="1">
       </ui-datalist-concrete>
-      <ui-input class="fc2"
-                data="$sectionctrl.data.b"
-                label="contact / agent"
-                required="1"></ui-input>
+      <ui-datalist-concrete type="contact"
+                            query="{strict: [{'brnch.BizId': $sectionctrl.data.customer.BizId }]}"
+                            class="fc2"
+                            data="$sectionctrl.data.b"
+                            label="contact / agent"
+                            required="1"
+                            disable="$sectionctrl.data.customer.BizId == undefined"></ui-datalist-concrete>
       <ui-input class="fc2"
                 data="$sectionctrl.data.c"
                 label="customer's reference #"

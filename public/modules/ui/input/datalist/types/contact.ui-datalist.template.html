@@ -2,9 +2,9 @@
              options="$ctrl.options"
              label="{{$ctrl.label}}"
              required="{{$ctrl.required}}"
-             api-call="'SearchBusiness'"
+             api-call="'SearchBusinessContact'"
              dataid="AstId"
-             displayfields="['FirstName', 'LastName']"
-             displaytemplate="<<FirstName LastName>>"
+             displayfields="['ast.FirstName', 'ast.LastName']"
+             displaytemplate="<<ast.FirstName>> <<ast.LastName>>"
              data-form="{{$ctrl.form}}">
 </ui-datalist>

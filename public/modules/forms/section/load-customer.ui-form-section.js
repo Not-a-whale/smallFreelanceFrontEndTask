@@ -2,14 +2,11 @@ class UIFormSectionLoadCustomer extends UIFormSectionCtrl {
   constructor(APIService, $scope, $q, $state) {
     super(APIService, $scope, $q, $state);
     this.title = 'Customer';
-    this.dependency = [new UIFormSectionDependency('BizId', 'businessId')];
+    this.dependency = [];
     this.id = 'load-customer-info';
   }
   IsNew() {
     return this.loadId === 'new';
-  }
-  CheckDependencies() {
-    return isNaN(parseInt(this.businessId)) == false;
   }
 
   Update() {
@@ -45,10 +42,8 @@ class UIFormSectionLoadCustomer extends UIFormSectionCtrl {
   }
 
   Delete() {
-    let self = this;
-    this.api.DeleteBranch(this.branchId).then(function (result) {
-      self.state.go('tmsapp.main2.profile.business.branch');
-    })
+    //cannot delete a load
+    alert('Cannot delete loads at the moment!');
   }
 }
 

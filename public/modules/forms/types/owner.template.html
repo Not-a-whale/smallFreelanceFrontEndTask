@@ -1,30 +1,30 @@
 <!-- <form id="{{$formctrl.formid}}"
       ng-submit="$formctrl.onSubmit()"> -->
   <form-row>
-    <ui-form-partial-person data="$formctrl.data"></ui-form-partial-person>
+    <ui-form-partial-person data="$formctrl.data.ast"></ui-form-partial-person>
   </form-row>
   <form-row>
     <ui-input label="Current Title"
-              data="$formctrl.data.hr_associate.CurrentTitle"></ui-input>
+              data="$formctrl.data.CurrentTitle"></ui-input>
     <ui-select table="HrAssociate"
                column="AuthorityLevel"
                label="Authority Level"
-               data="$formctrl.data.hr_associate.AuthorityLevel"></ui-select>
+               data="$formctrl.data.AuthorityLevel"></ui-select>
   </form-row>
   <form-row>
     <ui-form-partial-phone class="fc3"
                            type="work"
                            ext="1"
-                           data="$formctrl.data.hr_associate.biz_phone"></ui-form-partial-phone>
+                           data="$formctrl.data.biz_phone"></ui-form-partial-phone>
     <ui-form-partial-fax class="fc3"
                          type="work"
                          ext="1"
-                         data="$formctrl.data.hr_associate.biz_fax"></ui-form-partial-fax>
+                         data="$formctrl.data.biz_fax"></ui-form-partial-fax>
   </form-row>
   <ui-input label="Work Email"
-            data="$formctrl.data.hr_associate.BizEmail"></ui-input>
+            data="$formctrl.data.BizEmail"></ui-input>
   <ui-checkbox style="display: none"
-               data="$formctrl.data.hr_associate.PrimaryContact"
+               data="$formctrl.data.PrimaryContact"
                true-val="1"
                false-val="0"
                default="1"></ui-checkbox>

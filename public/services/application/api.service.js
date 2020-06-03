@@ -293,6 +293,12 @@ class APIService {
     return this.List(endpoint, query);
   }
 
+  GetBusinessListByBranch(user_query) {
+    let endpoint = '/api/Branch/Info';
+    let query = new APIQuery();
+    query.Combine(user_query);
+    return this.List(endpoint, query);
+  }
 
   GetBranch(branchId) {
     let promise = undefined;
@@ -547,6 +553,11 @@ class APIService {
     return this.Single(endpoint, query);
   }
 
+  SearchBusinessContact(query) {
+    let endpoint = '/api/Business/Contact';
+    return this.Search(endpoint, query);
+  }
+
   GetBusinessContactList(businessId) {
     let endpoint = '/api/Business/Contact';
     let query = new APIQuery();
@@ -796,6 +807,9 @@ class APIQueryConstructor {
     };
   }
   ConstructQuery(query) {
+    if (query == undefined) {
+      return undefined;
+    }
     let apiQuery = new APIQuery(query.rows, query.page);
 
     for (let indicator in this.config) {
@@ -854,10 +868,35 @@ class APIQueryConstructor {
 
 class APIQuery {
   constructor(rows, page) {
-    this.rows = rows;
-    this.page = page;
+    this.rows = rows || 25;
+    this.page = page || 1;
     this.strict = [];
     this.search = [];
     this.orderby = [];
+  }
+
+  Combine(user_query) {
+    if (user_query == undefined) {
+      return;
+    }
+    if ('rows' in user_query) {
+      this.rows = user_query.rows;
+    }
+
+    if ('page' in user_query) {
+      this.page = user_query.page;
+    }
+
+    if ('strict' in user_query) {
+      this.strict = this.strict.concat(user_query.strict);
+    }
+
+    if ('search' in user_query) {
+      this.search = this.search.concat(user_query.search);
+    }
+
+    if ('orderby' in user_query) {
+      this.orderby = this.orderby.concat(user_query.orderby);
+    }
   }
 }

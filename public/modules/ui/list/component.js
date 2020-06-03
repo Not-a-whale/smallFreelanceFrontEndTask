@@ -25,35 +25,6 @@ class ListInsertItem {
   }
 }
 
-
-// class UIListInsertCtrl {
-//   constructor($scope, $element) {
-//     this.element = $element;
-//     this.scope = $scope;
-//     this.item = undefined;
-//   }
-//   SetActive(value) {
-//     this.item.SetSelected(value);
-
-//     if (this.item.isSelected()) {
-//       this.element.addClass('active');
-//     } else {
-//       this.element.removeClass('active');
-//     }
-//   }
-
-//   Delete(state) {
-//     this.scope.$emit('list-item-delete', this.item, state);
-//   }
-
-//   $onInit() {
-//     let self = this;
-//     this.scope.$on('list-select', function (event, args) {
-//       self.SetActive(self.item.index == args.index);
-//     });
-//   }
-// }
-
 // use item for this directive
 app.directive('uiListInsert', function () {
   return {
@@ -69,7 +40,7 @@ app.directive('uiListInsert', function () {
 
 class UIListCtrl {
   constructor(APIService, $scope, $state, ErrorService) {
-    this.apisrv = APIService;
+    this.api = APIService;
     this.errorsrv = ErrorService;
     this.scope = $scope;
     this.state = $state;
@@ -117,32 +88,47 @@ class UIListCtrl {
         i.SetSelected(false);
       }
       item.SetSelected(true);
-
     }
     if (this.onSelect instanceof Function) {
-
       this.onSelect({
         item: item
       });
     }
-    this.scope.$broadcast('list-select', {
+    //TODO remove if deprecated
+    this.scope.$broadcast('ui-list-select', {
       'index': item.index
     });
   }
 
-  GetData() {
-    if (this.endpoint != undefined) {
-      let self = this;
-      this.SetQuery();
-      this.apisrv.List(this.endpoint, this.query).then(function (res) {
-        if (res instanceof ErrorObj) {
-          console.log(self.errorsrv.ReadError(res));
+  GetData(func, params) {
+    let self = this;
+    let apiFunc = func || this.apiCall;
+    let apiParams = this.apiParams || {};
+
+    if (this.user_query != undefined) {
+      apiParams.user_query = this.user_query;
+    } else {
+      apiParams.user_query = null;
+    }
+
+
+
+
+    if (apiFunc != undefined) {
+      if (params != undefined) {
+        for (let qparam in params) {
+          apiParams[qparam] = params[qparam];
+        }
+      }
+      this.api.CallFunction(apiFunc, apiParams).then(function (result) {
+        if (result instanceof ErrorObj) {
+          console.log(self.errorsrv.ReadError(result));
         } else {
-          self.MapDataToItems(res);
+          self.MapDataToItems(result);
         }
       });
     } else {
-      console.error('missing endpoint');
+      console.error('Unknown api call');
     }
   }
 
@@ -177,34 +163,20 @@ class UIListCtrl {
     return this.items;
   }
 
-  DeleteItem(item, state) {
-    console.log(item);
-    let item_data = null;
-    if (item != undefined) {
-      if (item instanceof ListInsertItem) {
-        if (!item.IsClean()) {
-          item_data = item.data;
-        }
+  DeleteItem(func, params, state) {
+    let self = this;
+    this.api.CallFunction(func, params).then(function (res) {
+      if (res instanceof ErrorObj) {
+        alert(self.errorsrv.ReadError(res));
       } else {
-        item_data = item; //this is probably an id or something
-      }
-    }
-
-    if (item_data != null) {
-      let self = this;
-      this.apisrv.Delete(this.endpoint, item_data).then(function (res) {
-        if (res instanceof ErrorObj) {
-          alert(self.errorsrv.ReadError(res));
-        } else {
-          self.GetData();
-          if (state != undefined) {
-            self.state.go(state);
-          }
+        self.GetData();
+        if (state != undefined) {
+          self.state.go(state, {}, {
+            reload: true
+          });
         }
-      });
-    } else {
-      this.state.go(state);
-    }
+      }
+    });
   }
 
   PickOne(generated, defaultval) {
@@ -222,14 +194,24 @@ class UIListCtrl {
       this.GetData();
     }
 
-    this.scope.$on('list-refresh', function (event) {
-      self.GetData();
-    });
+    let reload_listener = function (event, params) {
+      let getdata = true;
+      if (params != undefined) {
+        if ('id' in params) {
+          if (params.id != self.listId) {
+            getdata = false;
+          }
+        }
+      }
 
-    this.scope.$on('list-reload', function (event) {
-      self.GetData();
-    });
-    this.scope.$on('list-item-delete', function (event, item, state) {
+      if (getdata) {
+        self.GetData();
+      }
+    }
+
+    this.scope.$on('ui-list-refresh', reload_listener);
+    this.scope.$on('ui-list-reload', reload_listener);
+    this.scope.$on('ui-list-item-delete', function (event, item, state) {
       self.DeleteItem(item, state);
     });
   }
@@ -246,9 +228,10 @@ app.component('uiList', {
   controller: UIListCtrl,
   controllerAs: '$listctrl',
   bindings: {
+    apiCall: '<?', // string name of api function
+    apiParams: '<?', // object of api's function param to value
+    listId: '<?', // used to identify which list needs to be reloaded
     onSelect: '&',
-    endpoint: '<',
-    query: '<',
     list: '=' // this will be converted to required data type
   }
 });

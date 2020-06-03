@@ -5371,6 +5371,36 @@ table-safety-personnel-driver ui-table-default body-content ui-table-row overlay
   width: 30px;
   height: 30px;
 }
+table-directory-carriers-all ui-table-default body-content ui-table-row {
+  min-height: 32px;
+  height: 32px;
+}
+table-directory-carriers-all ui-table-default body-content ui-table-row > div {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+}
+table-directory-carriers-all ui-table-default body-content ui-table-row > div .business-name {
+  display: flex;
+  flex-direction: row;
+}
+table-directory-carriers-all ui-table-default body-content ui-table-row > div .business-name > .icon {
+  fill: #E8E8E8;
+  margin-right: 6px;
+}
+table-directory-carriers-all ui-table-default body-content ui-table-row > div > *:not(:last-child) {
+  padding-right: 10px;
+}
+table-directory-carriers-all ui-table-default body-content ui-table-row > div ui-address-basic {
+  height: 100%;
+  overflow-y: hidden;
+}
+table-directory-carriers-all ui-table-default body-content ui-table-row > div ui-address-basic * {
+  font-family: 'Nunito Sans', Arial, 'Helvetica', sans-serif;
+  font-weight: normal;
+  font-size: 13px;
+}
 carrier-detail {
   display: flex;
   flex-direction: column;

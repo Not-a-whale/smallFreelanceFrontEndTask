@@ -105,7 +105,7 @@
         "icon": "imgs/icons.svg#truck-loaded",
         "active": true,
         "visible": true,
-        "state": "tmsapp.main2.logistics.directory.business.list",
+        "state": "tmsapp.main2.logistics.directory.business",
         "params": {
           "businesstype": "carrier"
         },

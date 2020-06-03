@@ -1,10 +1,10 @@
 <grand-header>
   <div class="title-container">
-    <div class="title">registered branches</div>
+    <div class="title">drivers</div>
     <div class="icont icont-small"
          ng-click="$listctrl.AddNewEmpty()"
-         ui-state="'tmsapp.main2.profile.business.branch.detail'"
-         ui-state-params="{branchid: 'new'}">
+         ui-state="'tmsapp.main2.profile.business.driver.detail'"
+         ui-state-params="{driverid: 'new'}">
       <svg class="icon-ty">
         <use xlink:href="imgs/icons.svg#plus"></use>
       </svg>
@@ -12,7 +12,7 @@
   </div>
   <ui-input template="submit"
             data="$listctrl.user_query"
-            on-change="$listctrl.GetData('GetBusinessBranchList',{user_query: $listctrl.user_query})">
+            on-change="$listctrl.GetData('GetBusinessDriverList',{user_query: $listctrl.user_query})">
   </ui-input>
 </grand-header>
 <inserts class="

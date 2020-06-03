@@ -82,18 +82,20 @@ ui-form-section2 {
       }
     }
 
-    .make-form-columns(@maxcolumns, @i: @maxcolumns) when (@i > 0) {
-      .make-form-columns(@maxcolumns, @i - 1);
 
-      .f@{i},
-      .fc@{i} {
-        display: flex;
-        box-sizing: border-box;
-        width: 100% / @maxcolumns * @i;
-      }
-    }
-
-    .make-form-columns(6);
 
   }
 }
+
+.make-form-columns(@maxcolumns, @i: @maxcolumns) when (@i > 0) {
+  .make-form-columns(@maxcolumns, @i - 1);
+
+  .f@{i},
+  .fc@{i} {
+    display: flex;
+    box-sizing: border-box;
+    width: 100% / @maxcolumns * @i;
+  }
+}
+
+.make-form-columns(6);

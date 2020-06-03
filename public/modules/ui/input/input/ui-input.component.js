@@ -6,13 +6,10 @@ class UIInputCtrl {
   }
 
   OnChange() {
-    console.log('OnChange called');
     if (this.onChange instanceof Function) {
-
       let self = this;
       this.timeout.cancel(this.timeout_fun);
       this.timeout_fun = this.timeout(function () {
-        console.log('onChange called');
         self.onChange({
           data: self.data
         });

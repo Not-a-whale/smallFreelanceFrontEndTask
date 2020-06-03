@@ -3,4 +3,4 @@
 <div ng-hide="$blankctrl.list.length > 0">nothing registered</div>
 <a class="btn btn-primary"
    ui-state="'.detail'"
-   ui-state-params="{branchid: 'new'}">register new</a>
+   ui-state-params="$blankctrl.GetId()">register new</a>

@@ -3,7 +3,7 @@
      ui-state="'tmsapp.main2.profile.business.branch.detail'"
      ui-state-params="{branchid: item.data.BrnchId || 'new'}">{{item.data.OfficeName || 'new branch'}}</div>
 <div class="icont icont-min"
-     ng-click="$listctrl.DeleteItem({BrnchId: item.data.BrnchId},'tmsapp.main2.profile.business.branch')">
+     ng-click="$listctrl.DeleteItem('DeleteBranch', {branchId: item.data.BrnchId},'tmsapp.main2.profile.business.branch')">
   <svg class="icon">
     <use xlink:href="imgs/icons.svg#trash"></use>
   </svg>

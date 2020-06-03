@@ -54,7 +54,6 @@ class TableCoreCtrl {
 
     args.fields = this.chipsrv.GetChips();
     args.sort = this.chipsrv.GetSort();
-    console.log('broadcasting TableSearch with args');
     this.scope.$broadcast('TableSearch', args);
   }
 

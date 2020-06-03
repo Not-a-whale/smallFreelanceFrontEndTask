@@ -4,16 +4,16 @@
     <!-- for scrollspy -->
     <section-title>{{$sectionctrl.title}}</section-title>
     <save-button>
-      <button class="btn btn-primary"
+      <!-- <button class="btn btn-primary"
               ng-click="$sectionctrl.SaveForm()"
               ng-disabled="!$sectionctrl.SaveEnabled()"
-              type="submit">{{ $sectionctrl.Status() }}</button>
+              type="submit">{{ $sectionctrl.Status() }}</button> -->
     </save-button>
   </section-header>
   <section-content-container>
     <form-row>
-      <ui-datalist type="business"
-                   class="fc2"
+      <ui-input
+
                    data="$sectionctrl.data.a"
                    label="customer"
                    required="1">

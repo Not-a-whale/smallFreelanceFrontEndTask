@@ -1,0 +1,32 @@
+<form-container ng-transclude="subform">
+</form-container>
+<controls-container>
+  <button ng-show="$sectionctrl.editItem.IsSelected()"
+          type="submit"
+          ng-click="$sectionctrl.SaveForm('Update')">update
+    <div class="icont icont-minute"><svg class="icon">
+        <use xlink:href="imgs/icons.svg#circle-arrow-left"></use>
+      </svg></div>
+  </button>
+  <button ng-show="$sectionctrl.editItem.IsSelected()"
+          type="submit"
+          ng-click="$sectionctrl.SaveForm('Delete')">delete
+    <div class="icont icont-minute"><svg class="icon grey">
+        <use xlink:href="imgs/icons.svg#circle-plus"></use>
+      </svg></div>
+  </button>
+  <button ng-hide="$sectionctrl.editItem.IsSelected()"
+          type="submit"
+          ng-click="$sectionctrl.SaveForm('Create')">add
+    <div class="icont icont-minute"><svg class="icon">
+        <use xlink:href="imgs/icons.svg#circle-arrow-left"></use>
+      </svg></div>
+  </button>
+  <button ng-click="$sectionctrl.Clear()">clear
+    <div class="icont icont-minute"><svg class="icon grey">
+        <use xlink:href="imgs/icons.svg#circle-plus"></use>
+      </svg></div>
+  </button>
+</controls-container>
+<list-container ng-transclude="list">
+</list-container>

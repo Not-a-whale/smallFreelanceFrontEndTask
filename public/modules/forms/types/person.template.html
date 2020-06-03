@@ -1,4 +1,10 @@
 <form-row>
+    <ui-datalist-concrete class="fc3" label="works at branch"
+                          type="branch"
+                          data="$formctrl.data.brnch"
+                          data-query="{search: [{ 'me.BizId': $formctrl.state_params.bizid}]}"></ui-datalist-concrete>
+</form-row>
+<form-row>
     <ui-select table="EntPerson"
                column="Prefix"
                label="Prefix"

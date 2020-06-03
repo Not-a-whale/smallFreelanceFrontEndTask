@@ -1,0 +1,11 @@
+<div class="label colspan"
+     ng-class="{italic: item.data.ast.FirstName == undefined}"
+     ui-state="'tmsapp.main2.profile.business.driver.detail'"
+     ui-state-params="{driverId: item.data.AstId || 'new'}">
+  {{$listctrl.PickOne(item.data.ast.FirstName + ' ' + item.data.ast.LastName, 'new driver')}}</div>
+<div class="icont icont-min"
+     ng-click="$listctrl.DeleteItem({AstId: item.data.AstId},'tmsapp.main2.profile.business.driver')">
+  <svg class="icon">
+    <use xlink:href="imgs/icons.svg#trash"></use>
+  </svg>
+</div>

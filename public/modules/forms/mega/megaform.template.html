@@ -17,6 +17,9 @@
                    section="{}"></ui-form-section> -->
 </form-container>
 <control-container style="width: 200px;">
-
+  <div>sections:</div>
+  <ul>
+    <li ng-repeat="item in $megaform.sections">{{item.title}}</li>
+  </ul>
   <!-- <ui-form-section-container to-scroll="$ctrl.ScrollToSection(section)"></ui-form-section-container> -->
 </control-container>

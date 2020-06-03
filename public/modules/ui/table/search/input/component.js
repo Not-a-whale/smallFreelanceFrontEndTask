@@ -14,7 +14,10 @@ class UITableSearchInputCtrl extends UIInputClearCtrl {
   }
 
   $onInit() {
-    this.input = this.element.find('input')[0]; // for autofocus
+    if (Array.isArray(this.element) && this.element != undefined) {
+      this.input = this.element.find('input')[0]; // for autofocus
+    }
+
     super.$onInit();
     var self = this;
     this.scope.$on("SearchFocus", function (event, data) {

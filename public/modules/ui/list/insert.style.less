@@ -7,6 +7,11 @@ ui-list-insert {
   border: 1px solid var(--border-color);
   box-sizing: border-box;
 
+
+  &>* {
+    margin-right: 0.4rem;
+  }
+
   &:hover,
   &.active {
     --background-color: @cp-primary-pale;
@@ -16,7 +21,8 @@ ui-list-insert {
   .clickable();
 
   &[type="branch-form"],
-  &[type="staff-form"] {
+  &[type="staff-form"],
+  &[type="driver-form"] {
 
     --icon-color: @cp-asphalt-light;
     align-items: center;

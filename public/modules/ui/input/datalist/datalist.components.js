@@ -74,7 +74,6 @@ class UIDatalistCtrl {
       if (option.display === data) {
 
         this.data = option.data;
-        console.log('found the data');
         valid = true;
         break;
       }
@@ -265,7 +264,8 @@ app.component('uiDatalistConcrete', {
     label: '@?', // label to display
     form: '@?',
     newButton: '<?', // if the new button should be displayed
-    query: '<?' //
+    query: '<?', // outside query, needs to be the same format as APIQuery object
+    disable: '<?'
   }
 });
 

@@ -92,7 +92,6 @@ class UIFlowoutTableCtrl {
   /* Function that puts the search query and order together */
   SearchPrep(args) {
     if (this.onSearch instanceof Function) {
-      console.log("generic table search function prepping timeout call");
       let self = this;
       this.timeout.cancel(this.timeoutCall['search']);
       this.timeoutCall['search'] = this.timeout(
@@ -123,8 +122,6 @@ class UIFlowoutTableCtrl {
               }
             }
           }
-          console.log(args);
-          console.log(query);
           self.onSearch({
             query: query
           });
@@ -201,7 +198,6 @@ class UIFlowoutTableCtrl {
     this.SelectCount();
     let self = this;
     this.scope.$on('TableSearch', function (event, data) {
-      console.log("table caught search emit/broadcast");
       if (event.stopPropagation instanceof Function) {
         event.stopPropagation();
       }

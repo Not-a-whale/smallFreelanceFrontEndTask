@@ -23,7 +23,8 @@ app.component('uiCardDetailSmall', {
     phone: '<?',
     email: '<?', //
     address: '<?',
-    profileLink: '<?', // url to profile
+    profileLink: '<?', // state to goto when clicking the detail button
+    profileLinkParams: '<?', // state params
     chatLink: '<?' // idk what this would be yet
   }
 });

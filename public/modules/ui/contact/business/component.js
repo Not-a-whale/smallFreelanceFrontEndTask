@@ -20,7 +20,6 @@ class UIContactBusinessCtrl extends UIContactCtrl {
   }
 
   SetupStructure() {
-    console.log(this.data);
     let data = this.data;
     if (!Array.isArray(data)) {
       data = [data];
@@ -54,10 +53,11 @@ class UIContactBusinessCtrl extends UIContactCtrl {
 
 
   ProfileLink() {
+    let profilelink = '#';
     if (this.branch != undefined) {
-      return 'tmsapp.main2.profile.business.branch.detail({businesstype: "' + this.BusinessType() + '", bizid:' + this.Id() + ', branchid:' + this.BranchId() + '})';
+      profilelink = 'tmsapp.main2.logistics.directory.business.detail.overview({businesstype: "' + this.BusinessType() + '", businessId: ' + this.Id() + '})';
     }
-    return '#';
+    return profilelink;
   }
 
 
@@ -97,7 +97,7 @@ class UIContactBusinessCtrl extends UIContactCtrl {
   BusinessType() {
     let value = 'unknown';
     if (this.business != undefined) {
-      value = 'general';
+      value = 'carrier';
       if ('has_carrier' in this.business) {
         if (this.business.has_carrier != undefined) {
           value = 'carrier';

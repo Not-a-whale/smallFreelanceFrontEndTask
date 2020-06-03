@@ -1,11 +1,28 @@
 class UIMegaFormCtrl {
-  constructor(APIService) {
+  constructor(APIService, $scope, getid) {
     this.api = APIService;
     this.sections = [];
+    this.listid = getid();
+    this.scope = $scope;
   }
+
+  ReloadList() {
+    this.scope.$broadcast('ui-list-reload', {
+      id: this.listid
+    });
+  }
+
+
 
   Register(ctrl) {
     this.sections.push(ctrl);
+  }
+
+  Deregister(ctrl) {
+    let index = this.sections.indexOf(ctrl);
+    if (index > -1) {
+      this.sections.splice(index, 1);
+    }
   }
 
   /**
@@ -41,10 +58,5 @@ class UIMegaFormCtrl {
 app.component('uiMegaForm', {
   templateUrl: 'modules/forms/mega/megaform.template.html',
   controller: UIMegaFormCtrl,
-  controllerAs: '$megactrl',
-  bindings: {
-    formList: '<',
-    formListEndpoint: '<',
-    formListParams: '<'
-  }
+  controllerAs: '$megaform'
 });
