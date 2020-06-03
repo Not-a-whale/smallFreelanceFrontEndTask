@@ -486,8 +486,8 @@ __PACKAGE__->has_many(
     {"foreign.RegistrationCard" => "self.FileId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:D6ZYI3p5mfUpkzpQKKmLtA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 20:08:31
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SUGbxHhxpIxobDu3l6V7Vg
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

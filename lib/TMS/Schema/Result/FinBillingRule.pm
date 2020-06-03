@@ -150,8 +150,8 @@ __PACKAGE__->has_many(
     {"foreign.BillRuleId" => "self.BillRuleId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ChT2KSCZSYlv/EYqwiu6cg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 20:08:31
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:HE5TqA3E1ShuWuZNziI2Zw
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 

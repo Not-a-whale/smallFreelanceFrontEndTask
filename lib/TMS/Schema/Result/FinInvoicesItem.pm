@@ -345,8 +345,8 @@ __PACKAGE__->has_many(
     {"foreign.InvoiceItemId" => "self.InvoiceItemId"}, {cascade_copy => 0, cascade_delete => 0},
 );
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:19:17
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5cl9dJ28g95H7viKFmTvYg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 20:08:31
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:FmluNmU5fbwTmb8JL6/F8g
 
 __PACKAGE__->resultset_class('DBIx::Class::ResultSet::HashRef');
 
