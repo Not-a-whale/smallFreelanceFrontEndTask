@@ -1,0 +1,43 @@
+[{
+  "name": "constructor name",
+  "strict": {
+    "api_param_name": ["fieldname1", "fieldname2"]
+  },
+  "search": {
+    "api_param_name": ["fieldname1", "fieldname2"]
+  },
+  "orderby": {
+    "api_param_name": ["fieldname1", "fieldname2"]
+  },
+  "rows": 10,
+  "page": 1
+}, {
+  "name": "IFTAAccount",
+  "strict": {
+    "businessId": ["BizId"],
+    "iftaId": ["IftaAcctId"]
+  },
+  "search": {
+    "businessName": ["biz.BizName", "biz_ifta.BizName"],
+    "state": ["State"],
+    "ifta": ["IFTALicense"],
+    "mc": ["McAccount"],
+    "date": ["Effective", "Expiration"]
+  }
+
+}, {
+  "name": "CarrierStatePermit",
+  "strict": {
+    "carrierId": ["crr_prmt_acc.CarrierId"],
+    "businessId": ["crr_prmt_acc.CarrierId"],
+    "permitId": ["CrrPrmtAccId"]
+  },
+  "search": {
+    "account": ["crr_prmt_acc.AccountNo"],
+    "state": ["crr_prmt_acc.State"]
+  },
+  "orderby": {
+    "state": ["State"],
+    "account": ["AccountNo"]
+  }
+}]
