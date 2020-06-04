@@ -267,9 +267,11 @@ class APIService {
     return this.Search(endpoint, query);
   }
 
-  SearchBranch(query) {
+  SearchBranch(user_query) {
     let endpoint = '/api/Branch/List';
-    return this.Search(endpoint, query);
+    let query = new APIQuery();
+    query.Combine(user_query);
+    return this.Search(endpoint, user_query);
   }
 
   GetBusinessBranchList(businessId, user_query) {
@@ -332,7 +334,6 @@ class APIService {
 
   UpdateBranch(branchData) {
     let promise = undefined;
-    let defer = this.q.defer();
     let endpoint = '/api/Branch/Info';
     promise = this.Update(endpoint, branchData);
     return promise;
