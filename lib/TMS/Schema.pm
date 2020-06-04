@@ -16,7 +16,7 @@ __PACKAGE__->load_namespaces;
 
 my $DBIxSingleton = undef;
 
-has dbhost => (is => 'ro', isa => 'Str', required => 1, default => '192.168.11.7');
+has dbhost => (is => 'ro', isa => 'Str', required => 1, default => '192.168.11.6');
 has dbport => (is => 'ro', isa => 'Int', required => 1, default => 3306);
 has dbuser => (is => 'ro', isa => 'Str', required => 1, default => 'root');
 has dbpass => (is => 'ro', isa => 'Str', required => 1, default => 'Nlvae4asd!');
